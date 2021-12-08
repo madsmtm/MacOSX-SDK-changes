@@ -1,11 +1,20 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 6122CFEE-4804-3934-9689-6CFBE4DC7653', 'x86_64: 4A8B7360-929B-36E8-88B6-DE41B92BDB49' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 05302E57-8668-3464-AFBB-EDF6C0807D23' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/EasyConfig.framework/Versions/A/EasyConfig
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _EasyConfigDeviceProgressNotification, _EasyConfigDeviceStoppedNotification, 
+                       _EasyConfigKey_AdminPassword, _EasyConfigKey_AllowPairing, 
+                       _EasyConfigKey_BundleSeedID, _EasyConfigKey_DeviceID, _EasyConfigKey_FirmwareRevision, 
+                       _EasyConfigKey_Flags, _EasyConfigKey_HardwareRevision, _EasyConfigKey_Language, 
+                       _EasyConfigKey_MFiProtocols, _EasyConfigKey_Manufacturer, 
+                       _EasyConfigKey_Model, _EasyConfigKey_Name, _EasyConfigKey_PlayPassword, 
+                       _EasyConfigKey_Progress, _EasyConfigKey_ReasonError, _EasyConfigKey_Response, 
+                       _EasyConfigKey_SerialNumber, _EasyConfigKey_WiFiPSK, _EasyConfigKey_WiFiSSID, 
+                       _EasyConfigLogControl ]
+    objc-classes:    [ EasyConfigDevice ]
     objc-ivars:      [ EasyConfigDevice._airplayBonjourInfo, EasyConfigDevice._airplayBrowser, 
                        EasyConfigDevice._applyConfigFinishTime, EasyConfigDevice._applyConfigStartTime, 
                        EasyConfigDevice._configResponse, EasyConfigDevice._configSeed, 
@@ -32,15 +41,4 @@ exports:
                        EasyConfigDevice._supportsMFi, EasyConfigDevice._supportsPairSetup, 
                        EasyConfigDevice._supportsTLV, EasyConfigDevice._timeoutTimer, 
                        EasyConfigDevice._userQueue ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _EasyConfigDeviceProgressNotification, _EasyConfigDeviceStoppedNotification, 
-                       _EasyConfigKey_AdminPassword, _EasyConfigKey_AllowPairing, 
-                       _EasyConfigKey_BundleSeedID, _EasyConfigKey_DeviceID, _EasyConfigKey_FirmwareRevision, 
-                       _EasyConfigKey_Flags, _EasyConfigKey_HardwareRevision, _EasyConfigKey_Language, 
-                       _EasyConfigKey_MFiProtocols, _EasyConfigKey_Manufacturer, 
-                       _EasyConfigKey_Model, _EasyConfigKey_Name, _EasyConfigKey_PlayPassword, 
-                       _EasyConfigKey_Progress, _EasyConfigKey_ReasonError, _EasyConfigKey_Response, 
-                       _EasyConfigKey_SerialNumber, _EasyConfigKey_WiFiPSK, _EasyConfigKey_WiFiSSID, 
-                       _EasyConfigLogControl ]
-    objc-classes:    [ EasyConfigDevice ]
 ...

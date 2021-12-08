@@ -1,44 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 54C07CCF-E480-3033-979D-A7E6BCC6281F', 'x86_64: 592323D1-CB44-35F1-9921-4C2AB8D920A0' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 68530B4D-B2C0-3271-941B-D9EA62095727' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/RemoteViewServices.framework/Versions/A/RemoteViewServices
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ NSLocalTitlebarRenamingWindow._session, NSRemotePanel._alertInformationMessage, 
-                       NSRemotePanel._alertMessage, NSRemotePanel._completionHandler, 
-                       NSRemotePanel._currentErrorBeingHandled, NSRemotePanel._delegate, 
-                       NSRemotePanel._orderingContext, NSRemotePanel._prompt, NSRemotePanel._rpFlags, 
-                       NSRemotePanel._semaphore, NSRemotePanel._serviceConnection, 
-                       NSRemotePanel._serviceQueue, NSRemotePanel._state, NSRemotePanel._title, 
-                       NSRemotePanel._windowController, NSRemotePanelOrderingContext._completionHandler, 
-                       NSRemotePanelOrderingContext._didOrderOnScreenNotificationToken, 
-                       NSRemotePanelOrderingContext._panelDidReturnHandler, NSRemotePanelOrderingContext._panelInitDidCompleteHandler, 
-                       NSRemotePanelOrderingContext._panelOrderingDidCompleteHandler, 
-                       NSRemotePanelOrderingContext._panelSetupDidCompleteHandler, 
-                       NSRemotePanelOrderingContext._parentWindow, NSRemoteServiceConnection._connection, 
-                       NSRemoteServiceConnection._connectionName, NSRemoteServiceConnection._delegate, 
-                       NSRemoteServiceConnection._delegateQueue, NSRemoteServiceConnection._delegateStackTrace, 
-                       NSRemoteServiceConnection._endpoint, NSRemoteServiceConnection._errorsAreFatal, 
-                       NSRemoteServiceConnection._internalQueue, NSRemoteServiceConnection._logger, 
-                       NSRemoteServiceConnection._serviceQueue, NSRemoteServiceEndpoint._connection, 
-                       NSRemoteServiceEndpoint._connectionHandler, NSRemoteServiceEndpoint._errorHandler, 
-                       NSRemoteServiceEndpoint._isAcceptingConnections, NSRemoteServiceMessage._arguments, 
-                       NSRemoteServiceMessage._endpoints, NSRemoteServiceMessage._message, 
-                       NSRemoteServiceMessage._messageType, NSRemoteServiceMessage._ports, 
-                       NSRemoteServiceRequest._replyHandler, NSRemoteTitlebarRenamingSession._accessibilityRenameField, 
-                       NSRemoteTitlebarRenamingSession._autosaveTriangleWindow, NSRemoteTitlebarRenamingSession._autosaveTriangleWindowController, 
-                       NSRemoteTitlebarRenamingSession._autosaveTriangleWindowFrame, 
-                       NSRemoteTitlebarRenamingSession._completionHandler, NSRemoteTitlebarRenamingSession._connection, 
-                       NSRemoteTitlebarRenamingSession._documentIconWindow, NSRemoteTitlebarRenamingSession._documentIconWindowController, 
-                       NSRemoteTitlebarRenamingSession._documentIconWindowFrame, 
-                       NSRemoteTitlebarRenamingSession._editingMode, NSRemoteTitlebarRenamingSession._parentWindow, 
-                       NSRemoteTitlebarRenamingSession._renameFieldWindow, NSRemoteTitlebarRenamingSession._renameFieldWindowController, 
-                       NSRemoteTitlebarRenamingSession._renameResolver, NSRemoteTitlebarRenamingSession._stateFlags, 
-                       PBOXRemoteMediaBrowserPanel._autosaveName, PBOXRemoteMediaBrowserPanel._browserType, 
-                       PBOXRemoteMediaBrowserPanel._frame, PBOXRemoteMediaBrowserPanel._isVisible, 
-                       RVSLogger._name, _NSTitlebarRenamingButtonHolderContentView._button ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _GetNSWindowDescriptionString, _NSPBOXSessionMessageSetPresentationOptionsParamKey, 
                        _NSRemotePanelOrderPlaceAndChangeKeyKey, _NSRemotePanelOrderPlaceJustOrderOutKey, 
                        _NSRemotePanelOrderPlaceKey, _NSRemotePanelReplyDelegateErrorCodeKey, 
@@ -121,4 +87,36 @@ exports:
                        NSSharedWindowController, NSTitlebarRenamingAuxiliaryWindow, 
                        NSTitlebarRenamingURLResolver, PBOXRemoteMediaBrowserPanel, 
                        RVSLogger, _NSTitlebarRenamingButtonHolderContentView ]
+    objc-ivars:      [ NSLocalTitlebarRenamingWindow._session, NSRemotePanel._alertInformationMessage, 
+                       NSRemotePanel._alertMessage, NSRemotePanel._completionHandler, 
+                       NSRemotePanel._currentErrorBeingHandled, NSRemotePanel._delegate, 
+                       NSRemotePanel._orderingContext, NSRemotePanel._prompt, NSRemotePanel._rpFlags, 
+                       NSRemotePanel._semaphore, NSRemotePanel._serviceConnection, 
+                       NSRemotePanel._serviceQueue, NSRemotePanel._state, NSRemotePanel._title, 
+                       NSRemotePanel._windowController, NSRemotePanelOrderingContext._completionHandler, 
+                       NSRemotePanelOrderingContext._didOrderOnScreenNotificationToken, 
+                       NSRemotePanelOrderingContext._panelDidReturnHandler, NSRemotePanelOrderingContext._panelOrderingDidCompleteHandler, 
+                       NSRemotePanelOrderingContext._panelSetupDidCompleteHandler, 
+                       NSRemotePanelOrderingContext._parentWindow, NSRemoteServiceConnection._connection, 
+                       NSRemoteServiceConnection._connectionName, NSRemoteServiceConnection._delegate, 
+                       NSRemoteServiceConnection._delegateQueue, NSRemoteServiceConnection._delegateStackTrace, 
+                       NSRemoteServiceConnection._endpoint, NSRemoteServiceConnection._errorsAreFatal, 
+                       NSRemoteServiceConnection._internalQueue, NSRemoteServiceConnection._logger, 
+                       NSRemoteServiceConnection._serviceQueue, NSRemoteServiceEndpoint._connection, 
+                       NSRemoteServiceEndpoint._connectionHandler, NSRemoteServiceEndpoint._errorHandler, 
+                       NSRemoteServiceEndpoint._isAcceptingConnections, NSRemoteServiceMessage._arguments, 
+                       NSRemoteServiceMessage._endpoints, NSRemoteServiceMessage._message, 
+                       NSRemoteServiceMessage._messageType, NSRemoteServiceMessage._ports, 
+                       NSRemoteServiceRequest._replyHandler, NSRemoteTitlebarRenamingSession._accessibilityRenameField, 
+                       NSRemoteTitlebarRenamingSession._autosaveTriangleWindow, NSRemoteTitlebarRenamingSession._autosaveTriangleWindowController, 
+                       NSRemoteTitlebarRenamingSession._autosaveTriangleWindowFrame, 
+                       NSRemoteTitlebarRenamingSession._completionHandler, NSRemoteTitlebarRenamingSession._connection, 
+                       NSRemoteTitlebarRenamingSession._documentIconWindow, NSRemoteTitlebarRenamingSession._documentIconWindowController, 
+                       NSRemoteTitlebarRenamingSession._documentIconWindowFrame, 
+                       NSRemoteTitlebarRenamingSession._editingMode, NSRemoteTitlebarRenamingSession._parentWindow, 
+                       NSRemoteTitlebarRenamingSession._renameFieldWindow, NSRemoteTitlebarRenamingSession._renameFieldWindowController, 
+                       NSRemoteTitlebarRenamingSession._renameResolver, NSRemoteTitlebarRenamingSession._stateFlags, 
+                       PBOXRemoteMediaBrowserPanel._autosaveName, PBOXRemoteMediaBrowserPanel._browserType, 
+                       PBOXRemoteMediaBrowserPanel._frame, PBOXRemoteMediaBrowserPanel._isVisible, 
+                       RVSLogger._name, _NSTitlebarRenamingButtonHolderContentView._button ]
 ...

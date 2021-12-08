@@ -1,10 +1,22 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: E73CA140-A84E-383D-A6B3-E9F0C05BE80E', 'x86_64: 4A743B91-D653-3B95-BF10-D02960183E2D' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 4701E868-80AA-3973-9D67-757FF79FA06F' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SemanticDocumentManagement.framework/Versions/A/SemanticDocumentManagement
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _CreateCompressedDataWithData, _CreateDecompressedDataWithData, 
+                       _ProcessFiles, _SemanticDocumentManagementIsAvailable, __performIncrementalVacuum, 
+                       _ignorableCharacterSet_NSString, _kLSMDBUpgradedKeyword, _kLSMDocRecordBookIDAttribute, 
+                       _kLSMDocRecordEntityName, _kLSMDocRecordIDAttribute, _kLSMDocRecordKeywordsIDAttribute, 
+                       _kLSMDocRecordPathAttribute, _kLSMDocRecord_10_11_EntityName, 
+                       _kLSMEnvironmentDataAttribute, _kLSMEnvironmentEntityName, 
+                       _kLSMHelpbooksEntityName, _sCurrentHelpTokenizer, _sCurrentHelpTokenizerMutex, 
+                       _sDebugPreferences, _sLanguageToTokenzerClassMappingTable ]
+    objc-classes:    [ DebugPreferences, HelpSDMIndex, HelpSDMIndexBuilder, HelpSDMIndexFile, 
+                       HelpSDMModel, HelpTokenizer, HelpTokenizerFrench, HelpTokenizerItalian, 
+                       HelpTokenizerNonRomanNgrams, HelpTokenizerRomanBasedNgrams, 
+                       LSMDocMetadata, SDMQuery, SDMQueryResult, _LSMDocMetaDBConnection ]
     objc-ivars:      [ DebugPreferences._prefDictionary, HelpSDMIndex.attributes, 
                        HelpSDMIndex.indexData, HelpSDMIndexBuilder.currentLanguage, 
                        HelpSDMIndexBuilder.index, HelpSDMIndexBuilder.keywordExceptions, 
@@ -32,17 +44,4 @@ exports:
                        SDMQueryResult._keywords, SDMQueryResult._path, SDMQueryResult._score, 
                        SDMQueryResult._sdmModel, SDMQueryResult._title, SDMQueryResult._tokenMultiplier, 
                        SDMQueryResult._topScore, _LSMDocMetaDBConnection._database ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _CreateCompressedDataWithData, _CreateDecompressedDataWithData, 
-                       _ProcessFiles, _SemanticDocumentManagementIsAvailable, __performIncrementalVacuum, 
-                       _ignorableCharacterSet_NSString, _kLSMDBUpgradedKeyword, _kLSMDocRecordBookIDAttribute, 
-                       _kLSMDocRecordEntityName, _kLSMDocRecordIDAttribute, _kLSMDocRecordKeywordsIDAttribute, 
-                       _kLSMDocRecordPathAttribute, _kLSMDocRecord_10_11_EntityName, 
-                       _kLSMEnvironmentDataAttribute, _kLSMEnvironmentEntityName, 
-                       _kLSMHelpbooksEntityName, _sCurrentHelpTokenizer, _sCurrentHelpTokenizerMutex, 
-                       _sDebugPreferences, _sLanguageToTokenzerClassMappingTable ]
-    objc-classes:    [ DebugPreferences, HelpSDMIndex, HelpSDMIndexBuilder, HelpSDMIndexFile, 
-                       HelpSDMModel, HelpTokenizer, HelpTokenizerFrench, HelpTokenizerItalian, 
-                       HelpTokenizerNonRomanNgrams, HelpTokenizerRomanBasedNgrams, 
-                       LSMDocMetadata, SDMQuery, SDMQueryResult, _LSMDocMetaDBConnection ]
 ...

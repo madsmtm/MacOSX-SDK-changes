@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 77255973-1E4A-39F6-B070-AC3558FDDD99', 'x86_64: 14C6EDFD-B843-35A4-AEA6-F485D756FF88' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 583CD37E-9C0E-3842-B2C8-B809F0A6DD6D' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SpotlightIndex.framework/Versions/A/SpotlightIndex
-current-version: 1191.4.13
+current-version: 1191.51
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _RLEOIDArrayAddOid, _RLEOIDArrayAddOid_locked, _RLEOIDArrayAddOids, 
                        _RLEOIDArrayAddSortedOids, _RLEOIDArrayClear, _RLEOIDArrayContainsOid, 
                        _RLEOIDArrayContainsOid_locked, _RLEOIDArrayCreate, _RLEOIDArrayCreateMutable, 
@@ -19,8 +19,8 @@ exports:
                        _SICopyCorrections, _SICopyProperties, _SICopyProperty, _SICorrectionCommit, 
                        _SICorrectionCreate, _SICorrectionDestory, _SICrashStringInit, 
                        _SICreateIndex, _SICreateNewIndex, _SIDeleteAttributes, _SIDeleteCSAttributes, 
-                       _SIDeserialize, _SIExecuteQuery, _SIFlushAndSuspendIndex, 
-                       _SIGetAccumulatedSizeForGroup, _SIGetAccumulatedStorageSizeForBundleId, 
+                       _SIDeserialize, _SIExecuteQuery, _SIExecuteQueryWithResultsCallback, 
+                       _SIFlushAndSuspendIndex, _SIGetAccumulatedSizeForGroup, _SIGetAccumulatedStorageSizeForBundleId, 
                        _SIGetAttributes, _SIGetCSAttributes, _SIGetExceptionPort, 
                        _SIGetLargestOid, _SIGetMaxTransactionID, _SIGetPermCacheStatistics, 
                        _SIGetStoreCookie, _SIHasInFlightUpdates, _SIHasPersistentStoreCookie, 
@@ -39,12 +39,13 @@ exports:
                        _SIPersistentIDStoreRename, _SIPersistentIDStoreSetRootPath, 
                        _SIPersistentIDStoreSupportsDirMap, _SIPersistentIDStoreSync, 
                        _SIPossibleMoves, _SIPossibleMovesBulk, _SIPreHeatIndex, _SIPreHeatPermissions, 
-                       _SIProcessTerminating, _SIQueryAddResults, _SIQueryCreate, 
-                       _SIQueryCreateWithItems, _SIQueryCreateWithItemsAndCompletionString, 
-                       _SIQueryRelease, _SIQueryResolveFriendlyFieldNames, _SIQueryRetain, 
-                       _SIQuerySetBatchingParameters, _SIQuerySetDominantRankingQueryCount, 
+                       _SIProcessTerminating, _SIQueryAddResultFilter, _SIQueryAddResults, 
+                       _SIQueryCreate, _SIQueryCreateWithItems, _SIQueryCreateWithItemsAndCompletionString, 
+                       _SIQueryCreateWithItemsAndCompletionStringWithCurrentTime, 
+                       _SIQueryGetUniqueId, _SIQueryRelease, _SIQueryResolveFriendlyFieldNames, 
+                       _SIQueryRetain, _SIQuerySetBatchingParameters, _SIQuerySetDominantRankingQueryCount, 
                        _SIQuerySetFuzzyQueryInfo, _SIQuerySetGetFriendlyFieldNamesMapCallback, 
-                       _SIQuerySetStrongRankingQueryCount, _SIReaderWriterLockCreate, 
+                       _SIQuerySetStrongRankingQueryCount, _SIQuerySetUniqueId, _SIReaderWriterLockCreate, 
                        _SIReaderWriterLockDestroy, _SIReaderWriterLockReadLock, _SIReaderWriterLockReadUnlock, 
                        _SIReaderWriterLockWriteLock, _SIReaderWriterLockWriteUnlock, 
                        _SIRecomputeSizes, _SIRestoreCacheData, _SIResultBatchFree, 
@@ -57,24 +58,24 @@ exports:
                        _SISetPowerState, _SISetProperty, _SISetScanCount, _SISetStoreCookie, 
                        _SISetTransactionCount, _SIShutdownIndex, _SISupportsFastScoping, 
                        _SISyncIndex, _SISyncIndexForLikelyShutdown, _SISyncIndexVaccuumIfNeeded, 
-                       _SISynchedOp, _SISynchedOpPropagatingPriority, _SITokenizerCreate, 
-                       _SITokenizerDispose, _SITokenizerGetTokenRanges, _SITokenizerGetTokens, 
-                       _SITransferAttributes, _SIUserCtxAllowPermissionCheck, _SIUserCtxCreate, 
-                       _SIUserCtxCreateWithLanguages, _SIUserCtxGetArgumentDictionary, 
-                       _SIUserCtxGetAuditToken, _SIUserCtxGetCredential, _SIUserCtxGetLanguageArray, 
-                       _SIUserCtxGetSchema, _SIUserCtxHasCredential, _SIUserCtxIsSandboxed, 
-                       _SIUserCtxRemoveCredential, _SIUserCtxSetArgumentDictionary, 
-                       _SIValidIndex, _SIWaitResults, _SI_PersistentIDStoreGetTypeID, 
-                       __SICheckIndexForDuplicateOids, __SICleanupStrings, __SIConsistencyCheck, 
-                       __SICooldownIndexFilesForMerge, __SICopyPropertyIDMap, __SIDirectoryStoreIterate, 
-                       __SIFlushAndSyncIndex, __SIGetAllOids, __SIGetErrorString, 
-                       __SIGetLastUsedDate, __SIGetRecoverTimeStamp, __SIIssueCacheCleanup, 
-                       __SIIssueFlush, __SIIssueFullMerge, __SIIssueFullMergeWithGroup, 
-                       __SIIssueMerge, __SIIssueRecovery, __SIIssueSchedulerDump, 
-                       __SIIssueSizeRepair, __SIIssueSplit, __SIIssueVerify, __SIMinimizeDiskSpace, 
-                       __SIOpenIndexFilesForMerge, __SIPreHeatPermissions, __SIQuerySetTMNameSpaces, 
-                       __SIReverseStoreIterate, __SIScanQueuesDrained, __SIScheduleBackgroundOperation, 
-                       __SIScheduleDiskOperation, __SIScheduleOperation, __SISchedulerCopyDump, 
-                       __SISetContactsIndex, __SISetLastUsedDate, __SIStartPreheatScheduler, 
-                       __SITermIndexIterate, _qsort_oids, _si_textcache_fds_for_oids ]
+                       _SISynchedOp, _SISynchedOpPropagatingPriority, _SITransferAttributes, 
+                       _SIUserCtxAllowPermissionCheck, _SIUserCtxCreate, _SIUserCtxCreateWithLanguages, 
+                       _SIUserCtxGetArgumentDictionary, _SIUserCtxGetAuditToken, 
+                       _SIUserCtxGetCredential, _SIUserCtxGetLanguageArray, _SIUserCtxGetSchema, 
+                       _SIUserCtxHasCredential, _SIUserCtxIsSandboxed, _SIUserCtxRemoveCredential, 
+                       _SIUserCtxSetArgumentDictionary, _SIValidIndex, _SIWaitResults, 
+                       _SI_PersistentIDStoreGetTypeID, __SICheckIndexForDuplicateOids, 
+                       __SICleanupStrings, __SIConsistencyCheck, __SICooldownIndexFilesForMerge, 
+                       __SICopyPropertyIDMap, __SIDirectoryStoreIterate, __SIFlushAndSyncIndex, 
+                       __SIGetAllOids, __SIGetErrorString, __SIGetLastUsedDate, __SIGetRecoverTimeStamp, 
+                       __SIIssueCacheCleanup, __SIIssueFlush, __SIIssueFullMerge, 
+                       __SIIssueFullMergeWithGroup, __SIIssueMerge, __SIIssueRecovery, 
+                       __SIIssueSchedulerDump, __SIIssueSizeRepair, __SIIssueSplit, 
+                       __SIIssueVerify, __SIMinimizeDiskSpace, __SIOpenIndexFilesForMerge, 
+                       __SIPreHeatPermissions, __SIQuerySetTMNameSpaces, __SIReverseStoreIterate, 
+                       __SIScanQueuesDrained, __SIScheduleBackgroundOperation, __SIScheduleDiskOperation, 
+                       __SIScheduleOperation, __SISchedulerCopyDump, __SISetContactsIndex, 
+                       __SISetCoreSpotlightCopyBundleRemapCallback, __SISetCoreSpotlightRelatedItemCallback, 
+                       __SISetLastUsedDate, __SIStartPreheatScheduler, __SITermIndexIterate, 
+                       _qsort_oids, _si_textcache_fds_for_oids ]
 ...

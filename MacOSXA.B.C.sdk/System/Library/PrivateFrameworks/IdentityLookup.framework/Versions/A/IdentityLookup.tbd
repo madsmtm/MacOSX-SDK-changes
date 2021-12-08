@@ -1,14 +1,18 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: D066B658-AFCC-3A7E-B922-D21207DCE0BC' ]
+uuids:           [ 'x86_64: 5725E0E7-1550-3489-B7DC-F514FA928307' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/IdentityLookup.framework/Versions/A/IdentityLookup
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _ILMessageFilterErrorDomain, _ILMessageFilterExtensionPointIdentifier, 
+    symbols:         [ _ILClassificationUIExtensionPointIdentifier, _ILDefaultLog, 
+                       _ILMessageFilterErrorDomain, _ILMessageFilterExtensionPointIdentifier, 
                        _ILMessageFilterPrivateErrorDomain ]
-    objc-classes:    [ ILMessageFilter, ILMessageFilterExtension, ILMessageFilterExtensionContext, 
+    objc-classes:    [ ILCallClassificationRequest, ILCallCommunication, ILClassification, 
+                       ILClassificationController, ILClassificationReportRequest, 
+                       ILClassificationRequest, ILClassificationResponse, ILCommunication, 
+                       ILMessageClassificationRequest, ILMessageCommunication, ILMessageFilter, 
+                       ILMessageFilterExtension, ILMessageFilterExtensionContext, 
                        ILMessageFilterExtensionHostContext, ILMessageFilterQueryRequest, 
                        ILMessageFilterQueryResponse, ILMessageFilterReportRequest, 
                        ILNetworkResponse ]

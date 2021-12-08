@@ -1,10 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 5EB5D418-2F09-3297-8A90-BCFF61C14AD0', 'x86_64: 4A84EF95-A5C0-32B3-8851-D688D72B179E' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 386C0C6C-58B9-312E-9CBC-837021C764B7' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PubSub.framework/Versions/A/PubSub
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ '$ld$install_name$os10.11$/System/Library/Frameworks/PubSub.framework/Versions/A/PubSub', 
                        '$ld$install_name$os10.12$/System/Library/Frameworks/PubSub.framework/Versions/A/PubSub', 
                        _PSAgentFrameworkMain, _PSEnclosureDownloadStateDidChangeNotification, 

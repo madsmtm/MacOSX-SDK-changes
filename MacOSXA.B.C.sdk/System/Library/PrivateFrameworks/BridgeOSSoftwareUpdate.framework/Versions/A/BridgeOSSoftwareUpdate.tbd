@@ -1,12 +1,11 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: BC6F3E3F-0F93-3560-B93A-43AD091F3ED5' ]
+uuids:           [ 'x86_64: 028911F4-A333-37F6-BB87-A825F354D96D' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/BridgeOSSoftwareUpdate.framework/Versions/A/BridgeOSSoftwareUpdate
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _BridgeOSSoftwareUpdateErrorDomain, _BridgeOSSoftwareUpdateErrorKeyAMAuthInstallErrorCode, 
+    symbols:         [ _BOSU_Log_Init, _BridgeOSSoftwareUpdateErrorDomain, _BridgeOSSoftwareUpdateErrorKeyAMAuthInstallErrorCode, 
                        _BridgeOSSoftwareUpdateErrorKeyFullReplacementRequired, _BridgeOSSoftwareUpdateErrorKeyMSUErrorCode, 
                        _BridgeOSSoftwareUpdateErrorKeyMSUErrorDescription, _BridgeOSSoftwareUpdateErrorKeyNetworkRequired, 
                        _BridgeOSSoftwareUpdateKeyCurrentOSBuildVersion, _BridgeOSSoftwareUpdateKeyOperation, 
@@ -17,11 +16,18 @@ exports:
                        _BridgeOSSoftwareUpdateKeyUpdateBrainBuildVersion, _BridgeOSSoftwareUpdateKeyUpdateBrainSourceVersion, 
                        _BridgeOSSoftwareUpdateKeyUpdateUUIDString, _BridgeOSSoftwareUpdateOptionKeyClientContext, 
                        _BridgeOSSoftwareUpdateOptionKeyEnableSSO, _BridgeOSSoftwareUpdateOptionKeyEventRecordingServiceURL, 
+                       _BridgeOSSoftwareUpdateOptionKeyForceSEUpdaterInfoFailure, 
                        _BridgeOSSoftwareUpdateOptionKeyLoopbackEnabled, _BridgeOSSoftwareUpdateOptionKeyLoopbackError, 
                        _BridgeOSSoftwareUpdateOptionKeyLoopbackResults, _BridgeOSSoftwareUpdateOptionKeyMaxLogSizeKB, 
                        _BridgeOSSoftwareUpdateOptionKeyUpdateUUIDString, _BridgeOSSoftwareUpdateOptionsKeyResetTestMode, 
                        _BridgeOSSoftwareUpdateOptionsKeyTestModeEnabled, _BridgeOSSoftwareUpdateOptionsKeyTestModeNumProgressReports, 
                        _BridgeOSSoftwareUpdateOptionsKeyTestModeOperationDuration, 
-                       _BridgeOSSoftwareUpdateOptionsKeyTestModeOperationError, _bridgeOSUpdateError ]
+                       _BridgeOSSoftwareUpdateOptionsKeyTestModeOperationError, _BridgeOSSoftwareUpdateVersionNumber, 
+                       _BridgeOSSoftwareUpdateVersionString, __bosu_log, _bosu_logger, 
+                       _bridgeOSUpdateError, _commandStringForOperation, _dump_xpc_object, 
+                       _merge_into_xpc_dict, _operationForCommandString, _stateString, 
+                       _stringForState, _xpc_dictionary_get_error, _xpc_dictionary_get_object, 
+                       _xpc_dictionary_get_object_with_class, _xpc_dictionary_set_error, 
+                       _xpc_dictionary_set_object ]
     objc-classes:    [ BridgeOSSoftwareUpdateController ]
 ...

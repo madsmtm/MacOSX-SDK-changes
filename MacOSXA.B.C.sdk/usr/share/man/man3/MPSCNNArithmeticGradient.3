@@ -1,4 +1,4 @@
-.TH "MPSCNNArithmeticGradient" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNArithmeticGradient" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -17,6 +17,9 @@ Inherited by \fBMPSCNNAddGradient\fP, \fBMPSCNNMultiplyGradient\fP, and \fBMPSCN
 .in +1c
 .ti -1c
 .RI "(nonnull instancetype) \- \fBinitWithDevice:\fP"
+.br
+.ti -1c
+.RI "(nonnull instancetype) \- \fBinitWithDevice:isSecondarySourceFilter:\fP"
 .br
 .in -1c
 .SS "Properties"
@@ -41,7 +44,7 @@ Inherited by \fBMPSCNNAddGradient\fP, \fBMPSCNNMultiplyGradient\fP, and \fBMPSCN
 .RI "float \fBmaximumValue\fP"
 .br
 .ti -1c
-.RI "bool \fBisSecondarySourceFilter\fP"
+.RI "BOOL \fBisSecondarySourceFilter\fP"
 .br
 .in -1c
 .SS "Additional Inherited Members"
@@ -98,14 +101,16 @@ Standard init with default properties per filter type
 
 .PP
 Reimplemented from \fBMPSCNNGradientKernel\fP\&.
+.SS "\- (nonnull instancetype) \fBinitWithDevice:\fP (nonnull id< MTLDevice >) device(BOOL) isSecondarySourceFilter"
+
 .PP
 Reimplemented in \fBMPSCNNAddGradient\fP, \fBMPSCNNSubtractGradient\fP, and \fBMPSCNNMultiplyGradient\fP\&.
 .SH "Property Documentation"
 .PP 
 .SS "\- (float) bias\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 
-.SS "\- isSecondarySourceFilter\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
-The isSecondarySourceFilter property is used to indicate whether the arithmetic gradient filter is operating on the primary or secondary source image from the forward pass\&. The default value of isSecondarySourceFilter is NO\&. 
+.SS "\- isSecondarySourceFilter\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+The isSecondarySourceFilter property is used to indicate whether the arithmetic gradient filter is operating on the primary or secondary source image from the forward pass\&. 
 .SS "\- maximumValue\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 maximumValue is used to clamp the result of an arithmetic operation: result = clamp(result, minimumValue, maximumValue)\&. The default value of maximumValue is FLT_MAX\&. 
 .SS "\- minimumValue\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"

@@ -1,10 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: C735038A-BC7E-3DE3-B350-6449404FC259' ]
+uuids:           [ 'x86_64: FB030135-1633-378F-A7A6-B1A81AD068A2' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/RemoteServiceDiscovery.framework/Versions/A/RemoteServiceDiscovery
-current-version: 1205.50.76
-objc-constraint: none
+current-version: 1336.201.2
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _bridge_version_compare, _bridge_version_copy_current_string, 

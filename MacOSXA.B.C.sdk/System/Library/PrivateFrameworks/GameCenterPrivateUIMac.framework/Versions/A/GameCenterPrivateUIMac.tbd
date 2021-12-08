@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 1588375B-FEC7-3495-BFA7-1DB041B24A57' ]
+uuids:           [ 'x86_64: CB3C77FC-EE67-3613-9A55-3529B5B21AF1' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/GameCenterPrivateUIMac.framework/Versions/A/GameCenterPrivateUIMac
 exports:         
@@ -59,7 +59,7 @@ exports:
                        GKMultiplayerCollectionViewCell, GKMultiplayerDataSource, 
                        GKMultiplayerFooterView, GKMultiplayerHeaderView, GKMultiplayerParticipant, 
                        GKMultiplayerSeparatorView, GKNavigationController, GKNavigationControllerDeferredTransitionInfo, 
-                       GKNibLoadedView, GKNoContentView, GKPlaceholderContentStateMachine, 
+                       GKNibLoadedView, GKNoContentView, GKPanelBackgroundView, GKPlaceholderContentStateMachine, 
                        GKPlaceholderView, GKPlayerGameCell, GKPlayerMultiPhotoView, 
                        GKPlayerPhotoButton, GKPlayerPhotoView, GKPlayerWithSpeechBalloonView, 
                        GKPlayerWithSpeechBalloonViewAndEditablePhoto, GKProfilePictureView, 

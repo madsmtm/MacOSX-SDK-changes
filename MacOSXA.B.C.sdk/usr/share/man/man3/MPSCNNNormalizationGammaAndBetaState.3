@@ -1,4 +1,4 @@
-.TH "MPSCNNNormalizationGammaAndBetaState" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNNormalizationGammaAndBetaState" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -34,6 +34,9 @@ Inherits \fBMPSState\fP\&.
 .RI "__nonnull id< MTLBuffer > \fBbeta\fP"
 .br
 .in -1c
+.SH "Detailed Description"
+.PP 
+\fBA\fP state which contains gamma and beta terms used to apply a scale and bias in either an \fBMPSCNNInstanceNormalization\fP or \fBMPSCNNBatchNormalization\fP operation\&. 
 .SH "Method Documentation"
 .PP 
 .SS "\- (nonnull instancetype) initWithGamma: (__nonnull id< MTLBuffer >) gamma(__nonnull id< MTLBuffer >) beta"

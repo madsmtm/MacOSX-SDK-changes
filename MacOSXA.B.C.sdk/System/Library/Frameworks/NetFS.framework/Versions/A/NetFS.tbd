@@ -1,10 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 4A9454E1-FF5C-321A-8317-4C120332356A', 'x86_64: 471DD96F-FA2E-3FE9-9746-2519A6780D1A' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 529E29A9-5E77-3A8C-A982-CF55F949FE5D' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/NetFS.framework/Versions/A/NetFS
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _GetCompleteMountURL, _GetURLFromURLRemountInfo, _GetURLRemountInfo, 
                        _GetURLRemountInfoSize, _MountCompleteURL, _MountServerURL, 
                        _MountURLWithAuthentication, _NetFSCFStringtoCString, _NetFSClearAllURLApprovals, 

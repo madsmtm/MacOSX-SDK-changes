@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F3C59E19-88FF-3794-BC1D-FBA52DC35639' ]
+uuids:           [ 'x86_64: 9D9E9801-E76B-311D-83E2-DC76C0C2C060' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Install.framework/Versions/A/Install
 current-version: 1000
@@ -26,14 +26,15 @@ exports:
                        _IFDocument_Option_HostArchitectures, _IFDocument_Option_Packages_AllowBackRev, 
                        _IFDocument_Option_RootVolumeOnly, _IFDocument_Option_WindowAllowResize, 
                        _IFDocument_Resource_BackgroundImage, _IFDocument_Resource_BackgroundImage_Alignment, 
-                       _IFDocument_Resource_BackgroundImage_LayoutDirection, _IFDocument_Resource_BackgroundImage_Scaling, 
-                       _IFDocument_Resource_Conclusion, _IFDocument_Resource_License, 
-                       _IFDocument_Resource_ReadMe, _IFDocument_Resource_Welcome, 
-                       _IFDocument_Special_MIMEType_NSNumber, _IFDocument_Special_MIMEType_Pathname, 
-                       _IFDocument_rootHasAccessToURL, _IFDocument_urlCompare, _IFErrorKey, 
-                       _IFIP_ATTRIBUTES_KEY, _IFIP_IDTONODE_KEY, _IFIP_INSTALLTREE_KEY, 
-                       _IFIP_NODEACTIONS_KEY, _IFIP_REGEXACTIONS_KEY, _IFInstallCompletedNotification, 
-                       _IFInstallErrorDomain, _IFInstallFailedNotification, _IFInstallJobCompletedNotification, 
+                       _IFDocument_Resource_BackgroundImage_DarkAqua, _IFDocument_Resource_BackgroundImage_LayoutDirection, 
+                       _IFDocument_Resource_BackgroundImage_Scaling, _IFDocument_Resource_Conclusion, 
+                       _IFDocument_Resource_License, _IFDocument_Resource_ReadMe, 
+                       _IFDocument_Resource_Welcome, _IFDocument_Special_MIMEType_NSNumber, 
+                       _IFDocument_Special_MIMEType_Pathname, _IFDocument_rootHasAccessToURL, 
+                       _IFDocument_urlCompare, _IFErrorKey, _IFIP_ATTRIBUTES_KEY, 
+                       _IFIP_IDTONODE_KEY, _IFIP_INSTALLTREE_KEY, _IFIP_NODEACTIONS_KEY, 
+                       _IFIP_REGEXACTIONS_KEY, _IFInstallCompletedNotification, _IFInstallErrorDomain, 
+                       _IFInstallFailedNotification, _IFInstallJobCompletedNotification, 
                        _IFInstallJobStartedNotification, _IFInstallPhaseDidChangeNotification, 
                        _IFInstallStatusDidChangeNotification, _IFInstallWarningNotification, 
                        _IFInstallerDebugDidProcessItem, _IFInstallerDebugWillProcessItem, 

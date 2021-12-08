@@ -1,12 +1,12 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 3E612921-B937-3B7E-9636-9FBBF94D1019', 'x86_64: 08888215-BBCE-3402-8142-2C9ADB091580' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: DC361FB9-4B59-311E-8CC5-07FF9A9C673F' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/LDAP.framework/Versions/A/LDAP
 current-version: 2.4
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _ber_alloc, _ber_alloc_t, _ber_bprint, _ber_bvarray_add, _ber_bvarray_free, 
                        _ber_bvdup, _ber_bvecadd, _ber_bvecfree, _ber_bvfree, _ber_dump, 
                        _ber_dup, _ber_dupbv, _ber_errno_addr, _ber_error_print, _ber_first_element, 

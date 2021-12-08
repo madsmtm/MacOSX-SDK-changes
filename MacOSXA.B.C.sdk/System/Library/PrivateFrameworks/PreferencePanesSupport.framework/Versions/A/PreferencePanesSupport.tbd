@@ -1,10 +1,25 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 03F8C437-39F5-308C-B523-1C76BDF09676', 'x86_64: 86640F50-DD51-3D42-BE4C-0C08ED7422F1' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 88C1666C-04C6-3897-8096-D1B5D90423D8' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PreferencePanesSupport.framework/Versions/A/PreferencePanesSupport
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _SetSymbolicHotKeyButtonValue, _SetSymbolicHotKeyEnabled, 
+                       _SetSymbolicHotKeyValue, _SetSymbolicHotModifierValue, _closeIOCOnnection, 
+                       _copyPerHostValueForKey, _copySymbolicHotKeyPreferences, _getHotKeyEntry, 
+                       _ioSetBoolProperty, _ioSetBoolPropertyWithNotification, _ioSetIntProperty, 
+                       _ioSetIntPropertyWithNotification, _logASLMessage, _openIOCOnnection, 
+                       _perHostBooleanForKey, _perHostBooleanForKeyWithDefaultValue, 
+                       _perHostIntegerForKey, _perHostIntegerForKeyWithDefaultValue, 
+                       _setSwipeScrollDirection, _swipeScrollDirection ]
+    objc-classes:    [ AccountsPrefFormatter, BTPointingDevicePairController, IOServiceObserver, 
+                       IndicatorImageView, IndicatorSecureTextField, IndicatorTextField, 
+                       InputDeviceController, InputDeviceNibController, MTMouseGesturesBackEnd, 
+                       MTTGestureBackEnd, MultitouchDeviceObserver, NSTickLabelsView, 
+                       NSUpActionSlider, PPGesture, PPGestureChoicesPopupCell, PPGestureMovieView, 
+                       PPGestureRow, PPGestureView, PPGestureViewController, PPSGestureRow, 
+                       PPSGestureRowView, ValidSubrangeSlider, ValidSubrangeSliderCell ]
     objc-ivars:      [ AccountsPrefFormatter._characterSet, AccountsPrefFormatter._maxLength, 
                        BTPointingDevicePairController.mBTAlertIconImage, BTPointingDevicePairController.mBTIsAvailable, 
                        BTPointingDevicePairController.mBTKeyboardList, BTPointingDevicePairController.mBTPowerIsOn, 
@@ -59,20 +74,4 @@ exports:
                        PPSGestureRow._prepareChoicePopupOnce, PPSGestureRowView._checkbox, 
                        PPSGestureRowView._label, ValidSubrangeSliderCell._maxValidValue, 
                        ValidSubrangeSliderCell._minValidValue, ValidSubrangeSliderCell._validRangeBarColor ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _SetSymbolicHotKeyButtonValue, _SetSymbolicHotKeyEnabled, 
-                       _SetSymbolicHotKeyValue, _SetSymbolicHotModifierValue, _closeIOCOnnection, 
-                       _copyPerHostValueForKey, _copySymbolicHotKeyPreferences, _getHotKeyEntry, 
-                       _ioSetBoolProperty, _ioSetBoolPropertyWithNotification, _ioSetIntProperty, 
-                       _ioSetIntPropertyWithNotification, _logASLMessage, _openIOCOnnection, 
-                       _perHostBooleanForKey, _perHostBooleanForKeyWithDefaultValue, 
-                       _perHostIntegerForKey, _perHostIntegerForKeyWithDefaultValue, 
-                       _setSwipeScrollDirection, _swipeScrollDirection ]
-    objc-classes:    [ AccountsPrefFormatter, BTPointingDevicePairController, IOServiceObserver, 
-                       IndicatorImageView, IndicatorSecureTextField, IndicatorTextField, 
-                       InputDeviceController, InputDeviceNibController, MTMouseGesturesBackEnd, 
-                       MTTGestureBackEnd, MultitouchDeviceObserver, NSTickLabelsView, 
-                       NSUpActionSlider, PPGesture, PPGestureChoicesPopupCell, PPGestureMovieView, 
-                       PPGestureRow, PPGestureView, PPGestureViewController, PPSGestureRow, 
-                       PPSGestureRowView, ValidSubrangeSlider, ValidSubrangeSliderCell ]
 ...

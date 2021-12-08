@@ -1,7 +1,8 @@
 //
 //  SCNAnimation.h
+//  SceneKit
 //
-//  Copyright (c) 2012-2017 Apple Inc. All rights reserved.
+//  Copyright © 2012-2018 Apple Inc. All rights reserved.
 //
 
 #import <SceneKit/SceneKitTypes.h>
@@ -21,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void (^SCNAnimationDidStartBlock)(SCNAnimation *animation, id <SCNAnimatable> receiver);
 typedef void (^SCNAnimationDidStopBlock)(SCNAnimation *animation, id <SCNAnimatable> receiver, BOOL completed);
 
-API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
+SCN_EXPORT API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
 @interface SCNTimingFunction : NSObject <NSSecureCoding>
 + (SCNTimingFunction *)functionWithTimingMode:(SCNActionTimingMode)timingMode;
 + (SCNTimingFunction *)functionWithCAMediaTimingFunction:(CAMediaTimingFunction *)caTimingFunction;
@@ -145,7 +146,7 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
 /**
  SCNAnimation represents an animation that targets a specific key path.
  */
-API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
+SCN_EXPORT API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
 @interface SCNAnimation : NSObject <SCNAnimation, NSCopying, NSSecureCoding>
 
 
@@ -189,6 +190,8 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
 
 /**
  The key-path describing the property to be animated for single-property animations, nil for animations targetting multiple nodes. defaults to nil.
+ The key-path uses the KVC syntax. It's also possible to target a specific sub-node with the following syntax:
+    /<node-name>.property1.property2.field    (field is optional, <node-name> is the name of the targeted node).
  */
 @property(nonatomic, copy, nullable) NSString *keyPath;
 
@@ -340,7 +343,7 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
 /**
  SCNAnimationPlayer let you control when and how to play and blend an animation
  */
-API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
+SCN_EXPORT API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
 @interface SCNAnimationPlayer : NSObject  <SCNAnimatable, NSCopying, NSSecureCoding>
 
 /**
@@ -400,7 +403,7 @@ typedef void (^SCNAnimationEventBlock)(id <SCNAnimation> animation, id animatedO
 /**
  SCNAnimationEvent encapsulates a block to trigger at a specific time.
  */
-API_AVAILABLE(macos(10.9))
+SCN_EXPORT API_AVAILABLE(macos(10.9))
 @interface SCNAnimationEvent : NSObject
 
 /*!

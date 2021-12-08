@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 59D6D9C7-19A0-3D33-A8EA-953C00652B24' ]
+uuids:           [ 'x86_64: D8B652B2-0237-3CC5-970A-481FD5E7F0E6' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreCaptureControl.framework/Versions/A/CoreCaptureControl
 objc-constraint: none

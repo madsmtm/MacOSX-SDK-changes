@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 88876B8D-A68A-3461-84F3-A1A8D5F3D497' ]
+uuids:           [ 'x86_64: E9F2FF73-22D0-35B5-BD2C-9DD8FDB12BCC' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/MobileKeyBag.framework/Versions/A/MobileKeyBag
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _MKBDeviceGetGracePeriod, _MKBDeviceLockAssertion, _MKBDeviceSetGracePeriod, 

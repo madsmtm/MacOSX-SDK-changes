@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 20AC27B2-B3D5-37D6-8A20-62ECBBC64FC5' ]
+uuids:           [ 'x86_64: CE99C49F-4F61-3864-BDCF-478F0ED3C67C' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ResponseKit.framework/Versions/A/ResponseKit
-current-version: 109
+current-version: 109.15.14
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _NSSubtractRange, _RKAggdScalarPrefixKey, _RKAggdStatisticsActionSelected, 
@@ -11,20 +11,25 @@ exports:
                        _RKAttributedTokenBirthdayType, _RKAttributedTokenChineseNewYearType, 
                        _RKAttributedTokenCongratulationType, _RKAttributedTokenMomentType, 
                        _RKAttributedTokenMoneyType, _RKAttributedTokenMoneyValuesQualifier, 
-                       _RKAttributedTokenNewYearType, _RKAttributedTokenSubTypeKey, 
+                       _RKAttributedTokenNewYearType, _RKAttributedTokenPhotosharingKeywordRangesKey, 
+                       _RKAttributedTokenPhotosharingKeywordsKey, _RKAttributedTokenPhotosharingMessageKey, 
+                       _RKAttributedTokenPhotosharingType, _RKAttributedTokenSubTypeKey, 
                        _RKAttributedTokenThinkingOfYouType, _RKAttributedTokenTypeKey, 
                        _RKLinguisticCategoryForFSMType, _RKLinguisticCategoryFromPreferenceKey, 
                        _RKLinguisticCategoryStatementExpressEmotionString, _RKLinguisticCategoryStatementSpecialEventString, 
                        _RKLinguisticCategoryToPreferenceKey, _RKLinguisticTagDataDetected, 
                        _RKMaxHistoryForConversationTurns, _RKMessageResponseDontOverrideLanguageID, 
-                       _RKPersistentPersonalizerTrainingThreshhold, _RKResponseKitVersionNumber, 
-                       _RKResponseKitVersionString, __chineseTokenizer, __kMRLModelFileLocationKey, 
-                       __localeEquivalenceClass, __localeGrammarBundlePath, __localeLangModel, 
-                       _emoticonCategoryDict, _happyEmojiSet, _kAllowedPunctuations, 
-                       _kEMDash, _kEmojiPlaceholder, _kLMMaxTriggerLen, _kMaxCharRepetitionAllowed, 
-                       _kMaxCharToConsiderForEmoticonDetection, _kMaxSequenceLength, 
-                       _kMinCharToConsiderForEmoticonDetection, _multiWordOrLength, 
-                       _sSubclasses, _sadEmojiSet, _specialCharMapping ]
+                       _RKPersistentPersonalizerTrainingThreshhold, _RKResponseCandidateIsSelectedKey, 
+                       _RKResponseCandidateRankKey, _RKResponseCategoryKey, _RKResponseInputMethodKey, 
+                       _RKResponseKitVersionNumber, _RKResponseKitVersionString, 
+                       _RKResponseMessageKey, _RKResponseRankedCandidateListKey, 
+                       _RKResponseRecipientKey, _RKResponseSourceKey, _RKResponseStringKey, 
+                       __chineseTokenizer, __kMRLModelFileLocationKey, __localeEquivalenceClass, 
+                       __localeGrammarBundlePath, __localeLangModel, _emoticonCategoryDict, 
+                       _happyEmojiSet, _kAllowedPunctuations, _kEMDash, _kEmojiPlaceholder, 
+                       _kLMMaxTriggerLen, _kMaxCharRepetitionAllowed, _kMaxCharToConsiderForEmoticonDetection, 
+                       _kMaxSequenceLength, _kMinCharToConsiderForEmoticonDetection, 
+                       _multiWordOrLength, _sSubclasses, _sadEmojiSet, _specialCharMapping ]
     objc-classes:    [ RKAggdStatistics, RKAssets, RKBundleDataProvider, RKClassification, 
                        RKConversation, RKConversationTurn, RKCurrencyAmount, RKEventIdentification, 
                        RKEventIdentifier, RKLexicalEntity, RKLinguisticDataProvider, 

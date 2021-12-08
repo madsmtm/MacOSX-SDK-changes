@@ -5,9 +5,6 @@
 //  Copyright © 2017 Apple Inc. All rights reserved.
 //
 
-#ifndef VNTYPES_H
-#define VNTYPES_H
-
 #import <Foundation/Foundation.h>
 
 #import <Vision/VNDefines.h>
@@ -51,4 +48,3 @@ VN_EXPORT VNBarcodeSymbology const VNBarcodeSymbologyPDF417 API_AVAILABLE(macos(
 VN_EXPORT VNBarcodeSymbology const VNBarcodeSymbologyQR API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
 VN_EXPORT VNBarcodeSymbology const VNBarcodeSymbologyUPCE API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
 
-#endif /* VNTYPES_H */

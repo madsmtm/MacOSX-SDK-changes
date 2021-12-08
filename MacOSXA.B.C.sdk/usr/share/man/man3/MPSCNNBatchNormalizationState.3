@@ -1,4 +1,4 @@
-.TH "MPSCNNBatchNormalizationState" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNBatchNormalizationState" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,7 +9,7 @@ MPSCNNBatchNormalizationState
 .PP
 \fC#import <MPSCNNBatchNormalization\&.h>\fP
 .PP
-Inherits \fBMPSState\fP\&.
+Inherits \fBMPSNNGradientState\fP\&.
 .SS "Instance Methods"
 
 .in +1c
@@ -18,6 +18,12 @@ Inherits \fBMPSState\fP\&.
 .br
 .ti -1c
 .RI "(void) \- \fBreset\fP"
+.br
+.ti -1c
+.RI "(nullable id< MTLBuffer >) \- \fBgamma\fP"
+.br
+.ti -1c
+.RI "(nullable id< MTLBuffer >) \- \fBbeta\fP"
 .br
 .ti -1c
 .RI "(nullable id< MTLBuffer >) \- \fBmean\fP"
@@ -48,9 +54,6 @@ Inherits \fBMPSState\fP\&.
 .ti -1c
 .RI "\fBMPSCNNBatchNormalization\fP * \fBbatchNormalization\fP"
 .br
-.ti -1c
-.RI "\fBMPSCNNNormalizationGammaAndBetaState\fP * \fBgammaAndBetaState\fP"
-.br
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -59,6 +62,10 @@ Inherits \fBMPSState\fP\&.
 \fBMPSCNNBatchNormalizationState\fP cannot initialize the size of its own underlying resources\&. Use [\fBMPSCNNBatchNormalizationStatistics\fP resultStateForSourceImages:] or [\fBMPSCNNBatchNormalizationStatistics\fP temporaryResultStateForCommandBuffer:sourceImages:]\&. 
 .SH "Method Documentation"
 .PP 
+.SS "\- (nullable id<MTLBuffer>) beta "
+Return an MTLBuffer object with the state's current beta values\&.\&. 
+.SS "\- (nullable id<MTLBuffer>) gamma "
+Return an MTLBuffer object with the state's current gamma values\&. 
 .SS "\- (nullable id<MTLBuffer>) gradientForBeta "
 Return an MTLBuffer object containing the values of the gradient of the loss function with respect to the bias terms\&. If a \fBMPSCNNBatchNormalizationGradient\fP kernel has not successfully generated these values nil will be returned\&. 
 .SS "\- (nullable id<MTLBuffer>) gradientForGamma "
@@ -93,8 +100,6 @@ Return an MTLBuffer object with the most recently computed batch variance values
 .SH "Property Documentation"
 .PP 
 .SS "\- (\fBMPSCNNBatchNormalization\fP*) batchNormalization\fC [read]\fP, \fC [nonatomic]\fP, \fC [retain]\fP"
-
-.SS "\- (\fBMPSCNNNormalizationGammaAndBetaState\fP*) gammaAndBetaState\fC [read]\fP, \fC [nonatomic]\fP, \fC [retain]\fP"
 
 
 .SH "Author"

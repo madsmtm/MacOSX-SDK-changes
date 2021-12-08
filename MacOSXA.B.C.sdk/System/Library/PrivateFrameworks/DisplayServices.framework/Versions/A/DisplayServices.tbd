@@ -1,12 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: F102BAFB-DA4A-3DA5-88C0-317E0EB06CFC', 'x86_64: 79C5F9B5-D95F-3B86-BF98-C103B862EFE3' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: EE27909F-7790-3438-ACA4-3993233A67B8' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/DisplayServices.framework/Versions/A/DisplayServices
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ DSNotificationInfo._callback, DSNotificationInfo._desc, DSNotificationInfo._observer ]
-  - archs:           [ i386, x86_64 ]
     re-exports:      [ /usr/lib/libobjc.A.dylib ]
     symbols:         [ _CreateNotificationKeyFromNameAndDisplayID, _DSDisplayIDKey, 
                        _DSLogClose, _DSNotificationNameKey, _DisplayServicesAmbientLightCompensationEnabled, 
@@ -44,4 +42,5 @@ exports:
                        _DisplayServicesUnregisterForDisplayUSBHotplugNotifications, 
                        _DisplayServicesUnregisterForNotification, _DisplayServicesUnregisterForResetAmbientLightNotifications ]
     objc-classes:    [ DSNotificationInfo ]
+    objc-ivars:      [ DSNotificationInfo._callback, DSNotificationInfo._desc, DSNotificationInfo._observer ]
 ...

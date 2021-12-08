@@ -484,6 +484,10 @@ NSUInteger MPSStateBatchIncrementReadCount( MPSStateBatch * __nullable batch, NS
 void MPSStateBatchSynchronize( MPSStateBatch * __nonnull batch, __nonnull id <MTLCommandBuffer> cmdBuf )
     MPS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3));
 
+/*! @abstract Call [MTLBlitEncoder resourceSize] on unique resources */
+NSUInteger MPSStateBatchResourceSize( MPSStateBatch * __nullable batch )
+    MPS_AVAILABLE_STARTING( macos(10.14.0), ios(12.0), tvos(12.0));
+
 #ifdef __cplusplus
 }
 #endif

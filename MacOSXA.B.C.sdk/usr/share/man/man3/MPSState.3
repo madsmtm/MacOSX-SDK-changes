@@ -1,4 +1,4 @@
-.TH "MPSState" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSState" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -11,7 +11,7 @@ MPSState
 .PP
 Inherits NSObject\&.
 .PP
-Inherited by \fBMPSCNNBatchNormalizationState\fP, \fBMPSCNNConvolutionWeightsAndBiasesState\fP, \fBMPSCNNLossLabels\fP, \fBMPSCNNNormalizationGammaAndBetaState\fP, \fBMPSNNBinaryGradientState\fP, \fBMPSNNGradientState\fP, \fBMPSRNNRecurrentImageState\fP, and \fBMPSRNNRecurrentMatrixState\fP\&.
+Inherited by \fBMPSCNNConvolutionWeightsAndBiasesState\fP, \fBMPSCNNLossLabels\fP, \fBMPSCNNNormalizationGammaAndBetaState\fP, \fBMPSCNNNormalizationMeanAndVarianceState\fP, \fBMPSNNBinaryGradientState\fP, \fBMPSNNGradientState\fP, \fBMPSRNNMatrixTrainingState\fP, \fBMPSRNNRecurrentImageState\fP, and \fBMPSRNNRecurrentMatrixState\fP\&.
 .SS "Instance Methods"
 
 .in +1c
@@ -98,7 +98,31 @@ Some \fBMPSState\fP objects are temporary\&. Temporary state objects, like MPSTe
 .PP
 In exchange, the lifetime of the underlying storage in temporary \fBMPSState\fP objects needs to be carefully managed\&. ARC often waits until the end of scope to release objects\&. Temporary storage often needs to be released sooner than that\&. Consequently the lifetime of the data in the underlying MTLResources is managed by a readCount property\&. Each time a \fBMPSCNNKernel\fP reads a temporary \fBMPSState\fP object the readCount is automatically decremented\&. When it reaches zero, the underlying storage is recycled for use by other MPS temporary objects, and the data is becomes undefined\&. If you need to consume the data multiple times, you should set the readCount to a larger number to prevent the data from becomming undefined\&. You may set the readCount to 0 yourself to return the storage to MPS, if for any reason, you realize that the \fBMPSState\fP object will no longer be used\&.
 .PP
-The contents of a temporary \fBMPSState\fP object are only valid from creation to the time the readCount reaches 0\&. The data is only valid for the MTLCommandBuffer on which it was created\&. Non-temporary \fBMPSState\fP objects are valid on any MTLCommandBuffer on the same device until they are released\&. 
+The contents of a temporary \fBMPSState\fP object are only valid from creation to the time the readCount reaches 0\&. The data is only valid for the MTLCommandBuffer on which it was created\&. Non-temporary \fBMPSState\fP objects are valid on any MTLCommandBuffer on the same device until they are released\&.
+.PP
+.PP
+.nf
+            Finally, temporary MPSState objects are complicated to use with blit encoders.
+            Your application should assume that the temporary MPSState is backed by a MTLHeap,
+            and consequently needs a MTLFence to ensure that compute command encoders and other
+            encoders do not trip over one another with heap based memory. MPS will almost never
+            use a blit encoder for this reason. If you do need one, then you will need to make
+            a new compute encoder to block on whatever previous compute encoder last used the
+            heap block. (MPS will not tell you who previously used the heap block. That encoder
+            is almost certainly long dead anyway.) If concurrent encoders are involved, then a
+            barrier might be needed. Within that compute encoder, you will call -updateFence.
+            End the compute encoder, make a blit encoder wait for the fence, do the blit, update
+            a new fence, then make a new compute encoder, wait for the second fence, then you
+            can continue. Possibly the second do-nothing compute encoder needs to be ended so
+            MPS can be called. Frankly, we don't bother with blit encoders and just write a compute
+            operation for copy / clear as needed, or better yet find a way to eliminate the
+            clear / copy pass so we don't have to pay for it. Your application needs to use
+            temporary MPSStates and MPSTemporaryImages. Memory costs skyrocket, otherwise.
+            It is the blit encoder that is hopefully optional. Note: the most common use of a
+            blit encoder, -synchronizeResource: can not encounter this problem because temporary
+            images and states live in GPU private memory and can not be read by the CPU..fi
+.PP
+ 
 .SH "Method Documentation"
 .PP 
 .SS "\- (NSUInteger) bufferSizeAtIndex: (NSUInteger) index"
@@ -221,7 +245,7 @@ Create a \fBMPSState\fP with a non-temporary MTLResource
 .PP
 
 .PP
-Reimplemented in \fBMPSCNNBatchNormalizationState\fP, and \fBMPSCNNInstanceNormalizationGradientState\fP\&.
+Reimplemented in \fBMPSCNNInstanceNormalizationGradientState\fP, and \fBMPSCNNBatchNormalizationState\fP\&.
 .SS "\- (nonnull instancetype) initWithResources: (NSArray< id< MTLResource >> *__nullable) resources"
 Create a state object with a list of MTLResources  Because MPS prefers deferred allocation of resources your application should use -initWithTextures:bufferSizes:bufferCount: whenever possible\&. This method is useful for cases when the MTLResources must be initialized by the CPU\&. 
 .SS "\- (__nullable id <MTLResource>) resourceAtIndex: (NSUInteger) index(BOOL) allocateMemory"
@@ -275,7 +299,7 @@ Create a \fBMPSState\fP holding a temporary MTLBuffer
 .PP
 
 .PP
-Reimplemented in \fBMPSCNNBatchNormalizationState\fP, and \fBMPSCNNInstanceNormalizationGradientState\fP\&.
+Reimplemented in \fBMPSCNNInstanceNormalizationGradientState\fP, and \fBMPSCNNBatchNormalizationState\fP\&.
 .SS "+ (nonnull instancetype) \fBtemporaryStateWithCommandBuffer:\fP (__nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSStateResourceList\fP *__nonnull) resourceList"
 Initialize a temporary state to hold a number of textures and buffers  The textures occur first in sequence 
 .SS "+ (nonnull instancetype) \fBtemporaryStateWithCommandBuffer:\fP (__nonnull id< MTLCommandBuffer >) cmdBuf(MTLTextureDescriptor *__nonnull) descriptor"
@@ -290,7 +314,7 @@ Create a \fBMPSState\fP holding a temporary MTLTexture
 .PP
 
 .PP
-Reimplemented in \fBMPSCNNBatchNormalizationState\fP, and \fBMPSCNNInstanceNormalizationGradientState\fP\&.
+Reimplemented in \fBMPSCNNInstanceNormalizationGradientState\fP, and \fBMPSCNNBatchNormalizationState\fP\&.
 .SS "\- (\fBMPSStateTextureInfo\fP) textureInfoAtIndex: (NSUInteger) index"
 Return the texture size {width,height,depth} or {0,0,0} if it is not a MTLTexture  Does not force allocation of the MTLResource 
 .SH "Property Documentation"

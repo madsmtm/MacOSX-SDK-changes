@@ -1,10 +1,42 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 9926568F-96FF-309D-A83D-3BCBC55C0E78', 'x86_64: 3E6193E4-6EA6-378E-8B07-BDE4B7A47A58' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: F3784EB9-BF9E-3BDD-8A7B-0F95EB282CA2' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SpeechObjects.framework/Versions/A/SpeechObjects
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _CreateKeySequenceNameStringForKeyCombo, _NSSpeechSynthesizerImmedidateBoundary, 
+                       _NSSpeechSynthesizerSentenceBoundary, _NSSpeechSynthesizerWordBoundary, 
+                       _SDIMLocalCallBack, _SODecodeSecureArray, _SODecodeSecureDictionary, 
+                       _SOEncodeSecureObject, _StartDownloadingHighestQualityIfNecessaryForVoiceIdentifier, 
+                       _StartDownloadingHighestQualityIfNecessaryForVoiceIdentifierAsRequestedByClientIdentifier, 
+                       __icuDisplayName, _gSliderBreaks, _kSOFileAttributesKeyAudioFileData, 
+                       _kSOFileAttributesKeyAudioFileStreamDescriptionData, _kSOFileAttributesKeyCreationDate, 
+                       _kSOFileAttributesKeyCreatorArguments, _kSOFileAttributesKeyCreatorName, 
+                       _kSOFileAttributesKeyLocaleIdentifier, _kSOFileAttributesKeyRXListenGrammar, 
+                       _kSOFileAttributesKeyRecognizerType, _kSOFileKeyDocumentAttributes, 
+                       _kSOFileKeyOrderedUtteranceResults, _kSOFileUtteranceKeyCommandIdentifier, 
+                       _kSOFileUtteranceKeyEndTime, _kSOFileUtteranceKeyPrependedSilenceDuration, 
+                       _kSOFileUtteranceKeyStartTime, _kSOFileUtteranceKeyText, _kSOFileUtteranceKeyTextVariants, 
+                       _kSOFileUtteranceKeyType, _kSOFileUtteranceTypeBuiltInCommand, 
+                       _kSOFileUtteranceTypeDictation, _kSOFileUtteranceTypeSilence, 
+                       _kSOFileUtteranceTypeUserDefinedCommand, _kVoiceSettingsCustomRelativeRateKey, 
+                       _kVoiceSettingsCustomVolumeKey, _kVoiceSettingsVoiceIdentifierKey, 
+                       _sSOSpeechInstallationManager, _sSOSpeechInstallationManagerDebugFlags, 
+                       _sSOSystemBehaviorManager ]
+    objc-classes:    [ ComApplePreferenceSpeechAlertDelaySliderCell, ComApplePreferenceSpeechKeyCaptureTextField, 
+                       ComApplePreferenceSpeechSpeakingHotKeyCaptureSheet, ComApplePreferenceSpeechTAOptionsSheet, 
+                       ComApplePreferenceSpeechTAPhraseListWindow, CustomizeVoicesWindowController, 
+                       DownloadableVoice, SOAudioFileUtilities, SOCustomizeSRLanguagesWindowController, 
+                       SODownloadDisplayManager, SOPowerSavvyTimer, SOSRLanguageItem, 
+                       SOSRLanguagePopUpButton, SOSRLanguageRow, SOSRLanguageRowCheckboxButton, 
+                       SOSRLanguageRowTextView, SOSRLanguageTableCellView, SOSRSimpleLanguagePopUpButton, 
+                       SOSpeechInstallationManager, SOSpeechItem, SOSystemBehaviorManager, 
+                       SOTextToSpeechPreferencesViewController, SOUtteranceResult, 
+                       SOUtteranceResultsFile, SOVoiceObject, SOVoicePopUpButton, 
+                       SOVoiceRowCheckboxButton, SOVoiceRowTextView, VoiceSettingsAlertController, 
+                       VoiceSettingsSheetController, VoiceSettingsWindowController, 
+                       VoiceTableCellView, VoiceTableRow ]
     objc-ivars:      [ ComApplePreferenceSpeechKeyCaptureTextField._pressedKeyCombo, 
                        ComApplePreferenceSpeechSpeakingHotKeyCaptureSheet._delegate, 
                        ComApplePreferenceSpeechSpeakingHotKeyCaptureSheet._saveButton, 
@@ -117,37 +149,4 @@ exports:
                        VoiceTableCellView._downloadVariantPopUpButton, VoiceTableRow._groupRow, 
                        VoiceTableRow._selected, VoiceTableRow._tableIndex, VoiceTableRow._title, 
                        VoiceTableRow._voiceObject ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _CreateKeySequenceNameStringForKeyCombo, _NSSpeechSynthesizerImmedidateBoundary, 
-                       _NSSpeechSynthesizerSentenceBoundary, _NSSpeechSynthesizerWordBoundary, 
-                       _SDIMLocalCallBack, _SODecodeSecureArray, _SODecodeSecureDictionary, 
-                       _SOEncodeSecureObject, _StartDownloadingHighestQualityIfNecessaryForVoiceIdentifier, 
-                       _StartDownloadingHighestQualityIfNecessaryForVoiceIdentifierAsRequestedByClientIdentifier, 
-                       __icuDisplayName, _gSliderBreaks, _kSOFileAttributesKeyAudioFileData, 
-                       _kSOFileAttributesKeyAudioFileStreamDescriptionData, _kSOFileAttributesKeyCreationDate, 
-                       _kSOFileAttributesKeyCreatorArguments, _kSOFileAttributesKeyCreatorName, 
-                       _kSOFileAttributesKeyLocaleIdentifier, _kSOFileAttributesKeyRXListenGrammar, 
-                       _kSOFileAttributesKeyRecognizerType, _kSOFileKeyDocumentAttributes, 
-                       _kSOFileKeyOrderedUtteranceResults, _kSOFileUtteranceKeyCommandIdentifier, 
-                       _kSOFileUtteranceKeyEndTime, _kSOFileUtteranceKeyPrependedSilenceDuration, 
-                       _kSOFileUtteranceKeyStartTime, _kSOFileUtteranceKeyText, _kSOFileUtteranceKeyTextVariants, 
-                       _kSOFileUtteranceKeyType, _kSOFileUtteranceTypeBuiltInCommand, 
-                       _kSOFileUtteranceTypeDictation, _kSOFileUtteranceTypeSilence, 
-                       _kSOFileUtteranceTypeUserDefinedCommand, _kVoiceSettingsCustomRelativeRateKey, 
-                       _kVoiceSettingsCustomVolumeKey, _kVoiceSettingsVoiceIdentifierKey, 
-                       _sSOSpeechInstallationManager, _sSOSpeechInstallationManagerDebugFlags, 
-                       _sSOSystemBehaviorManager ]
-    objc-classes:    [ ComApplePreferenceSpeechAlertDelaySliderCell, ComApplePreferenceSpeechKeyCaptureTextField, 
-                       ComApplePreferenceSpeechSpeakingHotKeyCaptureSheet, ComApplePreferenceSpeechTAOptionsSheet, 
-                       ComApplePreferenceSpeechTAPhraseListWindow, CustomizeVoicesWindowController, 
-                       DownloadableVoice, SOAudioFileUtilities, SOCustomizeSRLanguagesWindowController, 
-                       SODownloadDisplayManager, SOPowerSavvyTimer, SOSRLanguageItem, 
-                       SOSRLanguagePopUpButton, SOSRLanguageRow, SOSRLanguageRowCheckboxButton, 
-                       SOSRLanguageRowTextView, SOSRLanguageTableCellView, SOSRSimpleLanguagePopUpButton, 
-                       SOSpeechInstallationManager, SOSpeechItem, SOSystemBehaviorManager, 
-                       SOTextToSpeechPreferencesViewController, SOUtteranceResult, 
-                       SOUtteranceResultsFile, SOVoiceObject, SOVoicePopUpButton, 
-                       SOVoiceRowCheckboxButton, SOVoiceRowTextView, VoiceSettingsAlertController, 
-                       VoiceSettingsSheetController, VoiceSettingsWindowController, 
-                       VoiceTableCellView, VoiceTableRow ]
 ...

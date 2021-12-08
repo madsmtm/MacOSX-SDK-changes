@@ -1,19 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 8BABE619-EDDB-35A5-AA07-BB26D3D8669E', 'x86_64: 0BFD5ECB-93A4-3330-BB9B-CBA222C5DBB2' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: A0B1D99B-C1DD-3DF5-98C7-CDD35DB49604' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/XPCService.framework/Versions/A/XPCService
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ XPCServiceBundle._bundle, XPCServiceBundle._executablePath, 
-                       XPCServiceBundle._executablePathPredicate, XPCServiceBundle._launchdJobDictionary, 
-                       XPCServiceBundle._launchdJobDictionaryPredicate, XPCServiceBundle._realExecutablePath, 
-                       XPCServiceBundle._realExecutablePathPredicate, XPCServiceBundle._serviceDictionary, 
-                       XPCServiceBundle._serviceDictionaryPredicate, XPCServiceBundle._serviceIdentifier, 
-                       XPCServiceBundle._serviceIdentifierPredicate, XPCServiceBundle._serviceType, 
-                       XPCServiceBundle._serviceTypePredicate, XPCServiceBundle._xpcJobData, 
-                       XPCServiceBundle._xpcJobDataPredicate, XPCServiceRuntime._entitlements ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _XPCServiceBundleExtention, _XPCServiceBundleInfoDictionaryKey, 
                        _XPCServiceDictionaryAdditionalServicesKey, _XPCServiceDictionaryAllowedClientsKey, 
                        _XPCServiceDictionaryDirtyJetsamMemoryLimit, _XPCServiceDictionaryDirtyJetsamPriority, 
@@ -24,4 +15,12 @@ exports:
                        _XPCServiceVersionNumber, _XPCServiceVersionString, __xpc_main, 
                        _connectionEvaluator, _xpc_service_main ]
     objc-classes:    [ XPCServiceBundle, XPCServiceRuntime ]
+    objc-ivars:      [ XPCServiceBundle._bundle, XPCServiceBundle._executablePath, 
+                       XPCServiceBundle._executablePathPredicate, XPCServiceBundle._launchdJobDictionary, 
+                       XPCServiceBundle._launchdJobDictionaryPredicate, XPCServiceBundle._realExecutablePath, 
+                       XPCServiceBundle._realExecutablePathPredicate, XPCServiceBundle._serviceDictionary, 
+                       XPCServiceBundle._serviceDictionaryPredicate, XPCServiceBundle._serviceIdentifier, 
+                       XPCServiceBundle._serviceIdentifierPredicate, XPCServiceBundle._serviceType, 
+                       XPCServiceBundle._serviceTypePredicate, XPCServiceBundle._xpcJobData, 
+                       XPCServiceBundle._xpcJobDataPredicate, XPCServiceRuntime._entitlements ]
 ...

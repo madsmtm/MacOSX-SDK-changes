@@ -43,7 +43,11 @@ typedef void (^MPSNNGraphCompletionHandler)( MPSImage * __nullable result,
  *              your NSCoder should conform to the <MPSDeviceProvider> protocol.
  *
  *              You may find it helpful to set MPSKernelOptionsVerbose on the graph when
- *              debugging.
+ *              debugging. To turn this on during MPSKernel initialization (including
+ *              MPSNNGraph initialization) set the MPS_LOG_INFO environment variable.
+ *              There is a lot of information about what optimizations are done to your
+ *              graph, including some information on why certain optimizations were not
+ *              made.
  */
 MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
 @interface MPSNNGraph : MPSKernel <NSCopying, NSSecureCoding>
@@ -73,6 +77,7 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
 +(nullable instancetype) graphWithDevice: (nonnull id <MTLDevice>) device
                              resultImage: (MPSNNImageNode * __nonnull) resultImage
                      resultImageIsNeeded: (BOOL) resultIsNeeded;
+
 
 -(nullable instancetype)  initWithDevice: (nonnull id <MTLDevice>) device
                              resultImage: (MPSNNImageNode * __nonnull) resultImage
@@ -140,6 +145,30 @@ MPS_AVAILABLE_STARTING_BUT_DEPRECATED( "Please use +graphWithDevice:resultImage:
  *  @discussion If NO, nil will be returned from -encode calls and some computation
  *              may be omitted. */
 @property (readonly, nonatomic) BOOL resultImageIsNeeded;
+
+/*! @abstract   Reinitialize all graph nodes from data sources
+ *  @discussion A number of the nodes that make up a graph have a data source
+ *              associated with them, for example a MPSCNNConvolutionDataSource
+ *              or a MPSCNNBatchNormalizationDataSource. Generally, the data
+ *              is read from these once at graph initialization time and then
+ *              not looked at again, except during the weight / parameter update
+ *              phase of the corresponding gradient nodes and then only if CPU
+ *              updates are requested.  Otherwise, update occurs on the GPU,
+ *              and the data in the data source is thereafter ignored.
+ *
+ *              It can happen, though, that your application has determined the
+ *              graph should load a new set of weights from the data source.
+ *              When this method is called, the graph will find all nodes that
+ *              support reloading and direct them to reinitialize themselves
+ *              based on their data source.
+ *
+ *              This process occurs immediately. Your application will
+ *              need to make sure any GPU work being done by the graph is complete
+ *              to ensure data coherency. Most nodes do not have a data source
+ *              and will not be modified. Nodes that are not used by the graph
+ *              will not be updated.
+ */
+-(void) reloadFromDataSources;
 
 /*! @abstract       Encode the graph to a MTLCommandBuffer
  *  @param          commandBuffer       The command buffer

@@ -15,8 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MTLCommandQueue;
 @protocol MTLDevice;
 
-NS_CLASS_AVAILABLE(10_13, 11_0)
-MTL_EXPORT
+MTL_EXPORT API_AVAILABLE(macos(10.13), ios(11.0))
 @interface MTLCaptureManager : NSObject
 {
     BOOL _isCapturing;
@@ -31,7 +30,7 @@ MTL_EXPORT
 + (MTLCaptureManager*)sharedCaptureManager;
 
 // Use +[sharedCaptureManager]
-- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)init API_UNAVAILABLE(macos, ios);
 
 // Creates a new capture scope for the given capture device
 - (id<MTLCaptureScope>)newCaptureScopeWithDevice:(id<MTLDevice>)device;

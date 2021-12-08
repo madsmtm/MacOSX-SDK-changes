@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B7B46F75-E741-3432-9203-0225F5D03A16' ]
+uuids:           [ 'x86_64: 91713A05-FFB8-384D-B815-E7D6798EEDC9' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PhotoPrintProduct.framework/Versions/A/PhotoPrintProduct
-current-version: 669
+current-version: 679
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CGAffineTransformConcatPhotoOrientation, _CGContextDrawSelectionInRect, 
@@ -162,8 +162,9 @@ exports:
                        _KHDebugEnabledPrefKey, _KHDefaultBackgroundChangedExternally, 
                        _KHDeleteBookCoverPageSuppressionKey, _KHDeleteBookPageSuppressionKey, 
                        _KHDeleteCalPageSuppressionKey, _KHDemoModeEnabledPrefKey, 
-                       _KHDidDisplayAlert, _KHEllipseFormat, _KHEllipseValue, _KHFacesBoundingBoxGutterCheckPrefKey, 
-                       _KHFloatFormat, _KHFloatValue, _KHForceCPURendering, _KHForceShowLogoPrefKey, 
+                       _KHDidDisplayAlert, _KHEditingEnabledPrefKey, _KHEllipseFormat, 
+                       _KHEllipseValue, _KHFacesBoundingBoxGutterCheckPrefKey, _KHFloatFormat, 
+                       _KHFloatValue, _KHForceCPURendering, _KHForceShowLogoPrefKey, 
                        _KHForceThemeChange, _KHFrameAttributeFrameId, _KHFrameBlendMode, 
                        _KHFrameBrandingFrame, _KHFrameCells, _KHFrameCenterKey, _KHFrameChildLayoutId, 
                        _KHFrameContentAddress, _KHFrameContentArt, _KHFrameContentBarcode, 

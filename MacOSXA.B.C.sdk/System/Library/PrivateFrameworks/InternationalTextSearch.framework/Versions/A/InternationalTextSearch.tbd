@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 5830E726-8742-3E44-BE08-C1464A35CB0E' ]
+uuids:           [ 'x86_64: 5C3076E9-C36B-308F-9B55-9B8DA4B5FCDE' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/InternationalTextSearch.framework/Versions/A/InternationalTextSearch
 exports:         

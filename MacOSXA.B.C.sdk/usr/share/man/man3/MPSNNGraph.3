@@ -1,4 +1,4 @@
-.TH "MPSNNGraph" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSNNGraph" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -24,6 +24,9 @@ Inherits \fBMPSKernel\fP, <NSCopying>, and <NSSecureCoding>\&.
 .br
 .ti -1c
 .RI "(nonnull instancetype) \- \fBinitWithDevice:\fP"
+.br
+.ti -1c
+.RI "(void) \- \fBreloadFromDataSources\fP"
 .br
 .ti -1c
 .RI "(\fBMPSImage\fP *__nullable) \- \fBencodeToCommandBuffer:sourceImages:sourceStates:intermediateImages:destinationStates:\fP"
@@ -93,7 +96,7 @@ During \fBMPSNNGraph\fP construction, the graph attached to the result node will
 .PP
 When decoding a \fBMPSNNGraph\fP using a NSCoder, it will be created against the system default MTLDevice\&. If you would like to set the MTLDevice, your NSCoder should conform to the <MPSDeviceProvider> protocol\&.
 .PP
-You may find it helpful to set MPSKernelOptionsVerbose on the graph when debugging\&. 
+You may find it helpful to set MPSKernelOptionsVerbose on the graph when debugging\&. To turn this on during \fBMPSKernel\fP initialization (including \fBMPSNNGraph\fP initialization) set the MPS_LOG_INFO environment variable\&. There is a lot of information about what optimizations are done to your graph, including some information on why certain optimizations were not made\&. 
 .SH "Method Documentation"
 .PP 
 .SS "\- (\fBMPSImageBatch\fP * __nullable) encodeBatchToCommandBuffer: (nonnull id< MTLCommandBuffer >) commandBuffer(NSArray< \fBMPSImageBatch\fP * > *__nonnull) sourceImages(NSArray< \fBMPSStateBatch\fP * > *__nullable) sourceStates"
@@ -242,6 +245,12 @@ Initialize a \fBMPSNNGraph\fP object on a device starting with resultImage worki
 .RE
 .PP
 
+.SS "\- (void) reloadFromDataSources "
+Reinitialize all graph nodes from data sources  \fBA\fP number of the nodes that make up a graph have a data source associated with them, for example a \fBMPSCNNConvolutionDataSource\fP or a \fBMPSCNNBatchNormalizationDataSource\fP\&. Generally, the data is read from these once at graph initialization time and then not looked at again, except during the weight / parameter update phase of the corresponding gradient nodes and then only if CPU updates are requested\&. Otherwise, update occurs on the GPU, and the data in the data source is thereafter ignored\&.
+.PP
+It can happen, though, that your application has determined the graph should load a new set of weights from the data source\&. When this method is called, the graph will find all nodes that support reloading and direct them to reinitialize themselves based on their data source\&.
+.PP
+This process occurs immediately\&. Your application will need to make sure any GPU work being done by the graph is complete to ensure data coherency\&. Most nodes do not have a data source and will not be modified\&. Nodes that are not used by the graph will not be updated\&. 
 .SH "Property Documentation"
 .PP 
 .SS "\- (id<MPSImageAllocator>) destinationImageAllocator\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [retain]\fP"

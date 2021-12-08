@@ -1,4 +1,4 @@
-.TH "MPSNNArithmeticGradientNode" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSNNArithmeticGradientNode" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -16,7 +16,7 @@ Inherited by \fBMPSNNAdditionGradientNode\fP, \fBMPSNNMultiplicationGradientNode
 
 .in +1c
 .ti -1c
-.RI "(nonnull instancetype) \- \fBinitWithSourceGradient:sourceImage:gradientState:\fP"
+.RI "(nonnull instancetype) \- \fBinitWithSourceGradient:sourceImage:gradientState:isSecondarySourceFilter:\fP"
 .br
 .ti -1c
 .RI "(nonnull instancetype) \- \fBinitWithGradientImages:forwardFilter:isSecondarySourceFilter:\fP"
@@ -26,7 +26,7 @@ Inherited by \fBMPSNNAdditionGradientNode\fP, \fBMPSNNMultiplicationGradientNode
 
 .in +1c
 .ti -1c
-.RI "(nonnull instancetype) + \fBnodeWithSourceGradient:sourceImage:gradientState:\fP"
+.RI "(nonnull instancetype) + \fBnodeWithSourceGradient:sourceImage:gradientState:isSecondarySourceFilter:\fP"
 .br
 .in -1c
 .SS "Properties"
@@ -57,12 +57,12 @@ Inherited by \fBMPSNNAdditionGradientNode\fP, \fBMPSNNMultiplicationGradientNode
 .RI "float \fBmaximumValue\fP"
 .br
 .ti -1c
-.RI "bool \fBisSecondarySourceFilter\fP"
+.RI "BOOL \fBisSecondarySourceFilter\fP"
 .br
 .in -1c
 .SH "Method Documentation"
 .PP 
-.SS "\- (nonnull instancetype) initWithGradientImages: (NSArray< \fBMPSNNImageNode\fP * > *__nonnull) gradientImages(\fBMPSNNFilterNode\fP *__nonnull) filter(bool) isSecondarySourceFilter"
+.SS "\- (nonnull instancetype) initWithGradientImages: (NSArray< \fBMPSNNImageNode\fP * > *__nonnull) gradientImages(\fBMPSNNFilterNode\fP *__nonnull) filter(BOOL) isSecondarySourceFilter"
 create a new arithmetic gradient node  See also -[\fBMPSCNNNeuronNode\fP gradientFilterNodesWithSources:] for an easier way to do this\&. 
 .PP
 \fBParameters:\fP
@@ -75,7 +75,7 @@ create a new arithmetic gradient node  See also -[\fBMPSCNNNeuronNode\fP gradien
 .RE
 .PP
 
-.SS "\- (nonnull instancetype) initWithSourceGradient: (\fBMPSNNImageNode\fP *__nonnull) sourceGradient(\fBMPSNNImageNode\fP *__nonnull) sourceImage(\fBMPSNNBinaryGradientStateNode\fP *__nonnull) gradientState"
+.SS "\- (nonnull instancetype) initWithSourceGradient: (\fBMPSNNImageNode\fP *__nonnull) sourceGradient(\fBMPSNNImageNode\fP *__nonnull) sourceImage(\fBMPSNNBinaryGradientStateNode\fP *__nonnull) gradientState(BOOL) isSecondarySourceFilter"
 create a new arithmetic gradient node  See also -[\fBMPSCNNNeuronNode\fP gradientFilterNodesWithSources:] for an easier way to do this\&. 
 .PP
 \fBParameters:\fP
@@ -88,7 +88,7 @@ create a new arithmetic gradient node  See also -[\fBMPSCNNNeuronNode\fP gradien
 .RE
 .PP
 
-.SS "+ (nonnull instancetype) nodeWithSourceGradient: (\fBMPSNNImageNode\fP *__nonnull) sourceGradient(\fBMPSNNImageNode\fP *__nonnull) sourceImage(\fBMPSNNBinaryGradientStateNode\fP *__nonnull) gradientState"
+.SS "+ (nonnull instancetype) nodeWithSourceGradient: (\fBMPSNNImageNode\fP *__nonnull) sourceGradient(\fBMPSNNImageNode\fP *__nonnull) sourceImage(\fBMPSNNBinaryGradientStateNode\fP *__nonnull) gradientState(BOOL) isSecondarySourceFilter"
 create a new arithmetic gradient node  See also -[\fBMPSCNNNeuronNode\fP gradientFilterNodesWithSources:] for an easier way to do this\&. 
 .PP
 \fBParameters:\fP
@@ -105,7 +105,7 @@ create a new arithmetic gradient node  See also -[\fBMPSCNNNeuronNode\fP gradien
 .PP 
 .SS "\- (float) bias\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 
-.SS "\- (bool) isSecondarySourceFilter\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+.SS "\- (BOOL) isSecondarySourceFilter\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 
 .SS "\- (float) maximumValue\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 

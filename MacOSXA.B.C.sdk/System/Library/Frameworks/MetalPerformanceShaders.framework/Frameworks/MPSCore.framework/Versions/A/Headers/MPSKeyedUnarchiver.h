@@ -1,13 +1,13 @@
 //
-//  MPSKeyedArchiver.h
+//  MPSKeyedUnarchiver.h
 //  MPSCore
 //
 //  Created by Ian Ollmann on 1/23/18.
 //  Copyright © 2018 Apple. All rights reserved.
 //
 
-#ifndef MPSKeyedArchiver_h
-#define MPSKeyedArchiver_h
+#ifndef MPSKeyedUnarchiver_h
+#define MPSKeyedUnarchiver_h
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,29 +20,64 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))
 @interface MPSKeyedUnarchiver : NSKeyedUnarchiver <MPSDeviceProvider>
 
 /* Common NSKeyedUnarchiver methods */
++ (nullable id)unarchivedObjectOfClasses:(NSSet<Class> * __nonnull)classes
+                                fromData:(NSData * __nonnull)data
+                                  device: (__nonnull id <MTLDevice>) device
+                                   error:(NSError * __nullable * __nullable)error
+        MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+
++ (nullable id)unarchivedObjectOfClass:(__nonnull Class)cls
+                              fromData:(NSData * __nonnull)data
+                                device: (__nonnull id <MTLDevice>) device
+                                 error:(NSError * __nullable * __nullable)error
+        MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+
+- (nonnull instancetype)initForReadingFromData: (NSData * __nonnull)data
+                                        device: (__nonnull id <MTLDevice>) device
+                                         error: (NSError * __nullable * __nullable)error
+        MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+
+/*! @abstract   Reports which device to use for unarchiving MPSKernels */
+-(__nonnull id <MTLDevice>) mpsMTLDevice;
+
+/* Unavailable API from superclass. */
++ (nullable id)unarchivedObjectOfClasses:(NSSet<Class> * __nonnull)classes
+                                fromData:(NSData * __nonnull)data
+                                   error:(NSError * __nullable * __nullable)error NS_UNAVAILABLE;
++ (nullable id)unarchivedObjectOfClass:(__nonnull Class)cls
+                              fromData:(NSData * __nonnull)data
+                                 error:(NSError * __nullable * __nullable)error NS_UNAVAILABLE;
+- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nonnull instancetype)initForReadingFromData:(NSData * __nonnull)data
+                                         error:(NSError * __nullable * __nullable)error NS_UNAVAILABLE;
+
+
+/* Deprecated API. */
 + (nullable id)unarchiveObjectWithData: (NSData * __nonnull)data NS_UNAVAILABLE;
 + (nullable id)unarchiveObjectWithData: (NSData *__nonnull)data
-                                device: (__nonnull id <MTLDevice>) device;
+                                device: (__nonnull id <MTLDevice>) device
+        MPS_AVAILABLE_STARTING_BUT_DEPRECATED("Please use -unarchivedObjectOfClass:fromData:device:error: instead", macos(10.13.4, 10.14), ios(11.3, 12.0), tvos(11.3,12.0));
 + (nullable id)unarchiveTopLevelObjectWithData:(NSData *__nonnull)data
                                          error:(NSError * __nullable * __nullable)error NS_UNAVAILABLE;
 + (nullable id)unarchiveTopLevelObjectWithData:(NSData *__nonnull)data
                                         device: (__nonnull id <MTLDevice>) device
-                                         error:(NSError * __nullable * __nullable)error;
+                                         error:(NSError * __nullable * __nullable)error
+        MPS_AVAILABLE_STARTING_BUT_DEPRECATED("Please use -unarchivedObjectOfClass:fromData:device:error: instead", macos(10.13.4, 10.14), ios(11.3, 12.0), tvos(11.3,12.0));
 
 + (nullable id)unarchiveObjectWithFile:(NSString * __nonnull)path NS_UNAVAILABLE;
-+ (nullable id)unarchiveObjectWithFile:(NSString * __nonnull)path
-                                device: (__nonnull id <MTLDevice>) device;
-
-- (nullable instancetype)init NS_UNAVAILABLE;
-- (nullable instancetype)initWithDevice: (__nonnull id <MTLDevice>) device;
-
 - (nonnull instancetype)initForReadingWithData:(NSData * __nonnull)data NS_UNAVAILABLE;
+
++ (nullable id)unarchiveObjectWithFile:(NSString * __nonnull)path
+                                device: (__nonnull id <MTLDevice>) device
+        MPS_AVAILABLE_STARTING_BUT_DEPRECATED("Please use -initForReadingFromData:device:error: instead", macos(10.13.4, 10.14), ios(11.3, 12.0), tvos(11.3,12.0));
+
+- (nullable instancetype)initWithDevice: (__nonnull id <MTLDevice>) device
+        MPS_AVAILABLE_STARTING_BUT_DEPRECATED("Please use -initForReadingFromData:device:error: instead", macos(10.13.4, 10.14), ios(11.3, 12.0), tvos(11.3,12.0));
+
 - (nonnull instancetype)initForReadingWithData:(NSData * __nonnull)data
-                                        device: (__nonnull id <MTLDevice>) device;
+                                        device: (__nonnull id <MTLDevice>) device
+        MPS_AVAILABLE_STARTING_BUT_DEPRECATED("Please use -initForReadingFromData:device:error: instead", macos(10.13.4, 10.14), ios(11.3, 12.0), tvos(11.3,12.0));
 
-
-/*! @abstract   Reports which device to use for unarchiving MPSKernels */
--(__nonnull id <MTLDevice>) mpsMTLDevice;
 @end
     
     

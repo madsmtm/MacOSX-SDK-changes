@@ -159,6 +159,137 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
 
 @end // MPSMatrixLogSoftMax
 
+/*!
+ *  @class      MPSMatrixSoftMaxGradient
+ *
+ *  @dependency This depends on Metal.framework.
+ *
+ *  @abstract   Computes the gradient corresponding to a forward MPSMatrixSoftMax object.
+ *
+ *  @discussion A MPSMatrixSoftMaxGradient object computes:
+ *
+ *                  dL_dX_ij = Y_ij * (dL_dY_ij - sum_k(dL_dY_ik * Y_ik)
+ *
+ *              Where dL_dX is the resulting gradient of the loss function with respect to
+ *              the original input to the forward MPSMatrixSoftMax operation, Y is
+ *              the output of the forward MPSMatrixSoftMax operation, and dL_dY is the
+ *              gradient of the loss function with respect to Y.
+ *
+ */
+MPS_CLASS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0))
+@interface MPSMatrixSoftMaxGradient : MPSMatrixBinaryKernel
 
+/*! @property   sourceRows
+ *
+ *  @discussion The number of rows to consider from the sources in the operation.
+ *              This property is modifiable and defaults to NSUIntegerMax and the number is
+ *              adjusted dynamically at kernel encode time (see encodeToCommandBuffer) to
+ *              fit into the source matrices available starting from
+ *              [primary/secondary]SourceMatrixOrigin.x, indicating that by default the
+ *              whole source matrix is used. If a different size is desired then this should
+ *              be modified prior to encoding the kernel. It is the user's responsibility to
+ *              ensure that the resultMatrix parameter in encodeToCommandBuffer is large enough
+ *              to accommodate the results of this operation, otherwise the results of
+ *              the encode call are undefined.
+ *              NOTE: primarySourceMatrixOrigin, secondarySourceMatrixOrigin and resultMatrixOrigin
+ *              from MPSMatrixBinaryKernel can be used to control the starting points in the primary
+ *              source, secondary source, and result matrices respectively.
+ */
+@property (readwrite, nonatomic) NSUInteger sourceRows;
+
+/*! @property   sourceColumns
+ *
+ *  @discussion The number of columns to consider from the sources in the operation.
+ *              This property is modifiable and defaults to NSUIntegerMax and the number is
+ *              adjusted dynamically at kernel encode time (see encodeToCommandBuffer) to
+ *              fit into the source matrices available starting from [primary/secondary]SourceMatrixOrigin.y,
+ *              indicating that by default the whole source matrix is used.
+ *              If a different size is desired then this should be modified prior to
+ *              encoding the kernel. It is the user's responsibility to ensure that the
+ *              resultMatrix parameter in encodeToCommandBuffer is large enough
+ *              to accommodate the results of this operation, otherwise the results of
+ *              the encode call are undefined.
+ *              NOTE: primarySourceMatrixOrigin, secondarySourceMatrixOrigin and resultMatrixOrigin
+ *              from MPSMatrixBinaryKernel can be used to control the starting points in the primary
+ *              source, secondary source, and result matrices respectively.
+ */
+@property (readwrite, nonatomic) NSUInteger sourceColumns;
+
+
+/*!
+ *  @abstract   Initialize an MPSMatrixSoftMaxGradient object on a device.
+ *
+ *  @param      device          The device on which the kernel will execute.
+ *
+ *  @return     A valid MPSMatrixSoftMaxGradient object or nil, if failure.
+ */
+-(nonnull instancetype) initWithDevice: (nonnull id<MTLDevice>) device NS_DESIGNATED_INITIALIZER;
+
+/*!
+ *  @abstract   Encode a MPSMatrixSoftMaxGradient object to a command buffer.
+ *
+ *  @param      commandBuffer       A valid MTLCommandBuffer to receive the encoded kernel.
+ *
+ *  @param      gradientMatrix      A MPSMatrix object containing gradient values with respect
+ *                                  to the forward operation's output.  dL_dY in the class
+ *                                  description.
+ *
+ *  @param      forwardOutputMatrix A MPSMatrix object containing the output values from the
+ *                                  forward operation.  Y in the class description.
+ *
+ *  @param      resultMatrix        The MPSMatrix object to hold the resulting gradient values
+ *                                  with respect to the forward operation's input.  dL_dX in the
+ *                                  class description.
+ */
+-(void) encodeToCommandBuffer: (nonnull id <MTLCommandBuffer>) commandBuffer
+               gradientMatrix: (MPSMatrix * __nonnull) gradientMatrix
+          forwardOutputMatrix: (MPSMatrix * __nonnull) forwardOutputMatrix
+                 resultMatrix: (MPSMatrix * __nonnull) resultMatrix;
+
+
+/*! @abstract NSSecureCoding compatability
+ *  @discussion See @ref MPSKernel#initWithCoder.
+ *  @param      aDecoder    The NSCoder subclass with your serialized MPSMatrixSoftMaxGradient
+ *  @param      device      The MTLDevice on which to make the MPSMatrixSoftMaxGradient
+ *  @return     A new MPSMatrixSoftMaxGradient object, or nil if failure.
+ */
+-(nullable instancetype) initWithCoder:(NSCoder * __nonnull)aDecoder
+                                device:(nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER;
+
+/*!
+ *  @abstract   Make a copy of this kernel for a new device - @see MPSKernel
+ *  @param      zone        The NSZone in which to allocate the object
+ *  @param      device      The device for the new MPSKernel. If nil, then use
+ *                          self.device.
+ *  @result     a pointer to a copy of this MPSKernel. This will fail, returning
+ *              nil if the device is not supported. Devices must be
+ *              MTLFeatureSet_iOS_GPUFamily2_v1 or later.
+ */
+
+- (nonnull instancetype) copyWithZone:(nullable NSZone *)zone
+                               device:(nullable id <MTLDevice>) device;
+
+@end // MPSMatrixSoftMaxGradient
+
+/*!
+ *  @class      MPSMatrixLogSoftMaxGradient
+ *
+ *  @dependency This depends on Metal.framework.
+ *
+ *  @abstract   Computes the gradient corresponding to a forward MPSMatrixLogSoftMax object.
+ *
+ *  @discussion A MPSMatrixLogSoftMaxGradient object computes:
+ *
+ *                  dL_dX_ij = dL_dY_ij - exp(Y_ij * sum_k(dL_dY_ik))
+ *
+ *              Where dL_dX is the resulting gradient of the loss function with respect to
+ *              the original input to the forward MPSMatrixLogSoftMax operation, Y is
+ *              the output of the forward MPSMatrixLogSoftMax operation, and dL_dY is the
+ *              gradient of the loss function with respect to Y.
+ */
+MPS_CLASS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0))
+@interface MPSMatrixLogSoftMaxGradient : MPSMatrixSoftMaxGradient
+
+@end // MPSMatrixLogSoftMaxGradient
 
 #endif /* MPSMatrixSoftmax_h */

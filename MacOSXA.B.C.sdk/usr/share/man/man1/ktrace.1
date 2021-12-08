@@ -66,6 +66,15 @@
 .Op Fl f Ar filter-desc
 .Op Fl F Ar filter-desc
 .Op Fl p Ar pid-or-process-name
+.Oo Fl Fl kperf Ns = Ns Ar sampler-name Ns
+.Ns Op , Ns Ar sampler-name Ns
+.Ns @ Ns
+.Ar timer-period Ns | Ns
+.Ns Ar timer-frequency Ns | Ns
+.Ns Ar kdebug-filter-desc
+.Oc
+.Op Fl Fl remote Ns Op Ns = Ns Ar remote-device
+.Op Fl Fl type Ns = Ns Ar full Ns | Ns Ar profile Ns | Ns Ar lite Ns | Ns Ar morelite
 .Op Fl c Ar command Op ...
 .\"
 .El
@@ -85,7 +94,7 @@ be used in multiple subcommands.
 Print information about the current configuration of kernel trace.
 .Pp
 .\" TRACE
-.It Cm trace Oo Fl NnrsStu Oc Oo Fl R Ar path | Fl E Oc Oo Fl T Ar timeout Oc Oo Fl C Ar codes-path Op Ar ... Oc Oo Fl b Ar buffer-size-mb Oc Oo Fl f Ar filter-desc Oc Oo Fl x Ar pid-or-process-name Oo Ar ... Oc | Fl p Ar pid-or-process-name Oo Ar ... Oc Oc Oo Fl c Ar command Oo ... Oc Oc
+.It Cm trace Oo Fl ANnrsStu Oc Oo Fl R Ar path | Fl E Oc Oo Fl T Ar timeout Oc Oo Fl C Ar codes-path Op Ar ... Oc Oo Fl b Ar buffer-size-mb Oc Oo Fl f Ar filter-desc Oc Oo Fl x Ar pid-or-process-name Oo Ar ... Oc | Fl p Ar pid-or-process-name Oo Ar ... Oc Oc Oo Fl c Ar command Oo ... Oc Oc
 .Pp
 Print events to
 .Xr stdout 4
@@ -129,6 +138,8 @@ Attempt to symbolicate addresses found in arguments to symbols.
 .It Fl t
 Print times as Mach absolute timestamps, instead of the default local wall clock
 time.
+.It Fl A
+Print times as seconds since the start of trace.
 .It Fl u
 Attempt to symbolicate addressess to uuid-offset tuples.
 .It Fl C Ar codes-path
@@ -286,18 +297,18 @@ Emit an event into the trace stream with the provided
 .Ar debugid
 and arguments.
 .\" SYMBOLICATE
-.It Nm Cm symbolicate Ar path
+.It Cm symbolicate Ar path
 Symbolicate the trace file located at
 .Ar path .
 .\" COMPRESS
-.It Nm Cm compress Oo Fl l No fast|balanced|small Oc Ar path
-Compress the tsrace file located at
+.It Cm compress Oo Fl l No fast|balanced|small Oc Ar path
+Compress the trace file located at
 .Ar path
 using the small compression level, unless otherwise specified with the
 .Fl l
 option.
 .\" ARTRACE
-.It Nm Cm artrace Oo Fl nr Oc Oo Fl t Ar timeout Oc Oo Fl i Ar interval Oc Oo Fl o Ar filename Oc Oo Fl b Ar buffer-size-mb Oc Oo Fl f Ar filter-desc Oc Oo Fl F Ar filter-desc Oc Oo Fl p Ar pid-or-process-name Oc Oo Fl c Ar command Oo ... Oc Oc
+.It Cm artrace Oo Fl nr Oc Oo Fl t Ar timeout Oc Oo Fl i Ar interval Oc Oo Fl o Ar filename Oc Oo Fl b Ar buffer-size-mb Oc Oo Fl f Ar filter-desc Oc Oo Fl F Ar filter-desc Oc Oo Fl p Ar pid-or-process-name Oc Oo Fl Fl remote Ns Oo = Ns Ar device-name Oc Oc Oo Fl Fl type Ns = Ns Ar full Ns | Ns Ar profile Ns | Ns Ar lite Ns | Ns Ar morelite Oc Oo Fl Fl kperf Ns = Ns Ar sampler-name Ns , Ns Ar sampler-name Ns @ Ns Ar timer-period Ns | Ns Ar timer-frequency Ns | Ns Ar kdebug-filter-desc Oc Oo Fl d Ar group Oc Oo Fl e Ar group Oc Oo Fl c Ar command Oo ... Oc Oc
 Profile the system, writing trace events to an automatically named file.  By
 default, this measures scheduler, VM, and system call usage, and samples
 threads on-core periodically.
@@ -310,8 +321,8 @@ Trace the classes and subclasses specified by the filter description.  See
 .Sx FILTER DESCRIPTIONS
 for details on the syntax of a filter.
 .It Fl F Ar filter-desc
-Exclude events from the default set.  Use this options with care, since analysis tools may rely on certain
-events being present.
+Exclude events from the default set.  Use this options with care, since
+analysis tools may rely on certain events being present.
 .It Fl t Ar timeout
 Stop tracing and exit after
 .Ar timeout
@@ -339,11 +350,54 @@ Only record events that occur for the process identified by
 .Ar pid
 or
 .Ar process-name .
+.It Fl d Ar group
+Disable the group named
+.Ar group .
+See
+.Sx GROUPS
+for a list of groups.
+.It Fl e Ar group
+Enable the group named
+.Ar group .
+See
+.Sx GROUPS
+for a list of groups.
+.It Fl Fl remote Ns Op Ns = Ns Ar device-name
+Also trace on the provided
+.Ar device-name
+or the local bridge if not specified.
+.It Fl Fl type Ns = Ns Ar full Ns | Ns Ar profile Ns | Ns Ar lite Ns | Ns Ar morelite
+Trace using the specified type.
+.Ar full
+is the default, while
+.Ar profile
+just enables the profiling timer, but does not closely track scheduling events.
+The
+.Ar lite
+and
+.Ar morelite
+trace types are meant for long-running, low overhead analysis and prioritize
+analyzing threads that are blocked for relatively long periods of time, at the
+cost of an unbiased sample towards threads that cause a CPU to come out of idle.
+.Pp
+The
+.Ql lite
+modes work by lazily sampling threads as they are unblocked, and only those
+threads that block for more than a set threshold.  Further, the typical
+profiling timer is disabled, in lieu of sampling the CPUs opportunistically, on
+other interrupts.  The
+.Ar morelite
+mode has a more restrictive typefilter than
+.Ar lite .
 .It Fl c Ar command Op ...
 Run the command specified by
 .Ar command
 and stop tracing when it exits.  All arguments after this option are passed to
 the command.
+.It Fl Fl kperf Ns = Ns Ar sampler-name Ns Oo , Ns Ar sampler-name Oc Ns @ Ns Ar timer-period Ns | Ns Ar timer-frequency Ns | Ns Ar kdebug-filter-desc
+Sample using kperf according to the given sampling description.  For the
+syntax of sampling descriptions, see
+.Sx SAMPLING DESCRIPTIONS .
 .El
 .Sh FILTER DESCRIPTIONS
 A filter description is a comma-separated list of class and subclass specifiers
@@ -361,6 +415,46 @@ subclasses 33 and 35 of class 5:
 The
 .Ql ALL
 filter description enables events from all classes.
+.Sh SAMPLING DESCRIPTIONS
+A sampling description is similar to a filter description, but it configures
+sampling.  It's composed of two parts: a samplers section and a trigger
+section, separated by
+.Li @ .
+The overall form is
+.Ar sampler-name Ns
+.Ns Op , Ns Ar sampler-name Ns
+.Ns @ Ns
+.Ar timer-period Ns | Ns
+.Ns Ar timer-frequency Ns | Ns
+.Ns Ar kdebug-filter-desc .
+The valid names of samplers are
+.Ql ustack ,
+.Ql kstack ,
+.Ql thinfo ,
+.Ql thsnapshot ,
+.Ql meminfo ,
+.Ql thsched ,
+.Ql thdispatch ,
+.Ql tksnapshot ,
+.Ql sysmem ,
+and
+.Ql thinstrscycles .
+.Pp
+For example, to sample user stacks every 10 milliseconds, use
+.Ql ustack@10ms .
+To sample thread scheduling information and system memory every time the
+.Ql 0xfeedfac0
+event is emitted, use
+.Ql thsched,sysmem@D0xfeedfac0 .
+.Sh GROUPS
+.Bl -tag -width indent
+.It syscall-sampling
+Sample backtraces on system calls.
+.It fault-sampling
+Sample backtraces on page faults.
+.It graphics
+Include graphics events.
+.El
 .Sh CAVEATS
 Once trace has been initialized with the
 .Cm init

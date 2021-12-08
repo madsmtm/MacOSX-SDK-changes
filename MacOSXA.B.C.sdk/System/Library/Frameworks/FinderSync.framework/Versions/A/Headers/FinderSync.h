@@ -1,7 +1,7 @@
 /*
     FinderSync.h
 
-    Copyright (c) 2014-2017, Apple Inc.
+    Copyright (c) 2014-2018, Apple Inc.
     All rights reserved.
 */
 
@@ -40,6 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable NSData *)tagDataForItemWithURL:(NSURL *)itemURL;
 - (void)setTagData:(nullable NSData *)tagData forItemWithURL:(NSURL *)itemURL completion:(void(^)(NSError *error))completion;
+
+
+/* The application hosting a Finder Sync Extension can determine whether the user has enabled the extension, and can show the UI for managing extensions. When the application becomes active again, it can check whether the user has enabled the extension.
+ */
+@property (class, readonly, getter=isExtensionEnabled) BOOL extensionEnabled API_AVAILABLE(macos(10.14));
++ (void)showExtensionManagementInterface API_AVAILABLE(macos(10.14));
 
 @end
 

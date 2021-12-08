@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: E1370E06-6A4A-3BF4-A30B-D17866F504D9' ]
+uuids:           [ 'x86_64: 80C74449-BFF3-3D09-96D6-EB698FE722C0' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ContactsAutocomplete.framework/Versions/A/ContactsAutocomplete
 exports:         
@@ -22,7 +22,7 @@ exports:
                        _CNAutocompleteProbeIgnoreResultsThreshold, _CNAutocompleteProbeKeyCommonPrefix, 
                        _CNAutocompleteProbeKeyIncludingServers, _CNAutocompleteProbeKeyPerformanceKey, 
                        _CNAutocompleteProbeKeyPerformanceLatency, _CNAutocompleteProbeKeyPerformanceNumberOfResultsKey, 
-                       _CNAutocompleteProbeKeyUsageMonitorConsideredSuggestionCount, 
+                       _CNAutocompleteProbeKeyServerCacheMisses, _CNAutocompleteProbeKeyUsageMonitorConsideredSuggestionCount, 
                        _CNAutocompleteProbeKeyUsageMonitorDuetReturnedResults, _CNAutocompleteProbeKeyUsageMonitorKey, 
                        _CNAutocompleteProbeKeyUsageMonitorNoResultSelectedIndexKey, 
                        _CNAutocompleteProbeKeyUsageMonitorNoResultsFromDuet, _CNAutocompleteProbeKeyUsageMonitorNumberOfCharactersKey, 
@@ -49,11 +49,12 @@ exports:
                        _sSortRecentResultsByDate, _sSortRecentResultsByDateCount, 
                        _sSortRecentResultsBySendingAddressMatch, _sSortResultsByAddress, 
                        _sSortResultsByCategory, _sSortResultsByDisplayName, _sSortResultsByPreferredDomain ]
-    objc-classes:    [ CNAutocompleteCalendarServerResult, CNAutocompleteDelegateWrapper, 
-                       CNAutocompleteDirectoryServerResult, CNAutocompleteDirectoryServerSearch, 
-                       CNAutocompleteDuetContactResult, CNAutocompleteDuetSearch, 
-                       CNAutocompleteEntitlementVerifier, CNAutocompleteFetchBlockDelegate, 
-                       CNAutocompleteFetchContext, CNAutocompleteFetchRequest, CNAutocompleteFetchRequestTracing, 
+    objc-classes:    [ CNAutocompleteCalendarQueryAssembler, CNAutocompleteCalendarServerResult, 
+                       CNAutocompleteDelegateWrapper, CNAutocompleteDirectoryServerResult, 
+                       CNAutocompleteDirectoryServerSearch, CNAutocompleteDuetContactResult, 
+                       CNAutocompleteDuetSearch, CNAutocompleteEntitlementVerifier, 
+                       CNAutocompleteFetchBlockDelegate, CNAutocompleteFetchContext, 
+                       CNAutocompleteFetchRequest, CNAutocompleteFetchRequestTracing, 
                        CNAutocompleteFrequentRecentResult, CNAutocompleteGroupResult, 
                        CNAutocompleteInfrequentRecentResult, CNAutocompleteInputStringTokenizer, 
                        CNAutocompleteLocalContactResultTransformBuilder, CNAutocompleteLocalContactsFetcher, 
@@ -62,14 +63,16 @@ exports:
                        CNAutocompleteNetworkActivityThrottlingPolicy, CNAutocompleteObservable, 
                        CNAutocompleteObservableBuilder, CNAutocompleteObservableBuilderBatchingHelperFactory, 
                        CNAutocompletePerformanceTracing, CNAutocompleteProbeKeyBuilder, 
-                       CNAutocompleteProbeProviderFactory, CNAutocompleteQuery, CNAutocompleteQueryResponsePreparer, 
-                       CNAutocompleteQueryResponseUniqueResultFinder, CNAutocompleteRecentContactsLibrary, 
-                       CNAutocompleteRecentContactsTransform, CNAutocompleteRecentResult, 
-                       CNAutocompleteRecentsSearch, CNAutocompleteResult, CNAutocompleteResultFactory, 
-                       CNAutocompleteResultTokenMatcher, CNAutocompleteResultTracing, 
-                       CNAutocompleteResultValue, CNAutocompleteSearchObservableProvider, 
+                       CNAutocompleteProbeProviderFactory, CNAutocompleteQuery, CNAutocompleteQueryCacheHelper, 
+                       CNAutocompleteQueryCacheMissAuditor, CNAutocompleteQueryCacheMissLogger, 
+                       CNAutocompleteQueryResponsePreparer, CNAutocompleteQueryResponseUniqueResultFinder, 
+                       CNAutocompleteRecentContactsLibrary, CNAutocompleteRecentContactsTransform, 
+                       CNAutocompleteRecentResult, CNAutocompleteRecentsSearch, CNAutocompleteResult, 
+                       CNAutocompleteResultFactory, CNAutocompleteResultTokenMatcher, 
+                       CNAutocompleteResultTracing, CNAutocompleteResultValue, CNAutocompleteSearchObservableProvider, 
                        CNAutocompleteSearchProviderFactory, CNAutocompleteSourceInclusionPolicy, 
-                       CNAutocompleteStore, CNAutocompleteStoreQueryHelper, CNAutocompleteSuggestedContactResult, 
+                       CNAutocompleteStore, CNAutocompleteStoreQueryContext, CNAutocompleteStoreQueryHelper, 
+                       CNAutocompleteStoreReproStringRecorder, CNAutocompleteSuggestedContactResult, 
                        CNAutocompleteSuggestionsProbe, CNAutocompleteSuggestionsSearch, 
                        CNAutocompleteTokenMatcher, CNAutocompleteUsageMonitor, CNAutocompleteUsageMonitorTracing, 
                        CNAutocompleteUserSession, _CNAutocompleteAggregateSourceInclusionPolicy, 
@@ -77,10 +80,11 @@ exports:
                        _CNAutocompleteEntitlementSourceInclusionPolicy, _CNAutocompleteFetchDelegateSafeWrapper, 
                        _CNAutocompleteMessageTracingProbeProvider, _CNAutocompleteMutableSourceInclusionPolicy, 
                        _CNAutocompleteNonCachingSearchProvider, _CNAutocompleteObservableBuilderBatchingHelper, 
-                       _CNAutocompleteResponsePreparerDecorator, _CNAutocompleteStandardObservableBuilderBatchingHelper, 
-                       _CNAutocompleteUserDefaultsSourceInclusionPolicy, _CNAutocompleteUserSessionDisplayedResults, 
-                       _CNDelegateAdjustingResponsePreparer, _CNDiagnosticResponsePreparer, 
-                       _CNFilteringResponsePreparer, _CNSortingResponsePreparer ]
+                       _CNAutocompleteQueryCacheMissOSLogging, _CNAutocompleteResponsePreparerDecorator, 
+                       _CNAutocompleteStandardObservableBuilderBatchingHelper, _CNAutocompleteUserDefaultsSourceInclusionPolicy, 
+                       _CNAutocompleteUserSessionDisplayedResults, _CNDelegateAdjustingResponsePreparer, 
+                       _CNDiagnosticResponsePreparer, _CNFilteringResponsePreparer, 
+                       _CNSortingResponsePreparer ]
     objc-ivars:      [ CNAutocompleteInfrequentRecentResult._dateCount, CNAutocompleteLocalQuery._contactFetcherStore, 
                        CNAutocompleteLocalQuery._contactStore, CNAutocompleteLocalQuery._delegate, 
                        CNAutocompleteLocalQuery._request, CNAutocompleteNameComponents._firstName, 

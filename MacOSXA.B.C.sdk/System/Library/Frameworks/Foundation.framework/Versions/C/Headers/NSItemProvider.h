@@ -1,5 +1,5 @@
 /*	NSItemProvider.h
-        Copyright (c) 2013-2017, Apple Inc. All rights reserved.
+        Copyright (c) 2013-2018, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSArray.h>
@@ -129,7 +129,7 @@ NS_CLASS_AVAILABLE(10_10, 8_0)
 #pragma mark Metadata
 
 
-@property (atomic, copy, nullable) NSString *suggestedName API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(macos, watchos, tvos);
+@property (atomic, copy, nullable) NSString *suggestedName API_AVAILABLE(macos(10.14), ios(11.0)) API_UNAVAILABLE(watchos, tvos);
 
 
 #pragma mark - NSItemProviderReading and Writing interface

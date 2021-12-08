@@ -1,15 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 66DAA778-44A6-3597-A776-2ED4B7BC8769', 'x86_64: EABDA8CE-B796-32DA-948F-F099537953BD' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 5BB09CDE-3C60-303A-BAE9-96B7859891A0' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/JavaVM.framework/Versions/A/Frameworks/JavaNativeFoundation.framework/Versions/A/JavaNativeFoundation
 exports:         
   - archs:           [ x86_64 ]
-    objc-eh-types:   [ JNFException ]
-    objc-ivars:      [ JNFInternalJavaClassToCoersionHolder.coercion, JNFJObjectWrapper.jobj, 
-                       JNFTypeCoercer.javaClassNameToCoercion, JNFTypeCoercer.javaClassToCoercion, 
-                       JNFTypeCoercer.nsClassToCoercion, JNFTypeCoercer.parent ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _JNFAssertionFailure, _JNFAssertionFailureBreak, _JNFCFToJavaBoolean, 
                        _JNFCallBooleanMethod, _JNFCallByteMethod, _JNFCallCharMethod, 
                        _JNFCallDoubleMethod, _JNFCallFloatMethod, _JNFCallIntMethod, 
@@ -50,4 +45,8 @@ exports:
                        JNFJObjectWrapper, JNFListCoercion, JNFMapCoercion, JNFNumberCoercion, 
                        JNFRunLoop, JNFRunnable, JNFRunnableWrapper, JNFSetCoercion, 
                        JNFStringCoercion, JNFTypeCoercer, JNFWeakJObjectWrapper ]
+    objc-eh-types:   [ JNFException ]
+    objc-ivars:      [ JNFInternalJavaClassToCoersionHolder.coercion, JNFJObjectWrapper.jobj, 
+                       JNFTypeCoercer.javaClassNameToCoercion, JNFTypeCoercer.javaClassToCoercion, 
+                       JNFTypeCoercer.nsClassToCoercion, JNFTypeCoercer.parent ]
 ...

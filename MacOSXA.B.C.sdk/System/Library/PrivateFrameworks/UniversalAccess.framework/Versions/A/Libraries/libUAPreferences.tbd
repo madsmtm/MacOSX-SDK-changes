@@ -1,11 +1,12 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 794F71E8-09C8-3EA4-8CC3-559EA79E3733' ]
+uuids:           [ 'x86_64: 12C52723-04E6-313C-B188-EF0BF8087964' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/UniversalAccess.framework/Versions/A/Libraries/libUAPreferences.dylib
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _UAAXShortcutExposedFeatures, _UAAssistiveControlTypeKey, 
+    symbols:         [ _UAAXShortcutExposedFeatures, _UAAssistiveControlAutomaticShiftEnabledKey, 
+                       _UAAssistiveControlAutomaticSpaceEnabledKey, _UAAssistiveControlTypeKey, 
                        _UAContrastDidChangeNotification, _UAContrastKey, _UACursorScaleKey, 
                        _UADFRZoomEnabledKey, _UADFRZoomLevelKey, _UADomainAssistiveControlSettingsDidChangeNotification, 
                        _UADomainCloseViewSettingsDidChangeNotification, _UADomainExposedFeaturesDidChangeNotification, 
@@ -33,9 +34,9 @@ exports:
                        _UAPreferencesSendNotification, _UAPreferencesSetArray, _UAPreferencesSetBoolean, 
                        _UAPreferencesSetDictionary, _UAPreferencesSetInteger, _UAPreferencesSetString, 
                        _UAPreferencesSetUAFloat, _UAPreferencesSetValue, _UAPreferencesSynchronize, 
-                       _UAScrollZoomEnabledKey, _UAScrollZoomModifiersKey, _UAScrollZoomPreviouslyEnabledKey, 
-                       _UASelectedTabKey, _UASlowKeysDelayIntervalKey, _UASlowKeysEnabledKey, 
-                       _UASlowKeysPlaySoundForKeyKey, _UASpeakItemUnderMouseAfterDelayModeKey, 
+                       _UAPreferencesValidateKeyType, _UAScrollZoomEnabledKey, _UAScrollZoomModifiersKey, 
+                       _UAScrollZoomPreviouslyEnabledKey, _UASelectedTabKey, _UASlowKeysDelayIntervalKey, 
+                       _UASlowKeysEnabledKey, _UASlowKeysPlaySoundForKeyKey, _UASpeakItemUnderMouseAfterDelayModeKey, 
                        _UASpeakItemUnderMouseAfterDelayTimeKey, _UAStickyKeysDisplayModifiersKey, 
                        _UAStickyKeysEnableWithShiftKeyKey, _UAStickyKeysEnabledKey, 
                        _UAStickyKeysLocationKey, _UAStickyKeysPlaySoundForModifierKey, 

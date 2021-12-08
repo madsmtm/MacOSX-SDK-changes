@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9F6CD2DB-230B-3E78-A341-4EDDAE8FD61A' ]
+uuids:           [ 'x86_64: 5006A9D9-2682-3C2A-A2B5-ECE32D8B84A1' ]
 platform:        macosx
 install-name:    /usr/lib/libodmodule.dylib
 exports:         
@@ -35,8 +35,7 @@ exports:
                        _ODReqDataKeyQueryMaxRecords, _ODReqDataKeyQueryPageSize, 
                        _ODReqDataKeyQueryPredicates, _ODReqDataKeyQueryReturnAttributes, 
                        _ODReqDataKeyRecordName, _ODReqDataKeyRecordType, _ODReqDataKeyValue, 
-                       __NYI, ___odmoduleVersionNumber, ___odmoduleVersionString, 
-                       __create_subnode, __od_object_alloc, __od_object_dispose, 
+                       __NYI, __create_subnode, __od_object_alloc, __od_object_dispose, 
                        __od_object_xref_dispose, __send_message, __update_config_cftype, 
                        __update_config_cftype2, __update_config_int64, _cftype_to_xpctype, 
                        _find_moduleconfig, _kODAttributeTypeAccessControlEntry, _kODAttributeTypeAddressLine1, 

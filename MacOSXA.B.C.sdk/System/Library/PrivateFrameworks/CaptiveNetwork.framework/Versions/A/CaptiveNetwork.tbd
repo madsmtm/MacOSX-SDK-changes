@@ -1,10 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 8CF35AF7-5779-3336-A0D4-79F10DF0D7F1', 'x86_64: E015B0AD-C1EB-3A87-AD19-F589AD937D3F' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 4BEB2735-A559-3C2B-AAC2-5813478EBD65' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CaptiveNetwork.framework/Versions/A/CaptiveNetwork
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _CNAccountsAdd, _CNAccountsCopy, _CNAccountsResolve, _CNAccountsUse, 
                        _CNDebugLaunchWebsheet, _CNDumpState, _CNForgetSSID, _CNIAmTheWebsheetApp2, 
                        _CNLogoff, _CNNetworkCopyPluginNames, _CNNetworkGetBSSID, 
@@ -22,16 +22,17 @@ exports:
                        _CNPluginResponseSetNetwork, _CNPluginResponseSetNetworkList, 
                        _CNProberCreate, _CNProberCreateRunLoopSource, _CNProberGetTypeID, 
                        _CNSClientCNSClient_subsystem, _CNScanListFilterStart, _CNScanListFilterStop, 
-                       _CNScrapeCredentials, _CNWebsheetNotifyComplete, _CaptiveCopyWiFiLandingPageURL, 
-                       _CaptiveNetworkVersionNumber, _CaptiveNetworkVersionString, 
-                       _S_captive_os_log_categories, _ServerConnectionCreate, _ServerConnectionGetHandlerQueue, 
+                       _CNScrapeCredentials, _CNWebsheetNotifyComplete, _CNWebsheetNotifyCompleteWithOptions, 
+                       _CaptiveCopyWiFiLandingPageURL, _CaptiveNetworkVersionNumber, 
+                       _CaptiveNetworkVersionString, _ServerConnectionCreate, _ServerConnectionGetHandlerQueue, 
                        _ServerConnectionProvideResponse, _ServerConnectionRelease, 
                        _ServerConnectionResume, ___CNCopyCurrentNetworkInfo, ___CNCopySupportedInterfaces, 
                        ___CNMarkPortalOffline, ___CNMarkPortalOnline, ___CNSetSupportedSSIDs, 
                        _kCNPluginOptionDisplayName, _kCNSCaptiveBypassProperty, _kCNSCaptiveNetworkProperty, 
-                       _kCNSDisabledByCaptiveProperty, _kCNSNetworkWasCaptiveProperty, 
-                       _kCNSWebsheetInfoPropertyInterfaceName, _kCNSWebsheetInfoPropertySSID, 
-                       _kCNSWebsheetInfoPropertyURL, _kCNStateAuthReply, _kCNStateBusy, 
-                       _kCNStateDisabled, _kCNStateKey, _kCNStateRedirect, _kCNStateStage, 
-                       _kCNStateURL, _kCNStateWaitingOnUI ]
+                       _kCNSDisabledByCaptiveProperty, _kCNSIsWhitelistedCaptiveNetworkProperty, 
+                       _kCNSNetworkWasCaptiveProperty, _kCNSWebsheetInfoPropertyInterfaceName, 
+                       _kCNSWebsheetInfoPropertySSID, _kCNSWebsheetInfoPropertyURL, 
+                       _kCNSWhitelistedCaptiveNetworkProbeDateProperty, _kCNStateAuthReply, 
+                       _kCNStateBusy, _kCNStateDisabled, _kCNStateKey, _kCNStateRedirect, 
+                       _kCNStateStage, _kCNStateURL, _kCNStateWaitingOnUI, _kCNWebSheetOptionsRedirectURLType ]
 ...

@@ -7,8 +7,8 @@
 
 #import <GameKit/GKBasePlayer.h>
 NS_ASSUME_NONNULL_BEGIN
-NS_CLASS_AVAILABLE(10_12, 10_0) __WATCHOS_PROHIBITED
 
+API_DEPRECATED("GKGameSession is deprecated. Use GKPlayer for both real-time and turn-based matchmaking APIs.", ios(10.0, 12.0), tvos(10.0, 12.0), macosx(10.12, 10.14)) API_UNAVAILABLE(watchos)
 @interface GKCloudPlayer : GKBasePlayer
 #if !__OBJC2__
 {

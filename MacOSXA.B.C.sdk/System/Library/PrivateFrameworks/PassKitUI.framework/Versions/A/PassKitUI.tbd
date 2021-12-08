@@ -1,24 +1,24 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 73DE9DC3-90B9-3C9D-BD32-0005ADB3D69E' ]
+uuids:           [ 'x86_64: 530D7222-8FFB-3FB2-9439-810FAF37845C' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PassKitUI.framework/Versions/A/PassKitUI
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _PKDeviceHasClamshell, _PKDropPrivacySheet, _PKEaseInOutFunction, 
-                       _PKEaseInOutOverFunction, _PKFlyUpEastFunction, _PKHardEaseOutFunction, 
-                       _PKPaymentCardIneligibleReasonForEligibilityStatus, _PKPaymentCardIneligibleReasonForRequirementsStatus, 
-                       _PKSoftEaseOutFunction, _PKStringByAppendingColon, _PKUIOpenWalletPref, 
-                       _PassKitUIVersionNumber, _PassKitUIVersionString, __CreateBitmapContext, 
-                       __PKPaymentAuthorizationPreferenceViewWidth, __PKPaymentPassThumbnailHeight, 
-                       __PKPaymentPassThumbnailWidth, __PKPreferenceViewCardAndTextMargin, 
-                       __PKPreferenceViewHorizontalMargin, __PKPreferenceViewPrimaryFirstBaselineMargin1, 
-                       __PKPreferenceViewPrimaryFirstBaselineMargin2, __PKPreferenceViewPrimaryLastBaselineMargin1, 
-                       __PKPreferenceViewPrimaryLastBaselineMargin2, __PKPreferenceViewPrimaryLastBaselineMargin3, 
-                       __PKPreferenceViewPrimaryLastBaselineMargin4, __PKPreferenceViewSecondaryFirstBaselineMargin1, 
-                       __PKPreferenceViewSecondaryFirstBaselineMargin2, __PKPreferenceViewSecondaryLastBaselineMargin1, 
-                       __PKPreferenceViewSecondaryLastBaselineMargin2, _isCurrentQueueMain, 
-                       _kPaymentSheetErrorDisplaySeconds, _markMainQueue, _objectFromDictionary ]
+    symbols:         [ _PKDropPrivacySheet, _PKEaseInOutFunction, _PKEaseInOutOverFunction, 
+                       _PKFlyUpEastFunction, _PKHardEaseOutFunction, _PKPaymentCardIneligibleReasonForEligibilityStatus, 
+                       _PKPaymentCardIneligibleReasonForRequirementsStatus, _PKSoftEaseOutFunction, 
+                       _PKStringByAppendingColon, _PKUIOpenWalletPref, _PassKitUIVersionNumber, 
+                       _PassKitUIVersionString, __CreateBitmapContext, __PKPaymentAuthorizationPreferenceViewWidth, 
+                       __PKPaymentPassThumbnailHeight, __PKPaymentPassThumbnailWidth, 
+                       __PKPreferenceViewCardAndTextMargin, __PKPreferenceViewHorizontalMargin, 
+                       __PKPreferenceViewPrimaryFirstBaselineMargin1, __PKPreferenceViewPrimaryFirstBaselineMargin2, 
+                       __PKPreferenceViewPrimaryLastBaselineMargin1, __PKPreferenceViewPrimaryLastBaselineMargin2, 
+                       __PKPreferenceViewPrimaryLastBaselineMargin3, __PKPreferenceViewPrimaryLastBaselineMargin4, 
+                       __PKPreferenceViewSecondaryFirstBaselineMargin1, __PKPreferenceViewSecondaryFirstBaselineMargin2, 
+                       __PKPreferenceViewSecondaryLastBaselineMargin1, __PKPreferenceViewSecondaryLastBaselineMargin2, 
+                       _isCurrentQueueMain, _kPaymentSheetErrorDisplaySeconds, _markMainQueue, 
+                       _objectFromDictionary ]
     objc-classes:    [ OnlyIntegerValueFormatter, PKAddressSearchResults, PKAutocompleteRowCache, 
                        PKAutocompleteTableCellView, PKAutocompleteTableView, PKAutocompleteTextField, 
                        PKAutocompleteViewController, PKAutocompleteWindow, PKBackFieldTableCellView, 
@@ -50,8 +50,8 @@ exports:
                        PKPaymentSetupFieldView, PKPaymentSetupLabelFieldView, PKPaymentSetupTextFieldView, 
                        PKPaymentSetupViewController, PKPaymentShippingAddressPreferenceController, 
                        PKPaymentShippingContactPreferenceController, PKPaymentShippingMethodPreferenceController, 
-                       PKPaymentTermsConditionsViewController, PKPopUpButton, PKPopUpButtonAppearance, 
-                       PKPopUpButtonCell, PKPostalAddressEditorViewController, PKScaleWindowEffect, 
+                       PKPaymentTermsConditionsViewController, PKPopUpButton, PKPopUpButtonCell, 
+                       PKPostalAddressEditorViewController, PKScaleWindowEffect, 
                        PKSecureTextField, PKSecureTextFieldCell, PKSimpleAlertViewController, 
                        PKTCCWebView, PKTransactionsTableCellView, PKUICardRowView, 
                        PKUITabViewItem, PKUIUtilities, PKVibrantTextField ]

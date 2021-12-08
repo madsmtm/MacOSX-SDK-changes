@@ -1,4 +1,4 @@
-.TH "MPSCNNGradientKernel" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNGradientKernel" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -131,6 +131,8 @@ Encode a gradient filter and return a gradient  During training, gradient filter
 .RE
 .PP
 
+.PP
+Reimplemented in \fBMPSCNNBatchNormalizationStatisticsGradient\fP\&.
 .SS "\- (\fBMPSImage\fP*__nonnull) encodeToCommandBuffer: (__nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSImage\fP *__nonnull) sourceGradient(\fBMPSImage\fP *__nonnull) sourceImage(\fBMPSState\fP *__nonnull) gradientState"
 Encode a gradient filter and return a gradient  During training, gradient filters are used to calculate the gradient associated with the loss for each feature channel in the forward pass source image\&. For those nodes that are trainable, these are then used to refine the value used in the trainable parameter\&. They consume a source gradient image which contains the gradients corresponding with the forward pass destination image, and calculate the gradients corresponding to the forward pass source image\&.
 .PP
@@ -195,7 +197,7 @@ Reimplemented in \fBMPSCNNBatchNormalizationStatisticsGradient\fP\&.
 .PP
 Reimplemented from \fBMPSCNNBinaryKernel\fP\&.
 .PP
-Reimplemented in \fBMPSCNNConvolutionGradient\fP, \fBMPSCNNFullyConnectedGradient\fP, \fBMPSCNNPoolingAverageGradient\fP, \fBMPSCNNPoolingMaxGradient\fP, \fBMPSCNNPoolingL2NormGradient\fP, \fBMPSCNNDilatedPoolingMaxGradient\fP, \fBMPSCNNSoftMaxGradient\fP, \fBMPSCNNLogSoftMaxGradient\fP, \fBMPSCNNCrossChannelNormalizationGradient\fP, \fBMPSCNNPoolingGradient\fP, \fBMPSCNNLocalContrastNormalizationGradient\fP, \fBMPSCNNNeuronGradient\fP, \fBMPSCNNDropoutGradient\fP, and \fBMPSCNNSpatialNormalizationGradient\fP\&.
+Reimplemented in \fBMPSCNNConvolutionGradient\fP, \fBMPSCNNFullyConnectedGradient\fP, \fBMPSCNNPoolingAverageGradient\fP, \fBMPSCNNPoolingMaxGradient\fP, \fBMPSCNNPoolingL2NormGradient\fP, \fBMPSCNNDilatedPoolingMaxGradient\fP, \fBMPSCNNSoftMaxGradient\fP, \fBMPSCNNLogSoftMaxGradient\fP, \fBMPSCNNCrossChannelNormalizationGradient\fP, \fBMPSCNNPoolingGradient\fP, \fBMPSCNNLocalContrastNormalizationGradient\fP, \fBMPSCNNBatchNormalizationGradient\fP, \fBMPSCNNBatchNormalizationStatisticsGradient\fP, \fBMPSCNNNeuronGradient\fP, \fBMPSCNNDropoutGradient\fP, and \fBMPSCNNSpatialNormalizationGradient\fP\&.
 .SS "\- (nonnull instancetype) initWithDevice: (nonnull id< MTLDevice >) device"
 Standard init with default properties per filter type 
 .PP
@@ -213,7 +215,7 @@ Standard init with default properties per filter type
 .PP
 Reimplemented from \fBMPSCNNBinaryKernel\fP\&.
 .PP
-Reimplemented in \fBMPSCNNConvolutionGradient\fP, \fBMPSCNNFullyConnectedGradient\fP, \fBMPSCNNSoftMaxGradient\fP, \fBMPSCNNLogSoftMaxGradient\fP, \fBMPSCNNPoolingGradient\fP, \fBMPSCNNArithmeticGradient\fP, \fBMPSCNNAddGradient\fP, \fBMPSCNNSubtractGradient\fP, \fBMPSCNNMultiplyGradient\fP, \fBMPSCNNNeuronGradient\fP, \fBMPSCNNDropoutGradient\fP, and \fBMPSCNNUpsamplingGradient\fP\&.
+Reimplemented in \fBMPSCNNConvolutionGradient\fP, \fBMPSCNNFullyConnectedGradient\fP, \fBMPSCNNSoftMaxGradient\fP, \fBMPSCNNLogSoftMaxGradient\fP, \fBMPSCNNPoolingGradient\fP, \fBMPSCNNArithmeticGradient\fP, \fBMPSCNNNeuronGradient\fP, \fBMPSCNNUpsamplingGradient\fP, and \fBMPSCNNDropoutGradient\fP\&.
 .SH "Property Documentation"
 .PP 
 .SS "\- kernelOffsetX\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"

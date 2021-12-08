@@ -75,7 +75,7 @@ WK_EXTERN API_AVAILABLE(macosx(10.11), ios(9.0))
  @param date A date. All website data modified after this date will be removed.
  @param completionHandler A block to invoke when the website data has been removed.
 */
-- (void)removeDataOfTypes:(NSSet<NSString *> *)websiteDataTypes modifiedSince:(NSDate *)date completionHandler:(void (^)(void))completionHandler;
+- (void)removeDataOfTypes:(NSSet<NSString *> *)dataTypes modifiedSince:(NSDate *)date completionHandler:(void (^)(void))completionHandler;
 
 /*! @abstract Returns the cookie store representing HTTP cookies in this website data store. */
 @property (nonatomic, readonly) WKHTTPCookieStore *httpCookieStore API_AVAILABLE(macosx(10.13), ios(11.0));

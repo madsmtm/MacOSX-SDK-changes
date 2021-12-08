@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 42E3DBD2-5EC6-335B-83C2-AE4BDD1821C7' ]
+uuids:           [ 'x86_64: 3F108A91-2FEE-3E8E-A560-B3CA4B10A100' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AssetCacheServicesExtensions.framework/Versions/A/AssetCacheServicesExtensions
-current-version: 82.1
+current-version: 83.3
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AssetCacheServicesExtensionsVersionNumber, _AssetCacheServicesExtensionsVersionString, 

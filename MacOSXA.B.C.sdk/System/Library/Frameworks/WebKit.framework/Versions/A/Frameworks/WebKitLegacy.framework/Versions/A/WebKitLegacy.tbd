@@ -1,14 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 0FE377D1-8057-304A-A66B-87BFD7FEAAC3', 'x86_64: F94AE1DB-F8AF-3318-9A68-43C4520E9A89' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 60C1D461-49C9-3B8B-9BD4-B95F1D18335F' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebKitLegacy.framework/Versions/A/WebKitLegacy
-current-version: 605.1.33
+current-version: 606.1.36
 exports:         
-  - archs:           [ i386 ]
-    symbols:         [ _HIWebViewCreate, _HIWebViewGetWebView, _WebConvertNSImageToCGImageRef, 
-                       _WebInitForCarbon ]
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _DOMEventException, _DOMException, _DOMRangeException, _DOMXPathException, 
                        _WebActionButtonKey, _WebActionElementKey, _WebActionFormKey, 
                        _WebActionModifierFlagsKey, _WebActionNavigationTypeKey, _WebActionOriginalURLKey, 

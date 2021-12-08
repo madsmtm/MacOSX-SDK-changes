@@ -30,10 +30,10 @@ SK_EXPORT NS_AVAILABLE(10_12, 10_0) @protocol SKWarpable <NSObject>
 
 
 /* Base class for future expansion */
-SK_EXPORT NS_AVAILABLE(10_12, 10_0) @interface SKWarpGeometry : NSObject <NSCopying, NSCoding>
+SK_EXPORT NS_AVAILABLE(10_12, 10_0) @interface SKWarpGeometry : NSObject <NSCopying, NSSecureCoding>
 @end
 
-SK_EXPORT NS_AVAILABLE(10_12, 10_0) @interface SKWarpGeometryGrid : SKWarpGeometry <NSCoding>
+SK_EXPORT NS_AVAILABLE(10_12, 10_0) @interface SKWarpGeometryGrid : SKWarpGeometry <NSSecureCoding>
 
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 

@@ -1,12 +1,12 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 96CA8801-89EB-353A-9704-D143247F680B', 'x86_64: D7993B1E-4021-3E2D-97A8-CE9D39DB1D4D' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: C88B1E41-1A98-3489-ABC7-0B54BD4E1BD6' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CVML.framework/liblowLevelDetectors.dylib
-current-version: 1.73
+current-version: 1.87
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _AdjacentContourHeal, _AnnealAllContours, _AnnealContours, 
                        _BresenhamCoords, _BresenhamLength, _CCRectLowLevel, _CanonicalizeQuads, 
                        _ConnectedComponents, _Contours2Quads, _GenerateSegments, 

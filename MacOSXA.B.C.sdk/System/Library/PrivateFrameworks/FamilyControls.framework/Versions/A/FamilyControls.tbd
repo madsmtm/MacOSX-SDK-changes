@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F8720CCF-6E8F-33E1-9328-A2875971B97B' ]
+uuids:           [ 'x86_64: 5C0ECAF5-4DDC-38BC-8876-8B7EBC4A5C72' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/FamilyControls.framework/Versions/A/FamilyControls
 exports:         
@@ -8,12 +8,13 @@ exports:
     symbols:         [ _FCAppIsSigned, _FCAppIsSignedByAppStore, _FCAppIsSignedByApple, 
                        _FCAppLaunchWasBlocked, _FCAuthorizeManagedUserLogin, _FCContentFilterPageWasBlocked, 
                        _FCCopyAppDisplayNameForUser, _FCCopyBundleIDFudgingIfNecessary, 
-                       _FCCopyBundleNameFudgingIfNecessary, _FCCopyDetachedSignature, 
-                       _FCCopyInfoDictFudgingIfNecessary, _FCCopyInstalledApplications, 
-                       _FCCreateAppSignature, _FCCreateDesignatedRequirement, _FCCreateTempKeychainForCodesigning, 
-                       _FCExistsManagedUsers, _FCFindAppPathsAtPath, _FCFolderForUserName, 
-                       _FCGetAllWidgetPaths, _FCGetAppPathsAtPath, _FCGetLocalManagedUsers, 
-                       _FCGetStringFromOSType, _FCHasAppLaunchRestrictions, _FCInitAppLaunchRestrictions, 
+                       _FCCopyBundleNameFudgingIfNecessary, _FCCopyDesignatedRequirement, 
+                       _FCCopyDetachedSignature, _FCCopyInfoDictFudgingIfNecessary, 
+                       _FCCopyInstalledApplications, _FCCreateAppSignature, _FCCreateDesignatedRequirement, 
+                       _FCCreateTempKeychainForCodesigning, _FCExistsManagedUsers, 
+                       _FCFindAppPathsAtPath, _FCFolderForUserName, _FCGetAllWidgetPaths, 
+                       _FCGetAppPathsAtPath, _FCGetLocalManagedUsers, _FCGetStringFromOSType, 
+                       _FCHasAppLaunchRestrictions, _FCInitAppLaunchRestrictions, 
                        _FCIsAppAllowedToLaunch, _FCIsAppAllowedToLaunchExt, _FCLaunchDaemon, 
                        _FCMacIsInRecovery, _FCMailAddToWhiteList, _FCMailRemoveFromWhiteList, 
                        _FCManagedDomainsForUser, _FCManagedPreferencesDirectoryForUserName, 

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: BD5AB358-A331-3D62-B19C-4D2C9772F180' ]
+uuids:           [ 'x86_64: 255A0510-BA22-3973-A962-693096BE9AD0' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/Mondrian.framework/Versions/A/Mondrian
-current-version: 3271.13.150
+current-version: 3401.5.160
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _GridRectEdgeOppositeEdge, _MOAVAssetCreateThumbnailWithURL, 
@@ -112,10 +112,9 @@ exports:
                        MOMediaSectionsCache, MOMediaView, MOMediaViewCell, MOMediaViewCellThumbnailView, 
                        MOMediaViewCondensedLayout, MOMediaViewDefaultCell, MOMediaViewDefaultSupplementaryHeader, 
                        MOMediaViewEventLayout, MOMediaViewGridLayout, MOMediaViewLayout, 
-                       MOMediaViewOrganicLayout, MOMediaViewSupplementary, MOMediaViewVerticalLayout, 
-                       MOMonitoringController, MOMonitoringPanel, MOMonitoringPanelController, 
-                       MONSOperation, MONSOperationQueue, MOOrganicLayout, MOOrganicLayoutManager, 
-                       MOOrganicLayoutPage, MOPhotosAtlasLayout, MOPhotosAtlasLayoutAccessibility, 
+                       MOMediaViewSupplementary, MOMediaViewVerticalLayout, MOMonitoringController, 
+                       MOMonitoringPanel, MOMonitoringPanelController, MONSOperation, 
+                       MONSOperationQueue, MOPhotosAtlasLayout, MOPhotosAtlasLayoutAccessibility, 
                        MOPhotosAtlasLayoutCellAccessibility, MOPhotosAtlasSectionAccessibility, 
                        MOPhotosAtlasSegment, MOPhotosAtlasSegmentRow, MOPhotosAtlasSupplementaryRow, 
                        MOPhotosAtlasView, MOPhotosCollectionsView, MOPhotosLayout, 

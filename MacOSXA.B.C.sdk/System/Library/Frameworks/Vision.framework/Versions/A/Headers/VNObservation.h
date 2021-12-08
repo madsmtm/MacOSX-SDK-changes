@@ -11,6 +11,7 @@
 #import <simd/simd.h>
 
 #import <Vision/VNTypes.h>
+#import <Vision/VNRequestRevisionProviding.h>
 
 
 /*!
@@ -18,12 +19,14 @@
  */
 
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @class CIBarcodeDescriptor;
 @class MLFeatureValue;
 @class VNFaceLandmarks2D;
 
 
-NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @class VNObservation
@@ -31,10 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
  
  */
 API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
-@interface VNObservation : NSObject < NSCopying, NSSecureCoding >
+@interface VNObservation : NSObject < NSCopying, NSSecureCoding, VNRequestRevisionProviding >
 
 /*!
- * @brief The unique identifier assigned to an observation.
+   @brief The unique identifier assigned to an observation.
  */
 @property (readonly, nonatomic, strong) NSUUID *uuid;
 
@@ -61,6 +64,8 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
  */
 + (instancetype)observationWithBoundingBox:(CGRect)boundingBox;
 
++ (instancetype)observationWithRequestRevision:(NSUInteger)requestRevision boundingBox:(CGRect)boundingBox API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
+
 /*!
     @brief The bounding box of the detected object. The coordinates are normalized to the dimensions of the processed image, with the origin at the image's lower-left corner.
  */
@@ -80,9 +85,24 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
 @interface VNFaceObservation: VNDetectedObjectObservation
 
 /*!
+ @brief create a new VNFaceObservation with a normalized bounding box, roll and yaw
+ */
++ (instancetype)faceObservationWithRequestRevision:(NSUInteger)requestRevision boundingBox:(CGRect)boundingBox roll:(nullable NSNumber *)roll yaw:(nullable NSNumber *)yaw API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
+
+/*!
  @brief The face landmarks populated by the VNDetectFaceLandmarksRequest. This is set to nil if only a VNDetectFaceRectanglesRequest was performed.
  */
 @property (readonly, nonatomic, strong, nullable)  VNFaceLandmarks2D *landmarks;
+
+/*!
+ @brief Face roll angle populated by VNDetectFaceRectanglesRequest. The roll is reported in radians, positive angle corresponds to counterclockwise direction, range [-Pi, Pi). nil value indicated that the roll angle hasn't been computed
+ */
+@property (readonly, nonatomic, strong, nullable) NSNumber *roll API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
+
+/*!
+ @brief Face yaw angle populated by VNDetectFaceRectanglesRequest. The yaw is reported in radians, positive angle corresponds to counterclockwise direction, range [-Pi/2, Pi/2). nil value indicated that the yaw angle hasn't been computed
+ */
+@property (readonly, nonatomic, strong, nullable) NSNumber *yaw API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
 
 @end
 
@@ -100,6 +120,18 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
  @brief The is the label or identifier of a classificaiton request. An example classification could be a string like 'cat' or 'hotdog'. The string is defined in the model that was used for the classification. Usually these are technical labels that are not localized and not meant to be used directly to be presented to an end user in the UI.
  */
 @property (readonly, nonatomic, copy) NSString *identifier;
+
+@end
+
+/*!
+ @class VNRecognizedObjectObservation
+ @superclass VNDetectedObjectObservation
+ @brief VNRecognizedObjectObservation is a VNDetectedObjectObservation with an array of classifications that classify the recognized object. The confidence of the classifications sum up to 1.0. It is common practice to multiply the classification confidence with the confidence of this observation.
+ */
+API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0))
+@interface VNRecognizedObjectObservation : VNDetectedObjectObservation
+
+@property (readonly, nonatomic, copy) NSArray<VNClassificationObservation *> *labels;
 
 @end
 
@@ -163,7 +195,7 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
  @brief VNTextObservation Describes a text area detected by the VNRequestNameDetectTextRectangles request.
  */
 API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
-@interface VNTextObservation : VNDetectedObjectObservation
+@interface VNTextObservation : VNRectangleObservation
 
 /*!
 	@brief		Array of individual character bounding boxes found within the observation's boundingBox.
@@ -249,8 +281,6 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
 @interface VNImageHomographicAlignmentObservation : VNImageAlignmentObservation
 @property (readwrite, nonatomic, assign) matrix_float3x3 warpTransform;
 @end
-
-
 
 
 NS_ASSUME_NONNULL_END

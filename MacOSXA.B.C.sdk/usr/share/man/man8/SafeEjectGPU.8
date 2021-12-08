@@ -106,7 +106,7 @@ The following properties are generally inferred.  Some values can be specified i
 .It Ar "GPUEjectPolicy"
 Inferred/Settable
 .Ar GPUEjectPolicy
-values for dealing with apps that needs to drop references to ejecting eGPU.  See NOTE on overrides below.
+values for dealing with apps that needs to drop references to ejecting eGPU.  Establisehd in app bundle's Info.plist.
 Possible values:
 .Bl -tag -width "wrelaunch"
 .It Ar relaunch
@@ -141,7 +141,7 @@ column), Eject actions apply to the responsible process, who in turn deals with 
 .El
 .Bl -tag -width -indent
 .It Ar "GPUSelectionPolicy"
-Settable values that affect instantiation of Metal and OpenGL/CL contexts (wrt eGPU use).  See NOTE on overrides below.
+Settable values that affect instantiation of Metal and OpenGL/CL contexts (wrt eGPU use).  Established in app bundle's Info.plist.
 Possible values:
 .Bl -tag -width "preferRemovable"
 .It Ar avoidRemovable
@@ -150,22 +150,13 @@ Avoid creation of MTLCommandQueues, and OpenGL/CL contexts on eGPUs.
 Prefer creation of MTLCommandQueues, and OpenGL/CL contexts on eGPUs.
 .El
 .El
-.sp 1
-NOTE: These properties may be overridden without editing the app's Info.plist file.  Use the defaults(1) command to override the property on a per-user or system-wide basis:
-.Bl -tag -width indent
-.It Ar per-user
-$ defaults write bundleIdentifier <property> -string <value>
-.It Ar system-wide
-$ sudo defaults write /Library/Preferences/bundleIdentifier <property> -string <value>
-.El
 .\"																				SEE ALSO 
 .Sh SEE ALSO 
-.Xr defaults 1
 .Xr plist 5
 .Xr sudo 8
 .Xr launchd 8
 .\"																				HISTORY 
 .Sh HISTORY
-The c ommand line
+The command line
 .Nm
 tool first appeared in the 10.13.4 release of Mac OS X.

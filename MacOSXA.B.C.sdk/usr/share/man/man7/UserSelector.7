@@ -34,13 +34,13 @@
 .Nd overview and documentation
 .Sh DESCRIPTION
 .Nm
-is an executable tool for querying and modifying user-to-SmartCard bindings. This tool is invoked by the CryptoTokenKit framework. It is not intended to be used directly by an end user. Unless the string property
+is invoked only internally by the CryptoTokenKit framework. It is not intended to be used directly by an end user or an administrator. Unless the string property
 .Em UserSelectorPath
 is set with full executable path value in the configuration file (
 .Em /etc/SmartcardLogin.plist
 ), the system UserSelector is used.
 .Pp
-UserSelector is invoked by:
+How CryptoTokenKit framework invokes UserSelector:
 .Bd -literal -offset indent
 UserSelector -o operation -u username -i pubkeyhash1[,pubkeyhash2,...]
 .Ed

@@ -1,22 +1,39 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: D46E60D5-99F3-3445-A713-A8790A4FE719', 'x86_64: EF776D5D-BC66-3133-B5D6-7979B40C5F6F' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 17D80BA2-C229-368A-82B7-8B6326AF3D12' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/ScreenSaver.framework/Versions/A/ScreenSaver
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _OSLogForCategory, _SSCenterRectInRect, _SSDBackground, _SSDBlackSaver, 
+                       _SSDEngineDimTime, _SSDEngineLWModulePath, _SSDEngineModuleDict, 
+                       _SSDEngineModuleName, _SSDEngineModulePath, _SSDHotCorners, 
+                       _SSDLastNonRandomModuleDict, _SSDLastNonRandomModuleName, 
+                       _SSDMainScreenOnly, _SSDPreviousModuleDict, _SSDPreviousModuleName, 
+                       _SSDShowClock, _SSDUserSelectedPictureFolders, _SSGetScaleFactor, 
+                       _SSHasGfxAcceleration, _SSInitRandom, _SSInitRandomWithSeed, 
+                       _SSIsAppleSignedModule, _SSModuleIsCompatibleArch, _SSPreflightModuleLoadForPath, 
+                       _SSRandomFloat, _SSRandomFloatBetween, _SSRandomInt, _SSRandomPointForSizeWithinBounds, 
+                       _SSRunningAsNormalUser, _SSScreenIsMirrored, _SSScreenSaverWindowLevel, 
+                       _SSSetCrashReporterSignature, _SSShouldUseAlernateDefault, 
+                       _SSSystemScreenSaversPath, _gCurrentMessage, _gMessageList, 
+                       _gScreenSaverEngine ]
+    objc-classes:    [ ScreenSaverClockView, ScreenSaverClockWindow, ScreenSaverController, 
+                       ScreenSaverDefaults, ScreenSaverDefaultsManager, ScreenSaverEngine, 
+                       ScreenSaverMessage, ScreenSaverMessageTracerLogger, ScreenSaverModule, 
+                       ScreenSaverModules, ScreenSaverPhotoChooser, ScreenSaverView, 
+                       ScreenSaverWindow ]
     objc-ivars:      [ ScreenSaverClockView._alignment, ScreenSaverClockWindow._clockDelegate, 
                        ScreenSaverClockWindow._clockPath, ScreenSaverClockWindow._clockView, 
                        ScreenSaverClockWindow._corner, ScreenSaverClockWindow._lastMinute, 
                        ScreenSaverClockWindow._startingPoint, ScreenSaverClockWindow._updateTimer, 
                        ScreenSaverClockWindow._zeroPointIndex, ScreenSaverDefaultsManager._cache, 
-                       ScreenSaverEngine._atLoginWindow, ScreenSaverEngine._background, 
-                       ScreenSaverEngine._blackSaver, ScreenSaverEngine._commandLineModuleName, 
-                       ScreenSaverEngine._cornerList, ScreenSaverEngine._cornerListCnt, 
-                       ScreenSaverEngine._debug, ScreenSaverEngine._delegate, ScreenSaverEngine._endingMousePoint, 
-                       ScreenSaverEngine._fadeToken, ScreenSaverEngine._faded, ScreenSaverEngine._isRunning, 
-                       ScreenSaverEngine._keyEventTerminated, ScreenSaverEngine._mainOnly, 
-                       ScreenSaverEngine._module, ScreenSaverEngine._mouseAllowedRect, 
+                       ScreenSaverEngine._atLoginWindow, ScreenSaverEngine._blackSaver, 
+                       ScreenSaverEngine._commandLineModuleName, ScreenSaverEngine._cornerList, 
+                       ScreenSaverEngine._cornerListCnt, ScreenSaverEngine._delegate, 
+                       ScreenSaverEngine._endingMousePoint, ScreenSaverEngine._fadeToken, 
+                       ScreenSaverEngine._faded, ScreenSaverEngine._isRunning, ScreenSaverEngine._keyEventTerminated, 
+                       ScreenSaverEngine._mainOnly, ScreenSaverEngine._module, ScreenSaverEngine._mouseAllowedRect, 
                        ScreenSaverEngine._noEarlyMouseCheck, ScreenSaverEngine._numWindows, 
                        ScreenSaverEngine._performGammaFade, ScreenSaverEngine._retCode, 
                        ScreenSaverEngine._runFromPref, ScreenSaverEngine._savers, 
@@ -43,23 +60,4 @@ exports:
                        ScreenSaverPhotoChooser._mediaChooserWindow, ScreenSaverPhotoChooser._photoStreamDetected, 
                        ScreenSaverPhotoChooser._photosMediaManager, ScreenSaverPhotoChooser._selectedMediaGroupID, 
                        ScreenSaverPhotoChooser._sourceMenuLoadedBlock, ScreenSaverWindow._trectTags ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _OSLogForCategory, _SSCenterRectInRect, _SSDBackground, _SSDBlackSaver, 
-                       _SSDEngineDimTime, _SSDEngineLWModulePath, _SSDEngineModuleDict, 
-                       _SSDEngineModuleName, _SSDEngineModulePath, _SSDHotCorners, 
-                       _SSDLastNonRandomModuleDict, _SSDLastNonRandomModuleName, 
-                       _SSDMainScreenOnly, _SSDPreviousModuleDict, _SSDPreviousModuleName, 
-                       _SSDShowClock, _SSDUserSelectedPictureFolders, _SSGetScaleFactor, 
-                       _SSInitRandom, _SSInitRandomWithSeed, _SSIsAppleSignedModule, 
-                       _SSModuleIsCompatibleArch, _SSPreflightModuleLoadForPath, 
-                       _SSRandomFloat, _SSRandomFloatBetween, _SSRandomInt, _SSRandomPointForSizeWithinBounds, 
-                       _SSRunningAsNormalUser, _SSScreenIsMirrored, _SSScreenSaverWindowLevel, 
-                       _SSSetCrashReporterSignature, _SSShouldUseAlernateDefault, 
-                       _SSSystemScreenSaversPath, _gCurrentMessage, _gMessageList, 
-                       _gScreenSaverEngine ]
-    objc-classes:    [ ScreenSaverClockView, ScreenSaverClockWindow, ScreenSaverController, 
-                       ScreenSaverDefaults, ScreenSaverDefaultsManager, ScreenSaverEngine, 
-                       ScreenSaverMessage, ScreenSaverMessageTracerLogger, ScreenSaverModule, 
-                       ScreenSaverModules, ScreenSaverPhotoChooser, ScreenSaverView, 
-                       ScreenSaverWindow ]
 ...

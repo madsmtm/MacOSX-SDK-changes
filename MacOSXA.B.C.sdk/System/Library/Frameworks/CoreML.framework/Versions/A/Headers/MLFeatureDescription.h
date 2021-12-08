@@ -11,6 +11,8 @@
 #import <CoreML/MLDictionaryConstraint.h>
 #import <CoreML/MLMultiArrayConstraint.h>
 #import <CoreML/MLImageConstraint.h>
+#import <CoreML/MLSequenceConstraint.h>
+#import <CoreML/MLExport.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Description of a feature
  */
 API_AVAILABLE(macos(10.13), ios(11.0), watchos(4.0), tvos(11.0))
+ML_EXPORT
 @interface MLFeatureDescription : NSObject<NSCopying>
 
 /// Name of feature
@@ -48,6 +51,9 @@ API_AVAILABLE(macos(10.13), ios(11.0), watchos(4.0), tvos(11.0))
 
 /// Constraint when type == MLFeatureTypeDictionary, nil otherwise
 @property (readonly, nullable, nonatomic) MLDictionaryConstraint *dictionaryConstraint;
+
+/// Constraint when type == MLFeatureTypeSequence, nil otherwise
+@property (readonly, nullable, nonatomic) MLSequenceConstraint *sequenceConstraint API_AVAILABLE(macos(10.14), ios(12.0), watchos(5.0), tvos(12.0));
 
 @end
 

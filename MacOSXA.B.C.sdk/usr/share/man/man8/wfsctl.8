@@ -27,7 +27,7 @@ command requires root privileges.
 provides the following commands:
 .Bl -tag -width XXunshareXpathXnameXX
 .It Ic start
-Enable the WFS configuration, and either start or restart the Apache web server to pick it up. If necessary, this action will create an SSL Identity matching the machine's host name as determined by the hostname(1) command, and place it in the System keychain. It will also update, if necessary, environment variable definitions for use by parameteried httpd config files. (Note that starting the Apache web server is the equivalent of "apachectl start" which loads a launch job for the httpd process.)
+Enable the WFS configuration, and either start or restart the Apache web server to pick it up. If necessary, this action will create an SSL Identity matching the machine's host name as determined by the hostname(1) command, and place it in the System keychain. It will also update, if necessary, environment variable definitions for use by parameterized httpd config files. (Note that starting the Apache web server is the equivalent of "apachectl start" which loads a launch job for the httpd process.)
 .It Ic stop
 Disable the WFS configuration, and restart Apache if it's already running.
 .It Ic status
@@ -60,13 +60,20 @@ Recognizing share points that are marked as WebDAV share points.
 .El
 .Pp
 Depending on how Apache is configured, this can coexist with other Apache web service functions.
-.Sh NOTE
-Note that WebDAV File Sharing requies SSL, and uses Basic authentication, with credentials that would otherwise be sent in the clear over the network. Also note that it uses Apache modules mod_secure_transport for SSL, and mod_authn_od_apple for Basic authentication with OpenDirectory credentials.
+.Sh NOTES
+.Bl -bullet
+.It
+WebDAV File Sharing requires SSL, and uses Basic authentication, with credentials that would otherwise be sent in the clear over the network. Also note that it uses Apache modules mod_ssl for SSL, and mod_authnz_od_apple for Basic authentication with OpenDirectory credentials.
+.It
+The name "webdav" is reserved (it triggers special handling of URLs), so share point paths named "/webdav" or containing "webdav" as a subpath are not allowed. And folders named "webdav" within share points won't be usable. There are no restrictions on case variants such as "WebDAV", or other variants such as "webdav.d".
+.It
+DropBox folders cannot be accessed via WebDAV File Sharing.
+.El
 .Sh CONFIGURABLE SETTINGS
 Certain settings are kept in /etc/wfs/wfs.plist and are configurable by the administrator, including:
 .Bl -tag -width XXunshareXpathXnameXX
 .It Ic ServerName
-The host name the Apache web server should use, and also the Common Name of the identity certficate. If this is not configured, or set to an empty string, the hostname(1) of the machine is used.
+The host name the Apache web server should use, and also the Common Name of the identity certificate. If this is not configured, or set to an empty string, the hostname(1) of the machine is used.
 .It Ic ServerAddr
 The IP address the Apache web server should use to listen for HTTPS requests. Default is "*", which means all addresses.
 .It Ic ServerPort
@@ -74,7 +81,7 @@ The TCP port the Apache web server should use to listen for HTTPS requests. Defa
 .It Ic AccessGroup
 The Open Directory group allowed access to the WebDAV File Sharing service. The default is "everyone", which gives access to any authenticated user. Administrators can change this setting to restrict access further. Authenticated users will have, at most, the privileges they are normally allowed by file system permissions. There is no provision for guest access, so unauthenticated users have no access.
 .It Ic SynthesizeSharePointForUserHomeDir
-Whether to allow remote WebDAV clients to see their home diretory as a share point. Default is True.
+Whether to allow remote WebDAV clients to see their home directory as a share point. Default is True.
 .El
 .Pp
 The Apache config file for WebDAV File Sharing is parameterized, and the httpd server is managed by the httpd-wrapper utility, which passes parameters to httpd. This is normally transparent, but note that to check the Apache config file syntax, do not use "apachectl configtest" or "httpd -t". Instead, use "httpd-wrapper -t".
@@ -94,6 +101,8 @@ WebDAV clients must usually be configured with a full URL of the host, with a sc
 
 https://hostname.example.com
 .fi
+.It
+The configurable virtual host behavior provided by macOS Server is not available, so WebDAV clients may not be able to use alternate host names in their URLs.
 .El
 .Sh FILES
 .Bl -tag -width indent
@@ -124,23 +133,16 @@ The dynamically generated portion of the sandbox profile
 When macOS Server is installed and promoted, WebDAV File Sharing is reconfigured to support the WebDAV behaviors presented by Server:
 .Bl -enum
 .It
-macOS Server provides HTTP-based services (for example, Wiki and Profile Manager) on standard HTTP/S TCP ports 80 and 443. So to avoid port conflict, the desktop Apache configuration (including the configuration for WebDAV File Sharing) is switched to port 81, on localhost only, and WFS traffic is reverse proxied to localhost:81.
+macOS Server provides HTTP-based services (for Profile Manager) on standard HTTP/S TCP ports 80 and 443. So to avoid port conflict, the desktop Apache configuration (including the configuration for WebDAV File Sharing) is switched to port 81, on localhost only, and WFS traffic is reverse proxied to localhost:81.
 .It
-macOS Server manages its own SSL certificates, and provdes the SSL endpoint. So the desktop Apache configuration for WebDAV File Sharing is switched to non-SSL.
-.It
-Starting with High Sierra, the only UI in macOS Server for WebDAV File Sharing is the checkbox in Wiki Service to allow WebDAV access to wiki files. This is on by default; macOS Server provides this capability by proxying WebDAV requests to desktop WebDAV File Sharing.
+macOS Server manages its own SSL certificates, and provides the SSL endpoint. So the desktop Apache configuration for WebDAV File Sharing is switched to non-SSL.
 .Pp
-When macOS Server is installed and promoted, use wfsctl to manage WebDAV share points, e. g.:
+When macOS Server is installed and promoted, it is still possible to use wfsctl to manage WebDAV share points, e. g.:
 .nf
 
     sudo wfsctl share /Volumes/Data/Share1
 .fi
 
-And to start/stop WebDAV File Sharing independent of the Wiki Service, use the Server's webappctl(8) command, e. g.:
-.nf
-
-    sudo webappctl start com.apple.webapp.webdavsharing -
-.fi
 .It
 Any share points created in the UI on versions of macOS Server that predate High Sierra remain across updates, and those that were marked as WebDAV share points should continue to be available after the update to High Sierra, whether or not macOS Server is installed.
 .El

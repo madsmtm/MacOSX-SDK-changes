@@ -1,4 +1,4 @@
-.TH "MPSCNNLoss" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNLoss" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -104,6 +104,9 @@ Here is a code example:
             Compute losses:          losses = -t * LogSoftMax(y)
             Compute weighted losses: weighted_losses = weight(s) * losses
             Compute overall loss:    loss = reduce(weighted_losses, reductionType)
+                                     If reductionType is MPSCNNReductionTypeMean, the accumulated
+                                     loss value is divided by width * height instead of
+                                     width * height * featureChannels.
 
         Sigmoid Cross Entropy loss filter. This loss filter is applied element-wise.
         This loss function is computed according to the following formulas:

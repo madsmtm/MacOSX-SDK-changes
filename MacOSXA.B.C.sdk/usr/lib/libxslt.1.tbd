@@ -1,13 +1,13 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 2A385CB5-9458-3408-A4F2-1F51553823F4', 'x86_64: 4A5E011D-8B29-3135-A52B-9A9070ABD752' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: F191E8B9-7530-30CA-873B-2FA2BF2D6374' ]
 platform:        macosx
 install-name:    /usr/lib/libxslt.1.dylib
 current-version: 3.26
 compatibility-version: 3
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _xslAddCall, _xslDebugStatus, _xslDropCall, _xslHandleDebugger, 
                        _xsltAddKey, _xsltAddStackElemList, _xsltAddTemplate, _xsltAllocateExtra, 
                        _xsltAllocateExtraCtxt, _xsltApplyAttributeSet, _xsltApplyImports, 

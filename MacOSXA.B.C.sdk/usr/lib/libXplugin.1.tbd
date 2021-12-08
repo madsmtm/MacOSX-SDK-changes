@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: EFD8F28E-51E3-3088-9CEF-817C0A81A7B0', 'x86_64: 99DCDCAD-F7C9-3183-BB09-CA577B087485' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: DC2C4ED3-3EAC-37CA-B56A-EF7AA7A26713' ]
 platform:        macosx
 install-name:    /usr/lib/libXplugin.1.dylib
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _xp_api_version, _xp_attach_gl_context, _xp_composite_area_threshold, 
                        _xp_composite_pixels, _xp_configure_surface, _xp_configure_window, 
                        _xp_copy_bytes, _xp_copy_bytes_threshold, _xp_copy_window, 

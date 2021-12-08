@@ -1,4 +1,4 @@
-.TH "MPSUnaryImageKernel" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSUnaryImageKernel" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -178,7 +178,7 @@ Encode a \fBMPSKernel\fP into a command Buffer\&. The operation shall proceed ou
 .PP
 Reimplemented from \fBMPSKernel\fP\&.
 .PP
-Reimplemented in \fBMPSImagePyramid\fP, \fBMPSImageSobel\fP, \fBMPSImageHistogramSpecification\fP, \fBMPSImageThresholdToZeroInverse\fP, \fBMPSImageThresholdToZero\fP, \fBMPSImageHistogramEqualization\fP, \fBMPSImageBox\fP, \fBMPSImageGaussianBlur\fP, \fBMPSImageStatisticsMean\fP, \fBMPSImageThresholdBinary\fP, \fBMPSImageThresholdTruncate\fP, \fBMPSImageDilate\fP, \fBMPSImageScale\fP, \fBMPSImageLanczosScale\fP, \fBMPSImageBilinearScale\fP, \fBMPSImageStatisticsMeanAndVariance\fP, \fBMPSImageConvolution\fP, \fBMPSImageThresholdBinaryInverse\fP, \fBMPSImageEuclideanDistanceTransform\fP, \fBMPSImageStatisticsMinAndMax\fP, \fBMPSImageMedian\fP, and \fBMPSImageAreaMax\fP\&.
+Reimplemented in \fBMPSImagePyramid\fP, \fBMPSImageHistogramSpecification\fP, \fBMPSImageHistogramEqualization\fP, \fBMPSImageSobel\fP, \fBMPSImageThresholdToZeroInverse\fP, \fBMPSImageThresholdToZero\fP, \fBMPSImageEuclideanDistanceTransform\fP, \fBMPSImageBox\fP, \fBMPSImageGaussianBlur\fP, \fBMPSImageStatisticsMean\fP, \fBMPSImageThresholdBinary\fP, \fBMPSImageThresholdTruncate\fP, \fBMPSImageDilate\fP, \fBMPSImageScale\fP, \fBMPSImageLanczosScale\fP, \fBMPSImageBilinearScale\fP, \fBMPSImageStatisticsMeanAndVariance\fP, \fBMPSImageConvolution\fP, \fBMPSImageThresholdBinaryInverse\fP, \fBMPSImageStatisticsMinAndMax\fP, \fBMPSImageMedian\fP, and \fBMPSImageAreaMax\fP\&.
 .SS "\- (nonnull instancetype) initWithDevice: (nonnull id< MTLDevice >) device"
 Standard init with default properties per filter type 
 .PP
@@ -196,7 +196,7 @@ a pointer to the newly initialized object\&. This will fail, returning nil if th
 .PP
 Reimplemented from \fBMPSKernel\fP\&.
 .PP
-Reimplemented in \fBMPSImagePyramid\fP, \fBMPSImageSobel\fP, \fBMPSImageThresholdToZeroInverse\fP, \fBMPSImageThresholdToZero\fP, \fBMPSImageBox\fP, \fBMPSImageGaussianBlur\fP, \fBMPSImageStatisticsMean\fP, \fBMPSImageThresholdBinary\fP, \fBMPSImageThresholdTruncate\fP, \fBMPSImageDilate\fP, \fBMPSImageLanczosScale\fP, \fBMPSImageBilinearScale\fP, \fBMPSImageStatisticsMeanAndVariance\fP, \fBMPSImageThresholdBinaryInverse\fP, \fBMPSImageEuclideanDistanceTransform\fP, \fBMPSImageReduceUnary\fP, \fBMPSImageReduceRowMin\fP, \fBMPSImageReduceColumnMin\fP, \fBMPSImageReduceRowMax\fP, \fBMPSImageReduceColumnMax\fP, \fBMPSImageReduceRowMean\fP, \fBMPSImageReduceColumnMean\fP, \fBMPSImageReduceRowSum\fP, \fBMPSImageReduceColumnSum\fP, \fBMPSImageScale\fP, \fBMPSImageStatisticsMinAndMax\fP, \fBMPSImageMedian\fP, and \fBMPSImageAreaMax\fP\&.
+Reimplemented in \fBMPSImagePyramid\fP, \fBMPSImageSobel\fP, \fBMPSImageThresholdToZeroInverse\fP, \fBMPSImageThresholdToZero\fP, \fBMPSImageEuclideanDistanceTransform\fP, \fBMPSImageBox\fP, \fBMPSImageGaussianBlur\fP, \fBMPSImageStatisticsMean\fP, \fBMPSImageThresholdBinary\fP, \fBMPSImageThresholdTruncate\fP, \fBMPSImageDilate\fP, \fBMPSImageLanczosScale\fP, \fBMPSImageBilinearScale\fP, \fBMPSImageStatisticsMeanAndVariance\fP, \fBMPSImageThresholdBinaryInverse\fP, \fBMPSImageReduceUnary\fP, \fBMPSImageReduceRowMin\fP, \fBMPSImageReduceColumnMin\fP, \fBMPSImageReduceRowMax\fP, \fBMPSImageReduceColumnMax\fP, \fBMPSImageReduceRowMean\fP, \fBMPSImageReduceColumnMean\fP, \fBMPSImageReduceRowSum\fP, \fBMPSImageReduceColumnSum\fP, \fBMPSImageScale\fP, \fBMPSImageStatisticsMinAndMax\fP, \fBMPSImageMedian\fP, and \fBMPSImageAreaMax\fP\&.
 .SS "\- (\fBMPSRegion\fP) sourceRegionForDestinationSize: (MTLSize) destinationSize"
 sourceRegionForDestinationSize: is used to determine which region of the sourceTexture will be read by encodeToCommandBuffer:sourceTexture:destinationTexture (and similar) when the filter runs\&. This information may be needed if the source image is broken into multiple textures\&. The size of the full (untiled) destination image is provided\&. The region of the full (untiled) source image that will be read is returned\&. You can then piece together an appropriate texture containing that information for use in your tiled context\&.
 .PP

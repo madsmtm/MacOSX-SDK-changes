@@ -5,10 +5,13 @@
 //  Copyright © 2017 Apple Inc. All rights reserved.
 //
 
-@class VNFaceObservation;
+#import <Foundation/Foundation.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
+
+
+@class VNFaceObservation;
 
 
 /*!

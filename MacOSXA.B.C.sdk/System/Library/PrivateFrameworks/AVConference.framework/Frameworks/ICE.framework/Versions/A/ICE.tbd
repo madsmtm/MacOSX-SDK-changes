@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: BCC79FD2-A605-3C70-A996-EEC0125B1EF6', 'x86_64: 21698301-02F9-32B4-BF98-ABE246F8B9BC' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: C25C9AD1-463E-35FE-9249-19B271CAA056' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AVConference.framework/Frameworks/ICE.framework/Versions/A/ICE
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _Apple80211Associate, _Apple80211Associate2, _Apple80211BindToInterface, 
                        _Apple80211Close, _Apple80211CopyAwdlPreferredChannels, _Apple80211CopyLeakyAPStatus, 
                        _Apple80211CopyRangingCapabilities, _Apple80211CopyValue, 

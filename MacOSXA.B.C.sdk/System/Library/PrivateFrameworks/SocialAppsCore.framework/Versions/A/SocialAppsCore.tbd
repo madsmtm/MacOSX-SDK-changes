@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: AB14E573-F417-3E69-BFDD-DB898ACD1964' ]
+uuids:           [ 'x86_64: C98FF2E4-8BDC-3A35-8AE1-25085BD8514B' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SocialAppsCore.framework/Versions/A/SocialAppsCore
 current-version: 5500
@@ -35,23 +35,21 @@ exports:
                        _SOSocialAppsErrorDomain, _SOSystemBecameActiveNotification, 
                        _SOUserNotificationAddressedToMeKey, _SOUserNotificationChatGUIDKey, 
                        _SOUserNotificationChatItemGUIDKey, _SOUserNotificationMessageGUIDKey, 
-                       _SOUserNotificationMessageIsStaleKey, _SOUserNotificationMissedCallHandleKey, 
-                       _SOUserNotificationMissedCallIsAudioKey, _SOUserNotificationMissedCallIsRelayKey, 
-                       _SOUserNotificationSenderAccountGUIDKey, _SOUserNotificationSenderIDKey, 
-                       _SOUserNotificationStandaloneFileTransferKey, _SocialAppsCoreVersionNumber, 
-                       _SocialAppsCoreVersionString, _bestIDSResult, _clamshellStateChanged, 
+                       _SOUserNotificationMessageIsStaleKey, _SOUserNotificationSenderAccountGUIDKey, 
+                       _SOUserNotificationSenderIDKey, _SocialAppsCoreVersionNumber, 
+                       _SocialAppsCoreVersionString, __SODidEndPerforformanceTimingDebugOnly, 
+                       __SOWillBeginPerformanceTimingDebugOnly, _bestIDSResult, _clamshellStateChanged, 
                        _g_rootdomain, _kAccountSendUnencryptedFilesKey, _kControllerVersionKey, 
                        _kDelayInSecondsToForceReconnect, _kMaxAttemptsToForceReconnect, 
                        _kPhoneNumberPairVersion, _kPromptEnableReadReceipts, _kPromptMessagesInCloud, 
                        _kRespondToEmailInterval ]
     objc-classes:    [ ProfileAuthenticationMessage, ProfileMessage, SOAccountAlias, 
                        SOAccountAliasController, SOAccountRegistrationController, 
-                       SOBlockListController, SOBlockListItem, SOCloudKitAlertController, 
-                       SOCloudKitPurchaseStorageAlertController, SOCloudKitPurchaseStorageController, 
-                       SODarkWakeHelper, SOEmojifier, SOFileWrapperSecureDecoder, 
-                       SOIDSListener, SOOrderedSetController, SOPeopleCollection, 
-                       SOShare, SOSuddenTermination, SOSystemIdleMonitor, SOTextAttachmentSecureDecoder, 
-                       SOTimer, SOTimerCenter, SOURLFetcher, SOUserNotificationHelper, 
+                       SOBlockListController, SOBlockListItem, SOCloudKitPurchaseStorageAlertController, 
+                       SOCloudKitPurchaseStorageController, SODarkWakeHelper, SOEmojifier, 
+                       SOFileWrapperSecureDecoder, SOIDSListener, SOOrderedSetController, 
+                       SOPerfCounter, SOShare, SOSuddenTermination, SOSystemIdleMonitor, 
+                       SOTextAttachmentSecureDecoder, SOTimer, SOTimerCenter, SOUserNotificationHelper, 
                        SocialAppsCore, _NotificationObserver ]
     objc-ivars:      [ SOAccountAlias._active ]
 ...

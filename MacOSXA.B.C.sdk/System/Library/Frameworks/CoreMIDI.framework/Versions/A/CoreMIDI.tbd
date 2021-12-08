@@ -1,11 +1,12 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 2F464FD7-0319-3898-8F9D-EE0040729DE6', 'x86_64: BC3E756C-A066-325C-9383-A78A4A66C7BF' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 32CA3EA2-E1A4-34AC-97A6-5E71C2B10E6C' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/CoreMIDI.framework/Versions/A/CoreMIDI
 current-version: 69
+objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _MIDIClientCreate, _MIDIClientCreateWithBlock, _MIDIClientDispose, 
                        _MIDIConfigCheckVirginState, _MIDIConfigDelete, _MIDIConfigDuplicate, 
                        _MIDIConfigExists, _MIDIConfigGetCurrent, _MIDIConfigGetList, 
@@ -25,8 +26,9 @@ exports:
                        _MIDIGetExternalDevice, _MIDIGetNumberOfDestinations, _MIDIGetNumberOfDevices, 
                        _MIDIGetNumberOfExternalDevices, _MIDIGetNumberOfSources, 
                        _MIDIGetSerialPortDrivers, _MIDIGetSerialPortOwner, _MIDIGetSource, 
-                       _MIDIInputPortCreate, _MIDIInputPortCreateWithBlock, _MIDIObjectFindByUniqueID, 
-                       _MIDIObjectGetDataProperty, _MIDIObjectGetDictionaryProperty, 
+                       _MIDIInputPortCreate, _MIDIInputPortCreateWithBlock, _MIDINetworkBonjourServiceType, 
+                       _MIDINetworkNotificationContactsDidChange, _MIDINetworkNotificationSessionDidChange, 
+                       _MIDIObjectFindByUniqueID, _MIDIObjectGetDataProperty, _MIDIObjectGetDictionaryProperty, 
                        _MIDIObjectGetIntegerProperty, _MIDIObjectGetProperties, _MIDIObjectGetStringProperty, 
                        _MIDIObjectRemoveProperty, _MIDIObjectSetDataProperty, _MIDIObjectSetDictionaryProperty, 
                        _MIDIObjectSetIntegerProperty, _MIDIObjectSetStringProperty, 
@@ -61,5 +63,6 @@ exports:
                        _kMIDIPropertyTransmitsMTC, _kMIDIPropertyTransmitsNotes, 
                        _kMIDIPropertyTransmitsProgramChanges, _kMIDIPropertyUniqueID, 
                        _kMIDIPropertyUserPatchNameFile ]
-    objc-classes:    [ BLEMIDIAccessor ]
+    objc-classes:    [ BLEMIDIAccessor, MIDICIProfile, MIDICIProfileState, MIDICISession, 
+                       MIDINetworkConnection, MIDINetworkHost, MIDINetworkSession ]
 ...

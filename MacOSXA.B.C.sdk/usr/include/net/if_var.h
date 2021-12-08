@@ -69,9 +69,6 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/queue.h>		/* get TAILQ macros */
-#ifdef BSD_KERN_PRIVATE
-#include <sys/eventhandler.h>
-#endif
 
 
 #ifdef __APPLE__

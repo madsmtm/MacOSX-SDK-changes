@@ -309,6 +309,15 @@ typedef struct vm_purgeable_info	*vm_purgeable_info_t;
 #define SUPERPAGE_SIZE_2MB		2
 #define VM_FLAGS_SUPERPAGE_SIZE_2MB (SUPERPAGE_SIZE_2MB<<VM_FLAGS_SUPERPAGE_SHIFT)
 
+/*
+ * EXC_GUARD definitions for virtual memory.
+ */
+#define GUARD_TYPE_VIRT_MEMORY	0x5
+
+/* Reasons for exception for virtual memory */
+enum virtual_memory_guard_exception_codes {
+	kGUARD_EXC_DEALLOC_GAP	= 1u << 0
+};
 
 
 
@@ -459,6 +468,23 @@ typedef struct vm_purgeable_info	*vm_purgeable_info_t;
 #define VM_MEMORY_AUDIO 90
 
 #define VM_MEMORY_VIDEOBITSTREAM 91
+
+/* memory allocated by CoreMedia */
+#define VM_MEMORY_CM_XPC 92
+
+#define VM_MEMORY_CM_RPC 93
+
+#define VM_MEMORY_CM_MEMORYPOOL 94
+
+#define VM_MEMORY_CM_READCACHE 95
+
+#define VM_MEMORY_CM_CRABS 96
+
+/* memory allocated for QuickLookThumbnailing */
+#define VM_MEMORY_QUICKLOOK_THUMBNAILS 97
+
+/* memory allocated by Accounts framework */
+#define VM_MEMORY_ACCOUNTS 98
 
 /* Reserve 240-255 for application */
 #define VM_MEMORY_APPLICATION_SPECIFIC_1 240

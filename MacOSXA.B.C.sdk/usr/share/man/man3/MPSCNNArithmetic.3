@@ -1,4 +1,4 @@
-.TH "MPSCNNArithmetic" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNArithmetic" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -17,6 +17,12 @@ Inherited by \fBMPSCNNAdd\fP, \fBMPSCNNDivide\fP, \fBMPSCNNMultiply\fP, and \fBM
 .in +1c
 .ti -1c
 .RI "(nonnull instancetype) \- \fBinitWithDevice:\fP"
+.br
+.ti -1c
+.RI "(void) \- \fBencodeToCommandBuffer:primaryImage:secondaryImage:destinationState:destinationImage:\fP"
+.br
+.ti -1c
+.RI "(void) \- \fBencodeBatchToCommandBuffer:primaryImages:secondaryImages:destinationStates:destinationImages:\fP"
 .br
 .in -1c
 .SS "Properties"
@@ -85,6 +91,40 @@ The number of output feature channels remains the same as the number of input fe
 You must use one of the sub-classes of \fBMPSImageArithmetic\fP\&. 
 .SH "Method Documentation"
 .PP 
+.SS "\- (void) encodeBatchToCommandBuffer: (__nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSImageBatch\fP *__nonnull) primaryImages(\fBMPSImageBatch\fP *__nonnull) secondaryImages(\fBMPSCNNArithmeticGradientStateBatch\fP *__nonnull) destinationStates(\fBMPSImageBatch\fP *__nonnull) destinationImages"
+Encode call that operates on a state for later consumption by a gradient kernel in training  This is the older style of encode which reads the offset, doesn't change it, and ignores the padding method\&. Multiple images are processed concurrently\&. All images must have \fBMPSImage\&.numberOfImages\fP = 1\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcommandBuffer\fP \fBA\fP valid MTLCommandBuffer to receive the encoded filter 
+.br
+\fIprimaryImages\fP An array of \fBMPSImage\fP objects containing the primary source images\&. 
+.br
+\fIsecondaryImages\fP An array \fBMPSImage\fP objects containing the secondary source images\&. 
+.br
+\fIdestinationStates\fP An array of MPSCNNArithmeticGradientStateBatch to be consumed by the gradient layer 
+.br
+\fIdestinationImages\fP An array of \fBMPSImage\fP objects to contain the result images\&. destinationImages may not alias primarySourceImages or secondarySourceImages in any manner\&. 
+.RE
+.PP
+
+.SS "\- (void) encodeToCommandBuffer: (__nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSImage\fP *__nonnull) primaryImage(\fBMPSImage\fP *__nonnull) secondaryImage(\fBMPSCNNArithmeticGradientState\fP *__nonnull) destinationState(\fBMPSImage\fP *__nonnull) destinationImage"
+Encode call that operates on a state for later consumption by a gradient kernel in training  This is the older style of encode which reads the offset, doesn't change it, and ignores the padding method\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcommandBuffer\fP The command buffer 
+.br
+\fIprimaryImage\fP \fBA\fP \fBMPSImage\fP to use as the source images for the filter\&. 
+.br
+\fIsecondaryImage\fP \fBA\fP \fBMPSImage\fP to use as the source images for the filter\&. 
+.br
+\fIdestinationState\fP \fBMPSCNNArithmeticGradientState\fP to be consumed by the gradient layer 
+.br
+\fIdestinationImage\fP \fBA\fP valid \fBMPSImage\fP to be overwritten by result image\&. destinationImage may not alias primarySourceImage or secondarySourceImage\&. 
+.RE
+.PP
+
 .SS "\- (nonnull instancetype) initWithDevice: (nonnull id< MTLDevice >) device"
 Standard init with default properties per filter type 
 .PP

@@ -1,10 +1,14 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 603C420C-2309-34DF-8E61-663D76E2E18A', 'x86_64: 499F0897-C9D5-31DD-9495-6BC9A07BD46C' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: CE29CFB5-4C9B-3190-B121-F8ABF4C79B00' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/HDAInterface.framework/Versions/A/HDAInterface
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _HDAAudioEngineInputClass, _HDAAudioEngineOutputClass, _HDAErrorDomain ]
+    objc-classes:    [ HDAAudioEngineUserClient, HDABuiltinCodecInterface, HDAControllerInterface, 
+                       HDADSPInterface, HDADSPUserClient, HDAInterface, HDAMikeyInterface, 
+                       HDAUserClient, IOHDAudioCodecDeviceUserClient ]
     objc-ivars:      [ HDADSPInterface.mInput, HDAInterface.mConnect, HDAInterface.mService, 
                        HDAMikeyInterface.mInternalMikey, IOHDAudioCodecDeviceUserClient.appleHDAControllerUserClientBuffer, 
                        IOHDAudioCodecDeviceUserClient.appleHDADriverUserClientBuffer, 
@@ -18,9 +22,4 @@ exports:
                        IOHDAudioCodecDeviceUserClient.mRegElapsedPtr, IOHDAudioCodecDeviceUserClient.mRegPtr, 
                        IOHDAudioCodecDeviceUserClient.ucSecondaryTestBuffer, IOHDAudioCodecDeviceUserClient.ucStickyStatusBuffer, 
                        IOHDAudioCodecDeviceUserClient.ucTestBuffer ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _HDAAudioEngineInputClass, _HDAAudioEngineOutputClass, _HDAErrorDomain ]
-    objc-classes:    [ HDAAudioEngineUserClient, HDABuiltinCodecInterface, HDAControllerInterface, 
-                       HDADSPInterface, HDADSPUserClient, HDAInterface, HDAMikeyInterface, 
-                       HDAUserClient, IOHDAudioCodecDeviceUserClient ]
 ...

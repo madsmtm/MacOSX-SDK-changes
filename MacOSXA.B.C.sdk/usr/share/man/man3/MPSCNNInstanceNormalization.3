@@ -1,4 +1,4 @@
-.TH "MPSCNNInstanceNormalization" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNInstanceNormalization" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -26,10 +26,16 @@ Inherits \fBMPSCNNKernel\fP\&.
 .RI "(void) \- \fBreloadDataSource:\fP"
 .br
 .ti -1c
+.RI "(void) \- \fBreloadGammaAndBetaFromDataSource\fP"
+.br
+.ti -1c
 .RI "(void) \- \fBreloadGammaAndBetaWithCommandBuffer:gammaAndBetaState:\fP"
 .br
 .ti -1c
 .RI "(\fBMPSCNNInstanceNormalizationGradientState\fP *__nullable) \- \fBresultStateForSourceImage:sourceStates:destinationImage:\fP"
+.br
+.ti -1c
+.RI "(\fBMPSCNNInstanceNormalizationGradientState\fP *__nullable) \- \fBtemporaryResultStateForCommandBuffer:sourceImage:sourceStates:destinationImage:\fP"
 .br
 .in -1c
 .SS "Properties"
@@ -90,6 +96,8 @@ Reload data using a data source\&.
 .RE
 .PP
 
+.SS "\- (void) reloadGammaAndBetaFromDataSource "
+Reinitialize the filter using the data source provided at kernel initialization\&. 
 .SS "\- (void) reloadGammaAndBetaWithCommandBuffer: (__nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSCNNNormalizationGammaAndBetaState\fP *__nonnull) gammaAndBetaState"
 Reload data using new gamma and beta terms contained within an \fBMPSCNNInstanceNormalizationGradientState\fP object\&.
 .PP
@@ -103,6 +111,10 @@ Reload data using new gamma and beta terms contained within an \fBMPSCNNInstance
 
 .SS "\- (\fBMPSCNNInstanceNormalizationGradientState\fP * __nullable) resultStateForSourceImage: (\fBMPSImage\fP *__nonnull) sourceImage(NSArray< \fBMPSState\fP * > *__nullable) sourceStates(\fBMPSImage\fP *__nonnull) destinationImage"
 Return a \fBMPSCNNInstanceNormalizationGradientState\fP object for the provided source image, source states, and destination image\&. 
+.PP
+Reimplemented from \fBMPSCNNKernel\fP\&.
+.SS "\- (\fBMPSCNNInstanceNormalizationGradientState\fP * __nullable) temporaryResultStateForCommandBuffer: (nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSImage\fP *__nonnull) sourceImage(NSArray< \fBMPSState\fP * > *__nullable) sourceStates(\fBMPSImage\fP *__nonnull) destinationImage"
+Return a temporary \fBMPSCNNInstanceNormalizationGradientState\fP object which may be used with a \fBMPSCNNInstanceNormalization\fP filter\&. 
 .PP
 Reimplemented from \fBMPSCNNKernel\fP\&.
 .SH "Property Documentation"

@@ -1,9 +1,10 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 3893FB36-FABA-3ED8-AE7F-3F1BB23AF4BF' ]
+uuids:           [ 'x86_64: 8949A0FA-337E-3C28-94D1-35853D69761B' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/MetalKit.framework/Versions/A/MetalKit
-current-version: 98.3
+current-version: 113
+objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _MTKMetalVertexDescriptorFromModelIO, _MTKMetalVertexDescriptorFromModelIOWithError, 
@@ -11,22 +12,11 @@ exports:
                        _MTKModelIOVertexDescriptorFromMetal, _MTKModelIOVertexDescriptorFromMetalWithError, 
                        _MTKModelIOVertexFormatFromMetal, _MTKTextureLoaderCubeLayoutVertical, 
                        _MTKTextureLoaderErrorDomain, _MTKTextureLoaderErrorKey, _MTKTextureLoaderOptionAllocateMipmaps, 
-                       _MTKTextureLoaderOptionCubeFromVerticalTexture, _MTKTextureLoaderOptionCubeLayout, 
-                       _MTKTextureLoaderOptionGenerateMipmaps, _MTKTextureLoaderOptionOrigin, 
-                       _MTKTextureLoaderOptionSRGB, _MTKTextureLoaderOptionTextureCPUCacheMode, 
-                       _MTKTextureLoaderOptionTextureStorageMode, _MTKTextureLoaderOptionTextureUsage, 
-                       _MTKTextureLoaderOriginBottomLeft, _MTKTextureLoaderOriginFlippedVertically, 
-                       _MTKTextureLoaderOriginTopLeft, _MetalKitVersionNumber, _MetalKitVersionString, 
-                       _PVR3SizedFormat, __MTKModelErrorWithCode, __MTKModelErrorWithCodeAndErrorString, 
-                       __MTKModelErrorWithCodeAndUserInfo, __mtkLinkedOSVersion, 
-                       __mtkLinkedOnOrAfter, __newMTKTextureErrorWithCode, __newMTKTextureErrorWithCodeAndErrorString, 
-                       __newMTKTextureErrorWithCodeAndUserInfo, _gCGColorSpaceModelString, 
-                       _gCGImageAlphaString, _gCGImageBitmapByteOrder, _gCGImageComponentTypeString, 
-                       _gKTXFileIdentifier, _printIndices16, _printIndices32, _reflectImage ]
-    objc-classes:    [ MTKMesh, MTKMeshBuffer, MTKMeshBufferAllocator, MTKMeshBufferHolder, 
-                       MTKMeshBufferZone, MTKOffscreenDrawable, MTKSubmesh, MTKTextureIOBuffer, 
-                       MTKTextureIOBufferAllocator, MTKTextureIOBufferMap, MTKTextureLoader, 
-                       MTKTextureLoaderData, MTKTextureLoaderImageIO, MTKTextureLoaderKTX, 
-                       MTKTextureLoaderMDL, MTKTextureLoaderPVR, MTKTextureLoaderPVR3, 
-                       MTKTextureUploader, MTKView ]
+                       _MTKTextureLoaderOptionCubeLayout, _MTKTextureLoaderOptionGenerateMipmaps, 
+                       _MTKTextureLoaderOptionOrigin, _MTKTextureLoaderOptionSRGB, 
+                       _MTKTextureLoaderOptionTextureCPUCacheMode, _MTKTextureLoaderOptionTextureStorageMode, 
+                       _MTKTextureLoaderOptionTextureUsage, _MTKTextureLoaderOriginBottomLeft, 
+                       _MTKTextureLoaderOriginFlippedVertically, _MTKTextureLoaderOriginTopLeft ]
+    objc-classes:    [ MTKMesh, MTKMeshBuffer, MTKMeshBufferAllocator, MTKSubmesh, 
+                       MTKTextureLoader, MTKView ]
 ...

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: A6E0F3FE-A96A-3AF5-A627-F3654AB9B42A' ]
+uuids:           [ 'x86_64: 69906DAC-9833-37F8-8A44-88E6452891F3' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/EventKit.framework/Versions/A/EventKit
-current-version: 751.4.4
+current-version: 809
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _BirthdaySourceType, _CalDAVSourceType, _EKActionConfirmSuggestedEvent, 
@@ -150,8 +150,8 @@ exports:
                        _kNumberOfSharedLocks, _resetStaticObjectCreationVariables, 
                        _stringFromEKEntityType, _stringFromEKSharingStatus, _syncBoolIfQueueNotNil, 
                        _syncIfQueueNotNil ]
-    objc-classes:    [ EKActionsAccounting, EKAlarm, EKArchiver, EKAssistantEventPredicate, 
-                       EKAttachment, EKAttendee, EKAvailabilityCache, EKAvailabilityCachedSpan, 
+    objc-classes:    [ EKActionsAccounting, EKAlarm, EKAssistantEventPredicate, EKAttachment, 
+                       EKAttendee, EKAvailabilityCache, EKAvailabilityCachedSpan, 
                        EKAvailabilityCachedSpanRange, EKAvailabilitySpan, EKAvailabilityUtilities, 
                        EKBackingObjectsTracker, EKBackingStore, EKBackingStoreAccounting, 
                        EKBatchChangeInfo, EKCalendar, EKCalendarChangeHelper, EKCalendarEventInvitationNotification, 
@@ -163,13 +163,13 @@ exports:
                        EKChangeSet, EKChangeTracker, EKConferenceURLDetector, EKConflictDetails, 
                        EKConflictScanJob, EKConflictScanner, EKContactEventRangePredicate, 
                        EKCoreDataFaultDelegate, EKCreateOperation, EKDataProtectionObserver, 
-                       EKDebugPreferences, EKDeleteOperation, EKDiff, EKEWSItemIDPredicate, 
-                       EKEditingContext, EKEditingContextGroup, EKEvent, EKEventOccurrenceCache, 
-                       EKEventOccurrenceProtocol_Shared, EKEventRangePredicate, EKEventSliceInfo, 
-                       EKEventStore, EKFeatureSet, EKFrozenAlarm, EKFrozenAttachment, 
-                       EKFrozenAttendee, EKFrozenCalendar, EKFrozenCalendarEventInvitationNotification, 
-                       EKFrozenCalendarInviteReplyNotification, EKFrozenCalendarItem, 
-                       EKFrozenCalendarNotification, EKFrozenCalendarProposeNewTimeNotification, 
+                       EKDebugPreferences, EKDefaultSerializerFactory, EKDeleteOperation, 
+                       EKDiff, EKEWSItemIDPredicate, EKEditingContext, EKEditingContextGroup, 
+                       EKEvent, EKEventOccurrenceCache, EKEventOccurrenceProtocol_Shared, 
+                       EKEventRangePredicate, EKEventSliceInfo, EKEventStore, EKFeatureSet, 
+                       EKFrozenAlarm, EKFrozenAttachment, EKFrozenAttendee, EKFrozenCalendar, 
+                       EKFrozenCalendarEventInvitationNotification, EKFrozenCalendarInviteReplyNotification, 
+                       EKFrozenCalendarItem, EKFrozenCalendarNotification, EKFrozenCalendarProposeNewTimeNotification, 
                        EKFrozenCalendarResourceChangeNotification, EKFrozenCalendarSharedCalendarNotification, 
                        EKFrozenCalendarSource, EKFrozenCalendarSuggestionNotification, 
                        EKFrozenEvent, EKFrozenObject, EKFrozenOrganizer, EKFrozenParticipant, 
@@ -181,8 +181,10 @@ exports:
                        EKObject, EKObjectChangeSummarizer, EKObjectCreation, EKObjectCreationCalendarStore, 
                        EKObjectCreationInMemory, EKObjectCreationInMemoryCalendar, 
                        EKObjectCreationInMemoryObject, EKObjectCreationInMemorySource, 
-                       EKObjectGroup, EKOccurrenceProtocol_Shared, EKOrganizer, EKParticipant, 
-                       EKParticipantForSorting, EKParticipantToContactMatcher, EKPostSliceDescription, 
+                       EKObjectGroup, EKObjectPersistentChangesModel, EKObjectValidationContext, 
+                       EKOccurrenceProtocol_Shared, EKOrganizer, EKParticipant, EKParticipantForSorting, 
+                       EKParticipantToContactMatcher, EKPersistentHistoryTransactionChangeSummary, 
+                       EKPersistentHistoryTransactionChangeSummaryModel, EKPostSliceDescription, 
                        EKPredicate, EKPredicateSearch, EKPreferences, EKQueryEventPredicate, 
                        EKQueryPredicate, EKQueryReminderPredicate, EKReadWriteLock, 
                        EKRecents, EKRecurrenceChangeInfo, EKRecurrenceChangeManager, 
@@ -190,11 +192,14 @@ exports:
                        EKRecurrenceGenerator, EKRecurrenceIdentifier, EKRecurrenceRule, 
                        EKRecurrenceSet, EKRecurringReminderCompletedChangeInfo, EKRelationChange, 
                        EKReminder, EKRepliedEventPredicate, EKRequestAvailabilityOperation, 
-                       EKResliceOperation, EKRevertOperation, EKSaveOperation, EKSeriesDetails, 
-                       EKSharee, EKSliceDescription, EKSource, EKStructuredLocation, 
-                       EKSuggestedEventInfo, EKSuggestedEventPredicate, EKSyntheticGEORouteHypothesis, 
+                       EKResliceOperation, EKRevertOperation, EKSaveOperation, EKSecureKeyedArchiverSerializer, 
+                       EKSerializableAlarm, EKSerializableAttachment, EKSerializableEvent, 
+                       EKSerializableObject, EKSerializableParticipant, EKSerializableRecurrenceRule, 
+                       EKSerializableStructuredLocation, EKSeriesDetails, EKSharee, 
+                       EKSliceDescription, EKSource, EKStructuredLocation, EKSuggestedEventInfo, 
+                       EKSuggestedEventPredicate, EKSyntheticGEORouteHypothesis, 
                        EKTempEventStoreFactory, EKTimedEventStorePurger, EKTravelEngineHypothesis, 
-                       EKTravelEngineUtilities, EKUnarchiver, EKUncompleteRecurringReminderOperation, 
+                       EKTravelEngineUtilities, EKUncompleteRecurringReminderOperation, 
                        EKUndeleteFutureOperation, EKUndoManager, EKUndoSliceOutcome, 
                        EKUndoableOperation, EKUnrevertOperation, EKUnsliceOperation ]
     objc-ivars:      [ EKEventRangePredicate._endDate, EKEventRangePredicate._exclusionOptions, 

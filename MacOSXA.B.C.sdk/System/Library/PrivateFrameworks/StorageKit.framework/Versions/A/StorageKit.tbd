@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 8FC15619-5900-3B31-8C19-829C4F023913' ]
+uuids:           [ 'x86_64: 2790BF2C-A529-32D9-86A3-FA21BFA22D16' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/StorageKit.framework/Versions/A/StorageKit
 current-version: 53
@@ -15,11 +15,12 @@ exports:
                        _SKLogDebug, _SKLogError, _SKLogInfo, _SKLogSetLogsToConsole, 
                        _SKLogSetLogsToStd, _SKLogSetLogsToSys, _SKProgressHandlerInterface, 
                        _commaSeparatedDiskListFromArray, _currentQueueIsMainQueue, 
-                       _currentQueueMatchesTag, _kSKDiskDisableRepairKextCache, _kSKDiskFileSystem3rdPartyPrefix, 
-                       _kSKDiskFileSystemACFS, _kSKDiskFileSystemAPFS, _kSKDiskFileSystemExFAT, 
-                       _kSKDiskFileSystemFAT, _kSKDiskFileSystemHFS, _kSKDiskFileSystemNTFS, 
-                       _kSKDiskFileSystemUndefined, _kSKDiskPartitionMapAPM, _kSKDiskPartitionMapGPT, 
-                       _kSKDiskPartitionMapMBR, _kSKDiskRepairESPForWholeDisk, _kSKDiskRepairESPRecreateIfNecessary, 
+                       _currentQueueMatchesTag, _kSKAPFSDiskUnmountDoNotLock, _kSKDiskDisableRepairKextCache, 
+                       _kSKDiskFileSystem3rdPartyPrefix, _kSKDiskFileSystemACFS, 
+                       _kSKDiskFileSystemAPFS, _kSKDiskFileSystemExFAT, _kSKDiskFileSystemFAT, 
+                       _kSKDiskFileSystemHFS, _kSKDiskFileSystemNTFS, _kSKDiskFileSystemUndefined, 
+                       _kSKDiskPartitionMapAPM, _kSKDiskPartitionMapGPT, _kSKDiskPartitionMapMBR, 
+                       _kSKDiskRepairESPForWholeDisk, _kSKDiskRepairESPRecreateIfNecessary, 
                        _kSKDiskRoleBooter, _kSKDiskRoleDigitalCameraData, _kSKDiskRoleExternalMedia, 
                        _kSKDiskRoleLegacyMacData, _kSKDiskRoleLegacyMacSystem, _kSKDiskRoleMacApplicationData, 
                        _kSKDiskRoleMacData, _kSKDiskRoleMacSystem, _kSKDiskRoleMacUserData, 
@@ -45,14 +46,14 @@ exports:
                        _kSKEIParentDisks, _kSKEIPartitionMapScheme, _kSKEIPartitionNumber, 
                        _kSKEIPurgeableSpace, _kSKEIRootlessEnabled, _kSKEISMARTStatus, 
                        _kSKEISolidState, _kSKEIUsedSpace, _kSKEIVolumeName, _kSKEIVolumeType, 
-                       _kSKEIWritable, _kSKFDEODRecordKey, _kSKFDEPCSetKey, _kSKFDEPasswordKey, 
-                       _kSKFDEUserIconDataKey, _kSKFDEUserNameKey, _kSKFDEUserNameShortNameKey, 
-                       _kSKFDEUserNamesDataArrayKey, _kSKFDEUserPassphraseHint, _kSKFDEUserTypeKey, 
-                       _kSKFDEUserUUIDKey, _kSKFDEiCloudUserNameKey, _kSKIFDEAKSPasshandle, 
-                       _kSKIFDEFullUserName, _kSKIFDEPassword, _kSKIFDEUserUUID, 
-                       _kSKRAIDDiskMemberTypeMember, _kSKRAIDDiskMemberTypeSpare, 
-                       _kSKRAIDDiskTypeJBOD, _kSKRAIDDiskTypeMirrored, _kSKRAIDDiskTypeStriped, 
-                       _tagQueue ]
+                       _kSKEIWritable, _kSKFDEAPFSUserIsAdmin, _kSKFDEODRecordKey, 
+                       _kSKFDEPCSetKey, _kSKFDEPasswordKey, _kSKFDEUserIconDataKey, 
+                       _kSKFDEUserNameKey, _kSKFDEUserNameShortNameKey, _kSKFDEUserNamesDataArrayKey, 
+                       _kSKFDEUserPassphraseHint, _kSKFDEUserTypeKey, _kSKFDEUserUUIDKey, 
+                       _kSKFDEiCloudUserNameKey, _kSKIFDEAKSPasshandle, _kSKIFDEFullUserName, 
+                       _kSKIFDEPassword, _kSKIFDEUserUUID, _kSKRAIDDiskMemberTypeMember, 
+                       _kSKRAIDDiskMemberTypeSpare, _kSKRAIDDiskTypeJBOD, _kSKRAIDDiskTypeMirrored, 
+                       _kSKRAIDDiskTypeStriped, _tagQueue ]
     objc-classes:    [ SKAPFSContainerDisk, SKAPFSDisk, SKAPFSStoreDisk, SKBaseManager, 
                        SKBindableDisk, SKCSDisk, SKCSLVGDisk, SKCSPVDisk, SKDisk, 
                        SKError, SKFilesystem, SKHelperClient, SKManager, SKRAIDDisk, 

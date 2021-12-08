@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 3F1203C7-69AF-3EE3-A735-4F5C2629C576' ]
+uuids:           [ 'x86_64: 6577E755-7958-3E8F-B18F-3047419D30E9' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Safari.framework/Versions/A/Safari
-current-version: 605.1.33
+current-version: 606.1.36
 compatibility-version: 528
 exports:         
   - archs:           [ x86_64 ]
@@ -39,16 +39,17 @@ exports:
                        _CKBADatabaseCopyServerIdsInFolderWithServerId, _CKBADatabaseCreateBookmark, 
                        _CKBADatabaseCreateFolder, _CKBADatabaseCreateWithoutLock, 
                        _CKBADatabaseGetLocalCloudKitMigrationState, _CKBADatabasePerformDeduplication, 
-                       _CKBADatabaseSaveBackupWithName, _CKBADatabaseSetAccountHash, 
-                       _CKBADatabaseSetChildrenOrderForFolderWithServerId, _CKBADatabaseSetLocalCloudKitMigrationState, 
-                       _CKBAFolderCopyKnownKeys, _CKBAFolderGetFolderType, _CKBAItemCopyAttributes, 
-                       _CKBAItemCopyValueForKey, _CKBAItemGetIsInFolderWithServerSyncId, 
-                       _CKBAItemGetItemType, _CKBAItemIsEqualToItem, _CKBAItemSetModifiedAttributes, 
-                       _CKBAReadingListItemCopyKnownKeys, _CKBAResetDeviceIdentifier, 
-                       _NotificationAgentMain, _PlugInUpdateNotifierMain, _SafariDiagnosticsMain, 
-                       _SafariHistoryServiceAgentMain, _SafariLaunchAgentMain, _SafariMain, 
-                       _SyncedCreditCardsDidChangeExternallyNotification, _SyncedPasswordsDidChangeExternallyNotification, 
-                       _WKBundleInitialize, __Z25safariDateOfLastActiveUsev, __Z31BrowserDataImportingServiceMainv, 
+                       _CKBADatabasePerformMaintenanceAfterVersion, _CKBADatabaseSaveBackupWithName, 
+                       _CKBADatabaseSetAccountHash, _CKBADatabaseSetChildrenOrderForFolderWithServerId, 
+                       _CKBADatabaseSetLocalCloudKitMigrationState, _CKBAFolderCopyKnownKeys, 
+                       _CKBAFolderGetFolderType, _CKBAItemCopyAttributes, _CKBAItemCopyValueForKey, 
+                       _CKBAItemGetIsInFolderWithServerSyncId, _CKBAItemGetItemType, 
+                       _CKBAItemIsEqualToItem, _CKBAItemSetModifiedAttributes, _CKBAReadingListItemCopyKnownKeys, 
+                       _CKBAResetDeviceIdentifier, _NotificationAgentMain, _PlugInUpdateNotifierMain, 
+                       _SafariDiagnosticsMain, _SafariHistoryServiceAgentMain, _SafariLaunchAgentMain, 
+                       _SafariMain, _SyncedCreditCardsDidChangeExternallyNotification, 
+                       _SyncedPasswordsDidChangeExternallyNotification, _WKBundleInitialize, 
+                       __Z25safariDateOfLastActiveUsev, __Z31BrowserDataImportingServiceMainv, 
                        __Z33safariApplicationBundleIdentifierv, __Z41creditCardDataControllerHasCreditCardDatav, 
                        __Z43creditCardDataControllerClearCreditCardDatav, __Z50safariApplicationCloudTabStoreUUIDForCurrentDevicev, 
                        __Z52credentialAndProtectionSpaceCollectionHasCredentialsv, 

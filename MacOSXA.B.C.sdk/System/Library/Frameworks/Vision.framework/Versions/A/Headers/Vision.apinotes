@@ -4,19 +4,19 @@ Name: Vision
 Globals:
 - Name: VNBarcodeSymbologyAztec
   SwiftName: Aztec
-- Name: VNBarcodeSymbologyCODE39
+- Name: VNBarcodeSymbologyCode39
   SwiftName: Code39
-- Name: VNBarcodeSymbologyCODE39Checksum
+- Name: VNBarcodeSymbologyCode39Checksum
   SwiftName: Code39Checksum
-- Name: VNBarcodeSymbologyCODE39FullASCII
+- Name: VNBarcodeSymbologyCode39FullASCII
   SwiftName: Code39FullASCII
-- Name: VNBarcodeSymbologyCODE39FullASCIIChecksum
+- Name: VNBarcodeSymbologyCode39FullASCIIChecksum
   SwiftName: Code39FullASCIIChecksum
-- Name: VNBarcodeSymbologyCODE93
+- Name: VNBarcodeSymbologyCode93
   SwiftName: Code93
-- Name: VNBarcodeSymbologyCODE93i
+- Name: VNBarcodeSymbologyCode93i
   SwiftName: Code93i
-- Name: VNBarcodeSymbologyCODE128
+- Name: VNBarcodeSymbologyCode128
   SwiftName: Code128
 - Name: VNBarcodeSymbologyDataMatrix
   SwiftName: DataMatrix
@@ -24,9 +24,9 @@ Globals:
   SwiftName: EAN8
 - Name: VNBarcodeSymbologyEAN13
   SwiftName: EAN13
-- Name: VNBarcodeSymbologyI2OF5
+- Name: VNBarcodeSymbologyI2of5
   SwiftName: I2of5
-- Name: VNBarcodeSymbologyI2OF5Checksum
+- Name: VNBarcodeSymbologyI2of5Checksum
   SwiftName: I2of5Checksum
 - Name: VNBarcodeSymbologyITF14
   SwiftName: ITF14
@@ -50,3 +50,26 @@ Classes:
     SwiftName: "__pointsInImage(imageSize:)"
     SwiftPrivate: true
     NullabilityOfRet: N
+
+
+SwiftVersions:
+- Version: 4
+  Globals:
+  - Name: VNBarcodeSymbologyCode39
+    SwiftName: code39
+  - Name: VNBarcodeSymbologyCode39Checksum
+    SwiftName: code39Checksum
+  - Name: VNBarcodeSymbologyCode39FullASCII
+    SwiftName: code39FullASCII
+  - Name: VNBarcodeSymbologyCode39FullASCIIChecksum
+    SwiftName: code39FullASCIIChecksum
+  - Name: VNBarcodeSymbologyCode93
+    SwiftName: code93
+  - Name: VNBarcodeSymbologyCode93i
+    SwiftName: code93i
+  - Name: VNBarcodeSymbologyCode128
+    SwiftName: code128
+  - Name: VNBarcodeSymbologyI2of5
+    SwiftName: i2of5
+  - Name: VNBarcodeSymbologyI2of5Checksum
+    SwiftName: i2of5Checksum

@@ -1,3 +1,12 @@
+
+/*!
+ *  @header MPSCNNInstanceNormalization.h
+ *  @framework MetalPerformanceShaders.framework
+ *
+ *  @copyright Copyright (c) 2018 Apple Inc. All rights reserved.
+ *  @abstract MPSKernels to do instance normalization and training
+ */
+
 #ifndef MPSCNNInstanceNormalization_h
 #define MPSCNNInstanceNormalization_h
 
@@ -80,7 +89,7 @@ typedef NSArray<MPSCNNInstanceNormalizationGradientState*>  MPSCNNInstanceNormal
  *              scale factors (gamma) and bias terms (beta).
  */
 MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
-@protocol MPSCNNInstanceNormalizationDataSource <NSObject>
+@protocol MPSCNNInstanceNormalizationDataSource <NSObject, NSCopying>
 
 @required
     /*!
@@ -117,6 +126,9 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
      *                  returned from the function will be used for that.  A batch of states will be passed in.
      *                  You should accumulate the gradients and then update the weights.
      *
+     *                  This operation is expected to also decrement the read count of instanceNormalizationStateBatch by 1,
+     *                  if the states are temporary.
+     *
      *  @param          commandBuffer                   The command buffer on which to encode the update.
      *
      *  @param          instanceNormalizationStateBatch A batch of MPSCNNInstanceNormalizationGradientState objects containing
@@ -150,6 +162,17 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
     - (nullable instancetype)initWithCoder:(NSCoder * __nonnull)aDecoder; // NS_DESIGNATED_INITIALIZER
     
     @property (class, readonly) BOOL supportsSecureCoding;
+    
+    /*!
+     *  @abstract   Optional copy method to create a copy of the data source for use with a new device.
+     *
+     *  @param      zone    The NSZone on which to allocate.
+     *  @param      device  The device where the kernel which uses this data source will be used.
+     *
+     *  @result     A pointer to a copy of this data source.
+     */
+    - (nonnull instancetype) copyWithZone:(nullable NSZone *)zone
+                                   device:(nullable id <MTLDevice>) device MPS_AVAILABLE_STARTING(macos(10.14), ios(12.0), tvos(12.0));
 @end    // MPSCNNInstanceNormalizationDataSource
     
 /*!
@@ -204,7 +227,14 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))
  *  @param      dataSource  The data source which will provide the gamma and beta terms
  *                          to scale and bias the normalized result respectively.
  */
--(void) reloadDataSource: (__nonnull id<MPSCNNInstanceNormalizationDataSource>) dataSource;
+-(void) reloadDataSource: (__nonnull id<MPSCNNInstanceNormalizationDataSource>) dataSource
+MPS_AVAILABLE_STARTING_BUT_DEPRECATED( "Please use -reloadGammaAndBetaFromDataSource instead.",
+                                      macos(10.13.4, 10.14), ios(11.3,12.0), tvos(11.3, 12.0));
+
+/*!
+ *  @abstract   Reinitialize the filter using the data source provided at kernel initialization.
+ */
+-(void) reloadGammaAndBetaFromDataSource MPS_AVAILABLE_STARTING(macos(10.14), ios(12.0), tvos(12.0));
 
 /*!
  *  @abstract   Reload data using new gamma and beta terms contained within an

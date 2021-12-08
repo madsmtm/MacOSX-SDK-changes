@@ -12,6 +12,7 @@
  */
 
 #import <AppKit/AppKit.h>
+#import <ImageKit/ImageKitBase.h>
 
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6

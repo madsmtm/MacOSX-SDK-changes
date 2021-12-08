@@ -3,7 +3,7 @@
 
 	Framework:  AVFoundation
  
-	Copyright 2010-2017 Apple Inc. All rights reserved.
+	Copyright 2010-2018 Apple Inc. All rights reserved.
 
 */
 
@@ -53,11 +53,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class AVMetadataItem;
 @class AVMediaSelection;
 @class AVCompositionTrack;
-
-#if TARGET_OS_TV
 @class AVDisplayCriteria;
-#endif // TARGET_OS_TV
-
 @class AVAssetInternal;
 
 NS_CLASS_AVAILABLE(10_7, 4_0)
@@ -97,13 +93,11 @@ NS_CLASS_AVAILABLE(10_7, 4_0)
 */
 @property (nonatomic, readonly) CGSize naturalSize NS_DEPRECATED(10_7, 10_8, 4_0, 5_0);
 
-#if TARGET_OS_TV
 /*!
  @property	preferredDisplayCriteria
  @abstract	Guides to a display mode that is optimal for playing this particular asset.
  */
-@property (nonatomic, readonly) AVDisplayCriteria *preferredDisplayCriteria API_AVAILABLE(tvos(11.2)) API_UNAVAILABLE(ios, macos, watchos);
-#endif // TARGET_OS_TV
+@property (nonatomic, readonly) AVDisplayCriteria *preferredDisplayCriteria API_AVAILABLE(tvos(11.2)) API_UNAVAILABLE(ios) API_UNAVAILABLE(macos, watchos);
 
 @end
 
@@ -465,7 +459,7 @@ AVF_EXPORT NSString *const AVURLAssetReferenceRestrictionsKey NS_AVAILABLE(10_7,
 	In both of these cases, HTTP requests will be missing any cookies that do not apply to the AVURLAsset's URL.  
 	This init option allows the AVURLAsset to use additional HTTP cookies for those HTTP(S) requests.
  */
-AVF_EXPORT NSString *const AVURLAssetHTTPCookiesKey NS_AVAILABLE_IOS(8_0);
+AVF_EXPORT NSString *const AVURLAssetHTTPCookiesKey API_AVAILABLE(ios(8.0), tvos(9.0)) API_UNAVAILABLE(macos) __WATCHOS_PROHIBITED;
 
 /*
  @constant		AVURLAssetAllowsCellularAccessKey
@@ -473,7 +467,7 @@ AVF_EXPORT NSString *const AVURLAssetHTTPCookiesKey NS_AVAILABLE_IOS(8_0);
  @discussion
  	Default is YES.
 */
-AVF_EXPORT NSString *const AVURLAssetAllowsCellularAccessKey NS_AVAILABLE_IOS(10_0);
+AVF_EXPORT NSString *const AVURLAssetAllowsCellularAccessKey API_AVAILABLE(ios(10.0), tvos(10.0)) API_UNAVAILABLE(macos) __WATCHOS_PROHIBITED;
 
 /*!
   @class		AVURLAsset
@@ -609,14 +603,14 @@ AVF_EXPORT NSString *const AVAssetDurationDidChangeNotification NS_AVAILABLE(10_
  @constant       AVAssetContainsFragmentsDidChangeNotification
  @abstract       Posted after the value of @"containsFragments" has already been loaded and the AVFragmentedAsset is added to an AVFragmentedAssetMinder, either when 1) fragments are detected in the asset on disk after it had previously contained none or when 2) no fragments are detected in the asset on disk after it had previously contained one or more.
 */
-AVF_EXPORT NSString *const AVAssetContainsFragmentsDidChangeNotification NS_AVAILABLE_MAC(10_11);
+AVF_EXPORT NSString *const AVAssetContainsFragmentsDidChangeNotification API_AVAILABLE(macos(10.11), ios(12.0), tvos(12.0)) API_UNAVAILABLE(watchos);
 
 /*!
  @constant       AVAssetWasDefragmentedNotification
  @abstract       Posted when the asset on disk is defragmented while an AVFragmentedAsset is being minded by an AVFragmentedAssetMinder, but only if the defragmentation occurs after the status of the value of @"canContainFragments" has reached AVKeyValueStatusLoaded.
  @discussion     After this notification is posted, the value of the asset properties canContainFragments and containsFragments will both be NO.
 */
-AVF_EXPORT NSString *const AVAssetWasDefragmentedNotification NS_AVAILABLE_MAC(10_11);
+AVF_EXPORT NSString *const AVAssetWasDefragmentedNotification API_AVAILABLE(macos(10.11), ios(12.0), tvos(12.0)) API_UNAVAILABLE(watchos);
 
 /*!
  @constant       AVAssetChapterMetadataGroupsDidChangeNotification
@@ -637,7 +631,7 @@ AVF_EXPORT NSString *const AVAssetMediaSelectionGroupsDidChangeNotification NS_A
 	@abstract		A subclass of AVURLAsset that represents media resources that can be extended in total duration without modifying previously existing data structures.
 	Such media resources include QuickTime movie files and MPEG-4 files that indicate, via an 'mvex' box in their 'moov' box, that they accommodate additional fragments. Media resources of other types may also be supported. To check whether a given instance of AVFragmentedAsset can be used to monitor the addition of fragments, check the value of the AVURLAsset property canContainFragments.
 	An AVFragmentedAsset is capable of changing the values of certain of its properties and those of its tracks, while an operation that appends fragments to the underlying media resource in in progress, if the AVFragmentedAsset is associated with an instance of AVFragmentedAssetMinder.
-	@discussion		While associated with an AVFragmentedAssetMinder, AVFragmentedAssetTrack posts AVAssetDurationDidChangeNotification and whenever new fragments are detected, as appropriate. It may also post AVAssetContainsFragmentsDidChangeNotification and AVAssetWasDefragmentedNotification, as discussed in documentation of those notifications.
+	@discussion		While associated with an AVFragmentedAssetMinder, AVFragmentedAsset posts AVAssetDurationDidChangeNotification whenever new fragments are detected, as appropriate. It may also post AVAssetContainsFragmentsDidChangeNotification and AVAssetWasDefragmentedNotification, as discussed in documentation of those notifications.
 */
 
 @protocol AVFragmentMinding
@@ -647,13 +641,13 @@ AVF_EXPORT NSString *const AVAssetMediaSelectionGroupsDidChangeNotification NS_A
   @abstract		Indicates whether an AVAsset that supports fragment minding is currently associated with a fragment minder, e.g. an instance of AVFragmentedAssetMinder.
   @discussion	AVAssets that support fragment minding post change notifications only while associated with a fragment minder.
 */
-@property (nonatomic, readonly, getter=isAssociatedWithFragmentMinder) BOOL associatedWithFragmentMinder NS_AVAILABLE_MAC(10_11);
+@property (nonatomic, readonly, getter=isAssociatedWithFragmentMinder) BOOL associatedWithFragmentMinder API_AVAILABLE(macos(10.11), ios(12.0), tvos(12.0)) API_UNAVAILABLE(watchos);
 
 @end
 
 @class AVFragmentedAssetInternal;
 
-NS_CLASS_AVAILABLE_MAC(10_11)
+API_AVAILABLE(macos(10.11), ios(12.0), tvos(12.0)) API_UNAVAILABLE(watchos)
 @interface AVFragmentedAsset : AVURLAsset <AVFragmentMinding>
 {
 @private
@@ -722,7 +716,7 @@ NS_CLASS_AVAILABLE_MAC(10_11)
 
 @class AVFragmentedAssetMinderInternal;
 
-NS_CLASS_AVAILABLE_MAC(10_11)
+API_AVAILABLE(macos(10.11), ios(12.0), tvos(12.0)) API_UNAVAILABLE(watchos)
 @interface AVFragmentedAssetMinder : NSObject
 {
 @private
@@ -739,6 +733,17 @@ NS_CLASS_AVAILABLE_MAC(10_11)
 	@result			A new instance of AVFragmentedAssetMinder.
 */
 + (instancetype)fragmentedAssetMinderWithAsset:(AVAsset<AVFragmentMinding> *)asset mindingInterval:(NSTimeInterval)mindingInterval;
+
+/*!
+	@method			initWithAsset:mindingInterval:
+	@abstract       Creates an AVFragmentedAssetMinder, adds the specified asset to it, and sets the mindingInterval to the specified value.
+	@param			asset
+					An instance of AVFragmentedAsset to add to the AVFragmentedAssetMinder
+	@param			mindingInterval
+					The initial minding interval of the AVFragmentedAssetMinder.
+	@result			A new instance of AVFragmentedAssetMinder.
+*/
+- (instancetype)initWithAsset:(AVAsset<AVFragmentMinding> *)asset mindingInterval:(NSTimeInterval)mindingInterval;
 
 /*!
 	@property       mindingInterval

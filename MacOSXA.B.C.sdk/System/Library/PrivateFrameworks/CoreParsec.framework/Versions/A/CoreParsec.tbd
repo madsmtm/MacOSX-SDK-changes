@@ -1,12 +1,12 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 825797AD-2A60-3915-980A-68FB7E11CC16' ]
+uuids:           [ 'x86_64: 49A3AE7F-D122-3087-B156-53DCA4B18D43' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreParsec.framework/Versions/A/CoreParsec
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _CoreParsecVersionNumber, _CoreParsecVersionString, __CPActionItemForFeedbackReadFrom, 
+    symbols:         [ _CoreParsecVersionNumber, _CoreParsecVersionString, _PARNewsAppBundleIdentifier, 
+                       _PARSTSAppBundleIdentifier, _ParsecNWActivityDomain, __CPActionItemForFeedbackReadFrom, 
                        __CPCBAEngagementFeedbackReadFrom, __CPCacheHitFeedbackReadFrom, 
                        __CPCardForFeedbackReadFrom, __CPCardSectionEngagementFeedbackReadFrom, 
                        __CPCardSectionFeedbackReadFrom, __CPCardSectionForFeedbackReadFrom, 
@@ -19,7 +19,7 @@ exports:
                        __CPErrorFeedbackReadFrom, __CPErrorReadFrom, __CPFeedbackPayloadReadFrom, 
                        __CPFeedbackReadFrom, __CPLateSectionsAppendedFeedbackReadFrom, 
                        __CPListValueReadFrom, __CPLookupHintRelevancyFeedbackReadFrom, 
-                       __CPMapsCardSectionEngagementFeedbackReadFrom, __CPParsecFeedbackReadFrom, 
+                       __CPMapsCardSectionEngagementFeedbackReadFrom, __CPNetworkTimingDataReadFrom, 
                        __CPPunchoutForFeedbackReadFrom, __CPRangeReadFrom, __CPRankingFeedbackReadFrom, 
                        __CPResultEngagementFeedbackReadFrom, __CPResultFeedbackReadFrom, 
                        __CPResultGradingFeedbackReadFrom, __CPResultRankingFeedbackReadFrom, 
@@ -32,13 +32,15 @@ exports:
                        __CPStartLocalSearchFeedbackReadFrom, __CPStartNetworkSearchFeedbackReadFrom, 
                        __CPStartSearchFeedbackReadFrom, __CPStoreCardSectionEngagementFeedbackReadFrom, 
                        __CPStructReadFrom, __CPSuggestionEngagementFeedbackReadFrom, 
-                       __CPValueReadFrom, __CPVisibleResultsFeedbackReadFrom, __CPVisibleSectionHeaderFeedbackReadFrom, 
+                       __CPTCPInfoReadFrom, __CPTuscanyConnectionInfoReadFrom, __CPValueReadFrom, 
+                       __CPVisibleResultsFeedbackReadFrom, __CPVisibleSectionHeaderFeedbackReadFrom, 
                        __CPVisibleSuggestionsFeedbackReadFrom, _kPARAutofillCorrections, 
                        _kPARAutofillTLDWhitelist, _kPARCoreSuggestionsClient, _kPARCorrectionDict, 
                        _kPARCrowdsourcingBlacklist, _kPARCrowdsourcingWhitelist, 
-                       _kPAREngagedCompletionDir, _kPARErrorDomain, _kPARInstalledAppWhitelist, 
-                       _kPARKnownDictionariesList, _kPARLookupClient, _kPARLookupHintsMonthly, 
-                       _kPARLookupHintsWeekly, _kPARMessagesClient, _kPARNewsClient, 
+                       _kPARDuetExpertClient, _kPARDuetExpertDir, _kPAREngagedCompletionDir, 
+                       _kPARErrorDomain, _kPARInstalledAppWhitelist, _kPARKnownDictionariesList, 
+                       _kPARLookupClient, _kPARLookupHintsMonthly, _kPARLookupHintsWeekly, 
+                       _kPARMessagesClient, _kPARNewsClient, _kPARNotifyBagChange, 
                        _kPARNotifyDisabled, _kPARNotifyEnabled, _kPARParsecdNameVersion, 
                        _kPARPhiDESDir, _kPARProactiveEventTrackerDir, _kPARQIFeatures, 
                        _kPARSafariAutoFillDir, _kPARSafariAutoPlayDir, _kPARSafariClient, 
@@ -49,15 +51,11 @@ exports:
                        _kSilhouetteConfig, _kSilhouetteTopicMapping, _kSilhouetteWhitelistedTopics ]
     objc-classes:    [ PARAsyncCard, PARAsyncMoreResults, PARBag, PARCardRequest, 
                        PARCustomSearchResult, PARDefaultFactory, PAREngagedCompletionCache, 
-                       PARFlightResponse, PARFlightSearchRequest, PARFuture, PARImage, 
-                       PARLookupRequest, PARModelWeights, PARMoreResultsRequest, 
-                       PARPersonalizationParameters, PARPromise, PARRanker, PARRankerCentroidParameters, 
-                       PARRankerCentroidWeightsParameters, PARRankerParameters, PARRankerSearchRequestParameters, 
-                       PARRankerUpdateModelParameters, PARRankingAlgorithm, PARRankingLogic, 
-                       PARRankingThresholds, PARReRankingRules, PARReply, PARRequest, 
-                       PARResponse, PARSearchClient, PARSearchRequest, PARSession, 
-                       PARSessionConfiguration, PARSyncCard, PARTask, PARTopicScore, 
-                       PARURLToTopicsMaps, PARZeroKeywordRequest, _CPActionItemForFeedback, 
+                       PARFlightResponse, PARFlightSearchRequest, PARFuture, PARHashtagImagesVisibility, 
+                       PARImage, PARLookupRequest, PARMoreResultsRequest, PARNewsVisibility, 
+                       PARPromise, PARReply, PARRequest, PARResponse, PARSearchClient, 
+                       PARSearchRequest, PARSession, PARSessionConfiguration, PARSyncCard, 
+                       PARTask, PARZeroKeywordRequest, _CPActionItemForFeedback, 
                        _CPCBAEngagementFeedback, _CPCacheHitFeedback, _CPCardForFeedback, 
                        _CPCardSectionEngagementFeedback, _CPCardSectionFeedback, 
                        _CPCardSectionForFeedback, _CPCardViewAppearFeedback, _CPCardViewDisappearFeedback, 
@@ -67,7 +65,7 @@ exports:
                        _CPEndSearchFeedback, _CPError, _CPErrorFeedback, _CPFeedback, 
                        _CPFeedbackPayload, _CPLateSectionsAppendedFeedback, _CPListValue, 
                        _CPLookupHintRelevancyFeedback, _CPMapsCardSectionEngagementFeedback, 
-                       _CPParsecFeedback, _CPPunchoutForFeedback, _CPRange, _CPRankingFeedback, 
+                       _CPNetworkTimingData, _CPPunchoutForFeedback, _CPRange, _CPRankingFeedback, 
                        _CPResultEngagementFeedback, _CPResultFeedback, _CPResultGradingFeedback, 
                        _CPResultRankingFeedback, _CPResultSectionForFeedback, _CPResultsReceivedAfterTimeoutFeedback, 
                        _CPSearchResultForFeedback, _CPSearchSuggestionForFeedback, 
@@ -76,6 +74,7 @@ exports:
                        _CPSessionMissingResultsFeedback, _CPSessionMissingSuggestionsFeedback, 
                        _CPSkipSearchFeedback, _CPStartLocalSearchFeedback, _CPStartNetworkSearchFeedback, 
                        _CPStartSearchFeedback, _CPStoreCardSectionEngagementFeedback, 
-                       _CPStruct, _CPSuggestionEngagementFeedback, _CPValue, _CPVisibleResultsFeedback, 
-                       _CPVisibleSectionHeaderFeedback, _CPVisibleSuggestionsFeedback ]
+                       _CPStruct, _CPSuggestionEngagementFeedback, _CPTCPInfo, _CPTuscanyConnectionInfo, 
+                       _CPValue, _CPVisibleResultsFeedback, _CPVisibleSectionHeaderFeedback, 
+                       _CPVisibleSuggestionsFeedback ]
 ...

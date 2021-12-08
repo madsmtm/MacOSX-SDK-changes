@@ -1,7 +1,8 @@
 //
 //  SCNCamera.h
+//  SceneKit
 //
-//  Copyright (c) 2012-2017 Apple Inc. All rights reserved.
+//  Copyright © 2012-2018 Apple Inc. All rights reserved.
 //
 
 #import <SceneKit/SceneKitTypes.h>
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion A node with a camera can be used as a point of view to visualize a 3D scene.
  */
 
+SCN_EXPORT
 @interface SCNCamera : NSObject <SCNAnimatable, SCNTechniqueSupport, NSCopying, NSSecureCoding>
 
 /*! 
@@ -39,28 +41,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @property fieldOfView
- @abstract Determines the receiver's field of view (in degree). Animatable.
- @discussion defaults to 60°.
+ @abstract Determines the receiver's field of view (in degree). Defaults to 60°. Animatable.
+ @discussion The fieldOfView is automatically updated when the sensorHeight or focalLength are set. Setting the fieldOfView will update the focalLength according to the new fieldOfView and the current sensorHeight.
  */
 @property(nonatomic) CGFloat fieldOfView API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
 /*!
  @property projectionDirection
- @abstract Determines whether the fieldOfView (or orthographicScale) is verical or horizontal. Defaults to vertical.
+ @abstract Determines whether the fieldOfView (or orthographicScale) is vertical or horizontal. Defaults to vertical.
  */
 @property(nonatomic) SCNCameraProjectionDirection projectionDirection API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
 /*!
  @property focalLength
- @abstract Determines the receiver's focal length in millimeter. Animatable.
- @discussion defaults to 50mm.
+ @abstract Determines the receiver's focal length in millimeter. Defaults to 50mm. Animatable.
+ @discussion The focalLength is automatically updated when the sensorHeight or fieldOfView are set. Setting the focalLength will update the fieldOfView according to the new focalLength and the current sensorHeight.
  */
 @property(nonatomic) CGFloat focalLength API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
 /*!
  @property sensorHeight
- @abstract Determines the vertical size of the sensor in millimeter. Animatable.
- @discussion Defaults to 24mm.
+ @abstract Determines the vertical size of the sensor in millimeter. Defaults to 24mm. Animatable.
+ @discussion Setting the sensorHeight will automatically update the fieldOfView according to the new sensorHeight and the current focalLength.
  */
 @property(nonatomic) CGFloat sensorHeight API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 

@@ -1,6 +1,6 @@
 /* CoreAnimation - CAMetalLayer.h
 
-   Copyright (c) 2013-2017, Apple Inc.
+   Copyright (c) 2013-2018, Apple Inc.
    All rights reserved. */
 
 #import <QuartzCore/CALayer.h>
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 /* Note: The default value of the `opaque' property for CAMetalLayer
  * instances is true. */
 
-CA_CLASS_AVAILABLE (10.11, 8.0, 9.0, 2.0)
+API_AVAILABLE(macos(10.11), ios(8.0), watchos(2.0), tvos(9.0))
 @interface CAMetalLayer : CALayer
 {
 @private
@@ -89,7 +89,7 @@ CA_CLASS_AVAILABLE (10.11, 8.0, 9.0, 2.0)
 /* Controls the number maximum number of drawables in the swap queue. The default value is 3.
  * Values set outside of range [2, 3] are ignored and an exception will be thrown. */
 
-@property NSUInteger maximumDrawableCount CA_AVAILABLE_STARTING (10.13.2, 11.2, 11.2, 4.2);
+@property NSUInteger maximumDrawableCount API_AVAILABLE(macos(10.13.2), ios(11.2), watchos(4.2), tvos(11.2));
 
 /* When false (the default value) changes to the layer's render buffer
  * appear on-screen asynchronously to normal layer updates. When true,
@@ -113,13 +113,13 @@ CA_CLASS_AVAILABLE (10.11, 8.0, 9.0, 2.0)
 /* This property controls if this layer and its drawables will be synchronized
  * to the display's Vsync. The default value is YES. */
 
-@property BOOL displaySyncEnabled CA_AVAILABLE_STARTING (10.13);
+@property BOOL displaySyncEnabled API_AVAILABLE(macos(10.13));
 
 /* Controls if `-nextDrawable' is allowed to timeout after 1 second and return nil if
  * the system does not have a free drawable available. The default value is YES.
  * If set to NO, then `-nextDrawable' will block forever until a free drawable is available. */
 
-@property BOOL allowsNextDrawableTimeout CA_AVAILABLE_STARTING (10.13, 11.0, 11.0, 4.0);
+@property BOOL allowsNextDrawableTimeout API_AVAILABLE(macos(10.13), ios(11.0), watchos(4.0), tvos(11.0));
 
 @end
 

@@ -1,10 +1,23 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: DF1BC3F8-3964-306E-B062-D2E0BBCE67D3', 'x86_64: 59F95A1A-15DF-33CE-9E52-DDEEFDC4D138' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 1A86C83E-1FCA-3418-ACBE-07A2A1711920' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AppContainer.framework/Versions/A/AppContainer
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _ASBBundleIdPassesSanityCheck, _ASBContainerErrorsIsOtherReportableError, 
+                       _ASBContainerErrorsIsPermissionsError, _ASBContainerErrorsRecordPermissionsError, 
+                       _ASBContainerErrorsUpdateError, _containerSetError, _kASBContainerErrorDomain, 
+                       _kASBContainerErrorsHasPermissionsDataKey, _kASBContainerIdentityKey, 
+                       _kASBContainerSandboxProfileDataKey, _kASBContainerSandboxProfileDataValidationInfoKey, 
+                       _kASBContainerVersionKey, _recordPermissionsError, _restorePermissions ]
+    objc-classes:    [ ASBAtomicFileHandle, ASBContainer, ASBContainerACL, ASBContainerAction, 
+                       ASBContainerActionBackupExclude, ASBContainerActionCopy, ASBContainerActionCopyContents, 
+                       ASBContainerActionMkdir, ASBContainerActionMove, ASBContainerActionMoveContents, 
+                       ASBContainerActionStopBackupExclude, ASBContainerActionSymlink, 
+                       ASBContainerActionUnlink, ASBContainerActionUnsharePreferenceDomain, 
+                       ASBContainerArchivedFile, ASBContainerFileManager, ASBContainerSchema, 
+                       ASBContainerUpgradeScript, ASBGroupContainer, ASBMutableContainer ]
     objc-ivars:      [ ASBAtomicFileHandle._backingHandle, ASBAtomicFileHandle._destFilePath, 
                        ASBAtomicFileHandle._tempFilePath, ASBContainer._acl, ASBContainer._containerPath, 
                        ASBContainer._dataPath, ASBContainer._homeDirPath, ASBContainer._metadata, 
@@ -19,27 +32,8 @@ exports:
                        ASBContainerActionUnsharePreferenceDomain._domain, ASBContainerArchivedFile._absolutePath, 
                        ASBContainerArchivedFile._container, ASBContainerArchivedFile._creationDate, 
                        ASBContainerArchivedFile._modificationDate, ASBContainerArchivedFile._relativePath, 
-                       ASBContainerArchivedFile._sb, ASBContainerInfo._container, 
-                       ASBContainerInfo._queue, ASBContainerInfo._refCount, ASBContainerSchema._currentVersion, 
+                       ASBContainerArchivedFile._sb, ASBContainerSchema._currentVersion, 
                        ASBContainerSchema._monitorSource, ASBContainerSchema._schema, 
                        ASBContainerSchema._schemaFile, ASBContainerSchema._schemaURL, 
                        ASBContainerUpgradeScript._actions ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _ASBBundleIdPassesSanityCheck, _ASBContainerDebugEnabled, 
-                       _ASBContainerDebugLog, _ASBContainerDebugSetDebugFilePath, 
-                       _ASBContainerErrorsIsOtherReportableError, _ASBContainerErrorsIsPermissionsError, 
-                       _ASBContainerErrorsRecordPermissionsError, _ASBContainerErrorsUpdateError, 
-                       _ASBContainerVerboseLog, _ASBContainerVerboseLogSetFile, ___AppContainerVersionNumber, 
-                       ___AppContainerVersionString, _containerSetError, _kASBContainerErrorDomain, 
-                       _kASBContainerErrorsHasPermissionsDataKey, _kASBContainerIdentityKey, 
-                       _kASBContainerSandboxProfileDataKey, _kASBContainerSandboxProfileDataValidationInfoKey, 
-                       _kASBContainerVersionKey, _recordPermissionsError, _restorePermissions ]
-    objc-classes:    [ ASBAtomicFileHandle, ASBContainer, ASBContainerACL, ASBContainerAction, 
-                       ASBContainerActionBackupExclude, ASBContainerActionCopy, ASBContainerActionCopyContents, 
-                       ASBContainerActionMkdir, ASBContainerActionMove, ASBContainerActionMoveContents, 
-                       ASBContainerActionStopBackupExclude, ASBContainerActionSymlink, 
-                       ASBContainerActionUnlink, ASBContainerActionUnsharePreferenceDomain, 
-                       ASBContainerArchivedFile, ASBContainerFileManager, ASBContainerInfo, 
-                       ASBContainerSchema, ASBContainerUpgradeScript, ASBGroupContainer, 
-                       ASBMutableContainer ]
 ...

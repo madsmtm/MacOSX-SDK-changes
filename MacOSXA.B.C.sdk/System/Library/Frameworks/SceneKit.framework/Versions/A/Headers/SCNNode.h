@@ -1,13 +1,14 @@
 //
 //  SCNNode.h
+//  SceneKit
 //
-//  Copyright (c) 2012-2017 Apple Inc. All rights reserved.
+//  Copyright © 2012-2018 Apple Inc. All rights reserved.
 //
 
 #import <SceneKit/SCNAnimation.h>
 #import <SceneKit/SCNBoundingVolume.h>
 #import <SceneKit/SCNAction.h>
-#include <AvailabilityMacros.h>
+#import <AvailabilityMacros.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,12 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
     @discussion These keys are used for the 'semantic' argument of -[SCNProgram setSemantic:forSymbol:options:]
                 Transforms are SCNMatrix4 wrapped in NSValues.
  */
-FOUNDATION_EXTERN NSString * const SCNModelTransform;
-FOUNDATION_EXTERN NSString * const SCNViewTransform;
-FOUNDATION_EXTERN NSString * const SCNProjectionTransform;
-FOUNDATION_EXTERN NSString * const SCNNormalTransform;
-FOUNDATION_EXTERN NSString * const SCNModelViewTransform;
-FOUNDATION_EXTERN NSString * const SCNModelViewProjectionTransform;
+SCN_EXPORT NSString * const SCNModelTransform;
+SCN_EXPORT NSString * const SCNViewTransform;
+SCN_EXPORT NSString * const SCNProjectionTransform;
+SCN_EXPORT NSString * const SCNNormalTransform;
+SCN_EXPORT NSString * const SCNModelViewTransform;
+SCN_EXPORT NSString * const SCNModelViewProjectionTransform;
 
 /*! @enum SCNMovabilityHint
  @abstract The available modes of movability.
@@ -60,6 +61,7 @@ typedef NS_ENUM(NSInteger, SCNNodeFocusBehavior) {
  @discussion It encapsulates the position, rotations, and other transforms of a node, which define a coordinate system.
 		     The coordinate systems of all the sub-nodes are relative to the one of their parent node.
  */
+SCN_EXPORT
 @interface SCNNode : NSObject <NSCopying, NSSecureCoding, SCNAnimatable, SCNActionable, SCNBoundingVolume>
 
 #pragma mark - Creating a Node
@@ -426,7 +428,7 @@ typedef NS_ENUM(NSInteger, SCNNodeFocusBehavior) {
  @abstract An array of Core Image filters that are applied to the rendering of the receiver and its child nodes. Animatable.
  @discussion Defaults to nil. Filter properties should be modified by calling setValue:forKeyPath: on each node that the filter is attached to. If the inputs of the filter are modified directly after the filter is attached to a node, the behavior is undefined.
  */
-@property(nonatomic, copy, nullable) NSArray<CIFilter *> *filters API_AVAILABLE(macos(10.9)) __WATCHOS_PROHIBITED;
+@property(nonatomic, copy, nullable) NSArray<CIFilter *> *filters API_AVAILABLE(macos(10.9)) API_UNAVAILABLE(watchos);
 
 
 #pragma mark - Accessing the Presentation Node
@@ -502,13 +504,13 @@ typedef NS_ENUM(NSInteger, SCNNodeFocusBehavior) {
 
 /*!
  @property localUp
- @abstract The local unit Y axis (0, 0, 1).
+ @abstract The local unit Y axis (0, 1, 0).
  */
 @property(class, readonly, nonatomic) SCNVector3 localUp API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
 /*!
  @property localRight
- @abstract The local unit X axis (0, 1, 0).
+ @abstract The local unit X axis (1, 0, 0).
  */
 @property(class, readonly, nonatomic) SCNVector3 localRight API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
@@ -520,13 +522,13 @@ typedef NS_ENUM(NSInteger, SCNNodeFocusBehavior) {
 
 /*!
  @property worldUp
- @abstract The local unit Y axis (0, 0, 1) in world space.
+ @abstract The local unit Y axis (0, 1, 0) in world space.
  */
 @property(readonly, nonatomic) SCNVector3 worldUp API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
 /*!
  @property worldRight
- @abstract The local unit X axis (0, 1, 0) in world space.
+ @abstract The local unit X axis (1, 0, 0) in world space.
  */
 @property(readonly, nonatomic) SCNVector3 worldRight API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
@@ -678,8 +680,8 @@ typedef NS_ENUM(NSInteger, SCNNodeFocusBehavior) {
 @property(readonly, nonatomic) simd_float3 simdWorldRight API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 @property(readonly, nonatomic) simd_float3 simdWorldFront API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
-- (void)simdLookAt:(vector_float3)worldTarget API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
-- (void)simdLookAt:(vector_float3)worldTarget up:(vector_float3)worldUp localFront:(simd_float3)localFront API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
+- (void)simdLookAt:(simd_float3)worldTarget API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
+- (void)simdLookAt:(simd_float3)worldTarget up:(simd_float3)worldUp localFront:(simd_float3)localFront API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 - (void)simdLocalTranslateBy:(simd_float3)translation API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 
 - (void)simdLocalRotateBy:(simd_quatf)rotation API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: A228B507-1F2E-3F16-90E4-C23B8F574655' ]
+uuids:           [ 'x86_64: 24AEBCC4-6915-39CC-9305-1C60FF8FD842' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/MediaConversionService.framework/Versions/A/MediaConversionService
-current-version: 3271.13.150
+current-version: 3401.5.160
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _MediaConversionServiceVersionNumber, _MediaConversionServiceVersionString, 
@@ -12,9 +12,10 @@ exports:
                        _PAMediaConversionServiceConversionEndDateKey, _PAMediaConversionServiceConversionStartDateKey, 
                        _PAMediaConversionServiceErrorDomain, _PAMediaConversionServiceErrorOffendingItemNameKey, 
                        _PAMediaConversionServiceFileSizeKey, _PAMediaConversionServiceFormatConversionOnlyKey, 
-                       _PAMediaConversionServiceJobGroupIdentifierKey, _PAMediaConversionServiceJobIdentifierKey, 
-                       _PAMediaConversionServiceJobStatusKey, _PAMediaConversionServiceMetadataPolicyKey, 
-                       _PAMediaConversionServiceOptionAVIncludeMetadataKey, _PAMediaConversionServiceOptionAVMetadataContentCreationDateKey, 
+                       _PAMediaConversionServiceInputAssetCodecKey, _PAMediaConversionServiceJobGroupIdentifierKey, 
+                       _PAMediaConversionServiceJobIdentifierKey, _PAMediaConversionServiceJobStatusKey, 
+                       _PAMediaConversionServiceMetadataPolicyKey, _PAMediaConversionServiceOptionAVIncludeMetadataKey, 
+                       _PAMediaConversionServiceOptionAVMetadataContentCreationDateKey, 
                        _PAMediaConversionServiceOptionAVMetadataDescriptionKey, _PAMediaConversionServiceOptionAVMetadataIncludeLocationKey, 
                        _PAMediaConversionServiceOptionAVMetadataKeywordsKey, _PAMediaConversionServiceOptionAVMetadataOriginatingSignatureKey, 
                        _PAMediaConversionServiceOptionAVMetadataRenderOriginatingSignatureKey, 
@@ -23,13 +24,13 @@ exports:
                        _PAMediaConversionServiceOptionJobPriorityKey, _PAMediaConversionServiceOptionLivePhotoPairingIdentifierKey, 
                        _PAMediaConversionServiceOptionOutputFileTypeKey, _PAMediaConversionServiceOptionProgressUpdateTimeIntervalKey, 
                        _PAMediaConversionServiceOptionTimeScaleMultiplierKey, _PAMediaConversionServiceOptionTimeScaleRangeKey, 
-                       _PAMediaConversionServiceOptionTrimRangeKey, _PAMediaConversionServiceOptionWantsProgressKey, 
-                       _PAMediaConversionServiceOptionWantsResultAsDataKey, _PAMediaConversionServiceOrientationKey, 
-                       _PAMediaConversionServicePixelHeightKey, _PAMediaConversionServicePixelWidthKey, 
-                       _PAMediaConversionServiceProgressKey, _PAMediaConversionServiceRequiresModernizationKey, 
-                       _PAMediaConversionServiceResultDataKey, _PAMediaConversionServiceRotationAngleDegreesKey, 
-                       _PAMediaConversionServiceScaleFactorKey, _PHMediaFormatConversionErrorDomain, 
-                       _PHMediaFormatConversionUnknownFutureIdentifierPlaceholder ]
+                       _PAMediaConversionServiceOptionTrimRangeKey, _PAMediaConversionServiceOptionWantsInputAssetCodecKey, 
+                       _PAMediaConversionServiceOptionWantsProgressKey, _PAMediaConversionServiceOptionWantsResultAsDataKey, 
+                       _PAMediaConversionServiceOrientationKey, _PAMediaConversionServicePixelHeightKey, 
+                       _PAMediaConversionServicePixelWidthKey, _PAMediaConversionServiceProgressKey, 
+                       _PAMediaConversionServiceRequiresModernizationKey, _PAMediaConversionServiceResultDataKey, 
+                       _PAMediaConversionServiceRotationAngleDegreesKey, _PAMediaConversionServiceScaleFactorKey, 
+                       _PHMediaFormatConversionErrorDomain, _PHMediaFormatConversionUnknownFutureIdentifierPlaceholder ]
     objc-classes:    [ PAImageConversionServiceClient, PAMediaConversionServiceAddPFMediaMetadataPolicy, 
                        PAMediaConversionServiceCompositeImageMetadataPolicy, PAMediaConversionServiceImageMetadataPolicy, 
                        PAMediaConversionServiceImagingUtilities, PAMediaConversionServiceSharedPhotoStreamImageMetadataPolicy, 

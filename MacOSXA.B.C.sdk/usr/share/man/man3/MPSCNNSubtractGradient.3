@@ -1,4 +1,4 @@
-.TH "MPSCNNSubtractGradient" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNSubtractGradient" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -14,7 +14,7 @@ Inherits \fBMPSCNNArithmeticGradient\fP\&.
 
 .in +1c
 .ti -1c
-.RI "(nonnull instancetype) \- \fBinitWithDevice:\fP"
+.RI "(nonnull instancetype) \- \fBinitWithDevice:isSecondarySourceFilter:\fP"
 .br
 .in -1c
 .SS "Additional Inherited Members"
@@ -29,12 +29,14 @@ For the secondary source image, the result is a negation of the gradient image f
 Setting the broadcasting parameters results in a reduction operation (sum) across all of the applicable broadcasting dimensions (rows, columns, feature channels, or any combination thereof) to produce the destination image of the size that matches the primary/secondary input images used in the forward pass\&. 
 .SH "Method Documentation"
 .PP 
-.SS "\- (nonnull instancetype) initWithDevice: (nonnull id< MTLDevice >) device"
+.SS "\- (nonnull instancetype) \fBinitWithDevice:\fP (nonnull id< MTLDevice >) device(BOOL) isSecondarySourceFilter"
 Initialize the subtraction gradient operator\&. 
 .PP
 \fBParameters:\fP
 .RS 4
 \fIdevice\fP The device the filter will run on\&. 
+.br
+\fIisSecondarySourceFilter\fP \fBA\fP boolean indicating whether the arithmetic gradient filter is operating on the primary or secondary source image from the forward pass\&. 
 .RE
 .PP
 \fBReturns:\fP

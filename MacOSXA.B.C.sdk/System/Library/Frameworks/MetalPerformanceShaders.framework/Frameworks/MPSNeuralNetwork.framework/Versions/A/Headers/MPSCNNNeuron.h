@@ -324,7 +324,9 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (float) a
-                                     b: (float) b NS_DESIGNATED_INITIALIZER;
+                                     b: (float) b NS_DESIGNATED_INITIALIZER
+                MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
 
 /*
  * You must use initWithDevice:a:b instead
@@ -353,7 +355,10 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
  *  @return    A valid MPSCNNNeuronReLU object or nil, if failure.
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
-                                     a: (float) a NS_DESIGNATED_INITIALIZER;
+                                     a: (float) a NS_DESIGNATED_INITIALIZER
+    MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 
 /*
  * Use initWithDevice:a: instead
@@ -386,7 +391,10 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (const float* _Nonnull) a
-                                 count: (NSUInteger) count NS_DESIGNATED_INITIALIZER;
+                                 count: (NSUInteger) count NS_DESIGNATED_INITIALIZER
+            MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 
 /*
  * Use initWithDevice:a: instead
@@ -409,7 +417,10 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
  *  @param      device          The device the filter will run on
  *  @return     A valid MPSCNNNeuronSigmoid object or nil, if failure.
  */
--(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER
+                MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 
 @end    /* MPSCNNNeuronSigmoid */
     
@@ -431,7 +442,10 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (float) a
-                                     b: (float) b NS_DESIGNATED_INITIALIZER;
+                                     b: (float) b NS_DESIGNATED_INITIALIZER
+                MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 /*
  * Use initWithDevice:a:b: instead
  */
@@ -458,7 +472,10 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (float) a
-                                     b: (float) b NS_DESIGNATED_INITIALIZER;
+                                     b: (float) b NS_DESIGNATED_INITIALIZER
+            MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 /*
  * Use initWithDevice:a:b: instead
  */
@@ -480,7 +497,10 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
  *  @param      device          The device the filter will run on
  *  @return     A valid MPSCNNNeuronAbsolute object or nil, if failure.
  */
--(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER
+            MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 
 @end    /* MPSCNNNeuronAbsolute */
     
@@ -503,7 +523,10 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13), ios(11.0), tvos(11.0))
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (float) a
-                                     b: (float) b NS_DESIGNATED_INITIALIZER;
+                                     b: (float) b NS_DESIGNATED_INITIALIZER
+        MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 /*
  * Use initWithDevice:a:b: instead
  */
@@ -526,7 +549,10 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13), ios(11.0), tvos(11.0))
  *  @param      device          The device the filter will run on
  *  @return     A valid MPSCNNNeuronSoftSign object or nil, if failure.
  */
--(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER
+        MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 
 @end    /* MPSCNNNeuronSoftSign */
     
@@ -548,7 +574,10 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13), ios(11.0), tvos(11.0))
  *  @return     A valid MPSCNNNeuronELU object or nil, if failure.
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
-                                     a: (float) a NS_DESIGNATED_INITIALIZER;
+                                     a: (float) a NS_DESIGNATED_INITIALIZER
+    MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 /*
  * Use initWithDevice:a: instead
  */
@@ -568,7 +597,6 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13), ios(11.0), tvos(11.0))
  *              by setting the parameter b to 6.0f:
  *              https://www.tensorflow.org/api_docs/cc/class/tensorflow/ops/relu6.
  *
- *              The default value of a is 1.0f and the default value of b is 6.0f.
  */
 MPS_CLASS_AVAILABLE_STARTING(macos(10.13), ios(11.0), tvos(11.0))
 @interface  MPSCNNNeuronReLUN : MPSCNNNeuron
@@ -582,7 +610,10 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13), ios(11.0), tvos(11.0))
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (float) a
-                                     b: (float) b NS_DESIGNATED_INITIALIZER;
+                                     b: (float) b NS_DESIGNATED_INITIALIZER
+        MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 /*
  * Use initWithDevice:a: instead
  */
@@ -597,8 +628,6 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13), ios(11.0), tvos(11.0))
  *  @discussion Specifies the Power neuron filter.
  *              For each pixel, applies the following function: f(x) = (a * x + b) ^ c.
  *
- *              The default value of a is 1.0f, the default value of b is 0.0f, and the
- *              the default value of c is 1.0f.
  */
 MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 @interface  MPSCNNNeuronPower : MPSCNNNeuron
@@ -614,7 +643,10 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (float) a
                                      b: (float) b
-                                     c: (float) c NS_DESIGNATED_INITIALIZER;
+                                     c: (float) c NS_DESIGNATED_INITIALIZER
+    MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 /*
  * Use initWithDevice:a:b:c instead
  */
@@ -629,9 +661,7 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
  *  @discussion Specifies the Exponential neuron filter.
  *              For each pixel, applies the following function: f(x) = c ^ (a * x + b).
  *
- *              The default value of a is 1.0f, the default value of b is 0.0f, and the
- *              the default value of c is -1.0f. If the value of c is set to the default
- *              value of -1.0f, the base (c) is set to e.
+ *              If the value of c is -1.0f, the base (c) is set to e.
  */
 MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 @interface  MPSCNNNeuronExponential : MPSCNNNeuron
@@ -647,7 +677,10 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (float) a
                                      b: (float) b
-                                     c: (float) c NS_DESIGNATED_INITIALIZER;
+                                     c: (float) c NS_DESIGNATED_INITIALIZER
+    MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 /*
  * Use initWithDevice:a:b:c instead
  */
@@ -662,9 +695,7 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
  *  @discussion Specifies the Logarithm neuron filter.
  *              For each pixel, applies the following function: f(x) = log_c(a * x + b).
  *
- *              The default value of a is 1.0f, the default value of b is 0.0f, and the
- *              the default value of c is -1.0f. If the value of c is set to the default
- *              value of -1.0f, the base (c) is set to e.
+ *              If the value of c is -1.0f, the base (c) is set to e.
  */
 MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 @interface  MPSCNNNeuronLogarithm : MPSCNNNeuron
@@ -680,7 +711,10 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                                      a: (float) a
                                      b: (float) b
-                                     c: (float) c NS_DESIGNATED_INITIALIZER;
+                                     c: (float) c NS_DESIGNATED_INITIALIZER
+    MPS_AVAILABLE_STARTING_BUT_DEPRECATED(  "Please use MPSCNNNeuron initWithDevice:neuronDescriptor.",
+                                      macos(10.13, 10.14), ios(10.0, 12.0), tvos(10.0, 12.0));
+
 /*
  * Use initWithDevice:a:b:c instead
  */

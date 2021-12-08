@@ -1,13 +1,13 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 7EBFA8BE-2176-3A74-9218-3ED02CC6945D', 'x86_64: 4D52BB64-C568-3A36-8935-2480427EE2A2' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 43E6698E-155E-3EAE-BAFF-CA5FCB35325C' ]
 platform:        macosx
 install-name:    /usr/lib/system/liblaunch.dylib
-current-version: 1205.50.76
+current-version: 1336.201.2
 objc-constraint: none
 parent-umbrella: System
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ __spawn_via_launchd, __vproc_get_last_exit_status, __vproc_grab_subset, 
                        __vproc_kickstart_by_label, __vproc_log, __vproc_log_error, 
                        __vproc_logv, __vproc_pid_is_managed, __vproc_post_fork_ping, 

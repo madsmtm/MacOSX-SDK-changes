@@ -1,4 +1,4 @@
-.TH "MPSCNNSpatialNormalization" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNSpatialNormalization" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -34,12 +34,6 @@ Inherits \fBMPSCNNKernel\fP\&.
 .br
 .ti -1c
 .RI "float \fBdelta\fP"
-.br
-.ti -1c
-.RI "NSUInteger \fBkernelWidth\fP"
-.br
-.ti -1c
-.RI "NSUInteger \fBkernelHeight\fP"
 .br
 .in -1c
 .SS "Additional Inherited Members"
@@ -108,10 +102,6 @@ The value of alpha\&. Default is 1\&.0\&. Must be non-negative\&.
 The value of beta\&. Default is 5\&.0 
 .SS "\- delta\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 The value of delta\&. Default is 1\&.0 
-.SS "\- kernelHeight\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
-The height of the filter window 
-.SS "\- kernelWidth\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
-The width of the filter window 
 
 .SH "Author"
 .PP 

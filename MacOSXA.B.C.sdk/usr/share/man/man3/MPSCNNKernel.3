@@ -1,4 +1,4 @@
-.TH "MPSCNNKernel" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNKernel" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -11,7 +11,7 @@ MPSCNNKernel
 .PP
 Inherits \fBMPSKernel\fP\&.
 .PP
-Inherited by \fBMPSCNNBatchNormalization\fP, \fBMPSCNNBatchNormalizationStatistics\fP, \fBMPSCNNBinaryConvolution\fP, \fBMPSCNNConvolution\fP, \fBMPSCNNConvolutionTranspose\fP, \fBMPSCNNCrossChannelNormalization\fP, \fBMPSCNNDropout\fP, \fBMPSCNNInstanceNormalization\fP, \fBMPSCNNLocalContrastNormalization\fP, \fBMPSCNNLogSoftMax\fP, \fBMPSCNNLoss\fP, \fBMPSCNNNeuron\fP, \fBMPSCNNPooling\fP, \fBMPSCNNSoftMax\fP, \fBMPSCNNSpatialNormalization\fP, \fBMPSCNNUpsampling\fP, \fBMPSNNReduceUnary\fP, \fBMPSNNReshape\fP, \fBMPSNNSlice\fP, and \fBMPSRNNImageInferenceLayer\fP\&.
+Inherited by \fBMPSCNNBatchNormalization\fP, \fBMPSCNNBatchNormalizationStatistics\fP, \fBMPSCNNBinaryConvolution\fP, \fBMPSCNNConvolution\fP, \fBMPSCNNConvolutionTranspose\fP, \fBMPSCNNCrossChannelNormalization\fP, \fBMPSCNNDropout\fP, \fBMPSCNNInstanceNormalization\fP, \fBMPSCNNLocalContrastNormalization\fP, \fBMPSCNNLogSoftMax\fP, \fBMPSCNNLoss\fP, \fBMPSCNNNeuron\fP, \fBMPSCNNPooling\fP, \fBMPSCNNSoftMax\fP, \fBMPSCNNSpatialNormalization\fP, \fBMPSCNNUpsampling\fP, \fBMPSCNNYOLOLoss\fP, \fBMPSNNCropAndResizeBilinear\fP, \fBMPSNNReduceUnary\fP, \fBMPSNNReshape\fP, \fBMPSNNResizeBilinear\fP, \fBMPSNNSlice\fP, and \fBMPSRNNImageInferenceLayer\fP\&.
 .SS "Instance Methods"
 
 .in +1c
@@ -267,6 +267,8 @@ Encode a \fBMPSCNNKernel\fP with a destination state into a command Buffer\&.  T
 .RE
 .PP
 
+.PP
+Reimplemented in \fBMPSCNNBatchNormalization\fP\&.
 .SS "\- (\fBMPSImageBatch\fP * __nonnull) encodeBatchToCommandBuffer: (nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSImageBatch\fP *__nonnull) sourceImages(__autoreleasing \fBMPSStateBatch\fP *__nullable *__nonnull) outStates(BOOL) isTemporary"
 Encode a \fBMPSCNNKernel\fP into a command Buffer\&. Create a MPSImageBatch and MPSStateBatch to hold the results and return them\&.  In the first iteration on this method, encodeToCommandBuffer:sourceImage:destinationImage: some work was left for the developer to do in the form of correctly setting the offset property and sizing the result buffer\&. With the introduction of the padding policy (see padding property) the filter can do this work itself\&. If you would like to have some input into what sort of \fBMPSImage\fP (e\&.g\&. temporary vs\&. regular) or what size it is or where it is allocated, you may set the destinationImageAllocator to allocate the image yourself\&.
 .PP
@@ -298,6 +300,8 @@ An array of MPSImages or MPSTemporaryImages allocated per the destinationImageAl
 .RE
 .PP
 
+.PP
+Reimplemented in \fBMPSCNNBatchNormalization\fP\&.
 .SS "\- (\fBMPSImage\fP * __nonnull) encodeToCommandBuffer: (nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSImage\fP *__nonnull) sourceImage"
 Encode a \fBMPSCNNKernel\fP into a command Buffer\&. Create a texture to hold the result and return it\&.  In the first iteration on this method, encodeToCommandBuffer:sourceImage:destinationImage: some work was left for the developer to do in the form of correctly setting the offset property and sizing the result buffer\&. With the introduction of the padding policy (see padding property) the filter can do this work itself\&. If you would like to have some input into what sort of \fBMPSImage\fP (e\&.g\&. temporary vs\&. regular) or what size it is or where it is allocated, you may set the destinationImageAllocator to allocate the image yourself\&.
 .PP
@@ -344,6 +348,8 @@ Encode a \fBMPSCNNKernel\fP with a destination state into a command Buffer\&.  T
 .RE
 .PP
 
+.PP
+Reimplemented in \fBMPSCNNBatchNormalization\fP\&.
 .SS "\- (\fBMPSImage\fP * __nonnull) encodeToCommandBuffer: (nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSImage\fP *__nonnull) sourceImage(__autoreleasing \fBMPSState\fP *__nullable *__nonnull) outState(BOOL) isTemporary"
 Encode a \fBMPSCNNKernel\fP into a command Buffer\&. Create a texture and state to hold the results and return them\&.  In the first iteration on this method, encodeToCommandBuffer:sourceImage:destinationState:destinationImage: some work was left for the developer to do in the form of correctly setting the offset property and sizing the result buffer\&. With the introduction of the padding policy (see padding property) the filter can do this work itself\&. If you would like to have some input into what sort of \fBMPSImage\fP (e\&.g\&. temporary vs\&. regular) or what size it is or where it is allocated, you may set the destinationImageAllocator to allocate the image yourself\&.
 .PP
@@ -364,6 +370,8 @@ This method uses the \fBMPSNNPadding\fP padding property to figure out how to si
 .RE
 .PP
 
+.PP
+Reimplemented in \fBMPSCNNBatchNormalization\fP\&.
 .SS "\- (nullable instancetype) \fBinitWithCoder:\fP (NSCoder *__nonnull) aDecoder(nonnull id< MTLDevice >) device"
 \fBNSSecureCoding\fP compatability  While the standard NSSecureCoding/NSCoding method -initWithCoder: should work, since the file can't know which device your data is allocated on, we have to guess and may guess incorrectly\&. To avoid that problem, use initWithCoder:device instead\&. 
 .PP
@@ -383,7 +391,7 @@ This method uses the \fBMPSNNPadding\fP padding property to figure out how to si
 .PP
 Reimplemented from \fBMPSKernel\fP\&.
 .PP
-Reimplemented in \fBMPSCNNBinaryConvolution\fP, \fBMPSCNNBinaryFullyConnected\fP, \fBMPSCNNConvolutionTranspose\fP, \fBMPSCNNFullyConnected\fP, \fBMPSCNNConvolution\fP, \fBMPSRNNImageInferenceLayer\fP, \fBMPSCNNLoss\fP, \fBMPSCNNCrossChannelNormalization\fP, \fBMPSCNNDilatedPoolingMax\fP, \fBMPSCNNPoolingAverage\fP, \fBMPSCNNPoolingL2Norm\fP, \fBMPSCNNLocalContrastNormalization\fP, \fBMPSCNNBatchNormalization\fP, \fBMPSCNNBatchNormalizationStatistics\fP, \fBMPSCNNNeuron\fP, \fBMPSCNNInstanceNormalization\fP, \fBMPSCNNDropout\fP, \fBMPSCNNSpatialNormalization\fP, \fBMPSCNNPooling\fP, and \fBMPSCNNPoolingMax\fP\&.
+Reimplemented in \fBMPSCNNBinaryConvolution\fP, \fBMPSCNNBinaryFullyConnected\fP, \fBMPSCNNConvolutionTranspose\fP, \fBMPSCNNFullyConnected\fP, \fBMPSCNNConvolution\fP, \fBMPSCNNYOLOLoss\fP, \fBMPSRNNImageInferenceLayer\fP, \fBMPSCNNLoss\fP, \fBMPSCNNCrossChannelNormalization\fP, \fBMPSCNNDilatedPoolingMax\fP, \fBMPSCNNBatchNormalization\fP, \fBMPSCNNBatchNormalizationStatistics\fP, \fBMPSCNNPoolingAverage\fP, \fBMPSCNNPoolingL2Norm\fP, \fBMPSCNNLocalContrastNormalization\fP, \fBMPSCNNInstanceNormalization\fP, \fBMPSCNNNeuron\fP, \fBMPSNNCropAndResizeBilinear\fP, \fBMPSCNNDropout\fP, \fBMPSCNNSpatialNormalization\fP, \fBMPSNNResizeBilinear\fP, \fBMPSCNNPooling\fP, and \fBMPSCNNPoolingMax\fP\&.
 .SS "\- (nonnull instancetype) initWithDevice: (nonnull id< MTLDevice >) device"
 Standard init with default properties per filter type 
 .PP
@@ -401,7 +409,7 @@ Standard init with default properties per filter type
 .PP
 Reimplemented from \fBMPSKernel\fP\&.
 .PP
-Reimplemented in \fBMPSCNNBinaryConvolution\fP, \fBMPSCNNBinaryFullyConnected\fP, \fBMPSCNNConvolutionTranspose\fP, \fBMPSCNNFullyConnected\fP, \fBMPSCNNConvolution\fP, \fBMPSRNNImageInferenceLayer\fP, \fBMPSCNNLoss\fP, \fBMPSCNNCrossChannelNormalization\fP, \fBMPSNNReshape\fP, \fBMPSNNSlice\fP, \fBMPSCNNNeuronLinear\fP, \fBMPSCNNNeuronReLU\fP, \fBMPSCNNNeuronPReLU\fP, \fBMPSCNNNeuronSigmoid\fP, \fBMPSCNNNeuronHardSigmoid\fP, \fBMPSCNNNeuronTanH\fP, \fBMPSCNNNeuronAbsolute\fP, \fBMPSCNNNeuronSoftPlus\fP, \fBMPSCNNNeuronSoftSign\fP, \fBMPSCNNNeuronELU\fP, \fBMPSCNNNeuronReLUN\fP, \fBMPSCNNNeuronPower\fP, \fBMPSCNNNeuronExponential\fP, \fBMPSCNNNeuronLogarithm\fP, \fBMPSNNReduceFeatureChannelsSum\fP, \fBMPSCNNLocalContrastNormalization\fP, \fBMPSCNNBatchNormalization\fP, \fBMPSCNNBatchNormalizationStatistics\fP, \fBMPSCNNNeuron\fP, \fBMPSCNNInstanceNormalization\fP, \fBMPSCNNDropout\fP, \fBMPSCNNSpatialNormalization\fP, \fBMPSCNNUpsampling\fP, \fBMPSNNReduceUnary\fP, \fBMPSNNReduceRowMin\fP, \fBMPSNNReduceColumnMin\fP, \fBMPSNNReduceFeatureChannelsMin\fP, \fBMPSNNReduceRowMax\fP, \fBMPSNNReduceColumnMax\fP, \fBMPSNNReduceFeatureChannelsMax\fP, \fBMPSNNReduceRowMean\fP, \fBMPSNNReduceColumnMean\fP, \fBMPSNNReduceFeatureChannelsMean\fP, \fBMPSNNReduceRowSum\fP, \fBMPSNNReduceColumnSum\fP, and \fBMPSCNNPooling\fP\&.
+Reimplemented in \fBMPSCNNBinaryConvolution\fP, \fBMPSCNNBinaryFullyConnected\fP, \fBMPSCNNConvolutionTranspose\fP, \fBMPSCNNFullyConnected\fP, \fBMPSCNNConvolution\fP, \fBMPSCNNYOLOLoss\fP, \fBMPSRNNImageInferenceLayer\fP, \fBMPSCNNLoss\fP, \fBMPSCNNCrossChannelNormalization\fP, \fBMPSNNReshape\fP, \fBMPSCNNBatchNormalization\fP, \fBMPSCNNBatchNormalizationStatistics\fP, \fBMPSNNReduceFeatureChannelsSum\fP, \fBMPSCNNNeuronLinear\fP, \fBMPSCNNNeuronReLU\fP, \fBMPSCNNNeuronPReLU\fP, \fBMPSCNNNeuronSigmoid\fP, \fBMPSCNNNeuronHardSigmoid\fP, \fBMPSCNNNeuronTanH\fP, \fBMPSCNNNeuronAbsolute\fP, \fBMPSCNNNeuronSoftPlus\fP, \fBMPSCNNNeuronSoftSign\fP, \fBMPSCNNNeuronELU\fP, \fBMPSCNNNeuronReLUN\fP, \fBMPSCNNNeuronPower\fP, \fBMPSCNNNeuronExponential\fP, \fBMPSCNNNeuronLogarithm\fP, \fBMPSCNNLocalContrastNormalization\fP, \fBMPSCNNInstanceNormalization\fP, \fBMPSCNNNeuron\fP, \fBMPSNNCropAndResizeBilinear\fP, \fBMPSNNSlice\fP, \fBMPSCNNDropout\fP, \fBMPSCNNUpsampling\fP, \fBMPSCNNSpatialNormalization\fP, \fBMPSNNReduceUnary\fP, \fBMPSNNReduceRowMin\fP, \fBMPSNNReduceColumnMin\fP, \fBMPSNNReduceFeatureChannelsMin\fP, \fBMPSNNReduceFeatureChannelsArgumentMin\fP, \fBMPSNNReduceRowMax\fP, \fBMPSNNReduceColumnMax\fP, \fBMPSNNReduceFeatureChannelsMax\fP, \fBMPSNNReduceFeatureChannelsArgumentMax\fP, \fBMPSNNReduceRowMean\fP, \fBMPSNNReduceColumnMean\fP, \fBMPSNNReduceFeatureChannelsMean\fP, \fBMPSNNReduceRowSum\fP, \fBMPSNNReduceColumnSum\fP, \fBMPSNNResizeBilinear\fP, and \fBMPSCNNPooling\fP\&.
 .SS "\- (BOOL) isResultStateReusedAcrossBatch "
 Returns YES if the same state is used for every operation in a batch  If NO, then each image in a MPSImageBatch will need a corresponding (and different) state to go with it\&. Set to YES to avoid allocating redundant state in the case when the same state is used all the time\&. Default: NO 
 .SS "\- (\fBMPSStateBatch\fP * __nullable) resultStateBatchForSourceImage: (\fBMPSImageBatch\fP *__nonnull) sourceImage(NSArray< \fBMPSStateBatch\fP * > *__nullable) sourceStates(\fBMPSImageBatch\fP *__nonnull) destinationImage"
@@ -460,7 +468,7 @@ The list of states produced by the -encode call for batch size of 1\&. When the 
 .PP
 
 .PP
-Reimplemented in \fBMPSCNNConvolution\fP, and \fBMPSCNNInstanceNormalization\fP\&.
+Reimplemented in \fBMPSCNNConvolution\fP, \fBMPSCNNBatchNormalization\fP, and \fBMPSCNNInstanceNormalization\fP\&.
 .SS "\- (\fBMPSStateBatch\fP * __nullable) temporaryResultStateBatchForCommandBuffer: (nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSImageBatch\fP *__nonnull) sourceImage(NSArray< \fBMPSStateBatch\fP * > *__nullable) sourceStates(\fBMPSImageBatch\fP *__nonnull) destinationImage"
 
 .PP
@@ -521,7 +529,7 @@ The list of states produced by the -encode call for batch size of 1\&. When the 
 .PP
 
 .PP
-Reimplemented in \fBMPSCNNConvolution\fP\&.
+Reimplemented in \fBMPSCNNConvolution\fP, \fBMPSCNNBatchNormalization\fP, and \fBMPSCNNInstanceNormalization\fP\&.
 .SH "Property Documentation"
 .PP 
 .SS "\- clipRect\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"

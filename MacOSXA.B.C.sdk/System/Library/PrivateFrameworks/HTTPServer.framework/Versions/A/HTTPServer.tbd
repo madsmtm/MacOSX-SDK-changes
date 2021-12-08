@@ -1,10 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 7D4E708F-40A4-3609-B7B6-92A9632644B5' ]
+uuids:           [ 'x86_64: A5B2139F-5460-38EF-851A-621B8934092F' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/HTTPServer.framework/Versions/A/HTTPServer
 current-version: 36
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _DDExtractFileNameWithoutExtension, _DDIntersectionRange, 
@@ -16,9 +15,11 @@ exports:
                        _GCDAsyncSocketSSLProtocolVersionMax, _GCDAsyncSocketSSLProtocolVersionMin, 
                        _GCDAsyncSocketThreadName, _HTTPServerVersionNumber, _HTTPServerVersionString ]
     objc-classes:    [ DDAbstractLogger, DDFileLogger, DDLog, DDLogFileFormatterDefault, 
-                       DDLogFileInfo, DDLogFileManagerDefault, DDLogMessage, DDTTYLogger, 
-                       GCDAsyncSocket, HTTPAsyncFileResponse, HTTPAuthenticationRequest, 
-                       HTTPConfig, HTTPConnection, HTTPData, HTTPDataResponse, HTTPDynamicFileResponse, 
+                       DDLogFileInfo, DDLogFileManagerDefault, DDLogMessage, DDLoggerNode, 
+                       DDTTYLogger, GCDAsyncReadPacket, GCDAsyncSendfilePacket, GCDAsyncSocket, 
+                       GCDAsyncSocketPreBuffer, GCDAsyncSpecialPacket, GCDAsyncWritePacket, 
+                       HTTPAsyncFileResponse, HTTPAuthenticationRequest, HTTPConfig, 
+                       HTTPConnection, HTTPData, HTTPDataResponse, HTTPDynamicFileResponse, 
                        HTTPErrorResponse, HTTPFileResponse, HTTPMessage, HTTPRedirectResponse, 
                        HTTPSendFileResponse, HTTPServer ]
     objc-ivars:      [ DDAbstractLogger.formatter, DDAbstractLogger.loggerQueue, 
@@ -34,9 +35,20 @@ exports:
                        DDLogMessage.logFlag, DDLogMessage.logLevel, DDLogMessage.logMsg, 
                        DDLogMessage.machThreadID, DDLogMessage.options, DDLogMessage.queueLabel, 
                        DDLogMessage.tag, DDLogMessage.threadName, DDLogMessage.timestamp, 
-                       DDTTYLogger.app, DDTTYLogger.appLen, DDTTYLogger.appName, 
-                       DDTTYLogger.calendar, DDTTYLogger.calendarUnitFlags, DDTTYLogger.pid, 
-                       DDTTYLogger.pidLen, DDTTYLogger.processID, HTTPAsyncFileResponse.aborted, 
+                       DDLoggerNode.logger, DDLoggerNode.loggerQueue, DDTTYLogger.app, 
+                       DDTTYLogger.appLen, DDTTYLogger.appName, DDTTYLogger.calendar, 
+                       DDTTYLogger.calendarUnitFlags, DDTTYLogger.pid, DDTTYLogger.pidLen, 
+                       DDTTYLogger.processID, GCDAsyncReadPacket.buffer, GCDAsyncReadPacket.bufferOwner, 
+                       GCDAsyncReadPacket.bytesDone, GCDAsyncReadPacket.maxLength, 
+                       GCDAsyncReadPacket.originalBufferLength, GCDAsyncReadPacket.readLength, 
+                       GCDAsyncReadPacket.startOffset, GCDAsyncReadPacket.tag, GCDAsyncReadPacket.term, 
+                       GCDAsyncReadPacket.timeout, GCDAsyncSendfilePacket.file, GCDAsyncSendfilePacket.length, 
+                       GCDAsyncSendfilePacket.offset, GCDAsyncSocketPreBuffer.preBuffer, 
+                       GCDAsyncSocketPreBuffer.preBufferSize, GCDAsyncSocketPreBuffer.readPointer, 
+                       GCDAsyncSocketPreBuffer.writePointer, GCDAsyncSpecialPacket.tlsSettings, 
+                       GCDAsyncWritePacket.buffer, GCDAsyncWritePacket.bytesDone, 
+                       GCDAsyncWritePacket.countBytesWritten, GCDAsyncWritePacket.tag, 
+                       GCDAsyncWritePacket.timeout, HTTPAsyncFileResponse.aborted, 
                        HTTPAsyncFileResponse.connection, HTTPAsyncFileResponse.data, 
                        HTTPAsyncFileResponse.fileFD, HTTPAsyncFileResponse.fileLength, 
                        HTTPAsyncFileResponse.fileOffset, HTTPAsyncFileResponse.filePath, 

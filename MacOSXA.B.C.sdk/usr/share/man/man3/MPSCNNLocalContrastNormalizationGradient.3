@@ -1,4 +1,4 @@
-.TH "MPSCNNLocalContrastNormalizationGradient" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNLocalContrastNormalizationGradient" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -40,12 +40,6 @@ Inherits \fBMPSCNNGradientKernel\fP\&.
 .br
 .ti -1c
 .RI "float \fBps\fP"
-.br
-.ti -1c
-.RI "NSUInteger \fBkernelWidth\fP"
-.br
-.ti -1c
-.RI "NSUInteger \fBkernelHeight\fP"
 .br
 .in -1c
 .SS "Additional Inherited Members"
@@ -114,10 +108,6 @@ The value of alpha\&. Default is 0\&.0  The default value 0\&.0 is not recommend
 The value of beta\&. Default is 0\&.5 
 .SS "\- delta\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 The value of delta\&. Default is 1/1024 
-.SS "\- kernelHeight\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
-The height of the filter window 
-.SS "\- kernelWidth\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
-The width of the filter window 
 .SS "\- p0\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 The value of p0\&. Default is 1\&.0 
 .SS "\- pm\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"

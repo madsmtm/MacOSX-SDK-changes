@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9299DD61-FF8E-353D-8FEE-0CB60C2D4EAE' ]
+uuids:           [ 'x86_64: 6AEE21FF-2771-3E1E-A27B-5EF439EB8E43' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SiriClientFlow.framework/Versions/A/SiriClientFlow
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CFBCGetDiagnosticsSubmissionAllowedClassIdentifier, _CFBCGetDiagnosticsSubmissionAllowedResponseAllowedPListKey, 
@@ -29,14 +28,15 @@ exports:
                        _CFCBNightShiftScheduleToTimePListKey, _CFCBNightShiftStatusActivePListKey, 
                        _CFCBNightShiftStatusClassIdentifier, _CFCBNightShiftStatusEnabledPListKey, 
                        _CFCBNightShiftStatusNightShiftModePListKey, _CFCBNightShiftStatusNightShiftSchedulePListKey, 
-                       _CFCBNightShiftStatusSunSchedulePermittedPListKey, _CFCBNightShiftTransitionTimeClassIdentifier, 
-                       _CFCBNightShiftTransitionTimeHourPListKey, _CFCBNightShiftTransitionTimeMinutePListKey, 
-                       _CFCBSetNightShiftModeActivePListKey, _CFCBSetNightShiftModeClassIdentifier, 
-                       _CFCBSetNightShiftModeEnablePListKey, _CFCBSetNightShiftModeFailedErrorCode, 
-                       _CFCBSetNightShiftModeModePListKey, _CFCBSetNightShiftModeOptionPListKey, 
-                       _CFCBSetNightShiftModeSchedulePListKey, _CFCBSetNightShiftScheduleFailedErrorCode, 
-                       _CFCBUnknownNightShiftModeErrorCode, _CFCBUnknownNightShiftOptionErrorCode, 
-                       _CFCLError, _CFCLGroupAcronym, _CFCLGroupIdentifier, _CFCLReverseGeoCodeClassIdentifier, 
+                       _CFCBNightShiftStatusSunSchedulePermittedPListKey, _CFCBNightShiftStatusSupportedPListKey, 
+                       _CFCBNightShiftTransitionTimeClassIdentifier, _CFCBNightShiftTransitionTimeHourPListKey, 
+                       _CFCBNightShiftTransitionTimeMinutePListKey, _CFCBSetNightShiftModeActivePListKey, 
+                       _CFCBSetNightShiftModeClassIdentifier, _CFCBSetNightShiftModeEnablePListKey, 
+                       _CFCBSetNightShiftModeFailedErrorCode, _CFCBSetNightShiftModeModePListKey, 
+                       _CFCBSetNightShiftModeOptionPListKey, _CFCBSetNightShiftModeSchedulePListKey, 
+                       _CFCBSetNightShiftScheduleFailedErrorCode, _CFCBUnknownNightShiftModeErrorCode, 
+                       _CFCBUnknownNightShiftOptionErrorCode, _CFCLError, _CFCLGroupAcronym, 
+                       _CFCLGroupIdentifier, _CFCLReverseGeoCodeClassIdentifier, 
                        _CFCLReverseGeoCodeCompletedAddressPListKey, _CFCLReverseGeoCodeCompletedAreasOfInterestPListKey, 
                        _CFCLReverseGeoCodeCompletedClassIdentifier, _CFCLReverseGeoCodeCompletedCountryPListKey, 
                        _CFCLReverseGeoCodeCompletedLocalityPListKey, _CFCLReverseGeoCodeCompletedNamePListKey, 
@@ -112,19 +112,27 @@ exports:
                        _CFVSGetVoiceAssetsRequestGenderPListKey, _CFVSGetVoiceAssetsRequestLanguagePListKey, 
                        _CFVSGetVoiceAssetsRequestQualityPListKey, _CFVSGetVoiceAssetsResponseClassIdentifier, 
                        _CFVSGetVoiceAssetsResponseVoiceAssetsPListKey, _CFVSGroupAcronym, 
-                       _CFVSGroupIdentifier, _CFVSNotSupportedErrorCode, _CFVSQueryFailedErrorCode ]
+                       _CFVSGroupIdentifier, _CFVSNotSupportedErrorCode, _CFVSQueryFailedErrorCode, 
+                       _kCFClientScripterBundleID ]
     objc-classes:    [ CFBCGetDiagnosticsSubmissionAllowed, CFBCGetDiagnosticsSubmissionAllowedResponse, 
                        CFBCGetNumberFormattedString, CFBCGetNumberFormattedStringResponse, 
                        CFBCWriteDnuForSubmission, CFBSBatteryStatus, CFBSBatteryStatusCommand, 
                        CFBSBatteryStatusCommandCompleted, CFCBGetNightShiftMode, 
                        CFCBNightShiftSchedule, CFCBNightShiftStatus, CFCBNightShiftTransitionTime, 
                        CFCBSetNightShiftMode, CFCLReverseGeoCode, CFCLReverseGeoCodeCompleted, 
-                       CFCNAutoCompleteFetchContext, CFCNAutoCompleteFetchRequest, 
-                       CFCNAutoCompleteFetchResponse, CFCNAutoCompleteResult, CFClient, 
+                       CFCNAutoCompleteFetchContext, CFCNAutoCompleteFetchDelelegate, 
+                       CFCNAutoCompleteFetchRequest, CFCNAutoCompleteFetchResponse, 
+                       CFCNAutoCompleteResult, CFClient, CFCommandProcessor, CFCommandQueuer, 
                        CFMGGetMobileGestaltBoolRequest, CFMGGetMobileGestaltBoolResponse, 
                        CFMGGetMobileGestaltStringRequest, CFMGGetMobileGestaltStringResponse, 
-                       CFMMessagesQuery, CFMMessagesQueryResponse, CFPBJSONUtils, 
-                       CFSFAddToSafariReadingList, CFSGSuggestContactMatchesWithTextSearch, 
-                       CFSGSuggestedContact, CFSGSuggestedContacts, CFVSGetVoiceAssetsRequest, 
-                       CFVSGetVoiceAssetsResponse ]
+                       CFMMessagesQuery, CFMMessagesQueryResponse, CFMetrics, CFPBJSONReader, 
+                       CFPBJSONUtils, CFPBJSONWriter, CFPBProperty, CFSFAddToSafariReadingList, 
+                       CFSGSuggestContactMatchesWithTextSearch, CFSGSuggestedContact, 
+                       CFSGSuggestedContacts, CFServiceConnector, CFServiceHelper, 
+                       CFVSGetVoiceAssetsRequest, CFVSGetVoiceAssetsResponse ]
+    objc-ivars:      [ CFPBProperty._convertFromString, CFPBProperty._convertToString, 
+                       CFPBProperty._count, CFPBProperty._fromDictionaryReprFn, CFPBProperty._getter, 
+                       CFPBProperty._has, CFPBProperty._name, CFPBProperty._setter, 
+                       CFPBProperty._structFields, CFPBProperty._structName, CFPBProperty._structSize, 
+                       CFPBProperty._subType, CFPBProperty._toDictionaryReprFn, CFPBProperty._type ]
 ...

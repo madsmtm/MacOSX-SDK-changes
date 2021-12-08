@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, GKLeaderboardPlayerScope) {
 
 @class GKPlayer;
 @class GKScore;
+@class UIImage;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -9,7 +9,6 @@
 #import <Vision/VNFaceObservationAccepting.h>
 
 
-
 NS_ASSUME_NONNULL_BEGIN
 
 
@@ -21,6 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
 @interface VNDetectFaceLandmarksRequest : VNImageBasedRequest <VNFaceObservationAccepting>
 @end
+
+
+API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0))
+static const NSUInteger VNDetectFaceLandmarksRequestRevision1 = 1;
+
+API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0))
+static const NSUInteger VNDetectFaceLandmarksRequestRevision2 = 2;
 
 
 NS_ASSUME_NONNULL_END

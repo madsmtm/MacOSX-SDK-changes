@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
+// clang-format off
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -26,11 +27,12 @@ API_AVAILABLE(macos(10.13.4), ios(11.3))
 
 /**
  Open the chat transcript configured for a given business.
- 
+
  @param businessIdentifier The business identifier for the given business.
  @param intentParameters Parameters to be sent with the initial message.
  */
-+ (void)openTranscript:(NSString *)businessIdentifier intentParameters:(NSDictionary<BCParameterName, NSString *> *)intentParameters NS_SWIFT_NAME(openTranscript(businessIdentifier:intentParameters:)) API_AVAILABLE(macos(10.13.4), ios(11.3));
++ (void)openTranscript:(NSString *)businessIdentifier
+      intentParameters:(NSDictionary<BCParameterName, NSString *> *)intentParameters NS_SWIFT_NAME(openTranscript(businessIdentifier:intentParameters:))API_AVAILABLE(macos(10.13.4), ios(11.3));
 
 @end
 

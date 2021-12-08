@@ -3,7 +3,7 @@
  
      Contains:   Master include for vecLib framework
  
-     Version:    vecLib-622.50
+     Version:    vecLib-671.201
  
      Copyright:  Copyright (c) 2000-2018 by Apple Inc. All rights reserved.
  
@@ -17,8 +17,7 @@
 #define __VDSP_TRANSLATE__
 
 
-
-#include <Availability.h>
+#include <os/availability.h>
 
 #if PRAGMA_ONCE
 #pragma once

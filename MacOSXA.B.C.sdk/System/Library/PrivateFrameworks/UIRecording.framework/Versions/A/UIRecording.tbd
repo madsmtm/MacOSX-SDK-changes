@@ -1,21 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A26E1777-466C-355A-806B-4C4491D50CB1', 'x86_64: A8394B67-3064-3D78-819B-AEBCA6749A53' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: A3FB661B-AC36-3ED8-9922-C6AC5405CE86' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/UIRecording.framework/Versions/A/UIRecording
 current-version: 28
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ ActionTextField._action, UIRAccessibilityElement._name, UIRAccessibilityElement._ref, 
-                       UIRAccessibilityElementRecord._properties, UIRAccessibilityProcess._LSASNRef, 
-                       UIRAccessibilityProcess._applicationInfo, UIRAccessibilityProcess._psn, 
-                       UIRAccessibilityProcess._title, UIRLocalRecorderController._recorder, 
-                       UIRTDrawFocus._actionsWindow, UIRTDrawFocus._focusAttributes, 
-                       UIRTDrawFocus._focusWindow, UIRTDrawFocus._selectedAction, 
-                       UIRTDrawFocus._selectedActionIndex, UIRTDrawFocusView._color, 
-                       UIRTDrawFocusView._isPreview, UIRTDrawFocusView._kind, UIRTDrawFocusView._opacity, 
-                       UIRTDrawFocusView._width ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _AMUIRecordingVersionNumber, _AMUIRecordingVersionString, 
                        _AXUIElementHasAttribute, _CGPointChanged, _CGStringForEventType, 
                        _UIRAccessibilityDisabledError, _UIRApplyEventTypeToState, 
@@ -31,4 +21,13 @@ exports:
                        UIRAccessibilityProcess, UIREvent, UIRKeyEvent, UIRLocalRecorder, 
                        UIRLocalRecorderController, UIRMouseEvent, UIRRecord, UIRRemoteRecorder, 
                        UIRTDrawFocus, UIRTDrawFocusView ]
+    objc-ivars:      [ ActionTextField._action, UIRAccessibilityElement._name, UIRAccessibilityElement._ref, 
+                       UIRAccessibilityElementRecord._properties, UIRAccessibilityProcess._LSASNRef, 
+                       UIRAccessibilityProcess._applicationInfo, UIRAccessibilityProcess._psn, 
+                       UIRAccessibilityProcess._title, UIRLocalRecorderController._recorder, 
+                       UIRTDrawFocus._actionsWindow, UIRTDrawFocus._focusAttributes, 
+                       UIRTDrawFocus._focusWindow, UIRTDrawFocus._selectedAction, 
+                       UIRTDrawFocus._selectedActionIndex, UIRTDrawFocusView._color, 
+                       UIRTDrawFocusView._isPreview, UIRTDrawFocusView._kind, UIRTDrawFocusView._opacity, 
+                       UIRTDrawFocusView._width ]
 ...

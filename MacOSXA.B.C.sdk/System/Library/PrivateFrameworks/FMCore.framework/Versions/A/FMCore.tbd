@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F570DEE9-2386-33BE-8913-F61CEE2BF93D' ]
+uuids:           [ 'x86_64: 90739DB6-2CA4-3844-8304-C5C26EE66717' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/FMCore.framework/Versions/A/FMCore
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _FMCommandHTTPMethodDelete, _FMCommandHTTPMethodGet, _FMCommandHTTPMethodPost, 
@@ -11,7 +10,8 @@ exports:
                        _FMDataClassFMF, _FMDataClassFMFAppHostNameKey, _FMDataClassFMIP, 
                        _FMDistanceCalculatorMeasurementSystemChangedNotification, 
                        _FMLocalNetworkStatusChangedNotification, _FMLocalNetworkStatusKey, 
-                       _kFMReachabilityChangedNotification, _nanosecondTimestamp ]
+                       _FMOwnerAccountErrorDomain, _kFMReachabilityChangedNotification, 
+                       _nanosecondTimestamp ]
     objc-classes:    [ FMAPSHandler, FMAlertManager, FMCommandBase, FMDaemon, FMDispatchTimer, 
                        FMDistanceCalculator, FMJSONCommand, FMKeychainManager, FMLocationShifter, 
                        FMLocationShifterItem, FMNetworkMonitor, FMOwnerAccount, FMPastDateComponentsFormatter, 

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9F61AE3D-24B3-37AB-8504-22BE4FD694E2' ]
+uuids:           [ 'x86_64: FEC80202-44F7-3AFB-AEE1-C059FA467EDF' ]
 platform:        macosx
 install-name:    /usr/lib/libSMC.dylib
-current-version: 6.50.6
+current-version: 6.200.5
 objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
@@ -16,18 +16,17 @@ exports:
                        _SMCGetAccumStatusFor, _SMCGetKeyFromIndex, _SMCGetKeyInfo, 
                        _SMCGetTypeDescriptionForNumericType, _SMCKextCall, _SMCMakeUInt32Key, 
                        _SMCOSAccumIsSupported, _SMCOSAccumSampleChannel, _SMCOpenAppleSMC, 
-                       _SMCOpenConnection, _SMCParseBytesForNumeric, _SMCProgramAccum, 
-                       _SMCProgramAccum1Channel, _SMCProgramAccumDefaults, _SMCProgramAccumWithoutReset, 
-                       _SMCReadBigEndianArrayToUIntMax, _SMCReadKey, _SMCReadKeyAsNumeric, 
-                       _SMCReadKeyAsNumericWithKnownKeyInfo, _SMCReadKeyWithKnownSize, 
-                       _SMCReadLittleEndianArrayToUIntMax, _SMCRegisterForNotification, 
-                       _SMCRegisterForSubTypeNotification, _SMCRequestMacOSWakeFromAP, 
-                       _SMCSetAccum1msChannels, _SMCSetAccum1secChannels, _SMCSetAccumBitShift, 
-                       _SMCSetAccumMode, _SMCSignExtendToIntMax, _SMCStartAccum, 
-                       _SMCStopAccum, _SMCUInt32ToString, _SMCUnregisterForNotification, 
+                       _SMCOpenConnection, _SMCOpenConnectionWithDefaultService, 
+                       _SMCParseBytesForNumeric, _SMCProgramAccum, _SMCProgramAccum1Channel, 
+                       _SMCProgramAccumDefaults, _SMCProgramAccumWithoutReset, _SMCReadBigEndianArrayToUIntMax, 
+                       _SMCReadKey, _SMCReadKeyAsNumeric, _SMCReadKeyAsNumericWithKnownKeyInfo, 
+                       _SMCReadKeyWithKnownSize, _SMCReadLittleEndianArrayToUIntMax, 
+                       _SMCRegisterForNotification, _SMCRegisterForSubTypeNotification, 
+                       _SMCRequestMacOSWakeFromAP, _SMCSetAccum1msChannels, _SMCSetAccum1secChannels, 
+                       _SMCSetAccumBitShift, _SMCSetAccumMode, _SMCSignExtendToIntMax, 
+                       _SMCStartAccum, _SMCStopAccum, _SMCUInt32ToString, _SMCUnregisterForNotification, 
                        _SMCWriteKey, _SMCWriteKeyAsNumeric, _SMCWriteKeyWithKnownSize, 
-                       ___SMCVersionNumber, ___SMCVersionString, __smcNotificationCallback, 
-                       __unregisterForNotification, _atmamDataAccumLookupSt1ms_K17, 
+                       __smcNotificationCallback, __unregisterForNotification, _atmamDataAccumLookupSt1ms_K17, 
                        _atmamDataAccumLookupSt1ms_K19, _atmamDataAccumLookupSt1ms_K6, 
                        _atmamDataAccumLookupSt1ms_K69, _atmamDataAccumLookupSt1ms_K84, 
                        _atmamDataAccumLookupSt1ms_M96, _atmamDataAccumLookupSt1ms_M97, 

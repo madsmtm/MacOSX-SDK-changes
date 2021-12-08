@@ -1,4 +1,4 @@
-.TH "MPSCNNLossDescriptor" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNLossDescriptor" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -21,7 +21,7 @@ Inherits NSObject, and <NSCopying>\&.
 
 .in +1c
 .ti -1c
-.RI "(nullable \fBMPSCNNLossDescriptor\fP *) + \fBcnnLossDescriptorWithType:reductionType:\fP"
+.RI "(nonnull \fBMPSCNNLossDescriptor\fP *) + \fBcnnLossDescriptorWithType:reductionType:\fP"
 .br
 .in -1c
 .SS "Properties"
@@ -54,7 +54,7 @@ Inherits NSObject, and <NSCopying>\&.
 This depends on Metal\&.framework\&.  The \fBMPSCNNLossDescriptor\fP specifies a loss filter descriptor\&. The same descriptor can be used to initialize both the \fBMPSCNNLoss\fP and the MPSCNNLossGradient filters\&. 
 .SH "Method Documentation"
 .PP 
-.SS "+ (nullable \fBMPSCNNLossDescriptor\fP*) cnnLossDescriptorWithType: (\fBMPSCNNLossType\fP) lossType(\fBMPSCNNReductionType\fP) reductionType"
+.SS "+ (nonnull \fBMPSCNNLossDescriptor\fP*) cnnLossDescriptorWithType: (\fBMPSCNNLossType\fP) lossType(\fBMPSCNNReductionType\fP) reductionType"
 Make a descriptor for a \fBMPSCNNLoss\fP or MPSCNNLossGradient object\&. 
 .PP
 \fBParameters:\fP

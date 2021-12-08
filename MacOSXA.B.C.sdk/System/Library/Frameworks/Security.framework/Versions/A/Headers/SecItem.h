@@ -449,7 +449,7 @@ extern const CFStringRef kSecClassIdentity
 extern const CFStringRef kSecAttrAccessible
     API_AVAILABLE(macos(10.9), ios(4.0));
 extern const CFStringRef kSecAttrAccess
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrAccessControl
     API_AVAILABLE(macos(10.10), ios(8.0));
 extern const CFStringRef kSecAttrAccessGroup
@@ -523,11 +523,11 @@ extern const CFStringRef kSecAttrApplicationTag
 extern const CFStringRef kSecAttrKeyType
     API_AVAILABLE(macos(10.6), ios(2.0));
 extern const CFStringRef kSecAttrPRF
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrSalt
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrRounds
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeySizeInBits
     API_AVAILABLE(macos(10.6), ios(2.0));
 extern const CFStringRef kSecAttrEffectiveKeySize
@@ -783,21 +783,21 @@ extern const CFStringRef kSecAttrKeyClassSymmetric
 extern const CFStringRef kSecAttrKeyTypeRSA
     API_AVAILABLE(macos(10.7), ios(2.0));
 extern const CFStringRef kSecAttrKeyTypeDSA
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeyTypeAES
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeyTypeDES
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeyType3DES
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeyTypeRC4
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeyTypeRC2
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeyTypeCAST
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeyTypeECDSA
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrKeyTypeEC
     API_AVAILABLE(macos(10.9), ios(4.0));
 extern const CFStringRef kSecAttrKeyTypeECSECPrimeRandom
@@ -814,15 +814,15 @@ extern const CFStringRef kSecAttrKeyTypeECSECPrimeRandom
      @constant kSecAttrPRFHmacAlgSHA512
 */
 extern const CFStringRef kSecAttrPRFHmacAlgSHA1
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrPRFHmacAlgSHA224
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrPRFHmacAlgSHA256
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrPRFHmacAlgSHA384
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecAttrPRFHmacAlgSHA512
-      API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+      API_AVAILABLE(macos(10.7), ios(NA));
 
 
 /*!
@@ -902,17 +902,17 @@ extern const CFStringRef kSecMatchEmailAddressIfPresent
 extern const CFStringRef kSecMatchSubjectContains
     API_AVAILABLE(macos(10.6), ios(2.0));
 extern const CFStringRef kSecMatchSubjectStartsWith
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecMatchSubjectEndsWith
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecMatchSubjectWholeString
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecMatchCaseInsensitive
     API_AVAILABLE(macos(10.6), ios(2.0));
 extern const CFStringRef kSecMatchDiacriticInsensitive
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecMatchWidthInsensitive
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecMatchTrustedOnly
     API_AVAILABLE(macos(10.6), ios(2.0));
 extern const CFStringRef kSecMatchValidOnDate
@@ -1021,9 +1021,9 @@ extern const CFStringRef kSecValuePersistentRef
           keychain operations.
 */
 extern const CFStringRef kSecUseItemList
-    API_AVAILABLE(macos(10.6), ios(2.0));
+    API_AVAILABLE(macos(10.6)) API_UNAVAILABLE(ios, tvos, watchos);
 extern const CFStringRef kSecUseKeychain
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecUseOperationPrompt
     API_AVAILABLE(macos(10.10), ios(8.0));
 extern const CFStringRef kSecUseNoAuthenticationUI

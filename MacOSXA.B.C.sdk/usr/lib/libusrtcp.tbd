@@ -1,13 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: C9285B4F-2FAA-3C67-8B78-2DEFEC4A1663', 'x86_64: 3D8806D9-4BA9-35EE-BC44-F58BC2A0962D' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 07B2AEC8-5FD4-34BE-B35B-B595283D9DC9' ]
 platform:        macosx
 install-name:    /usr/lib/libusrtcp.dylib
+objc-constraint: none
 exports:         
-  - archs:           [ i386 ]
-    objc-classes:    [ OS_nw_protocol_tcp ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _in6_pseudo, _in_adjust_cksum, _in_finalize_cksum, _in_pseudo, 
-                       _inet_cksum, _nw_protocol_sfotcp_identifier, _nw_protocol_tcp_identifier, 
+  - archs:           [ x86_64 ]
+    symbols:         [ _nw_protocol_sfotcp_identifier, _nw_protocol_tcp_identifier, 
                        _tcp_next_mtu ]
 ...

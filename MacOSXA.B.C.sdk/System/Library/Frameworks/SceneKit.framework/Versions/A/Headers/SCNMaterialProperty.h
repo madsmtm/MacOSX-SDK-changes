@@ -1,7 +1,8 @@
 //
 //  SCNMaterialProperty.h
+//  SceneKit
 //
-//  Copyright (c) 2012-2017 Apple Inc. All rights reserved.
+//  Copyright © 2012-2018 Apple Inc. All rights reserved.
 //
 
 #import <SceneKit/SceneKitTypes.h>
@@ -33,6 +34,7 @@ typedef NS_ENUM(NSInteger, SCNWrapMode) {
     @discussion This can be used to specify the various properties of SCNMaterial slots such as diffuse, ambient, etc.
 */
 
+SCN_EXPORT
 @interface SCNMaterialProperty : NSObject <SCNAnimatable, NSSecureCoding>
 
 /*!

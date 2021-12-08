@@ -49,7 +49,7 @@ typedef struct {
           series of shells on the outside and inside of the surface.
  */
 
-NS_CLASS_AVAILABLE(10_11, 9_0)
+API_AVAILABLE(macos(10.11), ios(9.0), tvos(9.0))
 MDL_EXPORT
 @interface MDLVoxelArray : MDLObject
 

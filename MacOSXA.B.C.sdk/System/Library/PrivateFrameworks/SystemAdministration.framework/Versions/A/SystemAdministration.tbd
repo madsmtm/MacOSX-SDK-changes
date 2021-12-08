@@ -1,10 +1,25 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: B273350F-6B9E-34DB-9CF1-C9346AC36E7E', 'x86_64: 2916D56F-1F72-3A6B-8F2F-9E6EFE6B962A' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: E41D573A-C356-344E-9E67-809F30D9DEF4' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SystemAdministration.framework/Versions/A/SystemAdministration
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _NetworkTimeStartedNotification, _NetworkTimeStoppedNotification, 
+                       _SafeCFBundleGetFunctionPointerForName, _canOpenAccountsPreferencePane, 
+                       _copyKeyboardType, _coreTimeFrameworkBundle, _createAuthorizationFromExternalForm, 
+                       _debugLoggingEnabled, _directorySizeAtPath, _freeSpaceAtPath, 
+                       _getPIDForProcess, _isBootVolumeHCSFDE, _isInternalBuild, 
+                       _kickMCXDForUID, _loadAppKit, _setSafariLockedSync, _writeKeyboardType ]
+    objc-classes:    [ ADMARDConfig, ADMAccountPasswordPolicy, ADMDSNode, ADMDSRecord, 
+                       ADMDynamicDNSConfig, ADMGroup, ADMGuestUserConfig, ADMHostConfig, 
+                       ADMInternetServices, ADMLoginPrefs, ADMNetworkTimeClient, 
+                       ADMNetworkTimeServer, ADMParentalControlsConfig, ADMPowerActivityManager, 
+                       ADMPrinterSharingConfig, ADMRemoteAEConfig, ADMRemoteUser, 
+                       ADMSysKeyChainConfig, ADMSystemClock, ADMUser, ADMUserAccountUtilities, 
+                       ADMWebServerConfig, ADM_NVRAMConfig, AdminAuthenticator, AdminDSAuthenticator, 
+                       AdminDirectoryService, DOAsyncResult, MCXPrefObject, UserUtilities, 
+                       WriteConfigClient, WriteConfigOnewayMessageDispatcher ]
     objc-ivars:      [ ADMDSNode.mDirectoryService, ADMDSNode.mNodeName, ADMDSNode.mNodeReference, 
                        ADMDSNode.mOpenCloseSemaphore, ADMDSRecord.mNode, ADMDSRecord.mRecordName, 
                        ADMDSRecord.mRecordReference, ADMDSRecord.mRecordType, ADMGroup.mGUIDChecked, 
@@ -23,24 +38,4 @@ exports:
                        DOAsyncResult.mContext, DOAsyncResult.mDone, DOAsyncResult.mResult, 
                        MCXPrefObject.mMCXDict, MCXPrefObject.mUnionPolicyKeys, WriteConfigClient._authorization, 
                        WriteConfigClient._connection, WriteConfigClient._onewayMessageDispatcher ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _NSAdminDidAuthenticateNotification, _NSAdminDidNotAuthenticateNotification, 
-                       _NetworkTimeStartedNotification, _NetworkTimeStoppedNotification, 
-                       _SafeCFBundleGetFunctionPointerForName, __ntpdConfFilePath, 
-                       __ntpdIdentifier, _canOpenAccountsPreferencePane, _copyKeyboardType, 
-                       _coreTimeFrameworkBundle, _createAuthorizationFromExternalForm, 
-                       _debugLoggingEnabled, _directorySizeAtPath, _directorySizeForFSRef, 
-                       _fileLogicalSizeAtFSRef, _fileLogicalSizeAtPath, _filePhysicalSizeAtFSRef, 
-                       _filePhysicalSizeAtPath, _freeSpaceAtPath, _getPIDForProcess, 
-                       _isBootVolumeHCSFDE, _isInternalBuild, _kickMCXDForUID, _ntpdProcessName, 
-                       _setSafariLockedSync, _writeKeyboardType ]
-    objc-classes:    [ ADMARDConfig, ADMDSNode, ADMDSRecord, ADMDynamicDNSConfig, 
-                       ADMGroup, ADMGuestUserConfig, ADMHostConfig, ADMInternetServices, 
-                       ADMLoginPrefs, ADMNetworkTimeClient, ADMNetworkTimeServer, 
-                       ADMParentalControlsConfig, ADMPowerActivityManager, ADMPrinterSharingConfig, 
-                       ADMRemoteAEConfig, ADMRemoteUser, ADMSysKeyChainConfig, ADMSystemClock, 
-                       ADMUser, ADMUserAccountUtilities, ADMWebServerConfig, ADM_NVRAMConfig, 
-                       AdminAuthenticator, AdminDSAuthenticator, AdminDirectoryService, 
-                       DOAsyncResult, MCXPrefObject, UserUtilities, WriteConfigClient, 
-                       WriteConfigOnewayMessageDispatcher ]
 ...

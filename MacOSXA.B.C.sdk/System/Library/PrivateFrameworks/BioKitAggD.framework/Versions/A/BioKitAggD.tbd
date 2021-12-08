@@ -1,13 +1,13 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: FE2BE7E0-6A8C-30B5-AA55-349BA16336A3' ]
+uuids:           [ 'x86_64: CFF20BD1-45D3-33ED-B600-DA0D0EB26EAD' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/BioKitAggD.framework/Versions/A/BioKitAggD
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _BKADClientAddValueForScalarKey, _BKADClientClearDistributionKey, 
                        _BKADClientClearScalarKey, _BKADClientPushValueForDistributionKey, 
-                       _BKADClientSetValueForDistributionKey, _BKADClientSetValueForScalarKey ]
+                       _BKADClientSetValueForDistributionKey, _BKADClientSetValueForScalarKey, 
+                       _BioKitAggDVersionNumber, _BioKitAggDVersionString, _bkad_client_log ]
     objc-classes:    [ BKADClient ]
 ...

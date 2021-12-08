@@ -18,12 +18,8 @@ API_AVAILABLE(ios(11.0), watchos(4.0), macosx(10.13))
 // Use +notRequired to continue with a 'nil' value.
 + (instancetype)successWithResolvedCallDestinationType:(INCallDestinationType)resolvedCallDestinationType NS_SWIFT_NAME(success(with:));
 
-+ (instancetype)successWithResolvedValue:(INCallDestinationType)resolvedValue NS_SWIFT_UNAVAILABLE("Please use 'success(with:)' instead.") API_DEPRECATED_WITH_REPLACEMENT("+successWithResolvedCallDestinationType:", ios(10.0, 11.0), watchos(3.2, 4.0), macos(10.12, 10.13));
-
 // This resolution result is to ask Siri to confirm if this is the value with which the user wants to continue.
 + (instancetype)confirmationRequiredWithCallDestinationTypeToConfirm:(INCallDestinationType)callDestinationTypeToConfirm NS_SWIFT_NAME(confirmationRequired(with:));
-
-+ (instancetype)confirmationRequiredWithValueToConfirm:(INCallDestinationType)valueToConfirm NS_SWIFT_UNAVAILABLE("Please use 'confirmationRequired(with:)' instead.") API_DEPRECATED_WITH_REPLACEMENT("+confirmationRequiredWithCallDestinationTypeToConfirm:", ios(10.0, 11.0), watchos(3.2, 4.0), macos(10.12, 10.13));
 
 @end
 

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 30E60B22-7400-3021-B110-BD06AC67C1B0' ]
+uuids:           [ 'x86_64: 9D54B1E5-D6AC-3F68-8261-954127345FDD' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/GLKit.framework/Versions/A/GLKit
-current-version: 90
+current-version: 103.2
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _GLKMathProject, _GLKMathUnproject, _GLKMatrix3Identity, _GLKMatrix3Invert, 

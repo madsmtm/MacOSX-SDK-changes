@@ -2,7 +2,7 @@
  *  CTFontManager.h
  *  CoreText
  *
- *  Copyright (c) 2008-2017 Apple Inc. All rights reserved.
+ *  Copyright (c) 2008-2018 Apple Inc. All rights reserved.
  *
  */
 
@@ -17,13 +17,8 @@
 #ifndef __CTFONTMANAGER__
 #define __CTFONTMANAGER__
 
-#include <CoreText/CTDefines.h>
 #include <CoreText/CTFontDescriptor.h>
 #include <CoreText/CTFontManagerErrors.h>
-#include <CoreFoundation/CFError.h>
-#include <CoreFoundation/CFRunLoop.h>
-#include <CoreFoundation/CFURL.h>
-#include <CoreGraphics/CGFont.h>
 
 CF_IMPLICIT_BRIDGING_ENABLED
 CF_EXTERN_C_BEGIN
@@ -73,7 +68,7 @@ CFArrayRef CTFontManagerCopyAvailableFontURLs( void ) CT_AVAILABLE(macos(10.6)) 
 CFComparisonResult CTFontManagerCompareFontFamilyNames(
     const void *        family1,
     const void *        family2,
-    void * __nullable   context ) CT_AVAILABLE(macos(10.6)) CT_UNAVAILABLE(ios, watchos, tvos);
+    void * _Nullable   context ) CT_AVAILABLE(macos(10.6)) CT_UNAVAILABLE(ios, watchos, tvos);
 
 /*!
     @function   CTFontManagerCreateFontDescriptorsFromURL
@@ -85,7 +80,7 @@ CFComparisonResult CTFontManagerCompareFontFamilyNames(
 
     @result     An array of CTFontDescriptors or NULL if there are no valid fonts.
 */
-CFArrayRef __nullable CTFontManagerCreateFontDescriptorsFromURL(
+CFArrayRef _Nullable CTFontManagerCreateFontDescriptorsFromURL(
     CFURLRef            fileURL ) CT_AVAILABLE(macos(10.6), ios(7.0), watchos(2.0), tvos(9.0));
 
 /*!
@@ -100,7 +95,7 @@ CFArrayRef __nullable CTFontManagerCreateFontDescriptorsFromURL(
 
     @result     A font descriptor created from the data or NULL if it is not a valid font.
 */
-CTFontDescriptorRef __nullable CTFontManagerCreateFontDescriptorFromData(
+CTFontDescriptorRef _Nullable CTFontManagerCreateFontDescriptorFromData(
     CFDataRef               data ) CT_AVAILABLE(macos(10.7), ios(7.0), watchos(2.0), tvos(9.0));
 
 /*!
@@ -217,7 +212,7 @@ bool CTFontManagerUnregisterGraphicsFont(
 bool CTFontManagerRegisterFontsForURLs(
     CFArrayRef              fontURLs,
     CTFontManagerScope      scope,
-    CFArrayRef __nullable * __nullable errors ) CT_AVAILABLE(macos(10.6), ios(4.1), watchos(2.0), tvos(9.0));
+    CFArrayRef _Nullable * _Nullable errors ) CT_AVAILABLE(macos(10.6), ios(4.1), watchos(2.0), tvos(9.0));
 
 /*!
     @function   CTFontManagerUnregisterFontsForURLs
@@ -238,7 +233,7 @@ bool CTFontManagerRegisterFontsForURLs(
 bool CTFontManagerUnregisterFontsForURLs(
     CFArrayRef              fontURLs,
     CTFontManagerScope      scope,
-    CFArrayRef __nullable * __nullable errors ) CT_AVAILABLE(macos(10.6), ios(4.1), watchos(2.0), tvos(9.0));
+    CFArrayRef _Nullable * _Nullable errors ) CT_AVAILABLE(macos(10.6), ios(4.1), watchos(2.0), tvos(9.0));
 
 /*!
     @function   CTFontManagerEnableFontDescriptors
@@ -292,7 +287,7 @@ bool CTFontManagerIsSupportedFont(
                 A block to handle the font request.
     @result     A CFRunLoopSourceRef that should be added to the run loop. To stop receiving requests, invalidate this run loop source. Will return NULL on error, in the case of a duplicate requestPortName or invalid context structure.
 */
-CFRunLoopSourceRef __nullable CTFontManagerCreateFontRequestRunLoopSource(
+CFRunLoopSourceRef _Nullable CTFontManagerCreateFontRequestRunLoopSource(
     CFIndex         sourceOrder,
     CFArrayRef    (^createMatchesCallback)(CFDictionaryRef requestAttributes, pid_t requestingProcess)) CT_AVAILABLE(macos(10.6)) CT_UNAVAILABLE(ios, watchos, tvos);
 #endif // defined(__BLOCKS__)
@@ -336,7 +331,7 @@ typedef CF_ENUM(uint32_t, CTFontManagerAutoActivationSetting) {
     @discussion Function will apply the setting to the appropriate preferences location.
 */
 void CTFontManagerSetAutoActivationSetting(
-    CFStringRef __nullable              bundleIdentifier,
+    CFStringRef _Nullable               bundleIdentifier,
     CTFontManagerAutoActivationSetting  setting ) CT_AVAILABLE(macos(10.6)) CT_UNAVAILABLE(ios, watchos, tvos);
 
 /*!
@@ -349,7 +344,7 @@ void CTFontManagerSetAutoActivationSetting(
     @result     Will return the auto-activation setting for specified bundle identifier.
 */
 CTFontManagerAutoActivationSetting CTFontManagerGetAutoActivationSetting(
-    CFStringRef __nullable bundleIdentifier ) CT_AVAILABLE(macos(10.6)) CT_UNAVAILABLE(ios, watchos, tvos);
+    CFStringRef _Nullable bundleIdentifier ) CT_AVAILABLE(macos(10.6)) CT_UNAVAILABLE(ios, watchos, tvos);
 
 /*! --------------------------------------------------------------------------
     @group Manager Notifications

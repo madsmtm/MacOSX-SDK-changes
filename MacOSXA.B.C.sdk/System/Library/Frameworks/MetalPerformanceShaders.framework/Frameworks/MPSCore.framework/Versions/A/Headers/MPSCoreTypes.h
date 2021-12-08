@@ -177,6 +177,9 @@ typedef NS_ENUM(NSUInteger, MPSImageFeatureChannelFormat)
     /*! IEEE-754 32-bit floating-point value.  "single precision" (standard float type in C) 24 bits of precision + exponent */
     MPSImageFeatureChannelFormatFloat32     MPS_ENUM_AVAILABLE_STARTING(macos(10.13), ios(10.0), tvos(10.0))  = 4,
     
+    
+    /* Always last */
+    MPSImageFeatureChannelFormatCount        MPS_ENUM_AVAILABLE_STARTING(macos(10.14), ios(12.0), tvos(12.0))
 }
 #if defined(DOXYGEN)
     MPSImageFeatureChannelFormat

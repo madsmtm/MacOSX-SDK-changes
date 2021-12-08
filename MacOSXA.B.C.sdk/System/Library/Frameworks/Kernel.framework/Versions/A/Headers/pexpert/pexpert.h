@@ -127,6 +127,8 @@ struct clock_frequency_info_t {
   unsigned long long fix_frequency_hz;
 };
 
+extern int debug_cpu_performance_degradation_factor;
+
 typedef struct clock_frequency_info_t clock_frequency_info_t;
 
 extern clock_frequency_info_t gPEClockFrequencyInfo;

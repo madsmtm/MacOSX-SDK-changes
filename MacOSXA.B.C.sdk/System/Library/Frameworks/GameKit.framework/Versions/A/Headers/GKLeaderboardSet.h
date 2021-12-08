@@ -10,6 +10,7 @@
 
 
 @class GKLeaderboard;
+@class UIImage;
 
 NS_ASSUME_NONNULL_BEGIN
 // GKLeaderboardSet represents the sets that leaderboards can be broken out into. 

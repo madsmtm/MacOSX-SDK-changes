@@ -6,12 +6,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 #import <Metal/Metal.h>
-#import <Vision/VNObservation.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
-
 
 
 /*!
@@ -77,8 +76,32 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
 @property (readonly, nonatomic, copy, nullable) VNRequestCompletionHandler completionHandler;
 
 
+/*!
+ @abstract The specific algorithm or implementation revision that is to be used to perform the request.
+ */
+@property (readwrite, nonatomic, assign) NSUInteger revision API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
+
+
+/*!
+ @abstract Provides the collection of currently-supported algorithm or implementation versions for the class of request.
+ @discussion This method allows clients to introspect at runtime what capabilities are available for each class of VNRequest in the Vision framework.
+ */
+@property (class, readonly, nonatomic, copy) NSIndexSet* supportedRevisions API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
+
+/*! @abstract Provides the revision of the request that was latest for the particular SDK that was linked with the client application. */
+@property (class, readonly, nonatomic, assign) NSUInteger defaultRevision API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
+
+/*! @abstract Provides the current revison supported by the request. */
+@property (class, readonly, nonatomic, assign) NSUInteger currentRevision API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
+
 @end
 
+
+/*!
+	@brief	A value that indicates that the request revision is either unknown or not applicable.
+*/
+API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0))
+static const NSUInteger VNRequestRevisionUnspecified = 0;
 
 
 
@@ -98,8 +121,4 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
 @end
 
 
-
-
 NS_ASSUME_NONNULL_END
-
-

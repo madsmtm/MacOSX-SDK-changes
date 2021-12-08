@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: C56A2626-C46C-32C9-979F-BB03D1D6E43F' ]
+uuids:           [ 'x86_64: 4EAF5A4C-91C8-331D-8A2B-CCEF0C606158' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Slideshows.framework/Versions/A/Slideshows
 current-version: 4.5

@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: DACB749E-A6E3-3EF6-BAFD-598BD5C4A389' ]
+uuids:           [ 'x86_64: 1088798A-A691-3C02-8491-888C7130D71A' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SystemMigrationUtils.framework/Versions/A/SystemMigrationUtils
 exports:         

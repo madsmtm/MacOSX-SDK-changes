@@ -1,12 +1,12 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 95F0D9F8-315B-364C-AC92-A750D8CE3CD4', 'x86_64: B5C22E70-C265-3C9F-865F-B138994A418D' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 6B9CCA98-6F68-3908-A7A9-96D3E2AE5968' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Metadata
-current-version: 1191.4.13
+current-version: 1191.51
 parent-umbrella: CoreServices
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     allowable-clients: [ Foundation ]
     symbols:         [ _MDBackupBegin, _MDBackupCancel, _MDBackupCreate, _MDBackupEnd, 
                        _MDBackupFileWasIndexed, _MDBackupFinishedForVolume, _MDBackupFlushFallbackBackup, 
@@ -66,8 +66,8 @@ exports:
                        _MDPlistEnumerateQueryResults, _MDPlistGetPlistObjectType, 
                        _MDPlistGetRootPlistObject, _MDPlistNumberGetDoubleValue, 
                        _MDPlistNumberGetIntValue, _MDPlistPlistObjectToEmbeddedReference, 
-                       _MDPlistStringGetValue, _MDPlistUUIDGetValue, _MDQueryCopyQueryString, 
-                       _MDQueryCopySortingAttributes, _MDQueryCopyValueListAttributes, 
+                       _MDPlistReferenceToPlistObject, _MDPlistStringGetValue, _MDPlistUUIDGetValue, 
+                       _MDQueryCopyQueryString, _MDQueryCopySortingAttributes, _MDQueryCopyValueListAttributes, 
                        _MDQueryCopyValuesOfAttribute, _MDQueryCreate, _MDQueryCreateForItems, 
                        _MDQueryCreateSubset, _MDQueryDisableUpdates, _MDQueryEnableUpdates, 
                        _MDQueryExecute, _MDQueryGetAttributeValueOfResultAtIndex, 
@@ -244,8 +244,8 @@ exports:
                        __MDQuerySetMaxCountPerGroup, __MDQuerySetMenuSortFlagsForQuery, 
                        __MDQuerySetNoProgress, __MDQuerySetRankingTerms, __MDQuerySetSearchScopes, 
                        __MDQuerySetSortFlagsForAttribute, __MDQuerySetSortOrder, 
-                       __MDQuerySetSortToNone, __MDQuerySortDatesDescending, __MDQueryStringPreload, 
-                       __MDQueryTotalCount, __MDQueryUserStringFacetsApplyDoWhileBlock, 
+                       __MDQuerySetSortToNone, __MDQuerySortDatesDescending, __MDQueryStringCopyUserInput, 
+                       __MDQueryStringPreload, __MDQueryTotalCount, __MDQueryUserStringFacetsApplyDoWhileBlock, 
                        __MDQueryWillSendPerformanceFeedback, __MDRankBitForShortcut, 
                        __MDRankIsExactPhraseMatch, __MDRankIsMeaningfulForTopHit, 
                        __MDRankIsOnOldBootVolume, __MDRegisterMailClient, __MDRemoveExtendedAttributes, 

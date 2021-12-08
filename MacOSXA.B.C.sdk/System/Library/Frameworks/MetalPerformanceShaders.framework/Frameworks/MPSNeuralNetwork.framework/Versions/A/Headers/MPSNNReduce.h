@@ -106,6 +106,24 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 
 @end  /* MPSNNReduceFeatureChannelsMin */
 
+/*!
+ *  @class      MPSNNReduceFeatureChannelsArgumentMin
+ *  @discussion The MPSNNReduceFeatureChannelsArgumentMin returns the argument index that is the
+ *              location of the minimum value for feature channels of an image
+ */
+MPS_CLASS_AVAILABLE_STARTING(macos(10.14), ios(12.0), tvos(12.0))
+@interface  MPSNNReduceFeatureChannelsArgumentMin : MPSNNReduceUnary
+
+/*!
+*  @abstract Specifies information to apply the reduction operation on an image.
+*  @param    device            The device the filter will run on
+*  @return     A valid MPSNNReduceFeatureChannelsArgumentMin object or nil, if failure.
+*/
+
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device     NS_DESIGNATED_INITIALIZER;
+
+@end  /* MPSNNReduceFeatureChannelsArgumentMin */
+
 
 /*!
  *  @class      MPSNNReduceRowMax
@@ -143,7 +161,7 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 
 /*!
  *  @class      MPSNNReduceFeatureChannelsMax
- *  @discussion The MPSNNReduceFeatureChannelsMax performs a reduction operation returning the maxinmum value for feature channels of an image
+ *  @discussion The MPSNNReduceFeatureChannelsMax performs a reduction operation returning the maximum value for feature channels of an image
  */
 MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 @interface  MPSNNReduceFeatureChannelsMax : MPSNNReduceUnary
@@ -158,6 +176,24 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 
 @end  /* MPSNNReduceFeatureChannelsMax */
 
+/*!
+ *  @class      MPSNNReduceFeatureChannelsArgumentMax
+ *  @discussion The MPSNNReduceFeatureChannelsArgumentMax performs returns the argument index that is the
+ *              location of the maximum value for feature channels of an image
+ */
+MPS_CLASS_AVAILABLE_STARTING(macos(10.14), ios(12.0), tvos(12.0))
+@interface  MPSNNReduceFeatureChannelsArgumentMax : MPSNNReduceUnary
+
+/*!
+*  @abstract Specifies information to apply the reduction operation on an image.
+*  @param    device            The device the filter will run on
+*  @return     A valid MPSNNReduceFeatureChannelsArgumentMax object or nil, if failure.
+*/
+
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device     NS_DESIGNATED_INITIALIZER;
+
+@end  /* MPSNNReduceFeatureChannelsArgumentMax */
+    
 
 /*!
  *  @class      MPSNNReduceRowMean

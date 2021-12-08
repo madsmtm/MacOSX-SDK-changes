@@ -26,7 +26,7 @@ extern "C" {
  *              create one (see MPSImage discussion below)
  */
 MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
-@interface MPSImageDescriptor : NSObject
+@interface MPSImageDescriptor : NSObject <NSCopying>
 /*! @property   width
  *  @abstract   The width of the CNN image.
  *  @discussion The formal width of the CNN image in pixels.  Default = 1.
@@ -101,6 +101,8 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
                                             numberOfImages: (NSUInteger)numberOfImages
                                                      usage: (MTLTextureUsage)usage;
 
+-(nonnull instancetype) copyWithZone: (NSZone* __nullable) zone
+        MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
 @end
 
 @class MPSKernel;
@@ -124,12 +126,28 @@ typedef NSArray<MPSImage*>  MPSImageBatch;
  *  @return         The number of different images in the batch
  */
 NSUInteger MPSImageBatchIncrementReadCount( MPSImageBatch * __nonnull batch, NSInteger amount )
-            MPS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3));
+    MPS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3));
 
-/*! @abstract Call [MTLBlitEncoder synchronizeResource:] on unique resources */
+/*! @abstract Call [MTLBlitEncoder synchronizeResource:] on unique resources*/
 void MPSImageBatchSynchronize( MPSImageBatch * __nonnull batch, __nonnull id <MTLCommandBuffer> cmdBuf )
-            MPS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3));
+    MPS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3));
 
+/*! @abstract Call [MTLBlitEncoder resourceSize] on unique resources and return sum */
+NSUInteger MPSImageBatchResourceSize( MPSImageBatch * __nonnull batch )
+    MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+
+/*! @abstract   Iterate over unique images in the batch
+ *  @discussion This function looks only at image address to determine uniqueness.
+ *              The same texture stored in different MPSImages would be considered not unique.
+ *  @param      batch           The image batch
+ *  @param      iteratorBlock   Callback block to execute once for each unique image.
+ *                              Return a value greater than NSIntegerMin to terminate early.
+ *                              The index gives the first position in the batch where the image appears.
+ *                              Behavior is undefined if MPSImageBatchIterate is called recursively on the same images.
+ *  @return     The value returned by the iterator block for the last image on which it ran */
+NSInteger MPSImageBatchIterate( MPSImageBatch * __nonnull batch,
+                                NSInteger (^__nonnull iteratorBlock)( MPSImage * __nonnull image, NSUInteger index ) )
+    MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
 
 /*! @abstract       A class  that allocates new MPSImage or MPSTemporaryImage
  *  @discussion     Sometimes it is prohibitively costly for MPS to figure out how
@@ -185,6 +203,18 @@ void MPSImageBatchSynchronize( MPSImageBatch * __nonnull batch, __nonnull id <MT
  *
  *              Please see [MPSImage defaultAllocator] and [MPSTemporaryImage defaultAllocator]
  *              for implentations of the protocol already provided by MPS.
+ *
+ *              When considering whether to write your own MPSImageAllocator, you should know
+ *              the existing MPSImage and MPSTemporaryImage default allocators are optimized
+ *              to make image batch allocation much faster than one MPSImage at a time in a loop.
+ *              When possible, it can be better to use the MPS provided allocators and override
+ *              the behavior in a padding policy instead, if the changes can be contained in
+ *              the MPSImageDescriptor. This will help reduce CPU encode time. However, custom
+ *              padding policies can inhibit optimizations in the MPSNNGraph, particularly node
+ *              fusion, resulting in more work for the GPU. In cases where the custom padding method
+ *              does not change filter properties but only adjusts the result image (e.g. adjust result
+ *              feature channel format) then MPSNNPaddingMethodCustomWhitelistForNodeFusion may be
+ *              used to signal that node fusion is acceptable. 
  */
 
 @protocol MPSImageAllocator <NSObject, NSSecureCoding>
@@ -196,6 +226,8 @@ void MPSImageBatchSynchronize( MPSImageBatch * __nonnull batch, __nonnull id <MT
  *  @param          descriptor  A MPSImageDescriptor containing the image format to use.
  *                              This format is the result of your MPSPadding policy.
  *  @param          kernel      The kernel that will overwrite the image returned by the filter.
+ *                              Note that the MPS implementations of this protocol don't need
+ *                              this field. It is provided for your convenience.
  *
  *  @return         A valid MPSImage or MPSTemporaryImage. It will be automatically released when the command buffer completes.
  */
@@ -208,6 +240,25 @@ void MPSImageBatchSynchronize( MPSImageBatch * __nonnull batch, __nonnull id <MT
  - (void)encodeWithCoder:(NSCoder *__nonnull)aCoder;
  - (nullable instancetype)initWithCoder:(NSCoder *__nonnull)aDecoder NS_DESIGNATED_INITIALIZER;
  */
+    
+@optional
+    /*! @abstract   Efficiently create an array of MPSImages with a common descriptor
+     *  @discussion See class description for sample implementation
+     *  @param          cmdBuf      The MTLCommandBuffer on which the image will be initialized.
+     *                              cmdBuf.device encodes the MTLDevice.
+     *  @param          descriptor  A MPSImageDescriptor containing the image format to use.
+     *                              This format is the result of your MPSPadding policy.
+     *  @param          kernel      The kernel that will overwrite the image returned by the filter.
+     *                              Note that the MPS implementations of this protocol don't need
+     *                              this field. It is provided for your convenience.
+     *  @param          count       The number of images in the batch
+     *
+     *  @return         A valid MPSImage or MPSTemporaryImage. It will be automatically released when the command buffer completes.
+     */
+-(MPSImageBatch * __nonnull)  imageBatchForCommandBuffer: (__nonnull id <MTLCommandBuffer>) cmdBuf
+                                         imageDescriptor: (MPSImageDescriptor * __nonnull) descriptor
+                                                  kernel: (MPSKernel * __nonnull) kernel
+                                                   count: (NSUInteger) count;
 @end
 
 
@@ -734,7 +785,7 @@ featureChannelInfo: (MPSImageReadWriteParams)featureChannelInfo
  *              the the amount of memory used by your application.  Like malloc, MPS 
  *              maintains a heap of memory usable in a command buffer. Over the lifetime 
  *              of a command buffer, the same piece of memory may be reused many times. 
- *              This means that each time the same meory is reused, it aliases with previous
+ *              This means that each time the same memory is reused, it aliases with previous
  *              uses. If we aren't careful, we might find that needed data is overwritten
  *              by successive allocations. However, this is no different than accessing freed
  *              memory only to discover it doesn't contain what you thought it did anymore, 
@@ -878,14 +929,19 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
                                         featureChannels: (NSUInteger) featureChannels
                             MPS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3));
 
-/*!
- *  @abstract       Help MPS decide which allocations to make ahead of time
+/*! @abstract       Help MPS decide which allocations to make ahead of time
  *  @discussion     The texture cache that underlies the MPSTemporaryImage can automatically allocate new storage as
  *                  needed as you create new temporary images.  However, sometimes a more global view of what you
  *                  plan to make is useful for maximizing memory reuse to get the most efficient operation.
  *                  This class method hints to the cache what the list of images will be.
  *
  *                  It is never necessary to call this method. It is purely a performance and memory optimization.
+ *
+ *                  This method makes a conservative estimate of memory required and may not fully
+ *                  cover temporary memory needs, resulting in additional allocations later that could
+ *                  encounter pathological behavior, if they are too small. If the full extent and timing of the
+ *                  workload is known in advance, it is recommended that MPSHintTemporaryMemoryHighWaterMark() be
+ *                  used instead.
  *
  *  @param commandBuffer        The command buffer on which the MPSTemporaryImages will be used
  *  @param descriptorList       A NSArray of MPSImageDescriptors, indicating images that will be created

@@ -34,6 +34,7 @@
 #include <os/overflow.h>
 
 __BEGIN_DECLS
+/* bt_params is an ABI for tracing tools */
 struct bt_params {
 	double rate;
 	uint64_t base_local_ts;

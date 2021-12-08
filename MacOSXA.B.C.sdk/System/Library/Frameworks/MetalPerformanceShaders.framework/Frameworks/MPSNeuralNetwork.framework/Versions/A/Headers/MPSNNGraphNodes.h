@@ -178,8 +178,18 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
 
 
 /*! @abstract   Set to true to cause the resource to be synchronized with the CPU
- *  @discussion Ignored on non-MacOS.   */
+ *  @discussion It is not needed on iOS/tvOS devices, where it does nothing.  */
 @property (nonatomic, readwrite) BOOL       synchronizeResource MPS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3));
+
+/*! @abstract   Stop training graph automatic creation at this node.
+ *  @discussion An inference graph of MPSNNFilterNodes, MPSNNStateNodes and MPSNNImageNodes can be automatically
+ *              converted to a training graph using -[MPSNNFilterNode trainingGraphWithSourceGradient:nodeHandler:].
+ *              Sometimes, an inference graph may contain extra nodes at start to do operations like resampling or range
+ *              adjustment that should not be part of the training graph. To prevent gradient operations for these extra
+ *              nodes from being included in the training graph, set <undesired node>.resultImage.stopGradient = YES.
+ *              This will prevent gradient propagation beyond this MPSNNImageNode.
+ *              Default: NO */
+@property (nonatomic, readwrite) BOOL       stopGradient     MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(112.0));
 
 @end
 
@@ -254,7 +264,35 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))
 @interface MPSNNArithmeticGradientStateNode : MPSNNBinaryGradientStateNode
 @end
 
+@class MPSNNFilterNode;
 @class MPSNNGradientFilterNode;
+
+/*! @abstract   Block callback for customizing gradient nodes as they are constructed
+ *  @discussion Example code for copying handles from inference image nodes to corresponding gradient nodes:
+ *          @code
+ *              MPSNodeCustomizationBlock myCopyHandleBlock = ^( MPSNNFilterNode * __nonnull gradientNode,
+ *                                                               MPSNNFilterNode * __nonnull inferenceNode,
+ *                                                               MPSNNImageNode * __nonnull inferenceSource )
+ *              {
+ *                  gradientNode.resultImage.handle = inferenceSource.handle;
+ *              }
+ *          @endcode
+ *
+ *  @param      gradientNode    The new gradient node created to mirror inferenceNode
+ *  @param      inferenceNode   The preexisting inference node mirrored by gradient node.
+ *                              If nil, an extra node was automatically inserted into the graph.
+ *                              An MPSNNAdditionNode may be inserted at junctions
+ *                              where multiple inference MPSNNFilterNodes read from the
+ *                              same MPSNNImageNode.
+ *  @param      inferenceSource The  source image argument to the inference node to which the gradient result corresponds
+ *  @param      gradientSource  The source gradient argument to the new gradient node. 
+ */
+typedef void (^MPSGradientNodeBlock)( MPSNNFilterNode * __nonnull gradientNode,
+                                      MPSNNFilterNode * __nonnull inferenceNode,
+                                      MPSNNImageNode * __nonnull inferenceSource,
+                                      MPSNNImageNode * __nonnull gradientSource );
+
+
 
 /*! @class      MPSNNFilterNode
  *  @abstract   A placeholder node denoting a neural network filter stage
@@ -285,7 +323,35 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
 @property (nonatomic, readonly, nullable) NSArray<MPSNNStateNode*> * resultStates;
 
 /*! @abstract   The padding method used for the filter node
- *  @discussion The default value varies per filter.
+ *  @discussion The padding policy configures how the filter centers
+ *              the region of interest in the source image. It principally
+ *              is responsible for setting the MPSCNNKernel.offset and
+ *              the size of the image produced, and sometimes will also
+ *              configure .sourceFeatureChannelOffset, .sourceFeatureChannelMaxCount,
+ *              and .edgeMode.  It is permitted to set any other filter properties
+ *              as needed using a custom padding policy. The default padding
+ *              policy varies per filter to conform to consensus expectation for
+ *              the behavior of that filter.  In some cases, pre-made padding
+ *              policies are provided to match the behavior of common neural
+ *              networking frameworks with particularly complex or unexpected
+ *              behavior for specific nodes. See MPSNNDefaultPadding class methods
+ *              in MPSNeuralNetworkTypes.h for more.
+ *
+ *              BUG: MPS doesn't provide a good way to reset the MPSKernel properties
+ *              in the context of a MPSNNGraph after the kernel is finished encoding.
+ *              These values carry on to the next time the graph is used. Consequently,
+ *              if your custom padding policy modifies the property as a function of the
+ *              previous value, e.g.:
+ *
+ *                  kernel.someProperty += 2;
+ *
+ *              then the second time the graph runs, the property may have an inconsistent
+ *              value, leading to unexpected behavior. The default padding computation
+ *              runs before the custom padding method to provide it with a sense of
+ *              what is expected for the default configuration and will reinitialize the value
+ *              in the case of the .offset. However, that computation usually doesn't reset
+ *              other properties. In such cases, the custom padding policy may need to keep
+ *              a record of the original value to enable consistent behavior.
  */
 @property (nonatomic, readwrite, retain, nonnull) id <MPSNNPadding> paddingPolicy;
 
@@ -327,6 +393,40 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
  *                  operators that carve out subsections of the input gradient image. */
 -(NSArray <MPSNNGradientFilterNode*> * __nonnull) gradientFiltersWithSource: (MPSNNImageNode* __nonnull) gradientImage;
 
+
+/*! @abstract       Build training graph from inference graph
+ *  @discussion     This method will iteratively build the training potion of a graph based
+ *                  on an inference graph. Self should be the last node in the
+ *                  inference graph. It is typically a loss layer, but can be anything.
+ *                  Typically, the "inference graph" used here is the desired inference
+ *                  graph with a dropout node and a loss layer node appended.
+ *
+ *                  BUG: This method can not follow links to regions of the graph that are
+ *                  connected to the rest of the graph solely via MPSNNStateNodes. A gradient
+ *                  image input is required to construct a MPSNNGradientFilterNode from a
+ *                  inference filter node.
+ *
+ *  @param          gradientImage   The input gradient image for the first gradient
+ *                                  node in the training section of the graph. If nil,
+ *                                  self.resultImage is used. This results in a standard monolithic
+ *                                  training graph. If the graph is instead divided into multiple
+ *                                  subgraphs (potentially to allow for your custom code to appear
+ *                                  inbetween MPSNNGraph segments) a new MPSImageNode*
+ *                                  may be substituted.
+ *  @param          nodeHandler     An optional block to allow for customization of gradient
+ *                                  nodes and intermediate images as the graph is constructed.
+ *                                  It may also be used to prune braches of the developing
+ *                                  training graph. If nil, the default handler is used. It builds
+ *                                  the full graph, and assigns any inferenceNodeSources[i].handle
+ *                                  to their gradient counterparts.
+ *  @return         The list of new MPSNNFilterNode training graph termini. These MPSNNFilterNodes
+ *                  are not necessarily all MPSNNGradientFilterNodes. To build a full list of nodes
+ *                  created, use a custom nodeHandler. If no nodes are created nil is returned.
+ */
+-(NSArray <MPSNNFilterNode*> * __nullable) trainingGraphWithSourceGradient: (MPSNNImageNode* __nullable ) gradientImage
+                                                               nodeHandler: (__nullable MPSGradientNodeBlock) nodeHandler
+        MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+
 @end
 
 /*! @class MPSNNGradientFilterNode
@@ -363,6 +463,12 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 /*! @abstract   A MPSNNFilterNode representing a MPSCNNConvolution kernel   */
 MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
 @interface MPSCNNConvolutionNode : MPSNNFilterNode
+
+/*! @abstract   Set the floating-point precision used by the convolution accumulator
+ *  @discussion Default:  MPSNNConvolutionAccumulatorPrecisionOptionFloat */
+@property (readwrite, nonatomic) MPSNNConvolutionAccumulatorPrecisionOption accumulatorPrecision
+    MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+
 /*! @abstract   Init an autoreleased not representing a MPSCNNConvolution kernel
  *  @param      sourceNode              The MPSNNImageNode representing the source MPSImage for the filter
  *  @param      weights                 A pointer to a valid object conforming to the MPSCNNConvolutionDataSource
@@ -699,6 +805,11 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
  */
 MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
 @interface MPSCNNNeuronNode : MPSNNFilterNode
+
+/*! @abstract Create a neuron node of the appropriate type with a MPSNNNeuronDescriptor */
++(nonnull instancetype) nodeWithSource: (MPSNNImageNode* __nonnull) sourceNode
+                            descriptor: (MPSNNNeuronDescriptor * __nonnull) descriptor
+    MPS_AVAILABLE_STARTING(macos(10.14), ios(12.0), tvos(12.0));
 
 /*! @abstract filter parameter a */
 @property (nonatomic, readonly)  float a;
@@ -1138,6 +1249,11 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
  *              particular MPSCNNKernel. Please make one of the MPSCNNPooling
  *              subclasses instead. */
 @interface MPSCNNPoolingNode : MPSNNFilterNode
+@property (readonly, nonatomic)  NSUInteger kernelWidth      MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+@property (readonly, nonatomic)  NSUInteger kernelHeight     MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+@property (readonly, nonatomic)  NSUInteger strideInPixelsX  MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+@property (readonly, nonatomic)  NSUInteger strideInPixelsY  MPS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0));
+
 /*! @abstract Convenience initializer for MPSCNNPooling nodes with square non-overlapping kernels
  *  @param      sourceNode      The MPSNNImageNode representing the source MPSImage for the filter
  *  @param      size            kernelWidth = kernelHeight = strideInPixelsX = strideInPixelsY = size
@@ -1394,17 +1510,17 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
 /*! @property   alpha
  *  @abstract   The value of alpha.  Default is 1.0. Must be non-negative.
  */
-@property (readwrite, nonatomic) float   alpha  MPS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3));
+@property (readwrite, nonatomic) float   alpha;
 
 /*! @property   beta
  *  @abstract   The value of beta.  Default is 5.0
  */
-@property (readwrite, nonatomic) float   beta   MPS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3));
+@property (readwrite, nonatomic) float   beta;
 
 /*! @property   delta
  *  @abstract   The value of delta.  Default is 1.0
  */
-@property (readwrite, nonatomic) float   delta  MPS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3));
+@property (readwrite, nonatomic) float   delta;
 
 +(nonnull instancetype) nodeWithSource: (MPSNNImageNode * __nonnull) sourceNode;
 -(nonnull instancetype) initWithSource: (MPSNNImageNode * __nonnull) sourceNode NS_DESIGNATED_INITIALIZER;
@@ -1658,7 +1774,7 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
  *              and passed along to the MPSCNNBatchNormalizationGradient and
  *              MPSCNNBatchNormalizationStatisticsGradient as necessary. This should
  *              allow you to construct an identical sequence of nodes for inference
- *              and training and expect the to right thing happen.
+ *              and training and expect the right thing to happen.
  */
 MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 @interface MPSCNNBatchNormalizationNode : MPSNNFilterNode
@@ -2009,6 +2125,39 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
 @end
 
 
+#pragma mark -
+#pragma mark YOLOLoss
+
+@class MPSCNNYOLOLossDescriptor;
+
+MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
+/*! @class MPSCNNYOLOLossNode
+ *  @discussion  This node calculates loss information during training
+ *               typically immediately after the inference portion
+ *               of network evaluation is performed. The result image
+ *               of the loss operations is typically the first gradient
+ *               image to be comsumed by the gradient passes that work
+ *               their way back up the graph. In addition, the node will
+ *               update the loss image in the MPSNNLabels with the
+ *               desired estimate of correctness. */
+@interface MPSCNNYOLOLossNode : MPSNNFilterNode
+
++(nonnull instancetype) nodeWithSource: (MPSNNImageNode * __nonnull) source
+                        lossDescriptor: (MPSCNNYOLOLossDescriptor * __nonnull) descriptor;
+
+-(nonnull instancetype) initWithSource: (MPSNNImageNode * __nonnull) source
+                        lossDescriptor: (MPSCNNYOLOLossDescriptor * __nonnull) descriptor;
+
+/*! @abstract Get the input node for labes and weights, for example to set the handle */
+@property (nonnull, readonly, retain, nonatomic) MPSNNLabelsNode * inputLabels;
+
+/*! @abstract The loss filter is its own gradient filter and doesn't provide a corresponding gradient node.
+ *  @discussion The image returned by the loss filter is the gradient image to be consumed by
+ *              the gradient filters corresponding to preceeding inference nodes.   */
+-(MPSNNGradientFilterNode*__nonnull) gradientFilterWithSources: (NSArray<MPSNNImageNode*> * __nonnull) gradientImages NS_UNAVAILABLE;
+
+@end
+
 
 #pragma mark -
 #pragma mark Other Nodes
@@ -2215,6 +2364,18 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
                    integerScaleFactorX: (NSUInteger) integerScaleFactorX
                    integerScaleFactorY: (NSUInteger) integerScaleFactorY;
 
+/*! @abstract   Init a autoreleased node representing a MPSCNNUpsamplingBilinear kernel
+ *  @param      sourceNode              The MPSNNImageNode representing the source MPSImage for the filter
+ *  @param      integerScaleFactorX     The upsampling factor for the x dimension.
+ *  @param      integerScaleFactorY     The upsampling factor for the y dimension.
+ *  @param      alignCorners            Specifier whether the centers of the 4 corner pixels of the input and output regions are aligned,
+ *  @return     A new MPSNNFilter node for a MPSCNNUpsamplingBilinear kernel.
+ */
++(nonnull instancetype) nodeWithSource: (MPSNNImageNode * __nonnull) sourceNode
+                   integerScaleFactorX: (NSUInteger) integerScaleFactorX
+                   integerScaleFactorY: (NSUInteger) integerScaleFactorY
+                          alignCorners: (BOOL) alignCorners;
+
 /*! @abstract   Init a node representing a MPSCNNUpsamplingBilinear kernel
  *  @param      sourceNode              The MPSNNImageNode representing the source MPSImage for the filter
  *  @param      integerScaleFactorX     The upsampling factor for the x dimension.
@@ -2225,8 +2386,22 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
                    integerScaleFactorX: (NSUInteger) integerScaleFactorX
                    integerScaleFactorY: (NSUInteger) integerScaleFactorY;
 
+
+/*! @abstract   Init a node representing a MPSCNNUpsamplingBilinear kernel
+ *  @param      sourceNode              The MPSNNImageNode representing the source MPSImage for the filter
+ *  @param      integerScaleFactorX     The upsampling factor for the x dimension.
+ *  @param      integerScaleFactorY     The upsampling factor for the y dimension.
+ *  @param      alignCorners            Specifier whether the centers of the 4 corner pixels of the input and output regions are aligned,
+ *  @return     A new MPSNNFilter node for a MPSCNNUpsamplingBilinear kernel.
+ */
+-(nonnull instancetype) initWithSource: (MPSNNImageNode * __nonnull) sourceNode
+                   integerScaleFactorX: (NSUInteger) integerScaleFactorX
+                   integerScaleFactorY: (NSUInteger) integerScaleFactorY
+                          alignCorners: (BOOL) alignCorners;
+
 @property (nonatomic, readonly)    double  scaleFactorX;
 @property (nonatomic, readonly)    double  scaleFactorY;
+@property (nonatomic, readonly)    BOOL    alignCorners;
 
 @end
 
@@ -2302,6 +2477,7 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))
 
 @property (nonatomic, readonly)    double  scaleFactorX;
 @property (nonatomic, readonly)    double  scaleFactorY;
+
 
 @end
 

@@ -1,4 +1,4 @@
-.TH "MPSCNNFullyConnected" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNFullyConnected" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -14,10 +14,10 @@ Inherits \fBMPSCNNConvolution\fP\&.
 
 .in +1c
 .ti -1c
-.RI "(nonnull instancetype) \- \fBinitWithDevice:convolutionDescriptor:kernelWeights:biasTerms:flags:\fP"
+.RI "(nonnull instancetype) \- \fBinitWithDevice:weights:\fP"
 .br
 .ti -1c
-.RI "(nonnull instancetype) \- \fBinitWithDevice:weights:\fP"
+.RI "(nonnull instancetype) \- \fBinitWithDevice:convolutionDescriptor:kernelWeights:biasTerms:flags:\fP"
 .br
 .ti -1c
 .RI "(nullable instancetype) \- \fBinitWithCoder:device:\fP"
@@ -87,14 +87,14 @@ Standard init with default properties per filter type
 
 .PP
 Reimplemented from \fBMPSCNNConvolution\fP\&.
-.SS "\- (nonnull instancetype) \fBinitWithDevice:\fP (nonnull id< MTLDevice >) device(const \fBMPSCNNConvolutionDescriptor\fP *__nonnull) fullyConnectedDescriptor(const float *__nonnull) kernelWeights(const float *__nullable) biasTerms(\fBMPSCNNConvolutionFlags\fP) flags"
-Initializes a fully connected kernel\&.
+.SS "\- (nonnull instancetype) \fBinitWithDevice:\fP (nonnull id< MTLDevice >) device(const \fBMPSCNNConvolutionDescriptor\fP *__nonnull) convolutionDescriptor(const float *__nonnull) kernelWeights(const float *__nullable) biasTerms(\fBMPSCNNConvolutionFlags\fP) flags"
+Initializes a convolution kernel WARNING: This API is depreated and will be removed in the future\&. It cannot be used when training\&. Also serialization/unserialization wont work for \fBMPSCNNConvolution\fP objects created with this init\&. Please move onto using initWithDevice:weights:\&. 
 .PP
 \fBParameters:\fP
 .RS 4
-\fIdevice\fP The MTLDevice on which this \fBMPSCNNFullyConnected\fP filter will be used 
+\fIdevice\fP The MTLDevice on which this \fBMPSCNNConvolution\fP filter will be used 
 .br
-\fIfullyConnectedDescriptor\fP \fBA\fP pointer to a \fBMPSCNNConvolutionDescriptor\fP\&. strideInPixelsX, strideInPixelsY and group properties of fullyConnectedDescriptor must be set to 1 (default)\&. 
+\fIconvolutionDescriptor\fP \fBA\fP pointer to a \fBMPSCNNConvolutionDescriptor\fP\&. 
 .br
 \fIkernelWeights\fP \fBA\fP pointer to a weights array\&. Each entry is a float value\&. The number of entries is = inputFeatureChannels * outputFeatureChannels * kernelHeight * kernelWidth The layout of filter weight is so that it can be reinterpreted as 4D tensor (array) weight[ outputChannels ][ kernelHeight ][ kernelWidth ][ inputChannels / groups ] Weights are converted to half float (fp16) internally for best performance\&. 
 .br
@@ -109,6 +109,8 @@ Initializes a fully connected kernel\&.
 .RE
 .PP
 
+.PP
+Reimplemented from \fBMPSCNNConvolution\fP\&.
 .SS "\- (nonnull instancetype) \fBinitWithDevice:\fP (nonnull id< MTLDevice >) device(nonnull id< \fBMPSCNNConvolutionDataSource\fP >) weights"
 Initializes a fully connected kernel 
 .PP

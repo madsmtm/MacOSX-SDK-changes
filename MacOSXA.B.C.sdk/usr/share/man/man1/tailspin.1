@@ -31,10 +31,13 @@
 .Op Fl r Ar reason-string
 .Op Fl l Ar num-seconds
 .Op Fl n
-.Op Ar path-to-file
+.Ar path-to-file
 .\"
-.It Nm Cm symbolicate
+.It Nm Cm augment
+.Op Fl s
 .Op Fl d
+.Op Fl l
+.Op Fl L Ar path-to-log-archive
 .Ar path-to-file
 .\"
 .It Nm Cm stat
@@ -51,6 +54,11 @@ file, the tailspin file will contain information about the system state from
 about 20s prior to the save. The tailspind daemon is a helper daemon for the
 tailspin feature and should not be run manually.
 .Pp
+.Sh COLLECTING TAILSPIN DATA
+tailspin data can be collected using the keychord when enabled:
+.Xr Shift-Control-Option-Command-Comma.
+When the command is completed, a Finder window will pop up with the saved
+tailspin file.
 .Sh SUBCOMMANDS
 .Nm
 uses a subcommand syntax to separate different functionality into logical groups.  Each subcommand takes its own set of options.
@@ -111,9 +119,10 @@ Limit the data in tailspin file to that of the last
 Save tailspin file without symbolicating.
 .El
 .\" SYMBOLICATE
-.It Cm symbolicate Oo Fl d Oc path-to-file
-Symbolicate the tailspin report at
-.Ar path-to-file .
+.It Cm augment Oo Fl d Oc Oo Fl s Oc Oo Fl l Oc Oo Fl L path-to-log-archive Oc path-to-file
+Augment the tailspin report at
+.Ar path-to-file
+with additional information like symbols, os logs and os signposts.
 If not used with -d, needs to be run on the same device and
 build on which the tailspin file was saved .
 .\" STAT

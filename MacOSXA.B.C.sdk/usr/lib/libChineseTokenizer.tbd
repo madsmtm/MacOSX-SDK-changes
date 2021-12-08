@@ -1,18 +1,14 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 00EF6AE9-C195-334C-9776-79E9BD298AF6', 'x86_64: 53633C9B-A3A8-36F7-A53C-432D802F4BB8' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 8CD1C213-7F62-3F02-BFB1-D0A5EFF92AB0' ]
 platform:        macosx
 install-name:    /usr/lib/libChineseTokenizer.dylib
-current-version: 28
+current-version: 28.15.3
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _ChineseTokenizerAdvanceToNextToken, _ChineseTokenizerCreate, 
                        _ChineseTokenizerGetCurrentTokenRange, _ChineseTokenizerGoToTokenAtIndex, 
                        _ChineseTokenizerRelease, _ChineseTokenizerSetCustomWordCheckBlock, 
                        _ChineseTokenizerSetDynamicLexicon, _ChineseTokenizerSetString ]
-    weak-def-symbols: [ __ZTINSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 
-                        __ZTINSt3__118basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 
-                        __ZTSNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 
-                        __ZTSNSt3__118basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE ]
 ...

@@ -36,7 +36,7 @@ API_AVAILABLE(macos(10.13.4), ios(11.3))
 
  @return BCChatButton instance.
  */
--(instancetype)initWithStyle:(BCChatButtonStyle)style API_AVAILABLE(macos(10.13.4), ios(11.3)) NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithStyle:(BCChatButtonStyle)style API_AVAILABLE(macos(10.13.4), ios(11.3))NS_DESIGNATED_INITIALIZER;
 
 @end
 

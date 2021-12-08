@@ -1,7 +1,7 @@
 /*
     NSTextFieldCell.h
     Application Kit
-    Copyright (c) 1994-2017, Apple Inc.
+    Copyright (c) 1994-2018, Apple Inc.
     All rights reserved.
 */
 
@@ -19,8 +19,8 @@ typedef NS_ENUM(NSUInteger, NSTextFieldBezelStyle) {
 
 @interface NSTextFieldCell : NSActionCell  {
     /*All instance variables are private*/
-    NSColor *_backgroundColor;
-    NSColor *_textColor;
+    NSColor *_backgroundColor APPKIT_IVAR;
+    NSColor *_textColor APPKIT_IVAR;
     struct __tfFlags {
         unsigned int drawsBackground:1;
         unsigned int bezelStyle:3;
@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, NSTextFieldBezelStyle) {
         unsigned int enableCP:1;
         unsigned int automaticCompletionDisabled:1;
         unsigned int reservedTextFieldCell:7;
-    } _tfFlags;
+    } _tfFlags APPKIT_IVAR;
 }
 
 - (instancetype)initTextCell:(NSString *)string NS_DESIGNATED_INITIALIZER;

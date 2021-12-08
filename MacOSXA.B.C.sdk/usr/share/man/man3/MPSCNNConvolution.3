@@ -1,4 +1,4 @@
-.TH "MPSCNNConvolution" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNConvolution" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -19,6 +19,9 @@ Inherited by \fBMPSCNNFullyConnected\fP\&.
 .RI "(nonnull instancetype) \- \fBinitWithDevice:weights:\fP"
 .br
 .ti -1c
+.RI "(nonnull instancetype) \- \fBinitWithDevice:convolutionDescriptor:kernelWeights:biasTerms:flags:\fP"
+.br
+.ti -1c
 .RI "(nullable instancetype) \- \fBinitWithCoder:device:\fP"
 .br
 .ti -1c
@@ -35,6 +38,9 @@ Inherited by \fBMPSCNNFullyConnected\fP\&.
 .br
 .ti -1c
 .RI "(\fBMPSCNNConvolutionGradientStateBatch\fP *__nullable) \- \fBtemporaryResultStateBatchForCommandBuffer:sourceImage:sourceStates:destinationImage:\fP"
+.br
+.ti -1c
+.RI "(void) \- \fBreloadWeightsAndBiasesFromDataSource\fP"
 .br
 .ti -1c
 .RI "(void) \- \fBreloadWeightsAndBiasesWithDataSource:\fP"
@@ -71,16 +77,19 @@ Inherited by \fBMPSCNNFullyConnected\fP\&.
 .RI "const \fBMPSCNNNeuron\fP *__nullable \fBMPSCNNNeuronType\fP \fBneuronType\fP"
 .br
 .ti -1c
-.RI "float \fBneuronParameterA\fP"
+.RI "const \fBMPSCNNNeuron\fP *__nullable \fBMPSCNNNeuronType\fP float \fBneuronParameterA\fP"
 .br
 .ti -1c
-.RI "float \fBneuronParameterB\fP"
+.RI "const \fBMPSCNNNeuron\fP *__nullable \fBMPSCNNNeuronType\fP float float \fBneuronParameterB\fP"
 .br
 .ti -1c
-.RI "float \fBneuronParameterC\fP"
+.RI "const \fBMPSCNNNeuron\fP *__nullable \fBMPSCNNNeuronType\fP float float float \fBneuronParameterC\fP"
 .br
 .ti -1c
-.RI "NSUInteger \fBchannelMultiplier\fP"
+.RI "const \fBMPSCNNNeuron\fP *__nullable \fBMPSCNNNeuronType\fP float float float \fBMPSNNNeuronDescriptor\fP *__nullable \fBfusedNeuronDescriptor\fP"
+.br
+.ti -1c
+.RI "const \fBMPSCNNNeuron\fP *__nullable \fBMPSCNNNeuronType\fP float float float \fBMPSNNNeuronDescriptor\fP *__nullable NSUInteger \fBchannelMultiplier\fP"
 .br
 .ti -1c
 .RI "\fBMPSNNConvolutionAccumulatorPrecisionOption\fP \fBaccumulatorPrecisionOption\fP"
@@ -146,6 +155,30 @@ Standard init with default properties per filter type
 Reimplemented from \fBMPSCNNKernel\fP\&.
 .PP
 Reimplemented in \fBMPSCNNFullyConnected\fP\&.
+.SS "\- (nonnull instancetype) \fBinitWithDevice:\fP (nonnull id< MTLDevice >) device(const \fBMPSCNNConvolutionDescriptor\fP *__nonnull) convolutionDescriptor(const float *__nonnull) kernelWeights(const float *__nullable) biasTerms(\fBMPSCNNConvolutionFlags\fP) flags"
+Initializes a convolution kernel WARNING: This API is depreated and will be removed in the future\&. It cannot be used when training\&. Also serialization/unserialization wont work for \fBMPSCNNConvolution\fP objects created with this init\&. Please move onto using initWithDevice:weights:\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdevice\fP The MTLDevice on which this \fBMPSCNNConvolution\fP filter will be used 
+.br
+\fIconvolutionDescriptor\fP \fBA\fP pointer to a \fBMPSCNNConvolutionDescriptor\fP\&. 
+.br
+\fIkernelWeights\fP \fBA\fP pointer to a weights array\&. Each entry is a float value\&. The number of entries is = inputFeatureChannels * outputFeatureChannels * kernelHeight * kernelWidth The layout of filter weight is so that it can be reinterpreted as 4D tensor (array) weight[ outputChannels ][ kernelHeight ][ kernelWidth ][ inputChannels / groups ] Weights are converted to half float (fp16) internally for best performance\&. 
+.br
+\fIbiasTerms\fP \fBA\fP pointer to bias terms to be applied to the convolution output\&. Each entry is a float value\&. The number of entries is = numberOfOutputFeatureMaps 
+.br
+\fIflags\fP Currently unused\&. Pass MPSCNNConvolutionFlagsNone
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBA\fP valid \fBMPSCNNConvolution\fP object or nil, if failure\&. 
+.RE
+.PP
+
+.PP
+Reimplemented in \fBMPSCNNFullyConnected\fP\&.
 .SS "\- (nonnull instancetype) \fBinitWithDevice:\fP (nonnull id< MTLDevice >) device(nonnull id< \fBMPSCNNConvolutionDataSource\fP >) weights"
 Initializes a convolution kernel 
 .PP
@@ -164,6 +197,8 @@ Initializes a convolution kernel
 
 .PP
 Reimplemented in \fBMPSCNNFullyConnected\fP\&.
+.SS "\- (void) reloadWeightsAndBiasesFromDataSource "
+CPU side reload\&. Reload the updated weights and biases from data provider into internal weights and bias buffers\&. Weights and biases gradients needed for update are obtained from \fBMPSCNNConvolutionGradientState\fP object\&. Data provider passed in init call is used for this purpose\&. 
 .SS "\- (void) reloadWeightsAndBiasesWithCommandBuffer: (__nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSCNNConvolutionWeightsAndBiasesState\fP *__nonnull) state"
 GPU side reload\&. Reload the updated weights and biases from update buffer produced by application enqueued metal kernel into internal weights and biases buffer\&. Weights and biases gradients needed for update are obtained from \fBMPSCNNConvolutionGradientState\fP object's gradientForWeights and gradientForBiases metal buffer\&.
 .PP
@@ -176,14 +211,7 @@ GPU side reload\&. Reload the updated weights and biases from update buffer prod
 .PP
 
 .SS "\- (void) reloadWeightsAndBiasesWithDataSource: (__nonnull id< \fBMPSCNNConvolutionDataSource\fP >) dataSource"
-CPU side reload\&. Reload the updated weights and biases from data provider into internal weights and bias buffers\&. Weights and biases gradients needed for update are obtained from \fBMPSCNNConvolutionGradientState\fP object\&.
-.PP
-\fBParameters:\fP
-.RS 4
-\fIdataSource\fP The data source which has been updated with weights and biases gradeint from \fBMPSCNNConvolutionGradientState\fP object passed into \fBMPSCNNConvolution\fP and \fBMPSCNNConvolutionGradient\fP encode calls\&. 
-.RE
-.PP
-
+Deprecated\&. dataSource will be ignored\&. 
 .SS "\- (\fBMPSCNNConvolutionGradientStateBatch\fP * __nullable) resultStateBatchForSourceImage: (\fBMPSImageBatch\fP *__nonnull) sourceImage(NSArray< \fBMPSStateBatch\fP * > *__nullable) sourceStates(\fBMPSImageBatch\fP *_Nonnull) destinationImage"
 
 .SS "\- (\fBMPSCNNConvolutionGradientState\fP * __nullable) resultStateForSourceImage: (\fBMPSImage\fP *__nonnull) sourceImage(NSArray< \fBMPSState\fP * > *__nullable) sourceStates(\fBMPSImage\fP *__nonnull) destinationImage"
@@ -268,22 +296,24 @@ Reimplemented from \fBMPSCNNKernel\fP\&.
 .SH "Property Documentation"
 .PP 
 .SS "\- (\fBMPSNNConvolutionAccumulatorPrecisionOption\fP) accumulatorPrecisionOption\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
-Precision of accumulator used in convolution\&.  See \fBMPSNeuralNetworkTypes\&.h\fP for discussion\&. Default is MPSNNConvolutionAccumulatorPrecisionOptionHalf\&. 
-.SS "\- (NSUInteger) channelMultiplier\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+Precision of accumulator used in convolution\&.  See \fBMPSNeuralNetworkTypes\&.h\fP for discussion\&. Default is MPSNNConvolutionAccumulatorPrecisionOptionFloat\&. 
+.SS "\- (const \fBMPSCNNNeuron\fP* __nullable \fBMPSCNNNeuronType\fP float float float \fBMPSNNNeuronDescriptor\fP* __nullable NSUInteger) channelMultiplier\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 Channel multiplier\&.  For convolution created with \fBMPSCNNDepthWiseConvolutionDescriptor\fP, it is the number of output feature channels for each input channel\&. See \fBMPSCNNDepthWiseConvolutionDescriptor\fP for more details\&. Default is 0 which means regular CNN convolution\&. 
 .SS "\- dataSource\fC [read]\fP, \fC [nonatomic]\fP, \fC [retain]\fP"
 dataSource with which convolution object was created 
+.SS "\- (const \fBMPSCNNNeuron\fP* __nullable \fBMPSCNNNeuronType\fP float float float \fBMPSNNNeuronDescriptor\fP* __nullable) fusedNeuronDescriptor\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+Fused neuron descritor passed in convolution descriptor for fusion with convolution\&.  Please see class description for interpretation of c\&. 
 .SS "\- groups\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 Number of groups input and output channels are divided into\&. 
 .SS "\- inputFeatureChannels\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 The number of feature channels per pixel in the input image\&. 
 .SS "\- neuron\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 \fBMPSCNNNeuron\fP filter to be applied as part of convolution\&. Can be nil in wich case no neuron activation fuction is applied\&. 
-.SS "\- (float) neuronParameterA\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+.SS "\- (const \fBMPSCNNNeuron\fP* __nullable \fBMPSCNNNeuronType\fP float) neuronParameterA\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 Parameter 'a' for the neuron\&. Default: 1\&.0f  Please see class description for interpretation of a\&. 
-.SS "\- (float) neuronParameterB\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+.SS "\- (const \fBMPSCNNNeuron\fP* __nullable \fBMPSCNNNeuronType\fP float float) neuronParameterB\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 Parameter 'b' for the neuron\&. Default: 1\&.0f  Please see class description for interpretation of b\&. 
-.SS "\- (float) neuronParameterC\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+.SS "\- (const \fBMPSCNNNeuron\fP* __nullable \fBMPSCNNNeuronType\fP float float float) neuronParameterC\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 Parameter 'c' for the neuron\&. Default: 1\&.0f  Please see class description for interpretation of c\&. 
 .SS "\- (const \fBMPSCNNNeuron\fP* __nullable \fBMPSCNNNeuronType\fP) neuronType\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 The type of neuron to append to the convolution  Please see class description for a full list\&. Default is MPSCNNNeuronTypeNone\&. 

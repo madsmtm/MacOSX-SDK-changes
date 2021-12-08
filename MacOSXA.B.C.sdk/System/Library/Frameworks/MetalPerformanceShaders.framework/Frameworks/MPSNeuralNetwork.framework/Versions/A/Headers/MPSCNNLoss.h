@@ -156,6 +156,28 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
  */
 -(nonnull MPSImage*) lossImage;
 
+/*!
+ *  @abstract   Labels image accessor method.
+ *  @return     An autoreleased MPSImage object, containing the labels data.
+ *              The labels data is populated in the -initWithDevice call.
+ *
+ *              In order to gaurantee that the image is correctly synchronized for CPU side access,
+ *              it is the application's responsibility to call the [gradientState synchronizeOnCommandBuffer:]
+ *              method before accessing the data in the image.
+ */
+-(nonnull MPSImage*) labelsImage;
+
+/*!
+ *  @abstract   Weights image accessor method.
+ *  @return     An autoreleased MPSImage object, containing the weights data.
+ *              The weights data is populated in the -initWithDevice call.
+ *
+ *              In order to gaurantee that the image is correctly synchronized for CPU side access,
+ *              it is the application's responsibility to call the [gradientState synchronizeOnCommandBuffer:]
+ *              method before accessing the data in the image.
+ */
+-(nonnull MPSImage*) weightsImage;
+
 @end /* MPSCNNLossLabels */
     
 
@@ -254,8 +276,8 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
  *                                          This argument is ignored in the MPSCNNLossGradient filter.
  *  @return     A valid MPSCNNLossDescriptor object or nil, if failure.
  */
-+(nullable MPSCNNLossDescriptor*) cnnLossDescriptorWithType:(MPSCNNLossType) lossType
-                                              reductionType:(MPSCNNReductionType) reductionType;
++(nonnull MPSCNNLossDescriptor*) cnnLossDescriptorWithType:(MPSCNNLossType) lossType
+                                             reductionType:(MPSCNNReductionType) reductionType;
 
 @end /* MPSCNNLossDescriptor */
 
@@ -530,6 +552,275 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
             MPS_SWIFT_NAME( encode(commandBuffer:sourceImages:labels:));
 
 @end /* MPSCNNLoss */
+
+
+
+
+#pragma mark -
+#pragma mark MPSCNNYOLOLossDescriptor
+
+/*!
+ *  @class      MPSCNNYOLOLossDescriptor
+ *  @dependency This depends on Metal.framework.
+ *  @discussion The MPSCNNYOLOLossDescriptor specifies a loss filter descriptor
+ *              that is used to create a MPSCNNLoss filter. The MPSCNNYOLOLoss is a filter that
+ *              has been specialized for object detection tasks and follows a specific layout
+ *              for the feature-channels of the input, output, weight and label data.
+ *
+ *              The layout of the data within the feature-channels is as follows:
+ *
+ *                  Each anchorbox uses ( 2+2+1 + numberOfClasses = 5 + numberOfClasses ) feature channels.
+ *
+ *              Therefore the total number of feature channels used is: (5 + numberOfClasses) * numberOfAnchorBoxes.
+ *              The first feature channel for anchorbox index 'anchorIdx' is at fcIndex = (5 + numberOfClasses) * anchorIdx,
+ *              and the feature channels within each anchorbox are stored in the layout: 'XYWHCFFFFFF...', where (XY) are
+ *              the so-called raw x and y coordinates of the bounding box within each gridcell and (WH) are the corresponding
+ *              width and height. 'C' signifies a confidence for having an object in the cell and FFFFF... are the feature channel
+ *              values for each class of object to be classified in the object detector.
+ *
+ *              The YOLO-loss filter works by operating mostly independently on each anchorbox:
+ *                  *   The XY-channels of the inputs are first transformed to relative XY-values by applying the sigmoid-neuron on them,
+ *                      after which they are passed through the loss function defined by @ref XYLossDescriptor, which is typically chosen
+ *                      to be the @ref MPSCNNLossTypeMeanSquaredError type loss function.
+ *                  *   The WH-channels contain the raw width and height of the bounding box and they are operated with the
+ *                      loss function defined by @ref WHLossDescriptor, which is typically of type @ref MPSCNNLossTypeHuber.
+ *                  *   The C-channel contains the confidence value of having an object in the bounding box and it is operated
+ *                      by the loss function defined by @ref confidenceLossDescriptor, which is typically chosen to be
+ *                      @ref MPSCNNLossTypeSigmoidCrossEntropy.
+ *                  *   The FFFFF... (number of channels is number of classes) channels contains the raw feature channels for
+ *                      object classes, used to identify which objects are the most probable ones in the bounding box and
+ *                      these channels are passed through the loss function defined by @ref classesLossDescriptor, which in
+ *                      typical cases is of the type @ref MPSCNNLossTypeSoftMaxCrossEntropy.
+ *
+ *              For details on how to set up the label values and anchorboxes see https://arxiv.org/abs/1612.08242
+ */
+MPS_CLASS_AVAILABLE_STARTING(macos(10.14), ios(12), tvos(12))
+@interface MPSCNNYOLOLossDescriptor : NSObject <NSCopying>
+
+/*! @property   XYLossDescriptor
+ *  @abstract   The type of a loss filter.
+ *  @discussion This parameter specifies the type of a loss filter.
+ */
+@property (readwrite, nonatomic, nonnull, retain) MPSCNNLossDescriptor *XYLossDescriptor;
+
+/*! @property   WHLossDescriptor
+ *  @abstract   The type of a loss filter.
+ *  @discussion This parameter specifies the type of a loss filter.
+ */
+@property (readwrite, nonatomic, nonnull, retain) MPSCNNLossDescriptor *WHLossDescriptor;
+
+/*! @property   confidenceLossDescriptor
+ *  @abstract   The type of a loss filter.
+ *  @discussion This parameter specifies the type of a loss filter.
+ */
+@property (readwrite, nonatomic, nonnull, retain) MPSCNNLossDescriptor *confidenceLossDescriptor;
+
+/*! @property   classesLossDescriptor
+ *  @abstract   The type of a loss filter.
+ *  @discussion This parameter specifies the type of a loss filter.
+ */
+@property (readwrite, nonatomic, nonnull, retain) MPSCNNLossDescriptor *classesLossDescriptor;
+
+/*! @property   reductionType
+ *  @abstract   ReductionType shared accross all losses (so they may generate same sized output)
+ */
+@property (readwrite, nonatomic) MPSCNNReductionType reductionType;
+
+/*! @property   rescore
+ *  @abstract   Rescore pertains to multiplying the confidence groundTruth with IOU (intersection over union)
+ *              of predicted bounding box and the groundTruth boundingBox. Default is YES
+ */
+@property (readwrite, nonatomic) BOOL rescore;
+
+/*! @property   scaleXY
+ *  @abstract   scale factor for XY loss and loss gradient default is 10.0
+ */
+@property (readwrite, nonatomic) float scaleXY;
+
+/*! @property   scaleWH
+ *  @abstract   scale factor for WH loss and loss gradient default is 10.0
+ */
+@property (readwrite, nonatomic) float scaleWH;
+
+/*! @property   scaleNoObject
+ *  @abstract   scale factor for no object confidence loss and loss gradient default is 5.0
+ */
+@property (readwrite, nonatomic) float scaleNoObject;
+
+/*! @property   scaleObject
+ *  @abstract   scale factor for no object confidence loss and loss gradient default is 100.0
+ */
+@property (readwrite, nonatomic) float scaleObject;
+
+/*! @property   scaleClass
+ *  @abstract   scale factor for no object classes loss and loss gradient default is 2.0
+ */
+@property (readwrite, nonatomic) float scaleClass;
+
+/*! @property   pos_iou
+ *  @abstract   If the prediction IOU with groundTruth is higher than this
+ *              value we consider it a confident object presence, default is 0.7
+ */
+@property (readwrite, nonatomic) float minIOUForObjectPresence;
+
+/*! @property   neg_iou
+ *  @abstract   If the prediction IOU with groundTruth is lower than this
+ *              value we consider it a confident object absence, default is 0.3
+ */
+@property (readwrite, nonatomic) float maxIOUForObjectAbsence;
+
+/*! @property   numberOfAnchorBoxes
+ *  @abstract   number of anchor boxes used to detect object per grid cell
+ */
+@property (readwrite, nonatomic) NSUInteger numberOfAnchorBoxes;
+
+/*! @property   anchorBoxes
+ *  @abstract   NSData containing the width and height for numberOfAnchorBoxes anchor boxes
+ *              This NSData should have 2 float values per anchor box which represent the width
+ *              and height of the anchor box.
+ *  @code
+ *              typedef struct anchorBox{
+ *                  float width;
+ *                  float height;
+ *              }anchorBox;
+ *
+ *
+ *              anchorBox_t gAnchorBoxes[MAX_NUM_ANCHOR_BOXES] = {
+ *                  {.width = 1.f, .height = 2.f},
+ *                  {.width = 1.f, .height = 1.f},
+ *                  {.width = 2.f, .height = 1.f},
+ *              };
+ *              NSData* labelsInputData = [NSData dataWithBytes: gAnchorBoxes length: MAX_NUM_ANCHOR_BOXES * sizeof(anchorBox)];
+ *  @endcode
+ *
+ */
+@property (readwrite, nonatomic, nonnull, retain) NSData *anchorBoxes;
+
+/*
+ * You must use one of the interfaces below instead.
+ */
+-(nonnull instancetype) init NS_UNAVAILABLE;
+
+/*!
+ *  @abstract   Make a descriptor for a MPSCNNYOLOLoss object.
+ *  @param      XYLossType                  The type of spatial position loss filter.
+ *  @param      WHLossType                  The type of spatial size loss filter.
+ *  @param      confidenceLossType          The type of confidence filter.
+ *  @param      classesLossType             The type of classes filter.
+ *  @param      reductionType               The type of a reduction operation to apply.
+ *  @param      anchorBoxes                 This is an NSData which has an array of anchorBoxes defined as a struct{ float width; float height; };
+ *  @return     A valid MPSCNNYOLOLossDescriptor object or nil, if failure.
+ */
++(nonnull MPSCNNYOLOLossDescriptor*) cnnLossDescriptorWithXYLossType:(MPSCNNLossType) XYLossType
+                                                          WHLossType:(MPSCNNLossType) WHLossType
+                                                  confidenceLossType:(MPSCNNLossType) confidenceLossType
+                                                     classesLossType:(MPSCNNLossType) classesLossType
+                                                       reductionType:(MPSCNNReductionType) reductionType
+                                                         anchorBoxes:(NSData*__nonnull) anchorBoxes
+                                                 numberOfAnchorBoxes:(NSUInteger) numberOfAnchorBoxes;
+
+@end /* MPSCNNYOLOLossDescriptor */
+
+
+MPS_CLASS_AVAILABLE_STARTING(macos(10.14), ios(12.0), tvos(12.0))
+@interface MPSCNNYOLOLoss : MPSCNNKernel
+
+/*! @property   lossXY
+ *  @abstract   loss filter for prediction of bounding box position
+ */
+@property (readonly, nonatomic, retain, nonnull) MPSCNNLoss *lossXY;
+
+/*! @property   lossWH
+ *  @abstract   loss filter for prediction of bounding box size
+ */
+@property (readonly, nonatomic, retain, nonnull) MPSCNNLoss *lossWH;
+
+/*! @property   lossConfidence
+ *  @abstract   loss filter for prediction of bounding box probability of presence of object
+ */
+@property (readonly, nonatomic, retain, nonnull) MPSCNNLoss *lossConfidence;
+
+/*! @property   lossClasses
+ *  @abstract   loss filter for prediction of bounding box predicted class of the detected object
+ */
+@property (readonly, nonatomic, retain, nonnull) MPSCNNLoss *lossClasses;
+
+/*!
+ * See MPSCNNYOLOLossDescriptor for information about the following properties.
+ */
+@property (readonly, nonatomic) float scaleXY;
+@property (readonly, nonatomic) float scaleWH;
+@property (readonly, nonatomic) float scaleNoObject;
+@property (readonly, nonatomic) float scaleObject;
+@property (readonly, nonatomic) float scaleClass;
+@property (readonly, nonatomic) float minIOUForObjectPresence;
+@property (readonly, nonatomic) float maxIOUForObjectAbsence;
+@property (readonly, nonatomic) MPSCNNReductionType reductionType;
+@property (readonly, nonatomic) NSUInteger numberOfAnchorBoxes;
+@property (readonly, nonatomic, nonnull, retain) NSData *anchorBoxes;
+
+/*
+ * You must use initWithDevice:lossDescriptor instead.
+ */
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device NS_UNAVAILABLE;
+
+/*!
+ *  @abstract   Initialize the loss filter with a loss descriptor.
+ *  @param      device                   The device the filter will run on.
+ *  @param      lossDescriptor           The loss descriptor.
+ *  @return     A valid MPSCNNLoss object or nil, if failure.
+ */
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
+                        lossDescriptor: (MPSCNNYOLOLossDescriptor*_Nonnull) lossDescriptor NS_DESIGNATED_INITIALIZER;
+
+/*! @abstract <NSSecureCoding> support */
+-(nullable instancetype) initWithCoder:(NSCoder * __nonnull)aDecoder device:(nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER;
+
+/*! @abstract   Encode a MPSCNNYOLOLoss filter and return a gradient in the destinationImage.
+ *  @discussion This filter consumes the output of a previous layer and the MPSCNNLossLabels object containing
+ *              the target data (labels) and optionally, weights for the labels.
+ *              The destinationImage contains the computed gradient for the loss layer.
+ *              It serves as a source gradient input image to the first gradient layer (in the backward direction).
+ *              For information on the data-layout see @ref MPSCNNYOLOLossDescriptor.
+ *
+ *  @param      commandBuffer       The MTLCommandBuffer on which to encode.
+ *  @param      sourceImage         The source image from the previous filter in the graph (in the inference direction).
+ *  @param      labels              The object containing the target data (labels) and optionally, weights for the labels.
+ *  @param      destinationImage    The MPSImage into which to write the gradient result.
+ */
+-(void) encodeToCommandBuffer: (nonnull id <MTLCommandBuffer>) commandBuffer
+                  sourceImage: (MPSImage * __nonnull) sourceImage
+                       labels: (MPSCNNLossLabels * __nonnull) labels
+             destinationImage: (MPSImage * __nonnull) destinationImage
+MPS_SWIFT_NAME( encode(commandBuffer:sourceImage:labels:destinationImage:));
+
+/*! @abstract   Encode a MPSCNNLoss filter and return a gradient.
+ *  @discussion This -encode call is similar to the encodeToCommandBuffer:sourceImage:labels:destinationImage: above,
+ *              except that it creates and returns the MPSImage with the loss gradient result.
+ *
+ *  @param      commandBuffer       The MTLCommandBuffer on which to encode.
+ *  @param      sourceImage         The source image from the previous filter in the graph (in the inference direction).
+ *  @param      labels              The object containing the target data (labels) and optionally, weights for the labels.
+ *  @return     The MPSImage containing the gradient result.
+ */
+-(MPSImage*__nonnull) encodeToCommandBuffer: (nonnull id <MTLCommandBuffer>) commandBuffer
+                                sourceImage: (MPSImage * __nonnull) sourceImage
+                                     labels: (MPSCNNLossLabels * __nonnull) labels
+MPS_SWIFT_NAME( encode(commandBuffer:sourceImage:labels:));
+
+
+-(void) encodeBatchToCommandBuffer: (nonnull id <MTLCommandBuffer>) commandBuffer
+                      sourceImages: (MPSImageBatch * __nonnull) sourceImage
+                            labels: (MPSCNNLossLabelsBatch * __nonnull) labels
+                 destinationImages: (MPSImageBatch * __nonnull) destinationImage
+MPS_SWIFT_NAME( encode(commandBuffer:sourceImages:labels:destinationImages:));
+
+-(MPSImageBatch*__nonnull) encodeBatchToCommandBuffer: (nonnull id <MTLCommandBuffer>) commandBuffer
+                                         sourceImages: (MPSImageBatch * __nonnull) sourceImage
+                                               labels: (MPSCNNLossLabelsBatch * __nonnull) labels
+MPS_SWIFT_NAME( encode(commandBuffer:sourceImages:labels:));
+
+@end /* MPSCNNYOLOLoss */
 
 
 #ifdef __cplusplus

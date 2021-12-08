@@ -1,7 +1,7 @@
 /*
  NSSliderTouchBarItem.h
  Application Kit
- Copyright (c) 2016-2017, Apple Inc.
+ Copyright (c) 2016-2018, Apple Inc.
  All rights reserved.
  */
 
@@ -21,14 +21,14 @@ APPKIT_EXTERN const NSSliderAccessoryWidth NSSliderAccessoryWidthWide NS_AVAILAB
 NS_CLASS_AVAILABLE_MAC(10_12_2)
 @interface NSSliderTouchBarItem : NSTouchBarItem {
 @private
-    __kindof NSView *_view;
-    id _autounbinder;
-    __weak id _target;
-    SEL _action;
-    NSString *_customizationLabel;
+    __kindof NSView *_view APPKIT_IVAR;
+    id _autounbinder APPKIT_IVAR;
+    __weak id _target APPKIT_IVAR;
+    SEL _action APPKIT_IVAR;
+    NSString *_customizationLabel APPKIT_IVAR;
 
 #if !__OBJC2__
-    void *_sliderTouchBarItemReserved[4] __unused;
+    void *_sliderTouchBarItemReserved[4] __unused APPKIT_IVAR;
 #endif /* !__OBJC2__ */
 }
 

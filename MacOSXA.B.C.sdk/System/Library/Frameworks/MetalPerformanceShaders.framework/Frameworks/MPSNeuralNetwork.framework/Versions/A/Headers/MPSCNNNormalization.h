@@ -50,16 +50,6 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.12), ios(10.0), tvos(10.0))
  */
 @property (readwrite, nonatomic) float   delta;
 
-/*! @property   kernelWidth
- *  @abstract   The width of the filter window
- */
-@property(readonly, nonatomic) NSUInteger       kernelWidth;
-
-/*! @property   kernelHeight
- *  @abstract   The height of the filter window
- */
-@property(readonly, nonatomic) NSUInteger       kernelHeight;
-
 /*!
  *  @abstract  Initialize a spatial normalization filter
  *  @param      device              The device the filter will run on
@@ -139,16 +129,6 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))
  *  @abstract   The value of delta.  Default is 1.0
  */
 @property (readwrite, nonatomic) float   delta;
-
-/*! @property   kernelWidth
- *  @abstract   The width of the filter window
- */
-@property(readonly, nonatomic) NSUInteger       kernelWidth;
-
-/*! @property   kernelHeight
- *  @abstract   The height of the filter window
- */
-@property(readonly, nonatomic) NSUInteger       kernelHeight;
 
 /*!
  *  @abstract  Initialize a spatial normalization filter
@@ -246,16 +226,6 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(10.0), tvos(10.0))
  */
 @property (readwrite, nonatomic) float   ps;
 
-
-/*! @property   kernelWidth
- *  @abstract   The width of the filter window
- */
-@property(readonly, nonatomic) NSUInteger       kernelWidth;
-
-/*! @property   kernelHeight
- *  @abstract   The height of the filter window
- */
-@property(readonly, nonatomic) NSUInteger       kernelHeight;
 
 /*!
  *  @abstract  Initialize a local contrast normalization filter
@@ -366,16 +336,6 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))
  *  @abstract   The value of ps.  Default is 1.0
  */
 @property (readwrite, nonatomic) float   ps;
-
-/*! @property   kernelWidth
- *  @abstract   The width of the filter window
- */
-@property(readonly, nonatomic) NSUInteger       kernelWidth;
-
-/*! @property   kernelHeight
- *  @abstract   The height of the filter window
- */
-@property(readonly, nonatomic) NSUInteger       kernelHeight;
 
 /*!
  *  @abstract  Initialize a local contrast normalization filter

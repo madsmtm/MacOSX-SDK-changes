@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9C108567-2F8C-346A-821C-381440445DBF' ]
+uuids:           [ 'x86_64: D4DF028E-62C4-3FF6-B225-D937BDAC29C4' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SystemAdministrationInterface.framework/Versions/A/SystemAdministrationInterface
 exports:         

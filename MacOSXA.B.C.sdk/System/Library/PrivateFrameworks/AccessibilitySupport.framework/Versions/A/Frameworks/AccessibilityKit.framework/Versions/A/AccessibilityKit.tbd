@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: A88FDA5C-F280-364A-8043-587FEB9A2E19' ]
+uuids:           [ 'x86_64: 25CA77E5-C1BA-303C-9501-1ACF450D521A' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AccessibilitySupport.framework/Versions/A/Frameworks/AccessibilityKit.framework/Versions/A/AccessibilityKit
 current-version: 2

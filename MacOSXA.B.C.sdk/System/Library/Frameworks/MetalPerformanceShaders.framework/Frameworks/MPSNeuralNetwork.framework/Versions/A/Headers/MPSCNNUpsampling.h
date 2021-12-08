@@ -46,6 +46,13 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13), ios(11.0), tvos(11.0))
  */
 @property(readonly, nonatomic) double      scaleFactorY;
 
+/*! @property   alignCorners
+ *  @abstract   If YES, the centers of the 4 corner pixels of the input and output regions are aligned,
+ *              preserving the values at the corner pixels.
+ *              The default is NO.
+ */
+@property(readonly, nonatomic) BOOL      alignCorners;
+
 /*
  * You must use initWithDevice:scaleFactorX:scaleFactorY instead.
  * You must use one of the sub-classes of MPSCNNUpsampling.
@@ -100,7 +107,21 @@ MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
  */
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
                    integerScaleFactorX: (NSUInteger) integerScaleFactorX
-                   integerScaleFactorY: (NSUInteger) integerScaleFactorY NS_DESIGNATED_INITIALIZER;
+                   integerScaleFactorY: (NSUInteger) integerScaleFactorY;
+
+/*!
+ *  @abstract  Initialize the bilinear spatial upsampling filter.
+ *  @param     device                   The device the filter will run on.
+ *  @param     integerScaleFactorX      The upsampling factor for the x dimension.
+ *  @param     integerScaleFactorY      The upsampling factor for the y dimension.
+ *  @param     alignCorners             Specifier whether the centers of the 4 corner pixels of the input and output regions are aligned,
+ *                                      preserving the values at the corner pixels.
+ *  @return    A valid MPSCNNUpsamplingBilinear object or nil, if failure.
+ */
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
+                   integerScaleFactorX: (NSUInteger) integerScaleFactorX
+                   integerScaleFactorY: (NSUInteger) integerScaleFactorY
+                          alignCorners: (BOOL) alignCorners NS_DESIGNATED_INITIALIZER;
 
 @end    /* MPSCNNUpsamplingBilinear */
 

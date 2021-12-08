@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 0701CF03-8C4F-325B-831A-1413533B145F' ]
+uuids:           [ 'x86_64: 274D28E2-0DB2-3D22-9B3F-DC3D1A061700' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ShareKit.framework/Versions/A/ShareKit
-current-version: 500
+current-version: 577
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _NSSharingPlugInServiceOptionAppIDKey, _NSSharingPlugInServiceOptionAppIsBackgroundOnlyKey, 
@@ -24,16 +24,13 @@ exports:
                        _SHK_kAnimationInfo, _SHK_kImageURL, _SHK_kIsInNotificationCenter, 
                        _SHK_kServiceName, _SHK_kServiceSubclassName, _SHK_kShareImage, 
                        _SHK_kShareImageContentRect, _SHK_kSourceImage, _SHK_kSourceImageContentRect, 
-                       _SHK_kTouchBarCancelButtonItemIdentifier, _SHK_kTouchBarSendButtonItemIdentifier, 
                        _SHK_locationInClientWindow, _SHK_matchingDictionaryForSHKSharingItems, 
                        _SHK_messagesAppIcon, _SHK_mouseDownEventCaught, _SHK_sharingCancelledError, 
-                       _SHK_thumbnailImage ]
-    objc-classes:    [ NSSharingAccountConfigurationViewController, NSSharingAccountDelegate, 
-                       NSSharingAddressBookNameExtractor, NSSharingAudience, NSSharingComposeViewController, 
+                       _SHK_thumbnailImage, _framework_log, _plugin_log ]
+    objc-classes:    [ NSSharingAccountConfigurationViewController, NSSharingAddressBookNameExtractor, 
                        NSSharingContainerViewController, NSSharingExtensionContext, 
                        NSSharingItem, NSSharingMachPortWrapper, NSSharingNoUIExtensionProvider, 
-                       NSSharingPlugInComposeViewService, NSSharingPlugInHelper, 
-                       NSSharingServiceDescription, NSSharingUIExtensionContext, 
+                       NSSharingPlugInHelper, NSSharingServiceDescription, NSSharingUIExtensionContext, 
                        SHKAutoLayoutConstraintPair, SHKBackgroundView, SHKBlockQueue, 
                        SHKBlockUUIDTuple, SHKBlurWindow, SHKBorderlessEffectWindow, 
                        SHKCompletionBackgroundView, SHKCompletionItem, SHKCompletionPopUpController, 
@@ -55,21 +52,14 @@ exports:
                        SHKShareWindow, SHKShareWindowBackgroundView, SHKSharingService, 
                        SHKSharingServicePicker, SHKSharingViewService, SHKTokenField, 
                        SHKTransparentWindow, SHKViewServiceWindow, SHK_CAAnimationDelegate ]
-    objc-ivars:      [ NSSharingAddressBookNameExtractor._storageString, NSSharingComposeViewController._NCconstraintForAccountsPopUpWidth, 
-                       NSSharingComposeViewController._NCconstraintForAudiencePopUpWidth, 
-                       NSSharingComposeViewController._NCconstraintForLocationContainer, 
-                       NSSharingComposeViewController._NCconstraintForProgressIndicatorToLocationContainerView, 
-                       NSSharingComposeViewController._NCconstraintForProgressIndicatorToSuperView, 
-                       NSSharingComposeViewController._NCconstraintForTextViewLeadingSpace, 
-                       NSSharingComposeViewController._constraintForAccountsPopUpWidth, 
-                       NSSharingComposeViewController._constraintForAudiencePopUpWidth, 
-                       NSSharingComposeViewController._constraintForImagePreviewWidth, 
-                       SHKBlurWindow.blurLayer, SHKBorderlessEffectWindow.noSourceWindow, 
-                       SHKCompletionItem._image, SHKCompletionItem._range, SHKCompletionItem._subtitle, 
-                       SHKCompletionItem._title, SHKCompletionItem._value, SHKCompletionTableView._lastMousePositionWasOverList, 
+    objc-ivars:      [ NSSharingAddressBookNameExtractor._storageString, SHKBlurWindow.blurLayer, 
+                       SHKBorderlessEffectWindow.noSourceWindow, SHKCompletionItem._image, 
+                       SHKCompletionItem._range, SHKCompletionItem._subtitle, SHKCompletionItem._title, 
+                       SHKCompletionItem._value, SHKCompletionTableView._lastMousePositionWasOverList, 
                        SHKCompletionTextFieldCell._afterMargin, SHKCompletionTextFieldCell._beforeMargin, 
                        SHKCompletionTextFieldCell._completion, SHKDimAndShadowWindow.animatesTransitions, 
-                       SHKDimAndShadowWindow.dimLayer, SHKDimAndShadowWindow.shadowCenterKnockoutLayer, 
-                       SHKDimAndShadowWindow.shadowLayer, SHKLocationPinButtonCell._needsToDisplaySpaceForRTL, 
-                       SHKPlugInObservingCache._dictionary, SHKShareWindow._isClosing ]
+                       SHKDimAndShadowWindow.dimLayer, SHKDimAndShadowWindow.groupLayer, 
+                       SHKDimAndShadowWindow.shadowCenterKnockoutLayer, SHKDimAndShadowWindow.shadowLayer, 
+                       SHKLocationPinButtonCell._needsToDisplaySpaceForRTL, SHKPlugInObservingCache._dictionary, 
+                       SHKShareWindow._isClosing ]
 ...

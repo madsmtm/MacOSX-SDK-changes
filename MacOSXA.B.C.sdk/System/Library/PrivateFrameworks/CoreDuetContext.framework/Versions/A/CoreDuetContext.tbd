@@ -1,12 +1,13 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: E658FB25-1803-3FDC-A22A-E514D2FE4116' ]
+uuids:           [ 'x86_64: 87E97656-89B1-390D-AA3C-FBDA28B50FC5' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreDuetContext.framework/Versions/A/CoreDuetContext
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CoreDuetContextVersionNumber, _CoreDuetContextVersionString, 
-                       __CDContextDataMetadataKey, __CDContextServiceName, __CDContextTransitionDateMetadataKey, 
+                       __CDContextDataMetadataKey, __CDContextFirstKPValueAfterRebootKey, 
+                       __CDContextServiceName, __CDContextTransitionDateMetadataKey, 
                        __CDContextualChangeRegistrationEntityName, __CDContextualKeyPathEntityName ]
     objc-classes:    [ _CDClientContext, _CDContextMonitorManager, _CDContextPredictionQueries, 
                        _CDContextQueries, _CDContextValue, _CDContextualChangeRegistration, 

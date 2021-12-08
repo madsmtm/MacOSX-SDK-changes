@@ -1,4 +1,4 @@
-.TH "<MPSCNNBatchNormalizationDataSource >" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "<MPSCNNBatchNormalizationDataSource >" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,7 +9,7 @@
 .PP
 \fC#import <MPSCNNBatchNormalization\&.h>\fP
 .PP
-Inherits <MPSStateNSObject>\&.
+Inherits <MPSStateNSObject>, and <NSCopying>\&.
 .SS "Instance Methods"
 
 .in +1c
@@ -41,7 +41,13 @@ Inherits <MPSStateNSObject>\&.
 .RI "(\fBMPSCNNNormalizationGammaAndBetaState\fP *__nullable) \- \fBupdateGammaAndBetaWithCommandBuffer:batchNormalizationState:\fP"
 .br
 .ti -1c
+.RI "(\fBMPSCNNNormalizationMeanAndVarianceState\fP *__nullable) \- \fBupdateMeanAndVarianceWithCommandBuffer:batchNormalizationState:\fP"
+.br
+.ti -1c
 .RI "(BOOL) \- \fBupdateGammaAndBetaWithBatchNormalizationState:\fP"
+.br
+.ti -1c
+.RI "(BOOL) \- \fBupdateMeanAndVarianceWithBatchNormalizationState:\fP"
 .br
 .ti -1c
 .RI "(float) \- \fBepsilon\fP"
@@ -51,6 +57,9 @@ Inherits <MPSStateNSObject>\&.
 .br
 .ti -1c
 .RI "(nullable instancetype) \- \fBinitWithCoder:\fP"
+.br
+.ti -1c
+.RI "(nonnull instancetype) \- \fBcopyWithZone:device:\fP"
 .br
 .in -1c
 .SS "Properties"
@@ -64,6 +73,22 @@ Inherits <MPSStateNSObject>\&.
 .PP 
 .SS "\- (float * __nullable \fBMPSCNNBatchNormalizationDataSource\fP) beta \fC [required]\fP"
 Returns a pointer to the bias terms for the batch normalization\&. If NULL then no bias is to be applied\&. 
+.SS "\- (nonnull instancetype \fBMPSCNNBatchNormalizationDataSource\fP) copyWithZone: (nullable NSZone *) zone(nullable id< MTLDevice >) device"
+Optional copy method to create a copy of the data source for use with a new device\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIzone\fP The NSZone on which to allocate\&. 
+.br
+\fIdevice\fP The device where the kernel which uses this data source will be used\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBA\fP pointer to a copy of this data source\&. 
+.RE
+.PP
+
 .SS "\- (void \fBMPSCNNBatchNormalizationDataSource\fP) encodeWithCoder: (NSCoder *__nonnull) aCoder\fC [optional]\fP"
 \fBNSSecureCoding\fP compatibility\&. 
 .SS "\- (float \fBMPSCNNBatchNormalizationDataSource\fP) epsilon \fC [optional]\fP"
@@ -104,7 +129,7 @@ Compute new gamma and beta values using current values and gradients contained w
 .PP
 
 .SS "\- (\fBMPSCNNNormalizationGammaAndBetaState\fP * __nullable \fBMPSCNNBatchNormalizationDataSource\fP) updateGammaAndBetaWithCommandBuffer: (nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSCNNBatchNormalizationState\fP *__nonnull) batchNormalizationState\fC [optional]\fP"
-Compute new gamma and beta values using current values and gradients contained within a \fBMPSCNNBatchNormalizationState\fP\&. Perform the update using a GPU\&.
+Compute new gamma and beta values using current values and gradients contained within a \fBMPSCNNBatchNormalizationState\fP\&. Perform the update using a GPU\&.  This operation is expected to also decrement the read count of batchNormalizationState by 1\&.
 .PP
 \fBParameters:\fP
 .RS 4
@@ -115,7 +140,37 @@ Compute new gamma and beta values using current values and gradients contained w
 .PP
 \fBReturns:\fP
 .RS 4
-\fBA\fP \fBMPSCNNNormalizationGammaAndBetaState\fP object containing updated gamma and beta values\&. If NULL no update was performed\&. 
+\fBA\fP \fBMPSCNNNormalizationMeanAndVarianceState\fP object containing updated mean and variance values\&. If NULL, the \fBMPSNNGraph\fP batch normalization filter gamma and beta values will remain unmodified\&. 
+.RE
+.PP
+
+.SS "\- (BOOL \fBMPSCNNBatchNormalizationDataSource\fP) updateMeanAndVarianceWithBatchNormalizationState: (\fBMPSCNNBatchNormalizationState\fP *__nonnull) batchNormalizationState\fC [optional]\fP"
+Compute new mean and variance values using current batch statistics contained within a \fBMPSCNNBatchNormalizationState\fP\&. Perform the update using the CPU\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIbatchNormalizationState\fP The \fBMPSCNNBatchNormalizationState\fP object containing the current batch statistics\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBA\fP boolean value indicating if the update was performed\&. 
+.RE
+.PP
+
+.SS "\- (\fBMPSCNNNormalizationMeanAndVarianceState\fP * __nullable \fBMPSCNNBatchNormalizationDataSource\fP) updateMeanAndVarianceWithCommandBuffer: (nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSCNNBatchNormalizationState\fP *__nonnull) batchNormalizationState\fC [optional]\fP"
+Compute new mean and variance values using current batch statistics contained within a \fBMPSCNNBatchNormalizationState\fP\&. Perform the update using a GPU\&.  This operation is expected to also decrement the read count of batchNormalizationState by 1\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIcommandBuffer\fP The command buffer on which to encode the update\&.
+.br
+\fIbatchNormalizationState\fP The \fBMPSCNNBatchNormalizationState\fP object containing the current batch statistics\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBA\fP \fBMPSCNNNormalizationMeanAndVarianceState\fP object containing updated mean and variance values\&. If NULL, the \fBMPSNNGraph\fP batch normalization filter mean and variance values will remain unmodified\&. 
 .RE
 .PP
 

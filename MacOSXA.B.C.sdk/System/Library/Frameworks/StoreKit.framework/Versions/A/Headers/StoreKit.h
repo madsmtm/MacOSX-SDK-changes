@@ -14,5 +14,6 @@
 #import <StoreKit/SKProductsRequest.h>
 #import <StoreKit/SKReceiptRefreshRequest.h>
 #import <StoreKit/SKRequest.h>
+#import <StoreKit/SKStoreReviewController.h>
 #import <StoreKit/SKDownload.h>
 #import <StoreKit/StoreKitDefines.h>

@@ -1,16 +1,12 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 92601EB8-3F73-3BBF-B3B6-0C7D47D819A9', 'x86_64: B65FF7E6-E9B5-34D8-8CA7-63D415A8A9A6' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 67BC5855-B7A3-39E6-B5DD-52B287EB1532' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/LangAnalysis.framework/Versions/A/LangAnalysis
 objc-constraint: none
 parent-umbrella: ApplicationServices
 exports:         
-  - archs:           [ i386 ]
-    symbols:         [ _DCMDeriveNewDictionary, _DCMGetDictionaryIDFromFile, _DCMGetFileFromDictionaryID, 
-                       _DCMNewDictionary, _DCMRegisterDictionaryFile, _LAAddNewWord, 
-                       _LACloseDictionary, _LAListAvailableDictionaries, _LAOpenDictionary ]
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _DCMAddFoundRecordToIteratorAM, _DCMAddRecord, _DCMCloseDictionary, 
                        _DCMCompactDictionary, _DCMCopyParametersFromData, _DCMCountObjectIterator, 
                        _DCMCountRecord, _DCMCountRecordIterator, _DCMCreateAccessMethodIterator, 

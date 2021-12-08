@@ -4,19 +4,21 @@
 //
 //  Copyright © 2017 Apple Inc. All rights reserved.
 //
-#import <Vision/VNRequest.h>
+
 #import <CoreML/CoreML.h>
+
+#import <Vision/VNRequest.h>
+#import <Vision/VNTypes.h>
 
 
 NS_ASSUME_NONNULL_BEGIN
 
 
-API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
-
 /*!
 	@brief The VNCoreMLModel uses an CoreML based model and prepares it for use with VNCoreMLRequests.
  */
 
+API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
 @interface VNCoreMLModel : NSObject
 
 - (instancetype) init  NS_UNAVAILABLE;
@@ -71,5 +73,10 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
 
 
 @end
+
+
+API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0))
+static const NSUInteger VNCoreMLRequestRevision1 = 1;
+
 
 NS_ASSUME_NONNULL_END

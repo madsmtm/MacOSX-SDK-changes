@@ -1,24 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 1EE82E2E-BA9D-33CC-904F-A9467619FB6B', 'x86_64: 40704740-4A53-3010-A49B-08D1D69D1D5E' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: C5AC21FB-74AD-3FC2-B231-B1376751BBAE' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ProtocolBuffer.framework/Versions/A/ProtocolBuffer
-current-version: 260
+current-version: 263
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ PBDataReader._bytes, PBDataReader._data, PBDataReader._error, 
-                       PBDataReader._length, PBDataReader._pos, PBDataWriter._data, 
-                       PBTextReader._cachedObjectTypes, PBTextReader._length, PBTextReader._nonHexDigitCharacterSet, 
-                       PBTextReader._objects, PBTextReader._pos, PBTextReader._string, 
-                       PBTextReader._tagNameCharacterSet, PBTextReader._whitespaceAndNewlineCharacterSet, 
-                       PBTextWriter._cachedObjectTypes, PBTextWriter._dest, PBTextWriter._indent, 
-                       PBTextWriter._newlinesPrinted, _PBProperty._convertFromString, 
-                       _PBProperty._convertToString, _PBProperty._count, _PBProperty._fromDictionaryReprFn, 
-                       _PBProperty._getter, _PBProperty._has, _PBProperty._name, 
-                       _PBProperty._objectType, _PBProperty._setter, _PBProperty._structFields, 
-                       _PBProperty._structName, _PBProperty._structSize, _PBProperty._subObjectType, 
-                       _PBProperty._subType, _PBProperty._toDictionaryReprFn, _PBProperty._type ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _PBDataWriterPlaceMark, _PBDataWriterRecallMark, _PBDataWriterWriteBOOLField, 
                        _PBDataWriterWriteBareVarint, _PBDataWriterWriteDataField, 
                        _PBDataWriterWriteDoubleField, _PBDataWriterWriteFixed32Field, 
@@ -82,6 +69,18 @@ exports:
                        PBMessageStreamWriter, PBMutableData, PBRequest, PBRequester, 
                        PBSessionRequester, PBStreamReader, PBStreamWriter, PBTextReader, 
                        PBTextWriter, PBUnknownFields, _PBProperty ]
+    objc-ivars:      [ PBDataReader._bytes, PBDataReader._data, PBDataReader._error, 
+                       PBDataReader._length, PBDataReader._pos, PBDataWriter._data, 
+                       PBTextReader._cachedObjectTypes, PBTextReader._length, PBTextReader._nonHexDigitCharacterSet, 
+                       PBTextReader._objects, PBTextReader._pos, PBTextReader._string, 
+                       PBTextReader._tagNameCharacterSet, PBTextReader._whitespaceAndNewlineCharacterSet, 
+                       PBTextWriter._cachedObjectTypes, PBTextWriter._dest, PBTextWriter._indent, 
+                       PBTextWriter._newlinesPrinted, _PBProperty._convertFromString, 
+                       _PBProperty._convertToString, _PBProperty._count, _PBProperty._fromDictionaryReprFn, 
+                       _PBProperty._getter, _PBProperty._has, _PBProperty._name, 
+                       _PBProperty._objectType, _PBProperty._setter, _PBProperty._structFields, 
+                       _PBProperty._structName, _PBProperty._structSize, _PBProperty._subObjectType, 
+                       _PBProperty._subType, _PBProperty._toDictionaryReprFn, _PBProperty._type ]
     weak-def-symbols: [ __ZTINSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 
                         __ZTINSt3__118basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 
                         __ZTSNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 

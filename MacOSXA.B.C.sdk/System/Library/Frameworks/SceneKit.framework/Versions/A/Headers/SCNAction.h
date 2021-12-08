@@ -1,7 +1,8 @@
 //
 //  SCNAction.h
+//  SceneKit
 //
-//  Copyright (c) 2014-2017 Apple, Inc. All rights reserved.
+//  Copyright © 2014-2017 Apple, Inc. All rights reserved.
 //
 
 #import <SceneKit/SceneKitTypes.h>
@@ -78,7 +79,7 @@ typedef float (^SCNActionTimingFunction)(float time);
 @end
 
 
-API_AVAILABLE(macos(10.10))
+SCN_EXPORT API_AVAILABLE(macos(10.10))
 @interface SCNAction : NSObject <NSCopying, NSSecureCoding>
 
 /*!

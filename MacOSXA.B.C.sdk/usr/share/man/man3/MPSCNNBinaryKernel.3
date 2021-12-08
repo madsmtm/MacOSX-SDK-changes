@@ -1,4 +1,4 @@
-.TH "MPSCNNBinaryKernel" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNBinaryKernel" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -340,7 +340,7 @@ This method uses the \fBMPSNNPadding\fP padding property to figure out how to si
 .PP
 Reimplemented from \fBMPSKernel\fP\&.
 .PP
-Reimplemented in \fBMPSCNNConvolutionGradient\fP, \fBMPSCNNFullyConnectedGradient\fP, \fBMPSCNNGradientKernel\fP, \fBMPSCNNPoolingAverageGradient\fP, \fBMPSCNNPoolingMaxGradient\fP, \fBMPSCNNPoolingL2NormGradient\fP, \fBMPSCNNDilatedPoolingMaxGradient\fP, \fBMPSCNNSoftMaxGradient\fP, \fBMPSCNNLogSoftMaxGradient\fP, \fBMPSCNNCrossChannelNormalizationGradient\fP, \fBMPSCNNPoolingGradient\fP, \fBMPSCNNLocalContrastNormalizationGradient\fP, \fBMPSCNNNeuronGradient\fP, \fBMPSCNNDropoutGradient\fP, and \fBMPSCNNSpatialNormalizationGradient\fP\&.
+Reimplemented in \fBMPSCNNConvolutionGradient\fP, \fBMPSCNNFullyConnectedGradient\fP, \fBMPSCNNGradientKernel\fP, \fBMPSCNNPoolingAverageGradient\fP, \fBMPSCNNPoolingMaxGradient\fP, \fBMPSCNNPoolingL2NormGradient\fP, \fBMPSCNNDilatedPoolingMaxGradient\fP, \fBMPSCNNSoftMaxGradient\fP, \fBMPSCNNLogSoftMaxGradient\fP, \fBMPSCNNCrossChannelNormalizationGradient\fP, \fBMPSCNNPoolingGradient\fP, \fBMPSCNNLocalContrastNormalizationGradient\fP, \fBMPSCNNBatchNormalizationGradient\fP, \fBMPSCNNBatchNormalizationStatisticsGradient\fP, \fBMPSCNNNeuronGradient\fP, \fBMPSCNNDropoutGradient\fP, and \fBMPSCNNSpatialNormalizationGradient\fP\&.
 .SS "\- (nonnull instancetype) initWithDevice: (nonnull id< MTLDevice >) device"
 Standard init with default properties per filter type 
 .PP
@@ -358,7 +358,7 @@ Standard init with default properties per filter type
 .PP
 Reimplemented from \fBMPSKernel\fP\&.
 .PP
-Reimplemented in \fBMPSCNNConvolutionGradient\fP, \fBMPSCNNFullyConnectedGradient\fP, \fBMPSCNNGradientKernel\fP, \fBMPSCNNSoftMaxGradient\fP, \fBMPSCNNLogSoftMaxGradient\fP, \fBMPSCNNPoolingGradient\fP, \fBMPSNNReduceFeatureChannelsAndWeightsSum\fP, \fBMPSCNNArithmeticGradient\fP, \fBMPSCNNAddGradient\fP, \fBMPSCNNSubtractGradient\fP, \fBMPSCNNMultiplyGradient\fP, \fBMPSNNReduceBinary\fP, \fBMPSNNReduceFeatureChannelsAndWeightsMean\fP, \fBMPSCNNNeuronGradient\fP, \fBMPSCNNDropoutGradient\fP, \fBMPSCNNUpsamplingGradient\fP, \fBMPSCNNArithmetic\fP, \fBMPSCNNAdd\fP, \fBMPSCNNSubtract\fP, \fBMPSCNNMultiply\fP, and \fBMPSCNNDivide\fP\&.
+Reimplemented in \fBMPSCNNConvolutionGradient\fP, \fBMPSCNNFullyConnectedGradient\fP, \fBMPSCNNGradientKernel\fP, \fBMPSCNNSoftMaxGradient\fP, \fBMPSCNNLogSoftMaxGradient\fP, \fBMPSCNNPoolingGradient\fP, \fBMPSNNReduceFeatureChannelsAndWeightsSum\fP, \fBMPSCNNArithmeticGradient\fP, \fBMPSNNReduceBinary\fP, \fBMPSNNReduceFeatureChannelsAndWeightsMean\fP, \fBMPSCNNNeuronGradient\fP, \fBMPSCNNUpsamplingGradient\fP, \fBMPSCNNDropoutGradient\fP, \fBMPSCNNArithmetic\fP, \fBMPSCNNAdd\fP, \fBMPSCNNSubtract\fP, \fBMPSCNNMultiply\fP, and \fBMPSCNNDivide\fP\&.
 .SS "\- (BOOL) isResultStateReusedAcrossBatch "
 Returns YES if the same state is used for every operation in a batch  If NO, then each image in a MPSImageBatch will need a corresponding (and different) state to go with it\&. Set to YES to avoid allocating redundant state in the case when the same state is used all the time\&. Default: NO 
 .SS "\- (\fBMPSStateBatch\fP * __nullable) resultStateBatchForPrimaryImage: (\fBMPSImageBatch\fP *__nonnull) primaryImage(\fBMPSImageBatch\fP *__nonnull) secondaryImage(NSArray< \fBMPSStateBatch\fP * > *__nullable) sourceStates(\fBMPSImageBatch\fP *__nonnull) destinationImage"

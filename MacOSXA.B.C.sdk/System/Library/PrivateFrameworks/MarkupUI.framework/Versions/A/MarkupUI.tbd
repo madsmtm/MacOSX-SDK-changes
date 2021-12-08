@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 4E8ED2A8-9A0F-38F2-8AF4-EFF88EA5D063' ]
+uuids:           [ 'x86_64: 1A5E88CA-36C3-30A8-9D39-71CC6923D009' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/MarkupUI.framework/Versions/A/MarkupUI
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _MUCropToolEnabled, _MUEncryptPrivateMetadata ]
-    objc-classes:    [ MUCGPDFAnnotationAdaptor, MUImageDownsamplingUtilities, MarkupViewController ]
+    objc-classes:    [ MUCGPDFAnnotationAdaptor, MUImageDownsamplingUtilities, MUImageView, 
+                       MUPDFViewBase, MarkupViewController ]
 ...

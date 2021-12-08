@@ -1,27 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A3C15B3D-2404-3CF4-B107-7C1136D2E8EB', 'x86_64: 3F98E9C1-E9F0-33E8-902C-61194FC68883' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: D612DC6C-0AA8-3D41-9E17-E8219984FC65' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/QTKit.framework/Versions/A/QTKit
 exports:         
-  - archs:           [ i386 ]
-    symbols:         [ _CopyNSImageToGWorld, _QTAcceleratedDisplayMask, _QTCaptureDeviceLegacySequenceGrabberAttribute, 
-                       _QTConvertImageConsumerAttributeToVisualContextAttribute, 
-                       _QTConvertVisualContextAttributeToImageConsumerAttribute, 
-                       _QTGetImageImageConsumerAttributesFromVisualContext, _QTMovieMovieStructureAvailableCallbackAttribute, 
-                       _QTObjectTokenExecuteCommand, _QTObjectTokenExecuteCommandWithParams, 
-                       _QTObjectTokenGetProperty, _QTObjectTokenGetPropertyWithParams, 
-                       _QTObjectTokenSetProperty, _QTObjectTokenSetPropertyWithParams, 
-                       _QTSetImageConsumerAttributesForVisualContext, _QTVisualContextAttributesFromImageConsumerAttributes, 
-                       _compareImageRepsAccordingToQTFriendliness, _copyBitmapRepToGWorld, 
-                       _createOpenGLTextureContext, _createPixelBufferContext, _drawImageDataToGWorldWithGraphicsImporter, 
-                       _drawPICTDataToGWorldWithQuickDraw, _friendlinessofNSImageRep, 
-                       _getBitsFromNSData ]
-    objc-classes:    [ QTImageBufferConformer, QTMovieContentView, QTMovieViewControllerViewTranslationHandler, 
-                       QTVisualContextView ]
   - archs:           [ x86_64 ]
-    symbols:         [ _QTKitServerDidDieNotification, _QTKitServerDidDieProcessIDKey ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _QTAddImageCodecQuality, _QTAddImageCodecType, _QTAlternates_AlternateTrack, 
                        _QTAlternates_FallbackTrack, _QTAlternates_LanguageCodeEncoding_ISO_639_2T, 
                        _QTAlternates_LanguageCodeEncoding_MacType_LangCode, _QTAlternates_LanguageCodeEncoding_RFC_4646, 
@@ -76,6 +59,7 @@ exports:
                        _QTImageConsumerTargetDimensionsKey, _QTImageConsumerTargetDimensionsWidthKey, 
                        _QTIndefiniteTime, _QTIntersectionTimeRange, _QTKitCanUseIOSurface, 
                        _QTKitErrorDomain, _QTKitErrorException, _QTKitErrorValue, 
+                       _QTKitServerDidDieNotification, _QTKitServerDidDieProcessIDKey, 
                        _QTLocalizedStringFromErrorCode, _QTLocalizedStringFromKey, 
                        _QTLocalizedStringFromTable, _QTMakeTime, _QTMakeTimeRange, 
                        _QTMakeTimeScaled, _QTMakeTimeWithTimeInterval, _QTMakeTimeWithTimeRecord, 

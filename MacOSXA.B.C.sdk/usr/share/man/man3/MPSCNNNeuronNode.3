@@ -1,4 +1,4 @@
-.TH "MPSCNNNeuronNode" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNNeuronNode" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -17,6 +17,13 @@ Inherited by \fBMPSCNNNeuronAbsoluteNode\fP, \fBMPSCNNNeuronELUNode\fP, \fBMPSCN
 .in +1c
 .ti -1c
 .RI "(nonnull instancetype) \- \fBinit\fP"
+.br
+.in -1c
+.SS "Class Methods"
+
+.in +1c
+.ti -1c
+.RI "(nonnull instancetype) + \fBnodeWithSource:descriptor:\fP"
 .br
 .in -1c
 .SS "Properties"
@@ -38,6 +45,8 @@ Inherited by \fBMPSCNNNeuronAbsoluteNode\fP, \fBMPSCNNNeuronELUNode\fP, \fBMPSCN
 
 .PP
 Reimplemented from \fBMPSNNFilterNode\fP\&.
+.SS "+ (nonnull instancetype) nodeWithSource: (\fBMPSNNImageNode\fP *__nonnull) sourceNode(\fBMPSNNNeuronDescriptor\fP *__nonnull) descriptor"
+Create a neuron node of the appropriate type with a \fBMPSNNNeuronDescriptor\fP 
 .SH "Property Documentation"
 .PP 
 .SS "\- (float) a\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"

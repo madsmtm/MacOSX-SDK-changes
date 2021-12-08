@@ -314,7 +314,7 @@ OSStatus SecItemExport(
      SecItemImportExportFlags               flags,                   /* kSecItemPemArmour, etc. */
      const SecItemImportExportKeyParameters * __nullable keyParams,  /* optional */
      CFDataRef * __nonnull CF_RETURNS_RETAINED exportedData)         /* external representation returned here */
-          API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+          API_AVAILABLE(macos(10.7), ios(NA));
 /*
  * SecKeychainItemImport()
  *
@@ -640,7 +640,7 @@ OSStatus SecItemImport(
      const SecItemImportExportKeyParameters * __nullable keyParams, /* optional */
      SecKeychainRef __nullable               importKeychain,        /* optional */
      CFArrayRef * __nullable CF_RETURNS_RETAINED outItems)          /* optional */
-          API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+          API_AVAILABLE(macos(10.7), ios(NA));
 #endif /* SEC_OS_OSX */
 
 /*!
@@ -653,9 +653,9 @@ OSStatus SecItemImport(
 extern const CFStringRef kSecImportExportPassphrase
     API_AVAILABLE(macos(10.6), ios(2.0));
 extern const CFStringRef kSecImportExportKeychain
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 extern const CFStringRef kSecImportExportAccess
-    API_AVAILABLE(macos(10.7), ios(NA), bridgeos(NA));
+    API_AVAILABLE(macos(10.7), ios(NA));
 
 /*!
     @enum Import/Export item description

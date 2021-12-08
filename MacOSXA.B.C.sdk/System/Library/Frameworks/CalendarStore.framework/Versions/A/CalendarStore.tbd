@@ -1,17 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A2D92399-4A5E-32C6-9824-DEF1E65E6088', 'x86_64: BB7446CC-8F7A-34FC-8D48-FAA94347F003' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 57D55B44-B5EF-32FB-8156-AB0AD06FF0B2' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/CalendarStore.framework/Versions/A/CalendarStore
-current-version: 1511
+current-version: 1518
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ CalCalendarItem._alarms, CalCalendarItem._calendar, CalCalendarItem._dateStamp, 
-                       CalCalendarItem._notes, CalCalendarItem._objectID, CalCalendarItem._reserved, 
-                       CalCalendarItem._title, CalCalendarItem._uid, CalCalendarItem._url, 
-                       CalCalendarItemPredicate._calendars, CalEventPredicate._endDate, 
-                       CalEventPredicate._startDate, CalEventPredicate._uid, CalPredicate._subpredicate ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _CalAlarmActionDisplay, _CalAlarmActionEmail, _CalAlarmActionProcedure, 
                        _CalAlarmActionSound, _CalAttendeeStatusAccepted, _CalAttendeeStatusDeclined, 
                        _CalAttendeeStatusNeedsAction, _CalAttendeeStatusTentative, 
@@ -33,4 +27,9 @@ exports:
                        CalCalendarStore, CalEvent, CalEventPredicate, CalGroup, CalNthWeekDay, 
                        CalPredicate, CalRecurrenceEnd, CalRecurrenceRule, CalTask, 
                        CalTaskPredicate ]
+    objc-ivars:      [ CalCalendarItem._alarms, CalCalendarItem._calendar, CalCalendarItem._dateStamp, 
+                       CalCalendarItem._notes, CalCalendarItem._objectID, CalCalendarItem._reserved, 
+                       CalCalendarItem._title, CalCalendarItem._uid, CalCalendarItem._url, 
+                       CalCalendarItemPredicate._calendars, CalEventPredicate._endDate, 
+                       CalEventPredicate._startDate, CalEventPredicate._uid, CalPredicate._subpredicate ]
 ...

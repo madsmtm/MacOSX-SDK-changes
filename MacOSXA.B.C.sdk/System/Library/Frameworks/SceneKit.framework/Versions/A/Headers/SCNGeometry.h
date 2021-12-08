@@ -1,7 +1,8 @@
 //
 //  SCNGeometry.h
+//  SceneKit
 //
-//  Copyright (c) 2012-2017 Apple Inc. All rights reserved.
+//  Copyright © 2012-2018 Apple Inc. All rights reserved.
 //
 
 #import <SceneKit/SceneKitTypes.h>
@@ -22,30 +23,20 @@ typedef NS_ENUM(NSInteger, SCNGeometryPrimitiveType) {
 	SCNGeometryPrimitiveTypeTriangleStrip                                              = 1,
 	SCNGeometryPrimitiveTypeLine                                                       = 2,
 	SCNGeometryPrimitiveTypePoint                                                      = 3,
-#if defined(SWIFT_SDK_OVERLAY2_SCENEKIT_EPOCH) && SWIFT_SDK_OVERLAY2_SCENEKIT_EPOCH >= 2
     SCNGeometryPrimitiveTypePolygon API_AVAILABLE(macos(10.12), ios(10.0), tvos(10.0)) = 4
-#endif
 };
 
-#if !(defined(SWIFT_SDK_OVERLAY2_SCENEKIT_EPOCH) && SWIFT_SDK_OVERLAY2_SCENEKIT_EPOCH >= 2)
-#define SCNGeometryPrimitiveTypePolygon (SCNGeometryPrimitiveType)4
-#endif
-
-#if defined(SWIFT_SDK_OVERLAY2_SCENEKIT_EPOCH) && SWIFT_SDK_OVERLAY2_SCENEKIT_EPOCH >= 3
 typedef NSString * SCNGeometrySourceSemantic NS_EXTENSIBLE_STRING_ENUM;
-#else
-typedef NSString * SCNGeometrySourceSemantic;
-#endif
 
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticVertex;
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticNormal;
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticColor;
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticTexcoord;
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticTangent API_AVAILABLE(macos(10.12), ios(10.0), tvos(10.0));
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticVertexCrease API_AVAILABLE(macos(10.10));
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticEdgeCrease API_AVAILABLE(macos(10.10));
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneWeights API_AVAILABLE(macos(10.10));
-FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneIndices API_AVAILABLE(macos(10.10));
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticVertex;
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticNormal;
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticColor;
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticTexcoord;
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticTangent API_AVAILABLE(macos(10.12), ios(10.0), tvos(10.0));
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticVertexCrease API_AVAILABLE(macos(10.10));
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticEdgeCrease API_AVAILABLE(macos(10.10));
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneWeights API_AVAILABLE(macos(10.10));
+SCN_EXPORT SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneIndices API_AVAILABLE(macos(10.10));
 
 // MARK: -
 
@@ -54,6 +45,7 @@ FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneI
  @abstract SCNGeometry is an abstract class that represents the geometry that can be attached to a SCNNode. 
  */
 
+SCN_EXPORT
 @interface SCNGeometry : NSObject <SCNAnimatable, SCNBoundingVolume, SCNShadable, NSCopying, NSSecureCoding>
 
 /*!
@@ -166,7 +158,7 @@ FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneI
  @abstract Specifies how the geometry should be tessellated at render time on the GPU. Defaults to nil.
  */
 #if SCN_ENABLE_METAL
-@property(nonatomic, retain, nullable) SCNGeometryTessellator *tessellator API_AVAILABLE(macos(10.13), ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+@property(nonatomic, retain, nullable) SCNGeometryTessellator *tessellator API_AVAILABLE(macos(10.13), ios(11.0), tvos(12.0)) API_UNAVAILABLE(watchos);
 #endif
 
 /*!
@@ -206,6 +198,7 @@ FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneI
  @abstract A geometry source contains geometry data for a specific semantic. The data format is described by properties.
  */
 
+SCN_EXPORT
 @interface SCNGeometrySource : NSObject <NSSecureCoding>
 
 /*! 
@@ -341,6 +334,7 @@ FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneI
  @abstract A geometry element describes how vertices from a geometry source are connected together.
  */
 
+SCN_EXPORT
 @interface SCNGeometryElement : NSObject <NSSecureCoding>
 
 /*!
@@ -373,7 +367,7 @@ FOUNDATION_EXTERN SCNGeometrySourceSemantic const SCNGeometrySourceSemanticBoneI
 
 /*!
  @property primitiveRange
- @abstract The sub range of the primitive to render. defaults to [NSNotFound, 0]
+ @abstract Specifies the subrange of primitves to render within NSMakeRange(0, primitiveCount). Defaults to NSMakeRange(NSNotFound, 0).
  @discussion When the location of the range is set to NSNotFound, the entire geometry element is rendered.
  */
 @property(nonatomic) NSRange primitiveRange API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
@@ -412,14 +406,14 @@ typedef NS_ENUM(NSInteger, SCNTessellationSmoothingMode) {
     SCNTessellationSmoothingModeNone = 0,
     SCNTessellationSmoothingModePNTriangles,
     SCNTessellationSmoothingModePhong
-} API_AVAILABLE(macos(10.13), ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+} API_AVAILABLE(macos(10.13), ios(11.0), tvos(12.0)) API_UNAVAILABLE(watchos);
 
 /*!
  @class SCNGeometryTessellator
  @abstract A geometry tessellator describes how a more detailed surface is calculated from the geometry's initial surface.
  */
 
-API_AVAILABLE(macos(10.13), ios(11.0)) API_UNAVAILABLE(tvos, watchos)
+SCN_EXPORT API_AVAILABLE(macos(10.13), ios(11.0), tvos(12.0)) API_UNAVAILABLE(watchos)
 @interface SCNGeometryTessellator : NSObject <NSCopying, NSSecureCoding>
 
 /*!

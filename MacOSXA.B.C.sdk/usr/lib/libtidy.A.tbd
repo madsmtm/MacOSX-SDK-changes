@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: EB1776E8-B1BC-34AD-AA1B-C09294F1BC86', 'x86_64: D1FF31AF-3000-366D-8714-09B2330007B5' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 435FB24F-0289-3330-B485-713909D6DA44' ]
 platform:        macosx
 install-name:    /usr/lib/libtidy.A.dylib
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _tidyAccessWarningCount, _tidyAttrFirst, _tidyAttrGetABBR, 
                        _tidyAttrGetALINK, _tidyAttrGetALT, _tidyAttrGetBGCOLOR, _tidyAttrGetById, 
                        _tidyAttrGetCHECKED, _tidyAttrGetCOLSPAN, _tidyAttrGetCONTENT, 

@@ -1,16 +1,40 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 7A55CF98-D8E8-3450-BA7C-14CDC26940C5' ]
+uuids:           [ 'x86_64: BEAFF405-81F4-33CB-89CA-73A1A3F4D2B3' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CloudServices.framework/Versions/A/CloudServices
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _SecureBackupBackOffDateWithInfo, _SecureBackupDisableWithInfo, 
                        _SecureBackupEnableWithInfo, _SecureBackupGetAccountInfoWithInfo, 
                        _SecureBackupKVSState, _SecureBackupRecoverWithInfo, _SecureBackupSetBackOffDateWithInfo, 
                        _SecureBackupUpdateMetadataWithInfo, _kCloudServicesErrorDomain, 
-                       _kCloudServicesRetryAfterKey, _kEscrowServiceErrorDomain, 
+                       _kCloudServicesRetryAfterKey, _kEscrowServiceAccountInfoKey, 
+                       _kEscrowServiceAuthenticationAppleID, _kEscrowServiceAuthenticationAuthToken, 
+                       _kEscrowServiceAuthenticationDSID, _kEscrowServiceAuthenticationEscrowProxyURL, 
+                       _kEscrowServiceAuthenticationPassword, _kEscrowServiceAuthenticationiCloudEnvironment, 
+                       _kEscrowServiceCertificateKey, _kEscrowServiceChallengeDeviceAreaCodeKey, 
+                       _kEscrowServiceChallengeDeviceCountryAlphaCodeKey, _kEscrowServiceChallengeDeviceCountryCodeKey, 
+                       _kEscrowServiceChallengeDeviceCountryDialCodeKey, _kEscrowServiceChallengeDeviceIDKey, 
+                       _kEscrowServiceChallengeDevicePhoneNumberKey, _kEscrowServiceChallengeDeviceTypeKey, 
+                       _kEscrowServiceCountrySMSCodesKey, _kEscrowServiceErrorBadParameters, 
+                       _kEscrowServiceErrorDomain, _kEscrowServiceErrorKey, _kEscrowServiceErrorMissingiCloudCredentials, 
+                       _kEscrowServiceErrorSRPFailure, _kEscrowServiceErrorUnavailable, 
+                       _kEscrowServiceErrorUnknown, _kEscrowServiceFMiPDataKey, _kEscrowServiceFMiPRecoveryKey, 
+                       _kEscrowServiceFMiPUUIDKey, _kEscrowServiceHSAEnabledKey, 
+                       _kEscrowServiceLabel, _kEscrowServiceNewPassphraseKey, _kEscrowServiceOperationFailure, 
+                       _kEscrowServiceOperationStatusKey, _kEscrowServiceOperationSuccess, 
+                       _kEscrowServicePassphraseKey, _kEscrowServiceRecordDataKey, 
+                       _kEscrowServiceRecordDateKey, _kEscrowServiceRecordIDKey, 
+                       _kEscrowServiceRecordLabelKey, _kEscrowServiceRecordMetadataHashKey, 
+                       _kEscrowServiceRecordMetadataKey, _kEscrowServiceRecordStatusInvalid, 
+                       _kEscrowServiceRecordStatusKey, _kEscrowServiceRecordStatusValid, 
+                       _kEscrowServiceRecordTimestampKey, _kEscrowServiceRecordVerifierKey, 
+                       _kEscrowServiceSMSChallengeCodeKey, _kEscrowServiceSMSChallengeDevicesKey, 
+                       _kEscrowServiceSMSChallengeLengthKey, _kEscrowServiceSMSChallengeRequiredKey, 
+                       _kEscrowServiceSMSTargetInfoKey, _kEscrowServiceSMSTargetRequiredKey, 
+                       _kEscrowServiceSilentAttemptKey, _kEscrowServiceStingrayLabel, 
+                       _kEscrowServiceUseRecoveryPETKey, _kEscrowServiceiCDPLabel, 
                        _kSecureBackupAccountIsHighSecurityKey, _kSecureBackupAlliCDPRecordsKey, 
                        _kSecureBackupAuthenticationAppleID, _kSecureBackupAuthenticationAuthToken, 
                        _kSecureBackupAuthenticationDSID, _kSecureBackupAuthenticationEscrowProxyURL, 

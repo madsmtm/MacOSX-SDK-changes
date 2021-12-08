@@ -1,11 +1,10 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 0D5AC6F7-867D-3E13-9068-733C89F31D81' ]
+uuids:           [ 'x86_64: 8B8986BF-AF18-3725-BC29-7642D9715523' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SiriCore.framework/Versions/A/SiriCore
 current-version: 0
 compatibility-version: 0
-swift-abi-version: 5
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _SiriCoreAceSerializationErrorDomain, _SiriCoreAceSerializationErrorUserInfoBytesAvailableKey, 
@@ -29,17 +28,17 @@ exports:
     objc-classes:    [ SASetRestrictionsThunk, SiriCoreAceConnectionAnalysisInfo, 
                        SiriCoreAceSerialization, SiriCoreConnectionMetrics, SiriCoreConnectionQueueMonitor, 
                        SiriCoreConnectionTCPInfoMetrics, SiriCoreConnectionType, 
-                       SiriCoreCorrectionPronunciation, SiriCoreDESEvaluationSession, 
-                       SiriCoreDESPreferences, SiriCoreDataCompressor, SiriCoreDataDecompressor, 
-                       SiriCoreErrorInfo, SiriCoreLocalSpeechDESRecord, SiriCoreLocalSpeechRecognizer, 
-                       SiriCoreLocalSpeechUserData, SiriCoreNWConnection, SiriCoreNetworkManager, 
-                       SiriCoreNetworkQualityReport, SiriCoreNetworkSessionProvider, 
-                       SiriCorePingInfo, SiriCoreSQLiteColumnConstraint, SiriCoreSQLiteColumnDescription, 
-                       SiriCoreSQLiteDatabase, SiriCoreSQLiteIndexDescription, SiriCoreSQLiteQuery, 
-                       SiriCoreSQLiteQueryCriterion, SiriCoreSQLiteQueryOrder, SiriCoreSQLiteQueryRange, 
-                       SiriCoreSQLiteQueryResult, SiriCoreSQLiteStatement, SiriCoreSQLiteTableConstraint, 
-                       SiriCoreSQLiteTableDescription, SiriCoreSiriBackgroundConnection, 
-                       SiriCoreSiriConnection, SiriCoreSiriConnectionInfo, SiriCoreSpeechPacket, 
+                       SiriCoreCorrectionPronunciation, SiriCoreDataCompressor, SiriCoreDataDecompressor, 
+                       SiriCoreErrorInfo, SiriCoreLinkRecommendationInfo, SiriCoreLocalSpeechRecognizer, 
+                       SiriCoreNWConnection, SiriCoreNWContext, SiriCoreNetworkActivity, 
+                       SiriCoreNetworkActivityTracing, SiriCoreNetworkManager, SiriCoreNetworkQualityReport, 
+                       SiriCoreNetworkSessionProvider, SiriCorePingInfo, SiriCoreSQLiteColumnConstraint, 
+                       SiriCoreSQLiteColumnDescription, SiriCoreSQLiteDatabase, SiriCoreSQLiteIndexDescription, 
+                       SiriCoreSQLiteQuery, SiriCoreSQLiteQueryCriterion, SiriCoreSQLiteQueryOrder, 
+                       SiriCoreSQLiteQueryRange, SiriCoreSQLiteQueryResult, SiriCoreSQLiteStatement, 
+                       SiriCoreSQLiteTableConstraint, SiriCoreSQLiteTableDescription, 
+                       SiriCoreSiriBackgroundConnection, SiriCoreSiriConnection, 
+                       SiriCoreSiriConnectionInfo, SiriCoreSpeechPacket, SiriCoreSymptomsReporter, 
                        SiriCoreUserCorrectionsProfileEntry, SiriCoreWLANDelegate, 
                        SiriCoreWiFiManagerClient, SiriCoreZlibDataCompressor, SiriCoreZlibDataDecompressor, 
                        _SAMetricsSendCompletionsProxy, _SiriCoreSQLiteColumnInfo, 

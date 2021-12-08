@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: A1BEEDBF-BA33-3A41-B52B-F4233BEDD010' ]
+uuids:           [ 'x86_64: 6DB17C3C-7BAF-3E37-87AF-8FFF2AA73E8C' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PAImaging.framework/Versions/A/PAImaging
-current-version: 3271.13.150
+current-version: 3401.5.160
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CATransform3DFromNSString, _CGAffineTransformFromNSString, 
@@ -11,7 +11,8 @@ exports:
                        _NSStringFromEditStatus, _PAAnimationDuration, _PACanvasItemViewFrameSizeDidChangeNotification, 
                        _PAImageItemViewDidChangeDisplayNotification, _PAImageItemViewOldBackingScaleFactorUserInfoKey, 
                        _PAImagingVersionNumber, _PAImagingVersionString, _PAImplicitAnimationEnabled, 
-                       _PALayerTraceBuffer, _PAMaskSupplier_getScaledPixels, _gAutoCalcTrace, 
+                       _PALayerTraceBuffer, _PAMaskSupplier_getScaledPixels, _RDAdjustmentCustomModernizerInvalidEncodingExceptionName, 
+                       _RDAdjustmentCustomModernizerMissingKeyExceptionName, _gAutoCalcTrace, 
                        _gDebugFileNumber, _g_extensions, _g_sharedPAGLUtilities, 
                        _g_sharedShaderSupport, _g_supportsARBFragmentProgram, _kCompositionName, 
                        _kFaceTileCompressionQuality, _kFullSizePreviewCompressionQuality, 
@@ -226,12 +227,12 @@ exports:
                        PAMasterSampler._sampleROI, PAMasterSampler._sampleScale, 
                        PAMultiLevelImage._device, PAMultiLevelImage._displayOrientation, 
                        PAMultiLevelImage._levels, PAMultiLevelImage._orientation, 
-                       PAMultiLevelImage._size, PAMutableVersionEditSession._clientRegistered, 
-                       PAMutableVersionEditSession._disableVideoComplement, PAMutableVersionEditSession._hideVideoComplement, 
-                       PAMutableVersionEditSession._newAdjustmentData, PAMutableVersionEditSession._newEditSource, 
-                       PAMutableVersionEditSession._newInputSize, PAMutableVersionEditSession._newOutputDurationInSeconds, 
-                       PAMutableVersionEditSession._newOutputOrientation, PAMutableVersionEditSession._newOutputSize, 
-                       PAMutableVersionEditSession._newRenderDescription, PAMutableVersionEditSession._newScaledOutputDurationInSeconds, 
+                       PAMultiLevelImage._size, PAMutableVersionEditSession._disableVideoComplement, 
+                       PAMutableVersionEditSession._hideVideoComplement, PAMutableVersionEditSession._newAdjustmentData, 
+                       PAMutableVersionEditSession._newEditSource, PAMutableVersionEditSession._newInputSize, 
+                       PAMutableVersionEditSession._newOutputDurationInSeconds, PAMutableVersionEditSession._newOutputOrientation, 
+                       PAMutableVersionEditSession._newOutputSize, PAMutableVersionEditSession._newRenderDescription, 
+                       PAMutableVersionEditSession._newScaledOutputDurationInSeconds, 
                        PAMutableVersionEditSession._newVideoComplementOutputSize, 
                        PAMutableVersionEditSession._newVideoPlaybackSettings, PAOpenGLContext._context, 
                        PAOpenGLContext._device, PAOpenGLContext._drawFBO, PAOpenGLContext._fbo, 

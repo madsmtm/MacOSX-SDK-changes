@@ -14,25 +14,24 @@ typedef NS_ENUM(NSUInteger, SKProductDiscountPaymentMode) {
     SKProductDiscountPaymentModePayAsYouGo,
     SKProductDiscountPaymentModePayUpFront,
     SKProductDiscountPaymentModeFreeTrial
-} NS_SWIFT_NAME(SKProductDiscount.PaymentMode);
+} NS_SWIFT_NAME(SKProductDiscount.PaymentMode) NS_AVAILABLE(10_13_2, 11_2);
 
 NS_ASSUME_NONNULL_BEGIN
 
-SK_EXTERN_CLASS_AVAILABLE(10_13_2) @interface SKProductDiscount : NSObject
-{
+SK_EXTERN_CLASS_AVAILABLE(10_13_2, 11_2) @interface SKProductDiscount : NSObject {
 @private
     id _internal;
 }
 
-@property(nonatomic, readonly) NSDecimalNumber *price;
+@property(nonatomic, readonly) NSDecimalNumber *price NS_AVAILABLE(10_13_2, 11_2);
 
-@property(nonatomic, readonly) NSLocale *priceLocale;
+@property(nonatomic, readonly) NSLocale *priceLocale NS_AVAILABLE(10_13_2, 11_2);
 
-@property(nonatomic, readonly) SKProductSubscriptionPeriod *subscriptionPeriod;
+@property(nonatomic, readonly) SKProductSubscriptionPeriod *subscriptionPeriod NS_AVAILABLE(10_13_2, 11_2);
 
-@property(nonatomic, readonly) NSUInteger numberOfPeriods;
+@property(nonatomic, readonly) NSUInteger numberOfPeriods NS_AVAILABLE(10_13_2, 11_2);
 
-@property(nonatomic, readonly) SKProductDiscountPaymentMode paymentMode;
+@property(nonatomic, readonly) SKProductDiscountPaymentMode paymentMode NS_AVAILABLE(10_13_2, 11_2);
 
 @end
 

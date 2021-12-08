@@ -1,33 +1,29 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: C107CE67-BF5F-3AC9-A514-C864310F2BBB', 'x86_64: A56D826D-20D2-34BE-AACC-A80CFCB4E915' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: BE9E71B4-C00E-317D-9093-6E637C905A09' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/IconServices.framework/Versions/A/IconServices
-current-version: 97.6
+current-version: 379
 exports:         
-  - archs:           [ i386 ]
-    symbols:         [ __ISAddPictToIconFamily, __ISGetIconSizesFromIconRef, __ISIconFamilyToIconSuite, 
-                       __ISIconRefToRgn, __ISIconSuiteToIconFamily, __ISPlotCIconHandleInContext, 
-                       __ISPlotIconHandleInContext, __ISPlotIconRefInCGContext, __ISPlotIconRefInPort, 
-                       __ISPlotIconRefInQDPort, __ISPlotIconSuiteInContext, __ISPlotSICNHandleInContext, 
-                       __ISPtInIconRef, __ISRectInIconRef, __ISRegisterIconRef ]
   - archs:           [ x86_64 ]
-    symbols:         [ __ISProcessIsRoot, _kIconCompilerImageInfoIsSelectedVariantKey, 
-                       _kIconCompilerImageInfoNameKey, _kIconCompilerImageInfoScaleKey, 
-                       _kIconCompilerImageInfoSizeKey ]
-    objc-classes:    [ ISIconset, ISImageDescriptor, ISMutableStoreIndex ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _ISCreateCGImageFromBindingWithSizeScaleAndOptions, __ISContextScale, 
-                       __ISCopyCacheContentsDescription, __ISCopyCachePath, __ISCopyICNSDataFromBinding, 
-                       __ISCreateCGImageForTypeAtScaleInternal, __ISCreateCGImageFromBindingWithSizeScaleAndOptions, 
-                       __ISCreateCGImageFromBindingWithSizeScaleAndOptionsAsync, 
+    symbols:         [ _ISCreateCGImageFromBindingWithSizeScaleAndOptions, __ISCopyCacheContentsDescription, 
+                       __ISCopyCachePath, __ISCopyICNSDataFromBinding, __ISCreateCGImageForTypeAtScaleInternal, 
+                       __ISCreateCGImageFromBindingWithSizeScaleAndOptions, __ISCreateCGImageFromBindingWithSizeScaleAndOptionsAsync, 
                        __ISGDBIconsCGCacheList, __ISGenerateCacheImagesFromBindingWithSizeRangeScaleAndOptions, 
                        __ISGetGlobalIconImagesCacheMaxEntriesAndMaxDataSize, __ISGetIconFamilyData, 
                        __ISGetIconRefVariant, __ISIconRefContainsCGPoint, __ISIconRefIntersectsCGRect, 
                        __ISIconRefToHIShape, __ISIconRefToIconFamily, __ISIconServicesGetCGImageRefFromIconRef, 
                        __ISIconServicesGetCGImageRefFromURL, __ISIsIconRefMaskEmpty, 
-                       __ISPlotIconRefInContext, __ISSetGlobalIconImagesCacheMaxEntriesAndMaxDataSize, 
-                       __ISSetIconFamilyData, __kISImageRequestTimeoutForeverKey ]
-    objc-classes:    [ ISIcns, ISIconCache, ISImage, ISMutableIcns, ISResourceFile, 
-                       ISStore, ISStoreIndex ]
+                       __ISPlotIconRefInContext, __ISPlotInContext, __ISProcessIsRoot, 
+                       __ISSetGlobalIconImagesCacheMaxEntriesAndMaxDataSize, __ISSetIconFamilyData, 
+                       __kISIconsInvalidatedDarwinNotification, __kISIconsInvalidatedNotification, 
+                       __kISImageRequestTimeoutForeverKey, _kISIcnsDarkVariantName, 
+                       _kISIcnsErrorDomain, _kISIcnsPrimaryVariantName, _kISIcnsSelectedVariantName, 
+                       _kISIcnsTemplateVariantName, _kIconCompilerImageInfoIsSelectedVariantKey, 
+                       _kIconCompilerImageInfoNameKey, _kIconCompilerImageInfoScaleKey, 
+                       _kIconCompilerImageInfoSizeKey ]
+    objc-classes:    [ ISBindingGenerationRequest, ISGenerationRequest, ISIcns, ISIcon, 
+                       ISIconCache, ISIconLayer, ISIconManager, ISIconObserver, ISIconset, 
+                       ISImage, ISImageDescriptor, ISMutableIcns, ISMutableStoreIndex, 
+                       ISResourceFile, ISStore, ISStoreIndex, ISStoreUnit ]
 ...

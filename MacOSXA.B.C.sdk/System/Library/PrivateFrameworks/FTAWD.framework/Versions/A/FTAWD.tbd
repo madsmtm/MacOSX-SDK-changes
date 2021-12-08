@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: B3C29BEE-181C-3456-8F78-1849FFDEEA04', 'x86_64: 7D35EE12-738A-3B15-87DB-40EB5F7CAD43' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: E58A1BEB-8A2A-3FA8-B472-CCA654EE7B65' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/FTAWD.framework/Versions/A/FTAWD
 current-version: 800
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _FTAWDLogCallAcceptReceived, _FTAWDLogCallAcceptSent, _FTAWDLogCallCancelSent, 
                        _FTAWDLogCallConnected, _FTAWDLogCallDeclineSent, _FTAWDLogCallEnded, 
                        _FTAWDLogCallEndedViceroy, _FTAWDLogCallFailed, _FTAWDLogCallInterruptionBegan, 
@@ -18,13 +18,12 @@ exports:
                        _FTAWDLogIMessageCloudKitValidatePurgeableAttachment, _FTAWDLogIMessageDeduplicated, 
                        _FTAWDLogIMessageDelivered, _FTAWDLogIMessageDowngrade, _FTAWDLogIMessageHealthCheckPerformed, 
                        _FTAWDLogIMessageQueryFinished, _FTAWDLogIMessageReceived, 
-                       _FTAWDLogIMessageReversePushQueryPerformed, _FTAWDLogIMessageSent, 
-                       _FTAWDLogIMessageSentWithConnectionType, _FTAWDLogRegistrationAuthenticate, 
-                       _FTAWDLogRegistrationGetDependentRegistrations, _FTAWDLogRegistrationGetHandles, 
-                       _FTAWDLogRegistrationPhoneNumberReceivedSMS, _FTAWDLogRegistrationPhoneNumberValidationFinished, 
-                       _FTAWDLogRegistrationProfileAuthenticate, _FTAWDLogRegistrationProfileLinkHandles, 
-                       _FTAWDLogRegistrationProfileUnLinkHandles, _FTAWDLogRegistrationProfileValidateHandle, 
-                       _FTAWDLogRegistrationProfileValidateInvitationContext, _FTAWDLogRegistrationRegister, 
-                       _FTAWDLogRegistrationRenewCredentialsCompleted, _FTAWDLogSMSReceived, 
-                       _FTAWDLogSMSSent, _FTAWDSetSubmissionDate ]
+                       _FTAWDLogIMessageSent, _FTAWDLogIMessageSentWithConnectionType, 
+                       _FTAWDLogRegistrationAuthenticate, _FTAWDLogRegistrationGetDependentRegistrations, 
+                       _FTAWDLogRegistrationGetHandles, _FTAWDLogRegistrationPhoneNumberReceivedSMS, 
+                       _FTAWDLogRegistrationPhoneNumberValidationFinished, _FTAWDLogRegistrationProfileAuthenticate, 
+                       _FTAWDLogRegistrationProfileLinkHandles, _FTAWDLogRegistrationProfileUnLinkHandles, 
+                       _FTAWDLogRegistrationProfileValidateHandle, _FTAWDLogRegistrationProfileValidateInvitationContext, 
+                       _FTAWDLogRegistrationRegister, _FTAWDLogRegistrationRenewCredentialsCompleted, 
+                       _FTAWDLogSMSReceived, _FTAWDLogSMSSent, _FTAWDSetSubmissionDate ]
 ...

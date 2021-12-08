@@ -1,4 +1,4 @@
-.TH "<MPSCNNConvolutionDataSource >" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "<MPSCNNConvolutionDataSource >" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,7 +9,7 @@
 .PP
 \fC#import <MPSCNNConvolution\&.h>\fP
 .PP
-Inherits <MPSStateNSObject>\&.
+Inherits <MPSStateNSCopying>, and <NSObject>\&.
 .SS "Instance Methods"
 
 .in +1c
@@ -41,10 +41,16 @@ Inherits <MPSStateNSObject>\&.
 .RI "(float *__nonnull) \- \fBlookupTableForUInt8Kernel\fP"
 .br
 .ti -1c
+.RI "(\fBMPSCNNWeightsQuantizationType\fP) \- \fBweightsQuantizationType\fP"
+.br
+.ti -1c
 .RI "(\fBMPSCNNConvolutionWeightsAndBiasesState\fP *__nullable) \- \fBupdateWithCommandBuffer:gradientState:sourceState:\fP"
 .br
 .ti -1c
 .RI "(BOOL) \- \fBupdateWithGradientState:sourceState:\fP"
+.br
+.ti -1c
+.RI "(nonnull instancetype) \- \fBcopyWithZone:device:\fP"
 .br
 .in -1c
 .SH "Method Documentation"
@@ -55,6 +61,8 @@ Returns a pointer to the bias terms for the convolution\&.  Each entry in the ar
 Frequently, this function is a single line of code to return a pointer to memory allocated in -load\&. It may also just return nil\&.
 .PP
 Note: bias terms are always float, even when the weights are not\&. 
+.SS "\- (nonnull instancetype \fBMPSCNNConvolutionDataSource\fP) copyWithZone: (nullable NSZone *) zone(nullable id< MTLDevice >) device\fC [optional]\fP"
+When copyWithZone:device on convolution is called, data source copyWithZone:device will be called if data source object responds to this selector\&. If not, copyWithZone: will be called if data source responds to it\&. Otherwise, it is simply retained\&. This is to allow application to make a separate copy of data source in convolution when convolution itself is coplied, for example when copying training graph for running on second GPU so that weights update on two different GPUs dont end up stomping same data source\&. 
 .SS "\- (\fBMPSDataType\fP \fBMPSCNNConvolutionDataSource\fP) dataType \fC [required]\fP"
 Alerts MPS what sort of weights are provided by the object  For \fBMPSCNNConvolution\fP, MPSDataTypeUInt8, MPSDataTypeFloat16 and MPSDataTypeFloat32 are supported for normal convolutions using \fBMPSCNNConvolution\fP\&. \fBMPSCNNBinaryConvolution\fP assumes weights to be of type MPSDataTypeUInt32 always\&. 
 .SS "\- (\fBMPSCNNConvolutionDescriptor\fP * __nonnull \fBMPSCNNConvolutionDataSource\fP) descriptor \fC [required]\fP"
@@ -102,7 +110,7 @@ float weight = unorm8_weight * (max - min) + min
 .PP
  
 .SS "\- (\fBMPSCNNConvolutionWeightsAndBiasesState\fP* __nullable \fBMPSCNNConvolutionDataSource\fP) updateWithCommandBuffer: (__nonnull id< MTLCommandBuffer >) commandBuffer(\fBMPSCNNConvolutionGradientState\fP *__nonnull) gradientState(\fBMPSCNNConvolutionWeightsAndBiasesState\fP *__nonnull) sourceState\fC [optional]\fP"
-Callback for the \fBMPSNNGraph\fP to update the convolution weights on GPU\&. 
+Callback for the \fBMPSNNGraph\fP to update the convolution weights on GPU\&.  It is the resposibility of this method to decrement the read count of both the gradientState and the sourceState before returning\&. BUG: prior to macOS 10\&.14, ios/tvos 12\&.0, the \fBMPSNNGraph\fP incorrectly decrements the readcount of the gradientState after this method is called\&.
 .PP
 \fBParameters:\fP
 .RS 4
@@ -150,6 +158,8 @@ Frequently, this function is a single line of code to return a pointer to memory
 Batch normalization parameters are set using -descriptor\&.
 .PP
 Note: For binary-convolutions the layout of the weights are: weight[ outputChannels ][ kernelHeight ][ kernelWidth ][ floor((inputChannels/groups)+31) / 32 ] with each 32 sub input feature channel index specified in machine byte order, so that for example the 13th feature channel bit can be extracted using bitmask = (1U << 13)\&. 
+.SS "\- (\fBMPSCNNWeightsQuantizationType\fP \fBMPSCNNConvolutionDataSource\fP) weightsQuantizationType \fC [optional]\fP"
+Quantizaiton type of weights\&. If it returns MPSCNNWeightsQuantizationTypeLookupTable, lookupTableForUInt8Kernel method must be implmented\&. if it returns MPSCNNWeightsQuantizationTypeLookupLinear, rangesForUInt8Kernel method must be implemented\&. 
 
 .SH "Author"
 .PP 

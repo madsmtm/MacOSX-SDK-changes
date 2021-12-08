@@ -1,12 +1,12 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 68D3D209-BCB1-3750-8632-C12DE8F250B1', 'x86_64: 5206C8B0-22DA-36C9-998E-846EDB626D5B' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: D6503F37-7EBC-32C1-95CC-A35EFC54E7ED' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Ink.framework/Versions/A/Ink
-current-version: 220
+current-version: 225
 parent-umbrella: Carbon
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     allowable-clients: [ Ink ]
     symbols:         [ _ArProbDecodeLu, _AtEnd, _BPNetEvaluate, _BPNetLearnEnable, 
                        _BPNetLoad, _BiGFindBiGrammarIndexByName, _BiGHasWord, _BiGrammarsLoad, 

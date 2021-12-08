@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 87F14199-C445-34C2-90F8-57C29212483E' ]
+uuids:           [ 'x86_64: C469D1E5-F621-3E56-87AC-1BD889664FA3' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/MetalPerformanceShaders.framework/Frameworks/MPSImage.framework/Versions/A/MPSImage
-current-version: 100.6
+current-version: 121.0.3
 parent-umbrella: MetalPerformanceShaders
 exports:         
   - archs:           [ x86_64 ]
@@ -16,7 +16,9 @@ exports:
                        MPSImageFindKeypoints, MPSImageGaussianBlur, MPSImageGaussianPyramid, 
                        MPSImageGuidedFilter, MPSImageHistogram, MPSImageHistogramEqualization, 
                        MPSImageHistogramSpecification, MPSImageIntegral, MPSImageIntegralOfSquares, 
-                       MPSImageLanczosScale, MPSImageLaplacian, MPSImageMedian, MPSImageMultiply, 
+                       MPSImageLanczosScale, MPSImageLaplacian, MPSImageLaplacianPyramid, 
+                       MPSImageLaplacianPyramidAdd, MPSImageLaplacianPyramidSubtract, 
+                       MPSImageMedian, MPSImageMultiply, MPSImageNormalizedHistogram, 
                        MPSImageReduceColumnMax, MPSImageReduceColumnMean, MPSImageReduceColumnMin, 
                        MPSImageReduceColumnSum, MPSImageReduceRowMax, MPSImageReduceRowMean, 
                        MPSImageReduceRowMin, MPSImageReduceRowSum, MPSImageSobel, 
@@ -24,7 +26,7 @@ exports:
                        MPSImageStatisticsMinAndMax, MPSImageSubtract, MPSImageTent, 
                        MPSImageThresholdBinary, MPSImageThresholdBinaryInverse, MPSImageThresholdToZero, 
                        MPSImageThresholdToZeroInverse, MPSImageThresholdTruncate, 
-                       MPSImageTranspose, MPSUnaryImageKernel ]
+                       MPSImageTranspose, MPSMatrixCopyToImage, MPSUnaryImageKernel ]
     objc-ivars:      [ MPSBinaryImageKernel._encode, MPSBinaryImageKernel._encodeData, 
                        MPSUnaryImageKernel._encode, MPSUnaryImageKernel._encodeData, 
                        MPSUnaryImageKernel._getPreferredTileSize ]

@@ -396,7 +396,7 @@ typedef NSString *__nonnull (^AUImplementorDisplayNameWithLengthCallback)(AUPara
 		Hosts should not access this class; it will be instantiated when needed when creating an
 		AUAudioUnit.
 */
-NS_CLASS_AVAILABLE(10_11, 9_0)
+OS_EXPORT API_AVAILABLE(macos(10.11), ios(9.0), watchos(2.0), tvos(9.0))
 @interface AUAudioUnitV2Bridge : AUAudioUnit
 @end
 

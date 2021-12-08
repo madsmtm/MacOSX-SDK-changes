@@ -1,7 +1,7 @@
 /*
 	NSSegmentedControl.h
 	Application Kit
-	Copyright (c) 2003-2017, Apple Inc.
+	Copyright (c) 2003-2018, Apple Inc.
 	All rights reserved.
 */
 
@@ -50,10 +50,10 @@ typedef NS_ENUM(NSInteger, NSSegmentDistribution) {
 
 @interface NSSegmentedControl : NSControl <NSUserInterfaceCompression> {
   @private
-    NSInteger _reserved1;
-    NSInteger _reserved2;
-    NSInteger _reserved3;
-    id        _scAux;
+    NSInteger _reserved1 APPKIT_IVAR;
+    NSInteger _reserved2 APPKIT_IVAR;
+    NSInteger _reserved3 APPKIT_IVAR;
+    id        _scAux APPKIT_IVAR;
 }
 
 @property NSInteger segmentCount;

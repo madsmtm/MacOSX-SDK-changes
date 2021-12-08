@@ -1,5 +1,5 @@
 .\"
-.\" Copyright (c) 1998-2017 Apple Inc. All rights reserved.
+.\" Copyright (c) 1998-2018 Apple Inc. All rights reserved.
 .\"
 .\" This file contains Original Code and/or Modifications of Original Code
 .\" as defined in and that are subject to the Apple Public Source License
@@ -16,7 +16,7 @@
 .\" Please see the License for the specific language governing rights and
 .\" limitations under the License.
 .\"
-.Dd 17 January 2018
+.Dd 14 June 2018
 .Os "macOS"
 .Dt DISKUTIL 8
 .Pp
@@ -324,15 +324,23 @@ Running as root is required.
 .\"             -- verifyVolume --
 .It Sy verifyVolume Ar device
 .br
-Verify the file system data structures of a volume.  The appropriate fsck program is executed and
-the volume is left mounted or unmounted as it was before the command.
+Verify the file system data structures of a volume.
+The appropriate fsck program is executed and
+the volume is attempted to be left mounted or unmounted as it was before the command.
+Any underlying Storage System (e.g. Core Storage, APFS) is verified before the target volume itself.
+In certain cases, "live" verify, including of the boot volume, is supported.
 Ownership of the disk to be verified is required.
 .\"
 .\"             -- repairVolume --
 .It Sy repairVolume Ar device
 .br
-Repair the file system data structures of a volume.  The appropriate fsck program is executed and
-the volume is left mounted or unmounted as it was before the command.
+Repair the file system data structures of a volume.
+The appropriate fsck program is executed and
+the volume is attempted to be left mounted or unmounted as it was before the command.
+Any underlying Storage System (e.g. Core Storage, APFS) is repaired before the given target volume.
+In most cases (e.g. except mount-read-only), the target volume must be unmountable;
+in all cases, the underlying storage media must be writable.
+"Live" repair (e.g. of a file-writable mounted volume) is not supported.
 Ownership of the affected disk is required.
 .\"
 .\"             -- verifyDisk --
@@ -352,6 +360,21 @@ The repairs further include, but are not limited to, the repair or creation of a
 the integrity of any Core Storage Physical Volume partitions,
 and the provisioning of space for boot loaders.
 Ownership of the affected disk is required; it must be a whole disk and must have a partition map.
+.\"
+.\"             -- resetFusion --
+.It Sy resetFusion
+.br
+For Fusion Drive machine hardware configurations, reset the disk devices in
+the machine to a factory-like state (one empty Fusion volume).
+This command requires the machine to contain exactly one internal solid-state device (SSD)
+and one internal rotational device (HDD); if so, you are prompted, and if you confirm, both
+devices are (re)-partitioned with GPT maps and a Core Storage Fusion Drive volume is created.
+No system software is installed and no user data is restored.
+All data on the machine is lost, including any "extra" partitions (e.g. for
+Boot Camp or other "user" purposes). You generally must be booted from the
+Internet Recovery System (CMD-OPT-R) or from an externally-connected macOS boot disk (e.g. a USB
+drive), because you cannot erase a volume with a currently-running macOS.
+Ownership of the affected disks is required.
 .\"
 .\"             -- eraseDisk --
 .It Sy eraseDisk Ar format Ar name 
@@ -493,10 +516,12 @@ should be one of the following:
 .\" List-End-SecureEraseOptions
 .El
 .Pp
-NOTE: This kind of secure erase is no longer considered safe because modern devices have wear-leveling,
-block-sparing, and possibly-persistent cache hardware. The modern solution for quickly and securely
-erasing your data is strong encryption, with which mere destruction of the key more or
-less instantly renders your data irretrievable in practical terms.
+NOTE: This kind of secure erase is no longer considered safe. Modern devices have wear-leveling,
+block-sparing, and possibly-persistent cache hardware, which cannot be completely erased by these
+commands. The modern solution for quickly and securely
+erasing your data is encryption. Strongly-encrypted data can be instantly "erased" by
+destroying (or losing) the key (password), because this renders your data irretrievable in practical terms.
+Consider using APFS encryption (FileVault).
 .\"
 .\"             -- partitionDisk --
 .It Sy partitionDisk Ar device
@@ -847,7 +872,7 @@ Optional file-level encryption is supported.
 The format of an APFS Volume's device identifier is that of a slice disk of a special whole-disk;
 both disks are synthesized by APFS. The "whole" identifier number (a positive possibly-multi-digit integer)
 is arbitrary, and the "slice" numbers (positive possibly-multi-digit integers) count up from 1 with each
-new Volume. Deleting Volumes may cause gaps in the numbering until the next eject/attach cycle.
+new Volume. Deleting Volumes may cause gaps in the numbering.
 This form appears the same as a partition (map) scheme and partitions, but it is completely unrelated.
 For example: If "disk3s2" is a Physical Store defining a Container, then "disk5s1", "disk5s2", and "disk5s3"
 might be the Container's Volumes; "disk5" exists but is never used directly.
@@ -922,11 +947,33 @@ instead of the normal user-readable output.
 .\"             -- APFS > convert  --
 .It Sy convert Ar device
 .Op Nm -dryrun
+.Op Nm -prebootSource Ar yourStagingDirectory
+.Op Nm -noPrebootAdditions
 .br
-Non-destructively convert an HFS volume to an APFS Container with a single
-APFS Volume. The APFS Container can then be manipulated (e.g. adding and deleting APFS Volumes) as usual.
-The source HFS volume can be located on a partition or on a CoreStorage logical volume (LV);
-in the latter case, the CoreStorage logical volume group (LVG) is dismantled.
+Non-destructively convert an HFS volume to an APFS Container with a single (but see below)
+APFS Volume. The APFS Container can later be manipulated (e.g. adding and deleting APFS Volumes) as usual.
+This verb can be used to convert nonbootable "data"-only volumes as well as "macOS" volumes (see below).
+.Pp
+The source HFS volume can be located on a GPT partition or on an encrypted or non-encrypted, Fusion or non-Fusion
+CoreStorage logical volume (LV).
+In the latter case, the CoreStorage logical volume group (LVG) is dismantled, including automatic removal
+of any related Boot Camp Assistant partition(s).
+.Pp
+If
+.Sy -dryrun
+is specified, all calculations, checks, and some data moving is performed, but your disk is
+left as valid HFS (headers remain declared as HFS, partition types are left alone, etc).
+.Pp
+For volumes currently or planned to be macOS-bearing (and bootable), you can optionally specify
+.Sy -prebootSource
+with your own staging directory of macOS boot items; a Preboot Role APFS Volume with a UUID directory
+will automatically be created as part of the conversion process to facilitate macOS bootstrap.
+Normally your directory should be writable;
+additional (cryptographic and EFI rendering) items are automatically added to your directory
+prior to conversion and are not removed afterwards.
+You can opt-out of automatic item addition with the
+.Sy -noPrebootAdditions
+option.
 .Pp
 Ownership of the affected disks is required.
 .\"
@@ -937,6 +984,7 @@ Ownership of the affected disks is required.
 .br
 Convenience verb which creates an empty APFS Container and then adds one APFS Volume with the given name.
 The APFS Volume will have default attributes such as no encryption, no capacity reserve nor quota, etc.
+If you specify more than one device, a Fusion Container is created, with the performance roles assigned automatically.
 This is a combination of the
 .Sy diskutil apfs createContainer
 and
@@ -960,9 +1008,10 @@ assigned automatically (preferred) unless you use the
 .Sy -main
 and
 .Sy -secondary
-options, in which case, the secondary disk is assumed by APFS's performance algorithms to be on "slower" hardware.
-The secondary disk is usually not solid solid state, is usually larger, and is used to store associated "auxiliary"
-data such as any Windows partition(s) for Boot Camp Assistant.
+options, in which case, the secondary device is assumed by APFS's performance algorithms to be on "slower" hardware.
+The secondary device is often used to store associated "auxiliary" data, such as a Boot Camp Assistant partition.
+If you need to make a choice among multiple hardware devices, you should assign any rotational (not solid state) and/or larger
+devices to be secondary.
 .Pp
 You may then add APFS Volumes with the
 .Sy diskutil apfs addVolume
@@ -1105,7 +1154,7 @@ simultaneously; however, the reserve is not allowed to be larger than the quota.
 APFS Volumes can carry certain metadata hint flags; you can supply the
 .Ar role
 parameter with any combination of one or more of the characters
-.Sy BRV,
+.Sy BRVI,
 or
 .Sy 0
 as a no-op for scripting convenience.
@@ -1167,7 +1216,7 @@ Change the role metadata flag bits of an existing APFS Volume.
 The
 .Ar roles
 should be any combination of one or more of the characters
-.Sy brvBRV
+.Sy brviBRVI
 in much the same manner as
 .Sy diskutil
 .Sy apfs
@@ -1349,7 +1398,7 @@ Ownership of the affected disks is required.
 .\"             -- APFS > decryptVolume --
 .It Sy decryptVolume | decrypt | disableFileVault
 .Ar volumeDevice
-.Op Sy -user disk | Ar existingCryptoUserUUID
+.Op Sy -user disk | Ar existingCryptoUserUUID | Sy -recoverykeychain Ar file
 .Op Sy -passphrase Ar existingPassphrase | Sy -stdinpassphrase
 .br
 Start decryption of a currently-encrypted APFS Volume ("Disable FileVault").
@@ -1364,6 +1413,12 @@ You choose that user with
 if you do not supply it (or supply the word
 .Sy disk )
 then the "Disk User" is assumed.
+.Pp
+As an alternative to a passphrase, you can specify
+.Sy -recoverykeychain
+with a full path, in the same fashion as the
+.Sy unlockVolume
+verb.
 .Pp
 If you do not supply a passphrase, yet one is required, you will be prompted interactively by cryptographic user UUID.
 .Pp
@@ -1390,6 +1445,23 @@ is specified, then a property list will be emitted instead of the normal user-re
 .br
 Remove the given APFS Snapshot from its APFS Volume.
 The ability to restore the state of the APFS Volume back to that point in its evolution will be lost.
+.Pp
+Ownership of the affected disks is required.
+.\"
+.\"             -- APFS > defragment --
+.It Sy defragment
+.Ar containerDevice
+|
+.Ar volumeDevice
+.Sy status
+|
+.Sy enable
+|
+.Sy disable
+.br
+Manage defragmentation of APFS at the Container or Volume level. The "status" command shows
+whether automatic defragmentation is enabled. You can set this automatic defragmentation behavior
+by specifying "enable" or "disable".
 .Pp
 Ownership of the affected disks is required.
 .\"
@@ -2206,8 +2278,8 @@ It may take the form of
 .Pa diskUsS ,
 .Pa diskUsQ ,
 or
-.Pa diskUsV ,
-where U, S, Q and V
+.Pa diskCsV ,
+where U, C, S, Q and V
 are positive decimal integers (possibly multi-digit), and where:
 .\" List-Begin-BSDComponents
 .Bl -bullet -offset indent
@@ -2216,6 +2288,10 @@ are positive decimal integers (possibly multi-digit), and where:
 is the device unit.
 It may refer to hardware (e.g. a hard drive, optical drive, or memory card) or a virtual "drive"
 constructed by software (e.g. an AppleRAID Set, disk image, CoreStorage LV, etc).
+.It
+.Pa C
+is an APFS Container.
+This is a a virtual disk constructed by APFS to represent a collection of APFS Volumes.
 .It
 .Pa Q
 is the session and is only included for optical media; it refers to the number of times recording has taken
@@ -2229,7 +2305,7 @@ the system software (e.g. EFI partitions, booter partitions, APM partition map d
 backing-store physical volumes for AppleRAID, CoreStorage, APFS, or 3rd-party Storage Systems.
 .It
 .Pa V
-is an APFS "Volume"; it refers to a virtual logical volume that is shared out of an APFS Container.
+is an APFS Volume; it refers to a virtual logical volume that is shared out of an APFS Container.
 For example, if an Apple_APFS-typed partition is on disk5s2,
 then disk5s2 is termed the APFS Physical Store which is imported into an APFS Container. The APFS Container might then export
 e.g. disk8s1, which is termed an APFS Volume, which is mountable as a file system. Multiple APFS Volumes can be exported
@@ -2245,7 +2321,7 @@ For example,
 .Pa diskUsQ ,
 .Pa diskUsS ,
 and
-.Pa diskUsV
+.Pa diskCsV
 are all 2-part forms that can mean different things: For non-optical media, it identifies a partition (on a partition map) upon
 which (file system) data is stored; for optical media, it identifies a session upon which an entire partition map (with its
 partitions with file systems) is stored; for an APFS setup, it identifies an APFS Volume. As another example,
@@ -2263,7 +2339,9 @@ as the various UUIDs.
 .\"
 .Pp
 .Sh SIZES
-Wherever a size is emitted as an output, it is presented as a base-ten approximation to the precision of one fractional decimal
+Wherever a size is emitted as an
+.Sy output ,
+it is presented as a base-ten approximation to the precision of one fractional decimal
 digit and a base-ten SI multiplier, often accompanied by a precise count in bytes. Scripts should refrain from parsing this
 human-readable output and use the
 .Sy -plist
@@ -2271,13 +2349,18 @@ option instead.
 .Pp
 Wherever a
 .Ar size
-is to be supplied by you as an input, you can provide values in several different ways, some absolute and some context-sensitive.
-All suffixes described below are interpreted in a case-insensitive manner. The
-.Sy B
-is optional.
+is to be supplied by you as an
+.Sy input ,
+you can provide values in a number of different ways, some absolute and some context-sensitive.
+Values are interpreted as base ten and must be positive with no preceding "+".
+An integer without a suffix is taken to mean an exact number of bytes (e.g. 5368709120).
+Multiplier suffixes are optional, must follow your value immediately without whitespace, and allow your value
+to be a real number (e.g. 5.1234t).
+Some of the specifiers below should not have a preceding value at all (e.g. the letter
+.Sy R
+for "remainder").
 .Pp
-The most common way is to specify absolute values as a decimal number, possibly followed by a period and a
-decimal fraction, followed without whitespace with a suffix as follows:
+Power-of-ten suffixes:
 .\" List-Begin-SizeSuffixes-1
 .Bl -bullet -offset indent
 .It
@@ -2319,21 +2402,9 @@ where the multiplier is 1000000000000000000 (1 x 10^18).
 .\" List-End-SizeSuffixes-1
 .El
 .Pp
-You can also use the following suffixes:
+Power-of-two suffixes:
 .\" List-Begin-SizeSuffixes-2
 .Bl -bullet -offset indent
-.It
-.Sy S | UAM
-("sectors") is
-.Sy 512-byte
-.Sy units
-(device-independent) where the multiplier is always 512.
-.It
-.Sy DBS
-("device block size") is the
-.Sy device-dependent
-native block size of the encompassing whole disk, if applicable,
-where the multiplier is often 512, but not always; indeed it might not be a power of two.
 .It
 .Sy Ki[B]
 is power of two
@@ -2367,9 +2438,31 @@ where the multiplier is 1152921504606846976 (1 x 2^60).
 .\" List-End-SizeSuffixes-2
 .El
 .Pp
-In certain contexts (e.g. when specifying partition triplets) you can provide a relative value as follows:
+The following are useful when working with devices and partition maps:
 .\" List-Begin-SizeSuffixes-3
 .Bl -bullet -offset indent
+.It
+.Sy S | UAM
+("sectors") is
+.Sy 512-byte
+.Sy units
+(device-independent) where the multiplier is always 512.
+.It
+.Sy DBS
+("device block size") is the
+.Sy device-dependent
+native block size of the encompassing whole disk, if applicable,
+where the multiplier is often 512, but not always; indeed it might not be a power of two.
+.El
+.Pp
+In certain contexts (e.g. when asking to "use all space available", or when building partition triplets)
+you can provide a relative value as follows:
+.\" List-Begin-SizeSuffixes-4
+.Bl -bullet -offset indent
+.It
+.Sy 0
+(the number zero) is a request to allocate "all possible". This may mean different things in different contexts.
+For partition maps, this requests allocation until the start of the following partition or the end of the partition map's allocatable space.
 .It
 .Sy %
 (with a preceding number) is a
@@ -2386,18 +2479,20 @@ of the whole-disk size or other allocatable size after all other triplets in the
 It need not be in the last triplet.  It must only appear in at most one triplet among all triplets.
 Use of
 .Sy R
-is not supported in all situations.
-.\" List-End-SizeSuffixes-3
+is not supported in all situations; in some such cases, a value of
+.Sy 0
+is more appropriate.
+.\" List-End-SizeSuffixes-4
 .El
 .Pp
 You can provide an operating system-defined constant value as follows:
-.\" List-Begin-SizeSuffixes-4
+.\" List-Begin-SizeSuffixes-5
 .Bl -bullet -offset indent
 .It
 .Sy %recovery%
 (with no preceding number) is the
-customary size of macOS Recovery Partitions.
-.\" List-End-SizeSuffixes-4
+customary size of pre-macOS-13.0 Recovery Partitions.
+.\" List-End-SizeSuffixes-5
 .El
 .Pp
 Note again that
@@ -2435,41 +2530,79 @@ Common examples include JHFS+, JHFSX, MS-DOS, etc, as nicknames for the canonica
 forms from the file system bundles such as "Case-sensitive HFS+".
 .Pp
 .Sh EXAMPLES
-Erase a disk 
+Erase a whole disk (device)
 .br
 diskutil eraseDisk JHFS+ Untitled disk3
 .Pp
-Erase a volume 
+Erase a volume (or format a partition or virtual disk)
 .br
-diskutil eraseVolume HFS+ UntitledHFS /Volumes/SomeDisk
+diskutil eraseVolume jhfs+ UntitledHFS /Volumes/SomeDisk
 .Pp
-Partition a disk with three partitions
+Erase and (re)-partition a disk (device) with three partitions
 .br
-diskutil partitionDisk disk3 3 HFSX Name1 10G JHFS+ Name2 10G MS-DOS NAME3 10G
+diskutil partitionDisk disk3 HFSX Foo1 10G JHFS+ Foo2 10G MS-DOS FOO3 0
 .Pp
-Partition a disk with the APM partitioning scheme
+Erase and format with a different volume file system
 .br
-diskutil partitionDisk disk3 APM HFS+ vol1 25% Journaled\\ HFS+ vol2 25% Journaled\\ HFS+ vol3 50% Free\\ Space volX 0%
+diskutil eraseVolume ExFAT FOO disk3s2
 .Pp
-Partition a disk with the GPT partitioning scheme
+Remove a partition from a partition map altogether
 .br
-diskutil partitionDisk disk3 GPT HFS+ vol1 25% MS-DOS VOL2 25% HFS+ vol3 50% Free\\ Space volX 0% 
+diskutil eraseVolume free free disk3s2
 .Pp
-Resize a volume and create a volume after it, using all remaining space
+Convert a HFS disk to APFS
 .br
-diskutil resizeVolume /Volumes/SomeDisk 50g MS-DOS DOS 0b
+diskutil apfs convert disk3s2
 .Pp
-Resize a volume and leave all remaining space as unused
+Create a new APFS Container with three new APFS Volumes
+.br
+diskutil apfs createContainer disk0s2
+.br
+diskutil apfs addVolume disk8 APFS MyVolume1
+.br
+diskutil apfs addVolume disk8 APFS MyVolume2 -passprompt
+.br
+diskutil apfs addVolume disk8 APFS MyVolume3 -quota 10g
+.br
+diskutil apfs list
+.Pp
+Encrypt an APFS Volume (enable FileVault)
+.br
+diskutil apfs encryptVolume disk8s1 -user disk
+.Pp
+Lock or unlock an APFS Volume
+.br
+diskutil apfs list disk8
+.br
+diskutil apfs lockVolume disk8s1
+.br
+diskutil apfs unlockVolume disk8s1
+(tries all users)
+.br
+diskutil apfs unlockVolume disk8s2 -user
+.Ar USERUUID
+(tries specific user)
+.Pp
+Decrypt an APFS Volume (disable FileVault)
+.br
+diskutil apfs listUsers disk8s1
+.br
+diskutil apfs decryptVolume disk8s1 -user
+.Ar USERUUID
+.Pp
+Remove an APFS Volume from its APFS Container altogether
+.br
+diskutil apfs deleteVolume disk8s3
+.Pp
+Resize an HFS volume and create a volume after it
+.br
+diskutil resizeVolume /Volumes/SomeDisk 50g MS-DOS DOS 0
+.Pp
+Resize an HFS volume and leave all remaining space as unused
 .br
 diskutil resizeVolume /Volumes/SomeDisk 12g
 .Pp
-Convert a disk to Core Storage and encrypt it
-.br
-diskutil coreStorage convert disk3s2 -passphrase
-.Pp
-Shrink your Core Storage PV in order to make space for a Boot Camp volume
-.br
-subtract desired Windows size from LV size, to be new LV size, i.e. 150g
+Shrink a Core Storage PV in order to make space for a Boot Camp volume
 .br
 diskutil coreStorage list
 .br
@@ -2482,47 +2615,41 @@ Revert a disk from Core Storage back to plain HFS, possibly decrypting
 .br
 diskutil coreStorage revert disk5
 .Pp
-Create a Core Storage setup "manually"
-.br
-diskutil coreStorage createLVG LVG1 disk0s2 disk1s2
-.br
-diskutil cs list
-.br
-diskutil cs createLV
-.Ar LVGUUID
-jhfs+ LVG1-Vol1 100%
-.Pp
-Remove a partition
-.br
-diskutil eraseVolume Free\\ Space not disk0s4
-.Pp
 Merge two partitions into a new partition
 .br
 diskutil mergePartitions JHFS+ not disk1s3 disk1s5
 .Pp
 Split a partition into three new ones
 .br
-diskutil splitPartition /Volumes/SomeDisk JHFS+ vol1 12g MS-DOS VOL2 8g JHFS+ vol3 0b
+diskutil splitPartition /Volumes/SomeDisk JHFS+ vol1 12g MS-DOS VOL2 8g JHFS+ vol3 0
 .Pp
-Create a RAID 
+Create an AppleRAID
 .br
 diskutil createRAID mirror MirroredVolume JHFS+ disk1 disk2
 .Pp
-Destroy a RAID 
+Destroy an AppleRAID
 .br
 diskutil destroyRAID /Volumes/MirroredVolume
 .Pp
-Repair a damaged RAID 
+Repair a damaged AppleRAID
 .br
 diskutil repairMirror /Volumes/MirroredVolume disk3
 .Pp
-Convert volume into RAID volume
+Convert volume into an AppleRAID volume
 .br
 diskutil enableRAID mirror /Volumes/ExistingVolume
 .Pp
-Erase a partition and shrink to add an associated Recovery Partition
+Erase a partition, shrink, associate a pre-macOS-13.0 Recovery Partition
 .br
 diskutil splitPartition disk8s2 JHFS+ MacHD R %Apple_Boot% %noformat% %recovery%
+.Pp
+Partition a disk with the MBR partitioning scheme (e.g. for a camera)
+.br
+diskutil partitionDisk disk3 MBR MS-DOS CAM1 0
+.Pp
+Partition a disk with the (deprecated) APM partitioning scheme
+.br
+diskutil partitionDisk disk3 APM HFS+ vol1 15% Journaled\\ HFS+ vol2 R Journaled\\ HFS+ vol3 25% Free\\ Space volX 10g
 .\"
 .\"
 .\"
@@ -2585,3 +2712,7 @@ mimics the order of outputs from programs such as
 .Pp
 Starting with macOS 10.13.2, APFS cryptographic user authentication is
 required even when disabling FileVault.
+.Pp
+Starting with macOS 10.14, partitions on all media above 1GiB in size will default to 1MiB alignment,
+regardless of the partitioning scheme. This is significant for MBR partition maps and their use in
+appliances such as cameras. Free-space requests will not be aligned.

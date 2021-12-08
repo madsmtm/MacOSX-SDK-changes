@@ -1,14 +1,13 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 4C73D0AE-159A-3589-AAAA-E7A859E8F935' ]
+uuids:           [ 'x86_64: 1077BBAF-7233-35E6-BB49-B61C947127D2' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/InstallerDiagnostics.framework/Versions/A/InstallerDiagnostics
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _IDDiagnosticsMessageTypes, _IDDiagnosticsProtocolInterface, 
                        _InstallerDiagnosticsVersionNumber, _InstallerDiagnosticsVersionString, 
-                       __IDGetDefaultLogger, _kIDInstallerDiagnosticsClientCategoryAPFSConversions, 
+                       __IDGetDefaultLogger, __activity, __nvramSema, _kIDInstallerDiagnosticsClientCategoryAPFSConversions, 
                        _kIDInstallerDiagnosticsClientCategoryEFIUpdates, _kIDInstallerDiagnosticsClientCategoryEmbeddedOSInstalls, 
                        _kIDInstallerDiagnosticsClientCategoryFailedInstalls, _kIDInstallerDiagnosticsClientCategoryKeyRecoveryAssistant, 
                        _kIDInstallerDiagnosticsClientCategoryNameAPFSConversions, 

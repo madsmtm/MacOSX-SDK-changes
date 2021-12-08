@@ -215,6 +215,8 @@ struct mach_header_64 {
    					   symbol table do not include all the symbols
 					   listed in the dyld info. */
 
+#define	MH_SIM_SUPPORT 0x08000000	
+
 /*
  * The load commands directly follow the mach_header.  The total size of all
  * of the commands is given by the sizeofcmds field in the mach_header.  All
@@ -1246,6 +1248,10 @@ struct build_tool_version {
 #define PLATFORM_TVOS 3
 #define PLATFORM_WATCHOS 4
 #define PLATFORM_BRIDGEOS 5
+#define PLATFORM_IOSMAC 6
+#define PLATFORM_IOSSIMULATOR 7
+#define PLATFORM_TVOSSIMULATOR 8
+#define PLATFORM_WATCHOSSIMULATOR 9
 
 /* Known values for the tool field above. */
 #define TOOL_CLANG 1

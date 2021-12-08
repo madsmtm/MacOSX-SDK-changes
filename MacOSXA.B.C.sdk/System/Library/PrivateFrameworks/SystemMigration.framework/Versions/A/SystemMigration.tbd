@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: D1865950-967F-3C97-B20D-2B0D06B8FA47' ]
+uuids:           [ 'x86_64: 7F927DBD-7C33-36DE-B551-E1D914258A7F' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SystemMigration.framework/Versions/A/SystemMigration
 current-version: 866
@@ -35,8 +35,9 @@ exports:
                        _SMNetworkSourceProxyErrorDomain, _SMODDBAccessErrorDomain, 
                        _SMPathsCacheLocation, _SMPathsCacheMigrationDataVersionKey, 
                        _SMPathsCacheOSBuildKey, _SMPathsCacheVersion, _SMPathsCacheVersionKey, 
-                       _SMPreviousSystemLocation, _SMSandboxToolsErrorDomain, _SMSourceCutoffVersion, 
-                       _SMSourceServerCutoffVersion, _SMURLDAUnmountCallback, _SMUserConflictResolverErrorDomain, 
+                       _SMPreviousSystemLocation, _SMREQUEST_REPLACE_KEY, _SMREQUEST_REPLACE_NONCONFLICTINGNAME_KEY, 
+                       _SMSandboxToolsErrorDomain, _SMSourceCutoffVersion, _SMSourceServerCutoffVersion, 
+                       _SMURLDAUnmountCallback, _SMUserConflictResolverErrorDomain, 
                        _SMUserSizeCacheLocation, _SMUserSizeLastUpdatedKey, _SMUserSizeStoredSizeKey, 
                        _SMWindowsClientCustomPathsCutoffVersion, _SMWindowsClientCutoffVersion, 
                        _SMWindowsPathContentAccessDateKey, _SMWindowsPathContentModificationDateKey, 
@@ -44,8 +45,8 @@ exports:
                        _SMWindowsPathIsDirectoryKey, _SMWindowsPathSizeKey, _SMWirelessSoftAPAttemptTimeout, 
                        _SM_REST_OF_DATA, _XMMigratedBookmarksDir, _XMSharedDiskDirectoryName, 
                        _XMURLPrefix, _XMUserAppSupportDir, _XMUserOldWindowsAppSupportDir, 
-                       _hostIPForAddress, _kEXTRA_APP_FG_PATHS_CM_KEY, _kEXTRA_FG_PATHS_CM_KEY, 
-                       _kMacBuddyBundleIdentifier, _kSMDaemonConnectionEntitlementName, 
+                       _eEccountType, _hostIPForAddress, _kEXTRA_APP_FG_PATHS_CM_KEY, 
+                       _kEXTRA_FG_PATHS_CM_KEY, _kMacBuddyBundleIdentifier, _kSMDaemonConnectionEntitlementName, 
                        _portForAddress, _str_to_key, _strnupper ]
     objc-classes:    [ DSMigrator, MigrationHelper_Client, OrderedSetArrayValueTransformer, 
                        SMArchiver, SMAttemptPeerToPeerStep, SMAuthenticatedMountWindowController, 
@@ -66,18 +67,18 @@ exports:
                        SMGlobalPreferencesMigrator, SMGroup, SMGroup_Client, SMGroup_Daemon, 
                        SMIgnoreClickingButton, SMImageCache, SMIncompatibleAppFolderData, 
                        SMIncompatibleAppUpdater, SMLegacyNetworkDirectoryEnumerator, 
-                       SMLocalDiskPathEnumerator, SMMacUser_Client, SMMacUser_Daemon, 
-                       SMManagedPreferences, SMManager, SMMessageTracing, SMMigrateAutoLoginUserStep, 
-                       SMMigrateEngine, SMMigrateFiles, SMMigrateGroups, SMMigrateGuestAccountStep, 
-                       SMMigrateSystemInfo, SMMigrateUserAccountsStep, SMMigrateUserDataStep, 
-                       SMMigrateUserToolBox, SMMigrationActivity, SMMigrationCustomizeEditCellView, 
-                       SMMigrationCustomizeEditViewController, SMMigrationCustomizePasswordCollectTableDelegate, 
-                       SMMigrationCustomizePasswordCollectWindowController, SMMigrationCustomizeQuickItemTableDelegate, 
-                       SMMigrationCustomizeViewController, SMMigrationEngineElement, 
-                       SMMigrationEngineStep, SMMigrationFrom_Client, SMMigrationIncompatibleApplicationsList, 
-                       SMMigrationProgressViewController, SMMigrationRebuildXPCCacheElement, 
-                       SMMigrationReport, SMMigrationRequest, SMMigrationShoveElement, 
-                       SMMigrationStepElement, SMMigrationUpdateKextCacheElement, 
+                       SMLocalDiskPathEnumerator, SMMacCustomizeTree_Client, SMMacUser_Client, 
+                       SMMacUser_Daemon, SMManagedPreferences, SMManager, SMMessageTracing, 
+                       SMMigrateAutoLoginUserStep, SMMigrateEngine, SMMigrateFiles, 
+                       SMMigrateGroups, SMMigrateGuestAccountStep, SMMigrateSystemInfo, 
+                       SMMigrateUserAccountsStep, SMMigrateUserDataStep, SMMigrateUserToolBox, 
+                       SMMigrationActivity, SMMigrationCustomizeEditCellView, SMMigrationCustomizeEditViewController, 
+                       SMMigrationCustomizePasswordCollectTableDelegate, SMMigrationCustomizePasswordCollectWindowController, 
+                       SMMigrationCustomizeQuickItemTableDelegate, SMMigrationCustomizeViewController, 
+                       SMMigrationEngineElement, SMMigrationEngineStep, SMMigrationFrom_Client, 
+                       SMMigrationIncompatibleApplicationsList, SMMigrationProgressViewController, 
+                       SMMigrationRebuildXPCCacheElement, SMMigrationReport, SMMigrationRequest, 
+                       SMMigrationShoveElement, SMMigrationStepElement, SMMigrationUpdateKextCacheElement, 
                        SMMigrationUserNotifier, SMNameInConflictImageTransformer, 
                        SMNetworkDirectoryEnumerator, SMNetworkSourceProxy, SMODDBAccess, 
                        SMODDBEntry, SMPasscodeTransformer, SMPathGroups, SMPathWithAttributes, 
@@ -90,8 +91,8 @@ exports:
                        SMSelectSourceDetailTableDelegate, SMSelectSourceViewController, 
                        SMSelectSourceViewItem, SMSelectSourceViewItemContainingView, 
                        SMShortNameFormatter, SMSizeFormatter, SMSizeTransformer, 
-                       SMSystem, SMSystemScanner, SMSystemScanner_Client, SMSystemToAtributedStringTransformer, 
-                       SMSystem_Client, SMSystem_Client_ArchiveAndInstallBased, SMSystem_Client_Ineligible, 
+                       SMSystem, SMSystemScanner, SMSystemScanner_Client, SMSystem_Client, 
+                       SMSystem_Client_ArchiveAndInstallBased, SMSystem_Client_Ineligible, 
                        SMSystem_Client_Network, SMSystem_Client_RemoteDiskShare, 
                        SMSystem_Client_RemoteTMDiskShare, SMSystem_Client_SKDiskBased, 
                        SMSystem_Client_TMSparseBundle, SMSystem_Client_TimeCapsule, 
@@ -112,7 +113,7 @@ exports:
                        SMWindowsMigrateUserComponentsStep, SMWindowsMigrationRequest, 
                        SMWindowsNetworkSourceProxy, SMWindowsUser_Client, SMWindowsUser_Daemon, 
                        SMWindowsUtilities, SMWirelessController, SMXPCUtilities, 
-                       SystemMigrationDaemon, TaskOutputLineEnumerator, VerticallyAlignedTextCell2 ]
+                       SystemMigrationDaemon, TaskOutputLineEnumerator ]
     objc-ivars:      [ SMCopyEngineNetworkCopier.absoluteBaseSourcePath, SMCopyEngineNetworkCopier.absoluteDestinationBasePath, 
                        SMCopyEngineNetworkCopier.currentFileCompletedSize, SMCopyEngineNetworkCopier.lastSkippedFile, 
                        SMCopyEngineNetworkCopier.operationCompletedSize, SMDBEntry.dictionaryRepresentation, 
@@ -140,8 +141,7 @@ exports:
                        SMPathsDirectoryClassifier.systemFilesCount, SMPathsDirectoryClassifier.systemFilesSize, 
                        SMPathsDirectoryClassifier.systemLibraryPrivateFrameworksFilesCount, 
                        SMPathsDirectoryClassifier.systemLibraryPrivateFrameworksFilesSize, 
-                       SMSystemToAtributedStringTransformer._ac, SMTaskManager.taskTerminationLock, 
-                       SMTaskManager.termStatus, TaskOutputLineEnumerator._bufferData, 
-                       TaskOutputLineEnumerator._pathTransformer, TaskOutputLineEnumerator._readPipe, 
-                       TaskOutputLineEnumerator._task ]
+                       SMTaskManager.taskTerminationLock, SMTaskManager.termStatus, 
+                       TaskOutputLineEnumerator._bufferData, TaskOutputLineEnumerator._pathTransformer, 
+                       TaskOutputLineEnumerator._readPipe, TaskOutputLineEnumerator._task ]
 ...

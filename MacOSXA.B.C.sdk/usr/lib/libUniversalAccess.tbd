@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 0C5180A1-5354-3DB6-BB93-B974C60168FB' ]
+uuids:           [ 'x86_64: E38FDE97-6292-3A3B-9208-21774AAF686E' ]
 platform:        macosx
 install-name:    /usr/lib/libUniversalAccess.dylib
 exports:         

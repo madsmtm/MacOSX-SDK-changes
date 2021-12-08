@@ -1,4 +1,4 @@
-.TH "MPSCNNNeuronReLUN" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNNeuronReLUN" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -23,9 +23,7 @@ Inherits \fBMPSCNNNeuron\fP\&.
 .SS "Additional Inherited Members"
 .SH "Detailed Description"
 .PP 
-This depends on Metal\&.framework  Specifies the ReLUN neuron filter\&. For each pixel, applies the following function: f(x) = [ x , x >= 0 [ a * x, x < 0 [ b , x >= b As an example, the TensorFlow Relu6 activation layer can be implemented by setting the parameter b to 6\&.0f: https://www.tensorflow.org/api_docs/cc/class/tensorflow/ops/relu6\&.
-.PP
-The default value of a is 1\&.0f and the default value of b is 6\&.0f\&. 
+This depends on Metal\&.framework  Specifies the ReLUN neuron filter\&. For each pixel, applies the following function: f(x) = [ x , x >= 0 [ a * x, x < 0 [ b , x >= b As an example, the TensorFlow Relu6 activation layer can be implemented by setting the parameter b to 6\&.0f: https://www.tensorflow.org/api_docs/cc/class/tensorflow/ops/relu6\&. 
 .SH "Method Documentation"
 .PP 
 .SS "\- (nonnull instancetype) initWithDevice: (nonnull id< MTLDevice >) device"

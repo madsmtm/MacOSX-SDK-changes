@@ -1,4 +1,4 @@
-.Dd January 17, 2018
+.Dd July 08, 2018
 .Dt fdesetup 8 
 .Os macOS
 .Sh NAME
@@ -78,7 +78,7 @@ The
 .Sy changerecovery
 command changes or adds either the personal or institutional recovery key.  You can only have one recovery key of each type, so any associated existing key will be removed.  The
 .Sy removerecovery
-command will remove any existing recovery key of the type specified.  It is not recommended that you remove all recovery keys since, if you lose your FileVault password, you may not be able to access your information.
+command will remove any existing recovery key of the type specified.  It is not recommended that you remove all recovery keys since, if you lose your FileVault password, you may not be able to access your information.   On APFS volumes using 10.14 or later, the existing recovery key can be used as authentication to change or remove the personal recovery key.
 .Pp
 On supported hardware,
 .Nm
@@ -156,7 +156,7 @@ List enabled users, or locked volumes.
 .Op Fl norecoverykey
 .Op Fl verbose
 .br
-Enables FileVault.  This command will fail if no recovery partition was found on your disk.
+Enables FileVault.  This command will fail if no recovery partition was found on your disk.   Additionally, all Secure Token users must contain valid passwords.
 .Pp
 .\"             -- disable --
 .It Sy disable
@@ -208,7 +208,7 @@ Removes enabled user from FileVault.   It will not remove the user if it's the l
 .Op Fl inputplist
 .Op Fl verbose
 .br
-Adds or updates the current recovery key.   Either personal and/or institutional options must be specified.  When changing the personal recovery key, the updated personal recovery key will be automatically generated.   When changing either key, the old value will be removed and replaced.  Because APFS volumes require an OD authentication before it will allow for the change, the current recovery key cannot be used for the authentication.  On CoreStorage volumes the -key option can be used to unlock FileVault.   More information on this is described elsewhere in this document.
+Adds or updates the current recovery key.   Either personal and/or institutional options must be specified.  When changing the personal recovery key, the updated personal recovery key will be automatically generated.   When changing either key, the old value will be removed and replaced.  On CoreStorage volumes the -key option can be used to unlock FileVault.   More information on this is described elsewhere in this document.
 .Pp
 .\"             -- removerecovery --
 .It Sy removerecovery
@@ -393,15 +393,21 @@ command, even if FileVault is not currently enabled.
         <dict>
             <key>Username</key>
             <string>sally</string>
+            <key>Password</key>
+            <string>mypassword</string>
             <key>AdditionalUsers</key>
             <array>
                 <dict>
                     <key>Username</key>
                     <string>johnny</string>
+                    <key>Password</key>
+                    <string>johnnypassword</string>
                 </dict>
                 <dict>
                     <key>Username</key>
                     <string>henry</string>
+                    <key>Password</key>
+                    <string>henrypassword</string>
                 </dict>
                 (etc)
             </array>
@@ -418,6 +424,9 @@ command, even if FileVault is not currently enabled.
 .Pp
 .It Username
 Short name of OD user used in enabling FileVault.
+.Pp
+.It Password
+Either password of the user, or in some cases, the personal recovery key.
 .Pp
 .It AdditionalUsers
 An array of dictionaries for each OD user that will be added during enablment.
@@ -526,6 +535,10 @@ Command option is unsupported on this file system.
 An option or parameter is not supported for APFS volumes.
 .It 35
 An error occurred during FileVault disablement.
+.It 36
+This computer does not support enabling FileVault.
+.It 37
+One or more users have a blank password.   FileVault cannot be enabled.
 .It 99
 Internal error.
 .El

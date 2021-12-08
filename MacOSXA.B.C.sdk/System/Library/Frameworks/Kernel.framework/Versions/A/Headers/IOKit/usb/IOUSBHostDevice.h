@@ -811,6 +811,7 @@ protected:
         OSDictionary*       _lpmLatencyCache;
         tUSBDeviceLPMStatus _lpmU1Status;
         tUSBDeviceLPMStatus _lpmU2Status;
+        tUSBDeviceLPMStatus _lpmL1Status;
     };
 
     tExpansionData* _expansionData;

@@ -190,170 +190,124 @@ MPS_SWIFT_NAME(encode(commandBuffer:inputMatrix:weightMatrix:biasVector:resultMa
 
 @end // MPSMatrixFullyConnected
 
-
-
-
 /*!
- *  @class      MPSMatrixNeuron
+ *  @class      MPSMatrixFullyConnectedGradient
  *
  *  @dependency This depends on Metal.framework.
  *
- *  @abstract   A neuron activation kernel that operates on matrices.
+ *  @abstract   Computes the gradient of the fully connected layer with respect
+ *              to either the weights and bias terms or the input feature vectors.
  *
- *  @discussion A MPSMatrixNeuron object computes:
- *
- *                  y = neuron(alpha * x + bias)
- *
- *              y is the output matrix, x is the input matrix corresponding
- *              to a collection of input vectors and bias is a vector which is broadcast
- *              and accumulated to each row of the intermediate result.
- *              alpha is a scale factor applied to the input.
- *
- *              neuron() defines the pointwise function that is applied to the intermediate result.
- *
- *              Note: This function computes the same result as MPSMatrixFullyConnected that has
- *                      unit weight matrix.
+ *  @discussion An MPSMatrixFullyConnectedGradient kernel may be used to compute
+ *              the gradients corresponding to a MPSMatrixFullyConnected kernel.
+ *              The properties, input, and weight data must match those values
+ *              used in the forward computation.
+ *              This kernel does not compute the gradient of any non-identity
+ *              activation function which may have been applied in the forward
+ *              kernel.  Such a kernel must be expressed using both MPSMatrixFullyConnected
+ *              and MPSMatrixNeuron if a gradient is to be computed.
  *
  */
-MPS_CLASS_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))
-@interface MPSMatrixNeuron : MPSMatrixUnaryKernel
-
+MPS_CLASS_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0))
+@interface MPSMatrixFullyConnectedGradient : MPSMatrixBinaryKernel
 /*! @property   sourceNumberOfFeatureVectors
  *
- *  @discussion The number of input vectors which make up the input array.  This
- *              is equivalent to the number of rows to consider from the primary
- *              source matrix.
- *              This property is modifiable and defaults to NSUIntegerMax.  At encode
- *              time the larger of this property or the available number of inputs is
- *              used.  The value of NSUIntegerMax thus indicates that all available input
- *              rows (beginning at sourceMatrixOrigin.x) should be considered.
+ *  @discussion The number of input vectors which make up the input array.
+ *              This is equivalent to the number of rows in both the input
+ *              matrix and the source gradient matrix.
+ *
+ *              This value should be equal to the corresponding value in the
+ *              forward fully connected kernel.
  */
 @property (readwrite, nonatomic) NSUInteger sourceNumberOfFeatureVectors;
 
+/*! @property   sourceOutputFeatureChannels
+ *
+ *  @discussion The number of feature channels in the output of the forward
+ *              fully connected layer.
+ *              This is equivalent to the number of columns in both the weight
+ *              matrix and the source gradient matrix.
+ *
+ *              This value should be equal to the corresponding value in the
+ *              forward fully connected kernel.
+ */
+@property (readwrite, nonatomic) NSUInteger sourceOutputFeatureChannels;
+
 /*! @property   sourceInputFeatureChannels
  *
- *  @discussion The input size to to use in the operation.  This is equivalent to the
- *              number of columns in the primary (input array) source matrix to consider
- *              and the number of channels to produce for the output matrix.
- *              This property is modifiable and defaults to NSUIntegerMax.  At encode
- *              time the larger of this property or the available input size is used.
- *              The value of NSUIntegerMax thus indicates that all available columns in
- *              the input array (beginning at sourceMatrixOrigin.y) should be considered.
- *              Defines also the number of output feature channels.
- *              Note: The value used in the operation will be
- *              MIN(inputMatrix.columns - sourceMatrixOrigin.y, sourceInputFeatureChannels)
+ *  @discussion The number of feature channels in the input to the forward
+ *              fully connected layer.
+ *              This is equivalent to the number of columns in the input matrix.
+ *
+ *              This value should be equal to the corresponding value in the
+ *              forward fully connected kernel.
  */
 @property (readwrite, nonatomic) NSUInteger sourceInputFeatureChannels;
 
-
 /*! @property   alpha
  *
- *  @discussion The scale factor to apply to the input.  Specified in double
- *              precision.  Will be converted to the appropriate precision in the
- *              implementation subject to rounding and/or clamping as necessary.
- *              Defaults to 1.0 at initialization time.
+ *  @discussion Scale factor to apply to the product.  This value should be equal
+ *              to the corresponding value in the forward fully connected kernel.
  */
 @property (readwrite, nonatomic) double alpha;
-
-/*!
- *  @abstract   Specifies a neuron activation function to be used.
- *
- *  @discussion This method can be used to add a neuron activation funtion of given type with
- *              associated scalar parameters A, B, and C that are shared across all output values.
- *              Note that this method can only be used to specify neurons which are specified by three (or fewer)
- *              parameters shared across all output values (or channels, in CNN nomenclature). It is an error to call
- *              this method for neuron activation functions like MPSCNNNeuronTypePReLU,
- *              which require per-channel parameter values. For those kind of neuron activation functions,
- *              use appropriate setter functions.  An MPSMatrixNeuron kernel is initialized
- *              with a default neuron function of MPSCNNNeuronTypeNone.
- *
- *  @param      neuronType      Type of neuron activation function. For full list see MPSCNNNeuronType.h
- *  @param      parameterA      parameterA of neuron activation that is shared across all output values.
- *  @param      parameterB      parameterB of neuron activation that is shared across all output values.
- *  @param      parameterC      parameterC of neuron activation that is shared across all output values.
- */
--(void) setNeuronType: (MPSCNNNeuronType) neuronType
-           parameterA: (float) parameterA
-           parameterB: (float) parameterB
-           parameterC: (float) parameterC;
-
-/*!
- *  @abstract   Getter funtion for neuronType set using setNeuronType:parameterA:parameterB:parameterC method
- */
--(MPSCNNNeuronType) neuronType;
-
-/*!
- *  @abstract   Getter funtion for neuronType set using setNeuronType:parameterA:parameterB:parameterC method
- */
--(float) neuronParameterA;
-
-/*!
- *  @abstract   Getter funtion for neuronType set using setNeuronType:parameterA:parameterB:parameterC method
- */
--(float) neuronParameterB;
-
-/*!
- *  @abstract   Getter funtion for neuronType set using setNeuronType:parameterA:parameterB:parameterC method
- */
--(float) neuronParameterC;
-
-/*!
- *  @abstract   Add per output value neuron parameters A for PReLu neuron activation functions.
- *
- *  @discussion This method sets the neuron to PReLU, zeros parameters A and B and sets the per output value
- *              neuron parameters A to an array containing a unique value of A for each output value.
- *
- *              If the neuron function is f(v,a,b), it will apply
- *
- *                     resultMatrix(i, j) = f( input(i, j), A[j], B[j] )
- *                  where j in [0, sourceInputFeatureChannels]
- *
- *              See https://arxiv.org/pdf/1502.01852.pdf for details.
- *
- *              All other neuron types, where parameter A
- *              and parameter B are shared across output values must be set using
- *              -setNeuronType:parameterA:parameterB:
- *
- *  @param      A       An array containing float values for neuron parameter A.
- *                      Number of entries must be equal to MIN(inputMatrix.columns - sourceMatrixOrigin.y, sourceInputFeatureChannels)
- */
--(void) setNeuronToPReLUWithParametersA: (NSData* __nonnull) A;
 
 -(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device
 NS_DESIGNATED_INITIALIZER;
 
 /*!
- *  @abstract   Encode a MPSMatrixNeuron object to a command buffer.
+ *  @abstract   Encode a MPSMatrixFullyConnectedGradient object to a command buffer and
+ *              produce the gradient of the loss function with respect to the input data.
  *
- *  @param      commandBuffer   A valid MTLCommandBuffer to receive the encoded kernel.
+ *  @param      commandBuffer               A valid MTLCommandBuffer to receive the encoded kernel.
  *
- *  @param      inputMatrix     A valid MPSMatrix object which specifies the input array.
+ *  @param      gradientMatrix              A valid MPSMatrix object which specifies the input gradient.
  *
- *  @param      biasVector      A valid MPSVector object which specifies the bias values, or
- *                              a null object to indicate that no bias is to be applied.
+ *  @param      weightMatrix                A valid MPSMatrix object which specifies the weight array.
  *
- *  @param      resultMatrix    A valid MPSMatrix object which specifies the output array.
+ *  @param      resultGradientForDataMatrix A valid MPSMatrix object which specifies the result gradient.
  *
- *  @discussion Encodes the operation to the specified command buffer.  resultMatrix
- *              must be large enough to hold a
- *                  MIN(sourceNumberOfFeatureVectors, inputMatrix.rows - sourceMatrixOrigin.x)
- *                  x
- *                  MIN(inputMatrix.columns - sourceMatrixOrigin.y, sourceInputFeatureChannels) array.
- *
- *              The bias vector must contain at least
- *                  MIN(inputMatrix.columns - sourceMatrixOrigin.y, sourceInputFeatureChannels) elements.
+ *  @discussion This operation computes the resulting gradient of the loss function with respect
+ *              to the forward kernel's input data.  weightMatrix should contain the same values
+ *              used to compute the result of the forward kernel.
  */
--(void) encodeToCommandBuffer: (nonnull id <MTLCommandBuffer>) commandBuffer
-                  inputMatrix: (MPSMatrix * __nonnull) inputMatrix
-                   biasVector: (MPSVector * __nullable) biasVector
-                 resultMatrix: (MPSMatrix * __nonnull) resultMatrix
-MPS_SWIFT_NAME(encode(commandBuffer:inputMatrix:biasVector:resultMatrix:));
+-(void) encodeGradientForDataToCommandBuffer: (nonnull id <MTLCommandBuffer>) commandBuffer
+                              gradientMatrix: (MPSMatrix const* __nonnull) gradientMatrix
+                                weightMatrix: (MPSMatrix const* __nonnull) weightMatrix
+                 resultGradientForDataMatrix: (MPSMatrix* __nonnull) resultGradientForDataMatrix;
+
+/*!
+ *  @abstract   Encode a MPSMatrixFullyConnectedGradient object to a command buffer and
+ *              produce the gradient of the loss function with respect to the weight matrix
+ *              and bias vector.
+ *
+ *  @param      commandBuffer                   A valid MTLCommandBuffer to receive the encoded kernel.
+ *
+ *  @param      gradientMatrix                  A valid MPSMatrix object which specifies the input gradient.
+ *
+ *  @param      inputMatrix                     A valid MPSMatrix object which specifies the input array.
+ *
+ *  @param      resultGradientForWeightMatrix   A valid MPSMatrix object which specifies the resulting gradients
+ *                                              with respect to the weights.
+ *
+ *  @param      resultGradientForBiasVector     A valid MPSVector object which specifies the resulting gradients
+ *                                              with respect to the bias terms.  If NULL these values will not be
+ *                                              returned.
+ *
+ *  @discussion This operation computes the resulting gradient of the loss function with respect
+ *              to the forward kernel's weight data.  inputMatrix should contain the same values
+ *              used to compute the result of the forward kernel.
+ */
+-(void) encodeGradientForWeightsAndBiasToCommandBuffer: (nonnull id <MTLCommandBuffer>) commandBuffer
+                                        gradientMatrix: (MPSMatrix const* __nonnull) gradientMatrix
+                                           inputMatrix: (MPSMatrix const* __nonnull) inputMatrix
+                         resultGradientForWeightMatrix: (MPSMatrix* __nonnull) resultGradientForWeightMatrix
+                           resultGradientForBiasVector: (MPSVector* __nullable) resultGradientForBiasVector;
 
 /*! @abstract NSSecureCoding compatability
  *  @discussion See @ref MPSKernel#initWithCoder.
- *  @param      aDecoder    The NSCoder subclass with your serialized MPSMatrixNeuron
- *  @param      device      The MTLDevice on which to make the MPSMatrixNeuron object.
- *  @return     A new MPSMatrixNeuron object, or nil if failure.
+ *  @param      aDecoder    The NSCoder subclass with your serialized MPSMatrixFullyConnectedGradient
+ *  @param      device      The MTLDevice on which to make the MPSMatrixFullyConnectedGradient object.
+ *  @return     A new MPSMatrixFullyConnected object, or nil if failure.
  */
 -(nullable instancetype) initWithCoder:(NSCoder * __nonnull)aDecoder
                                 device:(nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER;
@@ -370,11 +324,7 @@ MPS_SWIFT_NAME(encode(commandBuffer:inputMatrix:biasVector:resultMatrix:));
 - (nonnull instancetype) copyWithZone:(nullable NSZone *)zone
                                device:(nullable id <MTLDevice>) device;
 
-
-@end // MPSMatrixNeuron
-
-
-
+@end    // MPSMatrixFullyConnectedGradient
 
 #ifdef __cplusplus
 }

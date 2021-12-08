@@ -1,7 +1,8 @@
 //
 //  SCNTechnique.h
+//  SceneKit
 //
-//  Copyright (c) 2014-2017 Apple Inc. All rights reserved.
+//  Copyright © 2014-2018 Apple Inc. All rights reserved.
 //
 
 #import <SceneKit/SCNShadable.h>
@@ -14,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract SCNTechnique represents a rendering process that may require multiple passes.
  @discussion A technique is generally initialized from a Property List file. It can be set to any object that conforms to the SCNTechniqueSupport protocol.
  */
-API_AVAILABLE(macos(10.10))
+SCN_EXPORT API_AVAILABLE(macos(10.10))
 @interface SCNTechnique : NSObject <SCNAnimatable, NSCopying, NSSecureCoding>
 
 /*!

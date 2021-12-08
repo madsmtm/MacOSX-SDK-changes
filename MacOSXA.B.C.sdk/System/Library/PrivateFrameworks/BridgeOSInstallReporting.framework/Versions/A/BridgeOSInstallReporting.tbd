@@ -1,10 +1,12 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F797B3EF-9A38-3810-BB19-14E9169FAE2B' ]
+uuids:           [ 'x86_64: C85C09BF-DDF9-3874-8915-1C6EB3882CB3' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/BridgeOSInstallReporting.framework/Versions/A/BridgeOSInstallReporting
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _BOSLogObject, _BOSShouldLogToInstallLog, _BOSShouldLogToStderr, 
+                       _BridgeOSInstallReportingVersionNumber, _BridgeOSInstallReportingVersionString, 
+                       _standardErrorDateFormatter ]
     objc-classes:    [ BOSReporterServiceController ]
 ...

@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <ModelIO/MDLValueTypes.h>
 #import <ModelIO/MDLAnimatedValueTypes.h>
-#import <ModelIO/MDLObject.h> // <rdar://problem/33854609> ModelKit headers need change to allow standalone inclusion
+#import <ModelIO/MDLObject.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,7 +17,12 @@ MDL_EXPORT
 @interface MDLSkeleton : MDLObject<NSCopying>
 
 @property (nonatomic, readonly) NSArray<NSString *> *jointPaths;
+
+ // world space bind transforms
 @property (nonatomic, readonly) MDLMatrix4x4Array *jointBindTransforms;
+
+ // local space default transforms, used for joints not animated in a MDLPackedJointAnimation
+@property (nonatomic, readonly) MDLMatrix4x4Array *jointRestTransforms;
 
 -(instancetype) initWithName:(NSString *)name
                   jointPaths:(NSArray<NSString *> *)jointPaths;

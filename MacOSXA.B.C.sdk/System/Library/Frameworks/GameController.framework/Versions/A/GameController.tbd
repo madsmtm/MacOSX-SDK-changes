@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: CE96F310-B3E5-3EAE-B1BC-334F8C224FA7' ]
+uuids:           [ 'x86_64: 47CC84DD-9316-3AA1-BF94-EC026AECF112' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/GameController.framework/Versions/A/GameController
 exports:         

@@ -10,32 +10,22 @@
 #define MPSKernelTypes_h    1
 
 #define MPSFunctionConstantIndex               127
+#define MPSBatchSizeIndex                      126
+
 #if defined(__METAL_MACOS__) || MPS_TARGET_MAC || (defined (__i386__) || defined(__x86_64__))
 #    define MPSMaxTextures                     128
 #else
 #    define MPSMaxTextures                      32
 #endif
 
-#ifndef MPSMaxBatchSize
-#   if defined(__METAL_MACOS__) || MPS_TARGET_MAC || (defined (__i386__) || defined(__x86_64__))
-#       define MPSMaxBatchSize                    (MPSMaxTextures/4)
-#   else
-#       define MPSMaxBatchSize                     1 /*can't write to texture arrays*/
-#   endif
-#endif
-
 typedef enum
 {
-    MPSCustomKernelIndexDest = 0,
-    MPSCustomKernelIndexDestInfo = 0,
-    MPSCustomKernelIndexSrc1 = MPSMaxBatchSize,
-    MPSCustomKernelIndexSrc1Info = 1,
-    MPSCustomKernelIndexSrc2 = 2*MPSMaxBatchSize,
-    MPSCustomKernelIndexSrc2Info = 2,
-    MPSCustomKernelIndexSrc3 = 3*MPSMaxBatchSize,   // caution: may overlap with MPSCustomKernelIndexUserData
-    MPSCustomKernelIndexSrc3Info = 3,
+    MPSCustomKernelIndexDestIndex = 0,
+    MPSCustomKernelIndexSrc1Index = 1,
+    MPSCustomKernelIndexSrc2Index = 2,
+    MPSCustomKernelIndexSrc3Index = 3,   // caution: may overlap with MPSCustomKernelIndexUserDataIndex
     // ...
-    MPSCustomKernelIndexUserData = 30
+    MPSCustomKernelIndexUserDataIndex = 30
 }MPSCustomKernelIndex;
 
 /*! @abstract the [[function_constant(index)]] index where the kMPSConstant is passed to the kernel */
@@ -118,6 +108,7 @@ typedef enum : uint32_t {
 using namespace metal;
 typedef uint32_t MPSFunctionConstant;
 constant MPSFunctionConstant  kMPSConstant [[function_constant(MPSFunctionConstantIndex)]];
+constant MPSFunctionConstant  MPSMaxBatchSize[[function_constant(MPSBatchSizeIndex)]];
 constant MPSImageType  kMPSDestTextureType = MPSImageType(kMPSConstant & 7);
 constant MPSImageType  kMPSSrc1TextureType = MPSImageType((kMPSConstant >> 3) & 7);
 constant MPSImageType  kMPSSrc2TextureType = MPSImageType((kMPSConstant >> 6) & 7);
@@ -126,7 +117,7 @@ constant MPSImageType  kMPSSrc4TextureType = MPSImageType((kMPSConstant >>12) & 
 constant uint16_t      kMPSUserConstant = (kMPSConstant >> 16) & 0xffffU;
 
 
-template <typename T> using MPSTextureArray = array<T, MPSMaxBatchSize>;
+// template <typename T> using MPSTextureArray = array<T, MPSMaxBatchSize>;
 
 typedef struct
 {
@@ -194,22 +185,28 @@ constant bool kMPSSrc2Is2dArray = (kMPSSrc2TextureType & MPSImageType_typeMask) 
 constant bool kMPSSrc2IsArray2d = (kMPSSrc2TextureType & MPSImageType_typeMask) == MPSImageTypeArray2d;
 constant bool kMPSSrc2IsArray2dArray = (kMPSSrc2TextureType & MPSImageType_typeMask) == MPSImageTypeArray2d_array;
 
+constant bool kMPSSrc3Is2d = (kMPSSrc3TextureType & MPSImageType_typeMask) == MPSImageType2d;
+constant bool kMPSSrc3Is2dArray = (kMPSSrc3TextureType & MPSImageType_typeMask) == MPSImageType2d_array;
+constant bool kMPSSrc3IsArray2d = (kMPSSrc3TextureType & MPSImageType_typeMask) == MPSImageTypeArray2d;
+constant bool kMPSSrc3IsArray2dArray = (kMPSSrc3TextureType & MPSImageType_typeMask) == MPSImageTypeArray2d_array;
+
+
 template <class _type, access _access, class _type4>
 class _MPSSrcImage
 {
     private:
     thread texture2d<_type, _access> &                          _img;
     thread texture2d_array<_type, _access> &                    _imgA;
-    thread MPSTextureArray<texture2d<_type, _access>> &         _Aimg;
-    thread MPSTextureArray<texture2d_array<_type, _access>> &   _AimgA;
+    array_ref<texture2d<_type, _access>>                        _Aimg;
+    array_ref<texture2d_array<_type, _access>>                  _AimgA;
     const int                                                   _texType;
     constant MPSCustomKernelSourceInfo &                        _info;
     
     public:
     _MPSSrcImage( thread texture2d<_type, _access> & img,
                   thread texture2d_array<_type, _access> & imgA,
-                  thread MPSTextureArray<texture2d<_type, _access>> & Aimg,
-                  thread MPSTextureArray<texture2d_array<_type, _access>> & AimgA,
+                  array_ref<texture2d<_type, _access>> Aimg,
+                  array_ref<texture2d_array<_type, _access>> AimgA,
                   const int texType,
                   constant MPSCustomKernelSourceInfo &info ) : _img(img), _imgA(imgA), _Aimg(Aimg), _AimgA(AimgA), _texType(texType), _info(info) { }
     
@@ -384,8 +381,8 @@ class _MPSDestImage
     thread texture2d<_type, access::write> &                            _img;
     thread texture2d_array<_type, access::write> &                      _imgA;
 #if defined(__METAL_MACOS__)    // writable arrays of texture are not an iOS feature
-    thread MPSTextureArray<texture2d<_type, access::write>> &           _Aimg;
-    thread MPSTextureArray<texture2d_array<_type, access::write>> &     _AimgA;
+    array_ref<texture2d<_type, access::write>>                          _Aimg;
+    array_ref<texture2d_array<_type, access::write>>                    _AimgA;
 #endif
     const int                                                           _texType;
     constant MPSCustomKernelInfo &                                      _info;
@@ -394,8 +391,8 @@ class _MPSDestImage
     _MPSDestImage(thread texture2d<_type, access::write> & img,
                   thread texture2d_array<_type, access::write> & imgA,
 #if defined(__METAL_MACOS__)    // writable arrays of texture are not an iOS feature
-                  thread MPSTextureArray<texture2d<_type, access::write>> & Aimg,
-                  thread MPSTextureArray<texture2d_array<_type, access::write>> & AimgA,
+                  array_ref<texture2d<_type, access::write>> Aimg,
+                  array_ref<texture2d_array<_type, access::write>> AimgA,
 #endif
                   const int texType,
                   constant MPSCustomKernelInfo &info ) : _img(img), _imgA(imgA),
@@ -483,30 +480,30 @@ template<class _type, class _type4> void _MPSDestImage<_type, _type4>::write( _t
 #define MPSDestImage    _MPSDestImage<MPSType, MPSType4>
 
 #   define __MPS_SRC_IMAGE_ARG( _name, _access, _type, _index  )                                                                                                                \
-        texture2d<_type, access::_access>  _name  [[texture(MPSCustomKernelIndexSrc##_index), function_constant(kMPSSrc##_index##Is2d)]],                                       \
-        texture2d_array<_type, access::_access>  _name##A  [[texture(MPSCustomKernelIndexSrc##_index), function_constant(kMPSSrc##_index##Is2dArray)]],                         \
-        MPSTextureArray<texture2d<_type, access::_access>> A##_name [[texture(MPSCustomKernelIndexSrc##_index), function_constant(kMPSSrc##_index##IsArray2d)]],                \
-        MPSTextureArray<texture2d_array<_type, access::_access>> A##_name##A [[texture(MPSCustomKernelIndexSrc##_index), function_constant(kMPSSrc##_index##IsArray2dArray)]],  \
-        constant MPSCustomKernelSourceInfo & _name##Info [[buffer(MPSCustomKernelIndexSrc##_index##Info)]]
+        texture2d<_type, access::_access>  _name  [[texture(MPSCustomKernelIndexSrc##_index##Index * MPSMaxBatchSize), function_constant(kMPSSrc##_index##Is2d)]],                                       \
+        texture2d_array<_type, access::_access>  _name##A  [[texture(MPSCustomKernelIndexSrc##_index##Index * MPSMaxBatchSize), function_constant(kMPSSrc##_index##Is2dArray)]],                         \
+        array_ref<texture2d<_type, access::_access>>  A##_name [[texture(MPSCustomKernelIndexSrc##_index##Index * MPSMaxBatchSize), function_constant(kMPSSrc##_index##IsArray2d)]] [[array_ref_size(MPSMaxBatchSize)]],                \
+        array_ref<texture2d_array<_type, access::_access>> A##_name##A [[texture(MPSCustomKernelIndexSrc##_index##Index * MPSMaxBatchSize), function_constant(kMPSSrc##_index##IsArray2dArray)]] [[array_ref_size(MPSMaxBatchSize)]],  \
+        constant MPSCustomKernelSourceInfo & _name##Info [[buffer(MPSCustomKernelIndexSrc##_index##Index)]]
 
 #   define __MPS_SRC_IMAGE_PARAMS(_name, _index)     _name, _name##A, A##_name, A##_name##A, kMPSSrc##_index##TextureType, _name##Info
 
 #if defined(__METAL_MACOS__)
 //  macOS:  use texture arrays
 #   define __MPS_DEST_IMAGE_ARG( _name, _type  )                                                                                                                \
-        texture2d<_type, access::write>  _name  [[texture(MPSCustomKernelIndexDest), function_constant(kMPSDestIs2d)]],                                         \
-        texture2d_array<_type, access::write>  _name ## A  [[texture(MPSCustomKernelIndexDest), function_constant(kMPSDestIs2dArray)]],                         \
-        MPSTextureArray<texture2d<_type, access::write>> A##_name [[texture(MPSCustomKernelIndexDest), function_constant(kMPSDestIsArray2d)]],                  \
-        MPSTextureArray<texture2d_array<_type, access::write>> A##_name##A [[texture(MPSCustomKernelIndexDest), function_constant(kMPSDestIsArray2dArray)]],    \
-        constant MPSCustomKernelInfo & _name ## Info [[buffer(MPSCustomKernelIndexDestInfo)]]
+        texture2d<_type, access::write>  _name  [[texture(MPSCustomKernelIndexDestIndex * MPSMaxBatchSize), function_constant(kMPSDestIs2d)]],                                         \
+        texture2d_array<_type, access::write>  _name ## A  [[texture(MPSCustomKernelIndexDestIndex * MPSMaxBatchSize), function_constant(kMPSDestIs2dArray)]],                         \
+        array_ref<texture2d<_type, access::write>> A##_name [[texture(MPSCustomKernelIndexDestIndex * MPSMaxBatchSize), function_constant(kMPSDestIsArray2d)]] [[array_ref_size(MPSMaxBatchSize)]],                  \
+        array_ref<texture2d_array<_type, access::write>> A##_name##A [[texture(MPSCustomKernelIndexDestIndex * MPSMaxBatchSize), function_constant(kMPSDestIsArray2dArray)]] [[array_ref_size(MPSMaxBatchSize)]],    \
+        constant MPSCustomKernelInfo & _name ## Info [[buffer(MPSCustomKernelIndexDestIndex)]]
 
 #   define __MPS_DEST_IMAGE_PARAMS(_name)     _name, _name##A, A##_name, A##_name##A, kMPSDestTextureType, _name ## Info
 #else
 //  not macOS: writable texture arrays are not a feature
 #   define __MPS_DEST_IMAGE_ARG( _name, _type  )                                                                                            \
-        texture2d<_type, access::write>  _name  [[texture(MPSCustomKernelIndexDest), function_constant(kMPSDestIs2d)]],                     \
-        texture2d_array<_type, access::write>  _name ## A  [[texture(MPSCustomKernelIndexDest), function_constant(kMPSDestIs2dArray)]],     \
-        constant MPSCustomKernelInfo & _name ## Info [[buffer(MPSCustomKernelIndexDestInfo)]]
+        texture2d<_type, access::write>  _name  [[texture(MPSCustomKernelIndexDestIndex * MPSMaxBatchSize), function_constant(kMPSDestIs2d)]],                     \
+        texture2d_array<_type, access::write>  _name ## A  [[texture(MPSCustomKernelIndexDestIndex * MPSMaxBatchSize), function_constant(kMPSDestIs2dArray)]],     \
+        constant MPSCustomKernelInfo & _name ## Info [[buffer(MPSCustomKernelIndexDestIndex)]]
 
 #   define __MPS_DEST_IMAGE_PARAMS(_name)     _name, _name##A, kMPSDestTextureType, _name ## Info
 #endif
@@ -516,11 +513,11 @@ template<class _type, class _type4> void _MPSDestImage<_type, _type4>::write( _t
 //  _access         read or sample
 //  _type           float or half
 #   define __MPS_MAKE_CUSTOM_KERNEL( _func, _access, _type)                                                                                                 \
-    kernel void _func ## _MPSCustomV1_ ## MPSMaxBatchSize ## _ ##_access ## _ ##  _type (                                                                   \
+    kernel void _func ## _MPSCustomV1_ ## _ ##_access ## _ ##  _type (                                                                   \
         __MPS_DEST_IMAGE_ARG( dest, _type),                                                                                                                 \
         __MPS_SRC_IMAGE_ARG( src, _access, _type, 1 ),                                                                                                      \
-        device void * userData [[buffer(MPSCustomKernelIndexUserData)]],                                                                                    \
-        threadgroup void * threadgroupData [[threadgroup(MPSCustomKernelIndexUserData)]],                                                                   \
+        device void * userData [[buffer(MPSCustomKernelIndexUserDataIndex)]],                                                                                    \
+        threadgroup void * threadgroupData [[threadgroup(MPSCustomKernelIndexUserDataIndex)]],                                                                   \
         ushort3 globalID [[thread_position_in_grid]],                                                                                                       \
         ushort3 threadgroupID [[threadgroup_position_in_grid]],                                                                                             \
         ushort3 localID [[thread_position_in_threadgroup]] )                                                                                                \
@@ -567,6 +564,10 @@ static inline MPSFunctionConstant MPSMakeFunctionConstant( uint16_t    userValue
 
 #   endif /* __cplusplus */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // a/b = (a * recip + addend) >> shift      imad(a, recip, addend) >> shift
 // valid for all uint16_t a and b
 // div/0 is returned as div/1
@@ -609,9 +610,39 @@ static inline MPSIntegerDivisionParams   MPSFindIntegerDivisionParams( uint16_t 
     return result;
 }
 
+typedef struct MPSCustomKernelArgumentCount
+{
+    unsigned long   destinationTextureCount;        ///< must be 1. Can't have 2 or more. If you have 0, this is 1.
+    unsigned long   sourceTextureCount;             ///< number of source textures. These textures will be scaled by batchCount.
+    unsigned long   broadcastTextureCount;          ///< number of source textures shared across all parts of a batch
+}MPSCustomKernelArgumentCount;
 
+/*! @abstract  maximum allowed batch size   */
+static inline unsigned long MPSGetCustomKernelMaxBatchSize( MPSCustomKernelArgumentCount  c ){ return (MPSMaxTextures - c.broadcastTextureCount) / (1 + c.sourceTextureCount);}
 
-#endif
+/*! @abstract  The index of the first destination texture argument   */
+static inline unsigned long MPSGetCustomKernelBatchedDestinationIndex( MPSCustomKernelArgumentCount c ){ return 0;}
+
+/*! @abstract  The index of the ith batched source texture argument  */
+static inline unsigned long MPSGetCustomKernelBatchedSourceIndex( MPSCustomKernelArgumentCount c, unsigned long sourceIndex )
+{
+    unsigned long maxBatchSize = MPSGetCustomKernelMaxBatchSize(c);
+    return (sourceIndex+1) * maxBatchSize;
+}
+
+/*! @abstract The index of the ith non-batched source texture argument.
+ *  @discussion  A non-batched source is one that is shared for all items in a batch   */
+static inline unsigned long MPSGetCustomKernelBroadcastSourceIndex( MPSCustomKernelArgumentCount c, unsigned long sourceIndex )
+{
+    unsigned long maxBatchSize = MPSGetCustomKernelMaxBatchSize(c);
+    return (c.sourceTextureCount+1) * maxBatchSize + sourceIndex;
+}
+
+#   ifdef __cplusplus
+}
+#   endif
+
+#endif /* __METAL_VERSION__ */
 
 
 #endif /* MPSKernelTypes_h */

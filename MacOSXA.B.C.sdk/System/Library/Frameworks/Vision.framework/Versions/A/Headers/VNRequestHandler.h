@@ -13,19 +13,16 @@
 
 
 #import <Foundation/Foundation.h>
-
 #import <CoreVideo/CVPixelBuffer.h>
-
 #import <CoreImage/CoreImage.h>
-
 #import <ImageIO/ImageIO.h>
 
 #import <Vision/VNDefines.h>
 #import <Vision/VNRequest.h>
 
 
-
 NS_ASSUME_NONNULL_BEGIN
+
 
 /*!
  @brief Options keys passed into the VNImageRequestHandler creations or requests that take an auxiliary image. These are options that either describe specific properties of an image like the VNImageOptionCameraIntrinsics or how an image needs to be handled like the VNImageOptionCIContext.
@@ -339,7 +336,6 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0))
 	@param	error			On input, a pointer to an error object. If an error occurs, this pointer is set to an actual error object containing the error information. You may specify NULL for this parameter if you do not want the error information.
  */
 - (BOOL)performRequests:(NSArray<VNRequest *> *)requests onImageData:(NSData*)imageData orientation:(CGImagePropertyOrientation)orientation error:(NSError **)error;
-
 
 @end
 

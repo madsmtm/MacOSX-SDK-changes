@@ -1,13 +1,13 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 95101B4E-F38C-3616-9FB0-7EDDBEDEB210', 'x86_64: 7560B223-6C3A-3FE7-9843-B2FA1557FD56' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: C55DB8C2-8EC9-3515-AF5A-47DC7FD46234' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/Tcl.framework/Versions/8.5/Tcl
 current-version: 8.5.9
 compatibility-version: 8.5
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _TclAddLiteralObj, _TclAllocateFreeObjects, _TclBN_epoch, 
                        _TclBN_fast_s_mp_mul_digs, _TclBN_fast_s_mp_sqr, _TclBN_mp_add, 
                        _TclBN_mp_add_d, _TclBN_mp_and, _TclBN_mp_clamp, _TclBN_mp_clear, 

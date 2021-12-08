@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: D85723B0-B79B-3F5D-9A6F-1BA602D0329F' ]
+uuids:           [ 'x86_64: 99B2C23F-FE9A-3A6C-BE30-C100C3A852D2' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ConfigurationProfiles.framework/Versions/A/ConfigurationProfiles
 exports:         
@@ -48,19 +48,23 @@ exports:
                        _CP_DeviceIsEnrolledViaDEP, _CP_ExpandPayloadVariables, _CP_ExpandPayloadVariablesDidChange, 
                        _CP_FDEGetPRKEscrowRedirectionInfo, _CP_FDEPRKEscrowRedirectionInfoForEFI, 
                        _CP_FDESavePRKForEscrow, _CP_GetCertificateSignerSummary, 
+                       _CP_GetDeviceProfiles, _CP_GetManagedPreferencesFromPayload, 
                        _CP_GetManagementIdentityPersistRef, _CP_GetManagementStatus, 
-                       _CP_GetPathForPID, _CP_GetXPCSuccess, _CP_ImportCertificatesForPayload, 
-                       _CP_IsAccountManaged, _CP_ManagedAccessibilityBundleIDs, _CP_ManagedClientLoginAgentCheckin, 
+                       _CP_GetPathForPID, _CP_GetUserProfiles, _CP_GetXPCSuccess, 
+                       _CP_ImportCertificatesForPayload, _CP_IsAccountManaged, _CP_MDMOrgInfoManagingDomain, 
+                       _CP_ManagedAccessibilityBundleIDs, _CP_ManagedClientLoginAgentCheckin, 
                        _CP_PasscodePoliciesAreInstalledHintFlagFileLocation, _CP_PreLoginCheckIn, 
                        _CP_ProfileInstalledFromUserApprovedManagementService, _CP_ProfilesAreInstalledHintFlagFileLocation, 
                        _CP_ReadSecureSettingsForDevice, _CP_ReadSecureSettingsForUser, 
-                       _CP_RemoveProfilesWithXsanPayloads, _CP_SetCloudConfigInstalledHintInfo, 
+                       _CP_RemoveProfilesWithXsanPayloads, _CP_RemoveSystemProfileWithIdentifier, 
+                       _CP_RemoveUserProfileWithIdentifier, _CP_SetCloudConfigInstalledHintInfo, 
                        _CP_SetCloudConfigSetupUserInfo, _CP_SetXPCSuccess, _CP_StartupProfileChangeNeedsRestartHintFlagFileLocation, 
                        _CP_TransferXPCSuccess, _CP_UnarchiveSecureObject, _CP_UnlockUserAccount, 
                        _CloudConfig_SetUserMustEnroll, _CloudConfig_ShouldEnroll, 
                        _DisableMCXDebug, _GetODProfiles, _GetUserDataForODProfile, 
                        _HasODProfiles, _IsBZip2Compressed, _LoadMCXToolsInterface, 
-                       _ODDataToProfileInfo, _ProvisioningProfilesAreInstalled ]
+                       _ODDataToProfileInfo, _ProvisioningProfilesAreInstalled, __CP_ALAllowed, 
+                       __CP_ALBHash ]
     objc-classes:    [ CPIdentificationPayloads, CPMCXTools, CPProfile, CPProfileAdditionalWarningsHelper, 
                        CPProfileDomainService, CPProfileDomainServiceConnectionHandler, 
                        CPProfileManager, CPProfileMissingFieldHelper, CPProvisioningManager, 

@@ -1,53 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 831306C1-92D7-3827-AC54-5DB8368B131A', 'x86_64: 2080E9A0-F297-3947-A607-13CDB59FF12A' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 7D178568-DD3C-3849-AEBC-A699B9F65A40' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/InstantMessage.framework/Versions/A/InstantMessage
 current-version: 800
 exports:         
-  - archs:           [ i386 ]
-    symbols:         [ '$ld$add$os10.4$.objc_class_name_IMService', '$ld$add$os10.4$.objc_class_name_IMServiceAgent', 
-                       '$ld$add$os10.4$.objc_class_name_IMServiceAgentCenter', '$ld$add$os10.4$.objc_class_name_IMServiceAgentImpl', 
-                       '$ld$add$os10.4$.objc_class_name_IMServiceImpl', '$ld$add$os10.4$_AVChatChannelIDKey', 
-                       '$ld$add$os10.4$_AVChatHasAudioKey', '$ld$add$os10.4$_AVChatHasVideoKey', 
-                       '$ld$add$os10.4$_AVChatInfoNotification', '$ld$add$os10.4$_AVChatIsInitiatorKey', 
-                       '$ld$add$os10.4$_AVChatParticipantsKey', '$ld$add$os10.4$_AVChatResponseIDKey', 
-                       '$ld$add$os10.4$_AVChatResultExceptionKey', '$ld$add$os10.4$_AVChatResultKey', 
-                       '$ld$add$os10.4$_AVChatVideoStillDataKey', '$ld$add$os10.4$_AVChatVideoStillNotification', 
-                       '$ld$add$os10.4$_IMCapabilityAudioConference', '$ld$add$os10.4$_IMCapabilityDirectIM', 
-                       '$ld$add$os10.4$_IMCapabilityFileSharing', '$ld$add$os10.4$_IMCapabilityFileTransfer', 
-                       '$ld$add$os10.4$_IMCapabilityText', '$ld$add$os10.4$_IMCapabilityVideoConference', 
-                       '$ld$add$os10.4$_IMMyStatusChangedNotification', '$ld$add$os10.4$_IMPersonAVBusyKey', 
-                       '$ld$add$os10.4$_IMPersonCapabilitiesKey', '$ld$add$os10.4$_IMPersonEmailKey', 
-                       '$ld$add$os10.4$_IMPersonFirstNameKey', '$ld$add$os10.4$_IMPersonIdleSinceKey', 
-                       '$ld$add$os10.4$_IMPersonInfoChangedNotification', '$ld$add$os10.4$_IMPersonLastNameKey', 
-                       '$ld$add$os10.4$_IMPersonPictureDataKey', '$ld$add$os10.4$_IMPersonScreenNameKey', 
-                       '$ld$add$os10.4$_IMPersonServiceNameKey', '$ld$add$os10.4$_IMPersonStatusChangedNotification', 
-                       '$ld$add$os10.4$_IMPersonStatusKey', '$ld$add$os10.4$_IMPersonStatusMessageKey', 
-                       '$ld$add$os10.4$_IMServiceStatusChangedNotification', '$ld$add$os10.4$_IMStatusImagesChangedAppearanceNotification', 
-                       '$ld$add$os10.5$.objc_class_name_IMService', '$ld$add$os10.5$.objc_class_name_IMServiceAgent', 
-                       '$ld$add$os10.5$.objc_class_name_IMServiceAgentCenter', '$ld$add$os10.5$.objc_class_name_IMServiceAgentImpl', 
-                       '$ld$add$os10.5$.objc_class_name_IMServiceImpl' ]
   - archs:           [ x86_64 ]
-    symbols:         [ '$ld$add$os10.5$_OBJC_CLASS_$_IMService', '$ld$add$os10.5$_OBJC_CLASS_$_IMServiceAgent', 
-                       '$ld$add$os10.5$_OBJC_CLASS_$_IMServiceAgentCenter', '$ld$add$os10.5$_OBJC_CLASS_$_IMServiceAgentImpl', 
-                       '$ld$add$os10.5$_OBJC_CLASS_$_IMServiceImpl', '$ld$add$os10.5$_OBJC_METACLASS_$_IMService', 
-                       '$ld$add$os10.5$_OBJC_METACLASS_$_IMServiceAgent', '$ld$add$os10.5$_OBJC_METACLASS_$_IMServiceAgentCenter', 
-                       '$ld$add$os10.5$_OBJC_METACLASS_$_IMServiceAgentImpl', '$ld$add$os10.5$_OBJC_METACLASS_$_IMServiceImpl' ]
-    objc-ivars:      [ IMAVControl._contents, IMAVControlBarImpl._controls, IMAVControlBarImpl._updateScheduled, 
-                       IMAuxVideoProvider._callbackThread, IMAuxVideoProvider._clientState, 
-                       IMAuxVideoProvider._didConnect, IMAuxVideoProvider._frameRate, 
-                       IMAuxVideoProvider._isAboutToExitThread, IMAuxVideoProvider._providerID, 
-                       IMAuxVideoProvider._sharedBufferPool, IMAuxVideoProvider._shouldExit, 
-                       IMAuxVideoProvider._willUpdateSettings, IMSharedPixelBufferPool._bufferCount, 
-                       IMSharedPixelBufferPool._defaultColorSpace, IMSharedPixelBufferPool._height, 
-                       IMSharedPixelBufferPool._pixelFormat, IMSharedPixelBufferPool._poolName, 
-                       IMSharedPixelBufferPool._refCounts, IMSharedPixelBufferPool._rowBytes, 
-                       IMSharedPixelBufferPool._shmAddr, IMSharedPixelBufferPool._shmFd, 
-                       IMSharedPixelBufferPool._shmSem, IMSharedPixelBufferPool._shmSize, 
-                       IMSharedPixelBufferPool._width, iChatTheaterXPC._connection, 
-                       iChatTheaterXPC._connectionCount, iChatTheaterXPC._currentPeer ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ '$ld$add$os10.5$_AVChatChannelIDKey', '$ld$add$os10.5$_AVChatHasAudioKey', 
                        '$ld$add$os10.5$_AVChatHasVideoKey', '$ld$add$os10.5$_AVChatInfoNotification', 
                        '$ld$add$os10.5$_AVChatIsInitiatorKey', '$ld$add$os10.5$_AVChatParticipantsKey', 
@@ -65,6 +23,11 @@ exports:
                        '$ld$add$os10.5$_IMPersonStatusChangedNotification', '$ld$add$os10.5$_IMPersonStatusKey', 
                        '$ld$add$os10.5$_IMPersonStatusMessageKey', '$ld$add$os10.5$_IMServiceStatusChangedNotification', 
                        '$ld$add$os10.5$_IMStatusImagesChangedAppearanceNotification', 
+                       '$ld$add$os10.5$_OBJC_CLASS_$_IMService', '$ld$add$os10.5$_OBJC_CLASS_$_IMServiceAgent', 
+                       '$ld$add$os10.5$_OBJC_CLASS_$_IMServiceAgentCenter', '$ld$add$os10.5$_OBJC_CLASS_$_IMServiceAgentImpl', 
+                       '$ld$add$os10.5$_OBJC_CLASS_$_IMServiceImpl', '$ld$add$os10.5$_OBJC_METACLASS_$_IMService', 
+                       '$ld$add$os10.5$_OBJC_METACLASS_$_IMServiceAgent', '$ld$add$os10.5$_OBJC_METACLASS_$_IMServiceAgentCenter', 
+                       '$ld$add$os10.5$_OBJC_METACLASS_$_IMServiceAgentImpl', '$ld$add$os10.5$_OBJC_METACLASS_$_IMServiceImpl', 
                        _ICTConnectionRequestedNotification, _ICTConnectionUpdatedNotification, 
                        _ICTXPCConnectedNotification, _ICTXPCDiedNotification, _IMAVManagerListenerRegisteredDistributedNotification, 
                        _IMAVManagerStateChangedNotification, _IMAVManagerURLToShareChangedNotification, 
@@ -96,4 +59,17 @@ exports:
                        IMService, IMSharedPixelBufferPool, _IMAVButtonAuxiliary, 
                        _IMAVControlAuxiliary, _IMAVSliderAuxiliary, _IMVideoDataSource, 
                        iChatTheaterXPC ]
+    objc-ivars:      [ IMAVControl._contents, IMAVControlBarImpl._controls, IMAVControlBarImpl._updateScheduled, 
+                       IMAuxVideoProvider._callbackThread, IMAuxVideoProvider._clientState, 
+                       IMAuxVideoProvider._didConnect, IMAuxVideoProvider._frameRate, 
+                       IMAuxVideoProvider._isAboutToExitThread, IMAuxVideoProvider._providerID, 
+                       IMAuxVideoProvider._sharedBufferPool, IMAuxVideoProvider._shouldExit, 
+                       IMAuxVideoProvider._willUpdateSettings, IMSharedPixelBufferPool._bufferCount, 
+                       IMSharedPixelBufferPool._defaultColorSpace, IMSharedPixelBufferPool._height, 
+                       IMSharedPixelBufferPool._pixelFormat, IMSharedPixelBufferPool._poolName, 
+                       IMSharedPixelBufferPool._refCounts, IMSharedPixelBufferPool._rowBytes, 
+                       IMSharedPixelBufferPool._shmAddr, IMSharedPixelBufferPool._shmFd, 
+                       IMSharedPixelBufferPool._shmSem, IMSharedPixelBufferPool._shmSize, 
+                       IMSharedPixelBufferPool._width, iChatTheaterXPC._connection, 
+                       iChatTheaterXPC._connectionCount, iChatTheaterXPC._currentPeer ]
 ...

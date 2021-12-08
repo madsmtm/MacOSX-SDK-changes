@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 0DD303BE-48B4-3028-A2BC-89A7099E5702' ]
+uuids:           [ 'x86_64: FE062954-7DDB-3E74-95A8-61419FEEF3D7' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CalendarPersistence.framework/Versions/A/CalendarPersistence
-current-version: 470.4.2
+current-version: 505
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CALAbbrevDateFormat, _CALAbbrevDateWithoutYearFormat, _CALAbbrevDayOfWeekFormat, 
@@ -334,15 +334,15 @@ exports:
                        CALPropertyValue, CALPublishFilter, CALPublishOperation, CALPublisher, 
                        CALQuery, CALRecurID, CALRedBlackNode, CALRedBlackTree, CALRemotePublisher, 
                        CALRequestFilter, CALRequestStatus, CALRoleParameter, CALScheduleAgentParameter, 
-                       CALScheduleStatusParameter, CALScriptUtils, CALSearchElement, 
-                       CALSourceFactory, CALStatusTypeValue, CALSubComponentFilter, 
-                       CALSubscribeFilter, CALTimeRange, CALTimeRangeSubstractionResult, 
-                       CALTodo, CALTransparencyTypeValue, CALURLPublishOperation, 
-                       CALURLPublisher, CALView, CALWeekDayNumber, CALWeekDuration, 
-                       CALWeeklyRecurrence, CALYearlyRecurrence, CALvCALInputStream, 
-                       CALvCALParseState, CALvCALParsedLine, CALvCALRecurrence, CalABListener, 
-                       CalAbstractCDChangeTracker, CalAccountMonitor, CalAddressABGroupWrapper, 
-                       CalAddressABPersonWrapper, CalAddressCDRecordWrapper, CalAddressContactAutocompleteWrapper, 
+                       CALScheduleStatusParameter, CALSearchElement, CALSourceFactory, 
+                       CALStatusTypeValue, CALSubComponentFilter, CALSubscribeFilter, 
+                       CALTimeRange, CALTimeRangeSubstractionResult, CALTodo, CALTransparencyTypeValue, 
+                       CALURLPublishOperation, CALURLPublisher, CALView, CALWeekDayNumber, 
+                       CALWeekDuration, CALWeeklyRecurrence, CALYearlyRecurrence, 
+                       CALvCALInputStream, CALvCALParseState, CALvCALParsedLine, 
+                       CALvCALRecurrence, CalABListener, CalAbstractCDChangeTracker, 
+                       CalAccountMonitor, CalAddressABGroupWrapper, CalAddressABPersonWrapper, 
+                       CalAddressCDRecordWrapper, CalAddressContactAutocompleteWrapper, 
                        CalAddressLocationPreviousWrapper, CalAddressPreviousWrapper, 
                        CalAddressRecordWrapper, CalAddressWrapper, CalAlertChangeMonitor, 
                        CalArchiveFileWrapper, CalAttachmentCache, CalAttachmentsFilter, 

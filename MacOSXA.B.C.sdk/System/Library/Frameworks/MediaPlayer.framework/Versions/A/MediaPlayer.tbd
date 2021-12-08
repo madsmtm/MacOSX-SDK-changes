@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 19830D10-A554-31F3-9A8A-8389AB4D7861' ]
+uuids:           [ 'x86_64: 8D6F9AF7-E77E-369F-92E4-709F916198E1' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/MediaPlayer.framework/Versions/A/MediaPlayer
 objc-constraint: none
@@ -17,7 +17,7 @@ exports:
                        _MPAVRoutingDataSourceRouteUserInfoKey, _MPAVRoutingDataSourceRoutesDidChangeNotification, 
                        _MPAVRoutingDataSourceVolumeControlAvailabilityDidChangeNotification, 
                        _MPAVRoutingDataSourceVolumeControlAvailabilityUserInfoKey, 
-                       _MPDisplayableRouteNameForAVEndpoint, _MPErrorDomain, _MPLanguageOptionCharacteristicContainsOnlyForcedSubtitles, 
+                       _MPErrorDomain, _MPLanguageOptionCharacteristicContainsOnlyForcedSubtitles, 
                        _MPLanguageOptionCharacteristicDescribesMusicAndSound, _MPLanguageOptionCharacteristicDescribesVideo, 
                        _MPLanguageOptionCharacteristicDubbedTranslation, _MPLanguageOptionCharacteristicEasyToRead, 
                        _MPLanguageOptionCharacteristicIsAuxiliaryContent, _MPLanguageOptionCharacteristicIsMainProgramContent, 
@@ -109,20 +109,21 @@ exports:
                        __MPNowPlayingInfoPropertySupportsIsBanned, __MPNowPlayingInfoPropertySupportsIsLiked, 
                        __MPNowPlayingInfoPropertySupportsRewind15Seconds, __MPNowPlayingInfoPropertySupportsWishlisting, 
                        __MPNowPlayingInfoPropertyiTunesStoreIdentifier, __MPNowPlayingInfoPropertyiTunesStoreSubscriptionAdamIdentifier ]
-    objc-classes:    [ MPAVAuxiliaryDevice, MPAVBatteryLevel, MPAVDescriptorRoute, 
-                       MPAVEndpointRoute, MPAVEndpointRoutingDataSource, MPAVOutputDeviceRoute, 
-                       MPAVOutputDeviceRoutingDataSource, MPAVRoute, MPAVRouteConnection, 
-                       MPAVRoutingController, MPAVRoutingDataSource, MPAVTelevisionRoute, 
-                       MPAVTelevisionRoutingDataSource, MPArtworkResizeOperation, 
-                       MPChangeLanguageOptionCommandEvent, MPChangePlaybackPositionCommand, 
+    objc-classes:    [ MPAVAuxiliaryDevice, MPAVBatteryLevel, MPAVEndpointRoute, 
+                       MPAVEndpointRoutingDataSource, MPAVOutputDeviceRoute, MPAVOutputDeviceRoutingDataSource, 
+                       MPAVRoute, MPAVRouteConnection, MPAVRoutingController, MPAVRoutingDataSource, 
+                       MPAVTelevisionRoute, MPAVTelevisionRoutingDataSource, MPArtworkResizeOperation, 
+                       MPCFWrapper, MPChangeLanguageOptionCommandEvent, MPChangePlaybackPositionCommand, 
                        MPChangePlaybackPositionCommandEvent, MPChangePlaybackRateCommand, 
                        MPChangePlaybackRateCommandEvent, MPChangeRepeatModeCommand, 
                        MPChangeRepeatModeCommandEvent, MPChangeShuffleModeCommand, 
                        MPChangeShuffleModeCommandEvent, MPContentItem, MPFeedbackCommand, 
-                       MPFeedbackCommandEvent, MPMediaItemArtwork, MPMiddlewareChain, 
+                       MPFeedbackCommandEvent, MPMRAVEndpointWrapper, MPMRAVOutputContextWrapper, 
+                       MPMediaEntity, MPMediaItem, MPMediaItemArtwork, MPMiddlewareChain, 
                        MPNowPlayingContentItem, MPNowPlayingInfoCenter, MPNowPlayingInfoLanguageOption, 
                        MPNowPlayingInfoLanguageOptionGroup, MPNowPlayingInfoLyricsEvent, 
                        MPNowPlayingInfoLyricsItem, MPNowPlayingInfoLyricsItemToken, 
+                       MPPlayableContentManager, MPPlayableContentManagerContext, 
                        MPRatingCommand, MPRatingCommandEvent, MPRemoteCommand, MPRemoteCommandCenter, 
                        MPRemoteCommandEvent, MPRequest, MPRequestResponseController, 
                        MPResponse, MPSeekCommandEvent, MPSkipIntervalCommand, MPSkipIntervalCommandEvent ]

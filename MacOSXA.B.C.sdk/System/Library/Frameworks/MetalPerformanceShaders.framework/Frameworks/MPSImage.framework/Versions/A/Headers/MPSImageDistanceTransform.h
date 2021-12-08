@@ -25,7 +25,7 @@ MPS_CLASS_AVAILABLE_STARTING(macos(10.13.4), ios(11.3), tvos(11.3))
  *  @return     A valid MPSImageEuclideanDistanceTransform object or nil, if failure.
  */
 
--(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device     NS_DESIGNATED_INITIALIZER;
+-(nonnull instancetype) initWithDevice: (nonnull id <MTLDevice>) device NS_DESIGNATED_INITIALIZER;
 
 /*! @abstract NSSecureCoding compatability
  *  @discussion While the standard NSSecureCoding/NSCoding method

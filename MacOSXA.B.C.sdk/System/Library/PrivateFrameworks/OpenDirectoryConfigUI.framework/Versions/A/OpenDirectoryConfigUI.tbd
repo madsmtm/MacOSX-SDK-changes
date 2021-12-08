@@ -1,10 +1,19 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 31FC953F-6C7A-3DC5-84AD-9256B9CCA8FB', 'x86_64: 735351A0-E277-3B1C-B8BE-C1F82BB28029' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 7AE99E33-8024-358F-AC26-7899673DAE3E' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/OpenDirectoryConfigUI.framework/Versions/A/OpenDirectoryConfigUI
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _DirServersDictComparator, _NetServiceByHostNameComparator, 
+                       _NetServiceByNameComparator, _ODCActiveDirectoryMaxComputerNameLength, 
+                       _ODCUIAuthSucceededNotification ]
+    objc-classes:    [ ODCActiveDirectoryComputerNameFormatter, ODCAddServerSheetController, 
+                       ODCCenteredTextFieldCell, ODCEmptyMessageTableView, ODCRemoveODServerSheetController, 
+                       ODCServerComboBox, ODCServersTableCell, ODCServersView, ODCServersViewController, 
+                       ODCSummaryView, ODCSummaryViewController, ODCUnbindFromADSheetController, 
+                       ODCViewControllerBase, XSBonjourComboBox, XSCharacterSetFormatter, 
+                       XSDisablingTextField, XSDomainNameFormatter ]
     objc-ivars:      [ ODCEmptyMessageTableView._emptyListMsg, ODCEmptyMessageTableView._msgRow, 
                        ODCRemoveODServerSheetController._accessoryView, ODCRemoveODServerSheetController._action, 
                        ODCRemoveODServerSheetController._alert, ODCRemoveODServerSheetController._authView, 
@@ -50,14 +59,4 @@ exports:
                        XSCharacterSetFormatter._validCharacters, XSDisablingTextField.origTextColor, 
                        XSDomainNameFormatter._allowsMultipleValues, XSDomainNameFormatter._allowsPortSuffix, 
                        XSDomainNameFormatter._allowsWildcardDomains ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _DirServersDictComparator, _NetServiceByHostNameComparator, 
-                       _NetServiceByNameComparator, _ODCActiveDirectoryMaxComputerNameLength, 
-                       _ODCUIAuthSucceededNotification ]
-    objc-classes:    [ ODCActiveDirectoryComputerNameFormatter, ODCAddServerSheetController, 
-                       ODCCenteredTextFieldCell, ODCEmptyMessageTableView, ODCRemoveODServerSheetController, 
-                       ODCServerComboBox, ODCServersTableCell, ODCServersView, ODCServersViewController, 
-                       ODCSummaryView, ODCSummaryViewController, ODCUnbindFromADSheetController, 
-                       ODCViewControllerBase, XSBonjourComboBox, XSCharacterSetFormatter, 
-                       XSDisablingTextField, XSDomainNameFormatter ]
 ...

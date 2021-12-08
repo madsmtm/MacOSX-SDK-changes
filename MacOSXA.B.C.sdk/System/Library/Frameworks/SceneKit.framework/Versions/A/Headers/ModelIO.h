@@ -1,7 +1,8 @@
 //
 //  ModelIO.h
+//  SceneKit
 //
-//  Copyright (c) 2015-2017 Apple Inc. All rights reserved.
+//  Copyright © 2015-2018 Apple Inc. All rights reserved.
 //
 
 #import <ModelIO/ModelIO.h>

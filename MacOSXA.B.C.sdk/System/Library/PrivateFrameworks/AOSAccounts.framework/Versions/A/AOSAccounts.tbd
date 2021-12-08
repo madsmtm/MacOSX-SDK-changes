@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 4720412A-5DE6-36FF-A3E9-C6B31ABE94E7' ]
+uuids:           [ 'x86_64: 38D02713-68E9-34F8-AC9E-A540D2BE2D9D' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AOSAccounts.framework/Versions/A/AOSAccounts
 current-version: 1.9.95
@@ -36,9 +36,9 @@ exports:
                        _MMCopySignUpInfo, _MMCopySignUpInfoForMB, _MMDeleteUserAccount, 
                        _MMDisableKeychainBackup, _MMEnableKeychainBackup, _MMGetDeviceUDID, 
                        _MMGetMCXKeyForDataclass, _MMInvokeDelegatesWithDictionary, 
-                       _MMIsSignupAllowed, _MMMBPostAquaSessionSetup, _MMRecoverKeychainBackup, 
-                       _MMRegisterCredentials, _MMRegisterWithICloud, _MMRelayCookie, 
-                       _MMRemoveAccountFromDefaults, _MMResendVerificationEmail, 
+                       _MMIsDataclassAvailable, _MMIsSignupAllowed, _MMMBPostAquaSessionSetup, 
+                       _MMRecoverKeychainBackup, _MMRegisterCredentials, _MMRegisterWithICloud, 
+                       _MMRelayCookie, _MMRemoveAccountFromDefaults, _MMResendVerificationEmail, 
                        _MMRetrieveQuotaStorageURL, _MMRetrieveRampState, _MMSendSMSChallenge, 
                        _MMServiceCopyProperties, _MMServiceCopyProperty, _MMServiceIsAvailable, 
                        _MMServiceIsEnabled, _MMServiceIsEnabledForDisplay, _MMServiceIsInactiveOrEnabled, 
@@ -93,11 +93,13 @@ exports:
                        _kMMPropertyAccountKeychainPeerList, _kMMPropertyAccountKeychainRejectApplicantList, 
                        _kMMPropertyAccountKeychainResetKeychainSync, _kMMPropertyAccountKeychainStatus, 
                        _kMMPropertyAccountKeychainWasManuallyReset, _kMMPropertyAccountLastNameKey, 
-                       _kMMPropertyAccountPrimaryEmailVerified, _kMMPropertyAccountQuotaClientInfo, 
-                       _kMMPropertyAccountQuotaDisplayLabel, _kMMPropertyAccountQuotaInfo, 
-                       _kMMPropertyAccountQuotaInfoAvailable, _kMMPropertyAccountQuotaInfoByMedia, 
-                       _kMMPropertyAccountQuotaInfoByMediaBytesUsed, _kMMPropertyAccountQuotaInfoByMediaColor, 
+                       _kMMPropertyAccountPrimaryEmailVerified, _kMMPropertyAccountQuotaAvailableSpaceIncluded, 
+                       _kMMPropertyAccountQuotaClientInfo, _kMMPropertyAccountQuotaDisplayLabel, 
+                       _kMMPropertyAccountQuotaInfo, _kMMPropertyAccountQuotaInfoAvailable, 
+                       _kMMPropertyAccountQuotaInfoByMedia, _kMMPropertyAccountQuotaInfoByMediaBytesUsed, 
+                       _kMMPropertyAccountQuotaInfoByMediaColor, _kMMPropertyAccountQuotaInfoByMediaColorDark, 
                        _kMMPropertyAccountQuotaInfoByMediaKey, _kMMPropertyAccountQuotaInfoByMediaLabel, 
+                       _kMMPropertyAccountQuotaInfoByMediaTextColor, _kMMPropertyAccountQuotaInfoByMediaTextColorDark, 
                        _kMMPropertyAccountQuotaInfoDescription, _kMMPropertyAccountQuotaInfoInBytes, 
                        _kMMPropertyAccountQuotaInfoMailStorage, _kMMPropertyAccountQuotaInfoMailStorageCapacity, 
                        _kMMPropertyAccountQuotaInfoStorage, _kMMPropertyAccountQuotaInfoStorageCapacity, 
@@ -107,8 +109,8 @@ exports:
                        _kMMPropertyAccountQuotaStorage, _kMMPropertyAccountQuotaStorageByMedia, 
                        _kMMPropertyAccountQuotaStorageInfo, _kMMPropertyAccountQuotaStorageMeterLabel, 
                        _kMMPropertyAccountSafariHasKeychainData, _kMMPropertyAccountShouldConfigure, 
-                       _kMMPropertyAccountStatus, _kMMPropertyAccountUUID, _kMMPropertyBTMMIsAuthRequired, 
-                       _kMMPropertyEnableOption, _kMMPropertyEscrowProxyUrl, _kMMPropertyFMMInUseOwnerAccountID, 
+                       _kMMPropertyAccountStatus, _kMMPropertyAccountUUID, _kMMPropertyEnableOption, 
+                       _kMMPropertyEscrowProxyUrl, _kMMPropertyFMMInUseOwnerAccountID, 
                        _kMMPropertyFMMInUseOwnerDisplayName, _kMMPropertyFMMInUseOwnerFirstName, 
                        _kMMPropertyFMMInUseOwnerLastName, _kMMPropertyFMMRemoveAuthRight, 
                        _kMMPropertyFMMWipeToken, _kMMPropertyIMAPHostName, _kMMPropertyIMAPHostPort, 
@@ -160,18 +162,18 @@ exports:
                        _kMMServiceDidFinishMigrationNotification, _kMMServiceEnableChangedNotification, 
                        _kMMServiceFailureErrorKey, _kMMServiceFailureNotification, 
                        _kMMServiceFailureTypeDisable, _kMMServiceFailureTypeEnable, 
-                       _kMMServiceFailureTypeKey, _kMMServiceIDBTMM, _kMMServiceIDBookMarks, 
-                       _kMMServiceIDCalendars, _kMMServiceIDCloudDesktop, _kMMServiceIDContacts, 
-                       _kMMServiceIDFMM, _kMMServiceIDFamily, _kMMServiceIDKeychainSync, 
+                       _kMMServiceFailureTypeKey, _kMMServiceIDBookMarks, _kMMServiceIDCalendars, 
+                       _kMMServiceIDCloudDesktop, _kMMServiceIDContacts, _kMMServiceIDFMM, 
+                       _kMMServiceIDFamily, _kMMServiceIDHome, _kMMServiceIDKeychainSync, 
                        _kMMServiceIDMail, _kMMServiceIDMediaStream, _kMMServiceIDMessages, 
-                       _kMMServiceIDNotes, _kMMServiceIDPhotoServiceCloudPhotos, 
+                       _kMMServiceIDNews, _kMMServiceIDNotes, _kMMServiceIDPhotoServiceCloudPhotos, 
                        _kMMServiceIDPhotoServiceMediaStream, _kMMServiceIDPhotoServiceSharedStream, 
                        _kMMServiceIDPhotos, _kMMServiceIDReminders, _kMMServiceIDSharedStreams, 
-                       _kMMServiceIDSiri, _kMMServiceListChangedNotification, _kMMServiceMobileDocuments, 
-                       _kMMServicePropertiesChangedNotification, _kMMServiceStatusChangedNotification, 
-                       _kVettingEmailNotification, _kiCloudAccountRenewCredentialsComplete, 
-                       _kiCloudAccountRenewCredentialsDSID, _kiCloudAccountTermsContext, 
-                       _renewCredentialsOnACAccount ]
+                       _kMMServiceIDSiri, _kMMServiceIDStocks, _kMMServiceListChangedNotification, 
+                       _kMMServiceMobileDocuments, _kMMServicePropertiesChangedNotification, 
+                       _kMMServiceStatusChangedNotification, _kVettingEmailNotification, 
+                       _kiCloudAccountRenewCredentialsComplete, _kiCloudAccountRenewCredentialsDSID, 
+                       _kiCloudAccountTermsContext, _renewCredentialsOnACAccount ]
     objc-classes:    [ AAFollowUpController, MMDelegatePluginManager, MMiCloudAccountsMigrator, 
                        iCloudAccountMgr, iCloudUserNotification, iCloudUserNotifier ]
     objc-ivars:      [ MMDelegatePluginManager._done, MMDelegatePluginManager._mbSetupPlugins, 

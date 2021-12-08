@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 621A9123-A958-340E-86D0-997C9E1DDB4C', 'x86_64: BF5D065A-A38B-3446-9418-799F598072EF' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 38A18A32-BBF2-3A0F-AE37-51734B6CA91A' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libCVMSPluginSupport.dylib
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _cvmAddModularFunctionToCache, _cvmBuildModularFunctionDeferred, 
                        _cvmBuildModularFunctionSync, _cvmCancelFunctionPointerWrite, 
                        _cvmCreateCVMObject, _cvmCreateHashMachine, _cvmCreateModularFunction, 

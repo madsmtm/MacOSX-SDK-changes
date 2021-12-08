@@ -23,7 +23,8 @@ typedef enum MPSCNNLossType
 typedef NS_ENUM(uint32_t, MPSCNNLossType)
 #endif
 {
-    MPSCNNLossTypeMeanAbsoluteError             MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)) = 0,  // Mean Absolute Error
+    MPSCNNLossTypeMeanAbsoluteError             MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))
+                                                                                  MPS_SWIFT_NAME(meanAbsoluteError) = 0,  // Mean Absolute Error
     MPSCNNLossTypeMeanSquaredError              MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)),      // Mean Squared Error
     MPSCNNLossTypeSoftMaxCrossEntropy           MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)),      // SoftMax Cross Entropy
     MPSCNNLossTypeSigmoidCrossEntropy           MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)),      // Sigmoid Cross Entropy
@@ -54,7 +55,8 @@ typedef enum MPSCNNReductionType
 typedef NS_ENUM(int32_t, MPSCNNReductionType)
 #endif
 {
-    MPSCNNReductionTypeNone                     MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)) = 0,  // No reduction
+    MPSCNNReductionTypeNone                     MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))
+                                                                                               MPS_SWIFT_NAME(none) = 0,  // No reduction
     MPSCNNReductionTypeSum                      MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)),      // Sum
     MPSCNNReductionTypeMean                     MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)),      // Mean
     MPSCNNReductionTypeSumByNonZeroWeights      MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)),      // Sum divided by the number of non-zero weights

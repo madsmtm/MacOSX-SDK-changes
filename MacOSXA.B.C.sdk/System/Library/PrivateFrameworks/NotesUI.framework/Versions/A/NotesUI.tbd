@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: D14CF009-E8AE-30F7-8CC1-33AE9CD581D3' ]
+uuids:           [ 'x86_64: 60C0E052-460A-3E25-968A-979D7B54A383' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/NotesUI.framework/Versions/A/NotesUI
 exports:         
@@ -50,10 +50,11 @@ exports:
                        _ICNoteAddOrRemovePasswordInfoOriginalNoteKey, _ICNoteAddPasswordFirstTimeMessageCompletedKey, 
                        _ICNoteDidAddOrRemovePasswordNotification, _ICNoteHTMLConverterBundleIdentifier, 
                        _ICNoteUpdateHighlightAfterMergeDidEndNotification, _ICNoteUpdateHighlightAfterMergeWillBeginNotification, 
-                       _ICNoteWillAddOrRemovePasswordNotification, _ICNotesImporterBundleIdentifier, 
-                       _ICNotesTextAttachmentUTI, _ICPasswordUtilitiesAuthenticationChangedNotification, 
-                       _ICPasswordUtilitiesIsUpdatingPasswordForAllNotesKey, _ICSearchResultsDidUpdateNotification, 
-                       _ICTABLE_BUTTON_GIRTH, _ICTABLE_CELL_BOTTOM_PADDING, _ICTABLE_CELL_RANGE_BOUND_THRESHOLD, 
+                       _ICNoteWillAddOrRemovePasswordNotification, _ICNotesAccentColorDidChangeNotification, 
+                       _ICNotesImporterBundleIdentifier, _ICNotesTextAttachmentUTI, 
+                       _ICPasswordUtilitiesAuthenticationChangedNotification, _ICPasswordUtilitiesIsUpdatingPasswordForAllNotesKey, 
+                       _ICSearchResultsDidUpdateNotification, _ICTABLE_BUTTON_GIRTH, 
+                       _ICTABLE_CELL_BOTTOM_PADDING, _ICTABLE_CELL_RANGE_BOUND_THRESHOLD, 
                        _ICTABLE_CELL_SIDE_PADDING, _ICTABLE_CELL_TOP_PADDING, _ICTABLE_COLUMN_CHUNK_SIZE, 
                        _ICTABLE_COLUMN_PEEK_DISTANCE, _ICTABLE_DRAG_AUTOSCROLL_THRESHOLD, 
                        _ICTABLE_DRAG_SHADOW_OFFSET, _ICTABLE_DRAG_SHADOW_RADIUS, 
@@ -92,9 +93,9 @@ exports:
                        ICBaseAttachmentView, ICBaseTextAttachment, ICBrickTextAttachment, 
                        ICCircleLayer, ICCloudKitSyncer, ICCollaborationColorManager, 
                        ICCollapsibleActivityView, ICCollapsibleBaseView, ICCollapsibleImageView, 
-                       ICCollapsibleThumbnailView, ICDocCamImageFilters, ICDocCamPDFGenerator, 
-                       ICDrawingInputController, ICDrawingTextAttachment, ICEvernoteNote, 
-                       ICEvernoteResource, ICFlippedView, ICGalleryTextAttachment, 
+                       ICCollapsibleThumbnailView, ICColorDummyClass, ICDocCamImageFilters, 
+                       ICDocCamPDFGenerator, ICDrawingInputController, ICDrawingTextAttachment, 
+                       ICEvernoteNote, ICEvernoteResource, ICFlippedView, ICGalleryTextAttachment, 
                        ICHTMLConverterClient, ICImageAndMovieThumbnailView, ICImageTextAttachment, 
                        ICInlineDrawingChangeCoalescer, ICInlineDrawingTextAttachment, 
                        ICLabel, ICLegacyAttachment, ICLegacyContentUtilities, ICLegacyNote, 
@@ -110,7 +111,7 @@ exports:
                        ICTableColumnTextStorage, ICTableTextAttachment, ICTableTextController, 
                        ICTableTextStorage, ICTextAttachment, ICTextAttachmentCell, 
                        ICTextController, ICTextStyle, ICTintedLayer, ICTodoButton, 
-                       ICTrackedParagraph, ICUnsupportedTextAttachmentWithFallbackImage, 
+                       ICTodoButtonNonVibrantImageView, ICTrackedParagraph, ICUnsupportedTextAttachmentWithFallbackImage, 
                        ICUserDefaultsController, TTTextController, TTTextStorage, 
                        TTZoomController ]
     weak-def-symbols: [ __ZTI20ICDrawingInputFilterI19ICDrawingInputPoint20ICDrawingOutputPointE, 

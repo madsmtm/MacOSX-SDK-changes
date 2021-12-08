@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 13A6195C-8712-34AF-9001-3F22C243B146' ]
+uuids:           [ 'x86_64: BFA8336D-23F5-34A3-9F86-045D1FCD6E1E' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/DataDetectorsNaturalLanguage.framework/Versions/A/DataDetectorsNaturalLanguage
 exports:         

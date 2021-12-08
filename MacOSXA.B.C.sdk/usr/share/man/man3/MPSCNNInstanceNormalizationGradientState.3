@@ -1,4 +1,4 @@
-.TH "MPSCNNInstanceNormalizationGradientState" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNInstanceNormalizationGradientState" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -43,7 +43,10 @@ Inherits \fBMPSNNGradientState\fP\&.
 .RI "\fBMPSCNNInstanceNormalization\fP * \fBinstanceNormalization\fP"
 .br
 .ti -1c
-.RI "\fBMPSCNNNormalizationGammaAndBetaState\fP * \fBgammaAndBetaState\fP"
+.RI "__nullable id< MTLBuffer > \fBgamma\fP"
+.br
+.ti -1c
+.RI "__nullable id< MTLBuffer > \fBbeta\fP"
 .br
 .ti -1c
 .RI "__nonnull id< MTLBuffer > \fBgradientForGamma\fP"
@@ -99,8 +102,10 @@ Unavailable\&. Use \fBMPSCNNInstanceNormalization\fP state creation methods\&.
 Reimplemented from \fBMPSState\fP\&.
 .SH "Property Documentation"
 .PP 
-.SS "\- (\fBMPSCNNNormalizationGammaAndBetaState\fP*) gammaAndBetaState\fC [read]\fP, \fC [nonatomic]\fP, \fC [retain]\fP"
-
+.SS "\- (The MTLBuffer containing the gradient values for) beta\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+Return an MTLBuffer object with the state's current beta values\&.\&. 
+.SS "\- (The MTLBuffer containing the gradient values for) gamma\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
+Return an MTLBuffer object with the state's current gamma values\&. 
 .SS "\- (__nonnull id<MTLBuffer>) gradientForBeta\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 
 .SS "\- (__nonnull id<MTLBuffer>) gradientForGamma\fC [read]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"

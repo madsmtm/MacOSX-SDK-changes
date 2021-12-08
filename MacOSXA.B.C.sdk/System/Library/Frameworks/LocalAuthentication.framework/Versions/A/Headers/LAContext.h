@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, LAPolicy)
 } NS_ENUM_AVAILABLE(10_10, 8_0) __WATCHOS_AVAILABLE(3.0) __TVOS_AVAILABLE(10.0);
 
 /// The maximum value for LAContext touchIDAuthenticationAllowableReuseDuration property.
-extern const NSTimeInterval LATouchIDAuthenticationMaximumAllowableReuseDuration NS_AVAILABLE(10_12, 9_0) __WATCHOS_UNAVAILABLE __TVOS_UNAVAILABLE;
+extern const NSTimeInterval LATouchIDAuthenticationMaximumAllowableReuseDuration API_AVAILABLE(macos(10.12), ios(9.0)) API_UNAVAILABLE(watchos, tvos);
 
 /// Class that represents an authentication context.
 ///

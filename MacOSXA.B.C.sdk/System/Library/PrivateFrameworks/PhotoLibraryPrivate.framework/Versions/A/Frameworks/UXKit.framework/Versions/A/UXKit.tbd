@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: AD3B23DB-891A-3578-AA66-9B3590F13A72' ]
+uuids:           [ 'x86_64: F66AC0CB-806A-343E-93C8-B87E0CAA1FFE' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/UXKit.framework/Versions/A/UXKit
-current-version: 3271.13.150
+current-version: 3401.5.160
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _NSStringFromUXCollectionViewLayoutDropPosition, _UXCollectionElementKindCell, 
@@ -32,24 +32,25 @@ exports:
                        UXCollectionViewIndexPathsSet, UXCollectionViewLayout, UXCollectionViewLayoutAccessibility, 
                        UXCollectionViewLayoutAttributes, UXCollectionViewLayoutInvalidationContext, 
                        UXCollectionViewLayoutSectionAccessibility, UXCollectionViewMutableIndexPathsSet, 
-                       UXCollectionViewPanGestureRecognizer, UXCollectionViewRearrangingCoordinatorDragRecognizer, 
-                       UXCollectionViewUpdate, UXCollectionViewUpdateGap, UXCollectionViewUpdateItem, 
-                       UXControl, UXIdentityTransitionController, UXImageView, UXLabel, 
-                       UXNavigationBar, UXNavigationController, UXNavigationItem, 
-                       UXParallaxTransitionController, UXPopover, UXPopoverController, 
-                       UXProxyViewController, UXSlideTransitionController, UXSourceController, 
-                       UXSubtoolbar, UXTabBarController, UXTabBarItem, UXTabBarItemSegment, 
-                       UXTableLayout, UXTableView, UXTableViewCell, UXTableViewController, 
-                       UXTableViewHeaderFooterView, UXToolbar, UXTransitionController, 
-                       UXView, UXViewAnimationContext, UXViewController, UXWindowController, 
-                       UXZoomingCrossfadeTransitionController, _UXButton, _UXButtonCell, 
-                       _UXCollectionDocumentView, _UXCollectionSnapshotView, _UXCollectionView, 
-                       _UXCollectionViewItemKey, _UXCollectionViewLayoutProxy, _UXCollectionViewRearrangingCoordinator, 
-                       _UXCollectionViewSectionItemIndexes, _UXContainerView, _UXContentUnavailableView, 
-                       _UXFlowLayoutInfo, _UXFlowLayoutItem, _UXFlowLayoutRow, _UXFlowLayoutSection, 
+                       UXCollectionViewPanGestureRecognizer, UXCollectionViewUpdate, 
+                       UXCollectionViewUpdateGap, UXCollectionViewUpdateItem, UXControl, 
+                       UXIdentityTransitionController, UXImageView, UXLabel, UXNavigationBar, 
+                       UXNavigationController, UXNavigationItem, UXParallaxTransitionController, 
+                       UXPopover, UXPopoverController, UXProxyViewController, UXSlideTransitionController, 
+                       UXSourceController, UXSubtoolbar, UXTabBarController, UXTabBarItem, 
+                       UXTabBarItemSegment, UXTableLayout, UXTableView, UXTableViewCell, 
+                       UXTableViewController, UXTableViewHeaderFooterView, UXToolbar, 
+                       UXTransitionController, UXView, UXViewAnimationContext, UXViewController, 
+                       UXWindowController, UXZoomingCrossfadeTransitionController, 
+                       _UXButton, _UXButtonCell, _UXCollectionDocumentView, _UXCollectionSnapshotView, 
+                       _UXCollectionView, _UXCollectionViewItemKey, _UXCollectionViewLayoutProxy, 
+                       _UXCollectionViewRearrangingCoordinator, _UXCollectionViewSectionItemIndexes, 
+                       _UXContainerView, _UXContentUnavailableView, _UXFlowLayoutInfo, 
+                       _UXFlowLayoutItem, _UXFlowLayoutRow, _UXFlowLayoutSection, 
                        _UXLayoutSpacer, _UXNavigationDestination, _UXNavigationItemContainerView, 
                        _UXNavigationRequest, _UXResizableImage, _UXSettings, _UXSettingsGroup, 
-                       _UXSinglePixelLine, _UXSourceSplitView, _UXSourceSplitViewShadowView, 
+                       _UXSinglePixelLine, _UXSourceSplitView, _UXSourceSplitViewFullScreenOverlayContentView, 
+                       _UXSourceSplitViewFullScreenOverlayWindow, _UXSourceSplitViewShadowView, 
                        _UXSourceSplitViewSpringLoadingView, _UXTableHeaderView, _UXToolbarItemsContainer, 
                        _UXViewControllerOneToOneTransitionContext, _UXViewControllerTransitionContext, 
                        _UXViewControllerTransitionCoordinator, _UXWindow, _UXWindowState ]

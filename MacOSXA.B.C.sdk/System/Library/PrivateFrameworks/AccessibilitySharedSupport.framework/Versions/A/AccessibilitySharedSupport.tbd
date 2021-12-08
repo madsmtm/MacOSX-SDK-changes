@@ -1,21 +1,21 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 045E15A9-7C1A-3A2F-809B-2C3D5BBA87B5' ]
+uuids:           [ 'x86_64: 1FFB0234-E11B-34E5-8752-F6F21C081036' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AccessibilitySharedSupport.framework/Versions/A/AccessibilitySharedSupport
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _AXSSDeviceTypeAppleTV, _AXSSDeviceTypeMac, _AXSSDeviceTypePad, 
-                       _AXSSDeviceTypePhone, _AXSSLogForCategory, _AXSSSwitchActionATVArrowDown, 
-                       _AXSSSwitchActionATVArrowLeft, _AXSSSwitchActionATVArrowRight, 
-                       _AXSSSwitchActionATVArrowUp, _AXSSSwitchActionATVHome, _AXSSSwitchActionATVMenu, 
-                       _AXSSSwitchActionATVPlayPause, _AXSSSwitchActionATVSelect, 
-                       _AXSSSwitchActionActivate, _AXSSSwitchActionAppSwitcher, _AXSSSwitchActionControlCenter, 
-                       _AXSSSwitchActionCustom, _AXSSSwitchActionDictation, _AXSSSwitchActionForceTouch, 
-                       _AXSSSwitchActionHome, _AXSSSwitchActionMenu, _AXSSSwitchActionMoveToNextItem, 
-                       _AXSSSwitchActionMoveToPreviousItem, _AXSSSwitchActionNotificationCenter, 
-                       _AXSSSwitchActionRun, _AXSSSwitchActionSelect, _AXSSSwitchActionSiri, 
+    symbols:         [ _AXCKVOPronunciationPushTopic, _AXSSDeviceTypeAppleTV, _AXSSDeviceTypeMac, 
+                       _AXSSDeviceTypePad, _AXSSDeviceTypePhone, _AXSSLogForCategory, 
+                       _AXSSSwitchActionATVArrowDown, _AXSSSwitchActionATVArrowLeft, 
+                       _AXSSSwitchActionATVArrowRight, _AXSSSwitchActionATVArrowUp, 
+                       _AXSSSwitchActionATVHome, _AXSSSwitchActionATVMenu, _AXSSSwitchActionATVPlayPause, 
+                       _AXSSSwitchActionATVSelect, _AXSSSwitchActionActivate, _AXSSSwitchActionAppSwitcher, 
+                       _AXSSSwitchActionControlCenter, _AXSSSwitchActionCustom, _AXSSSwitchActionDictation, 
+                       _AXSSSwitchActionForceTouch, _AXSSSwitchActionHome, _AXSSSwitchActionMenu, 
+                       _AXSSSwitchActionMoveToNextItem, _AXSSSwitchActionMoveToPreviousItem, 
+                       _AXSSSwitchActionNotificationCenter, _AXSSSwitchActionRun, 
+                       _AXSSSwitchActionSelect, _AXSSSwitchActionSiri, _AXSSSwitchActionSiriShortcutsMenu, 
                        _AXSSSwitchActionStop, _AXSSSwitchActionTripleClick, _AXSSSwitchActionVolumeDown, 
                        _AXSSSwitchActionVolumeUp, _AXSSSwitchControlCursorSizeLarge, 
                        _AXSSSwitchControlCursorSizeMedium, _AXSSSwitchControlCursorSizeSmall, 
@@ -23,8 +23,11 @@ exports:
                        _AXSSSwitchControlScanningStyleAuto, _AXSSSwitchControlScanningStyleManual, 
                        _AXSSSwitchControlScanningStyleSingleSwitchStep, _AXSSSwitchControlTapBehaviorAlways, 
                        _AXSSSwitchControlTapBehaviorAuto, _AXSSSwitchControlTapBehaviorDefault, 
-                       _AXSSSwitchControlTimeIntervalNotApplicable ]
+                       _AXSSSwitchControlTimeIntervalNotApplicable, _AccessibilitySharedSupportVersionNumber, 
+                       _AccessibilitySharedSupportVersionString ]
     objc-classes:    [ AXSSInterDeviceCommunicator, AXSSInterDeviceSearchResult, 
-                       AXSSInterDeviceSwitchEvent, AXSSPronunciationDatabase, AXSSPronunciationSubstitution, 
-                       AXSSSwitchControlSettings ]
+                       AXSSInterDeviceSecurityHelper, AXSSInterDeviceSwitchEvent, 
+                       AXSSPronunciationDatabase, AXSSPronunciationSubstitution, 
+                       AXSSSwitchControlSettings, VOBundle, VOLanguage, VOSubstitution, 
+                       VOVoice ]
 ...

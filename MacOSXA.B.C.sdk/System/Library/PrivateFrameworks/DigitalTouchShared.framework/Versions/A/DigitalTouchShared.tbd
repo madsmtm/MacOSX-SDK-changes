@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 83AD5238-5E80-3DBD-A170-9EC2A1610FD0' ]
+uuids:           [ 'x86_64: DCD57A1C-5FAF-325B-A44E-A055BED83C40' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/DigitalTouchShared.framework/Versions/A/DigitalTouchShared
 exports:         
@@ -33,9 +33,9 @@ exports:
                        _ETPairedSyncStateChangedNotification, _ETPairedSyncStatePreferenceKey, 
                        _ETPeoplePicker1UpScrollPPTTestName, _ETPeoplePicker2UpScrollPPTTestName, 
                        _ETPeoplePicker3UpScrollPPTTestName, _ETPersonUnreadMessageCountKey, 
-                       _ETPersonUnreadMessageStatusChangedNotification, _ETSceneWidthNormalizationFactor, 
-                       _ETServiceName, _ETUserTappedOnNotificationNotification, _FADE_IN_DURATION, 
-                       _FADE_OUT_DURATION, _LINE_POINTSIZE, _NSStringFromETMessageType, 
+                       _ETPersonUnreadMessageStatusChangedNotification, _ETPreferredFramesPerSecond, 
+                       _ETSceneWidthNormalizationFactor, _ETServiceName, _ETUserTappedOnNotificationNotification, 
+                       _FADE_IN_DURATION, _FADE_OUT_DURATION, _LINE_POINTSIZE, _NSStringFromETMessageType, 
                        _VERTEX_COUNT, _VERTEX_TIME_OFFSET_PER_GROUP, __Z10clampFloatfff, 
                        __Z16createCirclePathdd, __Z20createSemiCirclePathdd, _kETArchiveSentMessages, 
                        _kETDomain, _kETEarlyLoadEnabled, _kETLastInteractiveZoomLevelKey, 
@@ -47,12 +47,12 @@ exports:
                        ETPKiss, ETPReadReceipt, ETPTap, ETPVideo, ETPointFIFO, ETQuadCurvePointFIFO, 
                        ETQuickTapMessage, ETReadReceiptMessage, ETSketchMessage, 
                        ETTapMessage, ETUtility, ETVideoMessage, KissNode ]
-    objc-ivars:      [ ETPAnger._duration, ETPAnger._has, ETPAnger._normalizedCenterX, 
-                       ETPAnger._normalizedCenterY, ETPDoodle._colorData, ETPDoodle._doodleCount, 
-                       ETPDoodle._doodleData, ETPDoodle._has, ETPDoodle._pointTimeDeltaData, 
-                       ETPHeader._baseColor, ETPHeader._has, ETPHeader._identifier, 
-                       ETPHeader._messageData, ETPHeader._messageType, ETPHeader._sendDate, 
-                       ETPHeader._startDelay, ETPHeader._supportsPlaybackTimeOffsets, 
+    objc-ivars:      [ ETPAnger._delays, ETPAnger._duration, ETPAnger._has, ETPAnger._normalizedCenterX, 
+                       ETPAnger._normalizedCenterY, ETPAnger._points, ETPDoodle._colorData, 
+                       ETPDoodle._doodleCount, ETPDoodle._doodleData, ETPDoodle._has, 
+                       ETPDoodle._pointTimeDeltaData, ETPHeader._baseColor, ETPHeader._has, 
+                       ETPHeader._identifier, ETPHeader._messageData, ETPHeader._messageType, 
+                       ETPHeader._sendDate, ETPHeader._startDelay, ETPHeader._supportsPlaybackTimeOffsets, 
                        ETPHeartbeat._beatsPerMinute, ETPHeartbeat._duration, ETPHeartbeat._has, 
                        ETPHeartbeat._heartbreakTime, ETPHeartbeat._normalizedCenterX, 
                        ETPHeartbeat._normalizedCenterY, ETPHeartbeat._rotation, ETPKiss._angles, 

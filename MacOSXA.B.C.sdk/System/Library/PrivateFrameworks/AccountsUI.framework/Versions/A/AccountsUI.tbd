@@ -1,21 +1,19 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 8C558365-979A-310C-9A24-031E34A9FDAD' ]
+uuids:           [ 'x86_64: F86129B4-A5C7-3B0E-A579-084A0FB0DBE2' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AccountsUI.framework/Versions/A/AccountsUI
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ACUICreateAccountInPreferencePane, _ACUIIsNetworkAvailable, 
                        _ACUIIsRunningInternetAccountsPref, _ACUILog, _ACUIOpenPreferencePaneWithArgs, 
-                       _ACUIRevealAccountInPreferencePane, _ACUIUID, _AccountsUIVersionNumber, 
-                       _AccountsUIVersionString ]
-    objc-classes:    [ ACUIAccountDataclass, ACUIAccountDataclassCellView, ACUIAccountDataclassShareMenu, 
-                       ACUIAccountDetailsViewController, ACUIAccountInfoViewController, 
-                       ACUIAccountNotifier, ACUIAccountSetupViewController, ACUIAccountTypeRowRadio, 
-                       ACUIAccountTypesCellView, ACUIAccountTypesViewController, 
+                       _ACUIRevealAccountInPreferencePane, _ACUIRevealAccountInPreferencePaneAndPromptToEnable, 
+                       _ACUIUID, _AccountsUIVersionNumber, _AccountsUIVersionString ]
+    objc-classes:    [ ACUIAccountDataclass, ACUIAccountDataclassCellView, ACUIAccountDetailsViewController, 
+                       ACUIAccountInfoViewController, ACUIAccountNotifier, ACUIAccountSetupViewController, 
+                       ACUIAccountTypeRowRadio, ACUIAccountTypesCellView, ACUIAccountTypesViewController, 
                        ACUIAccountsTableViewController, ACUICertificatePanelManager, 
-                       ACUICredentialPromptViewController, ACUIInvisibleButton, ACUILegalSheetViewController, 
-                       ACUIPluginManager, ACUISetupManagerViewController, ACUITableCellView, 
-                       ACUIUpdateContactsViewController, ACUIUtilities, ACUIViewController, 
-                       ACUIWebLoginViewController ]
+                       ACUICredentialPromptViewController, ACUIInvisibleButton, ACUIPluginManager, 
+                       ACUISetupManagerViewController, ACUITableCellView, ACUIUtilities, 
+                       ACUIViewController, ACUIWebLoginViewController ]
 ...

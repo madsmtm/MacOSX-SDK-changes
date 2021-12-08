@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 2CB1EEC9-97F6-3CD3-B5A0-EC2613BE94AC' ]
+uuids:           [ 'x86_64: 091464E0-BD38-392F-B27C-9E1779F928C3' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AskPermission.framework/Versions/A/AskPermission
 exports:         
@@ -23,5 +23,5 @@ exports:
                        _kPRRequestInfoStoreSalableProductType, _kPRRequestInfoStoreSalableProductTypeID, 
                        _kPRRequestInfoStoreSalableURL, _kPRRequestInfoStoreSalables, 
                        _kPRRequestInfoStoreSandboxRequest, _kPRRequestQueueiTunesStoreIdentifier ]
-    objc-classes:    [ PRRequest, PRRequestQueue, PRUIHelper ]
+    objc-classes:    [ AskPermissionBag, PRRequest, PRRequestQueue, PRUIHelper ]
 ...

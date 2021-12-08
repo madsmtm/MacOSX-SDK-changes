@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: AE42A330-E675-3FC2-928C-B52FBB558F52' ]
+uuids:           [ 'x86_64: 32623285-1769-3507-B8EB-D8476424AD92' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/InternetAccounts.framework/Versions/A/InternetAccounts
 exports:         

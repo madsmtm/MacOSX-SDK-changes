@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: F813043C-A70F-3802-BB01-6A3A907B8408', 'x86_64: 7CEDFFBA-732C-3538-B662-7D9344C3AB7C' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 5C8BE614-7EE0-34EE-9E76-F497857950B5' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/A/Libraries/libmetal_timestamp.dylib
 current-version: 0
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _getMetalTimeStamp ]
 ...

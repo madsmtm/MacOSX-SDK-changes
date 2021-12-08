@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 394251E2-E715-3D24-816A-A81FB79F5D22' ]
+uuids:           [ 'x86_64: 91E4B5AB-BE32-31E5-B282-488D18851F81' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CalendarFoundation.framework/Versions/A/CalendarFoundation
-current-version: 552.4.3
+current-version: 591
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CALAbbrevDateFormat, _CALAbbrevDateWithoutYearFormat, _CALAbbrevDayOfWeekFormat, 
@@ -100,6 +100,7 @@ exports:
                        _mt_log_calendar_account_refresh_2, _mt_log_calendar_account_types, 
                        _mt_log_calendar_all_day_user_defined_height, _mt_log_calendar_calendaragent_memory_usage, 
                        _mt_log_calendar_deep_refresh_2, _mt_log_calendar_detached_with_bad_etag, 
+                       _mt_log_calendar_groups_created_local_group, _mt_log_calendar_groups_has_local_group_with_data, 
                        _mt_log_calendar_navigation_swipe_lag, _mt_log_calendar_old_feature_usage, 
                        _mt_log_calendar_proactive_pseudoevent, _mt_log_calendar_proactive_pseudoevent_allday, 
                        _mt_log_calendar_proactive_pseudoevent_private, _mt_log_calendar_pseudo_event_deletions, 
@@ -127,14 +128,13 @@ exports:
                        CalLogEnvelope, CalLogFileWriter, CalLogFilter, CalLogMaster, 
                        CalLogNSLogWriter, CalLogNode, CalLogUserNotificationWriter, 
                        CalLogWriter, CalLogXMLFormatter, CalMeCard, CalMemorySensor, 
-                       CalMessageTracer, CalNWideQueue, CalOSLogWriter, CalPersistentLRUCache, 
-                       CalPersistentLRUCacheItem, CalPreferences, CalRoute, CalScriptSecurityPolicy, 
-                       CalSignalSensor, CalSpotlightPendingSearch, CalSpotlightQueryController, 
-                       CalSpotlightQueryResult, CalStopwatch, CalStructuredDataArchiver, 
-                       CalSuggestionsProvider, CalTimeIntervalLocalization, CalWellKnownPaths, 
-                       CalendarColors, CaliCalendarPRODID, EKCalendarDate, EKFoundInAppsEventTracker, 
-                       EKMutableCalendarDate, EKProtocolObject_Shared, EKSuggestionsServiceLogger, 
-                       EKTTLEventTracker, EKTimeZone ]
+                       CalMessageTracer, CalNWideQueue, CalOSLogWriter, CalPreferences, 
+                       CalRoute, CalScriptSecurityPolicy, CalSignalSensor, CalSpotlightPendingSearch, 
+                       CalSpotlightQueryController, CalSpotlightQueryResult, CalStopwatch, 
+                       CalStructuredDataArchiver, CalSuggestionsProvider, CalTimeIntervalLocalization, 
+                       CalWellKnownPaths, CalendarColors, CaliCalendarPRODID, EKCalendarDate, 
+                       EKFoundInAppsEventTracker, EKMutableCalendarDate, EKProtocolObject_Shared, 
+                       EKSuggestionsServiceLogger, EKTTLEventTracker, EKTimeZone ]
     objc-ivars:      [ EKCalendarDate._dateAbs, EKCalendarDate._dateGr, EKCalendarDate._flags, 
                        EKCalendarDate._timeZone ]
 ...

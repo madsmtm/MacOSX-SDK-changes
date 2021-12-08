@@ -1,12 +1,16 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 9D532312-C024-38CA-B137-A4C88919C5EC', 'x86_64: F8BAC954-405D-3CC3-AB7B-048C866EF980' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: F9D5F55D-9A33-326E-8B2F-B533CC91DD64' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/TextureIO.framework/Versions/A/TextureIO
-current-version: 3.7
-objc-constraint: none
+current-version: 3.8.4
 exports:         
   - archs:           [ x86_64 ]
+    objc-classes:    [ TXRArrayElement, TXRAssetCatalogConfig, TXRAssetCatalogFileAttributes, 
+                       TXRAssetCatalogMipFileAttributes, TXRAssetCatalogSet, TXRDataConverter, 
+                       TXRDataScaler, TXRDefaultBufferAllocator, TXRImage, TXRImageIndependent, 
+                       TXRImageInfo, TXRMipmapLevel, TXROptions, TXRPixelFormatInfo, 
+                       TXRTexture, TXRTextureInfo ]
     objc-ivars:      [ TXRArrayElement._faces, TXRAssetCatalogConfig._baseFileAttributes, 
                        TXRAssetCatalogConfig._displayColorSpace, TXRAssetCatalogConfig._fileAttributesList, 
                        TXRAssetCatalogConfig._graphicsFeatureSet, TXRAssetCatalogConfig._idiom, 
@@ -21,10 +25,4 @@ exports:
                        TXRImage._bytesPerRow, TXRImage._offset, TXRMipmapLevel._elements, 
                        TXRTexture._alphaInfo, TXRTexture._bufferAllocator, TXRTexture._cubemap, 
                        TXRTexture._dimensions, TXRTexture._mipmapLevels, TXRTexture._pixelFormat ]
-  - archs:           [ i386, x86_64 ]
-    objc-classes:    [ TXRArrayElement, TXRAssetCatalogConfig, TXRAssetCatalogFileAttributes, 
-                       TXRAssetCatalogMipFileAttributes, TXRAssetCatalogSet, TXRDataConverter, 
-                       TXRDataScaler, TXRDefaultBufferAllocator, TXRImage, TXRImageIndependent, 
-                       TXRImageInfo, TXRMipmapLevel, TXROptions, TXRPixelFormatInfo, 
-                       TXRTexture, TXRTextureInfo ]
 ...

@@ -1,10 +1,44 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: E7982557-7B5C-3AE0-9DA9-756C49ED2E4E', 'x86_64: 3C8EFA68-8D44-30F8-8A2D-AB75524120A2' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 029DF4C7-15EE-30DA-98F8-0509AB36557A' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/WebContentAnalysis.framework/Versions/A/WebContentAnalysis
 exports:         
   - archs:           [ x86_64 ]
+    symbols:         [ _ComposeDebugPage, _ComposeDebugPageSimple, _DecodeBase64, 
+                       _DecodeBase64WithNewlines, _EncodeBase64, _EncodeBase64WithNewlines, 
+                       _HolyInquisitionDebugPrint, _HolyInquisitionGetIPv4Proxy, 
+                       _HolyInquisitionGetIPv6Proxy, _HolyInquisitionGetManagedUser, 
+                       _HolyInquisitionOpenControlSocket, _HolyInquisitionSetIPv4Proxy, 
+                       _HolyInquisitionSetIPv6Proxy, _HolyInquisitionSetManagedUser, 
+                       _HolyInquisitionSetProxyToLocalPort, _HolyInquisitionTurnOnHTTPSFiltering, 
+                       _KILOPIXELS, _MEGAPIXELS, _NS64BaseStringFromString, _NSStringFrom64BaseString, 
+                       _OSLogForCategory, _WFDebugLevel, _WFIsURLExplicit, _WFIsURLToRestrictForUser, 
+                       _WFIsWebPageExplicit, _WFIsWebPageToRestrictForUser, _WFSetDebugLevel, 
+                       _WFWebPageToTrainingText_Category1, _WFWebPageToTrainingText_Category2, 
+                       _WFWebPageToTrainingText_Category3, _WFWebPageToTrainingText_Category4, 
+                       _WFWebPageToTrainingText_Category5, _WFWebPageToTrainingText_Category6, 
+                       _WFWebPageToTrainingText_Category7, _WFWebPageToTrainingText_Category8, 
+                       _WFWebPageToTrainingText_Category9, _WFWebPageToTrainingText_Signature, 
+                       __HolyInquisitionGetUserForType, __HolyInquisitionSetValueForType, 
+                       __NSHTMLEncoding, __WFEvaluateVerdict, __WebFilterIsActive, 
+                       _ignorableCharacterSet_NSString, _kDefaultCategoryThreshold, 
+                       _kWFIgnoreRefreshCutoff, _kWFImgDimensionUnknown, _kWFLSMExplicitThresholdKey, 
+                       _kWFWebPageToFilterText_AdWord, _kWFWebPageToFilterText_Description, 
+                       _kWFWebPageToFilterText_ExternalRefs, _kWFWebPageToFilterText_FuzzyURL, 
+                       _kWFWebPageToFilterText_ImageAlts, _kWFWebPageToFilterText_Keywords, 
+                       _kWFWebPageToFilterText_LinkTitles, _kWFWebPageToFilterText_PageContent, 
+                       _kWFWebPageToFilterText_ScriptBlocks, _kWFWebPageToFilterText_Signature, 
+                       _kWFWebPageToFilterText_Tags, _kWFWebPageToFilterText_Title, 
+                       _kWFWebPageToFilterText_URL, _kWFWhitelistSiteBufferDefaultMaxSize ]
+    objc-classes:    [ WCAUserSettings, WFBlockPage, WFCategoryJudgement, WFContentSniffer, 
+                       WFDocumentStructureTag, WFImg, WFImgArrayCache, WFJavascriptStripper, 
+                       WFJudge, WFLSMMap, WFLSMResult, WFLSMScoreNormalizedMap, WFLink, 
+                       WFNodeWrapper, WFPostprocessor, WFSlangTag, WFTagFactory, 
+                       WFTagFlyweight, WFTreeHTMLStripper, WFTreeXMLDocumentStripper, 
+                       WFUSC2257Tag, WFVerdict, WFWebPageDecorator, WFWebPageToFilterText, 
+                       WFWebPageToTrainingText, WFWhitelistSite, WFWhitelistSiteBuffer, 
+                       WFWhitelistUserPreferences, WebFilterEvaluator, XMLNode ]
     objc-ivars:      [ WCAUserSettings._userName, WCAUserSettings._userSettings, 
                        WFBlockPage.allowedWebSites, WFBlockPage.formPostToURLString, 
                        WFBlockPage.formRestrictedPageTitle, WFBlockPage.formRestrictedPageURLString, 
@@ -31,40 +65,4 @@ exports:
                        WFWhitelistUserPreferences.webWhitelist, WFWhitelistUserPreferences.whitelistEnabled, 
                        WebFilterEvaluator._buffer, WebFilterEvaluator._filterState, 
                        WebFilterEvaluator._url, XMLNode._xmlNode ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _ComposeDebugPage, _ComposeDebugPageSimple, _DebugHeader, 
-                       _DecodeBase64, _DecodeBase64WithNewlines, _EncodeBase64, _EncodeBase64WithNewlines, 
-                       _HolyInquisitionDebugPrint, _HolyInquisitionGetIPv4Proxy, 
-                       _HolyInquisitionGetIPv6Proxy, _HolyInquisitionGetManagedUser, 
-                       _HolyInquisitionOpenControlSocket, _HolyInquisitionSetIPv4Proxy, 
-                       _HolyInquisitionSetIPv6Proxy, _HolyInquisitionSetManagedUser, 
-                       _HolyInquisitionSetProxyToLocalPort, _HolyInquisitionTurnOnHTTPSFiltering, 
-                       _IndexOfBody, _InjectPage, _KILOPIXELS, _MEGAPIXELS, _NS64BaseStringFromString, 
-                       _NSStringFrom64BaseString, _PreferredLanguageForUserName, 
-                       _WFDebugLevel, _WFIsURLExplicit, _WFIsURLToRestrictForUser, 
-                       _WFIsWebPageExplicit, _WFIsWebPageToRestrictForUser, _WFLog, 
-                       _WFSetDebugLevel, _WFWebPageToTrainingText_Category1, _WFWebPageToTrainingText_Category2, 
-                       _WFWebPageToTrainingText_Category3, _WFWebPageToTrainingText_Category4, 
-                       _WFWebPageToTrainingText_Category5, _WFWebPageToTrainingText_Category6, 
-                       _WFWebPageToTrainingText_Category7, _WFWebPageToTrainingText_Category8, 
-                       _WFWebPageToTrainingText_Category9, _WFWebPageToTrainingText_Signature, 
-                       __HolyInquisitionGetUserForType, __HolyInquisitionSetValueForType, 
-                       __NSHTMLEncoding, __WFEvaluateVerdict, __WebFilterIsActive, 
-                       _ignorableCharacterSet_NSString, _kDefaultCategoryThreshold, 
-                       _kWFIgnoreRefreshCutoff, _kWFImgDimensionUnknown, _kWFLSMExplicitThresholdKey, 
-                       _kWFWebPageToFilterText_AdWord, _kWFWebPageToFilterText_Description, 
-                       _kWFWebPageToFilterText_ExternalRefs, _kWFWebPageToFilterText_FuzzyURL, 
-                       _kWFWebPageToFilterText_ImageAlts, _kWFWebPageToFilterText_Keywords, 
-                       _kWFWebPageToFilterText_LinkTitles, _kWFWebPageToFilterText_PageContent, 
-                       _kWFWebPageToFilterText_ScriptBlocks, _kWFWebPageToFilterText_Signature, 
-                       _kWFWebPageToFilterText_Tags, _kWFWebPageToFilterText_Title, 
-                       _kWFWebPageToFilterText_URL, _kWFWhitelistSiteBufferDefaultMaxSize ]
-    objc-classes:    [ WCAUserSettings, WFBlockPage, WFCategoryJudgement, WFContentSniffer, 
-                       WFDocumentStructureTag, WFImg, WFImgArrayCache, WFJavascriptStripper, 
-                       WFJudge, WFLSMMap, WFLSMResult, WFLSMScoreNormalizedMap, WFLink, 
-                       WFNodeWrapper, WFPostprocessor, WFSlangTag, WFTagFactory, 
-                       WFTagFlyweight, WFTreeHTMLStripper, WFTreeXMLDocumentStripper, 
-                       WFUSC2257Tag, WFVerdict, WFWebPageDecorator, WFWebPageToFilterText, 
-                       WFWebPageToTrainingText, WFWhitelistSite, WFWhitelistSiteBuffer, 
-                       WFWhitelistUserPreferences, WebFilterEvaluator, XMLNode ]
 ...

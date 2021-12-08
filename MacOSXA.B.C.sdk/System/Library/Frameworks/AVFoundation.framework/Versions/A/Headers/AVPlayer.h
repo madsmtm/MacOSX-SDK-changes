@@ -3,7 +3,7 @@
 
 	Framework:  AVFoundation
  
-	Copyright 2010-2017 Apple Inc. All rights reserved.
+	Copyright 2010-2018 Apple Inc. All rights reserved.
 
 */
 
@@ -690,7 +690,7 @@ typedef NS_OPTIONS(NSInteger, AVPlayerHDRMode) {
 
 /*!
 	 @property		availableHDRModes
-	 @abstract		An array of AVPlayerHDRMode values that indicates the HDR modes the device can play to an appropriate display.   A value of 0 indicates that no HDR modes are supported.
+	 @abstract		An AVPlayerHDRMode value that indicates the HDR modes the device can play to an appropriate display.   A value of 0 indicates that no HDR modes are supported.
  
 	 @discussion
 		 This property indicates all of the HDR modes that the device can play.  Each value indicates that an appropriate HDR display is available for the specified HDR mode.  Additionally, the device must be capable of playing the specified HDR type.  This property does not indicate whether video contains HDR content, whether HDR video is currently playing, or whether video is playing on an HDR display.
@@ -721,6 +721,19 @@ AVF_EXPORT NSNotificationName const AVPlayerAvailableHDRModesDidChangeNotificati
 		The GPU registryID can be obtained from the GPU MTLDevice using [MTLDevice registryID] or can be obtained from OpenGL or OpenCL.
 */
 @property (nonatomic) uint64_t preferredVideoDecoderGPURegistryID API_AVAILABLE(macos(10.13)) API_UNAVAILABLE(ios, tvos, watchos);
+
+@end
+
+@interface AVPlayer (AVPlayerVideoDisplaySleepPrevention)
+
+/*!
+ @property   preventsDisplaySleepDuringVideoPlayback
+ @abstract   Indicates whether video playback prevents display and device sleep.
+ @discussion
+	 Default is YES on iOS.  Default is NO on macOS.
+	 Setting this property to NO does not force the display to sleep, it simply stops preventing display sleep.  Other apps or frameworks within your app may still be preventing display sleep for various reasons.
+ */
+@property (nonatomic) BOOL preventsDisplaySleepDuringVideoPlayback API_AVAILABLE(ios(12.0), tvos(12.0), macos(10.14)) __WATCHOS_PROHIBITED;
 
 @end
 

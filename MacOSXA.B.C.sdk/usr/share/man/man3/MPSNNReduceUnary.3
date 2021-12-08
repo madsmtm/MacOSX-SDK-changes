@@ -1,4 +1,4 @@
-.TH "MPSNNReduceUnary" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSNNReduceUnary" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -11,7 +11,7 @@ MPSNNReduceUnary
 .PP
 Inherits \fBMPSCNNKernel\fP\&.
 .PP
-Inherited by \fBMPSNNReduceColumnMax\fP, \fBMPSNNReduceColumnMean\fP, \fBMPSNNReduceColumnMin\fP, \fBMPSNNReduceColumnSum\fP, \fBMPSNNReduceFeatureChannelsMax\fP, \fBMPSNNReduceFeatureChannelsMean\fP, \fBMPSNNReduceFeatureChannelsMin\fP, \fBMPSNNReduceFeatureChannelsSum\fP, \fBMPSNNReduceRowMax\fP, \fBMPSNNReduceRowMean\fP, \fBMPSNNReduceRowMin\fP, and \fBMPSNNReduceRowSum\fP\&.
+Inherited by \fBMPSNNReduceColumnMax\fP, \fBMPSNNReduceColumnMean\fP, \fBMPSNNReduceColumnMin\fP, \fBMPSNNReduceColumnSum\fP, \fBMPSNNReduceFeatureChannelsArgumentMax\fP, \fBMPSNNReduceFeatureChannelsArgumentMin\fP, \fBMPSNNReduceFeatureChannelsMax\fP, \fBMPSNNReduceFeatureChannelsMean\fP, \fBMPSNNReduceFeatureChannelsMin\fP, \fBMPSNNReduceFeatureChannelsSum\fP, \fBMPSNNReduceRowMax\fP, \fBMPSNNReduceRowMean\fP, \fBMPSNNReduceRowMin\fP, and \fBMPSNNReduceRowSum\fP\&.
 .SS "Instance Methods"
 
 .in +1c
@@ -75,7 +75,7 @@ Standard init with default properties per filter type
 .PP
 Reimplemented from \fBMPSCNNKernel\fP\&.
 .PP
-Reimplemented in \fBMPSNNReduceFeatureChannelsSum\fP, \fBMPSNNReduceRowMin\fP, \fBMPSNNReduceColumnMin\fP, \fBMPSNNReduceFeatureChannelsMin\fP, \fBMPSNNReduceRowMax\fP, \fBMPSNNReduceColumnMax\fP, \fBMPSNNReduceFeatureChannelsMax\fP, \fBMPSNNReduceRowMean\fP, \fBMPSNNReduceColumnMean\fP, \fBMPSNNReduceFeatureChannelsMean\fP, \fBMPSNNReduceRowSum\fP, and \fBMPSNNReduceColumnSum\fP\&.
+Reimplemented in \fBMPSNNReduceFeatureChannelsSum\fP, \fBMPSNNReduceRowMin\fP, \fBMPSNNReduceColumnMin\fP, \fBMPSNNReduceFeatureChannelsMin\fP, \fBMPSNNReduceFeatureChannelsArgumentMin\fP, \fBMPSNNReduceRowMax\fP, \fBMPSNNReduceColumnMax\fP, \fBMPSNNReduceFeatureChannelsMax\fP, \fBMPSNNReduceFeatureChannelsArgumentMax\fP, \fBMPSNNReduceRowMean\fP, \fBMPSNNReduceColumnMean\fP, \fBMPSNNReduceFeatureChannelsMean\fP, \fBMPSNNReduceRowSum\fP, and \fBMPSNNReduceColumnSum\fP\&.
 .SH "Property Documentation"
 .PP 
 .SS "\- clipRectSource\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"

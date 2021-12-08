@@ -1,4 +1,4 @@
-.TH "<MPSCNNInstanceNormalizationDataSource >" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "<MPSCNNInstanceNormalizationDataSource >" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,7 +9,7 @@
 .PP
 \fC#import <MPSCNNInstanceNormalization\&.h>\fP
 .PP
-Inherits <MPSNNGradientStateNSObject>\&.
+Inherits <MPSNNGradientStateNSObject>, and <NSCopying>\&.
 .SS "Instance Methods"
 
 .in +1c
@@ -37,6 +37,9 @@ Inherits <MPSNNGradientStateNSObject>\&.
 .ti -1c
 .RI "(nullable instancetype) \- \fBinitWithCoder:\fP"
 .br
+.ti -1c
+.RI "(nonnull instancetype) \- \fBcopyWithZone:device:\fP"
+.br
 .in -1c
 .SS "Properties"
 
@@ -52,6 +55,22 @@ Inherits <MPSNNGradientStateNSObject>\&.
 .PP 
 .SS "\- (float* __nullable \fBMPSCNNInstanceNormalizationDataSource\fP) beta \fC [required]\fP"
 Return a pointer to an array containing the beta terms\&. 
+.SS "\- (nonnull instancetype \fBMPSCNNInstanceNormalizationDataSource\fP) copyWithZone: (nullable NSZone *) zone(nullable id< MTLDevice >) device"
+Optional copy method to create a copy of the data source for use with a new device\&.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIzone\fP The NSZone on which to allocate\&. 
+.br
+\fIdevice\fP The device where the kernel which uses this data source will be used\&.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+\fBA\fP pointer to a copy of this data source\&. 
+.RE
+.PP
+
 .SS "\- (void \fBMPSCNNInstanceNormalizationDataSource\fP) encodeWithCoder: (NSCoder *__nonnull) aCoder\fC [optional]\fP"
 Optional \fBNSSecureCoding\fP compatibility\&. 
 .SS "\- (float \fBMPSCNNInstanceNormalizationDataSource\fP) epsilon \fC [optional]\fP"
@@ -66,6 +85,8 @@ Return a pointer to an array containing the gamma terms\&.
 Compute new gamma and beta values using current values and gradients contained within a MPSCNNInstanceNormalizationStateBatch\&.  This is for use in the context of training a network within a \fBMPSNNGraph\fP\&. If you are writing your own graph using the low level interface or aren't training instance normalization it isn't needed\&.
 .PP
 In this mathod, you should perform the update on a GPU, because at the time it is called the data isn't in the state objects yet and the CPU can't do the work\&. You should not attempt to update the \fBMPSCNNInstanceNormalization\fP kernel directly with the results\&. The state object returned from the function will be used for that\&. \fBA\fP batch of states will be passed in\&. You should accumulate the gradients and then update the weights\&.
+.PP
+This operation is expected to also decrement the read count of instanceNormalizationStateBatch by 1, if the states are temporary\&.
 .PP
 \fBParameters:\fP
 .RS 4

@@ -1,19 +1,12 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 7CDC3350-95F1-34C1-8B4F-9B31368BEEB0', 'x86_64: 84ADDF38-36F1-3D3B-B28D-8865FA10FCD7' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: A96C744B-B1AD-32E3-BA72-7A221684BE3F' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/SpeechSynthesis
 objc-constraint: none
 parent-umbrella: ApplicationServices
 exports:         
-  - archs:           [ i386 ]
-    symbols:         [ _DisposeSpeechDoneUPP, _DisposeSpeechErrorUPP, _DisposeSpeechPhonemeUPP, 
-                       _DisposeSpeechSyncUPP, _DisposeSpeechTextDoneUPP, _DisposeSpeechWordUPP, 
-                       _InvokeSpeechDoneUPP, _InvokeSpeechErrorUPP, _InvokeSpeechPhonemeUPP, 
-                       _InvokeSpeechSyncUPP, _InvokeSpeechTextDoneUPP, _InvokeSpeechWordUPP, 
-                       _NewSpeechDoneUPP, _NewSpeechErrorUPP, _NewSpeechPhonemeUPP, 
-                       _NewSpeechSyncUPP, _NewSpeechTextDoneUPP, _NewSpeechWordUPP ]
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _CancelSpokenNotification, _CancelSpokenNotificationForProcess, 
                        _CancelTalkingAlert, _ContinueSpeech, _CopyAvailableIntervals, 
                        _CopyAvailablePhrases, _CopyIdentifierStringForVoiceSpec, 
@@ -37,6 +30,7 @@ exports:
                        _SpeechSynthesisConsoleLogTextBuffer, _SpeechSynthesisRegisterModuleURL, 
                        _SpeechSynthesisUnregisterModuleURL, _SpokenNotificationsEnabled, 
                        _SpokenNotificationsEnabledForProcess, _StopSpeech, _StopSpeechAt, 
+                       _TTSIsSpeakingSelection, _TTSStartSpeakingSelection, _TTSStopSpeakingSelection, 
                        _TalkingAlertsEnabled, _TextToPhonemes, _UseDictionary, _UseSpeechDictionary, 
                        _kSpeechAudioDuckingEndPadding, _kSpeechAudioDuckingFadeIn, 
                        _kSpeechAudioDuckingFadeOut, _kSpeechAudioDuckingProperty, 

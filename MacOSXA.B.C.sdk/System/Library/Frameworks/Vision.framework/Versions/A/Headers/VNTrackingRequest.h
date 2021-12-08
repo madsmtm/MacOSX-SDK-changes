@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 
+@class VNDetectedObjectObservation;
+
+
 /*!
  @brief    Tracking level options to favor speed or location accuracy. The VNRequestTrackingLevelFast is the default option used by trackers.   
  */

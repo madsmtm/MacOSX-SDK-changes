@@ -1,35 +1,23 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: D505871D-1567-35FC-9204-64E9AC8D2A61', 'x86_64: 87B3ACDE-24C8-36D5-94B8-E781E3D81D34' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: E18FFE69-4312-3BE6-98AD-493460910B32' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SpotlightServerKit.framework/Versions/A/SpotlightServerKit
-current-version: 1191.4.13
+current-version: 1191.51
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ MDSInternalToken._tokenID, MDSMachPortNotificationRecord._aSelector, 
-                       MDSMachPortNotificationRecord._anObject, MDSMachPortNotificationRecord._previousPort, 
-                       MDSMachPortObject._machSubsystem, MDSMachSubsystem._dispatchChain, 
-                       MDSNotificationTokenRecord._aName, MDSNotificationTokenRecord._aSelector, 
-                       MDSNotificationTokenRecord._anObject, MDSNotificationTokenRecord._token, 
-                       MDSObject._activityRegistrationLock, MDSObject._activityRegistrationObjectId, 
-                       MDSObject._deferShutdown, MDSObject._dispatchQueue, MDSObject._queueToken, 
-                       MDSObject._registeredActivities, MDSObject._retainCount, MDSObject._shutDown, 
-                       MDSReadCopyUpdate._queueTokenSet, MDSReadCopyUpdate._resource, 
-                       MDSToken._tokenID, MDSTwoFaceMachPortObject._backgroundPort, 
-                       MDSTwoFaceMachPortObject._backgroundQueue, MDSTwoFaceMachPortObject._backgroundSubsystem ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _BWA_Create, _BWA_DataAllocate, _BWA_DataDeallocate, _CFDataCreateWithContentsOfURL, 
                        _CF_MaxRange, _CF_RangeIntersection, _CF_RangeUnion, _GetSystemBuildVersionString, 
                        _MDAddNanoseconds, _MDArrayCreateMutable, _MDArrayIterate, 
-                       _MDCopyMachPortDescription, _MDDictionaryCreateMutable, _MDDictionaryIterate, 
-                       _MDElapsedTime, _MDGetCurrentTimeSpec, _MDGetPhysicalRAMSize, 
-                       _MDGetProcessIOPolicy, _MDGetThreadIOPolicy, _MDHash, _MDHashQuick32, 
-                       _MDHashQuick32Pair, _MDHashQuick64, _MDHashQuickPtrAsInt, 
-                       _MDKillTask, _MDMachAbsoluteTimeDiff, _MDNumberCreateDouble, 
-                       _MDNumberCreateInt32, _MDNumberCreateInt64, _MDNumberGetDouble, 
-                       _MDNumberGetInt32, _MDNumberGetInt64, _MDPowerInfoCollect, 
-                       _MDPowerInfoDifference, _MDPowerInfoEnd, _MDPowerInfoSum, 
-                       _MDRunningInRosetta, _MDRunningIntel32, _MDRunningIntel64, 
+                       _MDBootTime, _MDCopyMachPortDescription, _MDDictionaryCreateMutable, 
+                       _MDDictionaryIterate, _MDElapsedTime, _MDGetCurrentTimeSpec, 
+                       _MDGetPhysicalRAMSize, _MDGetProcessIOPolicy, _MDGetThreadIOPolicy, 
+                       _MDHash, _MDHashQuick32, _MDHashQuick32Pair, _MDHashQuick64, 
+                       _MDHashQuickPtrAsInt, _MDKillTask, _MDMachAbsoluteTimeDiff, 
+                       _MDNumberCreateDouble, _MDNumberCreateInt32, _MDNumberCreateInt64, 
+                       _MDNumberGetDouble, _MDNumberGetInt32, _MDNumberGetInt64, 
+                       _MDPowerInfoCollect, _MDPowerInfoDifference, _MDPowerInfoEnd, 
+                       _MDPowerInfoSum, _MDRunningInRosetta, _MDRunningIntel32, _MDRunningIntel64, 
                        _MDRunningOnEffectivePPC, _MDRunningOnPhysicalIntel, _MDRunningOnPhysicalPPC, 
                        _MDSGetSystemLoadAdvisory, _MDSLogCategoryDescriptions, _MDSLogCategoryNameStrings, 
                        _MDSLogCategoryNames, _MDSLogLevelCreateLogArrayDictionary, 
@@ -81,4 +69,15 @@ exports:
     objc-classes:    [ MDSInternalToken, MDSMachPortNotificationRecord, MDSMachPortObject, 
                        MDSMachSubsystem, MDSNotificationCenter, MDSNotificationTokenRecord, 
                        MDSObject, MDSObjectToken, MDSReadCopyUpdate, MDSToken, MDSTwoFaceMachPortObject ]
+    objc-ivars:      [ MDSInternalToken._tokenID, MDSMachPortNotificationRecord._aSelector, 
+                       MDSMachPortNotificationRecord._anObject, MDSMachPortNotificationRecord._previousPort, 
+                       MDSMachPortObject._machSubsystem, MDSMachSubsystem._dispatchChain, 
+                       MDSNotificationTokenRecord._aName, MDSNotificationTokenRecord._aSelector, 
+                       MDSNotificationTokenRecord._anObject, MDSNotificationTokenRecord._token, 
+                       MDSObject._activityRegistrationLock, MDSObject._activityRegistrationObjectId, 
+                       MDSObject._deferShutdown, MDSObject._dispatchQueue, MDSObject._queueToken, 
+                       MDSObject._registeredActivities, MDSObject._retainCount, MDSObject._shutDown, 
+                       MDSReadCopyUpdate._queueTokenSet, MDSReadCopyUpdate._resource, 
+                       MDSToken._tokenID, MDSTwoFaceMachPortObject._backgroundPort, 
+                       MDSTwoFaceMachPortObject._backgroundQueue, MDSTwoFaceMachPortObject._backgroundSubsystem ]
 ...

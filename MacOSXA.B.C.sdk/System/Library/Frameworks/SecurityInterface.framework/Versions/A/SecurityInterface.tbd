@@ -1,13 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 547106C7-6177-3C04-84BD-EAE6FD626E10', 'x86_64: 343FFA91-89CF-3A3F-833A-D65A2647CCF1' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 8BDA8A18-C4EB-3267-96AB-0C2F2321866D' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/SecurityInterface.framework/Versions/A/SecurityInterface
-current-version: 55109.50.6
+current-version: 55109.200.8
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ AuthorizationSpecialEngineRef.mAuthPluginView, AuthorizationSpecialEngineRef.mEngineRef ]
-  - archs:           [ i386, x86_64 ]
     re-exports:      [ /System/Library/Frameworks/SecurityFoundation.framework/Versions/A/SecurityFoundation ]
     symbols:         [ '$ld$add$os10.3$.objc_class_name_SFCertificateData', '$ld$add$os10.4$.objc_class_name_SFCertificateData', 
                        '$ld$add$os10.5$.objc_class_name_SFCertificateData', '$ld$add$os10.5$_OBJC_CLASS_$_SFCertificateData', 
@@ -27,4 +25,5 @@ exports:
                        SFPasswordAssistantInspectorController, SFPasswordAsstController, 
                        SFPasswordAsstModel, SFPasswordAsstView, SFPasswordErrorSource, 
                        SFPasswordStrengthView, SFTokenHIPlugin, SFTokenHIPluginSupport ]
+    objc-ivars:      [ AuthorizationSpecialEngineRef.mAuthPluginView, AuthorizationSpecialEngineRef.mEngineRef ]
 ...

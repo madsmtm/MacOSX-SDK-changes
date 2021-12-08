@@ -1,4 +1,4 @@
-.TH "MPSCNNLossLabels" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNLossLabels" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -24,6 +24,12 @@ Inherits \fBMPSState\fP\&.
 .br
 .ti -1c
 .RI "(nonnull \fBMPSImage\fP *) \- \fBlossImage\fP"
+.br
+.ti -1c
+.RI "(nonnull \fBMPSImage\fP *) \- \fBlabelsImage\fP"
+.br
+.ti -1c
+.RI "(nonnull \fBMPSImage\fP *) \- \fBweightsImage\fP"
 .br
 .in -1c
 .SS "Additional Inherited Members"
@@ -95,12 +101,30 @@ Optionally, slice bytes of weights data\&. This parameter is optional\&. If you 
 .RE
 .PP
 
+.SS "\- (nonnull \fBMPSImage\fP*) labelsImage "
+Labels image accessor method\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+An autoreleased \fBMPSImage\fP object, containing the labels data\&. The labels data is populated in the -initWithDevice call\&.
+.RE
+.PP
+In order to gaurantee that the image is correctly synchronized for CPU side access, it is the application's responsibility to call the [gradientState synchronizeOnCommandBuffer:] method before accessing the data in the image\&. 
 .SS "\- (nonnull \fBMPSImage\fP*) lossImage "
 Loss image accessor method\&. 
 .PP
 \fBReturns:\fP
 .RS 4
 An autoreleased \fBMPSImage\fP object, containing the loss data\&. The loss data is populated in the -encode call, thus the contents are undefined until you -encode the filter\&.
+.RE
+.PP
+In order to gaurantee that the image is correctly synchronized for CPU side access, it is the application's responsibility to call the [gradientState synchronizeOnCommandBuffer:] method before accessing the data in the image\&. 
+.SS "\- (nonnull \fBMPSImage\fP*) weightsImage "
+Weights image accessor method\&. 
+.PP
+\fBReturns:\fP
+.RS 4
+An autoreleased \fBMPSImage\fP object, containing the weights data\&. The weights data is populated in the -initWithDevice call\&.
 .RE
 .PP
 In order to gaurantee that the image is correctly synchronized for CPU side access, it is the application's responsibility to call the [gradientState synchronizeOnCommandBuffer:] method before accessing the data in the image\&. 

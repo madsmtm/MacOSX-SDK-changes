@@ -1,39 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 9E888C0A-2E5E-3233-A89C-7A797E452221', 'x86_64: 75853DFB-A975-3F6A-9472-B9D270C3935D' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 7B04BAF2-B734-3238-8F38-74629ADE6CF2' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Suggestions.framework/Versions/A/Suggestions
-current-version: 213
+current-version: 226
 exports:         
-  - archs:           [ i386 ]
-    objc-classes:    [ SGTABPerson, SGTABPersonGeniusHelper, SGTABPersonImageAsyncLoader, 
-                       SGTAccessibilityReparentedProxy, SGTAccessiblitySuggestionMenuProxy, 
-                       SGTAnimationWindowEffect, SGTAttachmentCategory, SGTCategoryReserved, 
-                       SGTCompletionBackgroundView, SGTCompletionScrollView, SGTCompletionTextFieldCell, 
-                       SGTCurrentSuggestionAttachmentCell, SGTDidYouMeanCategory, 
-                       SGTFadeWindowEffect, SGTFileQueryGenius, SGTFilenameCategory, 
-                       SGTFilenameTypingScopeCategory, SGTHumanDateRange, SGTKindHelper, 
-                       SGTLabelSwatchColorImage, SGTMailHasAttachmentSuggestion, 
-                       SGTMailStatus, SGTMailboxCategory, SGTMessageCategory, SGTNameExtractor, 
-                       SGTPeopleCategory, SGTRecentsSuggesterReserved, SGTSearchFieldCellReserved, 
-                       SGTSearchFieldDebugController, SGTSearchFieldReserved, SGTSpotlightSuggesterReserved, 
-                       SGTSubjectCategory, SGTSuggesterReserved, SGTSuggestionAttachmentCell, 
-                       SGTSuggestionReserved, SGTTokenFieldCell, SGTTokenTextView, 
-                       SGTWindowAnimation, SGTWindowEffect, _SGTABPersonResult, _SGTQueryContext, 
-                       _SGTSpotlightItemDictionary, _SGTSpotlightSuggesterTiming, 
-                       _SGTTracing ]
   - archs:           [ x86_64 ]
-    objc-ivars:      [ SGTCompletionTableView._lastMousePositionWasOverList, SGTCompletionWindow._initDone, 
-                       SGTISODateRange._displayName, SGTISODateRange._isoEnd, SGTISODateRange._isoStart, 
-                       SGTStringComparator._alignment, SGTStringComparator._allScoreCombinations, 
-                       SGTStringComparator._hasLogScore, SGTStringComparator._logScore, 
-                       SGTStringComparator._spotlightScore, SGTStringComparator._stringA, 
-                       SGTStringComparator._stringB, SGTStringComparator._tailAlignment, 
-                       SGTStringComparator.hasEmptySentence, _SGTQueryScopeMenuOverride._action, 
-                       _SGTQueryScopeMenuOverride._item, _SGTQueryScopeMenuOverride._spin, 
-                       _SGTQueryScopeMenuOverride._spinnerMessage, _SGTQueryScopeMenuOverride._target, 
-                       _SGTQueryScopeMenuOverride._title ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _SGTAddressBookAccessAllowed, _SGTAppCopyDefaultValueKeys, 
                        _SGTAppGetDefaultValueForKey, _SGTCoreRecentsAccessAllowed, 
                        _SGTHumanDateRangeLastDay, _SGTHumanDateRangeLastMonth, _SGTHumanDateRangeLastWeek, 
@@ -65,4 +37,14 @@ exports:
                        SGTMailboxSuggester, SGTMailboxSuggestion, SGTQueryGenius, 
                        SGTRecentsSuggester, SGTSearchField, SGTSearchFieldCell, SGTSpotlightSuggester, 
                        SGTStringComparator, SGTSuggester, SGTSuggestion, _SGTQueryScopeMenuOverride ]
+    objc-ivars:      [ SGTCompletionTableView._lastMousePositionWasOverList, SGTCompletionWindow._initDone, 
+                       SGTISODateRange._displayName, SGTISODateRange._isoEnd, SGTISODateRange._isoStart, 
+                       SGTStringComparator._alignment, SGTStringComparator._allScoreCombinations, 
+                       SGTStringComparator._hasLogScore, SGTStringComparator._logScore, 
+                       SGTStringComparator._spotlightScore, SGTStringComparator._stringA, 
+                       SGTStringComparator._stringB, SGTStringComparator._tailAlignment, 
+                       SGTStringComparator.hasEmptySentence, _SGTQueryScopeMenuOverride._action, 
+                       _SGTQueryScopeMenuOverride._item, _SGTQueryScopeMenuOverride._spin, 
+                       _SGTQueryScopeMenuOverride._spinnerMessage, _SGTQueryScopeMenuOverride._target, 
+                       _SGTQueryScopeMenuOverride._title ]
 ...

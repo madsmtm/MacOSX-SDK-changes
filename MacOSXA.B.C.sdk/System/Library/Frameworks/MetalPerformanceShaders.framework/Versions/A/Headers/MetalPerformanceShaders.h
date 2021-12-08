@@ -5,15 +5,19 @@
  *  @copyright Copyright (c) 2015 Apple Inc. All rights reserved.
  */
 
+#ifndef __METAL_VERSION__
 #import <MPSCore/MPSCore.h>
 #import <MPSImage/MPSImage.h>
 #import <MPSMatrix/MPSMatrix.h>
 #import <MPSNeuralNetwork/MPSNeuralNetwork.h>
+#endif
+#import <MPSRayIntersector/MPSRayIntersector.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#ifndef __METAL_VERSION__
 /*!
  *  MPSSupportsMTLDevice
  *  @abstract   Determine whether a MetalPerformanceShaders.framework  supports a MTLDevice.
@@ -24,7 +28,80 @@ extern "C" {
  */
 BOOL    MPSSupportsMTLDevice( __nullable id <MTLDevice> device )  MPS_AVAILABLE_STARTING( macos(10.13), ios(9.0), tvos(9.0));
 
-
+    
+/*! @abstract Hint to MPS how much memory your application expects to need for the command buffer
+ *  @discussion This will cause MPS to prefetch a MTLHeap into its internal cache of
+ *              the indicated size, which will be sub-allocated to back the temporary images,
+ *              matrices, vectors and states in used over the course of the command buffer.
+ *              This can be helpful in certain pathological situations when allocation sizes
+ *              needed to support temporary objects do not allow for reuse of previous allocations
+ *              for new objects.
+ *
+ *              Example: if the temporary resources need progressively larger MTLHeaps
+ *              over the course of the MTLCommandBuffer, such as 1 MB, 2MB, 4 MB and 8MB,
+ *              the first allocation might create a 1 MB heap, this might be released,
+ *              but since the second allocation needs a 2 MB heap and the 1 MB heap is too
+ *              small to be used, a new heap would need to be made, and so forth.  Using
+ *              MPSHintTemporaryMemoryHighWaterMark(), a single 8 MB heap might be made manifest,
+ *              and all four allocations can use it if they don't overlap temporally. Otherwise,
+ *              a total of 1+2+4+8=15 MB might be allocated.
+ *
+ *              The application should be careful not to pass the sum of all allocations over
+ *              the course of the command buffer. As we expect that not all temporary resources
+ *              need to coexist at the same time, and so can alias one another, that would waste
+ *              memory. The application should instead track the high water mark of the most
+ *              memory in use at any single point over the course of the command buffer.
+ *
+ *              This can be simply done by traversing your graph creating all the temporary images,
+ *              states, matrices and vectors that you will need in advance. Since the allocation of
+ *              the underlying MTLHeaps that they use is deferred until you actually attempt to write
+ *              to these resources or get the underlying MTLTexture or MTLBuffer, you can create all
+ *              the objects, then call MPSHintTemporaryMemoryUsage, then call the various -encode
+ *              methods and the heap should be sized correctly before memory is distributed to the
+ *              temporary objects. In this exercise, assume that memory is not distributed to the
+ *              temporary object until it is used to hold data, and is reclaimed for reuse when readCount
+ *              reaches zero. The expected size temporary memory used by each object can be queried
+ *              using its -resourceSize method.
+ *
+ *              Notes: The MPSNNGraph does this automatically for its workload. It is not necessary to
+ *              prefetch for that. If a MTLHeap large enough to satisfy the size is already cached,
+ *              no new one will be created. If the prefetched heap turns out to be too small, additional
+ *              small heaps will be created as needed dynamically. If the prefetched heap is too big,
+ *              any additional memory is wasted.
+ *
+ *              When the graph is known in advance, this method is preferred over
+ *              +[MPSTemporaryImage prefetchStorageWithCommandBuffer:imageDescriptorList:]
+ *              as the latter can not estimate the time period over which each resource is used, and is
+ *              likely to conservatively prefetch too small a heap.
+ *
+ *  @param      cmdBuf      The scope of the MTLHeap
+ *  @param      bytes       The size, in bytes, of the prefetched heap. The actual size ussed may be rounded
+ *                          up according to device alignment requirements. This should be the maximum
+ *`                         amount of temporary memory used at any point in the command buffer.
+ */
+void    MPSHintTemporaryMemoryHighWaterMark( __nonnull id <MTLCommandBuffer> cmdBuf,
+                                             NSUInteger   bytes );
+    
+/*! @abstract   Set the timeout after which unused cached MTLHeaps are released
+ *  @discussion MPS maintains a private set of MTLHeaps attached to each MTLCommandBuffer
+ *              for use by temporary images, matrices, vectors and states, and also for its own
+ *              private usage for temporary storage in some (typically multipass) filters. When the
+ *              command buffer completes, these are returned to a MTLDevice level cache for reuse.
+ *              If it is not reused within the heap cache duration, then the MTLHeaps are released
+ *              and the memory is returned to the operating system for general reuse. The intent
+ *              of this second level cache is to avoid surrendering the GPU performance advantage
+ *              on repetitive workloads to  allocation, zero-fill and deallocation and reallocation
+ *              of large MTLHeaps, which otherwise can easily occur.
+ *
+ *              Default: 5s.
+ *
+ *  @param      cmdBuf  The scope over which to set the heap cache duration. If the MTLCommandBuffer
+ *              has already been committed, behavior is undefined.
+ *  @param      seconds The number of seconds to cache used MTLHeaps before retiring them.
+ *              NaN will be interpeted as 0.
+ */
+void    MPSSetHeapCacheDuration( __nonnull id <MTLCommandBuffer> cmdBuf,
+                                 double seconds );
 
 //
 //  These headers contain doxygen formatted documentation. They are human readable as is,
@@ -716,7 +793,6 @@ BOOL    MPSSupportsMTLDevice( __nullable id <MTLDevice> device )  MPS_AVAILABLE_
  *  'resultMatrixOrigin' to indicate where in a given matrix to begin reading and writing data respectively.  The properties 'batchStart' and
  *  'batchSize' also allow the kernel to reference only a subset of the provided matrices.
  *
- *
  *  @section  section_validation    MPS API validation
  *  MPS uses the same API validation layer that Metal uses to alert you to API mistakes while
  *  you are developing your code. While this option is turned on (Xcode: Edit Scheme: options: Metal API Validation),
@@ -1168,10 +1244,10 @@ BOOL    MPSSupportsMTLDevice( __nullable id <MTLDevice> device )  MPS_AVAILABLE_
  *  you use that instead to help make sure everything is wired up correctly.
  *
  *  @section release_notes   MPS Release Notes
- *  @subsection macosX_13_4    macOS X.13.4
+ *  @subsection macosX_13_4    macOS X.13.4  iOS/tvOS 11.3
  *  A preview for neural network training support is provided in macOS X.13.4.
  *  It is intended to facilitate MPS adoption by major third party neural
- *  networking frameworks. All interfaces marked macOS(10.13.4) should
+ *  networking frameworks. All interfaces marked macos(10.13.4) should
  *  be considered experimental, subject to change as a result of
  *  feedback from the machine learning community before final release
  *  in a major OS revision. To allow for changes during the comment period,
@@ -1188,11 +1264,45 @@ BOOL    MPSSupportsMTLDevice( __nullable id <MTLDevice> device )  MPS_AVAILABLE_
  *  As a workaround, set the deployment target using Xcode GUI to some much
  *  older, easily recognized version such as 10.11 to ensure that
  *  MACOSX_DEPLOYMENT_TARGET appears in your project.pbxproj. Then, use a text
- *  editor to adjust the value to 10.13.4 manually.  The availability versioning
- *  will be revised upward to the first major release when binary compatibility
- *  is guaranteed and the usual means of choosing a minimum OS revision will
- *  function as intended in Xcode.
+ *  editor to adjust the value to 10.13.4 manually.
+ *
+ *  @subsection macosX_14    macOS X.14  iOS/tvOS 12.0
+ *  All macOS 10.13.4 and iOS 11.3 APIs that were previously subject to change
+ *  are now fully supported, with the following exception:
+ *
+ *      MPSKeyedUnarchiver, introduced in macOS 10.13.4, iOS/tvOS 11.3, is a
+ *      convenience implementation of the MPSDeviceProvider protocol on top of
+ *      NSKeyedUnarchiver. Though the old interfaces are still there, the version
+ *      in macOS X.14 and iOS/tvOS 12.0 is not in a practical sense binary compatibile
+ *      with the original version of the class. All previous methods of creating or
+ *      initializing a MPSKeyedUnarchiver now return nil. NSKeyedUnarchiver deprecated
+ *      most of its API in favor of NSSecureCoding. The old MPSKeyedUnarchiver interface
+ *      didn't provide enough information to responsibly update to the secure coding
+ *      requirements in the new NSKeyedUnarchiver APIs.
+ *
+ *  New classes:
+ *      MPSImageLaplacianPyramid                MPSMatrixCopyToImage
+ *      MPSMatrixSoftMaxGradient                MPSMatrixLogSoftMaxGradient
+ *      MPSCNNYOLOLoss                          MPSMatrixBatchNormalization
+ *      MPSMatrixBatchNormalizationGradient     MPSMatrixFullyConnectedGradient
+ *      MPSMatrixNeuronGradient                 MPSNNOptimizerStochasticGradientDescent
+ *      MPSNNOptimizerRMSProp                   MPSNNOptimizerAdam
+ *      MPSNNReduceFeatureChannelsArgumentMin   MPSNNReduceFeatureChannelsArgumentMax
+ *      MPSRNNMatrixTrainingLayer               MPSRaytracer
+ *      MPSInstanceAccelerationStructure        MPSTriangleAccelerationStructure
+ *
+ *  Notable simplification of weight updates during neural network training:
+ *      GPU: A number of different methods are now provided to calculate weight updates on the GPU
+ *              See MPSNNOptimizers.
+ *      CPU: -[MPSNNGraph reloadFromDataSources] allows updating graph weights without
+ *              making a new MPSNNGraph.
+ *
+ *  We spent most of our time tuning neural network training for performance and reduced
+ *  memory consumption.
+ *
+ *  One more thing, we added the MPSRayIntersector subframework for ray tracing.
  */
+#endif
 
 #ifdef __cplusplus
 }

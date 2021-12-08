@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: CD84E386-FE8B-3A47-B73A-112A95C83D5B' ]
+uuids:           [ 'x86_64: AC02DBEC-D671-3C95-8A15-904623386E76' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/BookmarkDAV.framework/Versions/A/BookmarkDAV
 exports:         

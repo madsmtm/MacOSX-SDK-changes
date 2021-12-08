@@ -1,12 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64, x86_64h ]
-uuids:           [ 'i386: 05F5613E-2DC6-3018-85DE-CA8711E6A558', 'x86_64: 6D7994E2-B847-333A-9F03-C80E11AC9BB0', 
-                   'x86_64h: 48633B0C-BE01-3D94-9D9D-A95D50466AF9' ]
+archs:           [ x86_64, x86_64h ]
+uuids:           [ 'x86_64: 6F90D249-1AB2-37DF-BEA6-DBC943F71CB5', 'x86_64h: 9F30FA63-8AB2-3646-A6A8-FCE9F8436C35' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libPng.dylib
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64, x86_64h ]
+  - archs:           [ x86_64, x86_64h ]
     symbols:         [ __cg_png_cleanup_for_write_start_row, __cg_png_create_info_struct, 
                        __cg_png_create_read_struct, __cg_png_create_write_struct, 
                        __cg_png_destroy_info_struct, __cg_png_destroy_read_struct, 

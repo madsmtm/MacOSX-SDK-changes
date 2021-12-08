@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 687C4986-6888-310A-9F19-3663F1C7D66C' ]
+uuids:           [ 'x86_64: 5ABFF535-18D9-395C-877F-66013774824D' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SafariSafeBrowsing.framework/Versions/A/SafariSafeBrowsing
 current-version: 0

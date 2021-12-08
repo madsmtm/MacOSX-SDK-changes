@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 02C2E120-F1F7-31E0-8716-43120084A793', 'x86_64: 8169ABC4-56F0-301E-B913-A762F7E40DBF' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: F7B8CD3A-8671-3B2C-B67C-CE39C1442207' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AppleVA.framework/Versions/A/AppleVA
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _AVAFCreateRenderer, _AVAFCreateRendererDVDExt, _AVAFCreateRendererDisplayExt, 
                        _AVAFDeinterlacerCreate, _AVAFDeinterlacerDelete, _AVAFDeinterlacerGetFrame, 
                        _AVAFDeinterlacerGetFrameSeq, _AVAFDeinterlacerGetSourceHeight, 

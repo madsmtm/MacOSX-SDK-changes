@@ -1,10 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A9F07B56-3E4A-3016-9C12-5BE9C875293C', 'x86_64: 30B3F914-5ED4-38F5-B569-B61AB424331A' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 5624FB77-5A78-35DA-A0F9-3F60D0BE3ED0' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/MachineSettings.framework/Versions/A/MachineSettings
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _DelayUntilRepeatKey, _DoubleClickThresholdTimeKey, _FNStateKey, 
                        _IgnoreTrackpadIfMousePresentKey, _KeyRepeatIntervalKey, _ModifierMappingKey, 
                        _MouseButtonClickBehaviorKey, _MouseScalingKey, _NSMouseButtonClickBehavior, 

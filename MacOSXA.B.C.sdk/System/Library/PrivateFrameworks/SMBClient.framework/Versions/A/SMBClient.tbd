@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 825C7ED5-1F92-327A-9792-2E2216E7723A', 'x86_64: 671F499C-4CE8-39D2-8135-01FFE4B3F943' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 9EFAB89D-7098-315B-BCC9-1263B1DAEBE5' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SMBClient.framework/Versions/A/SMBClient
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _SMBAllocateAndSetContext, _SMBCheckForAlreadyMountedShare, 
                        _SMBCloseFile, _SMBConvertFromCodePageToUTF8, _SMBConvertFromUTF16ToUTF8, 
                        _SMBConvertFromUTF8ToCodePage, _SMBConvertFromUTF8ToUTF16, 

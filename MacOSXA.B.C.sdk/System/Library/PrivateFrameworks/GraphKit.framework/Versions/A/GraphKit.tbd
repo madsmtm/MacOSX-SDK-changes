@@ -1,24 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 517BED63-E492-3B15-A7C8-7B38B19E25B5', 'x86_64: 83E088DB-3991-3B39-9609-8306C9C7BB25' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 16BB7C7C-AA59-341E-B685-EBF9EEA90F9C' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/GraphKit.framework/Versions/A/GraphKit
 current-version: 25
 exports:         
   - archs:           [ x86_64 ]
-    objc-ivars:      [ GRAxes._extraData, GRDataSet._autoPlotColorIndex, GRDataSet.dataPoints, 
-                       GRDataSet.elementCapacity, GRDataSet.numElements, GRGradientColor.colorCount, 
-                       GRGradientColor.colorFunction, GRGradientColor.colorSpace, 
-                       GRGradientColor.colors, GRGradientColor.rgbColorComponents, 
-                       GRGradientColor.type, GRSliderCell.reserved1, GRSliderCell.reserved2, 
-                       GRSliderCell.title, GRSliderCell.titleAttributes, GRXYDataSet._calloutAtIndexIMP, 
-                       GRXYDataSet._calloutAtIndexSEL, GRXYDataSet._colorAtIndexIMP, 
-                       GRXYDataSet._colorAtIndexSEL, GRXYDataSet._customCallouts, 
-                       GRXYDataSet._customColors, GRXYDataSet._extraData, GRXYDataSet._numElementsIMP, 
-                       GRXYDataSet._numElementsSEL, GRXYDataSet._xIntervalAtIndexIMP, 
-                       GRXYDataSet._xIntervalAtIndexSEL, GRXYDataSet._yValueAtIndexIMP, 
-                       GRXYDataSet._yValueAtIndexSEL ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _GRAxesBackgroundColor, _GRAxesBezelBorder, _GRAxesBorderType, 
                        _GRAxesBottomMargin, _GRAxesCategoryAxis, _GRAxesDrawBackground, 
                        _GRAxesDrawLegend, _GRAxesDrawLegendBackground, _GRAxesDrawPlotFrame, 
@@ -122,4 +109,16 @@ exports:
     objc-classes:    [ GRAreaDataSet, GRAxes, GRChartView, GRColumnDataSet, GRDataSet, 
                        GRGradientColor, GRLineDataSet, GRPieAxes, GRPieDataSet, GRSelectionView, 
                        GRSliderCell, GRSliderScroller, GRXYAxes, GRXYDataSet ]
+    objc-ivars:      [ GRAxes._extraData, GRDataSet._autoPlotColorIndex, GRDataSet.dataPoints, 
+                       GRDataSet.elementCapacity, GRDataSet.numElements, GRGradientColor.colorCount, 
+                       GRGradientColor.colorFunction, GRGradientColor.colorSpace, 
+                       GRGradientColor.colors, GRGradientColor.rgbColorComponents, 
+                       GRGradientColor.type, GRSliderCell.reserved1, GRSliderCell.reserved2, 
+                       GRSliderCell.title, GRSliderCell.titleAttributes, GRXYDataSet._calloutAtIndexIMP, 
+                       GRXYDataSet._calloutAtIndexSEL, GRXYDataSet._colorAtIndexIMP, 
+                       GRXYDataSet._colorAtIndexSEL, GRXYDataSet._customCallouts, 
+                       GRXYDataSet._customColors, GRXYDataSet._extraData, GRXYDataSet._numElementsIMP, 
+                       GRXYDataSet._numElementsSEL, GRXYDataSet._xIntervalAtIndexIMP, 
+                       GRXYDataSet._xIntervalAtIndexSEL, GRXYDataSet._yValueAtIndexIMP, 
+                       GRXYDataSet._yValueAtIndexSEL ]
 ...

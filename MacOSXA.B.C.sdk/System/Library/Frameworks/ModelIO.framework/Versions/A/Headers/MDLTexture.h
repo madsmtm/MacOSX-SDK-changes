@@ -12,6 +12,7 @@
 #import <ModelIO/ModelIOExports.h>
 #import <ModelIO/MDLTypes.h>
 #import <ModelIO/MDLObject.h>
+#import <ModelIO/MDLAssetResolver.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <CoreGraphics/CGImage.h>
 #import <simd/simd.h>
@@ -70,7 +71,7 @@ typedef NS_ENUM(NSInteger, MDLTextureChannelEncoding) {
            dimension.x. Other layouts are possible in the future.
  */
 
-NS_CLASS_AVAILABLE(10_11, 9_0)
+API_AVAILABLE(macos(10.11), ios(9.0), tvos(9.0))
 MDL_EXPORT
 @interface MDLTexture : NSObject<MDLNamed>
 
@@ -82,6 +83,7 @@ MDL_EXPORT
  */
 + (nullable instancetype)textureNamed:(NSString *)name;
 + (nullable instancetype)textureNamed:(NSString *)name bundle:(nullable NSBundle*)bundleOrNil;
++ (nullable instancetype)textureNamed:(NSString *)name assetResolver:(id<MDLAssetResolver>)resolver API_AVAILABLE(macos(10.14), ios(12.0), tvos(12.0));
 
 /**
   Creates a cube texture map image using 6 faces of the same dimensions, 
@@ -168,7 +170,7 @@ MDL_EXPORT
              a lightweight reference to something that could be loaded
  */
 
-NS_CLASS_AVAILABLE(10_11, 9_0)
+API_AVAILABLE(macos(10.11), ios(9.0), tvos(9.0))
 MDL_EXPORT
 @interface MDLURLTexture : MDLTexture
 
@@ -186,7 +188,7 @@ MDLCheckerboardTexture
              object is merely a description
  */
 
-NS_CLASS_AVAILABLE(10_11, 9_0)
+API_AVAILABLE(macos(10.11), ios(9.0), tvos(9.0))
 MDL_EXPORT
 @interface MDLCheckerboardTexture : MDLTexture
 
@@ -253,7 +255,7 @@ MDLSkyCubeTexture
  object is merely a description. All parameters have legal values between zero and one.
  */
 
-NS_CLASS_AVAILABLE(10_11, 9_0)
+API_AVAILABLE(macos(10.11), ios(9.0), tvos(9.0))
 MDL_EXPORT
 @interface MDLSkyCubeTexture : MDLTexture
 
@@ -298,7 +300,7 @@ API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
 
 @end
 
-NS_CLASS_AVAILABLE(10_11, 9_0)
+API_AVAILABLE(macos(10.11), ios(9.0), tvos(9.0))
 MDL_EXPORT
 @interface MDLColorSwatchTexture : MDLTexture
 
@@ -332,7 +334,7 @@ MDL_EXPORT
  object is merely a description
  */
 
-NS_CLASS_AVAILABLE(10_11, 9_0)
+API_AVAILABLE(macos(10.11), ios(9.0), tvos(9.0))
 MDL_EXPORT
 @interface MDLNoiseTexture : MDLTexture
 
@@ -379,7 +381,7 @@ MDL_EXPORT
 
 @end
 
-NS_CLASS_AVAILABLE(10_11, 9_0)
+API_AVAILABLE(macos(10.11), ios(9.0), tvos(9.0))
 MDL_EXPORT
 @interface MDLNormalMapTexture : MDLTexture
 

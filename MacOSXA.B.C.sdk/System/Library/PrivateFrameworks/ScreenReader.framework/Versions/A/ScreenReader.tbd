@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: BF8D4717-D9A4-3BA0-BE86-545D251E9E69' ]
+uuids:           [ 'x86_64: F1F7C2AF-4E61-374B-933A-2B94CDAFCEAE' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ScreenReader.framework/Versions/A/ScreenReader
 current-version: 390
@@ -101,14 +101,15 @@ exports:
                        _kSCROutputSoundGestureCommanderOff, _kSCROutputSoundGestureCommanderOn, 
                        _kSCROutputSoundGestureSystemElementEntry, _kSCROutputSoundHasHelpTag, 
                        _kSCROutputSoundInteractable, _kSCROutputSoundItemMoving, 
-                       _kSCROutputSoundItemResizing, _kSCROutputSoundLinkAttributeBegin, 
-                       _kSCROutputSoundLinkAttributeEnd, _kSCROutputSoundMenuOrPopupDisplayed, 
-                       _kSCROutputSoundMisspelledAttributeEncountered, _kSCROutputSoundMoreAvailable, 
-                       _kSCROutputSoundMouseDown, _kSCROutputSoundMouseDrag, _kSCROutputSoundMouseUp, 
-                       _kSCROutputSoundNavigationBack, _kSCROutputSoundNavigationForward, 
-                       _kSCROutputSoundNoMore, _kSCROutputSoundNotFound, _kSCROutputSoundPickUp, 
-                       _kSCROutputSoundPopoverAppeared, _kSCROutputSoundReachedBoundaryEdge, 
-                       _kSCROutputSoundRotorLeft, _kSCROutputSoundRotorRight, _kSCROutputSoundSearchSelectionWithinSameElement, 
+                       _kSCROutputSoundItemResizing, _kSCROutputSoundLayoutChanged, 
+                       _kSCROutputSoundLinkAttributeBegin, _kSCROutputSoundLinkAttributeEnd, 
+                       _kSCROutputSoundMenuOrPopupDisplayed, _kSCROutputSoundMisspelledAttributeEncountered, 
+                       _kSCROutputSoundMoreAvailable, _kSCROutputSoundMouseDown, 
+                       _kSCROutputSoundMouseDrag, _kSCROutputSoundMouseUp, _kSCROutputSoundNavigationBack, 
+                       _kSCROutputSoundNavigationForward, _kSCROutputSoundNoMore, 
+                       _kSCROutputSoundNotFound, _kSCROutputSoundPickUp, _kSCROutputSoundPopoverAppeared, 
+                       _kSCROutputSoundReachedBoundaryEdge, _kSCROutputSoundRotorLeft, 
+                       _kSCROutputSoundRotorRight, _kSCROutputSoundSearchSelectionWithinSameElement, 
                        _kSCROutputSoundSecureCharacter, _kSCROutputSoundSelect, _kSCROutputSoundSelectionEnded, 
                        _kSCROutputSoundSelectionSetting, _kSCROutputSoundSingleMouseClick, 
                        _kSCROutputSoundStaticTextChanged, _kSCROutputSoundStyleChange, 

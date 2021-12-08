@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 1DC0142F-88BF-361C-85D9-FF9E0D124CE9' ]
+uuids:           [ 'x86_64: 32E43F40-D6F0-3DA4-AA6A-CF856099204A' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/IAP.framework/Versions/A/IAP
 exports:         
@@ -133,6 +133,7 @@ exports:
                        _kIAPNavigation_RouteGuidanceUpdate_RouteGuidanceManeuverCount_ParamID, 
                        _kIAPNavigation_RouteGuidanceUpdate_RouteGuidanceManeuverCurrentList_ParamID, 
                        _kIAPNavigation_RouteGuidanceUpdate_RouteGuidanceState_ParamID, 
+                       _kIAPNavigation_RouteGuidanceUpdate_SourceName_ParamID, _kIAPNavigation_RouteGuidanceUpdate_SourceSupportsRouteGuidance_ParamID, 
                        _kIAPNavigation_RouteGuidanceUpdate_TimeRemainingToDestination_ParamID, 
                        _kIAPServerDiedNotification, _kIAPServerLaunchedNotification, 
                        _kIAPTransportAvailableNotification, _kIAPTransportServerDiedNotification, 

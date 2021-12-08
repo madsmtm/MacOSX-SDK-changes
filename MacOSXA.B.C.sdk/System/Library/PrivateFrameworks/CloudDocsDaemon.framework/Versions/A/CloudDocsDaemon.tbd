@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: ACCCC904-1066-3575-9E92-82CAD581F024' ]
+uuids:           [ 'x86_64: E8376D82-03D8-32A8-936F-737953225DF8' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CloudDocsDaemon.framework/Versions/A/CloudDocsDaemon
-current-version: 575.14
+current-version: 575.120
 compatibility-version: 0
 exports:         
   - archs:           [ x86_64 ]
@@ -53,10 +53,12 @@ exports:
                        BRCURLToItemLookup, BRCUserDefaults, BRCVersion, BRFieldCKInfo, 
                        BRFieldFinderTags, BRFieldPkgHeader, BRFieldPkgItem, BRFieldPkgLocalItem, 
                        BRFieldUserIdentity, BRFieldXattr, BRFieldXattrBlob ]
-    objc-ivars:      [ BRCAccountSession._cloudDocsFD, BRCAccountSession._databaseID, 
-                       BRCAccountSession._dbCorruptionQueue, BRCAccountSession._dbProfilingHook, 
-                       BRCAccountSession._dbURL, BRCAccountSession._dbWatcher, BRCAccountSession._dbWatcherQueue, 
+    objc-ivars:      [ BRCAccountSession._clientTruthWorkloop, BRCAccountSession._cloudDocsFD, 
+                       BRCAccountSession._databaseID, BRCAccountSession._dbCorruptionQueue, 
+                       BRCAccountSession._dbProfilingHook, BRCAccountSession._dbURL, 
+                       BRCAccountSession._dbWatcher, BRCAccountSession._dbWatcherQueue, 
                        BRCAccountSession._defaultScheduler, BRCAccountSession._miscOperations, 
+                       BRCAccountSession._readOnlyWorkloop, BRCAccountSession._serverTruthWorkloop, 
                        BRCAccountSession._syncContexts, BRCDocumentItem._currentVersion, 
                        BRCDocumentItem._desiredVersion, BRCExtensionErrorPayload._minimumOSName, 
                        BRCLocalItem._dbRowID, BRCLocalItem._isUserVisible, BRCLocalItem._itemID, 

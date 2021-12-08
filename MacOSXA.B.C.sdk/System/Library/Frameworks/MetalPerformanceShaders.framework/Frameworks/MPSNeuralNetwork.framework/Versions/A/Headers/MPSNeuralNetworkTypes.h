@@ -94,13 +94,13 @@ typedef NS_ENUM(NSUInteger, MPSCNNBinaryConvolutionType)
  *               MPS allows either half float or full float accumulator type using appropriate flags.
  *               The choice of accmulator precision should be based on how much precision loss application can sustain
  *               without significanly affecting accuracy of network.
- *               Default accumulator precision is half (MPSNNConvolutionAccumulatorPrecisionOptionHalf).
+ *               The default accumulator precision is half (MPSNNConvolutionAccumulatorPrecisionOptionFloat).
  *               If accumulation of computational rounding error in the result is excessive,
  *               user can specify MPSNNConvolutionAccumulatorPrecisionOptionFloat for full float accumulator.
- *               Note that on some devices, which doesnt provide IEEE compliant half arithmetic (A10 and older), half precision
+ *               Note that on some devices, which do not provide IEEE compliant half arithmetic (A10 and older), half precision
  *               accumulator can cause excessive loss of precision causing severe loss in accuracy. MPS automatically
- *               ignores this option on those hardware and uses full float accumulator. On hardware that do support IEEE
- *               compliant half arithmetic and half accumulator do meet applications accuracy requirements, it can provide
+ *               ignores this option on those hardware and uses full float accumulator. On hardware that does support IEEE
+ *               compliant half arithmetic and half accumulator does meet applications accuracy requirements, it can provide
  *               significant performance benefits.
  */
     
@@ -111,10 +111,10 @@ typedef NS_OPTIONS(NSUInteger, MPSNNConvolutionAccumulatorPrecisionOption)
 #endif
 {
     /*! Set accumulator type to half precision float. */
-    MPSNNConvolutionAccumulatorPrecisionOptionHalf        MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)) MPS_SWIFT_NAME(none) = 0U,
+    MPSNNConvolutionAccumulatorPrecisionOptionHalf        MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)) MPS_SWIFT_NAME(half) = 0U,
         
     /*! Set accumulator type to single precision float. */
-    MPSNNConvolutionAccumulatorPrecisionOptionFloat        MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3))  = 1U << 1,
+    MPSNNConvolutionAccumulatorPrecisionOptionFloat        MPS_ENUM_AVAILABLE_STARTING( macos(10.13.4), ios(11.3), tvos(11.3)) MPS_SWIFT_NAME(float)  = 1U << 0,
         
 };
 
@@ -287,9 +287,31 @@ MPSNNTrainingStyle
  *              to your advantage to subclass MPSNNFilterNodes or MPSCNNKernels to adjust the default padding policy and
  *              allocator at initialization time.
  *
- *
  *              tensorFlowSame = MPSNNPaddingMethodAddRemainderToBottomRight | MPSNNPaddingMethodAlignCentered | MPSNNPaddingMethodSizeSame
+ *
+ *              In some cases, a custom padding policy may be preferable to a custom MPSImageAllocator for adjusting MPSImage
+ *              characteristics. The MPS provided MPSImageAllocators are more efficient at allocating image batches than
+ *              naive code, and should be used when possible. However, custom padding policies may prevent the MPSNNGraph
+ *              from fusing away nodes involving images created by the padding policy because it doesn't know what the
+ *              custom padding policy does. If the changes made by the padding policy modify to the MPSImageDescriptor
+ *              alone (and not, critically, the MPSKernel properties or image dimensions) then it may be acceptable to pass
+ *              MPSNNPaddingMethodCustomWhitelistForNodeFusion, which allows the fusion to proceed even with a custom
+ *              padding policy. In usage of MPSNNPaddingMethodCustomWhitelistForNodeFusion, you are guaranteeing to MPS
+ *              that it can fuse the node with an adjacent filter node if it can. It makes no further checks.   You can
+ *              get a detailed printout of graph optimizations including reasons why they didn't happen by setting the
+ *              MPS_LOG_INFO environment variable.
+ *
+ *              What happens when my node is fused?
+ *                  In this case, the image described by the padding policy is never made, the custom padding policy method
+ *              -destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor: is never called
+ *              and data is passed directy from one MPSKernel to another without precision loss. This generally only happens
+ *              for MPSKernels that do not change the size of the image, for example batch normalization, neuron filters,
+ *              and gradients of the same.  For such filters, all padding method size, remainder and alignment options
+ *              produce identical results and so can be ignored. Only the custom padding method has the capability of changing
+ *              the results, for example by changing the destination size or MPSCNNKernel.offset, which is why it must be
+ *              explicitly whitelisted away if fusion is to occur.
  */
+    
     
 #if defined(DOXYGEN)
     typedef enum MPSNNPaddingMethod
@@ -318,7 +340,8 @@ MPSNNTrainingStyle
         MPSNNPaddingMethodSizeSame                      MPS_ENUM_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))  = 1UL << 4,        ///< The result is the same size as the input image (before strides)
         MPSNNPaddingMethodSizeFull                      MPS_ENUM_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))  = 2UL << 4,        ///< The result is the largest image for which *any* source pixel is valid for result pixels
         MPSNNPaddingMethodSize_reserved                 MPS_ENUM_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))  = 3UL << 4,
-        MPSNNPaddingMethodCustom                        MPS_ENUM_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))  = (1UL << 14), ///< Use destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor: to calculate padding and offset.
+        MPSNNPaddingMethodCustomWhitelistForNodeFusion  MPS_ENUM_AVAILABLE_STARTING( macos(10.14), ios(12.0), tvos(12.0))  = (1UL << 13),   ///< By itself, MPSNNPaddingMethodCustom will inhibit automatic fusion between nodes producing and consuming the image described by the padding policy. MPSNNPaddingMethodCustomWhitelistForNodeFusion signals that the custom method is benign and fusion may go ahead.
+        MPSNNPaddingMethodCustom                        MPS_ENUM_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))  = (1UL << 14),   ///< Use destinationImageDescriptorForSourceImages:sourceStates:forKernel:suggestedDescriptor: to calculate padding and offset.
         MPSNNPaddingMethodSizeMask                      MPS_ENUM_AVAILABLE_STARTING( macos(10.13), ios(11.0), tvos(11.0))  = 0x7f0,
 
         /*! The caffe framework constrains the average pooling area to the limits of the padding area in cases

@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 0359CC2F-4C4C-369C-8867-32C8185AC464', 'x86_64: 6BD11C23-1AEA-3078-8D0C-A7152BCF9031' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: F6981903-7259-3D89-B70E-855F970D84E7' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/PDFKit.framework/Versions/A/PDFKit
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _PDFAnnotationHighlightingModeInvert, _PDFAnnotationHighlightingModeNone, 
                        _PDFAnnotationHighlightingModeOutline, _PDFAnnotationHighlightingModePush, 
                        _PDFAnnotationKeyAction, _PDFAnnotationKeyAdditionalActions, 
@@ -53,14 +53,9 @@ exports:
                        _PDFDocumentKeywordsAttribute, _PDFDocumentModificationDateAttribute, 
                        _PDFDocumentOwnerPasswordOption, _PDFDocumentProducerAttribute, 
                        _PDFDocumentSubjectAttribute, _PDFDocumentTitleAttribute, 
-                       _PDFDocumentUserPasswordOption, _PDFHUDAutoScaleNotification, 
-                       _PDFHUDAutoSizeControl, _PDFHUDDisplayModeControl, _PDFHUDLaunchPreviewControl, 
-                       _PDFHUDLaunchPreviewNotification, _PDFHUDNextPageControl, 
-                       _PDFHUDNextPageNotification, _PDFHUDPreviousPageControl, _PDFHUDPreviousPageNotification, 
-                       _PDFHUDSavePDFControl, _PDFHUDSeperatorControl, _PDFHUDSidebarCloseNotification, 
-                       _PDFHUDSidebarControl, _PDFHUDSidebarOpenNotification, _PDFHUDSinglePageNotification, 
-                       _PDFHUDTwoPageNotification, _PDFHUDZoomInControl, _PDFHUDZoomInNotification, 
-                       _PDFHUDZoomOutControl, _PDFHUDZoomOutNotification, _PDFPageBackgroundCompleteNotification, 
+                       _PDFDocumentUserPasswordOption, _PDFHUDLaunchPreviewControl, 
+                       _PDFHUDSavePDFControl, _PDFHUDSeperatorControl, _PDFHUDZoomInControl, 
+                       _PDFHUDZoomOutControl, _PDFPageBackgroundCompleteNotification, 
                        _PDFPageChangedBoundsForBoxNotification, _PDFPageDrawingCompleteNotification, 
                        _PDFPrintAutoRotateKey, _PDFPrintRotateRightKey, _PDFPrintScalingModeKey, 
                        _PDFTextSelectionMenuDidChangeScrollPosition, _PDFTextSelectionMenuWillChangeScrollPosition, 

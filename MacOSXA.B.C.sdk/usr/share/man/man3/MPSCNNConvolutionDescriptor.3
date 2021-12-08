@@ -1,4 +1,4 @@
-.TH "MPSCNNConvolutionDescriptor" 3 "Thu Feb 8 2018" "Version MetalPerformanceShaders-100" "MetalPerformanceShaders.framework" \" -*- nroff -*-
+.TH "MPSCNNConvolutionDescriptor" 3 "Mon Jul 9 2018" "Version MetalPerformanceShaders-119.3" "MetalPerformanceShaders.framework" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -79,6 +79,9 @@ Inherited by \fBMPSCNNDepthWiseConvolutionDescriptor\fP, and \fBMPSCNNSubPixelCo
 .br
 .ti -1c
 .RI "NSUInteger \fBdilationRateY\fP"
+.br
+.ti -1c
+.RI "\fBMPSNNNeuronDescriptor\fP *__nonnull \fBfusedNeuronDescriptor\fP"
 .br
 .ti -1c
 .RI "const \fBMPSCNNNeuron\fP *__nullable \fBneuron\fP"
@@ -185,6 +188,10 @@ This method will be used to pass in batch normalization parameters to the convol
 
         this comes from:
         https://arxiv.org/pdf/1502.03167v3.pdf
+
+        Note: in certain cases the batch normalization parameters will be cached by the MPSNNGraph
+        or the MPSCNNConvolution. If the batch normalization parameters change after either is made,
+        behavior is undefined.
 .fi
 .PP
 .PP
@@ -221,6 +228,8 @@ All other neuron types, where parameter \fBA\fP and parameter B are shared acros
 .PP
 If batch normalization parameters are set, batch normalization will occur before neuron application i\&.e\&. output of convolution is first batch normalized followed by neuron activation\&. This function automatically sets neuronType to MPSCNNNeuronTypePReLU\&.
 .PP
+Note: in certain cases the neuron descriptor will be cached by the \fBMPSNNGraph\fP or the \fBMPSCNNConvolution\fP\&. If the neuron type changes after either is made, behavior is undefined\&.
+.PP
 \fBParameters:\fP
 .RS 4
 \fI\fBA\fP\fP An array containing per-channel float values for neuron parameter \fBA\fP\&. Number of entries must be equal to outputFeatureChannels\&. 
@@ -231,6 +240,8 @@ If batch normalization parameters are set, batch normalization will occur before
 Adds a neuron activation function to convolution descriptor\&.
 .PP
 This mathod can be used to add a neuron activation funtion of given type with associated scalar parameters \fBA\fP and B that are shared across all output channels\&. Neuron activation fucntion is applied to output of convolution\&. This is a per-pixel operation that is fused with convolution kernel itself for best performance\&. Note that this method can only be used to fuse neuron of kind for which parameters \fBA\fP and B are shared across all channels of convoution output\&. It is an error to call this method for neuron activation functions like MPSCNNNeuronTypePReLU, which require per-channel parameter values\&. For those kind of neuron activation functions, use appropriate setter functions\&.
+.PP
+Note: in certain cases, the neuron descriptor will be cached by the \fBMPSNNGraph\fP or the \fBMPSCNNConvolution\fP\&. If the neuron type changes after either is made, behavior is undefined\&.
 .PP
 \fBParameters:\fP
 .RS 4
@@ -264,6 +275,10 @@ dilationRateY property can be used to implement dilated convolution as described
 .PP
 .PP
 by inserting d-1 rows of zeros between consecutive row of the original kernel\&. The kernel is centered based on kH_Dilated\&. 
+.SS "\- fusedNeuronDescriptor\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [retain]\fP"
+This mathod can be used to add a neuron activation funtion of given type with associated scalar parameters \fBA\fP and B that are shared across all output channels\&. Neuron activation fucntion is applied to output of convolution\&. This is a per-pixel operation that is fused with convolution kernel itself for best performance\&. Note that this method can only be used to fuse neuron of kind for which parameters \fBA\fP and B are shared across all channels of convoution output\&. It is an error to call this method for neuron activation functions like MPSCNNNeuronTypePReLU, which require per-channel parameter values\&. For those kind of neuron activation functions, use appropriate setter functions\&. Default is descriptor with neuronType MPSCNNNeuronTypeNone\&.
+.PP
+Note: in certain cases the neuron descriptor will be cached by the \fBMPSNNGraph\fP or the \fBMPSCNNConvolution\fP\&. If the neuron type changes after either is made, behavior is undefined\&. 
 .SS "\- groups\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"
 Number of groups input and output channels are divided into\&. The default value is 1\&. Groups lets you reduce the parameterization\&. If groups is set to n, input is divided into n groups with inputFeatureChannels/n channels in each group\&. Similarly output is divided into n groups with outputFeatureChannels/n channels in each group\&. ith group in input is only connected to ith group in output so number of weights (parameters) needed is reduced by factor of n\&. Both inputFeatureChannels and outputFeatureChannels must be divisible by n and number of channels in each group must be multiple of 4\&. 
 .SS "\- inputFeatureChannels\fC [read]\fP, \fC [write]\fP, \fC [nonatomic]\fP, \fC [assign]\fP"

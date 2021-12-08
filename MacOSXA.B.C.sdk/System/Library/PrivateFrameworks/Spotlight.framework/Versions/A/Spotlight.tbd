@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: C35789AD-EDB2-3AF7-9AE8-5BB7E3C27F81' ]
+uuids:           [ 'x86_64: 9BAD3C69-0F5B-3E2E-B71C-7C71C95C5CC3' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Spotlight.framework/Versions/A/Spotlight
-current-version: 1191.4.13
+current-version: 1191.51
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _PRSResultDidUpdate, _SPAppDelegatePreferencesChanged, _SPKStringFromResponseKind, 
@@ -25,9 +25,8 @@ exports:
                        SPKCalculatorQuery, SPKCoreParsecInterface, SPKDictionaryQuery, 
                        SPKParsecPattern, SPKParsecQuery, SPKQuery, SPKResponse, SPMetadataGroupHeadingResult, 
                        SPMetadataPattern, SPMetadataQuery, SPMetadataResult, SPParsecGroupHeadingResult, 
-                       SPQueryTask, SPSearchQueryContext, SPShortcutPattern, SPShortcuts, 
-                       SPStatistics, SPURLQuery, SPURLResult, SPWebHistoryQuery, 
-                       SPWebHistoryResult, TestingFeedbackListener, _SPResultsArrays ]
+                       SPQueryTask, SPSearchQueryContext, SPShortcuts, SPStatistics, 
+                       SPURLQuery, SPURLResult, TestingFeedbackListener, _SPResultsArrays ]
     objc-ivars:      [ PRSResult._matchBits, PRSResult._retainCount, SPMetadataGroupHeadingResult._focusString, 
                        SPQueryTask._cumulativeTopHitSet, SPQueryTask._queryStartTime ]
 ...

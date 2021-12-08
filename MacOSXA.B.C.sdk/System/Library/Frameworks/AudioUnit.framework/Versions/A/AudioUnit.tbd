@@ -1,32 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 891EBEA8-EFBC-39E9-A5DC-175390F7B643', 'x86_64: 513C9A4B-4F6D-3A21-921F-2CA101B97830' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: D7E13D24-2037-3E1A-AEE5-480876728218' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/AudioUnit.framework/Versions/A/AudioUnit
 objc-constraint: none
 exports:         
-  - archs:           [ i386 ]
-    symbols:         [ '$ld$add$os10.10$_AudioUnitCarbonViewSetEventListener', '$ld$add$os10.10$_AudioUnitRemovePropertyListener', 
-                       '$ld$add$os10.10$_AudioUnitRemoveRenderNotification', '$ld$add$os10.10$_AudioUnitRenderSlice', 
-                       '$ld$add$os10.10$_AudioUnitSetRenderNotification', '$ld$add$os10.4$_AudioUnitCarbonViewSetEventListener', 
-                       '$ld$add$os10.4$_AudioUnitRemoveRenderNotification', '$ld$add$os10.4$_AudioUnitRenderSlice', 
-                       '$ld$add$os10.4$_AudioUnitSetRenderNotification', '$ld$add$os10.5$_AudioUnitCarbonViewSetEventListener', 
-                       '$ld$add$os10.5$_AudioUnitRemovePropertyListener', '$ld$add$os10.5$_AudioUnitRemoveRenderNotification', 
-                       '$ld$add$os10.5$_AudioUnitRenderSlice', '$ld$add$os10.5$_AudioUnitSetRenderNotification', 
-                       '$ld$add$os10.6$_AudioUnitCarbonViewSetEventListener', '$ld$add$os10.6$_AudioUnitRemovePropertyListener', 
-                       '$ld$add$os10.6$_AudioUnitRemoveRenderNotification', '$ld$add$os10.6$_AudioUnitRenderSlice', 
-                       '$ld$add$os10.6$_AudioUnitSetRenderNotification', '$ld$add$os10.7$_AudioUnitCarbonViewSetEventListener', 
-                       '$ld$add$os10.7$_AudioUnitRemovePropertyListener', '$ld$add$os10.7$_AudioUnitRemoveRenderNotification', 
-                       '$ld$add$os10.7$_AudioUnitRenderSlice', '$ld$add$os10.7$_AudioUnitSetRenderNotification', 
-                       '$ld$add$os10.8$_AudioUnitCarbonViewSetEventListener', '$ld$add$os10.8$_AudioUnitRemovePropertyListener', 
-                       '$ld$add$os10.8$_AudioUnitRemoveRenderNotification', '$ld$add$os10.8$_AudioUnitRenderSlice', 
-                       '$ld$add$os10.8$_AudioUnitSetRenderNotification', '$ld$add$os10.9$_AudioUnitCarbonViewSetEventListener', 
-                       '$ld$add$os10.9$_AudioUnitRemovePropertyListener', '$ld$add$os10.9$_AudioUnitRemoveRenderNotification', 
-                       '$ld$add$os10.9$_AudioUnitRenderSlice', '$ld$add$os10.9$_AudioUnitSetRenderNotification', 
-                       _AudioUnitCarbonViewCreate, _AudioUnitCarbonViewSetEventListener, 
-                       _AudioUnitRemovePropertyListener, _AudioUnitRemoveRenderNotification, 
-                       _AudioUnitRenderSlice, _AudioUnitSetRenderNotification ]
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ '$ld$add$os10.10$_AudioCodecAppendInputBufferList', '$ld$add$os10.10$_AudioCodecAppendInputData', 
                        '$ld$add$os10.10$_AudioCodecGetProperty', '$ld$add$os10.10$_AudioCodecGetPropertyInfo', 
                        '$ld$add$os10.10$_AudioCodecInitialize', '$ld$add$os10.10$_AudioCodecProduceOutputBufferList', 

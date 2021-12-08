@@ -1,7 +1,8 @@
 //
 //  SCNMaterial.h
+//  SceneKit
 //
-//  Copyright (c) 2012-2017 Apple Inc. All rights reserved.
+//  Copyright © 2012-2018 Apple Inc. All rights reserved.
 //
 
 #import <SceneKit/SceneKitTypes.h>
@@ -25,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  SCNLightingModelPhong:
    Produces a specularly shaded surface where the specular reflection is shaded according the Phong BRDF approximation.
    The reflected color is calculated as:
-     color = <ambient> * al + <diffuse> * max(N . L, 0) + <specular> * pow(max(R . E, 0), <shininess>)
+     color = <ambient> * al + <diffuse> * max(N ⋅ L, 0) + <specular> * pow(max(R ⋅ E, 0), <shininess>)
    where
      al — Sum of all ambient lights currently active (visible) in the scene
      N — Normal vector
@@ -41,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  SCNLightingModelBlinn:
    Produces a specularly shaded surface with a Blinn BRDF approximation.
    The reflected color is calculated as:
-     color = <ambient> * al + <diffuse> * max(N . L, 0) + <specular> * pow(max(H . N, 0), <shininess>)
+     color = <ambient> * al + <diffuse> * max(N ⋅ L, 0) + <specular> * pow(max(H ⋅ N, 0), <shininess>)
    where
      al — Sum of all ambient lights currently active (visible) in the scene
      N — Normal vector
@@ -58,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
    Produces a diffuse shaded surface with no specular reflection.
    The result is based on Lambert’s Law, which states that when light hits a rough surface, the light is reflected in all directions equally.
    The reflected color is calculated as:
-     color = <ambient> * al + <diffuse> * max(N . L, 0)
+     color = <ambient> * al + <diffuse> * max(N ⋅ L, 0)
    where
      al — Sum of all ambient lights currently active (visible) in the scene
      N — Normal vector
@@ -78,17 +79,12 @@ NS_ASSUME_NONNULL_BEGIN
      <diffuse> — The 'diffuse' property of the SCNMaterial instance
  */
 
-#if defined(SWIFT_SDK_OVERLAY2_SCENEKIT_EPOCH) && SWIFT_SDK_OVERLAY2_SCENEKIT_EPOCH >= 3
 typedef NSString * SCNLightingModel NS_STRING_ENUM;
-#else
-typedef NSString * SCNLightingModel;
-#endif
-
-FOUNDATION_EXTERN SCNLightingModel const SCNLightingModelPhong;
-FOUNDATION_EXTERN SCNLightingModel const SCNLightingModelBlinn;
-FOUNDATION_EXTERN SCNLightingModel const SCNLightingModelLambert;
-FOUNDATION_EXTERN SCNLightingModel const SCNLightingModelConstant;
-FOUNDATION_EXTERN SCNLightingModel const SCNLightingModelPhysicallyBased API_AVAILABLE(macos(10.12), ios(10.0), tvos(10.0));
+SCN_EXPORT SCNLightingModel const SCNLightingModelPhong;
+SCN_EXPORT SCNLightingModel const SCNLightingModelBlinn;
+SCN_EXPORT SCNLightingModel const SCNLightingModelLambert;
+SCN_EXPORT SCNLightingModel const SCNLightingModelConstant;
+SCN_EXPORT SCNLightingModel const SCNLightingModelPhysicallyBased API_AVAILABLE(macos(10.12), ios(10.0), tvos(10.0));
 
 typedef NS_ENUM(NSUInteger, SCNFillMode) {
     SCNFillModeFill  = 0,
@@ -135,6 +131,7 @@ typedef NS_ENUM(NSInteger, SCNBlendMode) {
  @abstract A SCNMaterial determines how a geometry is rendered. It encapsulates the colors and textures that define the appearance of 3d geometries.
  */
 
+SCN_EXPORT
 @interface SCNMaterial : NSObject <SCNAnimatable, SCNShadable, NSCopying, NSSecureCoding>
 
 /*! 
@@ -205,8 +202,8 @@ typedef NS_ENUM(NSInteger, SCNBlendMode) {
 
 /*!
  @property displacement
- @abstract <TODO>
- @discussion <TODO, Needs tessellation>
+ @abstract The displacement property specifies how vertex are translated in tangent space.
+ @discussion Pass a grayscale image for a simple 'elevation' or rgb image for a vector displacement.
  */
 @property(nonatomic, readonly) SCNMaterialProperty *displacement API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0));
 

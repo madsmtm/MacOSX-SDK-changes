@@ -79,6 +79,8 @@ and should be in a standard plist format. It may contain the following optional 
 .Bl -tag -width -indent  \" Begins a tagged list 
 .It Em UserSelectorPath
 This string value points to the custom UserSelector process which is used for associating users with SmartCards. If this section is not found or the component at that path does not exist, the system UserSelector is used.
+.It Em TrustedAuthorities
+It is possible to specify exact Certificate Authorities which will only be used for trust evaluation of SmartCard certificates. This is sometimes called Certificate Pinning. Place SHA-256 fingerprints as string values (without spaces) of Certificate Authorities in an array named TrustedAuthorities. When Certificate Pinning is used, SmartCard certificates issued by a Certificate Authority other than those on this list won't be evaluated as trusted. Please note that if certificate check setting is turned off, TrustedAuthorities will be ignored.
 .It Em AttributeMapping
 This section is used to set up an optional attribute mapping for the system UserSelector. For each available user record in OpenDirectory, certificate field values are combined into a format string which is then compared to a predefined attribute string. Specifying multiple OpenDirectory attribute strings or using conditional formatting in the format string is not supported. All items in this section are mandatory.
 .Pp
@@ -199,6 +201,11 @@ Certificate Checking: checkCertificateTrust should not be set to 3 (hard revocat
 User accounts should be created setting the "Create Mobile User on Login" flag in the Directory Utility application, when binding client machines via the command line, or with a Configuration Profile. When used in conjunction with Kerberos Caching, a mobile user account will allow users to authenticate either online and offline.
 .Sh EXTENSION
 Extensions can be created using the Xcode SmartCard Token Extension template.
+.br
+To enable the app extension and make the token available to the system for authentication, you launch the sc_auth command line tool with value of '‘com.apple.ctk.class-id’ from Info.plist:
+.Pp
+.Bd -literal -offset indent
+sudo sc_auth enable_for_login -t  com.example.HostApp.TokenExtension
 .Sh SYSTEM REPORT
 It is possible to show the current status of SmartCardServices by command:
 .Pp

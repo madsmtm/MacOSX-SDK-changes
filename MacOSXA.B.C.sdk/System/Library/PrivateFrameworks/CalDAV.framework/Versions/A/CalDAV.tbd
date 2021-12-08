@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 3157BE35-64D7-36F6-9F69-663E70354BAE' ]
+uuids:           [ 'x86_64: 30C9E6DF-FF9F-396C-AFE1-070329E09B68' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CalDAV.framework/Versions/A/CalDAV
-current-version: 257
+current-version: 265
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CalDAVComplianceClass_AutoSchedule, _CalDAVComplianceClass_CalendarAudit, 

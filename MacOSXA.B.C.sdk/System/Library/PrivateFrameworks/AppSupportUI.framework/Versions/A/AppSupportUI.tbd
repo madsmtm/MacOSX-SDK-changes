@@ -1,14 +1,13 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 84BB4E47-245F-3F20-9F86-C5064EC3364F' ]
+uuids:           [ 'x86_64: A35A8A40-4A03-3302-A2CD-03BDD6C38B74' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AppSupportUI.framework/Versions/A/AppSupportUI
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _NUIContainerViewDefaultDimension, _NUIContainerViewDefaultInsets, 
                        _NUIContainerViewDefaultSize ]
     objc-classes:    [ NUIBoxArrangement, NUIContainerBoxView, NUIContainerGridView, 
-                       NUIContainerStackView, NUIContainerView, NUIGridArrangement, 
-                       NUISizeCache ]
+                       NUIContainerStackView, NUIContainerView, NUIContentScrollView, 
+                       NUIGridArrangement, NUIMultilineSizingHelper, NUISizeCache ]
 ...

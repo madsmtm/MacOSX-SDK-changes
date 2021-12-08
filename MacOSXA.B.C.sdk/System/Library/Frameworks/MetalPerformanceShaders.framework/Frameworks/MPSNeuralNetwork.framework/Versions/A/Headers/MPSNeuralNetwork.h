@@ -19,8 +19,10 @@
 #import <MPSNeuralNetwork/MPSCNNDropout.h>
 #import <MPSNeuralNetwork/MPSRNNLayer.h>
 #import <MPSNeuralNetwork/MPSMatrixLayer.h>
+#import <MPSNeuralNetwork/MPSNNOptimizers.h>
 #import <MPSNeuralNetwork/MPSNNReduce.h>
 #import <MPSNeuralNetwork/MPSNNReshape.h>
+#import <MPSNeuralNetwork/MPSNNResize.h>
 #import <MPSNeuralNetwork/MPSNNSlice.h>
 
 #import <MPSNeuralNetwork/MPSNNGraph.h>

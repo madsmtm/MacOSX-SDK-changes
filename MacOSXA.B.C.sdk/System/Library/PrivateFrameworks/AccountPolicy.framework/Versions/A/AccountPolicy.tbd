@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 55CFEA13-1CDD-3E38-BCE5-7E0F07D13C61' ]
+uuids:           [ 'x86_64: 63399D02-CF4C-3C1F-95E2-5C9A9D0A6D1A' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AccountPolicy.framework/Versions/A/AccountPolicy
 exports:         

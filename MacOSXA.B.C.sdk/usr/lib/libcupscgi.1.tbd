@@ -1,11 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 920829A4-37E5-364F-80DB-385B19F0BF1E', 'x86_64: F6504C5E-0F75-32AD-846F-550741C560E3' ]
+archs:           [ x86_64 ]
 platform:        macosx
 install-name:    /usr/lib/libcupscgi.1.dylib
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _cgiCheckVariables, _cgiClearVariables, _cgiCompileSearch, 
                        _cgiCopyTemplateFile, _cgiCopyTemplateLang, _cgiDoSearch, 
                        _cgiEndHTML, _cgiEndMultipart, _cgiFormEncode, _cgiFreeSearch, 

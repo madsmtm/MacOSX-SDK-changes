@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 65EAF82E-F46F-35A1-AED8-34214477FD1C' ]
+uuids:           [ 'x86_64: 85FFE5E9-1201-359D-A9BC-20EC07B2F0B6' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/Social.framework/Versions/A/Social
-current-version: 565
+current-version: 565.2
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CPFileBuildDirectoriesToPath, _PushNotificationDidChangeEventKey_char, 
@@ -94,17 +94,16 @@ exports:
                        SLTencentWeiboService, SLTencentWeiboSession, SLTencentWeiboUserRecord, 
                        SLTudouService, SLTwitterRequest, SLTwitterRequestMultiPart, 
                        SLTwitterReverseAuthRequest, SLTwitterService, SLTwitterSession, 
-                       SLTwitterUserRecord, SLVimeoService, SLWeiboMacContactUpdaterHelper, 
+                       SLTwitterUserRecord, SLVimeoService, SLWebAuthRequest, SLWebClient, 
+                       SLWebOAuth2TokenRequest, SLWebOAuth2TokenResponse, SLWeiboMacContactUpdaterHelper, 
                        SLWeiboServerInterface, SLWeiboSession, SLWeiboUserRecord, 
                        SLXImageCellNoAccessibility, SLXImageViewNoAccessibility, 
                        SLXLocationPinButtonCell, SLXShareButtonCell, SLXShareCounterFieldCell, 
                        SLXShareLocationController, SLXShareLocationPopUpButtonCell, 
                        SLXSharePopUpButtonCell, SLXShareSmallTextFieldCell, SLXShareWindowBackgroundView, 
-                       SLYahooClient, SLYahooLoginTokenRequest, SLYahooLoginTokenResponse, 
-                       SLYahooOAuth2MigrationRequest, SLYahooOAuth2MigrationResponse, 
-                       SLYahooOAuth2TokenRequest, SLYahooOAuth2TokenResponse, SLYahooUserInfoRequest, 
-                       SLYahooUserInfoResponse, SLYahooWebAuthRequest, SLYoukuService, 
-                       TWMacContactUpdaterHelper, WECoreSig1Signer ]
+                       SLYahooLoginTokenRequest, SLYahooLoginTokenResponse, SLYahooOAuth2MigrationRequest, 
+                       SLYahooOAuth2MigrationResponse, SLYahooUserInfoRequest, SLYahooUserInfoResponse, 
+                       SLYoukuService, TWMacContactUpdaterHelper, WECoreSig1Signer ]
     objc-ivars:      [ SLAbsintheSigningSession._certURL, SLAbsintheSigningSession._sessionURL, 
                        SLFacebookLoginRequest._account, SLFacebookRegistrationRequest._registrationInfo, 
                        SLSystemConfigManager._applySkipCount, SLSystemConfigManager._notifyForExternalChangeOnly, 

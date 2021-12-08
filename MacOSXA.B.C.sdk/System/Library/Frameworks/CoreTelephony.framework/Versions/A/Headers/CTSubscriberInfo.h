@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreTelephony/CoreTelephonyDefines.h>
 
-#import "CTSubscriber.h"
+#import <CoreTelephony/CTSubscriber.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

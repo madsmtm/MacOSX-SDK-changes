@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 14F7ED8A-2660-35DB-A6CB-6E96FECEBB5D', 'x86_64: 1D812C43-9E37-394B-BD14-9C98DEDA20B5' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: B104033D-18FF-397A-813E-AC9DDAB1A70B' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/FWAUserLib.framework/Versions/A/FWAUserLib
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _CreateAsyncWakePort, _FWAAttachFWAudioMIDIStream, _FWAAttachFWAudioStream, 
                        _FWAClose, _FWACountDevices, _FWACreateAudioStream, _FWACreateFWAudioDevice, 
                        _FWACreateFWAudioEngine, _FWACreateFWAudioMIDIDeviceNub, _FWACreateFWAudioMIDIPlug, 

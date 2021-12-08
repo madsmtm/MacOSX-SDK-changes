@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F6C79CDF-DBBE-30F7-82C0-F074ACCBBB47' ]
+uuids:           [ 'x86_64: 714DAF7B-C3D2-39F1-A412-ADFF0D6A033E' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/LocalAuthentication.framework/Support/SharedUtils.framework/Versions/A/SharedUtils
-current-version: 425.50.68
+current-version: 425.200.47
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ACMContextAddCredential, _ACMContextAddCredentialWithScope, 
@@ -17,9 +17,10 @@ exports:
                        _ACMContextVerifyPolicyWithPreflight, _ACMCredentialCreate, 
                        _ACMCredentialDelete, _ACMCredentialGetProperty, _ACMCredentialGetPropertyData, 
                        _ACMCredentialGetType, _ACMCredentialSetProperty, _ACMGetEnvironmentVariable, 
-                       _ACMGlobalContextAddCredential, _ACMGlobalContextRemoveCredentialsByType, 
-                       _ACMGlobalContextVerifyPolicy, _ACMKernelControl, _ACMParseAclAndCopyConstraintCharacteristics, 
-                       _ACMRequirementGetPriority, _ACMRequirementGetProperties, 
+                       _ACMGlobalContextAddCredential, _ACMGlobalContextCredentialGetProperty, 
+                       _ACMGlobalContextRemoveCredentialsByType, _ACMGlobalContextVerifyPolicy, 
+                       _ACMKernelControl, _ACMParseAclAndCopyConstraintCharacteristics, 
+                       _ACMPing, _ACMRequirementGetPriority, _ACMRequirementGetProperties, 
                        _ACMRequirementGetProperty, _ACMRequirementGetPropertyData, 
                        _ACMRequirementGetState, _ACMRequirementGetSubrequirements, 
                        _ACMRequirementGetType, _ACMSetEnvironmentVariable, _CompareCredentials, 
@@ -39,15 +40,16 @@ exports:
                        _LibCall_ACMCredentialCreate, _LibCall_ACMCredentialDelete, 
                        _LibCall_ACMCredentialGetPropertyData, _LibCall_ACMCredentialGetType, 
                        _LibCall_ACMCredentialSetProperty, _LibCall_ACMGetEnvironmentVariable_Block, 
-                       _LibCall_ACMKernelControl_Block, _LibCall_ACMRequirementDelete, 
+                       _LibCall_ACMGlobalContextCredentialGetProperty_Block, _LibCall_ACMKernDoubleClickNotify, 
+                       _LibCall_ACMKernelControl_Block, _LibCall_ACMPing, _LibCall_ACMRequirementDelete, 
                        _LibCall_ACMRequirementGetPriority, _LibCall_ACMRequirementGetPropertyData, 
                        _LibCall_ACMRequirementGetState, _LibCall_ACMRequirementGetType, 
                        _LibCall_ACMSetEnvironmentVariable, _LibCall_BuildCommand, 
                        _SerializeAddCredential, _SerializeCredential, _SerializeCredentialList, 
                        _SerializeGetContextProperty, _SerializeProcessAcl, _SerializeRemoveCredential, 
                        _SerializeReplacePassphraseCredential, _SerializeRequirement, 
-                       _SerializeVerifyAclConstraint, _SerializeVerifyPolicy, _SharedUtilsVersionNumber, 
-                       _SharedUtilsVersionString, _gAllocatedBytes, _gLastAllocatedBytes ]
+                       _SerializeVerifyAclConstraint, _SerializeVerifyPolicy, _gAllocatedBytes, 
+                       _gLastAllocatedBytes ]
     objc-classes:    [ LAACMHelper, LACachedExternalizedContext, LADFR, LAErrorHelper, 
                        LAInternalProtocols, LAParamChecker, LAPasscodeHelper, LAProcessInfo, 
                        LASecureData, LAUtils ]

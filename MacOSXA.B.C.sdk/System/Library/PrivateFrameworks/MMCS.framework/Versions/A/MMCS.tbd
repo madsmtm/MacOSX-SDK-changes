@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 16924C50-2679-3835-AA17-5B4DED1A3804' ]
+uuids:           [ 'x86_64: 1E5851C3-8DD0-3CC5-8C56-F9431667C27E' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/MMCS.framework/Versions/A/MMCS
-current-version: 434
+current-version: 438.19
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _C3BaseRelease, _C3BaseRetain, _CKChunkSchemeAndEncryptionKeySize, 
@@ -14,12 +14,13 @@ exports:
                        _MMCSEngineGetRequestMetrics, _MMCSEngineIsActive, _MMCSEngineSetMetricsEnabled, 
                        _MMCSFlattenError, _MMCSGetCacheBlobFd, _MMCSGetItemStateIsDeterminant, 
                        _MMCSGetItems, _MMCSGetItemsWithSection, _MMCSGetMaxChunkCountForSection, 
-                       _MMCSGetRegisteredItems, _MMCSICloudRequestHeadersCopy, _MMCSIsEngineInitialized, 
-                       _MMCSItemReaderWriterCreate, _MMCSItemReaderWriterCreateWithData, 
-                       _MMCSItemReaderWriterCreateWithFileDescriptor, _MMCSItemReaderWriterCreateWithMutableData, 
-                       _MMCSItemReaderWriterCreateWithPlainFileDescriptor, _MMCSItemReaderWriterRead, 
-                       _MMCSItemReaderWriterSeek, _MMCSItemReaderWriterWrite, _MMCSMetricsRequestCopyDescription, 
-                       _MMCSMetricsRequestRelease, _MMCSMetricsRequestRetain, _MMCSOperationMetricCombineMetrics, 
+                       _MMCSGetRegisteredItems, _MMCSICloudAuthGetRequestOptions, 
+                       _MMCSICloudRequestHeadersCopy, _MMCSIsEngineInitialized, _MMCSItemReaderWriterCreate, 
+                       _MMCSItemReaderWriterCreateWithData, _MMCSItemReaderWriterCreateWithFileDescriptor, 
+                       _MMCSItemReaderWriterCreateWithMutableData, _MMCSItemReaderWriterCreateWithPlainFileDescriptor, 
+                       _MMCSItemReaderWriterRead, _MMCSItemReaderWriterSeek, _MMCSItemReaderWriterWrite, 
+                       _MMCSMetricsRequestCopyDescription, _MMCSMetricsRequestRelease, 
+                       _MMCSMetricsRequestRetain, _MMCSOperationMetricCombineMetrics, 
                        _MMCSPackageSectionSignatureGeneratorCreate, _MMCSPackageSectionSignatureGeneratorFinish, 
                        _MMCSPackageSectionSignatureGeneratorUpdate, _MMCSPutItemStateIsDeterminant, 
                        _MMCSPutItems, _MMCSPutSection, _MMCSReferenceObjectCreateWithType, 
@@ -33,10 +34,10 @@ exports:
                        _MMCSSignatureGeneratorFinish, _MMCSSignatureGeneratorUpdate, 
                        _MMCSSignatureIsValid, _MMCSSignatureIsValidV2, _MMCSSignatureSize, 
                        _MMCSUnregisterFile, _MMCSUnregisterFiles, _MMCSUpdateItemStateIsDeterminant, 
-                       _MMCSUpdateItems, _XCFArrayCreateWithObject, _XCFDataCreateStringDescription, 
+                       _MMCSUpdateItems, _MMCSWarm, _XCFArrayCreateWithObject, _XCFDataCreateStringDescription, 
                        _XCFPrint, _XCFSetAddValuesFromSet, _XCFURLCreateWithCString, 
                        __getCStringFromCFStringSafely, __mmcs_http_context_init, 
-                       __reproduce_11330412, _chunkReferenceSignatureEqualitySetCallbacks, 
+                       __reproduce_11330412, __update_items_wrap_set_callbacks, _chunkReferenceSignatureEqualitySetCallbacks, 
                        _createCStringWithCFString, _debug_begin_writing_http_message_to_file, 
                        _gMMCS_DebugLevel, _hextostrdup, _kMMCSAuthorizationToken, 
                        _kMMCSBoundaryKey, _kMMCSChunkCount, _kMMCSChunkerAllowItemChunkLengthServerConfigurationOverride, 
@@ -63,17 +64,17 @@ exports:
                        _kMMCSRegisteredChunks, _kMMCSRequestContainerSizeHintValue, 
                        _kMMCSRequestDisableVendorTLS, _kMMCSRequestFetchAuthorizationOnly, 
                        _kMMCSRequestForceGetCompleteRequest, _kMMCSRequestOptionAllowsCellularAccess, 
-                       _kMMCSRequestOptionAllowsPowerNapScheduling, _kMMCSRequestOptionAuthTokenTimeout, 
-                       _kMMCSRequestOptionBackgroundConnectionPoolName, _kMMCSRequestOptionBackgroundConnectionPoolSize, 
-                       _kMMCSRequestOptionBackgroundForceNonDiscretionary, _kMMCSRequestOptionBoundInterfaceIdentifier, 
+                       _kMMCSRequestOptionAllowsPowerNapScheduling, _kMMCSRequestOptionAllowsRetryForBackgroundDataTasks, 
+                       _kMMCSRequestOptionAuthTokenTimeout, _kMMCSRequestOptionBackgroundConnectionPoolName, 
+                       _kMMCSRequestOptionBackgroundConnectionPoolSize, _kMMCSRequestOptionBoundInterfaceIdentifier, 
                        _kMMCSRequestOptionCallerRequestUUID, _kMMCSRequestOptionClientLocation, 
-                       _kMMCSRequestOptionContainerIdentifier, _kMMCSRequestOptionHTTPClass, 
-                       _kMMCSRequestOptionHttpAdaptiveReadTimeout, _kMMCSRequestOptionHttpAdaptiveWriteTimeout, 
-                       _kMMCSRequestOptionInlineCompleteLogicInvertedMode, _kMMCSRequestOptionInsertHeaders, 
-                       _kMMCSRequestOptionItemOptions, _kMMCSRequestOptionMetaserverAllowedHostnamesOverride, 
-                       _kMMCSRequestOptionMetaserverAllowedSchemesOverride, _kMMCSRequestOptionNetworkServiceType, 
-                       _kMMCSRequestOptionPreauthorization, _kMMCSRequestOptionPriority, 
-                       _kMMCSRequestOptionQoS, _kMMCSRequestOptionReaderWriterCallbackForDownloads, 
+                       _kMMCSRequestOptionContainerIdentifier, _kMMCSRequestOptionDiscretionaryNetworkBehavior, 
+                       _kMMCSRequestOptionHTTPClass, _kMMCSRequestOptionHttpAdaptiveReadTimeout, 
+                       _kMMCSRequestOptionHttpAdaptiveWriteTimeout, _kMMCSRequestOptionInlineCompleteLogicInvertedMode, 
+                       _kMMCSRequestOptionInsertHeaders, _kMMCSRequestOptionItemOptions, 
+                       _kMMCSRequestOptionMetaserverAllowedHostnamesOverride, _kMMCSRequestOptionMetaserverAllowedSchemesOverride, 
+                       _kMMCSRequestOptionNetworkServiceType, _kMMCSRequestOptionPreauthorization, 
+                       _kMMCSRequestOptionPriority, _kMMCSRequestOptionQoS, _kMMCSRequestOptionReaderWriterCallbackForDownloads, 
                        _kMMCSRequestOptionRequireInlineComplete, _kMMCSRequestOptionRequiresPowerPluggedIn, 
                        _kMMCSRequestOptionResumableContainerLimpMode, _kMMCSRequestOptionRetrievePastRegistration, 
                        _kMMCSRequestOptionReturnPreauthorizationRequestObject, _kMMCSRequestOptionReturnRegisteredChunks, 
@@ -85,8 +86,8 @@ exports:
                        _kMMCSRequestTimeoutPeriod, _kMMCSRequestUrlExpiryDuration, 
                        _kMMCSRequestValidateFileContents, _kMMCSRequestVendorHintValue, 
                        _kMMCSResultError, _kMMCSResults, _kMMCSSignature, _kMMCSUnwrappingState, 
-                       _kMMCSWrappingState, _kMME_CLIENT_INFO_HEADER_KEY, _kMME_REPORTING_SEND_MMCS_ERROR_ON_FAILURE_KEY, 
-                       _kMME_REPORTING_SEND_VENDOR_RESPONSE_BODY_BYTES_ON_FAILURE_INTERNAL_KEY, 
+                       _kMMCSWarmContainerState, _kMMCSWrappingState, _kMME_CLIENT_INFO_HEADER_KEY, 
+                       _kMME_REPORTING_SEND_MMCS_ERROR_ON_FAILURE_KEY, _kMME_REPORTING_SEND_VENDOR_RESPONSE_BODY_BYTES_ON_FAILURE_INTERNAL_KEY, 
                        _kMME_REPORTING_SEND_VENDOR_RESPONSE_HTTP_STATUS_CODE_KEY, 
                        _kMME_REPORTING_SEND_VENDOR_RESPONSE_HTTP_STATUS_ON_FAILURE_KEY, 
                        _metricsinfo__set_bytes_read, _metricsinfo__set_bytes_sent, 
@@ -138,12 +139,13 @@ exports:
                        _mmcs_register_item_padded_chunk_length, _mmcs_report_copy_headers_from_vendor_response, 
                        _mmcs_report_is_enabled_for_config_key, _mmcs_report_is_valid_base_url_for_configs, 
                        _mmcs_report_value_for_config_key, _mmcs_request_copy_persistent_identifier, 
+                       _mmcs_request_queue_cancel_request, _mmcs_request_queue_create, 
+                       _mmcs_request_queue_enqueue_request, _mmcs_request_queue_request_did_complete, 
+                       _mmcs_request_queue_request_did_transmit, _mmcs_request_type_for_behavior_and_activity, 
                        _mmcs_server_version_make_from_CFString, _mmcs_time_convert_cfabsolutetime_to_server_time, 
                        _mmcs_time_convert_date_header_to_cfabsolutetime, _mmcs_time_convert_server_time_to_cfabsolutetime, 
                        _registerItemSignatureEqualitySetCallbacks, _ub_log_facility, 
                        _ub_log_levels, _ub_log_set_all_facility_level, _ub_log_set_facility_level, 
                        _ub_log_set_print_state ]
-    objc-classes:    [ C2MPClientInfo, C2MPError, C2MPMetric, C2MPNetworkStatistic, 
-                       C2ReportMetrics, C2RequestManager, C2RequestOptions, C2Session, 
-                       C2SessionPool, C2SessionTask, MMCSBoundedQueue ]
+    objc-classes:    [ MMCSBoundedQueue ]
 ...

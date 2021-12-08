@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: CEEF9B7F-EA4D-3A19-B678-961FE7F44CAC' ]
+uuids:           [ 'x86_64: B12B691D-7D22-323C-A13D-2172A66D5212' ]
 platform:        macosx
 install-name:    /usr/lib/libtailspin.dylib
-current-version: 53
+current-version: 60
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _TSPConfiguration_EnabledKey, _TSPConfiguration_EnabledModifierKey, 
@@ -14,8 +14,9 @@ exports:
                        _TSPConfiguration_KdebugFilterDescModifierKey, _TSPConfiguration_KdebugKey, 
                        _TSPConfiguration_OncoreSamplingPeriodKey, _TSPConfiguration_OncoreSamplingPeriodModifierKey, 
                        _TSPConfiguration_SamplingKey, _TSPDumpOptions_CollectOsLogs, 
-                       _TSPDumpOptions_CollectOsSignposts, _TSPDumpOptions_MaxTimestamp, 
-                       _TSPDumpOptions_MinTimestamp, _TSPDumpOptions_NoSymbolicate, 
+                       _TSPDumpOptions_CollectOsSignposts, _TSPDumpOptions_ExistingTailspinMode, 
+                       _TSPDumpOptions_FilePath, _TSPDumpOptions_MaxTimestamp, _TSPDumpOptions_MinTimestamp, 
+                       _TSPDumpOptions_NoSymbolicate, _TSPDumpOptions_OsLogArchive, 
                        _TSPDumpOptions_ReasonString, _TSPDumpOptions_UseDsymForUUID, 
                        _TSPMetadata_AGXVersionKey, _TSPMetadata_HWMemSizeKey, _TSPMetadata_HWModelKey, 
                        _TSPMetadata_HWPageSizeKey, _TSPMetadata_IsKPerfPETMode, _TSPMetadata_NCpusKey, 
@@ -40,7 +41,8 @@ exports:
                        _get_tailspin_ondisk_config, _get_tailspin_profile_config, 
                        _get_tailspin_tasking_config, _is_apple_internal_setting, 
                        _libtailspinVersionNumber, _libtailspinVersionString, _print_config, 
-                       _set_config_field_modifier, _tailspin_buffer_size_get, _tailspin_buffer_size_get_default, 
+                       _set_config_field_modifier, _tailspin_augment_output, _tailspin_augment_output_internal, 
+                       _tailspin_buffer_size_get, _tailspin_buffer_size_get_default, 
                        _tailspin_buffer_size_is_default, _tailspin_buffer_size_reset, 
                        _tailspin_buffer_size_set, _tailspin_config_apply, _tailspin_config_apply_sync, 
                        _tailspin_config_create_new, _tailspin_config_create_with_config, 
@@ -56,7 +58,8 @@ exports:
                        _tailspin_kdbg_filter_copy_description, _tailspin_kdbg_filter_get_default, 
                        _tailspin_kdbg_filter_is_default, _tailspin_kdbg_filter_reset, 
                        _tailspin_kdbg_filter_subclass_get, _tailspin_kdbg_filter_subclass_set, 
-                       _tailspin_make_ondisk_config, _tailspin_oncore_sampling_period_get, 
+                       _tailspin_make_ondisk_config, _tailspin_min_full_sampling_period_allowed, 
+                       _tailspin_min_oncore_sampling_period_allowed, _tailspin_oncore_sampling_period_get, 
                        _tailspin_oncore_sampling_period_get_default, _tailspin_oncore_sampling_period_is_default, 
                        _tailspin_oncore_sampling_period_reset, _tailspin_oncore_sampling_period_set, 
                        _tailspin_parse_stackshot_chunk, _tailspin_poke, _tailspin_readcurthreadmap, 

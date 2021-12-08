@@ -1,12 +1,12 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: D369AC27-9033-3BF0-AF0D-00F5C02025CA', 'x86_64: 214AD582-466F-3844-A0A4-DE0742A8B899' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 751130A1-8639-3BDA-BF8F-A3BE54427E43' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/IOPresentment.framework/Versions/A/IOPresentment
-current-version: 35.5
+current-version: 42.5
 objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _IOPresentmentBegin, _IOPresentmentBindIOAccelSurfaceToResource, 
                        _IOPresentmentBindIOSurfaceToResourcePlane, _IOPresentmentBindIOSurfaceToResourcePlaneWithDirtyRect, 
                        _IOPresentmentCancel, _IOPresentmentCapabilitiesStructureFree, 
@@ -392,5 +392,12 @@ exports:
                        _kIOPresentmentVerticalBlankingExtension, _kIOPresentmentVerticalSyncConfig, 
                        _kIOPresentmentVerticalSyncOffset, _kIOPresentmentVerticalSyncPulseWidth, 
                        _kIOPresentmentWidth, _kIOPresentmentWorstDictionary ]
-    weak-def-symbols: [ __ZTI35IOPresentmentTransactionDisplayPipe, __ZTS35IOPresentmentTransactionDisplayPipe ]
+    weak-def-symbols: [ __ZTI35IOPresentmentTransactionDisplayPipe, __ZTIFvP26__IOPresentmentTransactionPcjE, 
+                        __ZTINSt3__110__function6__baseIFvP26__IOPresentmentTransactionPcjEEE, 
+                        __ZTINSt3__110__function6__funcIPFvP26__IOPresentmentTransactionPcjENS_9allocatorIS6_EES5_EE, 
+                        __ZTINSt3__117bad_function_callE, __ZTIPFvP26__IOPresentmentTransactionPcjE, 
+                        __ZTS35IOPresentmentTransactionDisplayPipe, __ZTSFvP26__IOPresentmentTransactionPcjE, 
+                        __ZTSNSt3__110__function6__baseIFvP26__IOPresentmentTransactionPcjEEE, 
+                        __ZTSNSt3__110__function6__funcIPFvP26__IOPresentmentTransactionPcjENS_9allocatorIS6_EES5_EE, 
+                        __ZTSNSt3__117bad_function_callE, __ZTSPFvP26__IOPresentmentTransactionPcjE ]
 ...

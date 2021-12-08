@@ -1,10 +1,10 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 03A4EE80-4E4A-390C-9E2E-0CEC3307496D', 'x86_64: 18607D75-DB78-3CC7-947E-AC769195164C' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 793E1D31-6166-37F2-A989-F98FE1706E5D' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Heimdal.framework/Versions/A/Heimdal
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _HeimCredCopyAttribute, _HeimCredCopyAttributes, _HeimCredCopyFromUUID, 
                        _HeimCredCopyQuery, _HeimCredCopyStatus, _HeimCredCreate, 
                        _HeimCredDelete, _HeimCredDeleteByUUID, _HeimCredDeleteQuery, 

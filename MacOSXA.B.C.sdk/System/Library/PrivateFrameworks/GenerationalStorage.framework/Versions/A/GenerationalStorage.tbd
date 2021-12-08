@@ -1,20 +1,11 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: EB4CFAF8-F694-37D7-A005-7539B6C12D11', 'x86_64: 13B96400-FF70-376B-B20E-FB7D61064800' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 089301DF-60C9-3BED-9357-2F91336C1579' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/GenerationalStorage.framework/Versions/A/GenerationalStorage
-current-version: 285.3
+current-version: 285.101
 exports:         
-  - archs:           [ i386 ]
-    objc-classes:    [ GSClientManagedLibrary, GSPermanentAdditionEnumerator, GSSystemManagedLibrary, 
-                       GSTemporaryAddtionEnumerator, _CopyfileCallbackCtx ]
   - archs:           [ x86_64 ]
-    objc-ivars:      [ GSDaemonProxySync._error, GSDaemonProxySync._result, GSDaemonProxySync._target, 
-                       GSDocumentIdentifier.deviceID, GSDocumentIdentifier.documentID, 
-                       GSDocumentIdentifier.volumeUUID, GSStagingPrefix._deviceID, 
-                       GSStagingPrefix._extension, GSStagingPrefix._path, GSStagingPrefix._pathComponents, 
-                       GSStagingPrefix._sandboxHandle, GSStagingPrefix._volumeUUID ]
-  - archs:           [ i386, x86_64 ]
     symbols:         [ _GSAdditionCreationDisplayNameKey, _GSAdditionCreationInfoValidate, 
                        _GSAdditionCreationKeepFileIDKey, _GSAdditionCreationNameKey, 
                        _GSAdditionCreationNameSpaceKey, _GSAdditionCreationOnDuplicateKey, 
@@ -53,4 +44,9 @@ exports:
                        _kGSLibraryErrorDomain ]
     objc-classes:    [ GSAddition, GSDaemonProxySync, GSDocumentIdentifier, GSPermanentStorage, 
                        GSStagingPrefix, GSStorageManager, GSTemporaryStorage ]
+    objc-ivars:      [ GSDaemonProxySync._error, GSDaemonProxySync._result, GSDaemonProxySync._target, 
+                       GSDocumentIdentifier.deviceID, GSDocumentIdentifier.documentID, 
+                       GSDocumentIdentifier.volumeUUID, GSStagingPrefix._deviceID, 
+                       GSStagingPrefix._extension, GSStagingPrefix._path, GSStagingPrefix._pathComponents, 
+                       GSStagingPrefix._sandboxHandle, GSStagingPrefix._volumeUUID ]
 ...

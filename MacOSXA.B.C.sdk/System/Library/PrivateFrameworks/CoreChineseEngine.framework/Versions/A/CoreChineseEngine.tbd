@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 70E51743-4C4D-38CC-BC05-BE2744641288' ]
+uuids:           [ 'x86_64: B132562B-5AC5-32C9-B519-40E481356A83' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreChineseEngine.framework/Versions/A/CoreChineseEngine
-current-version: 391.5.1
+current-version: 391.16.10
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CCEGetLionUserDictionariesMigrated, _CCEGetPidForApplication, 
@@ -147,6 +147,6 @@ exports:
                        CIMPunctuationManager._recentActions, CIMPunctuationManager._recentPunctuation, 
                        CIMPunctuationManager._scriptType, CIMPunctuationManager._sortedPunctuationCandidates, 
                        CIMResourcePathManager._rebuildResourcePaths, CIMResourcePathManager._stream, 
-                       CIMResourcePathManager._updateDictionaryPaths, CIMZhuyinEngine._mecabraEngine, 
-                       CIMZhuyinEngine._selectedCandidateSurface ]
+                       CIMResourcePathManager._updateDictionaryPaths, CIMZhuyinEngine._inlineText, 
+                       CIMZhuyinEngine._mecabraEngine, CIMZhuyinEngine._selectedCandidateSurface ]
 ...

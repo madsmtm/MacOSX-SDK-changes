@@ -1,13 +1,35 @@
 --- !tapi-tbd-v3
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 89339B57-A107-3680-BE68-17DC3C46F963', 'x86_64: 5EC02BD4-F1F8-3A96-BE1A-6620D3080CD4' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: BE71A0AD-7ED9-3B2A-BF7D-DA7841640FE0' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CommonUtilities.framework/Versions/A/CommonUtilities
 current-version: 800
 exports:         
-  - archs:           [ i386 ]
-    objc-classes:    [ CUTCheckpointSignpost, CUTLog, _CUTWeakReference ]
   - archs:           [ x86_64 ]
+    symbols:         [ _CUTAuditTokenTaskHasEntitlement, _CUTCreateDictionaryFromXPCObject, 
+                       _CUTCreateXPCObjectFromDictionary, _CUTDataForPropertyList, 
+                       _CUTGetMainBundle, _CUTGetMainBundleIdentifier, _CUTGetXPCBoolFromDictionary, 
+                       _CUTGetXPCConnectionContext, _CUTGetXPCDataFromDictionary, 
+                       _CUTGetXPCDoubleFromDictionary, _CUTGetXPCIntFromDictionary, 
+                       _CUTGetXPCStringFromDictionary, _CUTInsertBoolsToXPCDictionary, 
+                       _CUTInsertDatasToXPCDictionary, _CUTInsertDoublesToXPCDictionary, 
+                       _CUTInsertIntsToXPCDictionary, _CUTInsertNSStringsToXPCDictionary, 
+                       _CUTIsInternalInstall, _CUTMapObjectProperties, _CUTProcessNameForPid, 
+                       _CUTPropertyListFromNSData, _CUTReportingBatchingIntervalDefault, 
+                       _CUTReportingErrorDomain, _CUTSafeArrayOfStrings, _CUTSetXPCConnectionContext, 
+                       _CUTTemporaryPath, _CUTWeakLinkClass, _CUTWeakLinkSymbol, 
+                       _CUTWiFiManagerMaxMeasurementErrorKey, _CUTWiFiManagerPMDurationKey, 
+                       _CUTWiFiManagerSSIDKey, _CUTWiFiManagerTotalDurationKey, _CUTXPCAlert, 
+                       _CUTXPCAlertv, _CUTXPCConfigureConnection, _CUTXPCConnectionSetEventHandlers, 
+                       _CUTXPCCreateConnectionForService, _CUTXPCCreateConnectionForServiceWithQueue, 
+                       _CUTXPCCreateServerConnection, _cut_arc_os_release, _cut_backtrace, 
+                       _cut_log_group_generation, _cut_non_arc_os_release ]
+    objc-classes:    [ CUTAsyncReducer, CUTAsyncReducerState, CUTCheckpoint, CUTCheckpointInstant, 
+                       CUTCheckpointRange, CUTCheckpointSignpost, CUTCheckpointTrace, 
+                       CUTDeferredTaskQueue, CUTFileCopier, CUTImplicitPromise, CUTNetworkInterfaceListener, 
+                       CUTPowerAssertion, CUTPowerMonitor, CUTPromise, CUTPromiseSeal, 
+                       CUTReachability, CUTReporting, CUTResult, CUTTelephonyManager, 
+                       CUTWeakReference, CUTWiFiManager ]
     objc-ivars:      [ CUTCheckpoint._frozen, CUTImplicitPromise._promise, CUTNetworkInterfaceListener._IPv4Addresses, 
                        CUTNetworkInterfaceListener._IPv6Addresses, CUTNetworkInterfaceListener._cellState, 
                        CUTNetworkInterfaceListener._delegateMap, CUTNetworkInterfaceListener._delegateQueue, 
@@ -17,27 +39,4 @@ exports:
                        CUTPromise._queue, CUTPromise._result, CUTPromiseSeal._promise, 
                        CUTPromiseSeal._queue, CUTResult._inError, CUTResult._inValue, 
                        CUTResult._state ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ _CUTAuditTokenTaskHasEntitlement, _CUTCreateDictionaryFromXPCObject, 
-                       _CUTCreateXPCObjectFromDictionary, _CUTDataForPropertyList, 
-                       _CUTGetMainBundle, _CUTGetMainBundleIdentifier, _CUTGetXPCBoolFromDictionary, 
-                       _CUTGetXPCConnectionContext, _CUTGetXPCDataFromDictionary, 
-                       _CUTGetXPCDoubleFromDictionary, _CUTGetXPCIntFromDictionary, 
-                       _CUTGetXPCStringFromDictionary, _CUTInsertBoolsToXPCDictionary, 
-                       _CUTInsertDatasToXPCDictionary, _CUTInsertDoublesToXPCDictionary, 
-                       _CUTInsertIntsToXPCDictionary, _CUTInsertNSStringsToXPCDictionary, 
-                       _CUTMapObjectProperties, _CUTProcessNameForPid, _CUTPropertyListFromNSData, 
-                       _CUTSafeArrayOfStrings, _CUTSetXPCConnectionContext, _CUTTemporaryPath, 
-                       _CUTWeakLinkClass, _CUTWeakLinkSymbol, _CUTWiFiManagerMaxMeasurementErrorKey, 
-                       _CUTWiFiManagerPMDurationKey, _CUTWiFiManagerSSIDKey, _CUTWiFiManagerTotalDurationKey, 
-                       _CUTXPCAlert, _CUTXPCAlertv, _CUTXPCConfigureConnection, _CUTXPCConnectionSetEventHandlers, 
-                       _CUTXPCCreateConnectionForService, _CUTXPCCreateConnectionForServiceWithQueue, 
-                       _CUTXPCCreateServerConnection, _cut_arc_os_release, _cut_log_group_generation, 
-                       _cut_non_arc_os_release ]
-    objc-classes:    [ CUTAsyncReducer, CUTAsyncReducerState, CUTCheckpoint, CUTCheckpointInstant, 
-                       CUTCheckpointRange, CUTCheckpointTrace, CUTDeferredTaskQueue, 
-                       CUTFileCopier, CUTImplicitPromise, CUTNetworkInterfaceListener, 
-                       CUTPowerAssertion, CUTPowerMonitor, CUTPromise, CUTPromiseSeal, 
-                       CUTReachability, CUTResult, CUTTelephonyManager, CUTWeakReference, 
-                       CUTWiFiManager ]
 ...

@@ -1,10 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: A0A30D38-2AC0-333C-B81D-BB5DE3F7FBD7' ]
+uuids:           [ 'x86_64: 13EDF635-798A-314A-9A6C-E3E2E73A9CF0' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ScreenReader.framework/Versions/A/Frameworks/ScreenReaderBrailleDriver.framework/Versions/A/ScreenReaderBrailleDriver
 current-version: 390
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _SCRDAdvanceBufferToPacketStart, _SCRDAlva6SeriesAppendKeyEvent, 

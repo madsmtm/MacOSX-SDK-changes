@@ -1,6 +1,6 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 21B88441-F33D-31C4-8769-AB680F3B10B3' ]
+uuids:           [ 'x86_64: C1A2470A-B37E-3A73-9A18-7A377A9058E2' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreCDP.framework/Versions/A/CoreCDP
 exports:         
@@ -14,12 +14,13 @@ exports:
                        _CDP_FOLLOWUP_STATE_REPAIR, _CoreCDPVersionNumber, _CoreCDPVersionString, 
                        __CDPGetLogSystem, __CDPStateError, __CDPStateErrorWithUnderlying, 
                        __CDPSuffixForDeviceClass, __CDPSuffixForSecretType, __CDPSuffixForUnqualifiedDeviceClass ]
-    objc-classes:    [ CDPAccount, CDPAuthProviderProxy, CDPContext, CDPController, 
-                       CDPDaemonConnection, CDPDevice, CDPFollowUpContext, CDPFollowUpController, 
-                       CDPKeychainSync, CDPLocalDevice, CDPLocalDeviceSecretHandler, 
-                       CDPLocalizedStringBuilder, CDPRecoveryController, CDPRecoveryKeyValidatorProxyImpl, 
-                       CDPRemoteDeviceSecretValidator, CDPStateController, CDPStateUIProviderProxy, 
-                       CDPUtilities ]
+    objc-classes:    [ CDPAccount, CDPAuthProviderProxy, CDPCircleProxyImpl, CDPContext, 
+                       CDPController, CDPDaemonConnection, CDPDevice, CDPFollowUpContext, 
+                       CDPFollowUpController, CDPKeychainSync, CDPLocalDevice, CDPLocalDeviceSecretHandler, 
+                       CDPLocalizedStringBuilder, CDPManateeStateController, CDPPCSUtilities, 
+                       CDPProtectedCloudStorageProxyImpl, CDPRecoveryController, 
+                       CDPRecoveryKeyValidatorProxyImpl, CDPRemoteDeviceSecretValidator, 
+                       CDPStateController, CDPStateUIProviderProxy, CDPUtilities ]
     objc-ivars:      [ CDPDevice._deviceColor, CDPDevice._enclosureColor, CDPDevice._hasNumericSecret, 
                        CDPDevice._hasRandomSecret, CDPDevice._isCurrentDevice, CDPDevice._isUsingMultipleiCSC, 
                        CDPDevice._localizedName, CDPDevice._machineID, CDPDevice._model, 
