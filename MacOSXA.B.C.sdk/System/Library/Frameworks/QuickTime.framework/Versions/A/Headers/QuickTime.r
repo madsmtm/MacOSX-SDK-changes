@@ -3,7 +3,7 @@
  
      Contains:   Master include for all of QuickTime on OS X
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 1999-2005 by Apple Computer, Inc., all rights reserved.
  

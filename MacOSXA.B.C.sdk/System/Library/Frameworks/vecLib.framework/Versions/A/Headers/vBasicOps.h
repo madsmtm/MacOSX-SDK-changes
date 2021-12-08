@@ -3,7 +3,7 @@
  
      Contains:   Basic Algebraic Operations for AltiVec
  
-     Version:    vecLib-176~4
+     Version:    vecLib-182.18~156
  
      Copyright:  © 1999-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -16,7 +16,7 @@
 #ifndef __VBASICOPS__
 #define __VBASICOPS__
 
-#include <CoreServices/../Frameworks/CarbonCore.framework/Headers/MacTypes.h>
+#include <stdint.h>
 /*
 #ifndef __VECLIBTYPES__
 #include <vecLib/vecLibTypes.h>
@@ -36,7 +36,7 @@ extern "C" {
 #endif
 
 #if defined(__ppc__) || defined(__ppc64__) || defined(__i386__)
-#if defined(__VEC__) || defined(__SSE__)
+#if defined(__VEC__) || defined(__SSE2__)
 /*                                                                                  
   This section is a collection of algebraic functions that uses the AltiVec       
   instruction set, and is designed to facilitate vector processing in             
@@ -956,7 +956,7 @@ vR128Rotate(
   vUInt8    vRotateFactor)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-#endif  /* defined(__VEC__) || defined(__SSE__) */
+#endif  /* defined(__VEC__) || defined(__SSE2__) */
 
 #endif  /* defined(__ppc__) || defined(__ppc64__) || defined(__i386__) */
 

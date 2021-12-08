@@ -200,8 +200,10 @@ struct ctlname {
 #define	KERN_PANICINFO		41	/* node: panic UI information */
 #define	KERN_SYSV		42	/* node: System V IPC information */
 #define KERN_AFFINITY		43	/* xxx */
-#define KERN_CLASSIC	   	44	/* xxx */
-#define KERN_CLASSICHANDLER	45	/* xxx */
+#define KERN_TRANSLATE	   	44	/* xxx */
+#define KERN_CLASSIC	   	KERN_TRANSLATE	/* XXX backwards compat */
+#define KERN_EXEC		45	/* xxx */
+#define KERN_CLASSICHANDLER	KERN_EXEC /* XXX backwards compatibility */
 #define	KERN_AIOMAX		46	/* int: max aio requests */
 #define	KERN_AIOPROCMAX		47	/* int: max aio requests per process */
 #define	KERN_AIOTHREADS		48	/* int: max aio worker threads */
@@ -217,14 +219,28 @@ struct ctlname {
 #define	KERN_LOW_PRI_WINDOW	56	/* int: set/reset throttle window - milliseconds */
 #define	KERN_LOW_PRI_DELAY	57	/* int: set/reset throttle delay - milliseconds */
 #define	KERN_POSIX		58	/* node: posix tunables */
-#define	KERN_USRSTACK64	59	/* LP64 user stack query */
-#define	KERN_MAXID		60	/* number of valid kern ids */
+#define	KERN_USRSTACK64		59	/* LP64 user stack query */
+#define KERN_NX_PROTECTION	60	/* int: whether no-execute protection is enabled */
+#define	KERN_TFP 		61	/* Task for pid settings */
+#define	KERN_PROCNAME 		62	/* setup process program  name(2*MAXCOMLEN) */
+#define	KERN_THALTSTACK 	63	/* setup process to have per thread sigaltstack */
+#define	KERN_MAXID		64	/* number of valid kern ids */
 
 #if defined(__LP64__)
 #define	KERN_USRSTACK KERN_USRSTACK64
 #else
 #define	KERN_USRSTACK KERN_USRSTACK32
 #endif
+
+/* KERN_TFP types */
+#define KERN_TFP_POLICY 		1
+#define KERN_TFP_READ_GROUP 	2
+#define KERN_TFP_RW_GROUP 		3
+
+/* KERN_TFP_POLICY values . All policies allow task port for self */
+#define KERN_TFP_POLICY_DENY 		0 	/* Deny Mode: None allowed except privileged */
+#define KERN_TFP_POLICY_PERMISSIVE 	1	/* Permissive Mode: related ones allowed or privileged */
+#define KERN_TFP_POLICY_RESTRICTED 	2	/* Restricted Mode: privileged or setgid and realted */
 
 /* KERN_KDEBUG types */
 #define KERN_KDEFLAGS		1
@@ -319,7 +335,7 @@ struct ctlname {
 	{ "sysv", CTLTYPE_NODE }, \
 	{ "dummy", CTLTYPE_INT }, \
 	{ "dummy", CTLTYPE_INT }, \
-	{ "dummy", CTLTYPE_INT }, \
+	{ "exec", CTLTYPE_NODE }, \
 	{ "aiomax", CTLTYPE_INT }, \
 	{ "aioprocmax", CTLTYPE_INT }, \
 	{ "aiothreads", CTLTYPE_INT }, \
@@ -332,7 +348,12 @@ struct ctlname {
 	{ "proc_low_pri_io", CTLTYPE_INT }, \
 	{ "low_pri_window", CTLTYPE_INT }, \
 	{ "low_pri_delay", CTLTYPE_INT }, \
-	{ "posix", CTLTYPE_NODE } \
+	{ "posix", CTLTYPE_NODE }, \
+	{ "usrstack64", CTLTYPE_QUAD }, \
+	{ "nx", CTLTYPE_INT }, \
+	{ "tfp", CTLTYPE_NODE }, \
+	{ "procname", CTLTYPE_STRING }, \
+	{ "threadsigaltstack", CTLTYPE_INT } \
 }
 
 /*
@@ -576,9 +597,11 @@ extern struct loadavg averunnable;
  *   hw.l3cachesize            -
  *
  *
- * These are the selectors for optional processor features.  Selectors that return errors are not support on the system.
- * Supported features will return 1 if they are recommended or 0 if they are supported but are not expected to help performance.
- * Future versions of these selectors may return larger values as necessary so it is best to test for non zero.
+ * These are the selectors for optional processor features for specific processors.  Selectors that return errors are not support 
+ * on the system.  Supported features will return 1 if they are recommended or 0 if they are supported but are not expected to help .
+ * performance.  Future versions of these selectors may return larger values as necessary so it is best to test for non zero.
+ *
+ * For PowerPC:
  *
  *   hw.optional.floatingpoint - Floating Point Instructions
  *   hw.optional.altivec       - AltiVec Instructions
@@ -590,6 +613,13 @@ extern struct loadavg averunnable;
  *   hw.optional.datastreams   - Data Streams Instructions
  *   hw.optional.dcbtstreams   - Data Cache Block Touch Steams Instruction Form
  *
+ * For x86 Architecture:
+ * 
+ *   hw.optional.floatingpoint - Floating Point Instructions
+ *   hw.optional.mmx           - Original MMX vector instructions
+ *   hw.optional.sse           - Streaming SIMD Extensions
+ *   hw.optional.sse2          - Streaming SIMD Extensions 2
+ *   hw.optional.sse3          - Streaming SIMD Extensions 3
  */
 
 

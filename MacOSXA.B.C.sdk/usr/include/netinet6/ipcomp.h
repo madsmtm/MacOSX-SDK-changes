@@ -53,4 +53,4 @@ struct ipcomp {
 #define IPCOMP_CPI_NEGOTIATE_MIN	256
 
 
-#endif _NETINET6_IPCOMP_H_
+#endif /* _NETINET6_IPCOMP_H_ */

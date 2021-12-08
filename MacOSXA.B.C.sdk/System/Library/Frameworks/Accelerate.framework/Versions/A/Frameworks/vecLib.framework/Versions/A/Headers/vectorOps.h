@@ -3,7 +3,7 @@
  
      Contains:   vector and matrix functions for AltiVec
  
-     Version:    vecLib-176~4
+     Version:    vecLib-182.18~156
  
      Copyright:  © 1999-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -16,7 +16,14 @@
 #ifndef __VECTOROPS__
 #define __VECTOROPS__
 
-#include <CoreServices/../Frameworks/CarbonCore.framework/Headers/MacTypes.h>
+#include <stdint.h>
+/*
+#ifndef __VECLIBTYPES__
+#include <vecLib/vecLibTypes.h>
+#endif
+
+*/
+#include "vecLibTypes.h"
 
 #include <AvailabilityMacros.h>
 
@@ -42,7 +49,7 @@ extern "C" {
  Following is a list of subprograms and a short description of each one.          
 -------------------------------------------------------------------------------------
 */
-#ifdef __VEC__
+#if defined(__VEC__) || defined(__SSE__)
 /*
 -------------------------------------------------------------------------------------
      Level 1
@@ -63,10 +70,10 @@ extern "C" {
  *    CarbonLib:        not in Carbon, but vecLib is compatible with CarbonLib
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
-extern SInt32 
+extern int32_t 
 vIsamax(
-  SInt32               count,
-  const vector float   x[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        count,
+  const vFloat   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -86,10 +93,10 @@ vIsamax(
  *    CarbonLib:        not in Carbon, but vecLib is compatible with CarbonLib
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
-extern SInt32 
+extern int32_t 
 vIsamin(
-  SInt32               count,
-  const vector float   x[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        count,
+  const vFloat   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -109,10 +116,10 @@ vIsamin(
  *    CarbonLib:        not in Carbon, but vecLib is compatible with CarbonLib
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
-extern SInt32 
+extern int32_t 
 vIsmax(
-  SInt32               count,
-  const vector float   x[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        count,
+  const vFloat   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -132,10 +139,10 @@ vIsmax(
  *    CarbonLib:        not in Carbon, but vecLib is compatible with CarbonLib
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
-extern SInt32 
+extern int32_t 
 vIsmin(
-  SInt32               count,
-  const vector float   x[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        count,
+  const vFloat   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -157,8 +164,8 @@ vIsmin(
  */
 extern float 
 vSasum(
-  SInt32               count,
-  const vector float   x[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        count,
+  const vFloat   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -180,8 +187,8 @@ vSasum(
  */
 extern float 
 vSsum(
-  SInt32               count,
-  const vector float   x[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        count,
+  const vFloat   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -193,8 +200,8 @@ vSsum(
             multiple of 4)                      
      alpha  scalar number is single-precision   
             floating-point                      
-     x      array of vector floats              
-     y      array of vector floats, where the   
+     x      array of vFloats              
+     y      array of vFloats, where the   
             the result is stored                
 **************************************************/
 /*
@@ -207,10 +214,10 @@ vSsum(
  */
 extern void 
 vSaxpy(
-  SInt32               n,
-  float                alpha,
-  const vector float   x[],
-  vector float         y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        n,
+  float          alpha,
+  const vFloat   x[],
+  vFloat         y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -219,8 +226,8 @@ vSaxpy(
   vScopy copies a vector x, into another vector y.  
      n      mumber of floats in x and y (n is a 
             multiple of 4)                      
-     x      array of vector floats              
-     y      array of vector floats              
+     x      array of vFloats              
+     y      array of vFloats              
 *************************************************************/
 /*
  *  vScopy()
@@ -232,9 +239,9 @@ vSaxpy(
  */
 extern void 
 vScopy(
-  SInt32               n,
-  const vector float   x[],
-  vector float         y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        n,
+  const vFloat   x[],
+  vFloat         y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -242,8 +249,8 @@ vScopy(
  vSdot finds the dot product of two vectors.      
     n       mumber of floats in x and y (n is a 
                 multiple of 4)                      
-    x       array of vector floats              
-    y       array of vector floats              
+    x       array of vFloats              
+    y       array of vFloats              
 *************************************************************/
 /*
  *  vSdot()
@@ -255,9 +262,9 @@ vScopy(
  */
 extern float 
 vSdot(
-  SInt32               n,
-  const vector float   x[],
-  const vector float   y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        n,
+  const vFloat   x[],
+  const vFloat   y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -268,7 +275,7 @@ vSdot(
                 in vector A (n is a multiple of 4)  
    m            number of floats in each vector x(i)
                 or y(i)                             
-   a            array of vector floats containing   
+   a            array of vFloats containing   
                 scalars a(i)                        
    x            matrix containing arrays of vector- 
                 floats x(i)                         
@@ -284,11 +291,11 @@ vSdot(
  */
 extern void 
 vSnaxpy(
-  SInt32               n,
-  SInt32               m,
-  const vector float   a[],
-  const vector float   x[],
-  vector float         y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        n,
+  int32_t        m,
+  const vFloat   a[],
+  const vFloat   x[],
+  vFloat         y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -324,12 +331,12 @@ vSnaxpy(
  */
 extern void 
 vSndot(
-  SInt32               n,
-  SInt32               m,
-  float                s[],
-  SInt32               isw,
-  const vector float   x[],
-  const vector float   y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        n,
+  int32_t        m,
+  float          s[],
+  int32_t        isw,
+  const vFloat   x[],
+  const vFloat   y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -339,7 +346,7 @@ vSndot(
  with scaling of input to avoid destructive      
  underflow and overflow.                         
     count   length of vector (multiple of 4)    
-    x       array of vector floats              
+    x       array of vFloats              
 *************************************************************/
 /*
  *  vSnrm2()
@@ -351,8 +358,8 @@ vSndot(
  */
 extern float 
 vSnrm2(
-  SInt32               count,
-  const vector float   x[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        count,
+  const vFloat   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -361,7 +368,7 @@ vSnrm2(
  vSnorm2 finds the Euclidean length of a vector  
  with no scaling of input.                       
     count   length of vector (multiple of 4)    
-    x       array of vector floats              
+    x       array of vFloats              
 *************************************************************/
 /*
  *  vSnorm2()
@@ -373,8 +380,8 @@ vSnrm2(
  */
 extern float 
 vSnorm2(
-  SInt32               count,
-  const vector float   x[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        count,
+  const vFloat   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -384,10 +391,10 @@ vSnorm2(
     n       number of points to be rotated, also
                 number of elements in x and y (n is 
                 a multiple of 4)                    
-    x       array of vector floats. It is a     
+    x       array of vFloats. It is a     
                 vector of length n, containing x(i) 
                 coordinates of points to be rotated 
-    y       array of vector floats. It is a     
+    y       array of vFloats. It is a     
                 vector of length n, containing y(i) 
                 coordinates of points to be rotated 
     c       cosine of angle of rotation         
@@ -403,11 +410,11 @@ vSnorm2(
  */
 extern void 
 vSrot(
-  SInt32         n,
-  vector float   x[],
-  vector float   y[],
-  float          c,
-  float          s)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t   n,
+  vFloat    x[],
+  vFloat    y[],
+  float     c,
+  float     s)                                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -419,7 +426,7 @@ vSrot(
                 multiple of 4)                      
     alpha   scalar number is single-precision   
                 floating-point                      
-    x       array of vector floats              
+    x       array of vFloats              
 *************************************************************/
 /*
  *  vSscal()
@@ -431,9 +438,9 @@ vSrot(
  */
 extern void 
 vSscal(
-  SInt32         n,
-  float          alpha,
-  vector float   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t   n,
+  float     alpha,
+  vFloat    x[])                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -443,8 +450,8 @@ vSscal(
  and y                                           
     n       number of floats in x and y (n is a 
                 multiple of 4)                      
-    x       array of vector floats              
-    y       array of vector floats              
+    x       array of vFloats              
+    y       array of vFloats              
 *************************************************************/
 /*
  *  vSswap()
@@ -456,9 +463,9 @@ vSscal(
  */
 extern void 
 vSswap(
-  SInt32         n,
-  vector float   x[],
-  vector float   y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t   n,
+  vFloat    x[],
+  vFloat    y[])                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -470,8 +477,8 @@ vSswap(
                 multiple of 4)                      
     alpha   scalar number is single-precision   
                 floating-point                      
-    x       array of vector floats              
-    y       array of vector floats              
+    x       array of vFloats              
+    y       array of vFloats              
 *************************************************************/
 /*
  *  vSyax()
@@ -483,10 +490,10 @@ vSswap(
  */
 extern void 
 vSyax(
-  SInt32               n,
-  float                alpha,
-  const vector float   x[],
-  vector float         y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        n,
+  float          alpha,
+  const vFloat   x[],
+  vFloat         y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -499,9 +506,9 @@ vSyax(
                 multiple of 4)                      
     alpha   scalar number is single-precision   
                 floating-point                      
-    x       array of vector floats              
-    y       array of vector floats              
-    Z       array of vector floats, where the   
+    x       array of vFloats              
+    y       array of vFloats              
+    Z       array of vFloats, where the   
                 is stored                           
 *************************************************************/
 /*
@@ -514,11 +521,11 @@ vSyax(
  */
 extern void 
 vSzaxpy(
-  SInt32               n,
-  float                alpha,
-  const vector float   x[],
-  const vector float   yY[],
-  vector float         z[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        n,
+  float          alpha,
+  const vFloat   x[],
+  const vFloat   yY[],
+  vFloat         z[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -530,7 +537,7 @@ vSzaxpy(
 -------------------------------------------------------------------------------------
 */
 /*************************************************************
- vSgemv multiplies an array of vector floats y by
+ vSgemv multiplies an array of vFloats y by
  a  scalar beta, and takes the result and adds it
  to the product of a scalar alpha multiplied by  
  a matrix A multiplied by a vector x. The above  
@@ -558,10 +565,10 @@ vSzaxpy(
                  vector y. m is a multiple of 4     
     alpha   is a scaling constant               
     A       is an m by n matrix. Its elements   
-                are vector floats                   
-    x       is an array of vector floats        
+                are vFloats                   
+    x       is an array of vFloats        
     beta        is a scaling constant               
-    y       is an array of vector floats        
+    y       is an array of vFloats        
 *************************************************************/
 /*
  *  vSgemv()
@@ -573,23 +580,23 @@ vSzaxpy(
  */
 extern void 
 vSgemv(
-  char                 forma,
-  SInt32               m,
-  SInt32               n,
-  float                alpha,
-  const vector float   a[],
-  const vector float   x[],
-  float                beta,
-  vector float         y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  char           forma,
+  int32_t        m,
+  int32_t        n,
+  float          alpha,
+  const vFloat   a[],
+  const vFloat   x[],
+  float          beta,
+  vFloat         y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
 
 
 /*************************************************************
- vSgemx adds an array of vector floats y to the  
+ vSgemx adds an array of vFloats y to the  
  product of an scalar alpha by a mtrix A         
- multiplied by an array of vector floats x. It   
+ multiplied by an array of vFloats x. It   
  then stores the result in the vector y.         
     m       number of rows in matrix A and      
                 the length of vector y. m is a      
@@ -599,9 +606,9 @@ vSgemv(
             multiple of 4                       
     alpha   is a scaling constant               
     a       is an m by n matrix. Its elements   
-                are vector floats                   
-    x       is an array of vector floats        
-    y       is an array of vector floats        
+                are vFloats                   
+    x       is an array of vFloats        
+    y       is an array of vFloats        
 *************************************************************/
 /*
  *  vSgemx()
@@ -613,12 +620,12 @@ vSgemv(
  */
 extern void 
 vSgemx(
-  SInt32               m,
-  SInt32               n,
-  float                alpha,
-  const vector float   a[],
-  const vector float   x[],
-  vector float         y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        m,
+  int32_t        n,
+  float          alpha,
+  const vFloat   a[],
+  const vFloat   x[],
+  vFloat         y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -637,9 +644,9 @@ vSgemx(
             multiple of 4                       
     alpha   is a scaling constant               
     a       is an m by n matrix. Its elements   
-                are vector floats                   
-    x       is an array of vector floats        
-    y       is an array of vector floats        
+                are vFloats                   
+    x       is an array of vFloats        
+    y       is an array of vFloats        
 *************************************************************/
 /*
  *  vSgemtx()
@@ -651,12 +658,12 @@ vSgemx(
  */
 extern void 
 vSgemtx(
-  SInt32               m,
-  SInt32               n,
-  float                alpha,
-  const vector float   a[],
-  const vector float   x[],
-  vector float         y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        m,
+  int32_t        n,
+  float          alpha,
+  const vFloat   a[],
+  const vFloat   x[],
+  vFloat         y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -714,13 +721,13 @@ vSgemtx(
  */
 extern void 
 vSgeadd(
-  SInt32               height,
-  SInt32               width,
-  const vector float   a[],
-  char                 forma,
-  const vector float   b[],
-  char                 formb,
-  vector float         c[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        height,
+  int32_t        width,
+  const vFloat   a[],
+  char           forma,
+  const vFloat   b[],
+  char           formb,
+  vFloat         c[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -771,13 +778,13 @@ vSgeadd(
  */
 extern void 
 vSgesub(
-  SInt32               height,
-  SInt32               width,
-  const vector float   a[],
-  char                 forma,
-  const vector float   b[],
-  char                 formb,
-  vector float         c[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        height,
+  int32_t        width,
+  const vFloat   a[],
+  char           forma,
+  const vFloat   b[],
+  char           formb,
+  vFloat         c[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -830,14 +837,14 @@ vSgesub(
  */
 extern void 
 vSgemul(
-  SInt32               l,
-  SInt32               m,
-  SInt32               n,
-  const vector float   a[],
-  char                 forma,
-  const vector float   b[],
-  char                 formb,
-  vector float         matrix[])                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        l,
+  int32_t        m,
+  int32_t        n,
+  const vFloat   a[],
+  char           forma,
+  const vFloat   b[],
+  char           formb,
+  vFloat         matrix[])                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -897,17 +904,17 @@ vSgemul(
  */
 extern void 
 vSgemm(
-  SInt32               l,
-  SInt32               m,
-  SInt32               n,
-  const vector float   a[],
-  char                 forma,
-  const vector float   b[],
-  char                 formb,
-  vector float         c[],
-  float                alpha,
-  float                beta,
-  vector float         matrix[])                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        l,
+  int32_t        m,
+  int32_t        n,
+  const vFloat   a[],
+  char           forma,
+  const vFloat   b[],
+  char           formb,
+  vFloat         c[],
+  float          alpha,
+  float          beta,
+  vFloat         matrix[])                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -928,8 +935,8 @@ vSgemm(
  */
 extern void 
 vSgetmi(
-  SInt32         size,
-  vector float   x[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t   size,
+  vFloat    x[])                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -939,8 +946,8 @@ vSgetmi(
  vSgetmo performs general matrix transpose (out-of-place).                                      
     height  is the height of the matrix         
     width   is the width of the matrix          
-    x       array of vector floats              
-    y       array of vector floats              
+    x       array of vFloats              
+    y       array of vFloats              
 *************************************************************/
 /*
  *  vSgetmo()
@@ -952,10 +959,10 @@ vSgetmi(
  */
 extern void 
 vSgetmo(
-  SInt32               height,
-  SInt32               width,
-  const vector float   x[],
-  vector float         y[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        height,
+  int32_t        width,
+  const vFloat   x[],
+  vFloat         y[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -967,11 +974,11 @@ vSgetmo(
  matrix m.                                       
     l       is the height of the matrix         
     n       is the width of the matrix          
-    A       array of vector floats of at least  
+    A       array of vFloats of at least  
                 l *  m in length                                 
-    b       array of vector floats of at least  
+    b       array of vFloats of at least  
                 m * n in length                                 
-    m       array of vector floats, containing  
+    m       array of vFloats, containing  
                 the results of multiplication. It   
                 is m * n in size                                
 *************************************************************/
@@ -985,14 +992,14 @@ vSgetmo(
  */
 extern void 
 vSgevv(
-  SInt32               l,
-  SInt32               n,
-  const vector float   a[],
-  const vector float   b[],
-  vector float         m[])                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  int32_t        l,
+  int32_t        n,
+  const vFloat   a[],
+  const vFloat   b[],
+  vFloat         m[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-#endif  /* defined(__VEC__) */
+#endif  /* defined(__VEC__) || defined(__SSE__) */
 
 
 #ifdef __cplusplus

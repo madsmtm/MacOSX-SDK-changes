@@ -94,12 +94,12 @@
 #define LAUNCH_JOBSOCKETKEY_BONJOUR		"Bonjour"
 #define LAUNCH_JOBSOCKETKEY_SECUREWITHKEY	"SecureSocketWithKey"
 #define LAUNCH_JOBSOCKETKEY_PATHNAME		"SockPathName"
+#define LAUNCH_JOBSOCKETKEY_PATHMODE		"SockPathMode"
 #define LAUNCH_JOBSOCKETKEY_NODENAME		"SockNodeName"
 #define LAUNCH_JOBSOCKETKEY_SERVICENAME		"SockServiceName"
 #define LAUNCH_JOBSOCKETKEY_FAMILY		"SockFamily"
 #define LAUNCH_JOBSOCKETKEY_PROTOCOL		"SockProtocol"
-#define LAUNCH_JOBSOCKETKEY_FD			"SockFD"
-#define LAUNCH_JOBSOCKETKEY_ADDRINFORESULTS	"AddrinfoResults"
+#define LAUNCH_JOBSOCKETKEY_MULTICASTGROUP	"MulticastGroup"
 
 typedef struct _launch_data *launch_data_t;
 

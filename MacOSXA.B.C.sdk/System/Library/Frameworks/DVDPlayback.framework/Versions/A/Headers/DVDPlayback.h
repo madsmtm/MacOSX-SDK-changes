@@ -89,7 +89,8 @@ enum {
 	kDVDStatePlaying,		// playing 1x or less (slow mo)
 	kDVDStatePlayingStill,
 	kDVDStatePaused,		// pause and step frame
-	kDVDStateStopped,
+	kDVDStateStopped,		// the DVDEvent for stopping has a 2nd parameter to indicate that the stop was initiated by the DVD disc
+							// 0: user, 1: disc initiated
 	kDVDStateScanning,		// playing greater than 1x
 	kDVDStateIdle,
 	kDVDStatePlayingSlow	// playing less than 1x
@@ -204,7 +205,9 @@ typedef SInt16	DVDAspectRatio;
 enum {
 	kDVDFormatUninitialized,
 	kDVDFormatNTSC,
-	kDVDFormatPAL
+	kDVDFormatPAL,
+	kDVDFormatNTSC_HDTV,
+	kDVDFormatPAL_HDTV
 };
 typedef SInt16	DVDFormat;
 
@@ -219,7 +222,8 @@ enum{
 	kDVDAudioMPEG2Format,
 	kDVDAudioPCMFormat,
 	kDVDAudioDTSFormat,
-	kDVDAudioSDDSFormat
+	kDVDAudioSDDSFormat,
+	kDVDAudioMLPFormat
 };
 typedef SInt16	DVDAudioFormat;
 
@@ -553,7 +557,7 @@ typedef void	(*DVDEventCallBackFunctionPtr)(DVDEventCode inEventCode, UInt32 inE
 //	at a time.
 //	  
 //	DVDInitialize	-	Call when preparing for playback. Usually when the application is initializing.
-//						Returns an error of kDVDErrorPlaybackOpen if the playback framework is already being used.
+//						Returns an error of kDVDErrorInitializingLib if the playback framework is already being used.
 //	DVDDispose		- 	Call when completely done with playback. Usually when the application is quitting.
 //-----------------------------------------------------
 extern	OSStatus	DVDInitialize()																				AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
@@ -674,7 +678,7 @@ extern	OSStatus	DVDGetFormatStandard(DVDFormat *outFormat)													AVAILABLE
 //	DVDGetAudioStreamFormatByStream	-	Gets the audio format for selected stream (1,2,3...).
 //-----------------------------------------------------
 extern	OSStatus	DVDGetAudioStreamFormat(DVDAudioFormat *outFormat, UInt32 *outBitsPerSample, UInt32 *outSamplesPerSecond, UInt32 *outChannels)								AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-extern	OSStatus	DVDGetAudioStreamFormatByStream(UInt32 inStreamNum, DVDAudioFormat *outFormat, UInt32 *outBitsPerSample, UInt32 *outSamplesPerSecond, UInt32 *outChannels)	WEAK_IMPORT_ATTRIBUTE;
+extern	OSStatus	DVDGetAudioStreamFormatByStream(UInt32 inStreamNum, DVDAudioFormat *outFormat, UInt32 *outBitsPerSample, UInt32 *outSamplesPerSecond, UInt32 *outChannels)	AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
 
@@ -784,14 +788,14 @@ extern	OSStatus	DVDGoBackOneLevel()																			AVAILABLE_MAC_OS_X_VERSION
 extern	OSStatus	DVDDoUserNavigation(DVDUserNavigation inNavigation)											AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 extern	OSStatus	DVDDoMenuClick(Point inPortPt,SInt32 *outIndex)												AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 extern	OSStatus	DVDDoMenuMouseOver(Point inPortPt,SInt32 *outIndex)											AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-extern	OSStatus	DVDDoButtonActivate(SInt32 inIndex)															WEAK_IMPORT_ATTRIBUTE;
+extern	OSStatus	DVDDoButtonActivate(SInt32 inIndex)															AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 extern	OSStatus	DVDGetButtoninfo(UInt32	*numberOfButtons, 
 									 UInt32 *selectedButton, 
 									 UInt32 *forcedActivateButton, 
 									 UInt32 *userButtonOffset, 
-									 UInt32 *numberOfUserButtons)												WEAK_IMPORT_ATTRIBUTE;
-extern	OSStatus	DVDGetButtonPosition(UInt32 index, CGRect *outRect, UInt32 *autoAction)						WEAK_IMPORT_ATTRIBUTE;
+									 UInt32 *numberOfUserButtons)												AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+extern	OSStatus	DVDGetButtonPosition(UInt32 index, CGRect *outRect, UInt32 *autoAction)						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
 
@@ -806,7 +810,7 @@ extern	OSStatus	DVDGetButtonPosition(UInt32 index, CGRect *outRect, UInt32 *auto
 //-----------------------------------------------------
 extern	OSStatus	DVDGetMediaUniqueID(DVDDiscID outDiscID)													AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 extern	OSStatus	DVDGetMediaVolumeName(char **outDiscVolumeName)												AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-extern	OSStatus	DVDGetMediaVolumeCFName(CFStringRef *outDiscVolumeCFName)									WEAK_IMPORT_ATTRIBUTE;
+extern	OSStatus	DVDGetMediaVolumeCFName(CFStringRef *outDiscVolumeCFName)									AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
 
@@ -938,7 +942,7 @@ extern	OSStatus	DVDGetMenuLanguageCode(DVDLanguageCode *outCode)																
 //	Bookmarks:
 //	These calls are used to get and set bookmark information.
 //	
-//	DVDGetBookmark				- returns a bookmark (pass 0 as size to aquire data length)
+//	DVDGetBookmark				- returns a bookmark (pass 0 as outBookMarkData to aquire data length)
 //	DVDGotoBookmark				- goto a saved bookmark
 //	
 //	DVDGetLastPlayBookmark		- returns last play bookmark after 1st Stop command
@@ -980,7 +984,7 @@ extern	OSStatus	DVDSetDriveRegionCode(DVDRegionCode inCode, AuthorizationRef inA
 //	DVDGetGPRMValue		-	Returns current value of a GPRM register [index:0...16]
 //-----------------------------------------------------
 extern	OSStatus	DVDEnableWebAccess(Boolean inEnable)														AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-extern	OSStatus	DVDGetGPRMValue(UInt32 index, UInt32 *value)												WEAK_IMPORT_ATTRIBUTE;
+extern	OSStatus	DVDGetGPRMValue(UInt32 index, UInt32 *value)												AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
 

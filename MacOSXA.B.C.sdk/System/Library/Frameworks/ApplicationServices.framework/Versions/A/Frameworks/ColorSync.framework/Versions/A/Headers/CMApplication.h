@@ -3,7 +3,7 @@
  
      Contains:   Color Matching Interfaces
  
-     Version:    ColorSync-151~16
+     Version:    ColorSync-174~3
  
      Copyright:  © 1992-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -1490,7 +1490,7 @@ CWCheckColors(
   CMWorldRef   cw,
   CMColor *    myColors,
   UInt32       count,
-  UInt32 *     result)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  UInt8 *      result)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*

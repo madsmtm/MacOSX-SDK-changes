@@ -87,6 +87,8 @@ typedef enum _CGLRendererProperty {
 	kCGLRPSampleAlpha         = 111,    /* support for alpha sampling                    */
 	kCGLRPVideoMemory         = 120,	/* total video memory                            */
 	kCGLRPTextureMemory       = 121,	/* video memory useable for texture storage      */
+	kCGLRPGPUVertProcCapable  = 122,	/* renderer capable of GPU vertex processing     */
+	kCGLRPGPUFragProcCapable  = 123,	/* renderer capable of GPU fragment processing   */
 	kCGLRPRendererCount       = 128 	/* the number of renderers in this renderer info */
 } CGLRendererProperty;
 
@@ -124,8 +126,11 @@ typedef enum _CGLContextParameter {
 /*  AGL_FS_CAPTURE_SINGLE    255   */
 	kCGLCPSurfaceBackingSize = 304,  	/* 2 params.   Width/height of surface backing size     */
 /* AGL_SURFACE_VOLATILE		 306	*/
-	kCGLCPSurfaceSurfaceVolatile = 306,	/* 1 params.   Surface volatile state					*/
-	kCGLCPReclaimResources		 = 308	/* 0 params.  */
+	kCGLCPSurfaceSurfaceVolatile = 306,	/* 1 param.   Surface volatile state					*/
+	kCGLCPReclaimResources		 = 308,	/* 0 params.  */
+	kCGLCPCurrentRendererID      = 309,	/* 1 param.   Retrieves the current renderer ID         */
+	kCGLCPGPUVertexProcessing	 = 310, /* 1 param.   Currently processing vertices with GPU (get) */
+	kCGLCPGPUFragmentProcessing	 = 311  /* 1 param.   Currently processing fragments with GPU (get) */
 } CGLContextParameter;
 
 /*

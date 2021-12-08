@@ -112,7 +112,11 @@
 					~(I386_PGBYTES-1))
 #define i386_trunc_page(x)	(((pmap_paddr_t)(x)) & ~(I386_PGBYTES-1))
 
-#define VM_MAX_PAGE_ADDRESS     0x00000000C0000000ULL
+#ifdef PAE
+#define VM_MAX_PAGE_ADDRESS     0x00000000FFE00000ULL  /* should be -NBPDE */
+#else
+#define VM_MAX_PAGE_ADDRESS     0x00000000FFC00000ULL  /* should be -NBPDE */
+#endif
 
 /* system-wide values */
 #define MACH_VM_MIN_ADDRESS		((mach_vm_offset_t) 0)

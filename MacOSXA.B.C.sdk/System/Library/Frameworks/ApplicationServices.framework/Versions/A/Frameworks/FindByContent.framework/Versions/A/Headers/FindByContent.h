@@ -3,7 +3,7 @@
  
      Contains:   Public search interface for the Find by Content shared library
  
-     Version:    FindByContent-102~321
+     Version:    FindByContent-110~556
  
      Copyright:  © 1997-2005 by Apple Computer, Inc., all rights reserved.
  

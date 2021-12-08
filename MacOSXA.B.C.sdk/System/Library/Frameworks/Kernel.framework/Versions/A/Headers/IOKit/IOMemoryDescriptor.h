@@ -125,6 +125,26 @@ protected:
 
 public:
 
+    // Used for dedicated communications for IODMACommand
+    enum DMACommandOps {
+	kGetCharacteristics,
+	kNextSegment,
+	kLastDMACommandOperation
+    };
+    struct DMACharacteristics {
+	UInt64 fLength;
+	UInt32 fSGCount;
+	UInt32 fPages;
+	IODirection fDirection;
+	bool fIsMapped, fIsPrepared;
+    };
+    struct DMAWalkSegmentData {
+	UInt64 fOffset;			// Input/Output offset
+	UInt64 fIOVMAddr, fLength;	// Output variables
+	bool fMapped;			// Input Variable, Require mapped IOVMA
+    };
+    typedef UInt8 *DMAWalkSegmentState[128];
+
     virtual IOPhysicalAddress getSourceSegment( IOByteCount offset,
 						IOByteCount * length );
     OSMetaClassDeclareReservedUsed(IOMemoryDescriptor, 0);
@@ -178,9 +198,12 @@ public:
                                         IOByteCount offset, IOByteCount length );
     OSMetaClassDeclareReservedUsed(IOMemoryDescriptor, 4);
 
+    // Used for dedicated communications for IODMACommand
+    virtual IOReturn dmaCommandOperation(DMACommandOps op, void *vData, UInt dataSize) const;
+    OSMetaClassDeclareReservedUsed(IOMemoryDescriptor, 5);
+
 private:
 
-    OSMetaClassDeclareReservedUnused(IOMemoryDescriptor, 5);
     OSMetaClassDeclareReservedUnused(IOMemoryDescriptor, 6);
     OSMetaClassDeclareReservedUnused(IOMemoryDescriptor, 7);
     OSMetaClassDeclareReservedUnused(IOMemoryDescriptor, 8);
@@ -702,6 +725,7 @@ protected:
 
     virtual void free();
 
+    virtual IOReturn dmaCommandOperation(DMACommandOps op, void *vData, UInt dataSize) const;
 
 private:
     // Internal APIs may be made virtual at some time in the future.
@@ -846,6 +870,9 @@ protected:
     IOMemoryDescriptor::withPhysicalRanges;
     IOMemoryDescriptor::withRanges;
     IOMemoryDescriptor::withSubRange;
+
+    // used by IODMACommand
+    virtual IOReturn dmaCommandOperation(DMACommandOps op, void *vData, UInt dataSize) const;
 
 public:
     /*

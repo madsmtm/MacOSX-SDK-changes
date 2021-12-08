@@ -115,7 +115,7 @@ extern
 #endif	/* mig_external */
 kern_return_t task_info
 (
-	task_t target_task,
+	task_name_t target_task,
 	task_flavor_t flavor,
 	task_info_t task_info_out,
 	mach_msg_type_number_t *task_info_outCnt
@@ -582,7 +582,7 @@ __END_DECLS
 		NDR_record_t NDR;
 		task_flavor_t flavor;
 		mach_msg_type_number_t task_info_inCnt;
-		integer_t task_info_in[8];
+		integer_t task_info_in[10];
 	} __Request__task_set_info_t;
 #ifdef  __MigPackStructs
 #pragma pack()
@@ -1055,7 +1055,7 @@ union __RequestUnion__task_subsystem {
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		mach_msg_type_number_t task_info_outCnt;
-		integer_t task_info_out[8];
+		integer_t task_info_out[10];
 	} __Reply__task_info_t;
 #ifdef  __MigPackStructs
 #pragma pack()

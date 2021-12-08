@@ -135,4 +135,4 @@ struct sockaddr_inarp {
 #define RTF_ANNOUNCE	RTF_PROTO2	/* announce new arp entry */
 
 
-#endif _NETINET_IF_ETHER_H_
+#endif /* _NETINET_IF_ETHER_H_ */

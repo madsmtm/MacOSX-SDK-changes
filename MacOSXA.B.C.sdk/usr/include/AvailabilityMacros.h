@@ -78,15 +78,19 @@
 
 
 /* 
- * If min OS not specified, assume 10.0
+ * If min OS not specified, assume 10.1
  * Note: gcc driver may set _ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED_ based on MACOSX_DEPLOYMENT_TARGET environment variable
  */
 #ifndef MAC_OS_X_VERSION_MIN_REQUIRED
     #ifdef __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
         #define MAC_OS_X_VERSION_MIN_REQUIRED __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
-	#else
-        #define MAC_OS_X_VERSION_MIN_REQUIRED MAC_OS_X_VERSION_10_1
-	#endif
+    #else
+        #if __ppc64__ || __i386__
+            #define MAC_OS_X_VERSION_MIN_REQUIRED MAC_OS_X_VERSION_10_4
+        #else
+            #define MAC_OS_X_VERSION_MIN_REQUIRED MAC_OS_X_VERSION_10_1
+        #endif
+    #endif
 #endif
 
 /*
@@ -114,6 +118,8 @@
  * only certain compilers support __attribute((weak_import))__
  */
 #if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1))) && (MAC_OS_X_VERSION_MIN_REQUIRED >= 1020)
+    #define WEAK_IMPORT_ATTRIBUTE __attribute__((weak_import))
+#elif defined(__MWERKS__) && (__MWERKS__ >= 0x3205) && (MAC_OS_X_VERSION_MIN_REQUIRED >= 1020)
     #define WEAK_IMPORT_ATTRIBUTE __attribute__((weak_import))
 #else
     #define WEAK_IMPORT_ATTRIBUTE

@@ -25,6 +25,21 @@
 /*
  *
  *	$Log: IOUSBRootHubDevice.h,v $
+ *	Revision 1.11  2005/09/27 13:52:37  nano
+ *	Bring PR-4262712 into TOT
+ *	
+ *	Revision 1.10.204.3  2005/09/23 18:43:49  rhoads
+ *	clean up our commandgate in stop instead of free
+ *	
+ *	Revision 1.10.204.2  2005/09/23 04:30:54  rhoads
+ *	make sure that the root hub DeviceRequest calls are gated
+ *	
+ *	Revision 1.10.204.1  2005/09/22 17:13:08  rhoads
+ *	still working on gating the root hub DeviceRequest
+ *	
+ *	Revision 1.10.202.1  2005/09/22 15:49:28  rhoads
+ *	protect root hub DeviceRequest calls with the command gate
+ *	
  *	Revision 1.10  2004/02/03 22:09:49  nano
  *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
  *	
@@ -57,11 +72,28 @@ class IOUSBRootHubDevice : public IOUSBDevice
 
     UInt16 	configuration;
 
-    struct ExpansionData { /* */ };
-    ExpansionData * _expansionData;
+    struct ExpansionData { 
+		IOCommandGate		*_commandGate;
+	  };
+    ExpansionData *_expansionData;
 
 public:
+	// static methods
     static IOUSBRootHubDevice *NewRootHubDevice(void);
+    static IOReturn 		GatedDeviceRequest (OSObject *	owner, 
+												void *		arg0, 
+												void *		arg1, 
+												void *		arg2, 
+												void *		arg3 );
+    
+	// IOKit methods
+    virtual bool 	init();
+	virtual bool 	start( IOService * provider );
+    virtual void 	stop( IOService *provider );
+    virtual void	free();
+
+	// a non static but non-virtual function
+	IOReturn DeviceRequestWorker(IOUSBDevRequest *request, UInt32 noDataTimeout, UInt32 completionTimeout, IOUSBCompletion *completion);
     
     virtual IOReturn DeviceRequest(IOUSBDevRequest *request, IOUSBCompletion *completion = 0);
 

@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 1990-2005 by Apple Computer, Inc., all rights reserved
  
@@ -116,7 +116,8 @@ enum {
   ResourceDataHandlerSubType    = 'rsrc',
   URLDataHandlerSubType         = 'url ',
   AliasDataHandlerSubType       = 'alis',
-  WiredActionHandlerType        = 'wire'
+  WiredActionHandlerType        = 'wire',
+  kQTQuartzComposerMediaType    = 'qtz '
 };
 
 enum {
@@ -443,6 +444,15 @@ enum {
    * is AudioStreamBasicDescription (Get only)
    */
   kQTSoundDescriptionPropertyID_AudioStreamBasicDescription = 'asbd',
+
+  /*
+   * kQTSoundDescriptionPropertyID_BitRate: Value is UInt32 in bits per
+   * second (Get only) kQTSoundDescriptionPropertyID_BitRate Note that
+   * this property may not be available for formats that are inherently
+   * very variable in bitrate and highly source-data dependent (such as
+   * Apple Lossless).
+   */
+  kQTSoundDescriptionPropertyID_BitRate = 'brat',
 
   /*
    * kQTSoundDescriptionPropertyID_UserReadableText: Value is
@@ -1620,7 +1630,6 @@ enum {
  *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
- *    Windows:          in qtmlClient.lib 6.5 and later
  */
 extern OSErr 
 EnterMoviesOnThread(UInt32 inFlags)                           AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
@@ -1633,7 +1642,6 @@ EnterMoviesOnThread(UInt32 inFlags)                           AVAILABLE_MAC_OS_X
  *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
- *    Windows:          in qtmlClient.lib 6.5 and later
  */
 extern OSErr 
 ExitMoviesOnThread(void)                                      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
@@ -2667,6 +2675,19 @@ typedef struct QTAudioContextRefType*   QTAudioContextRef;
 /*
  *  QTAudioContextRetain()
  *  
+ *  Summary:
+ *    Retains a QTAudioContext object by incrementing its reference
+ *    count. You should retain the object when you receive it from
+ *    elsewhere (that is, you did not create it) and you want it to
+ *    persist. If you retain a QTAudioContext object you are
+ *    responsible for releasing it. The same audio context is returned
+ *    for convenience. If audioContext is NULL, nothing happens.
+ *  
+ *  Parameters:
+ *    
+ *    audioContext:
+ *      [in] The audio context to retain.
+ *  
  *  Availability:
  *    Mac OS X:         in version 10.4 (or QuickTime 7.0) and later in QuickTime.framework
  *    CarbonLib:        not available
@@ -2679,6 +2700,19 @@ QTAudioContextRetain(QTAudioContextRef audioContext)          AVAILABLE_MAC_OS_X
 /*
  *  QTAudioContextRelease()
  *  
+ *  Summary:
+ *    Release a QTAudioContext object by decrementing its reference
+ *    count. If that count consequently becomes zero the memory
+ *    allocated to the object is deallocated and the object is
+ *    destroyed. If you create or explicitly retain a QTAudioContext
+ *    object, you are responsible for releasing it when you no longer
+ *    need it. If audioContext is NULL, nothing happens.
+ *  
+ *  Parameters:
+ *    
+ *    audioContext:
+ *      [in] The audio context to release.
+ *  
  *  Availability:
  *    Mac OS X:         in version 10.4 (or QuickTime 7.0) and later in QuickTime.framework
  *    CarbonLib:        not available
@@ -2690,6 +2724,40 @@ QTAudioContextRelease(QTAudioContextRef audioContext)         AVAILABLE_MAC_OS_X
 
 /*
  *  QTAudioContextCreateForAudioDevice()
+ *  
+ *  Summary:
+ *    Creates a QTAudioContext object that encapsulates a connection to
+ *    an audio output device. This object is suitable for passing to
+ *    SetMovieAudioContext or NewMovieFromProperties, which targets the
+ *    audio output of the movie to that device. A QTAudioContext object
+ *    cannot be associated with more than one movie. Each movie needs
+ *    its own connection to the device. In order to play more than one
+ *    movie to a particular device, create a QTAudioContext object for
+ *    each movie. You are responsible for releasing the QTAudioContext
+ *    object created by this routine. After calling
+ *    SetMovieAudioContext or NewMovieFromProperties, you can release
+ *    the object since these APIs will retain it for their own use. On
+ *    Windows, the audioDeviceUID is the GUID of a DirectSound device,
+ *    stringified using such Win32 functions as StringFromCLSID() or
+ *    StringFromGUID2(), then wrapped in a CFStringRef using
+ *    CFStringCreateWithCharacters().  After passing the audioDeviceUID
+ *    CFStringRef to QTAudioContextCreateForAudioDevice(), remember to
+ *    CFRelease() the CFStringRef you created.
+ *  
+ *  Parameters:
+ *    
+ *    allocator:
+ *      [in]  Allocator used to create the audio context.
+ *    
+ *    audioDeviceUID:
+ *      [in]  Audio device UID.  NULL means the default CoreAudio
+ *      device.
+ *    
+ *    options:
+ *      [in]  Reserved.  Pass NULL.
+ *    
+ *    newAudioContextOut:
+ *      [out] Points to a variable to receive the new audio context.
  *  
  *  Availability:
  *    Mac OS X:         in version 10.4 (or QuickTime 7.0) and later in QuickTime.framework
@@ -7734,7 +7802,6 @@ GetMovieLoadState(Movie theMovie)                             AVAILABLE_MAC_OS_X
  *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
- *    Windows:          in qtmlClient.lib 6.5 and later
  */
 extern OSErr 
 AttachMovieToCurrentThread(Movie m)                           AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
@@ -7747,7 +7814,6 @@ AttachMovieToCurrentThread(Movie m)                           AVAILABLE_MAC_OS_X
  *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
- *    Windows:          in qtmlClient.lib 6.5 and later
  */
 extern OSErr 
 DetachMovieFromCurrentThread(Movie m)                         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
@@ -7760,7 +7826,6 @@ DetachMovieFromCurrentThread(Movie m)                         AVAILABLE_MAC_OS_X
  *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
- *    Windows:          in qtmlClient.lib 6.5 and later
  */
 extern OSErr 
 GetMovieThreadAttachState(
@@ -10335,8 +10400,10 @@ enum {
    * kQTAudioPropertyID_BitRateString: kQTAudioPropertyID_BitRateString
    * returns a localized, human readable string describing the audio
    * bit rate as a CFStringRef, i.e. "12 kbps". You may get this
-   * property from a StandardAudioCompression (scdi/audi) component
-   * instance by calling QTGetComponentProperty().
+   * property from a SoundDescription Handle by calling
+   * QTSoundDescriptionGetProperty(), or from a
+   * StandardAudioCompression (scdi/audi) component instance by calling
+   * QTGetComponentProperty().
    */
   kQTAudioPropertyID_BitRateString = 'bstr', /* value is CFStringRef.  Gettable.*/
 
@@ -15531,7 +15598,6 @@ SetTimeBaseOffsetTimeBase(
  *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
- *    Windows:          in qtmlClient.lib 6.5 and later
  */
 extern OSErr 
 AttachTimeBaseToCurrentThread(TimeBase tb)                    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
@@ -15544,7 +15610,6 @@ AttachTimeBaseToCurrentThread(TimeBase tb)                    AVAILABLE_MAC_OS_X
  *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
- *    Windows:          in qtmlClient.lib 6.5 and later
  */
 extern OSErr 
 DetachTimeBaseFromCurrentThread(TimeBase tb)                  AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
@@ -15557,7 +15622,6 @@ DetachTimeBaseFromCurrentThread(TimeBase tb)                  AVAILABLE_MAC_OS_X
  *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
- *    Windows:          in qtmlClient.lib 6.5 and later
  */
 extern OSErr 
 GetTimeBaseThreadAttachState(
@@ -16906,7 +16970,19 @@ enum {
   kQTMetaDataCommonKeyDisplayName = 'name',
   kQTMetaDataCommonKeyInformation = 'info',
   kQTMetaDataCommonKeyKeywords  = 'keyw',
-  kQTMetaDataCommonKeyProducer  = 'prod'
+  kQTMetaDataCommonKeyProducer  = 'prod',
+  kQTMetaDataCommonKeyAlbum     = 'albm',
+  kQTMetaDataCommonKeyArtist    = 'arts',
+  kQTMetaDataCommonKeyArtwork   = 'artw',
+  kQTMetaDataCommonKeyChapterName = 'chap',
+  kQTMetaDataCommonKeyComposer  = 'comp',
+  kQTMetaDataCommonKeyDescription = 'desc',
+  kQTMetaDataCommonKeyGenre     = 'genr',
+  kQTMetaDataCommonKeyOriginalFormat = 'orif',
+  kQTMetaDataCommonKeyOriginalSource = 'oris',
+  kQTMetaDataCommonKeyPerformers = 'perf',
+  kQTMetaDataCommonKeySoftware  = 'soft',
+  kQTMetaDataCommonKeyWriter    = 'wrtr'
 };
 
 
@@ -16965,6 +17041,17 @@ enum {
     kQTMetaDataCommonKeyInformation             -> kUserDataTextInformation
     kQTMetaDataCommonKeyKeywords                -> kUserDataTextKeywords
     kQTMetaDataCommonKeyProducer                -> kUserDataTextProducer
+    kQTMetaDataCommonKeyAlbum                   -> kUserDataTextAlbum
+    kQTMetaDataCommonKeyArtist                  -> kUserDataTextArtist
+    kQTMetaDataCommonKeyChapterName             -> kUserDataTextChapter
+    kQTMetaDataCommonKeyComposer                -> kUserDataTextComposer
+    kQTMetaDataCommonKeyDescription             -> kUserDataTextDescription
+    kQTMetaDataCommonKeyGenre                   -> kUserDataTextGenre
+    kQTMetaDataCommonKeyOriginalFormat          -> kUserDataTextOriginalFormat
+    kQTMetaDataCommonKeyOriginalSource          -> kUserDataTextOriginalSource
+    kQTMetaDataCommonKeyPerformers              -> kUserDataTextPerformers
+    kQTMetaDataCommonKeySoftware                -> kUserDataTextSoftware
+    kQTMetaDataCommonKeyWriter                  -> kUserDataTextWriter
 */
 /****************************************
  *  Metadata Property Class ID          *
@@ -17068,10 +17155,13 @@ enum {
   kQTMetaDataTypeUTF8           = 1,
   kQTMetaDataTypeUTF16BE        = 2,
   kQTMetaDataTypeMacEncodedText = 3,
+  kQTMetaDataTypeJPEGImage      = 13,
+  kQTMetaDataTypePNGImage       = 14,
   kQTMetaDataTypeSignedIntegerBE = 21,  /* The size of the integer is defined by the value size*/
   kQTMetaDataTypeUnsignedIntegerBE = 22, /* The size of the integer is defined by the value size*/
   kQTMetaDataTypeFloat32BE      = 23,
-  kQTMetaDataTypeFloat64BE      = 24
+  kQTMetaDataTypeFloat64BE      = 24,
+  kQTMetaDataTypeBMPImage       = 27
 };
 
 

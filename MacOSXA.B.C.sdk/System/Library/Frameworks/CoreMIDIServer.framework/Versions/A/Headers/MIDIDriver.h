@@ -109,7 +109,7 @@ typedef struct OpaqueMIDIDeviceList*    MIDIDeviceListRef;
 		kMIDIDriverInterfaceID is passed to the factory function.  If the version 1 interface is
 		requested, the driver should behave as if it is a version 1 driver.
 */
-typedef struct MIDIDriverInterface
+struct MIDIDriverInterface
 {
 	IUNKNOWN_C_GUTS;
 
@@ -218,7 +218,7 @@ typedef struct MIDIDriverInterface
 			facilities.
 	*/
 	OSStatus	(*Monitor)(MIDIDriverRef self, MIDIEndpointRef dest, const MIDIPacketList *pktlist);
-} MIDIDriverInterface;
+};
 
 
 //  -----------------------------------------------------------------------------

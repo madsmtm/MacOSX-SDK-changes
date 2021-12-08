@@ -259,13 +259,13 @@ void			vImageDestroyResamplingFilter( ResamplingFilter filter )    AVAILABLE_MAC
  
 vImage_Error	vImageNewResamplingFilterForFunctionUsingBuffer( ResamplingFilter filter, 
                                                         float scale, 
-                                                        void (*kernelFunc)( const float *xArray, float *yArray, unsigned int count, void *userData ), 
+                                                        void (*kernelFunc)( const float *xArray, float *yArray, unsigned long count, void *userData ), 
                                                         float kernelWidth, 
                                                         void *userData,
                                                         vImage_Flags flags )    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 size_t		vImageGetResamplingFilterSize(  float scale, 
-                                                void (*kernelFunc)( const float *xArray, float *yArray, unsigned int count, void *userData ),
+                                                void (*kernelFunc)( const float *xArray, float *yArray, unsigned long count, void *userData ),
                                                 float kernelWidth, 
                                                 vImage_Flags flags )    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 

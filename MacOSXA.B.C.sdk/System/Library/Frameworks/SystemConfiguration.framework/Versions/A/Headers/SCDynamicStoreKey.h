@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2005 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -171,7 +171,7 @@ SCDynamicStoreKeyCreateNetworkServiceEntity	(
 	@function SCDynamicStoreKeyCreateComputerName
 	@discussion Creates a key that can be used in conjuntion with
 		SCDynamicStoreSetNotificationKeys function to receive
-		notifications when the current computer or host name changes.
+		notifications when the current computer name changes.
 	@param allocator The CFAllocator that should be used to allocate
 		memory for this key.
 		This parameter may be NULL in which case the current

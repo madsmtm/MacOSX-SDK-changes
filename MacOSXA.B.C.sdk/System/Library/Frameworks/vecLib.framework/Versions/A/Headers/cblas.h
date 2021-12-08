@@ -694,7 +694,7 @@ void SetBLASParamErrorProc(BLASParamErrorProc ErrorProc);
     #endif
 
 #elif defined(__i386__)
-    typedef int __M128  __attribute__((vector_size (16)));
+    typedef float __M128  __attribute__((vector_size (16)));
 
     typedef __M128  				VectorFloat;
     typedef VectorFloat				ConstVectorFloat;

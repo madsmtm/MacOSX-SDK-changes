@@ -118,13 +118,13 @@ enum
 	
 	kAudioFormatProperty_EncodeFormatIDs				= 'acof',
 		// No specifier needed. Must be set to NULL.
-		// Returns an array of UInt32 format IDs for formats that are valid input formats 
-		// for the converter. 
+		// Returns an array of UInt32 format IDs for formats that are valid output formats 
+		// for a converter. 
 	
 	kAudioFormatProperty_DecodeFormatIDs				= 'acif',
 		// No specifier needed. Must be set to NULL.
-		// Returns an array of UInt32 format IDs for formats that are valid output formats 
-		// for the converter. 
+		// Returns an array of UInt32 format IDs for formats that are valid input formats 
+		// for a converter. 
 	
 	kAudioFormatProperty_Encoders				= 'aven',
 		// The specifier is the format that you are interested in, e.g. 'aac '

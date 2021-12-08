@@ -25,7 +25,7 @@
 //	IOBluetoothOBEXSession Class
 //===========================================================================================================================
 
-#pragma mark еее IOBluetoothOBEXSession еее
+#pragma mark === IOBluetoothOBEXSession ===
 
 @interface IOBluetoothOBEXSession : OBEXSession
 {
@@ -199,7 +199,7 @@
 /* OBEXSession overrides */
 
 #pragma mark -
-#pragma mark еее OBEXSession overrides еее
+#pragma mark === OBEXSession overrides ===
 
 
 //--------------------------------------------------------------------------------------------------------------------------

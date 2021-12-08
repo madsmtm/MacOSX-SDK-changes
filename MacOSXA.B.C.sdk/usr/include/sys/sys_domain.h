@@ -27,6 +27,8 @@
 
 #include <sys/appleapiopts.h>
 #include <sys/cdefs.h>
+#include <sys/types.h>
+
 
 /* Kernel Events Protocol */ 
 #define SYSPROTO_EVENT 		1	/* kernel events protocol */
@@ -38,10 +40,10 @@
 /* System family socket address */
 struct sockaddr_sys
 {
-    u_char	ss_len;		/* sizeof(struct sockaddr_sys) */
-    u_char	ss_family;	/* AF_SYSTEM */
-    u_int16_t 	ss_sysaddr; 	/* protocol address in AF_SYSTEM */
-    u_int32_t 	ss_reserved[7]; /* reserved to the protocol use */
+	u_char	ss_len;				/* sizeof(struct sockaddr_sys) */
+	u_char	ss_family;			/* AF_SYSTEM */
+	u_int16_t 	ss_sysaddr; 	/* protocol address in AF_SYSTEM */
+	u_int32_t 	ss_reserved[7]; /* reserved to the protocol use */
 };
 
 

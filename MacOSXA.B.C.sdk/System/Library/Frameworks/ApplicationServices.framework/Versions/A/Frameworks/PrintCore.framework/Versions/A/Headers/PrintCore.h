@@ -3,7 +3,7 @@
  
      Contains:   Printing functions that have no UI
  
-     Version:    PrintingCore-170~1
+     Version:    PrintingCore-177.6~50
  
      Copyright:  © 2000-2005 by Apple Computer, Inc., all rights reserved.
  

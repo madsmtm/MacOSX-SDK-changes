@@ -3,7 +3,7 @@
  
      Contains:   Header for the Basic Linear Algebra Subprograms, with Apple extensions.
  
-     Version:    vecLib-176~4
+     Version:    vecLib-182.18~156
  
      Copyright:  © 2000-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -77,7 +77,7 @@
 #ifndef __VBLAS__
 #define __VBLAS__
 
-#include <CoreServices/../Frameworks/CarbonCore.framework/Headers/MacTypes.h>
+#include <stdint.h>
 
 #include <AvailabilityMacros.h>
 

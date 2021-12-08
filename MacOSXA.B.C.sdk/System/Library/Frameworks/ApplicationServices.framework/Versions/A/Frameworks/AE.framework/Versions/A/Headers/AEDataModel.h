@@ -3,7 +3,7 @@
  
      Contains:   AppleEvent Data Model Interfaces.
  
-     Version:    AppleEvents-309~1
+     Version:    AppleEvents-316.2~53
  
      Copyright:  © 1996-2005 by Apple Computer, Inc., all rights reserved
  
@@ -572,9 +572,9 @@ AEInitializeDesc(AEDesc * desc)                               AVAILABLE_MAC_OS_X
 
 
 #ifdef __cplusplus
-    inline void AEInitializeDescInline(AEDesc* d) { d->descriptorType = typeNull; d->dataHandle = NULL; };
+    inline void AEInitializeDescInline(AEDesc* d) { d->descriptorType = typeNull; d->dataHandle = NULL; }
 #else
-   #define AEInitializeDescInline(__d) do { AEDesc* d = __d; d->descriptorType = typeNull; d->dataHandle = NULL; } while (0)
+    #define AEInitializeDescInline(__d) do { AEDesc* d = __d; d->descriptorType = typeNull; d->dataHandle = NULL; } while (0)
 #endif
 
 

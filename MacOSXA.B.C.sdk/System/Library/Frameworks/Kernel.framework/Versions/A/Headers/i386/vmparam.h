@@ -25,6 +25,7 @@
 
 #include <sys/resource.h>
 
+/* Rosetta dependency on this address */
 #define	USRSTACK	(0xC0000000)
 
 /*

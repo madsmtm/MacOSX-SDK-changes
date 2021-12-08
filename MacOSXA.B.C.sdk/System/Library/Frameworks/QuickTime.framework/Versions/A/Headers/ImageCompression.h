@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Image Compression Interfaces.
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 1990-2005 by Apple Computer, Inc., all rights reserved
  
@@ -7405,34 +7405,94 @@ enum {
   kICMImageDescriptionPropertyID_PixelAspectRatio = 'pasp', /* Native-endian PixelAspectRatioImageDescriptionExtension, Read/Write */
 
   /*
-   * A width at which the buffer's image could be displayed on a
-   * square-pixel display, possibly calculated using the clean aperture
-   * and pixel aspect ratio.
+   * Dimensions at which the image could be displayed on a square-pixel
+   * display, generally calculated using the clean aperture and pixel
+   * aspect ratio. 
+   * Note that this value is returned as a FixedPoint; the width and
+   * height can also be read separately as rounded SInt32s via
+   * kICMImageDescriptionPropertyID_CleanApertureDisplayWidth and
+   * kICMImageDescriptionPropertyID_CleanApertureDisplayHeight.
    */
-  kICMImageDescriptionPropertyID_DisplayWidth = 'disw', /* SInt32, Read */
+  kICMImageDescriptionPropertyID_CleanApertureDisplayDimensions = 'cadi', /* FixedPoint, Read */
 
   /*
-   * A height at which the buffer's image could be displayed on a
-   * square-pixel display, possibly calculated using the clean aperture
-   * and pixel aspect ratio.
+   * Dimensions at which the image could be displayed on a square-pixel
+   * display, disregarding any clean aperture but honoring the pixel
+   * aspect ratio. This may be useful for authoring applications that
+   * want to expose the edge processing region. For general viewing,
+   * use kICMImageDescriptionPropertyID_CleanApertureDimensions
+   * instead. 
+   * Note that this value is returned as a FixedPoint; the width and
+   * height can also be read separately as rounded SInt32s via
+   * kICMImageDescriptionPropertyID_ProductionApertureDisplayWidth and
+   * kICMImageDescriptionPropertyID_ProductionApertureDisplayHeight.
    */
-  kICMImageDescriptionPropertyID_DisplayHeight = 'dish', /* SInt32, Read */
+  kICMImageDescriptionPropertyID_ProductionApertureDisplayDimensions = 'prdi', /* FixedPoint, Read */
+
+  /*
+   * Dimensions of the encoded image. 
+   * Note that this value is returned as a FixedPoint for convenience;
+   * the width and height can also be read separately as SInt32s via
+   * kICMImageDescriptionPropertyID_EncodedWidth and
+   * kICMImageDescriptionPropertyID_EncodedHeight.
+   */
+  kICMImageDescriptionPropertyID_EncodedPixelsDimensions = 'endi', /* FixedPoint, Read */
+
+  /*
+   * A width at which the image could be displayed on a square-pixel
+   * display, possibly calculated using the clean aperture and pixel
+   * aspect ratio.
+   */
+  kICMImageDescriptionPropertyID_CleanApertureDisplayWidth = 'disw', /* SInt32, Read */
+
+  /*
+   * A height at which the image could be displayed on a square-pixel
+   * display, possibly calculated using the clean aperture and pixel
+   * aspect ratio.
+   */
+  kICMImageDescriptionPropertyID_CleanApertureDisplayHeight = 'dish', /* SInt32, Read */
 
   /*
    * A width at which the image could be displayed on a square-pixel
    * display, disregarding any clean aperture but honoring the pixel
    * aspect ratio. This may be useful for authoring applications that
    * want to expose the edge processing region. For general viewing,
-   * use kICMImageDescriptionPropertyID_DisplayWidth instead.
+   * use kICMImageDescriptionPropertyID_CleanApertureDisplayWidth
+   * instead.
    */
-  kICMImageDescriptionPropertyID_ProductionDisplayWidth = 'pdsw', /* SInt32, Read */
+  kICMImageDescriptionPropertyID_ProductionApertureDisplayWidth = 'pdsw', /* SInt32, Read */
 
   /*
    * A height at which the image could be displayed on a square-pixel
    * display, disregarding any clean aperture but honoring the pixel
    * aspect ratio. This may be useful for authoring applications that
    * want to expose the edge processing region. For general viewing,
-   * use kICMImageDescriptionPropertyID_DisplayHeight instead.
+   * use kICMImageDescriptionPropertyID_CleanApertureDisplayHeight
+   * instead.
+   */
+  kICMImageDescriptionPropertyID_ProductionApertureDisplayHeight = 'pdsh', /* SInt32, Read */
+
+  /*
+   * Synonym for
+   * kICMImageDescriptionPropertyID_CleanApertureDisplayWidth.
+   */
+  kICMImageDescriptionPropertyID_DisplayWidth = 'disw', /* SInt32, Read */
+
+  /*
+   * Synonym for
+   * kICMImageDescriptionPropertyID_CleanApertureDisplayHeight.
+   */
+  kICMImageDescriptionPropertyID_DisplayHeight = 'dish', /* SInt32, Read */
+
+  /*
+   * Synonym for
+   * kICMImageDescriptionPropertyID_ProductionApertureDisplayWidth.
+   */
+  kICMImageDescriptionPropertyID_ProductionDisplayWidth = 'pdsw', /* SInt32, Read */
+
+  /*
+   * Synonym for
+   * kICMImageDescriptionPropertyID_ProductionApertureDisplayHeight.
    */
   kICMImageDescriptionPropertyID_ProductionDisplayHeight = 'pdsh', /* SInt32, Read */
 
@@ -7441,6 +7501,23 @@ enum {
    * NCLCColorInfoImageDescriptionExtension format.
    */
   kICMImageDescriptionPropertyID_NCLCColorInfo = 'nclc', /* Native-endian NCLCColorInfoImageDescriptionExtension, Read/Write */
+
+  /*
+   * A CGColorSpaceRef for the colorspace described by the image
+   * description, constructed from video color info or ICC Profile.
+   * IMPORTANT NOTE: The YCbCr matrix from the video color info is not
+   * represented in the CGColorSpaceRef. The caller of GetProperty is
+   * responsible for releasing this, eg, by calling
+   * CGColorSpaceRelease. Only supported on Mac OS X.
+   */
+  kICMImageDescriptionPropertyID_CGColorSpace = 'cgcs', /* CGColorSpaceRef, Read -- caller of GetProperty must call CGColorSpaceRelease */
+
+  /*
+   * A CFDataRef containing the serialized ICC profile described by the
+   * image description. The caller of GetProperty is responsible for
+   * releasing this, eg, by calling CFRelease.
+   */
+  kICMImageDescriptionPropertyID_ICCProfile = 'iccp', /* CFDataRef, Read/Write -- caller of GetProperty must call CFRelease */
 
   /*
    * The gamma level described by the image description.
@@ -7468,7 +7545,19 @@ enum {
    * A track height suitable for passing to NewMovieTrack when creating
    * a new track to hold this image data.
    */
-  kICMImageDescriptionPropertyID_ClassicTrackHeight = 'clah' /* Fixed, Read */
+  kICMImageDescriptionPropertyID_ClassicTrackHeight = 'clah', /* Fixed, Read */
+
+  /*
+   * Defines a duration for quantizing time. This is applicable for
+   * cases where a single media sample generates visual output that
+   * varies continuously through its duration. By interpreting this
+   * property, such a sample may be considered to have internal "step
+   * points" at multiples of the stepping duration. This can be used to
+   * throttle frame generation during playback, and when stepping using
+   * InterestingTime APIs. Setting a step duration with value zero
+   * removes any current step duration.
+   */
+  kICMImageDescriptionPropertyID_StepDuration = 'step' /* TimeRecord (base ignored), Read/Write */
 };
 
 /*
@@ -11493,6 +11582,33 @@ ICMCompressorSourceFrameGetFrameOptions(ICMCompressorSourceFrameRef sourceFrame)
 
 
 /*
+ *  ICMCompressorSourceFrameDetachPixelBuffer()
+ *  
+ *  Summary:
+ *    Disconnects the pixel buffer from the source frame and allows it
+ *    to be released.
+ *  
+ *  Discussion:
+ *    Compressor components often need to hold onto
+ *    ICMCompressorSourceFrameRefs for some time after they are done
+ *    with the pixel buffers. In order to allow pixel buffer memory to
+ *    be released earlier, they may call
+ *    ICMCompressorSourceFrameDetachPixelBuffer to declare that they
+ *    have no further need for the source frame's pixel buffer. After
+ *    calling this, ICMCompressorSourceFrameGetPixelBuffer will return
+ *    NULL.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 (or QuickTime 7.0) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSStatus 
+ICMCompressorSourceFrameDetachPixelBuffer(ICMCompressorSourceFrameRef sourceFrame) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+
+/*
  *  ICMCompressorSessionDropFrame()
  *  
  *  Summary:
@@ -12204,8 +12320,6 @@ QTPixelBufferContextCreate(
   CFAllocatorRef        allocator,                   /* can be NULL */
   CFDictionaryRef       attributes,                  /* can be NULL */
   QTVisualContextRef *  newPixelBufferContext)                AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
-
-
 
 
 

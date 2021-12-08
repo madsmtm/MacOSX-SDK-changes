@@ -3,7 +3,7 @@
  
      Contains:   This file contains provider-specific definitions for various built-in providers.
  
-     Version:    OpenTransport-97~291
+     Version:    OpenTransport-105~49
  
      Copyright:  © 1993-2005 by Apple Computer, Inc. and Mentat Inc., all rights reserved.
  

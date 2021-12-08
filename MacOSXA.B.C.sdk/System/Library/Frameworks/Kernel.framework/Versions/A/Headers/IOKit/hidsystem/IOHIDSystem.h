@@ -203,7 +203,8 @@ private:
           /* atTime */   AbsoluteTime  ts,
           /* withData */ NXEventData * myData,
           /* sender */   OSObject *    sender   = 0,
-          /* pid */      UInt32        extPID   = 0);
+          /* pid */      UInt32        extPID   = 0,
+          /* processKEQ*/bool          processKEQ = true);
   /* Dispatch mechanisms for screen state changes */
   void evDispatch(
             /* command */ EvCmd evcmd);
@@ -223,6 +224,7 @@ private:
   static void doKickEventConsumer(IOHIDSystem * self);
 
   static void doProcessKeyboardEQ(IOHIDSystem * self);
+  static void processKeyboardEQ(IOHIDSystem * self, AbsoluteTime * deadline = 0);
  
   static bool genericNotificationHandler( void * target, 
 				void * ref, IOService * newService );
@@ -324,6 +326,7 @@ public:
   virtual IOReturn newUserClient(task_t         owningTask,
                  /* withToken */ void *         security_id,
                  /* ofType */    UInt32         type,
+                 /* withProps*/  OSDictionary *  properties,
                  /* client */    IOUserClient ** handler);
 
 /*
@@ -687,11 +690,11 @@ static	IOReturn	doKeyboardSpecialEvent (IOHIDSystem *self, void * args);
 static	IOReturn	doUpdateEventFlags (IOHIDSystem *self, void * args);        
         void		updateEventFlagsGated (unsigned flags, OSObject * sender);
 
-static	IOReturn	doNewUserClient (IOHIDSystem *self, void * arg0, void * arg1, 
-                                                    void * arg2, void * arg3);        
+static	IOReturn	doNewUserClient (IOHIDSystem *self, void * args);        
         IOReturn 	newUserClientGated (task_t owningTask,
                                             void * security_id,
                                             UInt32 type,
+                                            OSDictionary *  properties,
                                             IOUserClient ** handler);
 
 static	IOReturn	doSetCursorEnable (IOHIDSystem *self, void * arg0);        

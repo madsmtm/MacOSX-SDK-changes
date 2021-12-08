@@ -737,14 +737,18 @@ typedef wxUint16 wxWord;
             #error "Unknown sizeof(int) value, what are you compiling for?"
         #endif
     #else /*  !defined(SIZEOF_INT) */
-        /*  assume default 32bit machine -- what else can we do? */
         wxCOMPILE_TIME_ASSERT( sizeof(int) == 4, IntMustBeExactly4Bytes);
         wxCOMPILE_TIME_ASSERT( sizeof(size_t) == 4, SizeTMustBeExactly4Bytes);
         wxCOMPILE_TIME_ASSERT( sizeof(void *) == 4, PtrMustBeExactly4Bytes);
 
         #define SIZEOF_INT 4
+#ifdef __LP64__
+        #define SIZEOF_SIZE_T 8
+        #define SIZEOF_VOID_P 8
+#else /* !__LP64__ */
         #define SIZEOF_SIZE_T 4
         #define SIZEOF_VOID_P 4
+#endif /* __LP64__ */
 
         typedef int wxInt32;
         typedef unsigned int wxUint32;
@@ -886,7 +890,7 @@ typedef float wxFloat32;
     typedef double wxFloat64;
 #endif
 
-#if defined( __WXMAC__ )  && !defined( __POWERPC__ )
+#if defined( __WXMAC__ )
     typedef long double wxDouble;
 #else
     typedef double wxDouble;

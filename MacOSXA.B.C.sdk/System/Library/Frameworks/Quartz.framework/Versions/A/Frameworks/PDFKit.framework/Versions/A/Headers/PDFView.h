@@ -232,4 +232,8 @@ extern NSString *PDFViewPrintPermissionNotification;	// Notification when the us
 // between 0.1 and 10.0.
 - (float) PDFViewWillChangeScaleFactor: (PDFView *) sender toScale: (float) scale;
 
+// Delegates implementing the following method will be called to handle clicks on URL links within the PDFView.  The 
+// default implementation calls [[NSWorkspace sharedWorkspace] openURL: url].
+- (void) PDFViewWillClickOnLink: (PDFView *) sender withURL: (NSURL *) url;
+
 @end

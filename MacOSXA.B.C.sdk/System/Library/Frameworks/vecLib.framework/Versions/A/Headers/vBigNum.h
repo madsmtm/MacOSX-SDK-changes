@@ -3,7 +3,7 @@
  
      Contains:   Algebraic and logical operations on large operands.
  
-     Version:    vecLib-176~4
+     Version:    vecLib-182.18~156
  
      Copyright:  © 1999-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -16,7 +16,7 @@
 #ifndef __VBIGNUM__
 #define __VBIGNUM__
 
-#include <CoreServices/../Frameworks/CarbonCore.framework/Headers/MacTypes.h>
+#include <stdint.h>
 /*
 #ifndef __VECLIBTYPES__
 #include <vecLib/vecLibTypes.h>
@@ -122,10 +122,10 @@ union vU128 {
     vUInt32             v1;
   }                       vs;
   struct {
-    UInt32              MSW;
-    UInt32              d2;
-    UInt32              d3;
-    UInt32              LSW;
+    uint32_t            MSW;
+    uint32_t            d2;
+    uint32_t            d3;
+    uint32_t            LSW;
   }                       s;
 };
 typedef union vU128                     vU128;
@@ -135,10 +135,10 @@ union vS128 {
     vUInt32             v1;
   }                       vs;
   struct {
-    SInt32              MSW;
-    UInt32              d2;
-    UInt32              d3;
-    UInt32              LSW;
+    int32_t             MSW;
+    uint32_t            d2;
+    uint32_t            d3;
+    uint32_t            LSW;
   }                       s;
 };
 typedef union vS128                     vS128;
@@ -149,14 +149,14 @@ union vU256 {
     vUInt32             v2;
   }                       vs;
   struct {
-    UInt32              MSW;
-    UInt32              d2;
-    UInt32              d3;
-    UInt32              d4;
-    UInt32              d5;
-    UInt32              d6;
-    UInt32              d7;
-    UInt32              LSW;
+    uint32_t            MSW;
+    uint32_t            d2;
+    uint32_t            d3;
+    uint32_t            d4;
+    uint32_t            d5;
+    uint32_t            d6;
+    uint32_t            d7;
+    uint32_t            LSW;
   }                       s;
 };
 typedef union vU256                     vU256;
@@ -167,14 +167,14 @@ union vS256 {
     vUInt32             v2;
   }                       vs;
   struct {
-    SInt32              MSW;
-    UInt32              d2;
-    UInt32              d3;
-    UInt32              d4;
-    UInt32              d5;
-    UInt32              d6;
-    UInt32              d7;
-    UInt32              LSW;
+    int32_t             MSW;
+    uint32_t            d2;
+    uint32_t            d3;
+    uint32_t            d4;
+    uint32_t            d5;
+    uint32_t            d6;
+    uint32_t            d7;
+    uint32_t            LSW;
   }                       s;
 };
 typedef union vS256                     vS256;
@@ -187,22 +187,22 @@ union vU512 {
     vUInt32             v4;
   }                       vs;
   struct {
-    UInt32              MSW;
-    UInt32              d2;
-    UInt32              d3;
-    UInt32              d4;
-    UInt32              d5;
-    UInt32              d6;
-    UInt32              d7;
-    UInt32              d8;
-    UInt32              d9;
-    UInt32              d10;
-    UInt32              d11;
-    UInt32              d12;
-    UInt32              d13;
-    UInt32              d14;
-    UInt32              d15;
-    UInt32              LSW;
+    uint32_t            MSW;
+    uint32_t            d2;
+    uint32_t            d3;
+    uint32_t            d4;
+    uint32_t            d5;
+    uint32_t            d6;
+    uint32_t            d7;
+    uint32_t            d8;
+    uint32_t            d9;
+    uint32_t            d10;
+    uint32_t            d11;
+    uint32_t            d12;
+    uint32_t            d13;
+    uint32_t            d14;
+    uint32_t            d15;
+    uint32_t            LSW;
   }                       s;
 };
 typedef union vU512                     vU512;
@@ -215,22 +215,22 @@ union vS512 {
     vUInt32             v4;
   }                       vs;
   struct {
-    SInt32              MSW;
-    UInt32              d2;
-    UInt32              d3;
-    UInt32              d4;
-    UInt32              d5;
-    UInt32              d6;
-    UInt32              d7;
-    UInt32              d8;
-    UInt32              d9;
-    UInt32              d10;
-    UInt32              d11;
-    UInt32              d12;
-    UInt32              d13;
-    UInt32              d14;
-    UInt32              d15;
-    UInt32              LSW;
+    int32_t             MSW;
+    uint32_t            d2;
+    uint32_t            d3;
+    uint32_t            d4;
+    uint32_t            d5;
+    uint32_t            d6;
+    uint32_t            d7;
+    uint32_t            d8;
+    uint32_t            d9;
+    uint32_t            d10;
+    uint32_t            d11;
+    uint32_t            d12;
+    uint32_t            d13;
+    uint32_t            d14;
+    uint32_t            d15;
+    uint32_t            LSW;
   }                       s;
 };
 typedef union vS512                     vS512;
@@ -247,38 +247,38 @@ union vU1024 {
     vUInt32             v8;
   }                       vs;
   struct {
-    UInt32              MSW;
-    UInt32              d2;
-    UInt32              d3;
-    UInt32              d4;
-    UInt32              d5;
-    UInt32              d6;
-    UInt32              d7;
-    UInt32              d8;
-    UInt32              d9;
-    UInt32              d10;
-    UInt32              d11;
-    UInt32              d12;
-    UInt32              d13;
-    UInt32              d14;
-    UInt32              d15;
-    UInt32              d16;
-    UInt32              d17;
-    UInt32              d18;
-    UInt32              d19;
-    UInt32              d20;
-    UInt32              d21;
-    UInt32              d22;
-    UInt32              d23;
-    UInt32              d24;
-    UInt32              d25;
-    UInt32              d26;
-    UInt32              d27;
-    UInt32              d28;
-    UInt32              d29;
-    UInt32              d30;
-    UInt32              d31;
-    UInt32              LSW;
+    uint32_t            MSW;
+    uint32_t            d2;
+    uint32_t            d3;
+    uint32_t            d4;
+    uint32_t            d5;
+    uint32_t            d6;
+    uint32_t            d7;
+    uint32_t            d8;
+    uint32_t            d9;
+    uint32_t            d10;
+    uint32_t            d11;
+    uint32_t            d12;
+    uint32_t            d13;
+    uint32_t            d14;
+    uint32_t            d15;
+    uint32_t            d16;
+    uint32_t            d17;
+    uint32_t            d18;
+    uint32_t            d19;
+    uint32_t            d20;
+    uint32_t            d21;
+    uint32_t            d22;
+    uint32_t            d23;
+    uint32_t            d24;
+    uint32_t            d25;
+    uint32_t            d26;
+    uint32_t            d27;
+    uint32_t            d28;
+    uint32_t            d29;
+    uint32_t            d30;
+    uint32_t            d31;
+    uint32_t            LSW;
   }                       s;
 };
 typedef union vU1024                    vU1024;
@@ -295,52 +295,52 @@ union vS1024 {
     vUInt32             v8;
   }                       vs;
   struct {
-    SInt32              MSW;
-    UInt32              d2;
-    UInt32              d3;
-    UInt32              d4;
-    UInt32              d5;
-    UInt32              d6;
-    UInt32              d7;
-    UInt32              d8;
-    UInt32              d9;
-    UInt32              d10;
-    UInt32              d11;
-    UInt32              d12;
-    UInt32              d13;
-    UInt32              d14;
-    UInt32              d15;
-    UInt32              d16;
-    UInt32              d17;
-    UInt32              d18;
-    UInt32              d19;
-    UInt32              d20;
-    UInt32              d21;
-    UInt32              d22;
-    UInt32              d23;
-    UInt32              d24;
-    UInt32              d25;
-    UInt32              d26;
-    UInt32              d27;
-    UInt32              d28;
-    UInt32              d29;
-    UInt32              d30;
-    UInt32              d31;
-    UInt32              LSW;
+    int32_t             MSW;
+    uint32_t            d2;
+    uint32_t            d3;
+    uint32_t            d4;
+    uint32_t            d5;
+    uint32_t            d6;
+    uint32_t            d7;
+    uint32_t            d8;
+    uint32_t            d9;
+    uint32_t            d10;
+    uint32_t            d11;
+    uint32_t            d12;
+    uint32_t            d13;
+    uint32_t            d14;
+    uint32_t            d15;
+    uint32_t            d16;
+    uint32_t            d17;
+    uint32_t            d18;
+    uint32_t            d19;
+    uint32_t            d20;
+    uint32_t            d21;
+    uint32_t            d22;
+    uint32_t            d23;
+    uint32_t            d24;
+    uint32_t            d25;
+    uint32_t            d26;
+    uint32_t            d27;
+    uint32_t            d28;
+    uint32_t            d29;
+    uint32_t            d30;
+    uint32_t            d31;
+    uint32_t            LSW;
   }                       s;
 };
 typedef union vS1024                    vS1024;
-#elif defined(__i386__) && defined(__SSE__)
+#elif defined(__i386__) && defined(__SSE2__)
 union vU128 {
   vUInt32             v;
   struct {
     vUInt32             v1;
   }                       vs;
   struct {
-    UInt32              LSW;                  /*MSW;*/
-    UInt32              d3;                   /*d2;*/
-    UInt32              d2;                   /*d3;*/
-    UInt32              MSW;                  /*LSW;*/
+    uint32_t            LSW;                  /*MSW;*/
+    uint32_t            d3;                   /*d2;*/
+    uint32_t            d2;                   /*d3;*/
+    uint32_t            MSW;                  /*LSW;*/
   }                       s;
 };
 typedef union vU128                     vU128;
@@ -350,10 +350,10 @@ union vS128 {
     vUInt32             v1;
   }                       vs;
   struct {
-    SInt32              LSW;                  /*MSW;*/
-    UInt32              d3;                   /*d2;*/
-    UInt32              d2;                   /*d3;*/
-    UInt32              MSW;                  /*LSW;*/
+    int32_t             LSW;                  /*MSW;*/
+    uint32_t            d3;                   /*d2;*/
+    uint32_t            d2;                   /*d3;*/
+    uint32_t            MSW;                  /*LSW;*/
   }                       s;
 };
 typedef union vS128                     vS128;
@@ -364,14 +364,14 @@ union vU256 {
     vUInt32             v1;
   }                       vs;
   struct {
-    UInt32              LSW;                  /*MSW;*/
-    UInt32              d7;                   /*d2;*/
-    UInt32              d6;                   /*d3;*/
-    UInt32              d5;                   /*d4;*/
-    UInt32              d4;                   /*d5;*/
-    UInt32              d3;                   /*d6;*/
-    UInt32              d2;                   /*d7;*/
-    UInt32              MSW;                  /*LSW;*/
+    uint32_t            LSW;                  /*MSW;*/
+    uint32_t            d7;                   /*d2;*/
+    uint32_t            d6;                   /*d3;*/
+    uint32_t            d5;                   /*d4;*/
+    uint32_t            d4;                   /*d5;*/
+    uint32_t            d3;                   /*d6;*/
+    uint32_t            d2;                   /*d7;*/
+    uint32_t            MSW;                  /*LSW;*/
   }                       s;
 };
 typedef union vU256                     vU256;
@@ -382,14 +382,14 @@ union vS256 {
     vUInt32             v1;
   }                       vs;
   struct {
-    SInt32              LSW;                  /*MSW;*/
-    UInt32              d7;                   /*d2;*/
-    UInt32              d6;                   /*d3;*/
-    UInt32              d5;                   /*d4;*/
-    UInt32              d4;                   /*d5;*/
-    UInt32              d3;                   /*d6;*/
-    UInt32              d2;                   /*d7;*/
-    UInt32              MSW;                  /*LSW;*/
+    int32_t             LSW;                  /*MSW;*/
+    uint32_t            d7;                   /*d2;*/
+    uint32_t            d6;                   /*d3;*/
+    uint32_t            d5;                   /*d4;*/
+    uint32_t            d4;                   /*d5;*/
+    uint32_t            d3;                   /*d6;*/
+    uint32_t            d2;                   /*d7;*/
+    uint32_t            MSW;                  /*LSW;*/
   }                       s;
 };
 typedef union vS256                     vS256;
@@ -402,22 +402,22 @@ union vU512 {
     vUInt32             v1;
   }                       vs;
   struct {
-    UInt32              LSW;                  /*MSB;*/
-    UInt32              d15;                  /*d2;*/
-    UInt32              d14;                  /*d3;*/
-    UInt32              d13;                  /*d4;*/
-    UInt32              d12;                  /*d5;*/
-    UInt32              d11;                  /*d6;*/
-    UInt32              d10;                  /*d7;*/
-    UInt32              d9;                   /*d8;*/
-    UInt32              d8;                   /*d9;*/
-    UInt32              d7;                   /*d10;*/
-    UInt32              d6;                   /*d11;*/
-    UInt32              d5;                   /*d12;*/
-    UInt32              d4;                   /*d13;*/
-    UInt32              d3;                   /*d14;*/
-    UInt32              d2;                   /*d15;*/
-    UInt32              MSW;                  /*LSB;*/
+    uint32_t            LSW;                  /*MSB;*/
+    uint32_t            d15;                  /*d2;*/
+    uint32_t            d14;                  /*d3;*/
+    uint32_t            d13;                  /*d4;*/
+    uint32_t            d12;                  /*d5;*/
+    uint32_t            d11;                  /*d6;*/
+    uint32_t            d10;                  /*d7;*/
+    uint32_t            d9;                   /*d8;*/
+    uint32_t            d8;                   /*d9;*/
+    uint32_t            d7;                   /*d10;*/
+    uint32_t            d6;                   /*d11;*/
+    uint32_t            d5;                   /*d12;*/
+    uint32_t            d4;                   /*d13;*/
+    uint32_t            d3;                   /*d14;*/
+    uint32_t            d2;                   /*d15;*/
+    uint32_t            MSW;                  /*LSB;*/
   }                       s;
 };
 typedef union vU512                     vU512;
@@ -430,22 +430,22 @@ union vS512 {
     vUInt32             v1;
   }                       vs;
   struct {
-    SInt32              LSW;                  /*MSW;*/
-    UInt32              d15;                  /*d2;*/
-    UInt32              d14;                  /*d3;*/
-    UInt32              d13;                  /*d4;*/
-    UInt32              d12;                  /*d5;*/
-    UInt32              d11;                  /*d6;*/
-    UInt32              d10;                  /*d7;*/
-    UInt32              d9;                   /*d8;*/
-    UInt32              d8;                   /*d9;*/
-    UInt32              d7;                   /*d10;*/
-    UInt32              d6;                   /*d11;*/
-    UInt32              d5;                   /*d12;*/
-    UInt32              d4;                   /*d13;*/
-    UInt32              d3;                   /*d14;*/
-    UInt32              d2;                   /*d15;*/
-    UInt32              MSW;                  /*LSW;*/
+    int32_t             LSW;                  /*MSW;*/
+    uint32_t            d15;                  /*d2;*/
+    uint32_t            d14;                  /*d3;*/
+    uint32_t            d13;                  /*d4;*/
+    uint32_t            d12;                  /*d5;*/
+    uint32_t            d11;                  /*d6;*/
+    uint32_t            d10;                  /*d7;*/
+    uint32_t            d9;                   /*d8;*/
+    uint32_t            d8;                   /*d9;*/
+    uint32_t            d7;                   /*d10;*/
+    uint32_t            d6;                   /*d11;*/
+    uint32_t            d5;                   /*d12;*/
+    uint32_t            d4;                   /*d13;*/
+    uint32_t            d3;                   /*d14;*/
+    uint32_t            d2;                   /*d15;*/
+    uint32_t            MSW;                  /*LSW;*/
   }                       s;
 };
 typedef union vS512                     vS512;
@@ -462,38 +462,38 @@ union vU1024 {
     vUInt32             v1;
   }                       vs;
   struct {
-    UInt32              LSW;                  /*MSW;*/
-    UInt32              d31;                  /*d2;*/
-    UInt32              d30;                  /*d3;*/
-    UInt32              d29;                  /*d4;*/
-    UInt32              d28;                  /*d5;*/
-    UInt32              d27;                  /*d6;*/
-    UInt32              d26;                  /*d7;*/
-    UInt32              d25;                  /*d8;*/
-    UInt32              d24;                  /*d9;*/
-    UInt32              d23;                  /*d10;*/
-    UInt32              d22;                  /*d11;*/
-    UInt32              d21;                  /*d12;*/
-    UInt32              d20;                  /*d13;*/
-    UInt32              d19;                  /*d14;*/
-    UInt32              d18;                  /*d15;*/
-    UInt32              d17;                  /*d16;*/
-    UInt32              d16;                  /*d17;*/
-    UInt32              d15;                  /*d18;*/
-    UInt32              d14;                  /*d19;*/
-    UInt32              d13;                  /*d20;*/
-    UInt32              d12;                  /*d21;*/
-    UInt32              d11;                  /*d22;*/
-    UInt32              d10;                  /*d23;*/
-    UInt32              d9;                   /*d24;*/
-    UInt32              d8;                   /*d25;*/
-    UInt32              d7;                   /*d26;*/
-    UInt32              d6;                   /*d27;*/
-    UInt32              d5;                   /*d28;*/
-    UInt32              d4;                   /*d29;*/
-    UInt32              d3;                   /*d30;*/
-    UInt32              d2;                   /*d31;*/
-    UInt32              MSW;                  /*LSW;*/
+    uint32_t            LSW;                  /*MSW;*/
+    uint32_t            d31;                  /*d2;*/
+    uint32_t            d30;                  /*d3;*/
+    uint32_t            d29;                  /*d4;*/
+    uint32_t            d28;                  /*d5;*/
+    uint32_t            d27;                  /*d6;*/
+    uint32_t            d26;                  /*d7;*/
+    uint32_t            d25;                  /*d8;*/
+    uint32_t            d24;                  /*d9;*/
+    uint32_t            d23;                  /*d10;*/
+    uint32_t            d22;                  /*d11;*/
+    uint32_t            d21;                  /*d12;*/
+    uint32_t            d20;                  /*d13;*/
+    uint32_t            d19;                  /*d14;*/
+    uint32_t            d18;                  /*d15;*/
+    uint32_t            d17;                  /*d16;*/
+    uint32_t            d16;                  /*d17;*/
+    uint32_t            d15;                  /*d18;*/
+    uint32_t            d14;                  /*d19;*/
+    uint32_t            d13;                  /*d20;*/
+    uint32_t            d12;                  /*d21;*/
+    uint32_t            d11;                  /*d22;*/
+    uint32_t            d10;                  /*d23;*/
+    uint32_t            d9;                   /*d24;*/
+    uint32_t            d8;                   /*d25;*/
+    uint32_t            d7;                   /*d26;*/
+    uint32_t            d6;                   /*d27;*/
+    uint32_t            d5;                   /*d28;*/
+    uint32_t            d4;                   /*d29;*/
+    uint32_t            d3;                   /*d30;*/
+    uint32_t            d2;                   /*d31;*/
+    uint32_t            MSW;                  /*LSW;*/
   }                       s;
 };
 typedef union vU1024                    vU1024;
@@ -510,44 +510,44 @@ union vS1024 {
     vUInt32             v1;
   }                       vs;
   struct {
-    SInt32              LSW;                  /*MSW;*/
-    UInt32              d31;                  /*d2;*/
-    UInt32              d30;                  /*d3;*/
-    UInt32              d29;                  /*d4;*/
-    UInt32              d28;                  /*d5;*/
-    UInt32              d27;                  /*d6;*/
-    UInt32              d26;                  /*d7;*/
-    UInt32              d25;                  /*d8;*/
-    UInt32              d24;                  /*d9;*/
-    UInt32              d23;                  /*d10;*/
-    UInt32              d22;                  /*d11;*/
-    UInt32              d21;                  /*d12;*/
-    UInt32              d20;                  /*d13;*/
-    UInt32              d19;                  /*d14;*/
-    UInt32              d18;                  /*d15;*/
-    UInt32              d17;                  /*d16;*/
-    UInt32              d16;                  /*d17;*/
-    UInt32              d15;                  /*d18;*/
-    UInt32              d14;                  /*d19;*/
-    UInt32              d13;                  /*d20;*/
-    UInt32              d12;                  /*d21;*/
-    UInt32              d11;                  /*d22;*/
-    UInt32              d10;                  /*d23;*/
-    UInt32              d9;                   /*d24;*/
-    UInt32              d8;                   /*d25;*/
-    UInt32              d7;                   /*d26;*/
-    UInt32              d6;                   /*d27;*/
-    UInt32              d5;                   /*d28;*/
-    UInt32              d4;                   /*d29;*/
-    UInt32              d3;                   /*d30;*/
-    UInt32              d2;                   /*d31;*/
-    UInt32              MSW;                  /*LSW;*/
+    int32_t             LSW;                  /*MSW;*/
+    uint32_t            d31;                  /*d2;*/
+    uint32_t            d30;                  /*d3;*/
+    uint32_t            d29;                  /*d4;*/
+    uint32_t            d28;                  /*d5;*/
+    uint32_t            d27;                  /*d6;*/
+    uint32_t            d26;                  /*d7;*/
+    uint32_t            d25;                  /*d8;*/
+    uint32_t            d24;                  /*d9;*/
+    uint32_t            d23;                  /*d10;*/
+    uint32_t            d22;                  /*d11;*/
+    uint32_t            d21;                  /*d12;*/
+    uint32_t            d20;                  /*d13;*/
+    uint32_t            d19;                  /*d14;*/
+    uint32_t            d18;                  /*d15;*/
+    uint32_t            d17;                  /*d16;*/
+    uint32_t            d16;                  /*d17;*/
+    uint32_t            d15;                  /*d18;*/
+    uint32_t            d14;                  /*d19;*/
+    uint32_t            d13;                  /*d20;*/
+    uint32_t            d12;                  /*d21;*/
+    uint32_t            d11;                  /*d22;*/
+    uint32_t            d10;                  /*d23;*/
+    uint32_t            d9;                   /*d24;*/
+    uint32_t            d8;                   /*d25;*/
+    uint32_t            d7;                   /*d26;*/
+    uint32_t            d6;                   /*d27;*/
+    uint32_t            d5;                   /*d28;*/
+    uint32_t            d4;                   /*d29;*/
+    uint32_t            d3;                   /*d30;*/
+    uint32_t            d2;                   /*d31;*/
+    uint32_t            MSW;                  /*LSW;*/
   }                       s;
 };
 typedef union vS1024                    vS1024;
 #endif  /*  */
 
-#if defined(__VEC__) || defined(__SSE__)
+#if defined(__VEC__) || defined(__SSE2__)
 /************************************************************************************
 *                                                                                   *
 *                                Division operations                                *
@@ -1416,7 +1416,7 @@ vS1024Mod(
 extern void 
 vLL256Shift(
   const vU256 *  a,
-  UInt32         shiftAmount,
+  uint32_t       shiftAmount,
   vU256 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1431,7 +1431,7 @@ vLL256Shift(
 extern void 
 vLL512Shift(
   const vU512 *  a,
-  UInt32         shiftAmount,
+  uint32_t       shiftAmount,
   vU512 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1446,7 +1446,7 @@ vLL512Shift(
 extern void 
 vLL1024Shift(
   const vU1024 *  a,
-  UInt32          shiftAmount,
+  uint32_t        shiftAmount,
   vU1024 *        result)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1461,7 +1461,7 @@ vLL1024Shift(
 extern void 
 vLR256Shift(
   const vU256 *  a,
-  UInt32         shiftAmount,
+  uint32_t       shiftAmount,
   vU256 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1476,7 +1476,7 @@ vLR256Shift(
 extern void 
 vLR512Shift(
   const vU512 *  a,
-  UInt32         shiftAmount,
+  uint32_t       shiftAmount,
   vU512 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1491,7 +1491,7 @@ vLR512Shift(
 extern void 
 vLR1024Shift(
   const vU1024 *  a,
-  UInt32          shiftAmount,
+  uint32_t        shiftAmount,
   vU1024 *        result)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1506,7 +1506,7 @@ vLR1024Shift(
 extern void 
 vA256Shift(
   const vS256 *  a,
-  UInt32         shiftAmount,
+  uint32_t       shiftAmount,
   vS256 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1521,7 +1521,7 @@ vA256Shift(
 extern void 
 vA512Shift(
   const vS512 *  a,
-  UInt32         shiftAmount,
+  uint32_t       shiftAmount,
   vS512 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1536,7 +1536,7 @@ vA512Shift(
 extern void 
 vA1024Shift(
   const vS1024 *  a,
-  UInt32          shiftAmount,
+  uint32_t        shiftAmount,
   vS1024 *        result)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1558,7 +1558,7 @@ vA1024Shift(
 extern void 
 vL256Rotate(
   const vU256 *  a,
-  UInt32         rotateAmount,
+  uint32_t       rotateAmount,
   vU256 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1573,7 +1573,7 @@ vL256Rotate(
 extern void 
 vL512Rotate(
   const vU512 *  a,
-  UInt32         rotateAmount,
+  uint32_t       rotateAmount,
   vU512 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1588,7 +1588,7 @@ vL512Rotate(
 extern void 
 vL1024Rotate(
   const vU1024 *  a,
-  UInt32          rotateAmount,
+  uint32_t        rotateAmount,
   vU1024 *        result)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1603,7 +1603,7 @@ vL1024Rotate(
 extern void 
 vR256Rotate(
   const vU256 *  a,
-  UInt32         rotateAmount,
+  uint32_t       rotateAmount,
   vU256 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1618,7 +1618,7 @@ vR256Rotate(
 extern void 
 vR512Rotate(
   const vU512 *  a,
-  UInt32         rotateAmount,
+  uint32_t       rotateAmount,
   vU512 *        result)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
@@ -1633,11 +1633,11 @@ vR512Rotate(
 extern void 
 vR1024Rotate(
   const vU1024 *  a,
-  UInt32          rotateAmount,
+  uint32_t        rotateAmount,
   vU1024 *        result)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-#endif  /* defined(__VEC__) || defined(__SSE__) */
+#endif  /* defined(__VEC__) || defined(__SSE2__) */
 
 #endif  /* defined(__ppc__) || defined(__ppc64__) || defined(__i386__) */
 

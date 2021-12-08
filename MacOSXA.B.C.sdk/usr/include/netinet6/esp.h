@@ -68,4 +68,4 @@ struct esptail {
 };
 
 
-#endif _NETINET6_ESP_H_
+#endif /* _NETINET6_ESP_H_ */

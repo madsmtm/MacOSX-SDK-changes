@@ -30,7 +30,10 @@
     NSArray *_prefetchRelationshipKeys;
     struct _fetchRequestFlags {
         unsigned int autoDistinct:1;
-        unsigned int _RESERVED:31;
+        unsigned int shallow:1;
+        unsigned int fetchRowData:1;
+        unsigned int resultsAsObjectIDs:1;
+        unsigned int _RESERVED:28;
     } _flags;
 }
 

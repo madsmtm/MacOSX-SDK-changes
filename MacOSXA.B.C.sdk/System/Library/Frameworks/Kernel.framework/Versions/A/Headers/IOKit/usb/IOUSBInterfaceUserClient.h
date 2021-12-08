@@ -24,6 +24,33 @@
 /*
  *
  *	$Log: IOUSBInterfaceUserClient.h,v $
+ *	Revision 1.35  2005/12/08 05:53:54  nano
+ *	Change some comments and variables to indicate that the contiguous memory is required for all low latency isoch on UHCI, not just out
+ *	
+ *	Revision 1.34  2005/12/07 21:53:33  nano
+ *	Bring in fixes from branch PR-4304258 -- Low Latency Audio support in  Yellow
+ *	
+ *	Revision 1.33.56.1  2005/12/06 20:49:50  nano
+ *	LowLatencyPrepareBuffer now returns data, so changed the API.  Boolean to keep track whether our controller needs contig. phys memory for isoch
+ *	
+ *	Revision 1.33  2005/08/11 03:55:40  nano
+ *	Merge branch into TOT to allow user clients to run when called from Rosetta
+ *	
+ *	Revision 1.32.2.1  2005/08/09 20:30:55  nano
+ *	<rdar://problem/4209688> Chardonnay: Modify IOUSBFamily to allow users clients to operate under Rosetta
+ *	
+ *	Revision 1.32  2005/08/04 20:58:45  nano
+ *	Fold in fixes from Rosetta branch into TOT
+ *	
+ *	Revision 1.31.24.1  2005/08/03 04:54:26  nano
+ *	Pass into the user client whether the task is running in Rosetta or not, so we can do appropriate swapping for async calls
+ *	
+ *	Revision 1.31  2005/05/02 05:38:10  nano
+ *	gcc 4.0 fixes
+ *	
+ *	Revision 1.30.94.1  2005/04/19 04:52:58  nano
+ *	Fixes to compile with gcc 4.0
+ *	
  *	Revision 1.30  2004/05/17 21:42:00  nano
  *	Made the Device and Interface User Clients subclassable.
  *	
@@ -116,6 +143,7 @@ struct IOUSBInterfaceUserClientISOAsyncParamBlock {
     void *                      frameBase;	// In user task
     IOMemoryDescriptor *        dataMem;
     IOMemoryDescriptor *        countMem;
+	UInt32						numFrames;
     IOUSBIsocFrame              frames[0];
 };
 
@@ -123,14 +151,16 @@ typedef struct IOUSBLowLatencyUserClientBufferInfo  IOUSBLowLatencyUserClientBuf
 
 struct IOUSBLowLatencyUserClientBufferInfo
 {
-    UInt32				cookie;
-    UInt32				bufferType;
-    void *				bufferAddress;
-    UInt32				bufferSize;
-    IOMemoryDescriptor *		bufferDescriptor;
-    IOMemoryDescriptor *		frameListDescriptor;
-    IOMemoryMap *			frameListMap;
-    IOVirtualAddress			frameListKernelAddress;
+    UInt32									cookie;
+    UInt32									bufferType;
+    void *									bufferAddress;
+    UInt32									bufferSize;
+    IOMemoryDescriptor *					bufferDescriptor;
+    IOMemoryDescriptor *					frameListDescriptor;
+    IOMemoryMap *							frameListMap;
+    IOVirtualAddress						frameListKernelAddress;
+	IOBufferMemoryDescriptor *				writeDescritporForUHCI;
+	IOMemoryMap *							writeMapForUHCI;
     IOUSBLowLatencyUserClientBufferInfo * 	nextBuffer;
 };
 
@@ -170,7 +200,7 @@ public:
     void                                SetFrameBase(void * frameBase)              { fFrameBase = frameBase; }
     void                                SetDataBuffer(IOMemoryDescriptor * dataMem) { fDataBufferDescriptor = dataMem; }
 
-    void                                GetAsyncReference(OSAsyncReference *ref)    { *ref = fAsyncRef; }
+	void                                GetAsyncReference(OSAsyncReference *ref)    { bcopy (&fAsyncRef, ref, kOSAsyncRefCount * sizeof(natural_t)); }
     IOByteCount                         GetFrameLength(void)                        { return fFrameLength; }
     void *                              GetFrameBase(void)                          { return fFrameBase; }
     IOMemoryDescriptor *                GetDataBuffer(void)                         { return fDataBufferDescriptor; }
@@ -212,24 +242,26 @@ class IOUSBInterfaceUserClient : public IOUserClient
     OSDeclareDefaultStructors(IOUSBInterfaceUserClient)
 
 private:
-    IOUSBInterface *			        fOwner;
-    task_t				        fTask;
-    mach_port_t 			        fWakePort;
+    IOUSBInterface *							fOwner;
+    task_t										fTask;
+    mach_port_t									fWakePort;
     const IOExternalMethod *                    fMethods;
     const IOExternalAsyncMethod *               fAsyncMethods;
     IOCommandGate *                             fGate;
     IOWorkLoop	*                               fWorkLoop;
-    IOUSBLowLatencyUserClientBufferInfo *	fUserClientBufferInfoListHead;
+    IOUSBLowLatencyUserClientBufferInfo *		fUserClientBufferInfoListHead;
     IOCommandPool *                             fFreeUSBLowLatencyCommandPool;
-    UInt32				        fNumMethods;
-    UInt32				        fNumAsyncMethods;
-    UInt32				        fOutstandingIO;
+    UInt32										fNumMethods;
+    UInt32										fNumAsyncMethods;
+    UInt32										fOutstandingIO;
     bool                                        fDead;
     bool                                        fNeedToClose;
     UInt32                                      fCurrentSizeOfCommandPool;
 
     struct IOUSBInterfaceUserClientExpansionData 
     {
+		bool									clientRunningUnderRosetta;				// True if our user space client is running PPC code under Rosetta
+		bool									needContiguousMemoryForLowLatencyIsoch;
     };
     
     IOUSBInterfaceUserClientExpansionData *        fIOUSBInterfaceUserClientExpansionData;
@@ -256,7 +288,7 @@ public:
 
     // IOUserClient methods
     //
-    virtual bool                                initWithTask(task_t owningTask, void *security_id, UInt32 type);
+    virtual bool								initWithTask(task_t owningTask, void *security_id, UInt32 type, OSDictionary *properties);
     virtual IOExternalMethod *                  getTargetAndMethodForIndex(IOService **target, UInt32 index);
     virtual IOExternalAsyncMethod *             getAsyncTargetAndMethodForIndex(IOService **target, UInt32 index);
     virtual IOReturn                            clientClose( void );
@@ -324,8 +356,8 @@ public:
 
     // Low Latency Buffer methods
     //
-    virtual IOReturn                            LowLatencyPrepareBuffer(LowLatencyUserBufferInfo *dataBuffer);
-    virtual IOReturn                            LowLatencyReleaseBuffer(LowLatencyUserBufferInfo *dataBuffer);
+    virtual IOReturn                            LowLatencyPrepareBuffer(LowLatencyUserBufferInfoV2 *bufferData, UInt32 * addrOut, IOByteCount inCount, IOByteCount *outCount);
+    virtual IOReturn                            LowLatencyReleaseBuffer(LowLatencyUserBufferInfoV2 *dataBuffer);
     virtual void                                AddDataBufferToList( IOUSBLowLatencyUserClientBufferInfo * insertBuffer );
     virtual IOUSBLowLatencyUserClientBufferInfo *	FindBufferCookieInList( UInt32 cookie);
     virtual bool                                RemoveDataBufferFromList( IOUSBLowLatencyUserClientBufferInfo *removeBuffer);

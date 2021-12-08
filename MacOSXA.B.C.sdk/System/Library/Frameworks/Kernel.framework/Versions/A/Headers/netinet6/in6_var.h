@@ -447,4 +447,4 @@ struct kev_in6_data {
 #define IN6_ARE_SCOPE_EQUAL(a,b) ((a)==(b))
 
 
-#endif _NETINET6_IN6_VAR_H_
+#endif /* _NETINET6_IN6_VAR_H_ */

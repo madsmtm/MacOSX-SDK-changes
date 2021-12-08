@@ -4,7 +4,7 @@
      Contains:   Master include for vecLib framework
  
      Version:    Technology: MacOS X
-                 Release:    vecLib-176~4
+                 Release:    vecLib-182.18~156
  
      Copyright:  © 2000-2005 by Apple Computer, Inc., all rights reserved.
  

@@ -7,10 +7,6 @@
 #define __KERBEROSPROFILE__
 
 /* Environment dependent macros */
-#define SIZEOF_INT 4
-#define SIZEOF_LONG 4
-#define SIZEOF_SHORT 2
-
 
 /* Error tables from prof_err.h */
 #define initialize_prof_error_table()
@@ -172,4 +168,4 @@ long KRB5_CALLCONV profile_add_relation
 #endif /* __cplusplus */
 
 #endif /* _KRB5_PROFILE_H */
-#endif /* __KERBEROSPROFILE__  */
+#endif /* __KERBEROSPROFILE__ */

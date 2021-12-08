@@ -56,17 +56,8 @@ extern "C" {
 #ifndef __MACTYPES__	/* CF MacTypes.h */
 #ifndef __TYPES__	/* guess... Mac Types.h */
 
+#include <stdbool.h>
 #include <libkern/OSTypes.h>
-
-#ifndef __cplusplus
-#if !TYPE_BOOL
-typedef int	bool;
-enum {
-    false	= 0,
-    true	= 1
-};
-#endif
-#endif
 
 #endif /* __TYPES__ */
 #endif /* __MACTYPES__ */

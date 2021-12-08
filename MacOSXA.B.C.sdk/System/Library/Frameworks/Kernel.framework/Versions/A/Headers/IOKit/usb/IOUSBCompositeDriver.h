@@ -26,6 +26,12 @@
 /*
  *
  *	$Log: IOUSBCompositeDriver.h,v $
+ *	Revision 1.5  2005/09/23 19:24:17  nano
+ *	Bring in changes from DillDenverBranch into TOT
+ *	
+ *	Revision 1.4.176.2  2005/09/21 16:57:08  nano
+ *	Turns out that hubs will keep their ports suspended on wake, so all we need to do is suspend them at start if the property exists
+ *	
  *	Revision 1.4  2004/06/04 04:03:49  nano
  *	Fix rdar://3658665 where ReConfigureDevice() was using an united variable
  *	
@@ -88,9 +94,9 @@ class IOUSBCompositeDriver : public IOService
     
 public:
         
-    // IOService Methods
-    //
-    virtual bool            start(IOService * provider);
+		// IOService Methods
+		//
+		virtual bool            start(IOService * provider);
     virtual IOReturn        message( UInt32 type, IOService * provider,  void * argument = 0 );
     virtual bool            willTerminate( IOService * provider, IOOptionBits options );
     virtual bool            didTerminate( IOService * provider, IOOptionBits options, bool * defer );
@@ -100,7 +106,7 @@ public:
     virtual bool            ConfigureDevice();
     virtual IOReturn        ReConfigureDevice();
     /*!
-     @function SetConfiguration
+		@function SetConfiguration
      @abstract Call IOUSBDevice to do a SetConfiguration call to the device.
      @param configValue The desired configuration value.
      @param startInterfaceMatching A boolean specifying whether IOKit should begin the process of finding
@@ -114,7 +120,7 @@ public:
     UInt8                               GetConfigValue()            { return fConfigValue; }
     UInt8                               GetConfigbmAttributes()     { return fConfigbmAttributes; }
     IONotifier *                        GetNotifier()               { return fNotifier; }
-
+	
     OSMetaClassDeclareReservedUnused(IOUSBCompositeDriver,  0);
     OSMetaClassDeclareReservedUnused(IOUSBCompositeDriver,  1);
     OSMetaClassDeclareReservedUnused(IOUSBCompositeDriver,  2);

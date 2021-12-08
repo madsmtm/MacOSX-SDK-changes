@@ -3,7 +3,7 @@
  
      Contains:   SearchKit Interfaces.
  
-     Version:    SearchKit-141~4
+     Version:    SearchKit-147.2~100
  
      Copyright:  © 2003-2005 by Apple Computer, Inc., all rights reserved
  

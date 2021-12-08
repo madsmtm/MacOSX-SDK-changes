@@ -125,4 +125,4 @@ struct ipsecstat {
 
 
 
-#endif _NETINET6_IPSEC_H_
+#endif /* _NETINET6_IPSEC_H_ */

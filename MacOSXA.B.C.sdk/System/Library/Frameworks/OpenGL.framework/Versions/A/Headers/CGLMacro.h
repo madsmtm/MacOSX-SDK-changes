@@ -1787,7 +1787,7 @@
 #define glStencilMaskSeparate(face, mask) \
 	(*(CGL_MACRO_CONTEXT)->disp.stencil_mask_separate)(CGL_MACRO_CONTEXT_RENDERER, face, mask)
 
-
+#define glBlendEquationSeparate glBlendEquationSeparateEXT
 
 /********** ARB Extensions *************************************************/
 
@@ -2309,6 +2309,58 @@
 
 /* GL_EXT_blend_minmax */
 #define glBlendEquationEXT glBlendEquation
+
+/* GL_EXT_framebuffer_object */
+#define glIsRenderbufferEXT(renderbuffer) \
+	(*(CGL_MACRO_CONTEXT)->disp.is_renderbuffer_EXT)(CGL_MACRO_CONTEXT_RENDERER, renderbuffer)
+
+#define glBindRenderbufferEXT(target, renderbuffer) \
+	(*(CGL_MACRO_CONTEXT)->disp.bind_renderbuffer_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, renderbuffer)
+
+#define glDeleteRenderbuffersEXT(n, renderbuffers) \
+	(*(CGL_MACRO_CONTEXT)->disp.delete_renderbuffers_EXT)(CGL_MACRO_CONTEXT_RENDERER, n, renderbuffers)
+
+#define glGenRenderbuffersEXT(n, renderbuffers) \
+	(*(CGL_MACRO_CONTEXT)->disp.gen_renderbuffers_EXT)(CGL_MACRO_CONTEXT_RENDERER, n, renderbuffers)
+
+#define glRenderbufferStorageEXT(target, internalformat, width, height) \
+	(*(CGL_MACRO_CONTEXT)->disp.renderbuffer_storage_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, internalformat, width, height)
+
+#define glGetRenderbufferParameterivEXT(target, pname, params) \
+	(*(CGL_MACRO_CONTEXT)->disp.get_renderbuffer_parameteriv_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, pname, params)
+
+#define glIsFramebufferEXT(framebuffer) \
+	(*(CGL_MACRO_CONTEXT)->disp.is_framebuffer_EXT)(CGL_MACRO_CONTEXT_RENDERER, framebuffer)
+
+#define glBindFramebufferEXT(target, framebuffer) \
+	(*(CGL_MACRO_CONTEXT)->disp.bind_framebuffer_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, framebuffer)
+
+#define glDeleteFramebuffersEXT(n, framebuffers) \
+	(*(CGL_MACRO_CONTEXT)->disp.delete_framebuffers_EXT)(CGL_MACRO_CONTEXT_RENDERER, n, framebuffers)
+
+#define glGenFramebuffersEXT(n, framebuffers) \
+	(*(CGL_MACRO_CONTEXT)->disp.gen_framebuffers_EXT)(CGL_MACRO_CONTEXT_RENDERER, n, framebuffers)
+
+#define glCheckFramebufferStatusEXT(target) \
+	(*(CGL_MACRO_CONTEXT)->disp.check_framebuffer_status_EXT)(CGL_MACRO_CONTEXT_RENDERER, target)
+
+#define glFramebufferTexture1DEXT(target, attachment, textarget, texture, level) \
+	(*(CGL_MACRO_CONTEXT)->disp.framebuffer_texture1D_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, attachment, textarget, texture, level)
+
+#define glFramebufferTexture2DEXT(target, attachment, textarget, texture, level) \
+	(*(CGL_MACRO_CONTEXT)->disp.framebuffer_texture2D_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, attachment, textarget, texture, level)
+
+#define glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset) \
+	(*(CGL_MACRO_CONTEXT)->disp.framebuffer_texture3D_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, attachment, textarget, texture, level, zoffset)
+
+#define glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer) \
+	(*(CGL_MACRO_CONTEXT)->disp.framebuffer_renderbuffer_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, attachment, renderbuffertarget, renderbuffer)
+
+#define glGetFramebufferAttachmentParameterivEXT(target, attachment, pname, params) \
+	(*(CGL_MACRO_CONTEXT)->disp.get_framebuffer_attachment_parameteriv_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, attachment, pname, params)
+
+#define glGenerateMipmapEXT(target) \
+	(*(CGL_MACRO_CONTEXT)->disp.generate_mipmap_EXT)(CGL_MACRO_CONTEXT_RENDERER, target)
 
 /*********** APPLE Extensions ***********************************************/
 

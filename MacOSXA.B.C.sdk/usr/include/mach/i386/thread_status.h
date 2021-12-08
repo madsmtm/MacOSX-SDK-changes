@@ -64,8 +64,7 @@
 #include <mach/message.h>
 #include <mach/i386/fp_reg.h>
 #include <mach/i386/thread_state.h>
-#include <architecture/i386/frame.h>	/* FIXME */
-#include <architecture/i386/fpu.h>	/* FIXME */
+#include <i386/eflags.h>
 /*
  *	i386_thread_state	this is the structure that is exported
  *				to user threads for use in status/mutate
@@ -76,23 +75,20 @@
  *				floating point registers. Try not to 
  *				change this one, either.
  *
- *	i386_isa_port_map_state	exported to user threads to allow
- *				selective in/out operations
- *
- * 	i386_v86_assist_state 
- *
- *	thread_syscall_state 
  */
 
 /*     THREAD_STATE_FLAVOR_LIST 0 */
-#define i386_NEW_THREAD_STATE	1	/* used to be i386_THREAD_STATE */
-#define i386_FLOAT_STATE	2
-#define i386_ISA_PORT_MAP_STATE	3
-#define i386_V86_ASSIST_STATE	4
-#define i386_REGS_SEGS_STATE	5
-#define THREAD_SYSCALL_STATE	6
-#define THREAD_STATE_NONE	7
-#define i386_SAVED_STATE	8
+#define i386_THREAD_STATE		1
+#define i386_FLOAT_STATE		2
+#define i386_EXCEPTION_STATE	3
+#define THREAD_STATE_NONE		4
+
+
+/*
+ * Largest state on this machine:
+ * (be sure mach/machine/thread_state.h matches!)
+ */
+#define THREAD_MACHINE_STATE_MAX	THREAD_STATE_MAX
 
 
 /*
@@ -101,211 +97,12 @@
  * platform. The macro must be manually updated to include all of the valid
  * exception flavors as defined above.
  */
-#define VALID_THREAD_STATE_FLAVOR(x)            \
-        ((x == i386_NEW_THREAD_STATE)        || \
+#define VALID_THREAD_STATE_FLAVOR(x)        \
+	 ((x == i386_THREAD_STATE)           || \
 	 (x == i386_FLOAT_STATE)             || \
-	 (x == i386_ISA_PORT_MAP_STATE)      || \
-	 (x == i386_V86_ASSIST_STATE)        || \
-	 (x == i386_REGS_SEGS_STATE)         || \
-	 (x == THREAD_SYSCALL_STATE)         || \
-	 (x == THREAD_STATE_NONE)            || \
-	 (x == i386_SAVED_STATE))
+	 (x == i386_EXCEPTION_STATE)		 || \
+	 (x == THREAD_STATE_NONE))
 
-/*
- * This structure is used for both
- * i386_THREAD_STATE and i386_REGS_SEGS_STATE.
- */
-struct i386_new_thread_state {
-	unsigned int	gs;
-	unsigned int	fs;
-	unsigned int	es;
-	unsigned int	ds;
-	unsigned int	edi;
-	unsigned int	esi;
-	unsigned int	ebp;
-	unsigned int	esp;
-	unsigned int	ebx;
-	unsigned int	edx;
-	unsigned int	ecx;
-	unsigned int	eax;
-	unsigned int	eip;
-	unsigned int	cs;
-	unsigned int	efl;
-	unsigned int	uesp;
-	unsigned int	ss;
-};
-#define i386_NEW_THREAD_STATE_COUNT	((mach_msg_type_number_t) \
-		(sizeof (struct i386_new_thread_state)/sizeof(unsigned int)))
-
-/*
- * Subset of saved state stored by processor on kernel-to-kernel
- * trap.  (Used by ddb to examine state guaranteed to be present
- * on all traps into debugger.)
- */
-struct i386_saved_state_from_kernel {
-	unsigned int	gs;
-	unsigned int	fs;
-	unsigned int	es;
-	unsigned int	ds;
-	unsigned int	edi;
-	unsigned int	esi;
-	unsigned int	ebp;
-	unsigned int	esp;		/* kernel esp stored by pusha -
-					   we save cr2 here later */
-	unsigned int	ebx;
-	unsigned int	edx;
-	unsigned int	ecx;
-	unsigned int	eax;
-	unsigned int	trapno;
-	unsigned int	err;
-	unsigned int	eip;
-	unsigned int	cs;
-	unsigned int	efl;
-};
-
-/*
- * The format in which thread state is saved by Mach on this machine.  This
- * state flavor is most efficient for exception RPC's to kernel-loaded
- * servers, because copying can be avoided:
- */
-struct i386_saved_state {
-	unsigned int	gs;
-	unsigned int	fs;
-	unsigned int	es;
-	unsigned int	ds;
-	unsigned int	edi;
-	unsigned int	esi;
-	unsigned int	ebp;
-	unsigned int	esp;		/* kernel esp stored by pusha -
-					   we save cr2 here later */
-	unsigned int	ebx;
-	unsigned int	edx;
-	unsigned int	ecx;
-	unsigned int	eax;
-	unsigned int	trapno;
-	unsigned int	err;
-	unsigned int	eip;
-	unsigned int	cs;
-	unsigned int	efl;
-	unsigned int	uesp;
-	unsigned int	ss;
-	struct v86_segs {
-	    unsigned int v86_es;	/* virtual 8086 segment registers */
-	    unsigned int v86_ds;
-	    unsigned int v86_fs;
-	    unsigned int v86_gs;
-	} v86_segs;
-#define i386_SAVED_ARGV_COUNT	7
-	unsigned int	argv_status;	/* Boolean flag indicating whether or
-					 * not Mach copied in the args */
-	unsigned int	argv[i386_SAVED_ARGV_COUNT];
-					/* The return address, and the first several
-					 * function call args from the stack, for
-					 * efficient syscall exceptions */
-};
-#define i386_SAVED_STATE_COUNT	((mach_msg_type_number_t) \
-	(sizeof (struct i386_saved_state)/sizeof(unsigned int)))
-#define i386_REGS_SEGS_STATE_COUNT	i386_SAVED_STATE_COUNT
-
-/*
- * Machine-independent way for servers and Mach's exception mechanism to
- * choose the most efficient state flavor for exception RPC's:
- */
-#define MACHINE_THREAD_STATE		i386_SAVED_STATE
-#define MACHINE_THREAD_STATE_COUNT	144
-
-/*
- * Largest state on this machine:
- * (be sure mach/machine/thread_state.h matches!)
- */
-#define THREAD_MACHINE_STATE_MAX	THREAD_STATE_MAX
-
-/* 
- * Floating point state.
- *
- * fpkind tells in what way floating point operations are supported.  
- * See the values for fp_kind in <mach/i386/fp_reg.h>.
- * 
- * If the kind is FP_NO, then calls to set the state will fail, and 
- * thread_getstatus will return garbage for the rest of the state.
- * If "initialized" is false, then the rest of the state is garbage.  
- * Clients can set "initialized" to false to force the coprocessor to 
- * be reset.
- * "exc_status" is non-zero if the thread has noticed (but not 
- * proceeded from) a coprocessor exception.  It contains the status 
- * word with the exception bits set.  The status word in "fp_status" 
- * will have the exception bits turned off.  If an exception bit in 
- * "fp_status" is turned on, then "exc_status" should be zero.  This 
- * happens when the coprocessor exception is noticed after the system 
- * has context switched to some other thread.
- * 
- * If kind is FP_387, then "state" is a i387_state.  Other kinds might
- * also use i387_state, but somebody will have to verify it (XXX).
- * Note that the registers are ordered from top-of-stack down, not
- * according to physical register number.
- */
-
-#define FP_STATE_BYTES 512
-
-struct i386_float_state {
-	int		fpkind;			/* FP_NO..FP_387 (readonly) */
-	int		initialized;
-	unsigned char	hw_state[FP_STATE_BYTES]; /* actual "hardware" state */
-	int		exc_status;		/* exception status (readonly) */
-};
-#define i386_FLOAT_STATE_COUNT ((mach_msg_type_number_t) \
-		(sizeof(struct i386_float_state)/sizeof(unsigned int)))
-
-
-#define FP_old_STATE_BYTES ((mach_msg_type_number_t) \
-	(sizeof (struct i386_fp_save) + sizeof (struct i386_fp_regs)))
-
-struct i386_old_float_state {
-	int		fpkind;			/* FP_NO..FP_387 (readonly) */
-	int		initialized;
-	unsigned char	hw_state[FP_old_STATE_BYTES]; /* actual "hardware" state */
-	int		exc_status;		/* exception status (readonly) */
-};
-#define i386_old_FLOAT_STATE_COUNT ((mach_msg_type_number_t) \
-		(sizeof(struct i386_old_float_state)/sizeof(unsigned int)))
-
-
-#define PORT_MAP_BITS 0x400
-struct i386_isa_port_map_state {
-	unsigned char	pm[PORT_MAP_BITS>>3];
-};
-
-#define i386_ISA_PORT_MAP_STATE_COUNT ((mach_msg_type_number_t) \
-		(sizeof(struct i386_isa_port_map_state)/sizeof(unsigned int)))
-
-/*
- * V8086 assist supplies a pointer to an interrupt
- * descriptor table in task space.
- */
-struct i386_v86_assist_state {
-	unsigned int	int_table;	/* interrupt table address */
-	int		int_count;	/* interrupt table size */
-};
-
-struct v86_interrupt_table {
-	unsigned int	count;	/* count of pending interrupts */
-	unsigned short	mask;	/* ignore this interrupt if true */
-	unsigned short	vec;	/* vector to take */
-};
-
-#define	i386_V86_ASSIST_STATE_COUNT ((mach_msg_type_number_t) \
-	    (sizeof(struct i386_v86_assist_state)/sizeof(unsigned int)))
-
-struct thread_syscall_state {
-	unsigned eax;
-	unsigned edx;
-	unsigned efl;
-	unsigned eip;
-	unsigned esp;
-};
-
-#define i386_THREAD_SYSCALL_STATE_COUNT ((mach_msg_type_number_t) \
-		(sizeof(struct thread_syscall_state) / sizeof(unsigned int)))
 
 /*
  * Main thread state consists of
@@ -313,9 +110,7 @@ struct thread_syscall_state {
  * eip and eflags.
  */
 
-#define i386_THREAD_STATE	-1
-
-typedef struct {
+struct i386_thread_state {
     unsigned int	eax;
     unsigned int	ebx;
     unsigned int	ecx;
@@ -332,8 +127,9 @@ typedef struct {
     unsigned int	es;
     unsigned int	fs;
     unsigned int	gs;
-} i386_thread_state_t;
+} ;
 
+typedef struct i386_thread_state i386_thread_state_t;
 #define i386_THREAD_STATE_COUNT	((mach_msg_type_number_t) \
     ( sizeof (i386_thread_state_t) / sizeof (int) ))
 
@@ -346,49 +142,134 @@ typedef struct {
 #define KERN_CODE_SELECTOR	0x0008
 #define KERN_DATA_SELECTOR	0x0010
 
+typedef struct fp_control {
+    unsigned short		invalid	:1,
+    				denorm	:1,
+				zdiv	:1,
+				ovrfl	:1,
+				undfl	:1,
+				precis	:1,
+					:2,
+				pc	:2,
+#define FP_PREC_24B		0
+#define	FP_PREC_53B		2
+#define FP_PREC_64B		3
+				rc	:2,
+#define FP_RND_NEAR		0
+#define FP_RND_DOWN		1
+#define FP_RND_UP		2
+#define FP_CHOP			3
+				/*inf*/	:1,
+					:3;
+} fp_control_t;
 /*
- * Thread floating point state
- * includes FPU environment as
- * well as the register stack.
+ * Status word.
  */
- 
-#define i386_THREAD_FPSTATE	-2
 
-typedef struct {
-    fp_env_t		environ;
-    fp_stack_t		stack;
-} i386_thread_fpstate_t;
+typedef struct fp_status {
+    unsigned short		invalid	:1,
+    				denorm	:1,
+				zdiv	:1,
+				ovrfl	:1,
+				undfl	:1,
+				precis	:1,
+				stkflt	:1,
+				errsumm	:1,
+				c0	:1,
+				c1	:1,
+				c2	:1,
+				tos	:3,
+				c3	:1,
+				busy	:1;
+} fp_status_t;
+				
+/* defn of 80bit x87 FPU or MMX register  */
+struct mmst_reg {
+	char	mmst_reg[10];
+	char	mmst_rsrv[6];
+};
 
-#define i386_THREAD_FPSTATE_COUNT ((mach_msg_type_number_t)	\
-    ( sizeof (i386_thread_fpstate_t) / sizeof (int) ))
 
+/* defn of 128 bit XMM regs */
+struct xmm_reg {
+	char		xmm_reg[16];
+};
+
+/* 
+ * Floating point state.
+ */
+
+#define FP_STATE_BYTES		512	/* number of chars worth of data from fpu_fcw */
+
+/* For legacy reasons we need to leave the hw_state as char bytes */
+struct i386_float_state {
+	int 			fpu_reserved[2];
+	fp_control_t	fpu_fcw;			/* x87 FPU control word */
+	fp_status_t		fpu_fsw;			/* x87 FPU status word */
+	uint8_t			fpu_ftw;			/* x87 FPU tag word */
+	uint8_t			fpu_rsrv1;			/* reserved */ 
+	uint16_t		fpu_fop;			/* x87 FPU Opcode */
+	uint32_t		fpu_ip;				/* x87 FPU Instruction Pointer offset */
+	uint16_t		fpu_cs;				/* x87 FPU Instruction Pointer Selector */
+	uint16_t		fpu_rsrv2;			/* reserved */
+	uint32_t		fpu_dp;				/* x87 FPU Instruction Operand(Data) Pointer offset */
+	uint16_t		fpu_ds;				/* x87 FPU Instruction Operand(Data) Pointer Selector */
+	uint16_t		fpu_rsrv3;			/* reserved */
+	uint32_t		fpu_mxcsr;			/* MXCSR Register state */
+	uint32_t		fpu_mxcsrmask;		/* MXCSR mask */
+	struct mmst_reg	fpu_stmm0;		/* ST0/MM0   */
+	struct mmst_reg	fpu_stmm1;		/* ST1/MM1  */
+	struct mmst_reg	fpu_stmm2;		/* ST2/MM2  */
+	struct mmst_reg	fpu_stmm3;		/* ST3/MM3  */
+	struct mmst_reg	fpu_stmm4;		/* ST4/MM4  */
+	struct mmst_reg	fpu_stmm5;		/* ST5/MM5  */
+	struct mmst_reg	fpu_stmm6;		/* ST6/MM6  */
+	struct mmst_reg	fpu_stmm7;		/* ST7/MM7  */
+	struct xmm_reg	fpu_xmm0;		/* XMM 0  */
+	struct xmm_reg	fpu_xmm1;		/* XMM 1  */
+	struct xmm_reg	fpu_xmm2;		/* XMM 2  */
+	struct xmm_reg	fpu_xmm3;		/* XMM 3  */
+	struct xmm_reg	fpu_xmm4;		/* XMM 4  */
+	struct xmm_reg	fpu_xmm5;		/* XMM 5  */
+	struct xmm_reg	fpu_xmm6;		/* XMM 6  */
+	struct xmm_reg	fpu_xmm7;		/* XMM 7  */
+	char			fpu_rsrv4[14*16];	/* reserved */
+	int 			fpu_reserved1;
+};
+
+
+#define i386_FLOAT_STATE_COUNT ((mach_msg_type_number_t) \
+		(sizeof(struct i386_float_state)/sizeof(unsigned int)))
+		
+typedef struct i386_float_state i386_float_state_t;
+	 
 /*
  * Extra state that may be
  * useful to exception handlers.
  */
 
-#define i386_THREAD_EXCEPTSTATE	-3
 
-typedef struct {
+struct i386_exception_state {
     unsigned int	trapno;
-    err_code_t		err;
-} i386_thread_exceptstate_t;
+    unsigned int	err;
+    unsigned int	faultvaddr;
+};
 
-#define i386_THREAD_EXCEPTSTATE_COUNT	((mach_msg_type_number_t) \
-    ( sizeof (i386_thread_exceptstate_t) / sizeof (int) ))
+typedef struct i386_exception_state i386_exception_state_t;
+
+#define i386_EXCEPTION_STATE_COUNT	((mach_msg_type_number_t) \
+    ( sizeof (i386_exception_state_t) / sizeof (int) ))
+
+#define I386_EXCEPTION_STATE_COUNT i386_EXCEPTION_STATE_COUNT
 
 /*
- * Per-thread variable used
- * to store 'self' id for cthreads.
+ * Machine-independent way for servers and Mach's exception mechanism to
+ * choose the most efficient state flavor for exception RPC's:
  */
- 
-#define i386_THREAD_CTHREADSTATE	-4
- 
-typedef struct {
-    unsigned int	self;
-} i386_thread_cthreadstate_t;
+#define MACHINE_THREAD_STATE		i386_THREAD_STATE
+#define MACHINE_THREAD_STATE_COUNT	i386_THREAD_STATE_COUNT
 
-#define i386_THREAD_CTHREADSTATE_COUNT	((mach_msg_type_number_t) \
-    ( sizeof (i386_thread_cthreadstate_t) / sizeof (int) ))
+
+
 
 #endif	/* _MACH_I386_THREAD_STATUS_H_ */

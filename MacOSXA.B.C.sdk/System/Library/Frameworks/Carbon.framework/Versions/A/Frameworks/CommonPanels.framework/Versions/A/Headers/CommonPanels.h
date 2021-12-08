@@ -3,7 +3,7 @@
  
      Contains:   Master include for CommonPanels framework
  
-     Version:    CommonPanels-73~727
+     Version:    CommonPanels-73.2~176
  
      Copyright:  © 2000-2005 by Apple Computer, Inc., all rights reserved.
  

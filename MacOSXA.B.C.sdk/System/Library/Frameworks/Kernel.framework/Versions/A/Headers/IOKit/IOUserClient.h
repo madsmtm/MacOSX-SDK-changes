@@ -137,6 +137,8 @@ public:
     static IOReturn clientHasPrivilege( void * securityToken,
                                         const char * privilegeName );
 
+    virtual bool init();
+    virtual bool init( OSDictionary * dictionary );
     // Currently ignores the all args, just passes up to IOService::init()
     virtual bool initWithTask(
                     task_t owningTask, void * securityToken, UInt32 type,

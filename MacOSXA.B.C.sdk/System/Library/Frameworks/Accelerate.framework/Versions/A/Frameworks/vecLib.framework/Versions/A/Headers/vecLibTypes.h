@@ -4,7 +4,7 @@
      Contains:   Master include for vecLib framework
  
      Version:    Technology: MacOS X
-                 Release:    vecLib-176~4
+                 Release:    vecLib-182.18~156
  
      Copyright:  © 2000-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -39,25 +39,63 @@ typedef vector bool int vBool32;
 #endif  /* defined(__VEC__) */
 
 #elif defined(__i386__)
-#if defined(__GNUC__) && defined(__GNUC_MINOR__) && (__GNUC__ <= 3) && (__GNUC_MINOR__ <= 3)
-typedef int __m128i __attribute__((vector_size (16)));
+#ifdef __SSE__
+#if defined(__GNUC__)
+#if defined(__GNUC_MINOR__) && (((__GNUC__ == 3) && (__GNUC_MINOR__ <= 3)) || (__GNUC__ < 3))
 typedef int __m128 __attribute__((vector_size (16)));
 #else /* gcc-3.5 or later */
-#ifdef __SSE2__
 #include <xmmintrin.h>
-#else
-#error Must specify -march=pentium4 -msse2 with gcc-3.5 or later
-#endif  /* defined(__SSE2__) */
-
 #endif /* __GNUC__ */
+typedef float                   vFloat          __attribute__ ((__vector_size__ (16)));
+#else /* not __GNUC__ */
+#include <xmmintrin.h>
+typedef __m128                          vFloat;
+#endif /* __GNUC__ */
+#endif  /* defined(__SSE__) */
+
+#ifdef __SSE2__
+#if defined(__GNUC__)
+#if defined(__GNUC_MINOR__) && (((__GNUC__ == 3) && (__GNUC_MINOR__ <= 3)) || (__GNUC__ < 3))
+typedef int __m128i __attribute__((vector_size (16)));
+typedef int __m128d __attribute__((vector_size (16)));
+typedef __m128i vUInt8;
+typedef __m128i vSInt8;
+typedef __m128i vUInt16;
+typedef __m128i vSInt16;
+typedef __m128i vUInt32;
+typedef __m128i vSInt32;
+typedef __m128i vBool32;
+typedef __m128i vUInt64;
+typedef __m128i vSInt64;
+typedef __m128d vDouble;
+#else /* gcc-3.5 or later */
+#include <xmmintrin.h>
+typedef unsigned char           vUInt8          __attribute__ ((__vector_size__ (16)));
+typedef char                    vSInt8          __attribute__ ((__vector_size__ (16)));
+typedef unsigned short          vUInt16         __attribute__ ((__vector_size__ (16)));
+typedef short                   vSInt16         __attribute__ ((__vector_size__ (16)));
+typedef unsigned int            vUInt32         __attribute__ ((__vector_size__ (16)));
+typedef int                     vSInt32         __attribute__ ((__vector_size__ (16)));
+typedef unsigned int            vBool32         __attribute__ ((__vector_size__ (16)));
+typedef unsigned long long      vUInt64         __attribute__ ((__vector_size__ (16)));
+typedef long long               vSInt64         __attribute__ ((__vector_size__ (16)));
+typedef double                  vDouble         __attribute__ ((__vector_size__ (16)));
+#endif /* __GNUC__ <= 3.3 */
+#else /* not __GNUC__ */
+#include <xmmintrin.h>
 typedef __m128i                         vUInt8;
 typedef __m128i                         vSInt8;
 typedef __m128i                         vUInt16;
 typedef __m128i                         vSInt16;
 typedef __m128i                         vUInt32;
 typedef __m128i                         vSInt32;
-typedef __m128                          vFloat;
 typedef __m128i                         vBool32;
+typedef __m128i                         vUInt64;
+typedef __m128i                         vSInt64;
+typedef __m128d                         vDouble;
+#endif /* __GNUC__ */
+#endif  /* defined(__SSE2__) */
+
 #else
 #error Unknown architecture
 #endif  /*  */

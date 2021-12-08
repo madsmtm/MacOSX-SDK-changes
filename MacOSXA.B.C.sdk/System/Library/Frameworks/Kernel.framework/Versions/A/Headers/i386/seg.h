@@ -87,21 +87,14 @@ selector_to_sel(uint16_t selector)
     return (tconv.sel);
 }
 
-#define	LDTSZ		15		/* size of the kernel ldt in entries*/
+#define LDTSZ		8192		/* size of the kernel ldt in entries */
+#define	LDTSZ_MIN	17		/* kernel ldt entries used by the system */
 
 #if	MACH_KDB
-#ifdef MACH_BSD
-#define	GDTSZ		14
+#define	GDTSZ		17
 #else
-#define	GDTSZ		11
+#define	GDTSZ		16
 #endif
-#else	/* MACH_KDB */
-#ifdef	MACH_BSD
-#define	GDTSZ		13
-#else
-#define	GDTSZ		10
-#endif
-#endif	/* MACH_KDB */
 
 /*
  * Interrupt table is always 256 entries long.
@@ -150,17 +143,22 @@ struct fake_descriptor {
 /*
  * Boot-time data for master (or only) CPU
  */
-extern struct fake_descriptor	idt[IDTSZ];
-extern struct fake_descriptor	gdt[GDTSZ];
-extern struct fake_descriptor	ldt[LDTSZ];
-extern struct i386_tss		ktss;
+extern struct fake_descriptor	master_idt[IDTSZ];
+extern struct fake_descriptor	master_gdt[GDTSZ];
+extern struct fake_descriptor	master_ldt[LDTSZ];
+extern struct i386_tss		master_ktss;
 
 __BEGIN_DECLS
+
+extern char			df_task_stack[];
+extern char			df_task_stack_end[];
+extern struct i386_tss		master_dftss;
+extern void			df_task_start(void);
 
 #if	MACH_KDB
 extern char			db_stack_store[];
 extern char			db_task_stack_store[];
-extern struct i386_tss		dbtss;
+extern struct i386_tss		master_dbtss;
 extern void			db_task_start(void);
 #endif	/* MACH_KDB */
 
@@ -223,10 +221,12 @@ __END_DECLS
  */
 #define	USER_SCALL	0x07		/* system call gate */
 #define	USER_RPC	0x0f		/* mach rpc call gate */
-#define	USER_CS		0x17		/* user code segment */
-#define	USER_DS		0x1f		/* user data segment */
-#define	USER_CTHREAD	0x27		/* user cthread area */
-#define	USER_SETTABLE	0x2f		/* start of user settable ldt entries */
+#define	SYSENTER_CS	0x17		/* sysenter kernel code segment */
+#define	SYSENTER_DS	0x1f		/* sysenter kernel data segment */
+#define	USER_CS		0x27		/* user code segment */
+#define	USER_DS		0x2f		/* user data segment */
+#define	USER_CTHREAD	0x37		/* user cthread area */
+#define	USER_SETTABLE	0x3f		/* start of user settable ldt entries */
 #define	USLDTSZ		10		/* number of user settable entries */
 
 /*
@@ -236,28 +236,38 @@ __END_DECLS
 #define	KERNEL_DS	0x10		/* kernel data */
 #define	KERNEL_LDT	0x18		/* master LDT */
 #define	KERNEL_TSS	0x20		/* master TSS (uniprocessor) */
-#ifdef	MACH_BSD
+
 #define	BSD_SCALL_SEL	0x28		/* BSD System calls */
-#define	MK25_SCALL_SEL	0x30		/* MK25 System Calls */
-#define	MACHDEP_SCALL_SEL 0x38		/* Machdep SYstem calls */
-#else
-#define	USER_LDT	0x28		/* place for per-thread LDT */
-#define	USER_TSS	0x30		/* place for per-thread TSS
-					   that holds IO bitmap */
-#define	FPE_CS		0x38		/* floating-point emulator code */
-#endif
+#define	MACHDEP_SCALL_SEL 0x38		/* Machdep System calls */
+
 #define	USER_FPREGS	0x40		/* user-mode access to saved
 					   floating-point registers */
 #define	CPU_DATA_GS	0x48		/* per-cpu data */
 
-#ifdef	MACH_BSD
+#define	DF_TSS		0x50		/* double-fault handler TSS */
+
 #define	USER_LDT	0x58
 #define	USER_TSS	0x60
 #define	FPE_CS		0x68
-#endif
+
+#define USER_WINDOW_SEL	0x70		/* window for copyin/copyout */
+#define PHYS_WINDOW_SEL	0x78		/* window for copyin/copyout */
 
 #if	MACH_KDB
-#define	DEBUG_TSS	0x50		/* debug TSS (uniprocessor) */
+#define	DEBUG_TSS	0x80		/* debug TSS (uniprocessor) */
 #endif
+
+struct __gdt_desc_struct {
+  unsigned short size;
+  unsigned long address __attribute__((packed));
+  unsigned short pad;
+} __attribute__ ((packed));
+
+struct __idt_desc_struct {
+  unsigned short size;
+  unsigned long address __attribute__((packed));
+  unsigned short pad;
+} __attribute__ ((packed));
+
 
 #endif	/* _I386_SEG_H_ */

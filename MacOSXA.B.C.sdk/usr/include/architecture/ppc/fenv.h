@@ -178,7 +178,7 @@ extern int  fesetround(int);
 *******************************************************************************/
 
 extern int  fegetenv(fenv_t *);
-extern int  feholdexcept(fenv_t *);
+extern int   feholdexcept(fenv_t *);
 extern int  fesetenv(const fenv_t *);
 extern int  feupdateenv(const fenv_t *);
 

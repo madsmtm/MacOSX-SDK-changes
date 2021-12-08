@@ -384,7 +384,7 @@ public:
 	
 	void setResponseCode( UInt32 rcode );
 	UInt32 getResponseCode( void ) const;
-		
+
 private:
     OSMetaClassDeclareReservedUnused(IOFWAsyncCommand, 0);
     OSMetaClassDeclareReservedUnused(IOFWAsyncCommand, 1);

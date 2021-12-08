@@ -18,7 +18,7 @@
 
 /* $Id: build-defs.h.in,v 1.11 2002/10/04 04:47:34 rasmus Exp $ */
 
-#define CONFIGURE_COMMAND " '/SourceCache/apache_mod_php/apache_mod_php-17/php/configure' '--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--with-apxs' '--with-ldap=/usr' '--with-kerberos=/usr' '--enable-cli' '--with-zlib-dir=/usr' '--enable-trans-sid' '--with-xml' '--enable-exif' '--enable-ftp' '--enable-mbstring' '--enable-mbregex' '--enable-dbx' '--enable-sockets' '--with-iodbc=/usr' '--with-curl=/usr' '--with-config-file-path=/etc' '--sysconfdir=/private/etc'"
+#define CONFIGURE_COMMAND " '/SourceCache/apache_mod_php/apache_mod_php-18.2/php/configure' '--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--with-apxs' '--with-ldap=/usr' '--with-kerberos=/usr' '--enable-cli' '--with-zlib-dir=/usr' '--enable-trans-sid' '--with-xml' '--enable-exif' '--enable-ftp' '--enable-mbstring' '--enable-mbregex' '--enable-dbx' '--enable-sockets' '--with-iodbc=/usr' '--with-curl=/usr' '--with-config-file-path=/etc' '--sysconfdir=/private/etc' '--with-mysql=/usr' '--with-mysql-sock=/var/mysql/mysql.sock'"
 #define PHP_ADA_INCLUDE		""
 #define PHP_ADA_LFLAGS		""
 #define PHP_ADA_LIBS		""
@@ -45,9 +45,9 @@
 #define PHP_MSQL_INCLUDE	""
 #define PHP_MSQL_LFLAGS		""
 #define PHP_MSQL_LIBS		""
-#define PHP_MYSQL_INCLUDE	""
-#define PHP_MYSQL_LIBS		""
-#define PHP_MYSQL_TYPE		"builtin"
+#define PHP_MYSQL_INCLUDE	"-I/usr/include/mysql"
+#define PHP_MYSQL_LIBS		"-L/usr/lib/mysql -lmysqlclient "
+#define PHP_MYSQL_TYPE		"external"
 #define PHP_ODBC_INCLUDE	"-I/usr/include"
 #define PHP_ODBC_LFLAGS		"-L/usr/lib"
 #define PHP_ODBC_LIBS		"-liodbc"

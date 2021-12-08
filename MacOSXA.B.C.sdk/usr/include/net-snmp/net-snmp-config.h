@@ -109,7 +109,7 @@
 /* SNMPLIBDIR contains important files */
 #define SNMPLIBPATH "/usr/lib/snmp"
 #define SNMPSHAREPATH "/usr/share/snmp"
-#define SNMPCONFPATH "/usr/etc/snmp"
+#define SNMPCONFPATH "/etc"
 #define SNMPDLMODPATH "/usr/lib/snmp/dlmod"
 
 /* LOGFILE:  If defined it closes stdout/err/in and opens this in out/err's
@@ -288,6 +288,9 @@
 
 /* Define to 1 if you have the `if_nameindex' function. */
 #define HAVE_IF_NAMEINDEX 1
+
+/* Define to 1 if you have the `if_nametoindex' function. */
+#define HAVE_IF_NAMETOINDEX 1
 
 /* Define to 1 if you have the `index' function. */
 #define HAVE_INDEX 1
@@ -931,13 +934,13 @@
 #define PACKAGE_NAME "Net-SNMP"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "Net-SNMP 5.2"
+#define PACKAGE_STRING "Net-SNMP 5.2.1"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "net-snmp"
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "5.2"
+#define PACKAGE_VERSION "5.2.1"
 
 /* Define as the return type of signal handlers (`int' or `void'). */
 #define RETSIGTYPE void
@@ -1336,7 +1339,7 @@
 #define LASTFIELD -1      /* internal define */
 
 /* configure options specified */
-#define CONFIGURE_OPTIONS "\"'--mandir=/usr/share/man' '--infodir=/usr/share/info' '--with-libwrap' '--with-defaults' '--prefix=/usr' '--with-persistent-directory=/var/db/net-snmp' '--with-mib-modules=host' 'CPPFLAGS=-I/System/Library/Frameworks/System.framework/PrivateHeaders' 'CFLAGS=-arch i386 -arch ppc -g -Os -pipe -arch i386 -arch ppc -pipe' 'LDFLAGS=-arch i386 -arch ppc            '\""
+#define CONFIGURE_OPTIONS "\"'--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--with-libwrap' '--with-defaults' '--prefix=/usr' '--with-persistent-directory=/var/db/net-snmp' '--with-mib-modules=host' 'CPPFLAGS=-I/System/Library/Frameworks/System.framework/PrivateHeaders' '--sysconfdir=/etc' 'CFLAGS=-arch i386 -arch ppc -g -Os -pipe -arch i386 -arch ppc -pipe' 'LDFLAGS=-arch i386 -arch ppc            '\""
 
 /* got socklen_t? */
 #define HAVE_SOCKLEN_T 1
@@ -1527,7 +1530,7 @@
  *    static NETSNMP_INLINE function(int parm) { return parm -1; }
  *
  */
-/* #undef NETSNMP_BROKEN_INLINE */
+#define NETSNMP_BROKEN_INLINE 1
 #ifdef NETSNMP_BROKEN_INLINE
 #   define NETSNMP_ENABLE_INLINE 0
 #else

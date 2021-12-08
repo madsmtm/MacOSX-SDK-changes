@@ -3,7 +3,7 @@
  
      Contains:   FPCE Floating-Point Definitions and Declarations.
  
-     Version:    CarbonCore-650.1~1
+     Version:    CarbonCore-682.9~1
  
      Copyright:  © 1987-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -1231,7 +1231,7 @@ extern const double_t pi                                             AVAILABLE_M
  *    CarbonLib:        in CarbonLib 1.0 and later
  *    Non-Carbon CFM:   in MathLib 1.0 and later
  */
-extern double_t  compound(double_t rate, double_t periods)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+extern double  compound(double rate, double periods)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1242,7 +1242,7 @@ extern double_t  compound(double_t rate, double_t periods)                      
  *    CarbonLib:        in CarbonLib 1.0 and later
  *    Non-Carbon CFM:   in MathLib 1.0 and later
  */
-extern double_t  annuity(double_t rate, double_t periods)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+extern double  annuity(double rate, double periods)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -1879,25 +1879,29 @@ extern long double  logbl(long double x);
 #endif
 
 
-
 /*
  *  scalbl()
  *  
+ * scalbl( x, n ) returns x * rn, where r is the radix of the machine's floating point
+ *  arithmetic. In CarbonLib, n has been defined as an long, whereas some other systems often
+ *    pass a double as the second argument.  gcc 4.0 also assumes if you use the built-in math
+ * functions that scalbl() takes a double as the second argument and may show a warning
+ * for those situations.
+ *
+ * Because of this, you'll need to define the macro below in order for fp.h to export a
+ * definition of scalbl.  Or, you could just do the calculation yourself.
+ *
+ *    
+ *
  *  Availability:
  *    Mac OS X:         not available
  *    CarbonLib:        in CarbonLib 1.0 and later
  *    Non-Carbon CFM:   in MathLib 1.0 and later or as macro/inline
  */
-extern long double  scalbl(long double x, long n);
-#if TYPE_LONGDOUBLE_IS_DOUBLE
-  #ifdef __cplusplus
-    inline long double scalbl(long double x, long n) { return (long double) scalb((double)(x), (n)); }
-  #else
-    #define scalbl(x, n) ((long double) scalb((double)(x), (n)))
-  #endif
+
+#ifdef __APPLE_FP_H_SHOULD_DEFINE_scalbl__
+extern double scalbl ( double, double n );
 #endif
-
-
 
 /*
  *  fabsl()

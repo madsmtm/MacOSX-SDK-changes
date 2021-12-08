@@ -633,6 +633,8 @@ protected:
 	
 	IOReturn doPolledSynchronizeCache ( void );
 
+	IOReturn doPolledReset ( void );
+	
 	IOATACommand * ataCommandPolledFlushCache ( void );
 	
 	IOReturn issuePolledSleepCommand ( void );

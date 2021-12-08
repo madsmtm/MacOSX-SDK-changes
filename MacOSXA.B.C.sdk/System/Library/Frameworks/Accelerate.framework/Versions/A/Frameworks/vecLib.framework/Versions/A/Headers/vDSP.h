@@ -3,7 +3,7 @@
  
      Contains:   AltiVec DSP Interfaces
  
-     Version:    vecLib-176~4
+     Version:    vecLib-182.18~156
  
      Copyright:  © 2000-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -2917,15 +2917,15 @@ vDSP_zrdotprD(
  */
 extern void 
 vDSP_zvcma(
-  DSPSplitComplex *  input1,
-  SInt32             stride1,
-  DSPSplitComplex *  input2,
-  SInt32             stride2,
-  DSPSplitComplex *  input3,
-  SInt32             stride3,
-  DSPSplitComplex *  result,
-  SInt32             strideResult,
-  UInt32             size)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+  const DSPSplitComplex *  input1,
+  SInt32                   stride1,
+  const DSPSplitComplex *  input2,
+  SInt32                   stride2,
+  DSPSplitComplex *        input3,
+  SInt32                   stride3,
+  DSPSplitComplex *        result,
+  SInt32                   strideResult,
+  UInt32                   size)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3708,7 +3708,7 @@ vDSP_hann_window(
  */
 extern void 
 vDSP_maxmgv(
-  float *        A,
+  const float *  A,
   int            I,
   float *        C,
   unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
@@ -5366,10 +5366,10 @@ vDSP_vsimps(
  */
 extern void 
 vDSP_vsma(
-  float *        A,
+  const float *  A,
   int            I,
-  float *        B,
-  float *        C,
+  const float *  B,
+  const float *  C,
   int            K,
   float *        D,
   int            L,

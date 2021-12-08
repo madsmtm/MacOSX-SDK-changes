@@ -3,7 +3,7 @@
  
      Contains:   Gestalt Interfaces.
  
-     Version:    CarbonCore-650.1~1
+     Version:    CarbonCore-682.9~1
  
      Copyright:  © 1988-2005 by Apple Computer, Inc.  All rights reserved
  
@@ -166,6 +166,7 @@
 #define gestaltCPUPentiumPro 			'i5pr'
 #define gestaltCPUPentiumII 			'i5ii'
 #define gestaltCPUX86 					'ixxx'
+#define gestaltCPUPentium4 				'i5iv'
 
 #define gestaltCRMAttr 					'crm '				/*  comm resource mgr attributes  */
 #define gestaltCRMPresent 				0
@@ -1134,12 +1135,6 @@
 #define gestaltHasSingleWindowModeBit 	8					/*  This system supports single window mode */
 #define gestaltHasSingleWindowModeMask 	0x00000100
 
-#define gestaltX86VectorUnit 			'x86v'
-#define gestaltX86VectorUnitNone 		0
-#define gestaltX86VectorUnitSSE2 		4
-#define gestaltX86VectorUnitSSE 		3
-#define gestaltX86VectorUnitMMX 		2
-
 #define gestaltX86Features 				'x86f'
 #define gestaltX86HasFPU 				0					/*  has an FPU that supports the 387 instructions */
 #define gestaltX86HasVME 				1					/*  supports Virtual-8086 Mode Extensions */
@@ -1171,6 +1166,18 @@
 #define gestaltX86HasSS 				27					/*  Self-Snoop */
 #define gestaltX86HasHTT 				28					/*  Hyper-Threading Technology */
 #define gestaltX86HasTM 				29					/*  Thermal Monitor */
+
+#define gestaltX86AdditionalFeatures 	'x86a'
+#define gestaltX86HasSSE3 				0					/*  Prescott New Inst. */
+#define gestaltX86HasMONITOR 			3					/*  Monitor/mwait */
+#define gestaltX86HasDSCPL 				4					/*  Debug Store CPL */
+#define gestaltX86HasVMX 				5					/*  VMX */
+#define gestaltX86HasSMX 				6					/*  SMX */
+#define gestaltX86HasEST 				7					/*  Enhanced SpeedsTep (GV3) */
+#define gestaltX86HasTM2 				8					/*  Thermal Monitor 2 */
+#define gestaltX86HasCID 				9					/*  L1 Context ID */
+#define gestaltX86HasCX16 				13					/*  CmpXchg16b instruction */
+#define gestaltX86HasxTPR 				14					/*  Send Task PRiority msgs */
 
 #define gestaltTranslationAttr 			'xlat'				/*  Translation Manager attributes  */
 #define gestaltTranslationMgrExists 	0					/*  True if translation manager exists  */

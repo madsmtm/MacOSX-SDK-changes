@@ -25,6 +25,27 @@
 /*
  *
  *	$Log: IOUSBLog.h,v $
+ *	Revision 1.27.36.1  2005/12/19 18:12:16  rhoads
+ *	turn off logging and change versions for GMc1
+ *	
+ *	Revision 1.27  2005/10/18 22:26:21  nano
+ *	Bring in branch to fix <rdar://problem/2719803> USBLog doesn't guard against input strings which are too long
+ *	
+ *	Revision 1.26.4.1  2005/09/28 22:13:07  nano
+ *	Fixing USBLogs
+ *	
+ *	Revision 1.26  2005/09/16 20:22:54  nano
+ *	Enable logging for TOT
+ *	
+ *	Revision 1.25  2005/08/25 17:47:11  nano
+ *	GM all strings and remove logging
+ *	
+ *	Revision 1.24  2005/04/21 21:50:33  nano
+ *	Update with new IDs
+ *	
+ *	Revision 1.23.38.1  2005/04/12 15:35:25  nano
+ *	Bringup/Fixes for Micron module
+ *	
  *	Revision 1.23  2004/10/26 22:32:01  nano
  *	Remove USB Loggging for Tiger
  *	
@@ -88,7 +109,7 @@
 // Allow clients to define their own debug level.
 
 #if( !defined( DEBUG_LEVEL ) )
-	#define	DEBUG_LEVEL			DEBUG_LEVEL_FINAL
+	#define	DEBUG_LEVEL			DEBUG_LEVEL_PRODUCTION
 #endif
 
 // Index for user client methods
@@ -147,7 +168,7 @@ void			KernelDebugEnable( bool enable );
 //	KernelIOLog, you get the benefit of having your logs compiled out when you set the
 //	DEBUG_LEVEL to production mode and recompile. Dude. Sweet. What's mine say?
 
-void			KernelDebugLogInternal( KernelDebugLevel inLevel, UInt32 inTag, char const *inFormatString, ... );
+void			KernelDebugLogInternal( KernelDebugLevel inLevel, UInt32 inTag, char const *inFormatString, ... )  __attribute__ ((format(printf,3,4)));;
 void 			KernelDebugLogDataInternal( UInt32 inLevel,  UInt32 inTag, void *buffer, UInt32 byteCount, bool preBuffer);
 
 // Handy macros.
@@ -172,7 +193,7 @@ void 			KernelDebugLogDataInternal( UInt32 inLevel,  UInt32 inTag, void *buffer,
 // Some macros to call the debugging outputs. We'll strip out the debug logs if we are production code.
 
 #if DEBUG_LEVEL != DEBUG_LEVEL_PRODUCTION
-	#define	KernelDebugLog( LEVEL, ARGS... )			KernelDebugLogInternal( ( LEVEL ), 'KDbg', ## ARGS )
+#define	KernelDebugLog( LEVEL, ARGS... )			KernelDebugLogInternal( ( LEVEL ), 'KDbg', ## ARGS ) __attribute__ ((format(printf,1,2)));
 	#define	KernelDebugLogTag( LEVEL, TAG, ARGS... )		KernelDebugLogInternal( ( LEVEL ), ( TAG ),  ## ARGS )
 	#define KernelDebugLogData( LEVEL, TAG, BUFFER, SIZE, HOLD)	KernelDebugLogDataInternal( ( LEVEL ), ( TAG ), ( BUFFER ), ( SIZE ), ( HOLD ))
 #else

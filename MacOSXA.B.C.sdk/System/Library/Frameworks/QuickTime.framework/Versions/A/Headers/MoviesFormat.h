@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 1990-2005 by Apple Computer, Inc., all rights reserved
  
@@ -692,7 +692,7 @@ enum {
   kDataRate1MbpsRate            = 100000L,
   kDataRateT1Rate               = 150000L,
   kDataRateInfiniteRate         = 0x7FFFFFFF,
-  kDataRateDefaultIfNotSet      = kDataRateISDNRate
+  kDataRateDefaultIfNotSet      = kDataRate384kbpsRate
 };
 
 struct QTAltDataRateRecord {

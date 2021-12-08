@@ -356,8 +356,16 @@
 #    ifndef __DARWIN__
 #        define __DARWIN__ 1
 #    endif
-#    ifndef __POWERPC__
-#        define __POWERPC__ 1
+#    if defined(__ppc__) || defined(__ppc64__)
+#        ifndef __POWERPC__
+#            define __POWERPC__ 1
+#        endif
+#    elif defined(__i386__)
+#        ifndef __INTEL__
+#            define __INTEL__ 1
+#        endif
+#    else
+#        error architecture not supported
 #    endif
 #    ifndef TARGET_CARBON
 #        define TARGET_CARBON 1
@@ -479,9 +487,13 @@
 #endif
 
 #if defined (__WXMAC__)
-#    ifndef WORDS_BIGENDIAN
-#        define WORDS_BIGENDIAN 1
-#    endif
+#    ifdef __BIG_ENDIAN__
+#        ifndef WORDS_BIGENDIAN
+#            define WORDS_BIGENDIAN 1
+#        endif
+#    else /* !__BIG_ENDIAN__ */
+#        /* #undef WORDS_BIGENDIAN */
+#    endif /* __BIG_ENDIAN__ */
 #endif
 
 /* Choose which method we will use for updating menus

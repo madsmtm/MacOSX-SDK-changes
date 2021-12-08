@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2003 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2005 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -43,14 +43,14 @@ __BEGIN_DECLS
 
 /*!
 	@function SCDynamicStoreCopyComputerName
-	@discussion Gets the current computer or host name.
+	@discussion Gets the current computer name.
 	@param store An SCDynamicStoreRef representing the dynamic store
 		session that should be used for communication with the server.
 		If NULL, a temporary session will be used.
 	@param nameEncoding A pointer to memory that, if non-NULL, will be
 		filled with the encoding associated with the computer or
 		host name.
-	@result Returns the current computer or host name;
+	@result Returns the current computer name;
 		NULL if the name has not been set or if an error was encountered.
 		You must release the returned value.
  */

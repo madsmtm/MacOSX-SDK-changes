@@ -498,4 +498,4 @@ struct ip_mreq {
 
 const char	*inet_ntop(int, const void *, char *, size_t); /* in libkern */
 
-#endif _NETINET_IN_H_
+#endif /* _NETINET_IN_H_ */

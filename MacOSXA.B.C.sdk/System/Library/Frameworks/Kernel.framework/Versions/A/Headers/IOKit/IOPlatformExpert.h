@@ -267,6 +267,9 @@ public:
 
     virtual void free();
 
+    virtual bool attachToChild( IORegistryEntry * child,
+                                const IORegistryPlane * plane );
+
     OSMetaClassDeclareReservedUnused(IOPlatformExpertDevice,  0);
     OSMetaClassDeclareReservedUnused(IOPlatformExpertDevice,  1);
     OSMetaClassDeclareReservedUnused(IOPlatformExpertDevice,  2);

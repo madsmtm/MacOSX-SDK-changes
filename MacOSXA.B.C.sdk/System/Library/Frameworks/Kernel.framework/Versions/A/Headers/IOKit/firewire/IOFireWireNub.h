@@ -161,12 +161,6 @@ protected:
     ExpansionData *reserved;
 
     virtual void free();
-    
-    // Create an IOUserClient object to handle communication with User task
-    virtual IOReturn newUserClient( task_t		owningTask,
-                                    void * 		security_id,
-                                    UInt32  		type,
-                                    IOUserClient **	handler );
 
 /*------------------Methods provided to FireWire device clients-----------------------*/
 public:

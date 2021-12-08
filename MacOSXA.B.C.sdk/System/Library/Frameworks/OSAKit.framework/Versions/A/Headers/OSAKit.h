@@ -9,6 +9,3 @@
 #import <OSAKit/OSAScript.h>
 #import <OSAKit/OSAScriptView.h>
 #import <OSAKit/OSAScriptController.h>
-#import <OSAKit/OSADictionary.h>
-#import <OSAKit/OSADictionaryView.h>
-#import <OSAKit/OSADictionaryController.h>

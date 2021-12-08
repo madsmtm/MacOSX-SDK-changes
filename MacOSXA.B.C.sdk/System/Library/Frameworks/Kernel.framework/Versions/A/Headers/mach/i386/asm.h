@@ -72,6 +72,7 @@
 #define S_ARG1	 8(%esp)
 #define S_ARG2	12(%esp)
 #define S_ARG3	16(%esp)
+#define S_ARG4	20(%esp)
 
 #define FRAME	pushl %ebp; movl %esp, %ebp
 #define EMARF	leave

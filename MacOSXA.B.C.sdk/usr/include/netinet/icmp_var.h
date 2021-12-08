@@ -89,4 +89,4 @@ struct	icmpstat {
 #define ICMPCTL_TIMESTAMP	4	/* allow replies to time stamp requests */
 #define ICMPCTL_MAXID		5
 
-#endif _NETINET_ICMP_VAR_H_
+#endif /* _NETINET_ICMP_VAR_H_ */

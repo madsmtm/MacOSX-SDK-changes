@@ -209,4 +209,4 @@ struct igmpmsg {
 };
 #define MFCTBLSIZ       256
 
-#endif _NETINET_IP_MROUTE_H_
+#endif /* _NETINET_IP_MROUTE_H_ */

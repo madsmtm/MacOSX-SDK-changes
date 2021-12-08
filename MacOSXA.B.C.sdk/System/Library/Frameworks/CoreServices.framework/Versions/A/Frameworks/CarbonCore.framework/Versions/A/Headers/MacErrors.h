@@ -3,7 +3,7 @@
  
      Contains:   OSErr codes.
  
-     Version:    CarbonCore-650.1~1
+     Version:    CarbonCore-682.9~1
  
      Copyright:  © 1985-2005 by Apple Computer, Inc., all rights reserved
  
@@ -1469,6 +1469,14 @@ enum {
 enum {
   coreFoundationUnknownErr      = -4960
 };
+
+/* CoreEndian error codes.  These can be returned by Flippers. */
+enum {
+  errCoreEndianDataTooShortForFormat = -4940,
+  errCoreEndianDataTooLongForFormat = -4941,
+  errCoreEndianDataDoesNotMatchFormat = -4942
+};
+
 
 /* ScrapMgr error codes (CarbonLib 1.0 and later)*/
 enum {

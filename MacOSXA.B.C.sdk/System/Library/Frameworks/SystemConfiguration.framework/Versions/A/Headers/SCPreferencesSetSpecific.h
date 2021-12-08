@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2005 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -45,16 +45,15 @@ __BEGIN_DECLS
 
 /*!
 	@function SCPreferencesSetComputerName
-	@discussion Updates the computer or host name preference.
+	@discussion Updates the computer name preference.
 
 		Note: To commit these changes to permanent storage you must
 		call the SCPreferencesCommitChanges function.
 		In addition, you must call the SCPreferencesApplyChanges
 		function for the new name to become active.
 	@param prefs The preferences session.
-	@param name The computer or host name to be set.
-	@param nameEncoding The encoding associated with the computer or host
-		name.
+	@param name The computer name to be set.
+	@param nameEncoding The encoding associated with the computer name.
 	@result Returns TRUE if successful; FALSE otherwise.
  */
 Boolean

@@ -15,7 +15,7 @@ CG_EXTERN_C_BEGIN
  * `width' pixels wide and `height' pixels high.  The number of components
  * for each pixel is specified by `colorspace', which also may specify a
  * destination color profile. The number of bits for each component of a
- * pixel is specified by `bitsPerComponent', which must be 1, 2, 4, or 8.
+ * pixel is specified by `bitsPerComponent', which currently must be 5, 8 or 32.
  * Each row of the bitmap consists of `bytesPerRow' bytes, which must be at
  * least `(width * bitsPerComponent * number of components + 7)/8' bytes.
  * `data' points a block of memory at least `bytesPerRow * height' bytes.

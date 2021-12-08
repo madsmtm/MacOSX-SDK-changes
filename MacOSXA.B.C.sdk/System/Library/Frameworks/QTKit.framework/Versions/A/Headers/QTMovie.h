@@ -1,7 +1,7 @@
 /*
 	File:		QTMovie.h
 
-	Copyright:	(c)2004 by Apple Computer, Inc., all rights reserved.
+	Copyright:	(c)2004-2005 by Apple Computer, Inc., all rights reserved.
 
 */
 
@@ -168,7 +168,7 @@ typedef enum {
     BOOL            _keepInactive;
     BOOL            _newEqualizer;
     BOOL            _draggable;
-    Media           _equalizerMedia;
+	long			_reserved4;
 	NSDate			*_lastCheckDate;
 	NSDictionary	*_pendingAttributes;
 	SInt16			_resourceID;

@@ -56,4 +56,4 @@ struct newah {
 };
 
 
-#endif _NETINET6_AH_H_
+#endif /* _NETINET6_AH_H_ */

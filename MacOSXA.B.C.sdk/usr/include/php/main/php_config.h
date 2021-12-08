@@ -93,10 +93,6 @@
 /* Define to `int' if <sys/types.h> doesn't define.  */
 /* #undef uid_t */
 
-/* Define if your processor stores words with the most significant
-   byte first (like Motorola and SPARC, unlike Intel and VAX).  */
-/* #undef WORDS_BIGENDIAN */
-
 /* Define if lex declares yytext as a char * by default, not a char[].  */
 #define YYTEXT_POINTER 1
 
@@ -119,7 +115,7 @@
 #define HAVE_ACOSH 1
 
 /* Define if you have the alarm function.  */
-#define HAVE_ALARM 1
+/* #undef HAVE_ALARM */
 
 /* Define if you have the alphasort function.  */
 #define HAVE_ALPHASORT 1
@@ -137,7 +133,7 @@
 /* #undef HAVE_ATOD */
 
 /* Define if you have the bcmp function.  */
-#define HAVE_BCMP 1
+/* #undef HAVE_BCMP */
 
 /* Define if you have the bfill function.  */
 /* #undef HAVE_BFILL */
@@ -146,7 +142,7 @@
 /* #undef HAVE_BMOVE */
 
 /* Define if you have the bzero function.  */
-#define HAVE_BZERO 1
+/* #undef HAVE_BZERO */
 
 /* Define if you have the chroot function.  */
 #define HAVE_CHROOT 1
@@ -167,7 +163,7 @@
 /* #undef HAVE_CUSERID */
 
 /* Define if you have the dlerror function.  */
-#define HAVE_DLERROR 1
+/* #undef HAVE_DLERROR */
 
 /* Define if you have the dlopen function.  */
 #define HAVE_DLOPEN 1
@@ -176,10 +172,10 @@
 /* #undef HAVE_FABSF */
 
 /* Define if you have the fchmod function.  */
-#define HAVE_FCHMOD 1
+/* #undef HAVE_FCHMOD */
 
 /* Define if you have the fcntl function.  */
-#define HAVE_FCNTL 1
+/* #undef HAVE_FCNTL */
 
 /* Define if you have the fconvert function.  */
 /* #undef HAVE_FCONVERT */
@@ -209,7 +205,7 @@
 #define HAVE_FTOK 1
 
 /* Define if you have the ftruncate function.  */
-#define HAVE_FTRUNCATE 1
+/* #undef HAVE_FTRUNCATE */
 
 /* Define if you have the funopen function.  */
 #define HAVE_FUNOPEN 1
@@ -236,7 +232,7 @@
 #define HAVE_GETOPT 1
 
 /* Define if you have the getpass function.  */
-#define HAVE_GETPASS 1
+/* #undef HAVE_GETPASS */
 
 /* Define if you have the getpassphrase function.  */
 /* #undef HAVE_GETPASSPHRASE */
@@ -254,10 +250,10 @@
 #define HAVE_GETPROTOBYNUMBER 1
 
 /* Define if you have the getpwnam function.  */
-#define HAVE_GETPWNAM 1
+/* #undef HAVE_GETPWNAM */
 
 /* Define if you have the getpwuid function.  */
-#define HAVE_GETPWUID 1
+/* #undef HAVE_GETPWUID */
 
 /* Define if you have the getrlimit function.  */
 #define HAVE_GETRLIMIT 1
@@ -293,7 +289,7 @@
 #define HAVE_HYPOT 1
 
 /* Define if you have the index function.  */
-#define HAVE_INDEX 1
+/* #undef HAVE_INDEX */
 
 /* Define if you have the isascii function.  */
 #define HAVE_ISASCII 1
@@ -335,13 +331,13 @@
 #define HAVE_LOG1P 1
 
 /* Define if you have the longjmp function.  */
-#define HAVE_LONGJMP 1
+/* #undef HAVE_LONGJMP */
 
 /* Define if you have the lrand48 function.  */
 #define HAVE_LRAND48 1
 
 /* Define if you have the madvise function.  */
-#define HAVE_MADVISE 1
+/* #undef HAVE_MADVISE */
 
 /* Define if you have the memcpy function.  */
 #define HAVE_MEMCPY 1
@@ -377,10 +373,10 @@
 /* #undef HAVE_PTHREAD_ATTR_SETPRIO */
 
 /* Define if you have the pthread_attr_setschedparam function.  */
-#define HAVE_PTHREAD_ATTR_SETSCHEDPARAM 1
+/* #undef HAVE_PTHREAD_ATTR_SETSCHEDPARAM */
 
 /* Define if you have the pthread_attr_setstacksize function.  */
-#define HAVE_PTHREAD_ATTR_SETSTACKSIZE 1
+/* #undef HAVE_PTHREAD_ATTR_SETSTACKSIZE */
 
 /* Define if you have the pthread_condattr_create function.  */
 /* #undef HAVE_PTHREAD_CONDATTR_CREATE */
@@ -395,10 +391,10 @@
 /* #undef HAVE_PTHREAD_SETPRIO_NP */
 
 /* Define if you have the pthread_setschedparam function.  */
-#define HAVE_PTHREAD_SETSCHEDPARAM 1
+/* #undef HAVE_PTHREAD_SETSCHEDPARAM */
 
 /* Define if you have the pthread_sigmask function.  */
-#define HAVE_PTHREAD_SIGMASK 1
+/* #undef HAVE_PTHREAD_SIGMASK */
 
 /* Define if you have the putenv function.  */
 #define HAVE_PUTENV 1
@@ -416,19 +412,22 @@
 #define HAVE_REGCOMP 1
 
 /* Define if you have the rename function.  */
-#define HAVE_RENAME 1
+/* #undef HAVE_RENAME */
 
 /* Define if you have the res_search function.  */
 #define HAVE_RES_SEARCH 1
 
 /* Define if you have the rint function.  */
-#define HAVE_RINT 1
+/* #undef HAVE_RINT */
 
 /* Define if you have the rwlock_init function.  */
 /* #undef HAVE_RWLOCK_INIT */
 
 /* Define if you have the scandir function.  */
 #define HAVE_SCANDIR 1
+
+/* Define if you have the set_h_errno function.  */
+/* #undef HAVE_SET_H_ERRNO */
 
 /* Define if you have the setegid function.  */
 #define HAVE_SETEGID 1
@@ -464,10 +463,10 @@
 /* #undef HAVE_SIGACTION */
 
 /* Define if you have the sighold function.  */
-#define HAVE_SIGHOLD 1
+/* #undef HAVE_SIGHOLD */
 
 /* Define if you have the sigset function.  */
-#define HAVE_SIGSET 1
+/* #undef HAVE_SIGSET */
 
 /* Define if you have the sigthreadmask function.  */
 /* #undef HAVE_SIGTHREADMASK */
@@ -524,7 +523,7 @@
 /* #undef HAVE_STRNLEN */
 
 /* Define if you have the strpbrk function.  */
-#define HAVE_STRPBRK 1
+/* #undef HAVE_STRPBRK */
 
 /* Define if you have the strstr function.  */
 #define HAVE_STRSTR 1
@@ -539,13 +538,13 @@
 #define HAVE_STRTOL 1
 
 /* Define if you have the strtoll function.  */
-#define HAVE_STRTOLL 1
+/* #undef HAVE_STRTOLL */
 
 /* Define if you have the strtoul function.  */
-#define HAVE_STRTOUL 1
+/* #undef HAVE_STRTOUL */
 
 /* Define if you have the strtoull function.  */
-#define HAVE_STRTOULL 1
+/* #undef HAVE_STRTOULL */
 
 /* Define if you have the symlink function.  */
 #define HAVE_SYMLINK 1
@@ -623,7 +622,7 @@
 #define HAVE_FCNTL_H 1
 
 /* Define if you have the <float.h> header file.  */
-#define HAVE_FLOAT_H 1
+/* #undef HAVE_FLOAT_H */
 
 /* Define if you have the <floatingpoint.h> header file.  */
 /* #undef HAVE_FLOATINGPOINT_H */
@@ -633,6 +632,9 @@
 
 /* Define if you have the <ieeefp.h> header file.  */
 /* #undef HAVE_IEEEFP_H */
+
+/* Define if you have the <inttypes.h> header file.  */
+#define HAVE_INTTYPES_H 1
 
 /* Define if you have the <langinfo.h> header file.  */
 #define HAVE_LANGINFO_H 1
@@ -650,7 +652,7 @@
 /* #undef HAVE_MALLOC_H */
 
 /* Define if you have the <memory.h> header file.  */
-#define HAVE_MEMORY_H 1
+/* #undef HAVE_MEMORY_H */
 
 /* Define if you have the <monetary.h> header file.  */
 #define HAVE_MONETARY_H 1
@@ -674,13 +676,13 @@
 #define HAVE_RESOLV_H 1
 
 /* Define if you have the <sched.h> header file.  */
-#define HAVE_SCHED_H 1
+/* #undef HAVE_SCHED_H */
 
 /* Define if you have the <select.h> header file.  */
 /* #undef HAVE_SELECT_H */
 
 /* Define if you have the <sgtty.h> header file.  */
-#define HAVE_SGTTY_H 1
+/* #undef HAVE_SGTTY_H */
 
 /* Define if you have the <signal.h> header file.  */
 #define HAVE_SIGNAL_H 1
@@ -695,7 +697,10 @@
 /* #undef HAVE_STDBOOL_H */
 
 /* Define if you have the <stddef.h> header file.  */
-#define HAVE_STDDEF_H 1
+/* #undef HAVE_STDDEF_H */
+
+/* Define if you have the <stdint.h> header file.  */
+#define HAVE_STDINT_H 1
 
 /* Define if you have the <stdlib.h> header file.  */
 #define HAVE_STDLIB_H 1
@@ -704,13 +709,10 @@
 #define HAVE_STRING_H 1
 
 /* Define if you have the <strings.h> header file.  */
-#define HAVE_STRINGS_H 1
+/* #undef HAVE_STRINGS_H */
 
 /* Define if you have the <synch.h> header file.  */
 /* #undef HAVE_SYNCH_H */
-
-/* Define if you have the <sys/bitypes.h> header file.  */
-/* #undef HAVE_SYS_BITYPES_H */
 
 /* Define if you have the <sys/dir.h> header file.  */
 /* #undef HAVE_SYS_DIR_H */
@@ -719,7 +721,7 @@
 #define HAVE_SYS_FILE_H 1
 
 /* Define if you have the <sys/ioctl.h> header file.  */
-#define HAVE_SYS_IOCTL_H 1
+/* #undef HAVE_SYS_IOCTL_H */
 
 /* Define if you have the <sys/ipc.h> header file.  */
 #define HAVE_SYS_IPC_H 1
@@ -761,7 +763,7 @@
 #define HAVE_SYS_TIME_H 1
 
 /* Define if you have the <sys/timeb.h> header file.  */
-#define HAVE_SYS_TIMEB_H 1
+/* #undef HAVE_SYS_TIMEB_H */
 
 /* Define if you have the <sys/types.h> header file.  */
 #define HAVE_SYS_TYPES_H 1
@@ -776,7 +778,7 @@
 #define HAVE_SYS_UTSNAME_H 1
 
 /* Define if you have the <sys/vadvise.h> header file.  */
-#define HAVE_SYS_VADVISE_H 1
+/* #undef HAVE_SYS_VADVISE_H */
 
 /* Define if you have the <sys/varargs.h> header file.  */
 /* #undef HAVE_SYS_VARARGS_H */
@@ -794,13 +796,13 @@
 #define HAVE_SYSLOG_H 1
 
 /* Define if you have the <term.h> header file.  */
-#define HAVE_TERM_H 1
+/* #undef HAVE_TERM_H */
 
 /* Define if you have the <termio.h> header file.  */
 /* #undef HAVE_TERMIO_H */
 
 /* Define if you have the <termios.h> header file.  */
-#define HAVE_TERMIOS_H 1
+/* #undef HAVE_TERMIOS_H */
 
 /* Define if you have the <tuxmodule.h> header file.  */
 /* #undef HAVE_TUXMODULE_H */
@@ -831,6 +833,9 @@
 
 /* Define if you have the sqlcli library (-lsqlcli).  */
 /* #undef HAVE_LIBSQLCLI */
+
+/* Define if processor uses big-endian word */
+#define WORDS_BIGENDIAN 
 
 /* Enabling BIND8 compatibility for Panther */
 /* #undef BIND_8_COMPAT */
@@ -881,10 +886,10 @@
 /* #undef HAVE_OLD_COMPAT_H */
 
 /*   */
-#define PHP_APACHE_HAVE_CLIENT_FD 1
+/* #undef USE_TRANSFER_TABLES */
 
 /*   */
-/* #undef USE_TRANSFER_TABLES */
+#define PHP_APACHE_HAVE_CLIENT_FD 1
 
 /* Whether to compile with Caudium support */
 /* #undef HAVE_CAUDIUM */
@@ -1476,6 +1481,9 @@
 /* #undef HAVE_GD_IMAGEELLIPSE */
 
 /*   */
+/* #undef HAVE_GD_FONTCACHESHUTDOWN */
+
+/*   */
 /* #undef HAVE_GD_DYNAMIC_CTX_EX */
 
 /*   */
@@ -1572,7 +1580,10 @@
 /* #undef HAVE_GD_CACHE_CREATE */
 
 /*   */
-/* #undef HAVE_GD_THREAD_SAFE */
+/* #undef HAVE_GD_FONTCACHESHUTDOWN */
+
+/*   */
+/* #undef HAVE_GD_FREEFONTCACHE */
 
 /*   */
 /* #undef HAVE_GD_DYNAMIC_CTX_EX */
@@ -1634,7 +1645,7 @@
 /* Which iconv implementation to use */
 /* #undef PHP_ICONV_IMPL */
 
-/* Konstantin Chugeuv's iconv implementation */
+/* Konstantin Chuguev's iconv implementation */
 /* #undef HAVE_BSD_ICONV */
 
 /* Which iconv implementation to use */
@@ -1681,6 +1692,9 @@
 
 /*   */
 /* #undef HAVE_IMAP2000 */
+
+/*   */
+/* #undef HAVE_IMAP2004 */
 
 /*   */
 /* #undef HAVE_IMAP2001 */
@@ -1878,13 +1892,13 @@
 #define HAVE_MYSQL 1
 
 /*   */
-/* #undef MYSQL_UNIX_ADDR */
+#define MYSQL_UNIX_ADDR "/var/mysql/mysql.sock"
 
 /*   */
-/* #undef MYSQL_UNIX_ADDR */
+#define MYSQL_UNIX_ADDR "/var/mysql/mysql.sock"
 
 /*   */
-#define UNDEF_THREADS_HACK 
+/* #undef UNDEF_THREADS_HACK */
 
 /*   */
 /* #undef HAVE_ULONG */
@@ -1923,10 +1937,10 @@
 /* #undef HAVE_NONPOSIX_PTHREAD_MUTEX_INIT */
 
 /*   */
-#define HAVE_READDIR_R 
+/* #undef HAVE_READDIR_R */
 
 /*   */
-#define HAVE_SIGWAIT 
+/* #undef HAVE_SIGWAIT */
 
 /*   */
 /* #undef HAVE_NONPOSIX_SIGWAIT */
@@ -2004,7 +2018,37 @@
 /* #undef HAVE_OCI8_TEMP_LOB */
 
 /*   */
+/* #undef PHP_OCI8_HAVE_COLLECTIONS */
+
+/*   */
 /* #undef HAVE_OCI8_TEMP_LOB */
+
+/*   */
+/* #undef HAVE_OCI8_TEMP_LOB */
+
+/*   */
+/* #undef PHP_OCI8_HAVE_COLLECTIONS */
+
+/* Whether to build oci8 as dynamic module */
+/* #undef COMPILE_DL_OCI8 */
+
+/*   */
+/* #undef HAVE_OCI8 */
+
+/*   */
+/* #undef HAVE_OCI8_ATTR_STATEMENT */
+
+/*   */
+/* #undef HAVE_OCI_9_2 */
+
+/*   */
+/* #undef HAVE_OCI8_TEMP_LOB */
+
+/*   */
+/* #undef PHP_OCI8_HAVE_COLLECTIONS */
+
+/*   */
+/* #undef HAVE_OCI_INSTANT_CLIENT */
 
 /* Whether to build oci8 as dynamic module */
 /* #undef COMPILE_DL_OCI8 */
@@ -2369,6 +2413,9 @@
 /* Whether to build wddx as dynamic module */
 /* #undef COMPILE_DL_WDDX */
 
+/* Define if processor uses big-endian word */
+#define WORDS_BIGENDIAN 
+
 /*   */
 #define HAVE_LIBEXPAT 1
 
@@ -2403,7 +2450,7 @@
 /* #undef HAVE_ICONV */
 
 /*   */
-#define UNDEF_THREADS_HACK 
+/* #undef UNDEF_THREADS_HACK */
 
 /* Whether to build xmlrpc as dynamic module */
 /* #undef COMPILE_DL_XMLRPC */
@@ -2451,10 +2498,19 @@
 /* #undef SOLARIS_YP */
 
 /*   */
+/* #undef HAVE_NEW_ZZIPLIB */
+
+/*   */
 /* #undef HAVE_ZZIPLIB */
 
 /* Whether to build zip as dynamic module */
 /* #undef COMPILE_DL_ZIP */
+
+/* Define if int32_t type is present.  */
+#define HAVE_INT32_T 1
+
+/* Define if uint32_t type is present.  */
+#define HAVE_UINT32_T 1
 
 /* whether floatingpoint.h defines fp_except */
 /* #undef HAVE_FP_EXCEPT */
@@ -2496,10 +2552,10 @@
 /* #undef PTHREADS */
 
 /* PHP build date */
-#define PHP_BUILD_DATE "2005-03-13"
+#define PHP_BUILD_DATE "2005-12-25"
 
 /* uname -a output */
-#define PHP_UNAME "Darwin holycow.apple.com 8.0 Darwin Kernel Version 7.5.0: Thu Mar 3 18:48:46 PST 2005; root:xnu/xnu-517.99.13.obj~1/RELEASE_PPC Power Macintosh powerpc"
+#define PHP_UNAME "Darwin b37.apple.com 8.0 Darwin Kernel Version 8.0.0: Tue Nov 15 13:23:51 PST 2005; root:xnu-792.99.1.obj~6/RELEASE_PPC Power Macintosh powerpc"
 
 /* uname output */
 #define PHP_OS "Darwin"

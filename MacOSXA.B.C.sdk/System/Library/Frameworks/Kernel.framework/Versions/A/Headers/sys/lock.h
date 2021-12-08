@@ -70,12 +70,5 @@
 #include <kern/locks.h>
 
 
-#if defined(thread_sleep_simple_lock)
-#undef thread_sleep_simple_lock
-#endif
-#define thread_sleep_simple_lock(l, e, i) thread_sleep_funnel((e), (i))
-
-
-
 
 #endif	/* _SYS_LOCK_H_ */

@@ -104,8 +104,11 @@ public:
     // iovm mapping.
     virtual addr64_t mapAddr(IOPhysicalAddress addr) = 0;
 
+    // Get the address mask to or into an address to bypass this mapper
+    virtual bool getBypassMask(addr64_t *maskP) const
+    OSMetaClassDeclareReservedUsed(IOMapper, 0);
+
 private:
-    OSMetaClassDeclareReservedUnused(IOMapper, 0);
     OSMetaClassDeclareReservedUnused(IOMapper, 1);
     OSMetaClassDeclareReservedUnused(IOMapper, 2);
     OSMetaClassDeclareReservedUnused(IOMapper, 3);

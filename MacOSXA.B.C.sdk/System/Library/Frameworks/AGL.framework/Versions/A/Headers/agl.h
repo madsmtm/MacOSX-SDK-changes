@@ -19,9 +19,9 @@
 #define _AGL_H
 
 #if defined (__MACH__)
-	#import <AvailabilityMacros.h>
-	#import <Carbon/Carbon.h>
-	#import <OpenGL/gl.h>
+	#include <AvailabilityMacros.h>
+	#include <Carbon/Carbon.h>
+	#include <OpenGL/gl.h>
 #else
 	#define AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER 
 	#define AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER 
@@ -116,7 +116,7 @@ typedef struct __AGLPBufferRec       *AGLPbuffer;
 #define AGL_COMPLIANT             83  /* renderer is opengl compliant                 */
 
 #define AGL_PBUFFER               90  /* can be used to render to a pbuffer           */
-#define AGL_REMOTE_PBUFFER        91, /* can be used to render offline to a pbuffer	  */
+#define AGL_REMOTE_PBUFFER        91  /* can be used to render offline to a pbuffer	  */
 
 /*
 ** Property names for aglDescribeRenderer

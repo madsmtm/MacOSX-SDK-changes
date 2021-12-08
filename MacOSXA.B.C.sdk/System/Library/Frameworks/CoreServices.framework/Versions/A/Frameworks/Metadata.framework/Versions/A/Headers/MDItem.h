@@ -352,65 +352,65 @@ MD_EXPORT CFArrayRef MDItemCopyAttributeNames(MDItemRef item) MD_AVAIL;
    according to guidelines of the provider.
 */
 
-MD_EXPORT const CFStringRef     kMDItemAttributeChangeDate;       // CFDate
-MD_EXPORT const CFStringRef     kMDItemContentType;               // CFString
-MD_EXPORT const CFStringRef     kMDItemKeywords;                  // CFArray of CFString
-MD_EXPORT const CFStringRef     kMDItemTitle;                     // CFString
-MD_EXPORT const CFStringRef     kMDItemAuthors;                   // CFArray of CFString
-MD_EXPORT const CFStringRef     kMDItemProjects;                  // CFArray of CFString
-MD_EXPORT const CFStringRef     kMDItemWhereFroms;                // CFArray of CFString
-MD_EXPORT const CFStringRef     kMDItemComment;                   // CFString
-MD_EXPORT const CFStringRef     kMDItemCopyright;                 // CFString
-MD_EXPORT const CFStringRef     kMDItemLastUsedDate;              // CFDate
-MD_EXPORT const CFStringRef     kMDItemContentCreationDate;       // CFDate
-MD_EXPORT const CFStringRef     kMDItemContentModificationDate;   // CFDate
-MD_EXPORT const CFStringRef     kMDItemDurationSeconds;           // CFNumber
-MD_EXPORT const CFStringRef     kMDItemContactKeywords;           // CFArray of CFString
-MD_EXPORT const CFStringRef     kMDItemVersion;                   // CFString
+MD_EXPORT const CFStringRef     kMDItemAttributeChangeDate MD_AVAIL;       // CFDate
+MD_EXPORT const CFStringRef     kMDItemContentType MD_AVAIL;               // CFString
+MD_EXPORT const CFStringRef     kMDItemKeywords MD_AVAIL;                  // CFArray of CFString
+MD_EXPORT const CFStringRef     kMDItemTitle MD_AVAIL;                     // CFString
+MD_EXPORT const CFStringRef     kMDItemAuthors MD_AVAIL;                   // CFArray of CFString
+MD_EXPORT const CFStringRef     kMDItemProjects MD_AVAIL;                  // CFArray of CFString
+MD_EXPORT const CFStringRef     kMDItemWhereFroms MD_AVAIL;                // CFArray of CFString
+MD_EXPORT const CFStringRef     kMDItemComment MD_AVAIL;                   // CFString
+MD_EXPORT const CFStringRef     kMDItemCopyright MD_AVAIL;                 // CFString
+MD_EXPORT const CFStringRef     kMDItemLastUsedDate MD_AVAIL;              // CFDate
+MD_EXPORT const CFStringRef     kMDItemContentCreationDate MD_AVAIL;       // CFDate
+MD_EXPORT const CFStringRef     kMDItemContentModificationDate MD_AVAIL;   // CFDate
+MD_EXPORT const CFStringRef     kMDItemDurationSeconds MD_AVAIL;           // CFNumber
+MD_EXPORT const CFStringRef     kMDItemContactKeywords MD_AVAIL;           // CFArray of CFString
+MD_EXPORT const CFStringRef     kMDItemVersion MD_AVAIL;                   // CFString
 
-MD_EXPORT const CFStringRef     kMDItemPixelHeight;               // CFNumber
-MD_EXPORT const CFStringRef     kMDItemPixelWidth;                // CFNumber
-MD_EXPORT const CFStringRef     kMDItemColorSpace;                // CFString
-MD_EXPORT const CFStringRef     kMDItemBitsPerSample;             // CFNumber
-MD_EXPORT const CFStringRef     kMDItemFlashOnOff;                // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemFocalLength;               // CFNumber
-MD_EXPORT const CFStringRef     kMDItemAcquisitionMake;           // CFString
-MD_EXPORT const CFStringRef     kMDItemAcquisitionModel;          // CFString
-MD_EXPORT const CFStringRef     kMDItemISOSpeed;                  // CFNumber
-MD_EXPORT const CFStringRef     kMDItemOrientation;               // CFNumber
-MD_EXPORT const CFStringRef     kMDItemLayerNames;                // CFArray of CFString
-MD_EXPORT const CFStringRef     kMDItemWhiteBalance;              // CFNumber
-MD_EXPORT const CFStringRef     kMDItemAperture;                  // CFNumber
-MD_EXPORT const CFStringRef     kMDItemProfileName;               // CFString
-MD_EXPORT const CFStringRef     kMDItemResolutionWidthDPI;        // CFNumber
-MD_EXPORT const CFStringRef     kMDItemResolutionHeightDPI;       // CFNumber
-MD_EXPORT const CFStringRef     kMDItemExposureMode;              // CFNumber
-MD_EXPORT const CFStringRef     kMDItemExposureTimeSeconds;       // CFNumber
-MD_EXPORT const CFStringRef     kMDItemEXIFVersion;               // CFString
+MD_EXPORT const CFStringRef     kMDItemPixelHeight MD_AVAIL;               // CFNumber
+MD_EXPORT const CFStringRef     kMDItemPixelWidth MD_AVAIL;                // CFNumber
+MD_EXPORT const CFStringRef     kMDItemColorSpace MD_AVAIL;                // CFString
+MD_EXPORT const CFStringRef     kMDItemBitsPerSample MD_AVAIL;             // CFNumber
+MD_EXPORT const CFStringRef     kMDItemFlashOnOff MD_AVAIL;                // CFBoolean
+MD_EXPORT const CFStringRef     kMDItemFocalLength MD_AVAIL;               // CFNumber
+MD_EXPORT const CFStringRef     kMDItemAcquisitionMake MD_AVAIL;           // CFString
+MD_EXPORT const CFStringRef     kMDItemAcquisitionModel MD_AVAIL;          // CFString
+MD_EXPORT const CFStringRef     kMDItemISOSpeed MD_AVAIL;                  // CFNumber
+MD_EXPORT const CFStringRef     kMDItemOrientation MD_AVAIL;               // CFNumber
+MD_EXPORT const CFStringRef     kMDItemLayerNames MD_AVAIL;                // CFArray of CFString
+MD_EXPORT const CFStringRef     kMDItemWhiteBalance MD_AVAIL;              // CFNumber
+MD_EXPORT const CFStringRef     kMDItemAperture MD_AVAIL;                  // CFNumber
+MD_EXPORT const CFStringRef     kMDItemProfileName MD_AVAIL;               // CFString
+MD_EXPORT const CFStringRef     kMDItemResolutionWidthDPI MD_AVAIL;        // CFNumber
+MD_EXPORT const CFStringRef     kMDItemResolutionHeightDPI MD_AVAIL;       // CFNumber
+MD_EXPORT const CFStringRef     kMDItemExposureMode MD_AVAIL;              // CFNumber
+MD_EXPORT const CFStringRef     kMDItemExposureTimeSeconds MD_AVAIL;       // CFNumber
+MD_EXPORT const CFStringRef     kMDItemEXIFVersion MD_AVAIL;               // CFString
 
-MD_EXPORT const CFStringRef     kMDItemCodecs;                    // CFArray of CFString
-MD_EXPORT const CFStringRef     kMDItemMediaTypes;                // CFArray of CFString
-MD_EXPORT const CFStringRef     kMDItemStreamable;                // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemTotalBitRate;              // CFNumber
-MD_EXPORT const CFStringRef     kMDItemVideoBitRate;              // CFNumber
-MD_EXPORT const CFStringRef     kMDItemAudioBitRate;              // CFNumber
-MD_EXPORT const CFStringRef     kMDItemDeliveryType;              // CFString
+MD_EXPORT const CFStringRef     kMDItemCodecs MD_AVAIL;                    // CFArray of CFString
+MD_EXPORT const CFStringRef     kMDItemMediaTypes MD_AVAIL;                // CFArray of CFString
+MD_EXPORT const CFStringRef     kMDItemStreamable MD_AVAIL;                // CFBoolean
+MD_EXPORT const CFStringRef     kMDItemTotalBitRate MD_AVAIL;              // CFNumber
+MD_EXPORT const CFStringRef     kMDItemVideoBitRate MD_AVAIL;              // CFNumber
+MD_EXPORT const CFStringRef     kMDItemAudioBitRate MD_AVAIL;              // CFNumber
+MD_EXPORT const CFStringRef     kMDItemDeliveryType MD_AVAIL;              // CFString
 
-MD_EXPORT const CFStringRef     kMDItemAlbum;                     // CFString
-MD_EXPORT const CFStringRef     kMDItemHasAlphaChannel;		  // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemRedEyeOnOff;               // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemMeteringMode;              // CFString
-MD_EXPORT const CFStringRef     kMDItemMaxAperture;               // CFNumber
-MD_EXPORT const CFStringRef     kMDItemFNumber;                   // CFNumber
-MD_EXPORT const CFStringRef     kMDItemExposureProgram;           // CFString
-MD_EXPORT const CFStringRef     kMDItemExposureTimeString;        // CFString
+MD_EXPORT const CFStringRef     kMDItemAlbum MD_AVAIL;                     // CFString
+MD_EXPORT const CFStringRef     kMDItemHasAlphaChannel MD_AVAIL;		  // CFBoolean
+MD_EXPORT const CFStringRef     kMDItemRedEyeOnOff MD_AVAIL;               // CFBoolean
+MD_EXPORT const CFStringRef     kMDItemMeteringMode MD_AVAIL;              // CFString
+MD_EXPORT const CFStringRef     kMDItemMaxAperture MD_AVAIL;               // CFNumber
+MD_EXPORT const CFStringRef     kMDItemFNumber MD_AVAIL;                   // CFNumber
+MD_EXPORT const CFStringRef     kMDItemExposureProgram MD_AVAIL;           // CFString
+MD_EXPORT const CFStringRef     kMDItemExposureTimeString MD_AVAIL;        // CFString
 
 /* From IPTC */
-MD_EXPORT const CFStringRef     kMDItemHeadline;                  // CFString
-MD_EXPORT const CFStringRef     kMDItemInstructions;              // CFString
-MD_EXPORT const CFStringRef     kMDItemCity;                      // CFString
-MD_EXPORT const CFStringRef     kMDItemStateOrProvince;           // CFString
-MD_EXPORT const CFStringRef     kMDItemCountry;                   // CFString
+MD_EXPORT const CFStringRef     kMDItemHeadline MD_AVAIL;                  // CFString
+MD_EXPORT const CFStringRef     kMDItemInstructions MD_AVAIL;              // CFString
+MD_EXPORT const CFStringRef     kMDItemCity MD_AVAIL;                      // CFString
+MD_EXPORT const CFStringRef     kMDItemStateOrProvince MD_AVAIL;           // CFString
+MD_EXPORT const CFStringRef     kMDItemCountry MD_AVAIL;                   // CFString
 
 /*!
    @constant kMDItemTextContent
@@ -441,26 +441,19 @@ MD_EXPORT const CFStringRef     kMDItemCountry;                   // CFString
    @constant kMDItemFSOwnerGroupID
    Group-id of owner of the file. Type is a CFNumber.
 
-   @constant kMDItemFSExists
+   @constant kMDItemFSExists *** DEPRECATED ***
    Boolean indicating if this MDItem references a file that still
    exists. The file that the MDItem references might have been
    deleted. Type is a CFBoolean.
 
-   @constant kMDItemFSIsReadable
+   @constant kMDItemFSIsReadable *** DEPRECATED ***
    Boolean indicating if this file is readable. Type is a CFBoolean.
 
-   @constant kMDItemFSIsWriteable
+   @constant kMDItemFSIsWriteable *** DEPRECATED ***
    Boolean indicating if this file is writable. Type is a CFBoolean.
 
    @constant kMDItemFSIsExtensionHidden
    Boolean indicating if this file has its extension hidden. Type is a CFBoolean.
-
-   @constant kMDItemFSIsImmutable
-   Boolean indicating if this file has its immutable bit set. Type is a CFBoolean.
-
-   @constant kMDItemFSIsAppendOnly
-   Boolean indicating if this file has its append only bit set. Type is
-   a CFBoolean.
 
    @constant kMDItemFSNodeCount
    Number of files in directory. Type is a CFNumber.
@@ -473,26 +466,23 @@ MD_EXPORT const CFStringRef     kMDItemCountry;                   // CFString
 
 */
 
-MD_EXPORT const CFStringRef     kMDItemFSName;                  // CFString
-MD_EXPORT const CFStringRef     kMDItemDisplayName;             // CFString
-MD_EXPORT const CFStringRef     kMDItemPath;                    // CFString
-MD_EXPORT const CFStringRef     kMDItemFSSize;                  // CFNumber
-MD_EXPORT const CFStringRef     kMDItemFSCreationDate;          // CFDate
-MD_EXPORT const CFStringRef     kMDItemFSContentChangeDate;     // CFDate
-MD_EXPORT const CFStringRef     kMDItemFSOwnerUserID;           // CFNumber
-MD_EXPORT const CFStringRef     kMDItemFSOwnerGroupID;          // CFNumber
-MD_EXPORT const CFStringRef     kMDItemFSExists;                // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemFSIsReadable;            // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemFSIsWriteable;           // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemFSIsExtensionHidden;     // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemFSInvisible;             // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemFSLabel;                 // CFNumber
-MD_EXPORT const CFStringRef     kMDItemFSNodeCount;             // CFNumber
-//MD_EXPORT const CFStringRef     kMDItemFSNodeType;              // CFStringRef, one of:
-//MD_EXPORT const CFStringRef         kMDItemFSNodeTypeFile;
-//MD_EXPORT const CFStringRef         kMDItemFSNodeTypeVolume;
+MD_EXPORT const CFStringRef     kMDItemFSName MD_AVAIL;                  // CFString
+MD_EXPORT const CFStringRef     kMDItemDisplayName MD_AVAIL;             // CFString
+MD_EXPORT const CFStringRef     kMDItemPath MD_AVAIL;                    // CFString
+MD_EXPORT const CFStringRef     kMDItemFSSize MD_AVAIL;                  // CFNumber
+MD_EXPORT const CFStringRef     kMDItemFSCreationDate MD_AVAIL;          // CFDate
+MD_EXPORT const CFStringRef     kMDItemFSContentChangeDate MD_AVAIL;     // CFDate
+MD_EXPORT const CFStringRef     kMDItemFSOwnerUserID MD_AVAIL;           // CFNumber
+MD_EXPORT const CFStringRef     kMDItemFSOwnerGroupID MD_AVAIL;          // CFNumber
+MD_EXPORT const CFStringRef     kMDItemFSExists AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT const CFStringRef     kMDItemFSIsReadable AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT const CFStringRef     kMDItemFSIsWriteable AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT const CFStringRef     kMDItemFSIsExtensionHidden MD_AVAIL;     // CFBoolean
+MD_EXPORT const CFStringRef     kMDItemFSInvisible MD_AVAIL;             // CFBoolean
+MD_EXPORT const CFStringRef     kMDItemFSLabel MD_AVAIL;                 // CFNumber
+MD_EXPORT const CFStringRef     kMDItemFSNodeCount MD_AVAIL;             // CFNumber
 
-MD_EXPORT const CFStringRef         kMDItemTextContent;         // a Write-Only CFString
+MD_EXPORT const CFStringRef     kMDItemTextContent MD_AVAIL;             // a Write-Only CFString
 
 /*!
    @constant kMDItemAudioSampleRate
@@ -554,19 +544,19 @@ MD_EXPORT const CFStringRef         kMDItemTextContent;         // a Write-Only 
    Type is a CFNumber
 */
 
-MD_EXPORT const CFStringRef     kMDItemAudioSampleRate;                 // CFNumber
-MD_EXPORT const CFStringRef     kMDItemAudioChannelCount;               // CFNumber
-MD_EXPORT const CFStringRef     kMDItemTempo;                           // CFNumber
-MD_EXPORT const CFStringRef     kMDItemKeySignature;                    // CFString
-MD_EXPORT const CFStringRef     kMDItemTimeSignature;                   // CFString
-MD_EXPORT const CFStringRef     kMDItemAudioEncodingApplication;        // CFString
-MD_EXPORT const CFStringRef     kMDItemComposer;                        // CFString
-MD_EXPORT const CFStringRef     kMDItemLyricist;                        // CFString
-MD_EXPORT const CFStringRef     kMDItemAudioTrackNumber;                // CFNumber
-MD_EXPORT const CFStringRef     kMDItemRecordingDate;                   // CFDate
-MD_EXPORT const CFStringRef     kMDItemMusicalGenre;                    // CFString
-MD_EXPORT const CFStringRef     kMDItemIsGeneralMIDISequence;           // CFBoolean
-MD_EXPORT const CFStringRef     kMDItemRecordingYear;                   // CFNumber
+MD_EXPORT const CFStringRef     kMDItemAudioSampleRate MD_AVAIL;                 // CFNumber
+MD_EXPORT const CFStringRef     kMDItemAudioChannelCount MD_AVAIL;               // CFNumber
+MD_EXPORT const CFStringRef     kMDItemTempo MD_AVAIL;                           // CFNumber
+MD_EXPORT const CFStringRef     kMDItemKeySignature MD_AVAIL;                    // CFString
+MD_EXPORT const CFStringRef     kMDItemTimeSignature MD_AVAIL;                   // CFString
+MD_EXPORT const CFStringRef     kMDItemAudioEncodingApplication MD_AVAIL;        // CFString
+MD_EXPORT const CFStringRef     kMDItemComposer MD_AVAIL;                        // CFString
+MD_EXPORT const CFStringRef     kMDItemLyricist MD_AVAIL;                        // CFString
+MD_EXPORT const CFStringRef     kMDItemAudioTrackNumber MD_AVAIL;                // CFNumber
+MD_EXPORT const CFStringRef     kMDItemRecordingDate MD_AVAIL;                   // CFDate
+MD_EXPORT const CFStringRef     kMDItemMusicalGenre MD_AVAIL;                    // CFString
+MD_EXPORT const CFStringRef     kMDItemIsGeneralMIDISequence MD_AVAIL;           // CFBoolean
+MD_EXPORT const CFStringRef     kMDItemRecordingYear MD_AVAIL;                   // CFNumber
 
 /*
         @const kMDItemOrganizations
@@ -634,16 +624,16 @@ MD_EXPORT const CFStringRef     kMDItemRecordingYear;                   // CFNum
         or by a third party. Type is a  CFArray of CFString.
 */
 
-MD_EXPORT const CFStringRef     kMDItemOrganizations;                    // CFArray of CFStrings
-MD_EXPORT const CFStringRef     kMDItemLanguages;                        // CFArray of CFStrings
-MD_EXPORT const CFStringRef     kMDItemRights;                           // CFString
-MD_EXPORT const CFStringRef     kMDItemPublishers;                       // CFArray of CFStrings
-MD_EXPORT const CFStringRef     kMDItemContributors;                     // CFArray of CFStrings
-MD_EXPORT const CFStringRef     kMDItemCoverage;                         // CFArray of CFStrings
-MD_EXPORT const CFStringRef     kMDItemSubject;                          // CFString
-MD_EXPORT const CFStringRef     kMDItemDescription;                      // CFString
-MD_EXPORT const CFStringRef     kMDItemIdentifier;                       // CFString
-MD_EXPORT const CFStringRef     kMDItemAudiences;                        // CFArray of CFStrings
+MD_EXPORT const CFStringRef     kMDItemOrganizations MD_AVAIL;                    // CFArray of CFStrings
+MD_EXPORT const CFStringRef     kMDItemLanguages MD_AVAIL;                        // CFArray of CFStrings
+MD_EXPORT const CFStringRef     kMDItemRights MD_AVAIL;                           // CFString
+MD_EXPORT const CFStringRef     kMDItemPublishers MD_AVAIL;                       // CFArray of CFStrings
+MD_EXPORT const CFStringRef     kMDItemContributors MD_AVAIL;                     // CFArray of CFStrings
+MD_EXPORT const CFStringRef     kMDItemCoverage MD_AVAIL;                         // CFArray of CFStrings
+MD_EXPORT const CFStringRef     kMDItemSubject MD_AVAIL;                          // CFString
+MD_EXPORT const CFStringRef     kMDItemDescription MD_AVAIL;                      // CFString
+MD_EXPORT const CFStringRef     kMDItemIdentifier MD_AVAIL;                       // CFString
+MD_EXPORT const CFStringRef     kMDItemAudiences MD_AVAIL;                        // CFArray of CFStrings
 
 
 /*
@@ -702,21 +692,21 @@ MD_EXPORT const CFStringRef     kMDItemAudiences;                        // CFAr
         Type is an Array of CFStrings.
 */
 
-MD_EXPORT const CFStringRef    kMDItemNumberOfPages;                    // CFNumber
-MD_EXPORT const CFStringRef    kMDItemPageWidth;                        // CFNumber
-MD_EXPORT const CFStringRef    kMDItemPageHeight;                       // CFNumber
-MD_EXPORT const CFStringRef    kMDItemSecurityMethod;                   // CFNumber
-MD_EXPORT const CFStringRef    kMDItemCreator;                          // CFString
-MD_EXPORT const CFStringRef    kMDItemEncodingApplications;             // CFArray of CFStrings
-MD_EXPORT const CFStringRef    kMDItemDueDate;                          // CFDate
-MD_EXPORT const CFStringRef    kMDItemStarRating;                       // CFNumber
-MD_EXPORT const CFStringRef    kMDItemPhoneNumbers;                     // CFArray of CFStrings
-MD_EXPORT const CFStringRef    kMDItemEmailAddresses;                   // CFArray of CFStrings
-MD_EXPORT const CFStringRef    kMDItemInstantMessageAddresses;          // CFArray of CFStrings
-MD_EXPORT const CFStringRef    kMDItemKind;                             // CFStrings
-MD_EXPORT const CFStringRef    kMDItemRecipients;                       // CFArray of CFStrings
-MD_EXPORT const CFStringRef    kMDItemFinderComment;                    // CFString
-MD_EXPORT const CFStringRef    kMDItemFonts;                            // CFArray of CFString
+MD_EXPORT const CFStringRef    kMDItemNumberOfPages MD_AVAIL;                    // CFNumber
+MD_EXPORT const CFStringRef    kMDItemPageWidth MD_AVAIL;                        // CFNumber
+MD_EXPORT const CFStringRef    kMDItemPageHeight MD_AVAIL;                       // CFNumber
+MD_EXPORT const CFStringRef    kMDItemSecurityMethod MD_AVAIL;                   // CFNumber
+MD_EXPORT const CFStringRef    kMDItemCreator MD_AVAIL;                          // CFString
+MD_EXPORT const CFStringRef    kMDItemEncodingApplications MD_AVAIL;             // CFArray of CFStrings
+MD_EXPORT const CFStringRef    kMDItemDueDate MD_AVAIL;                          // CFDate
+MD_EXPORT const CFStringRef    kMDItemStarRating MD_AVAIL;                       // CFNumber
+MD_EXPORT const CFStringRef    kMDItemPhoneNumbers MD_AVAIL;                     // CFArray of CFStrings
+MD_EXPORT const CFStringRef    kMDItemEmailAddresses MD_AVAIL;                   // CFArray of CFStrings
+MD_EXPORT const CFStringRef    kMDItemInstantMessageAddresses MD_AVAIL;          // CFArray of CFStrings
+MD_EXPORT const CFStringRef    kMDItemKind MD_AVAIL;                             // CFStrings
+MD_EXPORT const CFStringRef    kMDItemRecipients MD_AVAIL;                       // CFArray of CFStrings
+MD_EXPORT const CFStringRef    kMDItemFinderComment MD_AVAIL;                    // CFString
+MD_EXPORT const CFStringRef    kMDItemFonts MD_AVAIL;                            // CFArray of CFString
 
 
 /*!
@@ -772,23 +762,25 @@ MD_EXPORT const CFStringRef    kMDItemFonts;                            // CFArr
         multiple instruments, including Conga and Bongo).
 */
 
-MD_EXPORT const CFStringRef    kMDItemAppleLoopsRootKey;                // CFString
-MD_EXPORT const CFStringRef    kMDItemAppleLoopsKeyFilterType;          // CFString
-MD_EXPORT const CFStringRef    kMDItemAppleLoopsLoopMode;               // CFString
-MD_EXPORT const CFStringRef    kMDItemAppleLoopDescriptors;             // CFArray of CFStrings
-MD_EXPORT const CFStringRef    kMDItemMusicalInstrumentCategory;        // CFString
-MD_EXPORT const CFStringRef    kMDItemMusicalInstrumentName;            // CFString
+MD_EXPORT const CFStringRef    kMDItemAppleLoopsRootKey MD_AVAIL;                // CFString
+MD_EXPORT const CFStringRef    kMDItemAppleLoopsKeyFilterType MD_AVAIL;          // CFString
+MD_EXPORT const CFStringRef    kMDItemAppleLoopsLoopMode MD_AVAIL;               // CFString
+MD_EXPORT const CFStringRef    kMDItemAppleLoopDescriptors MD_AVAIL;             // CFArray of CFStrings
+MD_EXPORT const CFStringRef    kMDItemMusicalInstrumentCategory MD_AVAIL;        // CFString
+MD_EXPORT const CFStringRef    kMDItemMusicalInstrumentName MD_AVAIL;            // CFString
 
 MD_END_C_DECLS
 
 /* ================================================================ */
 
+#if defined(__GNUC__) || __STDC_VERSION__ >= 199901L
 /* Private function rewriting */
 MD_BEGIN_C_DECLS
 extern CFDictionaryRef __MDItemCopyAttributesEllipsis1(MDItemRef item, ...) MD_AVAIL;
 
 #define MDItemCopyAttributeList(item, ...) __MDItemCopyAttributesEllipsis1(item, __VA_ARGS__, NULL)
 MD_END_C_DECLS
+#endif
 
 #endif /* MAC_OS_X_VERSION_MAX_ALLOWED */
 

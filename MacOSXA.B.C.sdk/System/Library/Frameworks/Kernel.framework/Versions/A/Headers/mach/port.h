@@ -97,23 +97,39 @@ typedef mach_port_name_t *mach_port_name_array_t;
 /* 
  *	mach_port_t - a named port right
  *
- *	In user-space, "rights" are represented by the name of the
- *	right in the Mach port namespace.  Even so, this type is
- *	presented as a unique one to more clearly denote the presence
- *	of a right coming along with the name. 
+ *	In the kernel, "rights" are represented [named] by pointers to
+ *	the ipc port object in question. There is no port namespace for the
+ *	rights to be collected.
  *
- *	Often, various rights for a port held in a single name space
- *	will coalesce and are, therefore, be identified by a single name
- *	[this is the case for send and receive rights].  But not
- *	always [send-once rights currently get a unique name for
- *	each right].      
+ *	Actually, there is namespace for the kernel task.  But most kernel
+ *	code - including, but not limited to, Mach IPC code - lives in the
+ *	limbo between the current user-level task and the "next" task. Very
+ *	little of the kernel code runs in full kernel task context.  So very
+ *	little of it gets to use the kernel task's port name space.  
+ *
+ *	Because of this implementation approach, all in-kernel rights for
+ *	a given port coalesce [have the same name/pointer].  The actual
+ *	references are counted in the port itself.  It is up to the kernel
+ *	code in question to "just remember" how many [and what type of]
+ *	rights it holds and handle them appropriately.
  *
  */
 
-#ifndef _MACH_PORT_T
-#define _MACH_PORT_T
-typedef mach_port_name_t 		mach_port_t;
-#endif
+/*
+ *	For kernel code that resides outside of Mach proper, we opaque the
+ *	port structure definition.
+ */
+struct ipc_port ;
+
+
+typedef struct ipc_port	        *ipc_port_t;
+
+#define IPC_PORT_NULL		((ipc_port_t) 0)
+#define IPC_PORT_DEAD		((ipc_port_t)~0)
+#define IPC_PORT_VALID(port) \
+	((port) != IPC_PORT_NULL && (port) != IPC_PORT_DEAD)
+
+typedef ipc_port_t 		mach_port_t;
 
 
 typedef mach_port_t			*mach_port_array_t;

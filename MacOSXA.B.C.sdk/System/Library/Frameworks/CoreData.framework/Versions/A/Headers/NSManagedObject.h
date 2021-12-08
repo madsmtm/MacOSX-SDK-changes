@@ -27,7 +27,7 @@
     NSDictionary *_cd_lastSnapshot;
     u_int32_t _cd_stateFlags;
     u_int32_t _cd_rc;
-    void *_observationInfo;
+    void *_cd_observationInfo;
     u_int32_t _cd_lockingInfo;
     void *_cd_reserved1;
 }

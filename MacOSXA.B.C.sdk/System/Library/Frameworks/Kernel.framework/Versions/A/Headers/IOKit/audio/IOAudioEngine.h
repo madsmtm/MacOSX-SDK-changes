@@ -329,6 +329,11 @@ public:
 	 */
     virtual void setOutputSampleOffset(UInt32 numSamples);
 
+protected:
+	
+	// OSMetaClassDeclareReservedUsed(IOAudioEngine, 12);
+    virtual IOReturn createUserClient(task_t task, void *securityID, UInt32 type, IOAudioEngineUserClient **newUserClient, OSDictionary *properties);
+	
 private:
 	OSMetaClassDeclareReservedUsed(IOAudioEngine, 0);
 	OSMetaClassDeclareReservedUsed(IOAudioEngine, 1);
@@ -342,8 +347,8 @@ private:
 	OSMetaClassDeclareReservedUsed(IOAudioEngine, 9);
 	OSMetaClassDeclareReservedUsed(IOAudioEngine, 10);
 	OSMetaClassDeclareReservedUsed(IOAudioEngine, 11);
+	OSMetaClassDeclareReservedUsed(IOAudioEngine, 12);
 
-	OSMetaClassDeclareReservedUnused(IOAudioEngine, 12);
 	OSMetaClassDeclareReservedUnused(IOAudioEngine, 13);
 	OSMetaClassDeclareReservedUnused(IOAudioEngine, 14);
 	OSMetaClassDeclareReservedUnused(IOAudioEngine, 15);
@@ -503,9 +508,11 @@ public:
      * @param securityID Optional security paramater passed in by the client - ignored.
      * @param type Optional user client type passed in by the client - ignored.
      * @param handler The new IOUserClient * must be stored in this param on a successful completion.
+     * @param properties A dictionary of additional properties for the connection.
      * @result Returns kIOReturnSuccess on success.  May also result kIOReturnError or kIOReturnNoMemory.
      */
     virtual IOReturn newUserClient(task_t task, void *securityID, UInt32 type, IOUserClient **handler);
+    virtual IOReturn newUserClient(task_t task, void *securityID, UInt32 type, OSDictionary *properties, IOUserClient **handler);
 
     /*!
      * @function addAudioStream

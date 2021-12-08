@@ -83,6 +83,14 @@ type task_t = mach_port_t
 #endif	/* KERNEL_SERVER */
 		;
 
+type task_name_t = mach_port_t
+#if	KERNEL_SERVER
+		intran: task_name_t convert_port_to_task_name(mach_port_t)
+		outtran: mach_port_t convert_task_name_to_port(task_name_t)
+		destructor: task_name_deallocate(task_name_t)
+#endif	/* KERNEL_SERVER */
+		;
+
 type thread_t = mach_port_t
 #if	KERNEL_SERVER
 		intran: thread_t convert_port_to_thread(mach_port_t)
@@ -168,7 +176,8 @@ type thread_policy_flavor_t	= natural_t;
 type thread_policy_t		= array[*:16] of integer_t;
 
 		/* task_info_t: this inline array can hold any of:
-		 * task_basic_info_t (8 ints)
+		 * task_basic_info_32_t (8 ints)
+		 * task_basic_info_64_t (10 ints)
 		 * task_events_info_t (8 ints)
 		 * task_thread_times_info_t (4 ints)
 		 * policy_timeshare_info_t (5 ints)
@@ -180,7 +189,7 @@ type thread_policy_t		= array[*:16] of integer_t;
 		 * definition may need to be changed. (See
 		 * mach/task_info.h and mach/policy.h) */
 type task_flavor_t		= int;
-type task_info_t		= array[*:8] of integer_t;
+type task_info_t		= array[*:10] of integer_t;
 
 type task_policy_flavor_t	= natural_t;
 type task_policy_t		= array[*:16] of integer_t;

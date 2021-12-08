@@ -3,7 +3,7 @@
  
      Contains:   Carbon Printing Manager Interfaces.
  
-     Version:    Printing-187~4
+     Version:    Printing-192.3~52
  
      Copyright:  © 1998-2005 by Apple Computer, Inc., all rights reserved
  

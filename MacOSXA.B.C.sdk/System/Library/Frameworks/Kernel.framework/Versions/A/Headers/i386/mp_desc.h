@@ -77,26 +77,28 @@ __BEGIN_DECLS
  * Note that dbtss could be conditionalized on MACH_KDB, but
  * doing so increases misconfiguration risk.
  */
-struct mp_desc_table {
-	struct fake_descriptor	idt[IDTSZ];	/* IDT */
-	struct fake_descriptor	gdt[GDTSZ];	/* GDT */
-	struct fake_descriptor	ldt[LDTSZ];	/* LDT */
-	struct i386_tss		ktss;
-	struct i386_tss		dbtss;
-};
+typedef struct cpu_desc_table {
+	struct fake_descriptor	idt[IDTSZ] __attribute__ ((aligned (16)));
+	struct fake_descriptor	gdt[GDTSZ] __attribute__ ((aligned (16)));
+	struct i386_tss		ktss       __attribute__ ((aligned (16)));
+	struct i386_tss		dbtss      __attribute__ ((aligned (16)));
+	uint32_t		fstk[8];
+} cpu_desc_table_t;
 
 #define	current_gdt()	(current_cpu_datap()->cpu_desc_index.cdi_gdt)
 #define	current_idt()	(current_cpu_datap()->cpu_desc_index.cdi_idt)
 #define	current_ldt()	(current_cpu_datap()->cpu_desc_index.cdi_ldt)
 #define	current_ktss()	(current_cpu_datap()->cpu_desc_index.cdi_ktss)
 #define	current_dbtss()	(current_cpu_datap()->cpu_desc_index.cdi_dbtss)
+#define	current_fstk()	(current_cpu_datap()->cpu_desc_index.cdi_fstk)
 
 #define	gdt_desc_p(sel) \
 	((struct real_descriptor *)&current_gdt()[sel_idx(sel)])
 #define	ldt_desc_p(sel) \
 	((struct real_descriptor *)&current_ldt()[sel_idx(sel)])
 
-extern void	mp_desc_init(cpu_data_t *cdp, boolean_t is_boot_cpu);
+extern void	cpu_desc_init(cpu_data_t *cdp, boolean_t is_boot_cpu);
+extern void	fast_syscall_init(void);
 
 static inline boolean_t
 valid_user_data_selector(uint16_t selector)

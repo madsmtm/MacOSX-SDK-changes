@@ -755,7 +755,7 @@ typedef CFComparisonResult (*MDQuerySortComparatorFunction)(const CFTypeRef attr
                 function is set again. If the context is not what is
                 expected by the comparator, the behavior is undefined.
 */
-void MDQuerySetSortComparator(MDQueryRef query, MDQuerySortComparatorFunction comparator, void *context);
+MD_EXPORT void MDQuerySetSortComparator(MDQueryRef query, MDQuerySortComparatorFunction comparator, void *context)  MD_AVAIL;
 
 
 /*!
@@ -774,7 +774,7 @@ void MDQuerySetSortComparator(MDQueryRef query, MDQuerySortComparatorFunction co
                 the result objects). These notifications are sent out
                 by a query before the kMDQueryDidFinishNotification.
 */
-MD_EXPORT const CFStringRef kMDQueryProgressNotification;
+MD_EXPORT const CFStringRef kMDQueryProgressNotification MD_AVAIL;
 
 /*!
         @constant kMDQueryDidFinishNotification
@@ -787,7 +787,7 @@ MD_EXPORT const CFStringRef kMDQueryProgressNotification;
                 response to this notification, since it doesn't indicate
                 any change in the result list of a query.
 */
-MD_EXPORT const CFStringRef kMDQueryDidFinishNotification;
+MD_EXPORT const CFStringRef kMDQueryDidFinishNotification MD_AVAIL;
 
 /*!
         @constant kMDQueryDidUpdateNotification
@@ -802,7 +802,7 @@ MD_EXPORT const CFStringRef kMDQueryDidFinishNotification;
                 notifications are sent out by a query after the
                 kMDQueryDidUpdateNotification.
 */
-MD_EXPORT const CFStringRef kMDQueryDidUpdateNotification;
+MD_EXPORT const CFStringRef kMDQueryDidUpdateNotification MD_AVAIL;
 
 /*!
         @constant kMDQueryUpdateAddedItems
@@ -813,7 +813,7 @@ MD_EXPORT const CFStringRef kMDQueryDidUpdateNotification;
                 objects are created for the newly added results, to be
                 put in the list.
 */
-MD_EXPORT const CFStringRef kMDQueryUpdateAddedItems;
+MD_EXPORT const CFStringRef kMDQueryUpdateAddedItems MD_AVAIL;
 
 /*!
         @constant kMDQueryUpdateChangedItems
@@ -830,7 +830,7 @@ MD_EXPORT const CFStringRef kMDQueryUpdateAddedItems;
                 which has not been looked at, but this semantic may
                 change.]]
 */
-MD_EXPORT const CFStringRef kMDQueryUpdateChangedItems;
+MD_EXPORT const CFStringRef kMDQueryUpdateChangedItems MD_AVAIL;
 
 /*!
         @constant kMDQueryUpdateRemovedItems
@@ -845,7 +845,7 @@ MD_EXPORT const CFStringRef kMDQueryUpdateChangedItems;
                 temporary result objects just to represent the deletion
                 of the result, but this semantic may change.]]
 */
-MD_EXPORT const CFStringRef kMDQueryUpdateRemovedItems;
+MD_EXPORT const CFStringRef kMDQueryUpdateRemovedItems MD_AVAIL;
 
 /*!
         @constant kMDQueryResultContentRelevance
@@ -873,7 +873,7 @@ MD_EXPORT const CFStringRef kMDQueryUpdateRemovedItems;
                 item which does not exist (for sorting purposes,
                 for example).
 */
-MD_EXPORT const CFStringRef kMDQueryResultContentRelevance;
+MD_EXPORT const CFStringRef kMDQueryResultContentRelevance MD_AVAIL;
 
 /*!
     @function MDQuerySetSearchScope
@@ -893,7 +893,7 @@ MD_EXPORT const CFStringRef kMDQueryResultContentRelevance;
            Currently, pass 0 (zero).
  */
 
-MD_EXPORT void MDQuerySetSearchScope(MDQueryRef query, CFArrayRef scopeDirectories, OptionBits scopeOptions);
+MD_EXPORT void MDQuerySetSearchScope(MDQueryRef query, CFArrayRef scopeDirectories, OptionBits scopeOptions) MD_AVAIL;
 
 /*!
 	@constant kMDQueryScopeHome
@@ -902,7 +902,7 @@ MD_EXPORT void MDQuerySetSearchScope(MDQueryRef query, CFArrayRef scopeDirectori
 	the current user's home directory
  */
 
-MD_EXPORT const CFStringRef kMDQueryScopeHome;
+MD_EXPORT const CFStringRef kMDQueryScopeHome MD_AVAIL;
 
 /*!
 	@constant kMDQueryScopeComputer
@@ -911,7 +911,7 @@ MD_EXPORT const CFStringRef kMDQueryScopeHome;
 	home directory (which may be on a remote volume).
  */
 
-MD_EXPORT const CFStringRef kMDQueryScopeComputer;
+MD_EXPORT const CFStringRef kMDQueryScopeComputer MD_AVAIL;
 
 /*!
 	@constant kMDQueryScopeNetwork
@@ -919,7 +919,7 @@ MD_EXPORT const CFStringRef kMDQueryScopeComputer;
 	that the search should include all user mounted remote volumes.
  */
 
-MD_EXPORT const CFStringRef kMDQueryScopeNetwork;
+MD_EXPORT const CFStringRef kMDQueryScopeNetwork MD_AVAIL;
 
 MD_END_C_DECLS
 

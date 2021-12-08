@@ -48,7 +48,7 @@ CV_EXPORT const CFStringRef kCVBufferTimeScaleKey AVAILABLE_MAC_OS_X_VERSION_10_
 
 enum {
 	kCVAttachmentMode_ShouldNotPropagate    = 0,
-	kCVAttachmentMode_ShouldPropagate       = 1,
+	kCVAttachmentMode_ShouldPropagate       = 1
 };
 typedef uint32_t CVAttachmentMode;
 

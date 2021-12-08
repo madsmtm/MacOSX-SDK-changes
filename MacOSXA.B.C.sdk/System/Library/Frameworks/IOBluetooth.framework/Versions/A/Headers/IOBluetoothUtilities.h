@@ -32,7 +32,6 @@
 
 extern	IOReturn	IOBluetoothNSStringToDeviceAddress( NSString * inNameString, BluetoothDeviceAddress * outDeviceAddress );
 
-
 //---------------------------------------------------------------------------------------------------------------------------
 /*!	@function	IOBluetoothNSStringFromDeviceAddress
 	@abstract	Convenience routine to take a device address structure and create an NSString.

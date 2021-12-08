@@ -85,9 +85,8 @@
     @abstract		Create a new OBEXFileTransferServices object
     @discussion		This object must be constructed with a valid IOBluetoothOBEXSession. The given 
 					IOBluetoothOBEXSession does not need to be connected to the remote server.  
-					This module can be manually connected through the connect() method or 
-					will automatically connect when any transfer method is called on it. 
-	@param			inOBEXSession A valid IOBluetoothOBEXSession that may or may not be connected
+					This module can be manually connected through the connect() method. 
+	@param			inOBEXSession A valid IOBluetoothOBEXSession
 	@result			A newly created OBEXFileTransferServices object on success, nil on failure
 */
 + (OBEXFileTransferServices*) withOBEXSession: (IOBluetoothOBEXSession*) inOBEXSession;
@@ -98,9 +97,8 @@
 	@abstract		Create a new OBEXFileTransferServices object
 	@discussion		This object must be constructed with a valid IOBluetoothOBEXSession. The given 
 					IOBluetoothOBEXSession does not need to be connected to the remote server.  
-					This module can be manually connected through the connect() method or 
-					will automatically connect when any transfer method is called on it.
-	@param			inOBEXSession A valid IOBluetoothOBEXSession that may or may not be connected
+					This module can be manually connected through the connect() method.
+	@param			inOBEXSession A valid IOBluetoothOBEXSession
 	@result			A newly created OBEXFileTransferServices object on success, nil on failure
 */
 - (id) initWithOBEXSession:(IOBluetoothOBEXSession*)inOBEXSession;
@@ -168,7 +166,7 @@
 
 /*!
 	@method     connectToFTPService
-	@abstract   Connect the (unconnected) OBEXSession to a remote device for FTP operations
+	@abstract   Connect to a remote device for FTP operations
 	@discussion If the OBEXSession given to OBEXFileTransferServices on creation is not connected it
 				can be manually connected through this method. 
 	@result		kOBEXSuccess, kOBEXSessionBusyError, or kOBEXSessionAlreadyConnectedError, kOBEXNoResourcesError
@@ -179,7 +177,7 @@
 
 /*!
     @method     connectToObjectPushService
-    @abstract   Connect the (unconnected) OBEXSession to a remote device for ObjectPush operations.
+    @abstract   Connect to a remote device for ObjectPush operations.
 				Most of the FTP functionality of this object will be disabled.
     @discussion If the OBEXSession given to OBEXFileTransferServices on creation is not connected it
 				can be manually connected through this method. 
@@ -192,7 +190,7 @@
 
 /*!
     @method     disconnect
-    @abstract   Disconnect the (connected) OBEXSession from the remote device
+    @abstract   Disconnect from the remote device
     @discussion The user can manually disconnect the OBEXSession from the remote device if they want
 				to.  This object will disconnect the OBEXSession at release only if it was responsible 
 				for opening the connection via a connect method on this object.
@@ -243,7 +241,7 @@
 /*!
     @method     removeItem:
     @abstract   Remove a remote item.
-    @discussion NOTE: Not available on Apple computers for security reasons.  
+    @discussion Not supported for use on Apple computer targets  
 	@param		inItemName The name of the remote item to be removed
 	@result		kOBEXSuccess, kOBEXSessionBusyError, or kOBEXBadArgumentError initially.  
 				Further results returned through the fileTransferServicesRemoveItemComplete: delegate method 
@@ -351,6 +349,7 @@ extern CFStringRef kFTSProgressEstimatedTimeKey;	// double
 extern CFStringRef kFTSProgressTimeElapsedKey;		// int
 extern CFStringRef kFTSProgressTransferRateKey;		// float
 
+#define kFTSProgressPercentageKey	kFTSProgressPrecentageKey
 
 #pragma mark -
 #pragma mark Listing Keys

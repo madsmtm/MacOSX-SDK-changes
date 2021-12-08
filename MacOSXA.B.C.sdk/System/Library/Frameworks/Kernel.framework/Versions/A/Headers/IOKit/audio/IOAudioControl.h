@@ -171,12 +171,29 @@ public:
 	// OSMetaClassDeclareReservedUsed(IOAudioControl, 2);
 	virtual void sendQueuedNotifications(void);
 
+	// OSMetaClassDeclareReservedUsed(IOAudioControl, 3);
+    /*!
+     * @function createUserClient
+     * @abstract Creates a new IOAudioControlUserClient instance.
+     * @discussion This function is called by newUserClient() to create a new IOAudioControlUserClient instance.  This function may be overridden by subclasses that need to add functionality
+     *  to the IOAudioControlUserClient.  In that case, they must subclass IOAudioControlUserClient
+     *  and return a new, initialized instance of that subclass.
+     * @param task The task requesting the new user client.
+     * @param securityID Optional security paramater passed in by the client - ignored.
+     * @param type Optional user client type passed in by the client.
+     * @param newUserClient The IOAudioControlUserClient * must be stored in this param on a successful
+     *  completion.
+     * @param properties A dictionary of additional properties for the connection.
+     * @result Returns kIOReturnSuccess on success.
+     */
+    virtual IOReturn createUserClient(task_t task, void *securityID, UInt32 type, IOAudioControlUserClient **newUserClient, OSDictionary *properties);
+
 private:
     OSMetaClassDeclareReservedUsed(IOAudioControl, 0);
     OSMetaClassDeclareReservedUsed(IOAudioControl, 1);
     OSMetaClassDeclareReservedUsed(IOAudioControl, 2);
+    OSMetaClassDeclareReservedUsed(IOAudioControl, 3);
 
-    OSMetaClassDeclareReservedUnused(IOAudioControl, 3);
     OSMetaClassDeclareReservedUnused(IOAudioControl, 4);
     OSMetaClassDeclareReservedUnused(IOAudioControl, 5);
     OSMetaClassDeclareReservedUnused(IOAudioControl, 6);
@@ -307,9 +324,11 @@ public:
      * @param securityID Optional security paramater passed in by the client - ignored.
      * @param type Optional user client type passed in by the client - 0 for the default user client type.
      * @param handler The new IOUserClient * must be stored in this param on a successful completion.
+     * @param properties A dictionary of additional properties for the connection.
      * @result Returns kIOReturnSuccess on success.  May also result kIOReturnError or kIOReturnNoMemory.
      */
     virtual IOReturn newUserClient(task_t task, void *securityID, UInt32 type, IOUserClient **handler);
+    virtual IOReturn newUserClient(task_t task, void *securityID, UInt32 type, OSDictionary *properties, IOUserClient **handler);
 
     /*!
      * @function createUserClient

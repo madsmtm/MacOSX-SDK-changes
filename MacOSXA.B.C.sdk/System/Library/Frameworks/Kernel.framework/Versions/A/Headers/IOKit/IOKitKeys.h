@@ -76,6 +76,9 @@
 // IOService default user client class, for loadable user clients
 #define kIOUserClientClassKey		"IOUserClientClass"
 
+#define kIOUserClientCrossEndianKey		"IOUserClientCrossEndian"
+#define kIOUserClientCrossEndianCompatibleKey	"IOUserClientCrossEndianCompatible"
+
 // IOService notification types
 #define kIOPublishNotification		"IOServicePublish"
 #define kIOFirstPublishNotification	"IOServiceFirstPublish"
@@ -88,6 +91,8 @@
 #define kIOBusyInterest			"IOBusyInterest"
 #define kIOAppPowerStateInterest	"IOAppPowerStateInterest"
 #define kIOPriorityPowerStateInterest	"IOPriorityPowerStateInterest"
+
+#define kIOPlatformDeviceMessageKey     "IOPlatformDeviceMessage"
 
 // IOService interest notification types
 #define kIOCFPlugInTypesKey		"IOCFPlugInTypes"

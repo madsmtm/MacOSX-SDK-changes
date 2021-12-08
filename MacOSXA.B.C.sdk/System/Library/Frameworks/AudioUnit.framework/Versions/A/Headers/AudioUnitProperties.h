@@ -1124,10 +1124,11 @@ enum {  // bits in ScheduledAudioSlice.mFlags
 																// because it was scheduled late
 };
 
+typedef struct ScheduledAudioSlice ScheduledAudioSlice;
 typedef void (*ScheduledAudioSliceCompletionProc)(void *userData, 
-				struct ScheduledAudioSlice *bufferList);
+				ScheduledAudioSlice *bufferList);
 				
-typedef struct ScheduledAudioSlice {
+struct ScheduledAudioSlice {
 	AudioTimeStamp			mTimeStamp;
 	ScheduledAudioSliceCompletionProc  mCompletionProc;	// may be null
 	void *					mCompletionProcUserData;
@@ -1136,7 +1137,7 @@ typedef struct ScheduledAudioSlice {
 	void *					mReserved2;		// for internal use
 	UInt32					mNumberFrames;  // must be consistent with byte count of mBufferList
 	AudioBufferList *		mBufferList;	// must contain deinterleaved Float32
-} ScheduledAudioSlice;
+};
 
 
 
@@ -1237,12 +1238,13 @@ typedef struct ScheduledAudioSlice {
 	rate to the unit's output rate may be desirable.
 */
 
+typedef struct ScheduledAudioFileRegion ScheduledAudioFileRegion;
 typedef void (*ScheduledAudioFileRegionCompletionProc)(void *userData, 
-				struct ScheduledAudioFileRegion *fileRegion, OSStatus result);
+				ScheduledAudioFileRegion *fileRegion, OSStatus result);
 
 // defined in AudioToolbox/AudioFile.h:
 //		typedef	struct OpaqueAudioFileID	*AudioFileID;
-typedef struct ScheduledAudioFileRegion {
+struct ScheduledAudioFileRegion {
 	AudioTimeStamp			mTimeStamp;
 	ScheduledAudioFileRegionCompletionProc  mCompletionProc;	// may be NULL
 	void *					mCompletionProcUserData;
@@ -1250,7 +1252,7 @@ typedef struct ScheduledAudioFileRegion {
 	UInt32					mLoopCount;		// 0 = don't loop
 	SInt64					mStartFrame;	// offset into file
 	UInt32					mFramesToPlay;	// number of frames to play
-} ScheduledAudioFileRegion;
+};
 
 /*
 	Using AUDeferredRenderer

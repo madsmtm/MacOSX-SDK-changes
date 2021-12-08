@@ -3,7 +3,7 @@
  
      Contains:   Public interfaces for Uniform Type Identification
  
-     Version:    LaunchServices-153~4
+     Version:    LaunchServices-172~17
  
      Copyright:  © 2003-2005 by Apple Computer, Inc., all rights reserved.
  

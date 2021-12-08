@@ -109,6 +109,8 @@ public:
 	virtual IOReturn getNearestStartTime(IOAudioStream *audioStream, IOAudioTimeStamp *ioTimeStamp, UInt32 isInput);
 	virtual IOReturn getClientNearestStartTime(IOAudioStream *audioStream, IOAudioTimeStamp *ioTimeStamp, UInt32 isInput);
 	virtual IOReturn safeRegisterClientBuffer(UInt32 audioStreamIndex, void *sourceBuffer, UInt32 bufSizeInBytes, UInt32 bufferSetID);
+    // OSMetaClassDeclareReservedUsed(IOAudioEngineUserClient, 5);	
+    virtual bool initWithAudioEngine(IOAudioEngine *engine, task_t task, void *securityToken, UInt32 type, OSDictionary *properties);
 
 private:
     OSMetaClassDeclareReservedUsed(IOAudioEngineUserClient, 0);
@@ -116,8 +118,8 @@ private:
     OSMetaClassDeclareReservedUsed(IOAudioEngineUserClient, 2);
     OSMetaClassDeclareReservedUsed(IOAudioEngineUserClient, 3);
     OSMetaClassDeclareReservedUsed(IOAudioEngineUserClient, 4);
+    OSMetaClassDeclareReservedUsed(IOAudioEngineUserClient, 5);
 
-    OSMetaClassDeclareReservedUnused(IOAudioEngineUserClient, 5);
     OSMetaClassDeclareReservedUnused(IOAudioEngineUserClient, 6);
     OSMetaClassDeclareReservedUnused(IOAudioEngineUserClient, 7);
     OSMetaClassDeclareReservedUnused(IOAudioEngineUserClient, 8);
@@ -172,8 +174,10 @@ protected:
 public:
 
     static IOAudioEngineUserClient *withAudioEngine(IOAudioEngine *engine, task_t clientTask, void *securityToken, UInt32 type);
+    static IOAudioEngineUserClient *withAudioEngine(IOAudioEngine *engine, task_t clientTask, void *securityToken, UInt32 type, OSDictionary *properties);
 
     virtual bool initWithAudioEngine(IOAudioEngine *engine, task_t task, void *securityToken, UInt32 type);
+
     virtual void free();
     virtual void freeClientBufferSetList();
     virtual void freeClientBuffer(IOAudioClientBuffer *clientBuffer);

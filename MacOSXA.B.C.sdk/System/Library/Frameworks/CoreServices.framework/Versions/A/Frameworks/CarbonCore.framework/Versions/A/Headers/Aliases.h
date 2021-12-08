@@ -3,7 +3,7 @@
  
      Contains:   Alias Manager Interfaces.
  
-     Version:    CarbonCore-650.1~1
+     Version:    CarbonCore-682.9~1
  
      Copyright:  © 1989-2005 by Apple Computer, Inc., all rights reserved
  
@@ -80,12 +80,25 @@ enum {
   kResolveAliasTryFileIDFirst   = 0x00000002 /* search by file id before path */
 };
 
+#if MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_X_VERSION_10_4
+#define __AL_USE_OPAQUE_RECORD__ 1
+#else
+#define __AL_USE_OPAQUE_RECORD__ 0
+#endif
 /* define the alias record that will be the blackbox for the caller */
+#if __AL_USE_OPAQUE_RECORD__
+struct AliasRecord {
+  UInt8               hidden[6];
+};
+typedef struct AliasRecord              AliasRecord;
+#else
 struct AliasRecord {
   OSType              userType;               /* appl stored type like creator type */
   unsigned short      aliasSize;              /* alias record size in bytes, for appl usage */
 };
 typedef struct AliasRecord              AliasRecord;
+#endif  /* __AL_USE_OPAQUE_RECORD__ */
+
 typedef AliasRecord *                   AliasPtr;
 typedef AliasPtr *                      AliasHandle;
 /* info block to pass to FSCopyAliasInfo */

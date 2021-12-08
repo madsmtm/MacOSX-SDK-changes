@@ -159,6 +159,7 @@ struct sockaddr_in6 {
  */
 
 
+
 /*
  * Macros started with IPV6_ADDR is KAME local
  */
@@ -304,7 +305,7 @@ extern const struct in6_addr in6addr_linklocal_allrouters;
 #define IPV6_RECVRETOPTS	6  /* bool; receive IP6 opts for response */
 #define IPV6_RECVDSTADDR	7  /* bool; receive IP6 dst addr w/dgram */
 #define IPV6_RETOPTS		8  /* ip6_opts; set/get IP6 options */
-#endif 0
+#endif /* 0 */
 #define IPV6_SOCKOPT_RESERVED1	3  /* reserved for future use */
 #endif /* _POSIX_C_SOURCE */
 #define IPV6_UNICAST_HOPS	4  /* int; IP6 hops */
@@ -335,7 +336,7 @@ extern const struct in6_addr in6addr_linklocal_allrouters;
 
 #if 1 /*IPSEC*/
 #define IPV6_IPSEC_POLICY	28 /* struct; get/set security policy */
-#endif 1
+#endif /* 1 */
 #define IPV6_FAITH		29 /* bool; accept FAITH'ed connections */
 
 #if 1 /*IPV6FIREWALL*/
@@ -344,7 +345,7 @@ extern const struct in6_addr in6addr_linklocal_allrouters;
 #define IPV6_FW_FLUSH		32 /* flush firewall rule chain */
 #define IPV6_FW_ZERO		33 /* clear single/all firewall counter(s) */
 #define IPV6_FW_GET		34 /* get entire firewall rule chain */
-#endif 1
+#endif /* 1 */
 
 /* to define items, should talk with KAME guys first, for *BSD compatibility */
 

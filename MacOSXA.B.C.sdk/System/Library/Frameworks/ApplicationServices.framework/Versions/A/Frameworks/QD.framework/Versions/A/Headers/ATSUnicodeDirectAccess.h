@@ -3,7 +3,7 @@
  
      Contains:   Public Interfaces/Types for Low Level ATSUI
  
-     Version:    Quickdraw-185~4
+     Version:    Quickdraw-192.7~21
  
      Copyright:  © 2002-2005 by Apple Computer, Inc., all rights reserved.
  

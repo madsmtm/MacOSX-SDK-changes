@@ -251,11 +251,12 @@ vImage_Error vImageOverwriteChannelsWithScalar_PlanarF( Pixel_F     scalar,
                                                         vImage_Flags    flags )		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
+
 //
 // Fill a buffer with a color. Use vImageOverwriteChannelsWithScalar_* to fill planar buffers with a color.
 //
-vImage_Error vImageBufferFill_ARGB8888( const vImage_Buffer *dest, Pixel_8888 color, vImage_Flags flags ) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
-vImage_Error vImageBufferFill_ARGBFFFF( const vImage_Buffer *dest, Pixel_FFFF color, vImage_Flags flags ) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+vImage_Error vImageBufferFill_ARGB8888( const vImage_Buffer *dest, const Pixel_8888 color, vImage_Flags flags ) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+vImage_Error vImageBufferFill_ARGBFFFF( const vImage_Buffer *dest, const Pixel_FFFF color, vImage_Flags flags ) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 /* vImageOverwriteChannelsWithScalar_ARGB8888
  *
@@ -321,7 +322,6 @@ vImage_Error vImageOverwriteChannelsWithScalar_ARGBFFFF(	Pixel_F     scalar,
                                                                 const vImage_Buffer *dest,      /* A ARGB interleaved buffer */
                                                                 uint8_t copyMask,               /* Copy plane into  0x8  -- alpha, 0x4 -- red, 0x2 --- green, 0x1 --- blue */ 
                                                                 vImage_Flags    flags )		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
-
 
 /*
  * Reorder color channels within the buffer according to the permute map.

@@ -110,4 +110,4 @@ struct ip_linklocal_stat {
 	u_long iplls_out_badttl;
 };
 
-#endif !_NETINET_IP_VAR_H_
+#endif /* !_NETINET_IP_VAR_H_ */

@@ -1,7 +1,7 @@
 /*
 	File:		QTKit.h
 
-	Copyright:	(c)2004 by Apple Computer, Inc., all rights reserved.
+	Copyright:	(c)2004-2005 by Apple Computer, Inc., all rights reserved.
 
 */
 

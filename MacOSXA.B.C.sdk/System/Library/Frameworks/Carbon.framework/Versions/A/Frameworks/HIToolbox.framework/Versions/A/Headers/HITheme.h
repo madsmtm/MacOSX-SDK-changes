@@ -3,7 +3,7 @@
  
      Contains:   HIToolbox HITheme interfaces.
  
-     Version:    HIToolbox-211~1
+     Version:    HIToolbox-223.14~53
  
      Copyright:  © 1994-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -639,7 +639,7 @@ typedef UInt32                          HIThemeTabPaneAdornment;
 struct HIThemeTabPaneDrawInfo {
 
   /*
-   * The version of this data structure.  Currently, it is always 0.
+   * The version of this data structure.  Currently, it is always 1.
    */
   UInt32              version;
 
@@ -2390,14 +2390,15 @@ struct HIThemeTextInfo {
 
   /*
    * Specifies where truncation should occur. If this field is
-   * kHIThemeTruncationNone, no truncation will occur, and all fields
-   * with the truncation prefix will be ignored.
+   * kHIThemeTextTruncationNone, no truncation will occur, and all
+   * fields with the truncation prefix will be ignored.
    */
   HIThemeTextTruncation  truncationPosition;  /* kHIThemeTextTruncation[None/Middle/End], If none the following field is ignored */
 
   /*
    * The maximum number of lines to measure or draw before truncation
-   * occurs. Ignored if truncationPosition is kHIThemeTruncationNone.
+   * occurs. Ignored if truncationPosition is
+   * kHIThemeTextTruncationNone.
    */
   UInt32              truncationMaxLines;     /* the maximum number of lines before truncation occurs */
 
@@ -3483,7 +3484,9 @@ HIThemeDrawGroupBox(
  *    
  *    inDrawInfo:
  *      An HIThemeButtonDrawInfo that describes attributes of the well
- *      to be drawn.
+ *      to be drawn. Set the kThemeAdornmentDefault bit of the
+ *      adornment field of this structure to also draw the center of
+ *      the well.
  *    
  *    inContext:
  *      The CG context in which the drawing is to be done.

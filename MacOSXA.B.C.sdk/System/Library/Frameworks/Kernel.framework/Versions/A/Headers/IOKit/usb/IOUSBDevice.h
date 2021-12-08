@@ -24,6 +24,30 @@
 /*
  *
  *	$Log: IOUSBDevice.h,v $
+ *	Revision 1.47  2005/12/07 21:53:32  nano
+ *	Bring in fixes from branch PR-4304258 -- Low Latency Audio support in  Yellow
+ *	
+ *	Revision 1.46.16.1  2005/12/02 20:24:14  nano
+ *	MakePipe now takes an IOUSBInterface
+ *	
+ *	Revision 1.46  2005/10/25 15:20:29  nano
+ *	Bring in branches to TOT
+ *	
+ *	Revision 1.45.4.2  2005/10/20 20:21:09  nano
+ *	Fixes after code review
+ *	
+ *	Revision 1.45.4.1  2005/10/14 20:23:34  nano
+ *	New branch for rdar://4150399 on top of latest
+ *	
+ *	Revision 1.45  2005/09/27 13:52:36  nano
+ *	Bring PR-4262712 into TOT
+ *	
+ *	Revision 1.44.162.1  2005/09/23 04:30:54  rhoads
+ *	make sure that the root hub DeviceRequest calls are gated
+ *	
+ *	Revision 1.44.152.1  2005/09/12 16:48:50  nano
+ *	In SuspendDevice(), it we are holding the gate then use commandSleep()/wake.  This works around a problem where a client issues this call from a timer event, which holds the gate
+ *	
  *	Revision 1.44  2004/08/23 20:00:47  nano
  *	Merge fix for rdar://3769499 (UTF16-UTF8 conversion)
  *	
@@ -88,6 +112,8 @@
 #include <IOKit/usb/IOUSBNub.h>
 #include <IOKit/usb/IOUSBPipe.h>
 #include <IOKit/IOBufferMemoryDescriptor.h>
+#include <IOKit/IOWorkLoop.h>
+#include <IOKit/IOCommandGate.h>
 
 #include <kern/thread_call.h>
 
@@ -125,41 +151,43 @@ class IOUSBDevice : public IOUSBNub
 
 protected:
 
-    USBDeviceAddress			_address;
+    USBDeviceAddress				_address;
     IOUSBController *	     		_controller;
-    IOUSBPipe *				_pipeZero;
-    IOUSBDeviceDescriptor 		_descriptor;
-    UInt32				_busPowerAvailable;
-    UInt8				_speed;
-    IOUSBEndpointDescriptor		_endpointZero; 				// Fake ep for control pipe
-    void *				_port;					// Obsolete, do not use
+    IOUSBPipe *						_pipeZero;
+    IOUSBDeviceDescriptor			_descriptor;
+    UInt32							_busPowerAvailable;
+    UInt8							_speed;
+    IOUSBEndpointDescriptor			_endpointZero; 				// Fake ep for control pipe
+    void *							_port;					// Obsolete, do not use
     IOBufferMemoryDescriptor**		_configList;
-    IOUSBInterface**			_interfaceList;
-    UInt8				_currentConfigValue;
-    UInt8				_numInterfaces;
+    IOUSBInterface**				_interfaceList;
+    UInt8							_currentConfigValue;
+    UInt8							_numInterfaces;
     
     struct ExpansionData 
     {
-        UInt32			_portNumber;
-        thread_call_t		_doPortResetThread;
-        IOUSBDevice *		_usbPlaneParent;
-        bool			_portResetThreadActive;
-        bool			_allowConfigValueOfZero;
-        thread_call_t		_doPortSuspendThread;
-        bool			_portSuspendThreadActive;
-        thread_call_t		_doPortReEnumerateThread;
-        bool			_resetInProgress;
-        bool			_portHasBeenReset;
-        bool			_deviceterminating;
-        IORecursiveLock*	_getConfigLock;
-        bool                   _doneWaiting;                   // Obsolete
-        bool                   _notifiedWhileBooting;          // Obsolete
-        IOWorkLoop *		_workLoop;
+        UInt32					_portNumber;
+        thread_call_t			_doPortResetThread;
+        IOUSBDevice *			_usbPlaneParent;
+        bool					_portResetThreadActive;
+        bool					_allowConfigValueOfZero;
+        thread_call_t			_doPortSuspendThread;
+        bool					_portSuspendThreadActive;
+        thread_call_t			_doPortReEnumerateThread;
+        bool					_resetInProgress;
+        bool					_portHasBeenReset;
+        bool					_deviceterminating;
+        IORecursiveLock*		_getConfigLock;
+        bool					_doneWaiting;                   // Obsolete
+        bool					_notifiedWhileBooting;          // Obsolete
+        IOWorkLoop *			_workLoop;
         IOTimerEventSource *	_notifierHandlerTimer;
-        UInt32			_notificationType;
-        bool			_suspendInProgress;
-        bool			_portHasBeenSuspended;
-        bool			_addExtraResetTime;
+        UInt32					_notificationType;
+        bool					_suspendInProgress;
+        bool					_portHasBeenSuspendedOrResumed;
+        bool					_addExtraResetTime;
+		bool					_suspendCommand;
+		IOCommandGate *			_commandGate;
     };
     ExpansionData * _expansionData;
 
@@ -187,9 +215,10 @@ public:
     static IOUSBDevice *NewDevice(void);
     
     // IOService methods
+    virtual bool 	init();
     virtual bool 	attach(IOService *provider);
-    virtual bool 	start( IOService * provider );
-    virtual void 	stop( IOService * provider );
+    virtual bool 	start( IOService *provider );
+    virtual void 	stop( IOService *provider );
     virtual bool 	finalize(IOOptionBits options);
     virtual IOReturn 	message( UInt32 type, IOService * provider,  void * argument = 0 );
     virtual bool 	willTerminate( IOService * provider, IOOptionBits options );
@@ -444,7 +473,16 @@ public:
      */
     virtual void	DisplayUserNotification(UInt32 notificationType);
     
-    OSMetaClassDeclareReservedUnused(IOUSBDevice,  5);
+    OSMetaClassDeclareReservedUsed(IOUSBDevice,  5);
+	/*!
+        @function MakePipe
+	 @abstract build a pipe on a given endpoint
+	 @param ep A description of the endpoint
+	 returns the desired IOUSBPipe object
+	 */
+    virtual IOUSBPipe*	MakePipe(const IOUSBEndpointDescriptor *ep, IOUSBInterface *interface);
+    
+	
     OSMetaClassDeclareReservedUnused(IOUSBDevice,  6);
     OSMetaClassDeclareReservedUnused(IOUSBDevice,  7);
     OSMetaClassDeclareReservedUnused(IOUSBDevice,  8);

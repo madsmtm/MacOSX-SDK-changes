@@ -3,7 +3,7 @@
  
      Contains:   Mixed Mode Manager Interfaces.
  
-     Version:    CarbonCore-650.1~1
+     Version:    CarbonCore-682.9~1
  
      Copyright:  © 1992-2005 by Apple Computer, Inc., all rights reserved.
  

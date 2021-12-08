@@ -92,7 +92,7 @@ Boolean CFCalendarDecomposeAbsoluteTime(CFCalendarRef calendar, CFAbsoluteTime a
 
 
 enum {
-    kCFCalendarComponentsWrap = (1 << 0),  // option for adding
+    kCFCalendarComponentsWrap = (1 << 0)  // option for adding
 };
 
 CF_EXPORT

@@ -7,10 +7,6 @@
 #define __KERBEROS5__
 
 /* Environment dependent macros */
-#define SIZEOF_INT 4
-#define SIZEOF_LONG 4
-#define SIZEOF_SHORT 2
-
 
 /* Error tables from asn1_err.h */
 #define initialize_asn1_error_table()
@@ -2929,4 +2925,4 @@ KRB5INT_END_DECLS
 
 #endif /* KRB5_GENERAL__ */
 
-#endif /* __KERBEROS5__  */
+#endif /* __KERBEROS5__ */

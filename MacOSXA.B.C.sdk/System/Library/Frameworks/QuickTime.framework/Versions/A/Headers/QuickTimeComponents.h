@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 1990-2005 by Apple Computer, Inc., all rights reserved
  
@@ -504,7 +504,7 @@ enum {
   /*
    * The settings to control multi pass encoding.
    */
-  scVideoMultiPassEncodingSettingsType = 'mpes' /* pointer to SCVideoMutiPassEncodingSettings struct*/
+  scVideoMultiPassEncodingSettingsType = 'mpes' /* pointer to SCVideoMultiPassEncodingSettings struct*/
 };
 
 
@@ -608,9 +608,9 @@ enum {
    * list includes all the kAudioEncoderComponentType components and
    * kSoundCompressor type components on the system. The list may be
    * restricted by clients using the
-   * kQTSCAudioPropertyID_CompressionFormatList property. Use
-   * QTGetComponentPropertyInfo to discover the number of bytes you
-   * should allocate to hold the array.
+   * kQTSCAudioPropertyID_ClientRestrictedCompressionFormatList
+   * property. Use QTGetComponentPropertyInfo to discover the number of
+   * bytes you should allocate to hold the array.
    */
   kQTSCAudioPropertyID_AvailableCompressionFormatList = 'acf#', /* C-style array of OSType's, Read/Listen */
 
@@ -881,6 +881,14 @@ enum {
    * passing the entire array.
    */
   kQTSCAudioPropertyID_CodecSpecificSettingsArray = 'cdst', /* CFArrayRef, Read/Write */
+
+  /*
+   * kQTSCAudioPropertyID_BitRate: Specifies the current bitrate of the
+   * output audio format in bit per second. Note that this property may
+   * not be available for formats that are inherently very variable in
+   * bitrate and highly source-data dependent (such as Apple Lossless).
+   */
+  kQTSCAudioPropertyID_BitRate  = kQTSoundDescriptionPropertyID_BitRate, /* UInt32, Read*/
                                         /* Old Sound Get/SetInfo types as property id's.*/
 
   /*
@@ -6726,8 +6734,8 @@ typedef struct VDIIDCFeatureSettings    VDIIDCFeatureSettings;
    Flags for use in VDIIDCFeatureCapabilities.flags & VDIIDCFeatureState.flags
    When indicating capabilities, the flag being set indicates that the feature can be put into the given state.
    When indicating/setting state, the flag represents the current/desired state.
-   Note that certain combinations of flags are valid for cababilities (i.e. vdIIDCFeatureFlagOn | vdIIDCFeatureFlagOff)
-   but are mutally exclusive for state.
+   Note that certain combinations of flags are valid for capabilities (i.e. vdIIDCFeatureFlagOn | vdIIDCFeatureFlagOff)
+   but are mutually exclusive for state.
 */
 enum {
   vdIIDCFeatureFlagOn           = (1 << 0),
@@ -6771,8 +6779,8 @@ typedef struct VDIIDCTriggerSettings    VDIIDCTriggerSettings;
    Flags for use in VDIIDCTriggerCapabilities.flags & VDIIDCTriggerState.flags
    When indicating capabilities, the flag being set indicates that the trigger can be put into the given state.
    When indicating/setting state, the flag represents the current/desired state.
-   Note that certain combinations of flags are valid for cababilities (i.e. vdIIDCTriggerFlagOn | vdIIDCTriggerFlagOff)
-   but are mutally exclusive for state.
+   Note that certain combinations of flags are valid for capabilities (i.e. vdIIDCTriggerFlagOn | vdIIDCTriggerFlagOff)
+   but are mutually exclusive for state.
 */
 enum {
   vdIIDCTriggerFlagOn           = (1 << 0),
@@ -6821,8 +6829,8 @@ typedef struct VDIIDCLightingHintSettings VDIIDCLightingHintSettings;
    Flags for use in VDIIDCLightingHintSettings.capabilityFlags & VDIIDCLightingHintSettings.capabilityFlags
    When indicating capabilities, the flag being set indicates that the hint can be applied.
    When indicating/setting state, the flag represents the current/desired hints applied/to apply.
-   Certain combinations of flags are valid for cababilities (i.e. vdIIDCLightingHintNormal | vdIIDCLightingHintLow)
-   but are mutally exclusive for state.
+   Certain combinations of flags are valid for capabilities (i.e. vdIIDCLightingHintNormal | vdIIDCLightingHintLow)
+   but are mutually exclusive for state.
 */
 enum {
   vdIIDCLightingHintNormal      = (1 << 0),
@@ -7755,7 +7763,6 @@ enum {
    */
   channelPlayPostConversion     = 1L << 6
 };
-
 
 /*
  *  SGInitialize()
@@ -10905,7 +10912,6 @@ enum {
   sgcAudioSoftPreviewLatency    = kQTSGAudioPropertyID_SoftPreviewLatency
 };
 
-#if !TARGET_OS_WIN32
 /* -----------------------------------------------------------------------------
 |                                                                               |
 |   SGAudioMediaType Channel Callback Declarations                              |
@@ -10963,11 +10969,6 @@ struct SGAudioCallbackStruct {
   void *              inputProcRefCon;
 };
 typedef struct SGAudioCallbackStruct    SGAudioCallbackStruct;
-#endif  /* !TARGET_OS_WIN32 */
-
-
-
-
 /*** Sequence Grab SOUND CHANNEL Component Stuff ***/
 
 /*

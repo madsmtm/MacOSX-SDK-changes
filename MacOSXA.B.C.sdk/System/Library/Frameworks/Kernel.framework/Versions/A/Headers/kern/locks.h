@@ -90,6 +90,7 @@ extern	void			lck_attr_setdefault(
 extern	void			lck_attr_setdebug(
 									lck_attr_t		*attr);
 
+
 extern	void			lck_attr_free(
 									lck_attr_t		*attr);
 

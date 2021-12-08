@@ -157,8 +157,6 @@ vImage_Error vImageRichardsonLucyDeConvolve_ARGBFFFF( const vImage_Buffer *src, 
  *  (floating point). The divisor for the integer case is kernel_height * kernel_width. This is a special high speed algorithm for
  *  finding a box convolve. For large kernels, it may be orders of magnitude faster. 
  *
- *  This function will work in place. 
- *
  *  Do *NOT* use vImageGetMinimumTempBufferSizeForConvolution to set up the temp buffer for this function. It will return incorrect
  *  results. Please use the kvImageGetTempBufferSize flag.
  */
@@ -171,8 +169,6 @@ vImage_Error vImageBoxConvolve_ARGB8888( const vImage_Buffer *src, const vImage_
  *  Apply a tent filter to the image. Tent filters are separable filters. In the integer world, they increase by 1 for each position
  *  away from the edge (e.g. 1,2,3,2,1). It provides an inexpensive blurring effect. This is a special high speed algorithm for
  *  finding a convolve using these kernels. For large kernels, it may be orders of magnitude faster than the standard convolve. 
- *
- *  This function will work in place. 
  *
  *  Do *NOT* use vImageGetMinimumTempBufferSizeForConvolution to set up the temp buffer for this function. It will return incorrect
  *  results. Please use the kvImageGetTempBufferSize flag.

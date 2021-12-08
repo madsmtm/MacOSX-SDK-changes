@@ -23,10 +23,6 @@
  * @OSF_COPYRIGHT@
  */
 /*
- *	File:		kern/clock.h
- *	Purpose:	Data structures for the kernel alarm clock
- *			facility. This file is used only by kernel
- *			level clock facility routines.
  */
 
 #ifndef	_KERN_CLOCK_H_

@@ -24,6 +24,21 @@
 /*
  *
  *	$Log: IOUSBHIDDriver.h,v $
+ *	Revision 1.39  2005/10/25 22:22:09  nano
+ *	Change back _abortExpected to the original _deviceIsDead so we don't brake our subclassing kexts.  #define it in the .cpp to something that makes sense
+ *	
+ *	Revision 1.38  2005/10/25 15:20:30  nano
+ *	Bring in branches to TOT
+ *	
+ *	Revision 1.37.118.2  2005/10/20 05:03:24  nano
+ *	Implement the timeout on PortSuspend and reset the data toggle before suspending
+ *	
+ *	Revision 1.37.118.1  2005/10/14 20:23:34  nano
+ *	New branch for rdar://4150399 on top of latest
+ *	
+ *	Revision 1.37.104.1  2005/09/12 16:44:42  nano
+ *	In order to add support for subclasses to implement port suspend, add an API that will do that, aborting the pending reads first and rearming them upon resume
+ *	
  *	Revision 1.37  2004/12/20 19:02:57  nano
  *	Update from branch to call handleReportWithTime
  *	
@@ -145,78 +160,87 @@
 // working for now in OS 9.
 #define kMaxHIDReportSize 256			// Max packet size = 8 for low speed & 64 for high speed.
 #define kHIDDriverRetryCount	3
+#define	kUSBHIDReportLoggingLevel	"USB HID Report Logging Level"
 
 
 class IOUSBHIDDriver : public IOHIDDevice
 {
     OSDeclareDefaultStructors(IOUSBHIDDriver)
 
-    IOUSBInterface *		_interface;
-    IOUSBDevice	*		_device;
-    IOUSBPipe *			_interruptPipe;
-    UInt32			_maxReportSize;
+    IOUSBInterface *			_interface;
+    IOUSBDevice	*				_device;
+    IOUSBPipe *					_interruptPipe;
+    UInt32						_maxReportSize;
     IOBufferMemoryDescriptor *	_buffer;
-    IOUSBCompletion		_completion;
-    UInt32			_retryCount;
-    thread_call_t		_deviceDeadCheckThread;
-    thread_call_t		_clearFeatureEndpointHaltThread;
-    bool			_deviceDeadThreadActive;
-    bool			_deviceIsDead;
-    bool			_deviceHasBeenDisconnected;
-    bool			_needToClose;
-    UInt32			_outstandingIO;
-    IOCommandGate *		_gate;
-    IOUSBPipe *			_interruptOutPipe;
-    UInt32			_maxOutReportSize; 	// Obsolete
-    IOBufferMemoryDescriptor *	_outBuffer;		// Obsolete
-    UInt32			_deviceUsage;		// Obsolete
-    UInt32			_deviceUsagePage;	// Obsolete
+    IOUSBCompletion				_completion;
+    UInt32						_retryCount;
+    thread_call_t				_deviceDeadCheckThread;
+    thread_call_t				_clearFeatureEndpointHaltThread;
+    bool						_deviceDeadThreadActive;
+    bool						_deviceIsDead;                          // Should really be called "abort expected"
+    bool						_deviceHasBeenDisconnected;
+    bool						_needToClose;
+    UInt32						_outstandingIO;
+    IOCommandGate *				_gate;
+    IOUSBPipe *					_interruptOutPipe;
+    UInt32						_locationID; 	
+    IOBufferMemoryDescriptor *	_outBuffer;								// Obsolete
+    UInt32						_deviceUsage;							// Obsolete
+    UInt32						_deviceUsagePage;						// Obsolete
 
     struct IOUSBHIDDriverExpansionData 
     {
-        IOWorkLoop	*	_workLoop;
-        thread_call_t		_handleReportThread;
-        IOService *			_rootDomain;
-        AbsoluteTime			_wakeUpTime;
+        IOWorkLoop	*					_workLoop;
+        thread_call_t					_handleReportThread;
+        IOService *						_rootDomain;
+        AbsoluteTime					_wakeUpTime;
         IOUSBCompletionWithTimeStamp	_completionWithTimeStamp;
-        bool				_checkForTimeStamp;
-        UInt32				_msToIgnoreTransactionsAfterWake;
+        bool							_checkForTimeStamp;
+        UInt32							_msToIgnoreTransactionsAfterWake;
+        IOTimerEventSource	*			_suspendPortTimer;
+		bool							_portSuspended;
+		UInt32							_suspendTimeoutInMS;
+		UInt8							_interfaceNumber;
+		bool							_logHIDReports;
+		UInt8							_hidLoggingLevel;
     };
     IOUSBHIDDriverExpansionData *_usbHIDExpansionData;
     
     static void 		InterruptReadHandlerEntry(OSObject *target, void *param, IOReturn status, UInt32 bufferSizeRemaining);
     static void 		InterruptReadHandlerWithTimeStampEntry(OSObject *target, void *param, IOReturn status, UInt32 bufferSizeRemaining, AbsoluteTime timeStamp);
-    void 			InterruptReadHandler(IOReturn status, UInt32 bufferSizeRemaining, AbsoluteTime timeStamp);
+    void				InterruptReadHandler(IOReturn status, UInt32 bufferSizeRemaining, AbsoluteTime timeStamp);
 
     static void 		CheckForDeadDeviceEntry(OSObject *target);
-    void			CheckForDeadDevice();
+    void				CheckForDeadDevice();
 
     static void			ClearFeatureEndpointHaltEntry(OSObject *target);
-    void			ClearFeatureEndpointHalt(void);
+    void				ClearFeatureEndpointHalt(void);
     
     static void			HandleReportEntry(OSObject *target, thread_call_param_t timeStamp);
-    void			HandleReport(AbsoluteTime timeStamp);
+    void				HandleReport(AbsoluteTime timeStamp);
     
     virtual void 		processPacket(void *data, UInt32 size);		// Obsolete
 
     static IOReturn		ChangeOutstandingIO(OSObject *target, void *arg0, void *arg1, void *arg2, void *arg3);
 
+    static void			SuspendPortTimer(OSObject *target, IOTimerEventSource *sender);
+
 public:
         
     // IOService methods
     //
-    virtual bool	init(OSDictionary *properties);
-    virtual bool	start(IOService * provider);
-    virtual bool 	didTerminate( IOService * provider, IOOptionBits options, bool * defer );
-    virtual bool 	willTerminate( IOService * provider, IOOptionBits options );
-    virtual void 	free();
+    virtual bool		init(OSDictionary *properties);
+    virtual bool		start(IOService * provider);
+    virtual bool		didTerminate( IOService * provider, IOOptionBits options, bool * defer );
+    virtual bool		willTerminate( IOService * provider, IOOptionBits options );
+    virtual void		free();
     virtual IOReturn 	message( UInt32 type, IOService * provider,  void * argument = 0 );
     
 
     // IOHIDDevice methods
     //
-    virtual bool	handleStart(IOService * provider);
-    virtual void	handleStop(IOService *  provider);
+    virtual bool		handleStart(IOService * provider);
+    virtual void		handleStop(IOService *  provider);
 
     virtual IOReturn 	newReportDescriptor( IOMemoryDescriptor ** descriptor ) const;
                         
@@ -250,20 +274,23 @@ public:
     //
     virtual OSString * 	newIndexedString(UInt8 index) const;
 
-    virtual UInt32 	getMaxReportSize();
-
-    virtual void	DecrementOutstandingIO(void);
-    virtual void	IncrementOutstandingIO(void);
+    virtual UInt32		getMaxReportSize();
+	
+    virtual void		DecrementOutstandingIO(void);
+    virtual void		IncrementOutstandingIO(void);
     virtual IOReturn	StartFinalProcessing();
     virtual IOReturn	SetIdleMillisecs(UInt16 msecs);
     
 private:
 
-        IOReturn 	GetHIDDescriptor(UInt8 inDescriptorType, UInt8 inDescriptorIndex, UInt8 *vOutBuf, UInt32 *vOutSize);
-	IOReturn 	GetReport(UInt8 inReportType, UInt8 inReportID, UInt8 *vInBuf, UInt32 *vInSize);
-	IOReturn 	SetReport(UInt8 outReportType, UInt8 outReportID, UInt8 *vOutBuf, UInt32 vOutSize);
-	IOReturn 	GetIndexedString(UInt8 index, UInt8 *vOutBuf, UInt32 *vOutSize, UInt16 lang = 0x409) const;
-        IOReturn	SetProtocol(UInt32 protocolType);
+	IOReturn			GetHIDDescriptor(UInt8 inDescriptorType, UInt8 inDescriptorIndex, UInt8 *vOutBuf, UInt32 *vOutSize);
+	IOReturn			GetReport(UInt8 inReportType, UInt8 inReportID, UInt8 *vInBuf, UInt32 *vInSize);
+	IOReturn			SetReport(UInt8 outReportType, UInt8 outReportID, UInt8 *vOutBuf, UInt32 vOutSize);
+	IOReturn			GetIndexedString(UInt8 index, UInt8 *vOutBuf, UInt32 *vOutSize, UInt16 lang = 0x409) const;
+	IOReturn			SetProtocol(UInt32 protocolType);
+	char				GetHexChar(char hexChar);
+	IOReturn			AbortAndSuspend( bool suspend );
+	
         
 
 #if ENABLE_HIDREPORT_LOGGING
@@ -276,9 +303,25 @@ public:
     OSMetaClassDeclareReservedUsed(IOUSBHIDDriver,  0);
     virtual IOReturn    RearmInterruptRead();
     
-    OSMetaClassDeclareReservedUnused(IOUSBHIDDriver,  1);
-    OSMetaClassDeclareReservedUnused(IOUSBHIDDriver,  2);
-    OSMetaClassDeclareReservedUnused(IOUSBHIDDriver,  3);
+    /*!
+		@function SuspendPort
+	 @abstract Suspends the port for this device or optionally sets a timeout to suspend after a period of inactivity.
+	 @discussion  This call can be used to immediately suspend/resume a port or to enable the suspension of the port after a period of inactivity.  If called with suspendPort = true (no timeout parameter), the HID driver
+	 will immediately suspend the port, after aborting any outstanding reads on the interrupt pipe.  If called with suspendPort = true and timeout != 0, it will suspend the port after the timeout number of ms have
+	 passed without any read completions.  If called with suspendPort = false, the port will be immediately resumed and the reads will be re-issued.  If a timeout was enabled, it will be cancelled.
+	 @param suspendPort Boolean value. true = suspend the port, false = resume the port.
+	 @param timeoutMS	Value in milliseconds If value is non-zero, the port will be suspended after the timeout milliseconds have passed without any read completions.
+	 @result The IOReturn value from the IOUSBDevice::Suspend() call. 
+	*/
+    OSMetaClassDeclareReservedUsed(IOUSBHIDDriver,  1);
+	virtual IOReturn	SuspendPort(bool suspendPort, UInt32 timeoutMS = 0);
+	
+    OSMetaClassDeclareReservedUsed(IOUSBHIDDriver,  2);
+	virtual bool		IsPortSuspended();
+	
+    OSMetaClassDeclareReservedUsed(IOUSBHIDDriver,  3);
+    virtual void		LogMemReport(UInt8 level, IOMemoryDescriptor * reportBuffer, IOByteCount size);
+
     OSMetaClassDeclareReservedUnused(IOUSBHIDDriver,  4);
     OSMetaClassDeclareReservedUnused(IOUSBHIDDriver,  5);
     OSMetaClassDeclareReservedUnused(IOUSBHIDDriver,  6);

@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Image Compression Interfaces.
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 1990-2005 by Apple Computer, Inc., all rights reserved
  

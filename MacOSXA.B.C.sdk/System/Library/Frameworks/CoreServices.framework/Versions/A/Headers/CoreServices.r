@@ -3,7 +3,7 @@
  
      Contains:   Master include for CoreServices (non-UI toolbox)
  
-     Version:    CoreServices-17~690
+     Version:    CoreServices-17~1800
  
      Copyright:  © 1999-2005 by Apple Computer, Inc., all rights reserved.
  

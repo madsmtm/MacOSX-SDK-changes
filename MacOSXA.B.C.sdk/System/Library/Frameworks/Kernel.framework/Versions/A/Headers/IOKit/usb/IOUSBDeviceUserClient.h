@@ -24,6 +24,18 @@
 /*
  *
  *	$Log: IOUSBDeviceUserClient.h,v $
+ *	Revision 1.26  2005/08/11 03:55:40  nano
+ *	Merge branch into TOT to allow user clients to run when called from Rosetta
+ *	
+ *	Revision 1.25.2.1  2005/08/09 20:30:55  nano
+ *	<rdar://problem/4209688> Chardonnay: Modify IOUSBFamily to allow users clients to operate under Rosetta
+ *	
+ *	Revision 1.25  2005/08/04 20:58:45  nano
+ *	Fold in fixes from Rosetta branch into TOT
+ *	
+ *	Revision 1.24.144.1  2005/07/28 22:57:34  nano
+ *	More Rosetta work, as well as fixing broken DevRequestIn via IOUSBDevice when > 4K
+ *	
  *	Revision 1.24  2004/05/17 21:42:00  nano
  *	Made the Device and Interface User Clients subclassable.
  *	
@@ -146,7 +158,7 @@ public:
 
     // IOUserClient methods
     //
-    virtual bool			initWithTask(task_t owningTask, void *security_id, UInt32 type);
+    virtual bool			initWithTask(task_t owningTask, void *security_id, UInt32 type, OSDictionary *properties);
     virtual IOExternalMethod * 		getTargetAndMethodForIndex(IOService **target, UInt32 index);
     virtual IOExternalAsyncMethod * 	getAsyncTargetAndMethodForIndex(IOService **target, UInt32 index);
     virtual IOReturn 			clientClose( void );
@@ -197,7 +209,9 @@ public:
 
     // padding methods
     //
-    OSMetaClassDeclareReservedUnused(IOUSBDeviceUserClient,  0);
+    OSMetaClassDeclareReservedUsed(IOUSBDeviceUserClient,  0);
+    virtual IOReturn                    DeviceReqInOOLv2(IOUSBDevRequestTO *reqIn, UInt32 *sizeOut, IOByteCount inCount, IOByteCount *outCount);
+
     OSMetaClassDeclareReservedUnused(IOUSBDeviceUserClient,  1);
     OSMetaClassDeclareReservedUnused(IOUSBDeviceUserClient,  2);
     OSMetaClassDeclareReservedUnused(IOUSBDeviceUserClient,  3);

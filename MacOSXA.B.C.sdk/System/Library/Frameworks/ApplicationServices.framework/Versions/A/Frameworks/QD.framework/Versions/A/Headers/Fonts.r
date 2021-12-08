@@ -3,7 +3,7 @@
  
      Contains:   Public interface to the Font Manager.
  
-     Version:    Quickdraw-185~4
+     Version:    Quickdraw-192.7~21
  
      Copyright:  © 1985-2005 by Apple Computer, Inc., all rights reserved
  

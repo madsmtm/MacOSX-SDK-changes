@@ -26,7 +26,7 @@ typedef function_table_entry 	*function_table_t;
 #endif /* AUTOTEST */
 
 #ifndef	iokit_MSG_COUNT
-#define	iokit_MSG_COUNT	62
+#define	iokit_MSG_COUNT	63
 #endif	/* iokit_MSG_COUNT */
 
 #include <mach/std_types.h>
@@ -899,6 +899,24 @@ kern_return_t io_object_get_bundle_identifier
 	mach_port_t master_port,
 	io_name_t obj_name,
 	io_name_t class_name
+);
+
+/* Routine io_service_open_extended */
+#ifdef	mig_external
+mig_external
+#else
+extern
+#endif	/* mig_external */
+kern_return_t io_service_open_extended
+(
+	mach_port_t service,
+	task_t owningTask,
+	int connect_type,
+	NDR_record_t ndr,
+	io_buf_ptr_t properties,
+	mach_msg_type_number_t propertiesCnt,
+	natural_t *result,
+	mach_port_t *connection
 );
 
 __END_DECLS
@@ -1805,6 +1823,25 @@ __END_DECLS
 #ifdef  __MigPackStructs
 #pragma pack()
 #endif
+
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
+	typedef struct {
+		mach_msg_header_t Head;
+		/* start of the kernel processed data */
+		mach_msg_body_t msgh_body;
+		mach_msg_port_descriptor_t owningTask;
+		mach_msg_ool_descriptor_t properties;
+		/* end of the kernel processed data */
+		NDR_record_t NDR;
+		int connect_type;
+		NDR_record_t ndr;
+		mach_msg_type_number_t propertiesCnt;
+	} __Request__io_service_open_extended_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 #endif /* !__Request__iokit_subsystem__defined */
 
 /* union of all requests */
@@ -1874,6 +1911,7 @@ union __RequestUnion__iokit_subsystem {
 	__Request__io_service_add_notification_ool_t Request_io_service_add_notification_ool;
 	__Request__io_object_get_superclass_t Request_io_object_get_superclass;
 	__Request__io_object_get_bundle_identifier_t Request_io_object_get_bundle_identifier;
+	__Request__io_service_open_extended_t Request_io_service_open_extended;
 };
 #endif /* !__RequestUnion__iokit_subsystem__defined */
 /* typedefs for all replies */
@@ -2727,6 +2765,22 @@ union __RequestUnion__iokit_subsystem {
 #ifdef  __MigPackStructs
 #pragma pack()
 #endif
+
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
+	typedef struct {
+		mach_msg_header_t Head;
+		/* start of the kernel processed data */
+		mach_msg_body_t msgh_body;
+		mach_msg_port_descriptor_t connection;
+		/* end of the kernel processed data */
+		NDR_record_t NDR;
+		natural_t result;
+	} __Reply__io_service_open_extended_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 #endif /* !__Reply__iokit_subsystem__defined */
 
 /* union of all replies */
@@ -2796,6 +2850,7 @@ union __ReplyUnion__iokit_subsystem {
 	__Reply__io_service_add_notification_ool_t Reply_io_service_add_notification_ool;
 	__Reply__io_object_get_superclass_t Reply_io_object_get_superclass;
 	__Reply__io_object_get_bundle_identifier_t Reply_io_object_get_bundle_identifier;
+	__Reply__io_service_open_extended_t Reply_io_service_open_extended;
 };
 #endif /* !__RequestUnion__iokit_subsystem__defined */
 
@@ -2862,7 +2917,8 @@ union __ReplyUnion__iokit_subsystem {
     { "io_service_match_property_table_ool", 2858 },\
     { "io_service_add_notification_ool", 2859 },\
     { "io_object_get_superclass", 2860 },\
-    { "io_object_get_bundle_identifier", 2861 }
+    { "io_object_get_bundle_identifier", 2861 },\
+    { "io_service_open_extended", 2862 }
 #endif
 
 #ifdef __AfterMigUserHeader

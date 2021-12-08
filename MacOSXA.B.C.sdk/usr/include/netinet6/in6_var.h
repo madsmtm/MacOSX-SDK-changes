@@ -445,4 +445,4 @@ struct kev_in6_data {
 
 
 
-#endif _NETINET6_IN6_VAR_H_
+#endif /* _NETINET6_IN6_VAR_H_ */

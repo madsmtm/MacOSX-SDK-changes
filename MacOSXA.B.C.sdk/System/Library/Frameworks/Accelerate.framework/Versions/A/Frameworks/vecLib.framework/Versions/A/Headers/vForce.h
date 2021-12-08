@@ -42,14 +42,16 @@ extern "C" {
 
 /* 
 When the float versions of the vector functions (vvrecf(), vvdivf(), etc.) are invoked on platforms equipped
-with the AltiVec SIMD unit, they expect that "Java Mode" has been established in the AltiVec VSCR register.
-"Java Mode" entails flushing de-normal vector floating point values to zero. Mac OS X sets the AltiVec VSCR
-register to "Java Mode" by default when a new process is created. A process running in "Java Mode" enjoys 
-performance advantages when executing AltiVec floating point instructions.
+with the AltiVec SIMD unit, they expect that "Java Mode" has been disabled in the AltiVec VSCR register.  By 
+default, Mac OS X starts a process in non-Java mode, which means that the VSCR bit is set to 1.
+"non-Java Mode" entails flushing de-normal vector floating point values to zero.  A process running in "non-Java 
+Mode" enjoys performance advantages when executing AltiVec floating point instructions.
 
-The double versions of the vector functions must be called with the IEEE rounding mode set to round-to-nearest and with exceptions masked off. 
+The double versions of the vector functions must be called with the IEEE rounding mode set to round-to-nearest 
+and with exceptions masked off. 
 
-The accuracy of the vector functions is comparable to that of the corresponding scalar functions in libm, though results may not be bit-wise identical. 
+The accuracy of the vector functions is comparable to that of the corresponding scalar functions in libm, though 
+results may not be bit-wise identical. 
 */
 
 /* Set y[i] to the reciprocal of x[i], for i=0,..,n-1 */

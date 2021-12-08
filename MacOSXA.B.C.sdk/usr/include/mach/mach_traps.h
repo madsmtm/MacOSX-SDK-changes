@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2004 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2005 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -96,6 +96,11 @@ extern kern_return_t task_for_pid(
 				mach_port_name_t target_tport,
 				int pid,
 				mach_port_name_t *t);
+
+extern kern_return_t task_name_for_pid(
+				mach_port_name_t target_tport,
+				int pid,
+				mach_port_name_t *tn);
 
 extern kern_return_t pid_for_task(
 				mach_port_name_t t,

@@ -110,4 +110,4 @@ struct	udpstat {
 #define	UDPCTL_PCBLIST		5	/* list of PCBs for UDP sockets */
 #define UDPCTL_MAXID		6
 
-#endif _NETINET_UDP_VAR_H_
+#endif /* _NETINET_UDP_VAR_H_ */

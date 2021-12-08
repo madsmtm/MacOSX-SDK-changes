@@ -20,7 +20,7 @@ enum CGImageSourceStatus {
     kCGImageStatusUnknownType = -3,
     kCGImageStatusReadingHeader = -2,
     kCGImageStatusIncomplete = -1,
-    kCGImageStatusComplete = 0,
+    kCGImageStatusComplete = 0
 };
 typedef enum CGImageSourceStatus CGImageSourceStatus;
 

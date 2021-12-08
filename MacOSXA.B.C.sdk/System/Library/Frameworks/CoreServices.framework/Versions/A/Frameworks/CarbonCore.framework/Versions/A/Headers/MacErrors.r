@@ -3,7 +3,7 @@
  
      Contains:   OSErr codes.
  
-     Version:    CarbonCore-650.1~1
+     Version:    CarbonCore-682.9~1
  
      Copyright:  © 1985-2005 by Apple Computer, Inc., all rights reserved
  
@@ -1199,6 +1199,10 @@
 #define badRoutingSizeErr 				(-4276)
 
 #define coreFoundationUnknownErr 		(-4960)
+#define errCoreEndianDataTooShortForFormat  (-4940)
+#define errCoreEndianDataTooLongForFormat  (-4941)
+#define errCoreEndianDataDoesNotMatchFormat  (-4942)
+
 #define internalScrapErr 				(-4988)
 #define duplicateScrapFlavorErr 		(-4989)
 #define badScrapRefErr 					(-4990)

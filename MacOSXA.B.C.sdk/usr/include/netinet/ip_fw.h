@@ -293,4 +293,4 @@ struct ipfw_dyn_rule {
  */
 
 #endif !IPFW2
-#endif _IP_FW_H
+#endif /* _IP_FW_H */

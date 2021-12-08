@@ -28,7 +28,11 @@
 #endif
 
 #if !defined(FOUNDATION_STATIC_INLINE)
+#if defined (__GNUC__) && (__GNUC__ == 4)
+#define FOUNDATION_STATIC_INLINE static __inline__ __attribute__((always_inline))
+#else
 #define FOUNDATION_STATIC_INLINE static __inline__
+#endif
 #endif
 
 #if !defined(FOUNDATION_EXTERN_INLINE)

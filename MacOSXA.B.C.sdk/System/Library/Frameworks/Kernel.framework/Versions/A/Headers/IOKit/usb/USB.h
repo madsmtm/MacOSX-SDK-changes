@@ -25,6 +25,24 @@
 /*
  *
  *	$Log: USB.h,v $
+ *	Revision 1.56  2005/12/07 21:53:32  nano
+ *	Bring in fixes from branch PR-4304258 -- Low Latency Audio support in  Yellow
+ *	
+ *	Revision 1.55.24.1  2005/12/06 20:40:30  nano
+ *	Add some defines for property names.  Also, add the new version for LowLatencyUserBufferInfoV2, although no one should be using the old one
+ *	
+ *	Revision 1.55  2005/09/23 19:24:17  nano
+ *	Bring in changes from DillDenverBranch into TOT
+ *	
+ *	Revision 1.54.50.1  2005/09/21 17:01:43  nano
+ *	Listen to the kIOUSBMessagePortWasNotSuspended message
+ *	
+ *	Revision 1.54  2005/05/13 20:54:20  nano
+ *	Added kIOUSBDeviceNotHighSpeed to be used by the EHCI driver to indicate that a device was not high speed, instead of not responding.
+ *	
+ *	Revision 1.53.42.1  2005/05/13 20:30:31  nano
+ *	Branch with kprintfs for enumeration debugging at bootup and fix for rdar://3806588
+ *	
  *	Revision 1.53  2004/12/20 18:16:01  rhoads
  *	change the name of some constants for the new split isoch stuff
  *	
@@ -443,6 +461,7 @@ typedef struct IOUSBLowLatencyIsocCompletion {
 #define kIOUSBLowLatencyFrameListNotPreviouslyAllocated     iokit_usb_err(76)  // 0xe000404c  Attempted to use user land low latency isoc calls w/out calling PrepareBuffer (on the frame list) first
 #define kIOUSBHighSpeedSplitError     iokit_usb_err(75) // 0xe000404b Error to hub on high speed bus trying to do split transaction
 #define kIOUSBSyncRequestOnWLThread	iokit_usb_err(74)	// 0xe000404a  A synchronous USB request was made on the workloop thread (from a callback?).  Only async requests are permitted in that case
+#define kIOUSBDeviceNotHighSpeed	iokit_usb_err(73)	// 0xe0004049  The device is not a high speed device, so the EHCI driver returns an error
 
 /*!
 @defined IOUSBFamily hardware error codes
@@ -486,7 +505,8 @@ Completion Code         Error Returned              Description
 #define kIOUSBMessagePortHasBeenResumed     iokit_usb_msg(11)  // 0xe0000400b  Message sent to a device indicating that the port it is attached to has been resumed
 #define kIOUSBMessageHubPortClearTT         iokit_usb_msg(12)  // 0xe0000400c  Message sent to a hub to clear the transaction translator
 #define kIOUSBMessagePortHasBeenSuspended   iokit_usb_msg(13)  // 0xe0000400d  Message sent to a device indicating that the port it is attached to has been suspended
-#define kIOUSBMessageFromThirdParty         iokit_usb_msg(14)  // 0xe0000400d  Message send from a third party.  Uses IOUSBThirdPartyParam to encode the sender's ID
+#define kIOUSBMessageFromThirdParty         iokit_usb_msg(14)  // 0xe0000400e  Message sent from a third party.  Uses IOUSBThirdPartyParam to encode the sender's ID
+#define kIOUSBMessagePortWasNotSuspended    iokit_usb_msg(15)  // 0xe0000400f  Message indicating that the hub driver received a resume request for a port that was not suspended
 
 // Obsolete
 //
@@ -994,13 +1014,14 @@ enum {
     kUSBHighSpeedMicrosecondsInFrame		= 125
 };
 
-//  This is a debugging tool used for low latency transfers
+//  During low latency transfers, the stack will set the frStatus for each frame to this value.  A client can check that to see if the transfer has completed.  We set the frStatus to a 
+//  valid return code when the transfer completes.
 //
 enum {
         kUSBLowLatencyIsochTransferKey	= 'llit'	// Set frStatus field of first frame in isoch transfer to designate as low latency
     };
     
-// This structure is used to pass information for the low latency calls between user space and the kernel.  
+// This structure is DEPRECATED.  See the LowLatencyUserBufferInfoV2  
 //
 typedef struct LowLatencyUserBufferInfo LowLatencyUserBufferInfo;
 
@@ -1011,6 +1032,21 @@ struct LowLatencyUserBufferInfo {
     UInt32				bufferType;
     Boolean				isPrepared;
     LowLatencyUserBufferInfo *	nextBuffer;
+};
+
+// This structure is used to pass information for the low latency calls between user space and the kernel.  
+//
+typedef struct LowLatencyUserBufferInfoV2 LowLatencyUserBufferInfoV2;
+
+struct LowLatencyUserBufferInfoV2 
+{
+    UInt32							cookie;
+    void *							bufferAddress;
+    IOByteCount						bufferSize;
+    UInt32							bufferType;
+    Boolean							isPrepared;
+	void *							mappedUHCIAddress;
+    LowLatencyUserBufferInfoV2 *	nextBuffer;
 };
 
 
@@ -1044,8 +1080,10 @@ enum {
 #define kUSBDevicePropertyBusPowerAvailable     "Bus Power Available"
 #define kUSBDevicePropertyAddress               "USB Address"
 #define kUSBDevicePropertyLocationID            "locationID"
-#define kUSBProductIDMask			"idProductMask"
-
+#define kUSBProductIDMask						"idProductMask"
+#define kUSBPreferredConfiguration				"Preferred Configuration"
+#define kUSBSuspendPort							"kSuspendPort"
+#define kUSBControllerNeedsContiguousMemoryForIsoch	"Need contiguous memory for isoch"
 /*!
 @enum USBReEnumerateOptions
  @discussion Options used when calling ReEnumerateDevice. 

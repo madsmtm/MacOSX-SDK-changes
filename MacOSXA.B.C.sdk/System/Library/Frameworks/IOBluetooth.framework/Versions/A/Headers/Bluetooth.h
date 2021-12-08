@@ -495,7 +495,7 @@ typedef UInt16		BluetoothHCICommandOpCode;
 typedef	UInt32		BluetoothHCIVendorCommandSelector;
 
 #define	BluetoothHCIMakeCommandOpCode( GROUP, CMD )				( ( ( ( GROUP ) & 0x003F ) << 10 ) | ( ( CMD ) & 0x03FF ) )
-#define	BluetoothHCIMakeCommandOpCodeEndianSwap( GROUP, CMD )	( ( ( ( ( GROUP ) & 0x003F ) << 10 ) >> 8) | ( ( ( CMD ) & 0x03FF ) << 8 ) )
+#define	BluetoothHCIMakeCommandOpCodeEndianSwap( GROUP, CMD )	( CFSwapInt16HostToLittle ( BluetoothHCIMakeCommandOpCode( GROUP, CMD ) ) )
 #define	BluetoothHCIExtractCommandOpCodeGroup( OPCODE )			( ( ( OPCODE ) >> 10 ) & 0x003F )
 #define	BluetoothHCIExtractCommandOpCodeCommand( OPCODE )		( ( OPCODE ) & 0x03FF )
 
@@ -1449,8 +1449,9 @@ enum
 
 typedef enum
 {
-	kBluetoothHCIPowerStateON		= 0x01,
-	kBluetoothHCIPowerStateOFF		= 0x00,
+	kBluetoothHCIPowerStateON				= 0x01,
+	kBluetoothHCIPowerStateOFF				= 0x00,
+	kBluetoothHCIPowerStateUnintialized		= 0xFF,	
 } BluetoothHCIPowerState;
 
 enum

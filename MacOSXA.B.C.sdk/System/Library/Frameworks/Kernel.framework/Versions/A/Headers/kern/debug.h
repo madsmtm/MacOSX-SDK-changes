@@ -28,7 +28,7 @@
 
 __BEGIN_DECLS
 
-extern void	panic(const char	*string, ...);
+extern void	panic(const char *string, ...) __dead2;
 
 __END_DECLS
 

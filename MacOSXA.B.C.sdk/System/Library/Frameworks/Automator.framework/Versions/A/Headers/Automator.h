@@ -8,4 +8,4 @@
 #import <Automator/AMAction.h>
 #import <Automator/AMBundleAction.h>
 #import <Automator/AMAppleScriptAction.h>
-
+#import <Automator/AMShellScriptAction.h>

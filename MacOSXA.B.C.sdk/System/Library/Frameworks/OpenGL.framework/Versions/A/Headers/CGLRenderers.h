@@ -16,10 +16,11 @@
 #define kCGLRendererATIRageProID    0x00021400
 #define kCGLRendererATIRadeon8500ID 0x00021600
 #define kCGLRendererATIRadeon9700ID 0x00021800
-#define kCGLRendererGeForce2MXID    0x00022000
-#define kCGLRendererGeForce3ID      0x00022200
+#define kCGLRendererGeForce2MXID    0x00022000 /* also for GeForce 4MX  */
+#define kCGLRendererGeForce3ID      0x00022200 /* also for GeForce 4 Ti */
 #define kCGLRendererGeForceFXID     0x00022400
 #define kCGLRendererVTBladeXP2ID    0x00023000
+#define kCGLRendererIntel900ID   	0x00024000
 #define kCGLRendererMesa3DFXID      0x00040000
 
 #endif /* _CGLRENDERERS_H */

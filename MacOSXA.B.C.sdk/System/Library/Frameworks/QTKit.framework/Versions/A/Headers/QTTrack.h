@@ -39,6 +39,8 @@ QTKIT_EXTERN NSString *QTTrackVolumeAttribute						AVAILABLE_MAC_OS_X_VERSION_10
     void			*_objectToken;
 	NSUndoManager   *_undoManager;
 	NSDictionary	*_undoAttributes;
+    UInt32			_trackID;
+    Movie			_trackMovie;
     long			_reserved1;
     long			_reserved2;
     long			_reserved3;

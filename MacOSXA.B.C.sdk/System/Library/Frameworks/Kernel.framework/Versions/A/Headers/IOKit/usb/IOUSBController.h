@@ -24,6 +24,30 @@
 /*
  *
  *	$Log: IOUSBController.h,v $
+ *	Revision 1.43.6.1  2005/12/22 04:26:05  nano
+ *	Bring in fixes for 4386903, 4389601, 4387897 and 4332763
+ *	
+ *	Revision 1.43.8.1  2005/12/20 23:54:50  nano
+ *	Fixes to debounce overcurrent notifications and to only display 1 notification per ganged hub
+ *	
+ *	Revision 1.43  2005/12/14 03:53:54  nano
+ *	Bring in branch fixes
+ *	
+ *	Revision 1.42.80.1  2005/12/13 22:16:53  rhoads
+ *	errata bit for the Isoch Lookahead issue
+ *	
+ *	Revision 1.42  2005/07/19 20:05:07  rhoads
+ *	roll in the big karma-dill merge changes
+ *	
+ *	Revision 1.41.2.1  2005/07/15 21:09:55  rhoads
+ *	merge in the karma branch
+ *	
+ *	Revision 1.41  2005/07/08 15:28:07  rhoads
+ *	roll in the NEC errata changes
+ *	
+ *	Revision 1.40.112.1  2005/06/30 16:16:47  rhoads
+ *	new errata bit for the 20050623 Errata from NEC
+ *	
  *	Revision 1.40  2004/08/23 20:00:47  nano
  *	Merge fix for rdar://3769499 (UTF16-UTF8 conversion)
  *	
@@ -107,13 +131,18 @@ enum
     kErrataCMDDisableTestMode		= (1 << 0),		// turn off UHCI test mode
     kErrataOnlySinglePageTransfers	= (1 << 1),		// Don't cross page boundaries in a single transfer
     kErrataRetryBufferUnderruns		= (1 << 2),		// Don't cross page boundaries in a single transfer
-    kErrataLSHSOpti			= (1 << 3),		// Don't cross page boundaries in a single transfer
+    kErrataLSHSOpti					= (1 << 3),		// Don't cross page boundaries in a single transfer
     kErrataDisableOvercurrent		= (1 << 4),		// Always set the NOCP bit in rhDescriptorA register
     kErrataLucentSuspendResume		= (1 << 5),		// Don't allow port suspend at the root hub
     kErrataNeedsWatchdogTimer		= (1 << 6),		// Use Watchdog timer to reset confused controllers
     kErrataNeedsPortPowerOff		= (1 << 7),		// Power off the ports and back on again to clear weird status.
     kErrataAgereEHCIAsyncSched		= (1 << 8),		// needs workaround for Async Sched bug
-    kErrataNECOHCIIsochWraparound	= (1 << 9)		// needs workaround for NEC isoch buffer wraparound problem
+    kErrataNECOHCIIsochWraparound	= (1 << 9),		// needs workaround for NEC isoch buffer wraparound problem
+	kErrataNECIncompleteWrite		= (1 << 10),	// needs workaround for NEC bits not sticking (errata IBB-2UE-00030 Jun 23 2005)
+	kErrataICH6PowerSequencing		= (1 << 11),	// needs special power sequencing for early Transition machines
+	kErrataICH7ISTBuffer			= (1 << 12),	// buffer for Isochronous Scheduling Threshold
+	kErrataUHCISupportsOvercurrent	= (1 << 13),	// UHCI controller supports overcurrent detection
+	kErrataNeedsOvercurrentDebounce = (1 << 14)		// The overcurrent indicator should be debounced by 10ms
 };
 
 enum

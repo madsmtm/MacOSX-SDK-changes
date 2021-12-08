@@ -3,7 +3,7 @@
  
      Contains:   Public interfaces for LaunchServices.framework
  
-     Version:    LaunchServices-153~4
+     Version:    LaunchServices-172~17
  
      Copyright:  © 2001-2005 by Apple Computer, Inc., all rights reserved.
  
@@ -39,6 +39,7 @@ extern "C" {
 
 enum {
   kLSAppInTrashErr              = -10660, /* The app cannot be run when inside a Trash folder*/
+  kLSExecutableIncorrectFormat  = -10661,
   kLSUnknownErr                 = -10810, /* Unexpected internal error*/
   kLSNotAnApplicationErr        = -10811, /* Item needs to be an application, but is not*/
   kLSNotInitializedErr          = -10812, /* Not used in 10.2 and later*/
@@ -56,7 +57,7 @@ enum {
   kLSNoRegistrationInfoErr      = -10824, /* The item contains no registration info*/
   kLSIncompatibleSystemVersionErr = -10825, /* The app cannot run on the current OS version*/
   kLSNoLaunchPermissionErr      = -10826, /* User doesn't have permission to launch the app (managed networks)*/
-  kLSNoExecutableErr            = -10827, /* The executable is missing or has an unusable format*/
+  kLSNoExecutableErr            = -10827, /* The executable is missing*/
   kLSNoClassicEnvironmentErr    = -10828, /* The Classic environment was required but is not available*/
   kLSMultipleSessionsNotSupportedErr = -10829 /* The app cannot run simultaneously in two different sessions*/
 };

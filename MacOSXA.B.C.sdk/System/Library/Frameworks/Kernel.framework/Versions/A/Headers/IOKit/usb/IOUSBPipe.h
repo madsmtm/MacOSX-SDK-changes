@@ -24,6 +24,12 @@
 /*
  *
  *	$Log: IOUSBPipe.h,v $
+ *	Revision 1.22  2005/12/07 21:53:32  nano
+ *	Bring in fixes from branch PR-4304258 -- Low Latency Audio support in  Yellow
+ *	
+ *	Revision 1.21.132.1  2005/12/02 20:23:51  nano
+ *	We need to know the IOUSBInterface when creating our pipes, as we want to know whether a request came in from a Rosetta client
+ *	
  *	Revision 1.21  2005/02/14 04:09:19  nano
  *	Bring branches into TOT
  *	
@@ -104,6 +110,8 @@ protected:
         IOReturn	_correctStatus;		
 		IOUSBDevice *	_device;	// Remember containing device for clearing TTs
 		UInt8			_speed;
+		IOUSBInterface	* _interface;
+		bool			_crossEndianCompatible;
     };
     ExpansionData * _expansionData;
     
@@ -118,13 +126,16 @@ public:
 		virtual bool InitToEndpoint(const IOUSBEndpointDescriptor *endpoint, UInt8 speed,
 									USBDeviceAddress address, IOUSBController * controller);
 	
-    // The following method is obsolete
+    // The following 2 methods are obsolete
     //
     static IOUSBPipe *ToEndpoint(const IOUSBEndpointDescriptor *endpoint, UInt8 speed,
                                  USBDeviceAddress address, IOUSBController * controller);
 	
     static IOUSBPipe *ToEndpoint(const IOUSBEndpointDescriptor *endpoint,
                                  IOUSBDevice * device, IOUSBController * controller);
+	
+    static IOUSBPipe *ToEndpoint(const IOUSBEndpointDescriptor *endpoint,
+                                 IOUSBDevice * device, IOUSBController * controller, IOUSBInterface *interface);
 	
     // Controlling pipe state
     /*!

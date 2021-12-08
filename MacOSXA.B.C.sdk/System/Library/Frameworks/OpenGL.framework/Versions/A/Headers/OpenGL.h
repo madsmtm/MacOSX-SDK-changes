@@ -90,9 +90,9 @@ extern CGLError CGLGetOption(CGLGlobalOption pname, long *param);
 /*
 ** Locking functions
 */
-extern CGLError CGLLockContext(CGLContextObj ctx) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+extern CGLError CGLLockContext(CGLContextObj ctx) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
-extern CGLError CGLUnlockContext(CGLContextObj ctx) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+extern CGLError CGLUnlockContext(CGLContextObj ctx) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 /*
 ** Version numbers

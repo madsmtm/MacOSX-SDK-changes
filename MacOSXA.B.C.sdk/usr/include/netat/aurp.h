@@ -27,6 +27,8 @@
  *	File: aurp.h
  */
 
+#ifdef AURP_SUPPORT
+
 #ifndef _NETAT_AURP_H_
 #define	_NETAT_AURP_H_
 #include <sys/appleapiopts.h>
@@ -53,3 +55,5 @@
 
 #endif /* __APPLE_API_OBSOLETE */
 #endif /* _NETAT_AURP_H_ */
+
+#endif  /* AURP_SUPPORT */

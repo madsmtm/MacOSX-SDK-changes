@@ -495,4 +495,4 @@ struct ip_mreq {
 #undef __KAME_NETINET_IN_H_INCLUDED_
 
 
-#endif _NETINET_IN_H_
+#endif /* _NETINET_IN_H_ */

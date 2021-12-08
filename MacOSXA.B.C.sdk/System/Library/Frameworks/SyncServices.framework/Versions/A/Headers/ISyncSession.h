@@ -190,7 +190,7 @@ SYNCSERVICES_EXPORT NSString * const ISyncSessionUnavailableException;
    have been applied.
 
    The userInfo object in the exception contains the list of rejected records and the reasons for each. */
-SYNCSERVICES_EXPORT NSString * const ISyncInvalidRecordException;
+SYNCSERVICES_EXPORT NSString * const    ISyncInvalidRecordException;
 SYNCSERVICES_EXPORT NSString * const    ISyncInvalidRecordIdentifiersKey; // an array of record ids
 SYNCSERVICES_EXPORT NSString * const    ISyncInvalidRecordReasonsKey; // a dictionary, keyed by record id
 SYNCSERVICES_EXPORT NSString * const    ISyncInvalidRecordsKey; // a dictionary, keyed by record id
@@ -207,6 +207,3 @@ SYNCSERVICES_EXPORT NSString * const ISyncUnsupportedEntityException;
    associated with an entity.  The name of the entity is stored in the record dictionary using
    this key. */
 SYNCSERVICES_EXPORT NSString * const ISyncRecordEntityNameKey;
-
-
-

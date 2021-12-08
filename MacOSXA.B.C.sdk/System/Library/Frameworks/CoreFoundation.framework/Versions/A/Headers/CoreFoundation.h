@@ -6,6 +6,8 @@
 #define __COREFOUNDATION_COREFOUNDATION__ 1
 #define __COREFOUNDATION__ 1
 
+#if !defined(CF_EXCLUDE_CSTD_HEADERS)
+
 #include <sys/types.h>
 #include <stdarg.h>
 #include <assert.h>
@@ -28,6 +30,8 @@
 #include <inttypes.h>
 #include <stdbool.h>
 #include <stdint.h>
+
+#endif
 
 #endif
 

@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 1990-2005 by Apple Computer, Inc., all rights reserved
  
@@ -475,6 +475,10 @@ struct ImageSubCodecDecompressCapabilities {
   Boolean             subCodecSupportsScheduledBackwardsPlaybackWithDifferenceFrames;
   Boolean             subCodecNeedsHelpReportingNonDisplayableFrames;
   Boolean             baseCodecShouldCallDecodeBandForAllFrames;
+
+  UInt8               pad5[2];
+  Boolean             subCodecSupportsDrawInDecodeOrder; /* indicates that it's okay for the subcodec to get a single DrawBand call for each frame in decode order even when frames need reordering.  (This will only happen when other circumstances allow it.)*/
+  UInt8               pad6[5];
 };
 typedef struct ImageSubCodecDecompressCapabilities ImageSubCodecDecompressCapabilities;
 enum {
@@ -502,6 +506,8 @@ struct ImageSubCodecDecompressRecord {
 
                                               /* The following fields only exist for QuickTime 7.0 and greater */
   void *              reserved1;
+  long                reserved2;
+  long                reserved3;
 };
 typedef struct ImageSubCodecDecompressRecord ImageSubCodecDecompressRecord;
 /*

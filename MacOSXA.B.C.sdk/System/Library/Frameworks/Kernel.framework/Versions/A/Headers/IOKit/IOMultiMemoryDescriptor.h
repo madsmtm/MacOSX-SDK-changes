@@ -80,6 +80,9 @@ protected:
     IOMemoryDescriptor::withRanges;                          /* not supported */
     IOMemoryDescriptor::withSubRange;                        /* not supported */
 
+    // used by IODMACommand
+    virtual IOReturn dmaCommandOperation(DMACommandOps op, void *vData, UInt dataSize) const;
+
 public:
 
 /*! @function withDescriptors

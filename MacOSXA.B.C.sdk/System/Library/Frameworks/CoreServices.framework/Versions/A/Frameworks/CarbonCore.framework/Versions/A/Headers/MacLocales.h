@@ -3,7 +3,7 @@
  
      Contains:   Types & prototypes for locale functions
  
-     Version:    CarbonCore-650.1~1
+     Version:    CarbonCore-682.9~1
  
      Copyright:  © 1998-2005 by Apple Computer, Inc., all rights reserved.
  

@@ -2322,6 +2322,61 @@
 /* GL_EXT_blend_minmax */
 #define glBlendEquationEXT glBlendEquation
 
+#if 0
+
+/* GL_EXT_framebuffer_object */
+#define glIsRenderbufferEXT(renderbuffer) \
+	(*(AGL_MACRO_CONTEXT)->disp.is_renderbuffer_EXT)(AGL_MACRO_CONTEXT_RENDERER, renderbuffer)
+
+#define glBindRenderbufferEXT(target, renderbuffer) \
+	(*(AGL_MACRO_CONTEXT)->disp.bind_renderbuffer_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, renderbuffer)
+
+#define glDeleteRenderbuffersEXT(n, renderbuffers) \
+	(*(AGL_MACRO_CONTEXT)->disp.delete_renderbuffers_EXT)(AGL_MACRO_CONTEXT_RENDERER, n, renderbuffers)
+
+#define glGenRenderbuffersEXT(n, renderbuffers) \
+	(*(AGL_MACRO_CONTEXT)->disp.gen_renderbuffers_EXT)(AGL_MACRO_CONTEXT_RENDERER, n, renderbuffers)
+
+#define glRenderbufferStorageEXT(target, internalformat, width, height) \
+	(*(AGL_MACRO_CONTEXT)->disp.renderbuffer_storage_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, internalformat, width, height)
+
+#define glGetRenderbufferParameterivEXT(target, pname, params) \
+	(*(AGL_MACRO_CONTEXT)->disp.get_renderbuffer_parameteriv_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, pname, params)
+
+#define glIsFramebufferEXT(framebuffer) \
+	(*(AGL_MACRO_CONTEXT)->disp.is_framebuffer_EXT)(AGL_MACRO_CONTEXT_RENDERER, framebuffer)
+
+#define glBindFramebufferEXT(target, framebuffer) \
+	(*(AGL_MACRO_CONTEXT)->disp.bind_framebuffer_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, framebuffer)
+
+#define glDeleteFramebuffersEXT(n, framebuffers) \
+	(*(AGL_MACRO_CONTEXT)->disp.delete_framebuffers_EXT)(AGL_MACRO_CONTEXT_RENDERER, n, framebuffers)
+
+#define glGenFramebuffersEXT(n, framebuffers) \
+	(*(AGL_MACRO_CONTEXT)->disp.gen_framebuffers_EXT)(AGL_MACRO_CONTEXT_RENDERER, n, framebuffers)
+
+#define glCheckFramebufferStatusEXT(target) \
+	(*(AGL_MACRO_CONTEXT)->disp.check_framebuffer_status_EXT)(AGL_MACRO_CONTEXT_RENDERER, target)
+
+#define glFramebufferTexture1DEXT(target, attachment, textarget, texture, level) \
+	(*(AGL_MACRO_CONTEXT)->disp.framebuffer_texture1D_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, attachment, textarget, texture, level)
+
+#define glFramebufferTexture2DEXT(target, attachment, textarget, texture, level) \
+	(*(AGL_MACRO_CONTEXT)->disp.framebuffer_texture2D_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, attachment, textarget, texture, level)
+
+#define glFramebufferTexture3DEXT(target, attachment, textarget, texture, level, zoffset) \
+	(*(AGL_MACRO_CONTEXT)->disp.framebuffer_texture3D_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, attachment, textarget, texture, level, zoffset)
+
+#define glFramebufferRenderbufferEXT(target, attachment, renderbuffertarget, renderbuffer) \
+	(*(AGL_MACRO_CONTEXT)->disp.framebuffer_renderbuffer_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, attachment, renderbuffertarget, renderbuffer)
+
+#define glGetFramebufferAttachmentParameterivEXT(target, attachment, pname, params) \
+	(*(AGL_MACRO_CONTEXT)->disp.get_framebuffer_attachment_parameteriv_EXT)(AGL_MACRO_CONTEXT_RENDERER, target, attachment, pname, params)
+
+#define glGenerateMipmapEXT(target) \
+	(*(AGL_MACRO_CONTEXT)->disp.generate_mipmap_EXT)(AGL_MACRO_CONTEXT_RENDERER, target)
+	
+#endif
 /*********** APPLE Extensions ***********************************************/
 
 /* GL_APPLE_vertex_program_evaluators */

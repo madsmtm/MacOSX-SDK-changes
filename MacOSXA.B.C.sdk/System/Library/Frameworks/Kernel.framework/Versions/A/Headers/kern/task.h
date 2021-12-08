@@ -101,6 +101,8 @@ extern task_t	kernel_task;
 extern void		task_deallocate(
 					task_t		task);
 
+extern void		task_name_deallocate(
+					task_name_t		task_name);
 __END_DECLS
 
 #endif	/* _KERN_TASK_H_ */

@@ -416,8 +416,9 @@ AudioFileWriteBytes (	AudioFileID  	inAudioFile,
     inStartingPacket 		- the packet index of the first packet desired to be returned
     ioNumPackets 			- on input, the number of packets to read, on output, the number of
                               packets actually read.
-    outBuffer 				- outBuffer should be a void * to user allocated memory of size: 
-                              number of bytes requested.
+    outBuffer 				- outBuffer should be a pointer to user allocated memory of size: 
+                              number of packets requested times file's maximum (or upper bound on)
+							  packet size.
 //----------------------------------------------------------------------------------*/
 extern OSStatus	
 AudioFileReadPackets (	AudioFileID  					inAudioFile, 

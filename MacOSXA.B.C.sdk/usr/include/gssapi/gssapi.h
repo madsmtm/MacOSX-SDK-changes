@@ -7,9 +7,9 @@
 #define __GSSAPI__
 
 /* Environment dependent macros */
-#define SIZEOF_INT 4
-#define SIZEOF_LONG 4
-#define SIZEOF_SHORT 2
+#define GSS_SIZEOF_INT 4
+#define GSS_SIZEOF_LONG 4
+#define GSS_SIZEOF_SHORT 2
 
 
 /* Error tables from gssapi_err_generic.h */
@@ -98,6 +98,9 @@ extern "C" {
 
 #if defined(_MSDOS) || defined(_WIN32)
 #include <win-mac.h>
+#define GSS_SIZEOF_SHORT SIZEOF_SHORT
+#define GSS_SIZEOF_LONG  SIZEOF_LONG
+#define GSS_SIZEOF_INT   SIZEOF_INT
 #endif
 
 #ifndef KRB5_CALLCONV
@@ -105,16 +108,10 @@ extern "C" {
 #define KRB5_CALLCONV_C
 #endif
 
-#define	GSS_SIZEOF_INT		SIZEOF_INT
-#define	GSS_SIZEOF_LONG		SIZEOF_LONG
-#define	GSS_SIZEOF_SHORT	SIZEOF_SHORT
-
 /*
  * First, include stddef.h to get size_t defined.
  */
-#if	HAVE_STDDEF_H
 #include <stddef.h>
-#endif	/* HAVE_STDDEF_H */
 
 /*
  * POSIX says that sys/types.h is where size_t is defined.
@@ -122,14 +119,7 @@ extern "C" {
 #include <sys/types.h>
 
 /*
- * If the platform supports the xom.h header file, it should be included here.
- */
-#if	HAVE_XOM_H
-#include <xom.h>
-#endif	/* HAVE_XOM_H */
-
-/*
- * $Id: gssapi.hin,v 1.20 2004/06/22 18:14:08 raeburn Exp $
+ * $Id: gssapi.hin 17241 2005-06-15 02:28:30Z  $
  */
 
 /*
@@ -851,4 +841,4 @@ OM_uint32 KRB5_CALLCONV gss_canonicalize_name
 #define GSS_S_CRED_UNAVAIL GSS_S_FAILURE
 
 #endif /* _GSSAPI_H_ */
-#endif /* __GSSAPI__  */
+#endif /* __GSSAPI__ */

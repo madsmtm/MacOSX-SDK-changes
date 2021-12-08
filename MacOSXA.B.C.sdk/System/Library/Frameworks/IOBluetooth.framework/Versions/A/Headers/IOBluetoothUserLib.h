@@ -79,8 +79,11 @@
 #define BLUETOOTH_VERSION_1_3	010300
 #define BLUETOOTH_VERSION_1_3_0	BLUETOOTH_VERSION_1_3
 #define BLUETOOTH_VERSION_1_3_1 010301
+#define BLUETOOTH_VERSION_1_6	010600
+#define BLUETOOTH_VERSION_1_6_0	BLUETOOTH_VERSION_1_6
+#define BLUETOOTH_VERSION_1_6_3 010603
 
-#define BLUETOOTH_VERSION_CURRENT	BLUETOOTH_VERSION_1_3_1
+#define BLUETOOTH_VERSION_CURRENT	BLUETOOTH_VERSION_1_6_3
 
 #ifdef BLUETOOTH_VERSION_USE_CURRENT
 	#define BLUETOOTH_VERSION_MIN_REQUIRED	BLUETOOTH_VERSION_CURRENT
@@ -200,6 +203,34 @@
 	#define AVAILABLE_BLUETOOTH_VERSION_1_3_1_AND_LATER		WEAK_IMPORT_ATTRIBUTE
 #else
 	#define AVAILABLE_BLUETOOTH_VERSION_1_3_1_AND_LATER
+#endif
+
+/*
+ * AVAILABLE_BLUETOOTH_VERSION_1_6_AND_LATER
+ *
+ * Used on declarations introduced in Mac OS X 10.4.0 (Bluetooth version 1.6.0)
+ */
+ 
+#if BLUETOOTH_VERSION_MAX_ALLOWED < BLUETOOTH_VERSION_1_6
+	#define AVAILABLE_BLUETOOTH_VERSION_1_6_AND_LATER		UNAVAILABLE_ATTRIBUTE
+#elif BLUETOOTH_VERSION_MIN_REQUIRED < BLUETOOTH_VERSION_1_6_3
+	#define AVAILABLE_BLUETOOTH_VERSION_1_6_AND_LATER		WEAK_IMPORT_ATTRIBUTE
+#else
+	#define AVAILABLE_BLUETOOTH_VERSION_1_6_AND_LATER
+#endif
+
+/*
+ * AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER
+ *
+ * Used on declarations introduced in Mac OS X 10.4.2 (Bluetooth version 1.6.3)
+ */
+ 
+#if BLUETOOTH_VERSION_MAX_ALLOWED < BLUETOOTH_VERSION_1_6_3
+	#define AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER		UNAVAILABLE_ATTRIBUTE
+#elif BLUETOOTH_VERSION_MIN_REQUIRED < BLUETOOTH_VERSION_1_6_3
+	#define AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER		WEAK_IMPORT_ATTRIBUTE
+#else
+	#define AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER
 #endif
 
 //===========================================================================================================================
@@ -2761,13 +2792,13 @@ typedef void (*IOBluetoothDeviceInquiryDeviceFoundCallback)( 	void * 						userR
     @discussion	This callback will be invoked when the message for which it was registered is sent.
     @param		inquiryRef			(IOBluetoothDeviceInquiryRef) The inquiry object ref responsible for sending the callback.
     @param		userRefCon			(void *) This user defined parameter was provided during the original call to register the callback.
-    @param		deviceRemaining		Number of devices remaining to be updated.
+    @param		devicesRemaining	Number of devices remaining to be updated.
     @result		None.
 */
 
 typedef void (*IOBluetoothDeviceInquiryUpdatingNamesStartedCallback)(	void * 						userRefCon,
 																		IOBluetoothDeviceInquiryRef	inquiryRef,
-																		uint32_t					deviceRemaining );
+																		uint32_t					devicesRemaining );
 
 /*!
     @typedef	IOBluetoothDeviceInquiryDeviceNameUpdatedCallback
@@ -2782,7 +2813,7 @@ typedef void (*IOBluetoothDeviceInquiryUpdatingNamesStartedCallback)(	void * 			
 typedef void (*IOBluetoothDeviceInquiryDeviceNameUpdatedCallback)( 	void * 						userRefCon,
 																	IOBluetoothDeviceInquiryRef	inquiryRef,
 																	IOBluetoothDeviceRef 		deviceRef,
-																	uint32_t					deviceRemaining );
+																	uint32_t					devicesRemaining );
 	
 /*!
     @typedef	IOBluetoothDeviceInquiryCompleteCallback
@@ -2809,7 +2840,7 @@ typedef void (*IOBluetoothDeviceInquiryCompleteCallback)( 	void * 						userRefC
 	@result		Returns the IOBluetoothDeviceInquiryRef.
 */
 
-extern IOBluetoothDeviceInquiryRef IOBluetoothDeviceInquiryCreateWithCallbackRefCon( void *		inUserRefCon );
+extern IOBluetoothDeviceInquiryRef IOBluetoothDeviceInquiryCreateWithCallbackRefCon( void *		inUserRefCon )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2820,7 +2851,27 @@ extern IOBluetoothDeviceInquiryRef IOBluetoothDeviceInquiryCreateWithCallbackRef
 	@result		Returns the IOBluetoothDeviceInquiryRef.
 */
 
-extern IOReturn		IOBluetoothDeviceInquiryDelete( IOBluetoothDeviceInquiryRef inquiryRef );
+extern IOReturn		IOBluetoothDeviceInquiryDelete( IOBluetoothDeviceInquiryRef inquiryRef )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
+
+//---------------------------------------------------------------------------------------------------------------------------
+/*!
+    @function	IOBluetoothDeviceInquiryStart
+	@abstract	Starts the inquiry using the IOBluetoothDeviceInquiryRef.
+	@discussion	
+	@result		Returns whether the inquiry was started with or without error.
+*/
+
+extern IOReturn		IOBluetoothDeviceInquiryStart( IOBluetoothDeviceInquiryRef inInquiryRef )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
+
+//---------------------------------------------------------------------------------------------------------------------------
+/*!
+    @function	IOBluetoothDeviceInquiryStop
+	@abstract	Stops the inquiry using the IOBluetoothDeviceInquiryRef.
+	@discussion	
+	@result		Returns whether the inquiry was stopped with or without error.
+*/
+
+extern	IOReturn	IOBluetoothDeviceInquiryStop( IOBluetoothDeviceInquiryRef inInquiryRef )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2830,7 +2881,7 @@ extern IOReturn		IOBluetoothDeviceInquiryDelete( IOBluetoothDeviceInquiryRef inq
 */
 
 extern IOReturn 	IOBluetoothDeviceInquirySetStartedCallback(	IOBluetoothDeviceInquiryRef				inInquiryRef,
-																IOBluetoothDeviceInquiryStartedCallback	callback );
+																IOBluetoothDeviceInquiryStartedCallback	callback )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2840,7 +2891,7 @@ extern IOReturn 	IOBluetoothDeviceInquirySetStartedCallback(	IOBluetoothDeviceIn
 */
 
 extern IOReturn 	IOBluetoothDeviceInquirySetDeviceFoundCallback(	IOBluetoothDeviceInquiryRef				inInquiryRef,
-																	IOBluetoothDeviceInquiryDeviceFoundCallback	callback );
+																	IOBluetoothDeviceInquiryDeviceFoundCallback	callback )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2850,7 +2901,7 @@ extern IOReturn 	IOBluetoothDeviceInquirySetDeviceFoundCallback(	IOBluetoothDevi
 */
 
 extern IOReturn 	IOBluetoothDeviceInquirySetUpdatingNamesStartedCallback(	IOBluetoothDeviceInquiryRef								inInquiryRef,
-																				IOBluetoothDeviceInquiryUpdatingNamesStartedCallback	callback );
+																				IOBluetoothDeviceInquiryUpdatingNamesStartedCallback	callback )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2860,7 +2911,7 @@ extern IOReturn 	IOBluetoothDeviceInquirySetUpdatingNamesStartedCallback(	IOBlue
 */
 
 extern IOReturn 	IOBluetoothDeviceInquirySetDeviceNameUpdatedCallback(	IOBluetoothDeviceInquiryRef								inInquiryRef,
-																			IOBluetoothDeviceInquiryDeviceNameUpdatedCallback		callback );
+																			IOBluetoothDeviceInquiryDeviceNameUpdatedCallback		callback )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2870,7 +2921,7 @@ extern IOReturn 	IOBluetoothDeviceInquirySetDeviceNameUpdatedCallback(	IOBluetoo
 */
 
 extern IOReturn 	IOBluetoothDeviceInquirySetCompleteCallback(	IOBluetoothDeviceInquiryRef					inInquiryRef,
-																	IOBluetoothDeviceInquiryCompleteCallback	callback );
+																	IOBluetoothDeviceInquiryCompleteCallback	callback )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2880,7 +2931,7 @@ extern IOReturn 	IOBluetoothDeviceInquirySetCompleteCallback(	IOBluetoothDeviceI
 */
 
 extern IOReturn 	IOBluetoothDeviceInquirySetUserRefCon(	IOBluetoothDeviceInquiryRef	inInquiryRef,
-															void * 						inUserRefCon );
+															void * 						inUserRefCon )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2889,7 +2940,7 @@ extern IOReturn 	IOBluetoothDeviceInquirySetUserRefCon(	IOBluetoothDeviceInquiry
 	@result		void *	A ptr to an object.
 */
 
-extern void  *	IOBluetoothDeviceInquiryGetUserRefCon(	IOBluetoothDeviceInquiryRef	inInquiryRef );
+extern void  *	IOBluetoothDeviceInquiryGetUserRefCon(	IOBluetoothDeviceInquiryRef	inInquiryRef )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2903,7 +2954,7 @@ extern void  *	IOBluetoothDeviceInquiryGetUserRefCon(	IOBluetoothDeviceInquiryRe
 */
 
 extern IOReturn 	IOBluetoothDeviceInquirySetInquiryLength(	IOBluetoothDeviceInquiryRef	inInquiryRef,
-																int8_t						inSeconds );
+																int8_t						inSeconds )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2912,7 +2963,7 @@ extern IOReturn 	IOBluetoothDeviceInquirySetInquiryLength(	IOBluetoothDeviceInqu
 	@result		Number of seconds the search will be performed.
 */
 
-extern uint8_t IOBluetoothDeviceInquiryGetInquiryLength( 	IOBluetoothDeviceInquiryRef	inInquiryRef );
+extern uint8_t IOBluetoothDeviceInquiryGetInquiryLength( 	IOBluetoothDeviceInquiryRef	inInquiryRef )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2923,7 +2974,7 @@ extern uint8_t IOBluetoothDeviceInquiryGetInquiryLength( 	IOBluetoothDeviceInqui
 */
 
 extern IOReturn 	IOBluetoothDeviceInquirySetUpdateNewDeviceNames( 	IOBluetoothDeviceInquiryRef	inInquiryRef,
-																		Boolean						inUpdateNames );
+																		Boolean						inUpdateNames )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!
@@ -2932,7 +2983,7 @@ extern IOReturn 	IOBluetoothDeviceInquirySetUpdateNewDeviceNames( 	IOBluetoothDe
 	@result		TRUE if the inquiry will get device name for found objects, FALSE if not.
 */
 
-extern Boolean 	IOBluetoothDeviceInquiryGetUpdateNewDeviceNames( 	IOBluetoothDeviceInquiryRef	inInquiryRef );
+extern Boolean 	IOBluetoothDeviceInquiryGetUpdateNewDeviceNames( 	IOBluetoothDeviceInquiryRef	inInquiryRef )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!	@function	IOBluetoothDeviceInquiryGetFoundDevices
@@ -2941,14 +2992,14 @@ extern Boolean 	IOBluetoothDeviceInquiryGetUpdateNewDeviceNames( 	IOBluetoothDev
 	@discussion Will not return nil. If there are no devices found, returns an array with length of 0.
 */
 
-extern	CFArrayRef	IOBluetoothDeviceInquiryGetFoundDevices( 	IOBluetoothDeviceInquiryRef	inInquiryRef );
+extern	CFArrayRef	IOBluetoothDeviceInquiryGetFoundDevices( 	IOBluetoothDeviceInquiryRef	inInquiryRef )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!	@function	IOBluetoothDeviceInquiryClearFoundDevices
 	@abstract   Removes all found devices from the inquiry object.
 */
 
-extern	IOReturn	IOBluetoothDeviceInquiryClearFoundDevices( 	IOBluetoothDeviceInquiryRef	inInquiryRef );
+extern	IOReturn	IOBluetoothDeviceInquiryClearFoundDevices( 	IOBluetoothDeviceInquiryRef	inInquiryRef )	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!	@function	IOBluetoothDeviceInquirySetSearchCriteria
@@ -2970,7 +3021,7 @@ extern	IOReturn	IOBluetoothDeviceInquiryClearFoundDevices( 	IOBluetoothDeviceInq
 extern	IOReturn	IOBluetoothDeviceInquirySetSearchCriteria(	IOBluetoothDeviceInquiryRef		inInquiryRef,
 																BluetoothServiceClassMajor		inServiceClassMajor,
 																BluetoothDeviceClassMajor		inMajorDeviceClass,
-																BluetoothDeviceClassMinor		inMinorDeviceClass	);
+																BluetoothDeviceClassMinor		inMinorDeviceClass	)	AVAILABLE_BLUETOOTH_VERSION_1_6_3_AND_LATER;
 
 
 #if 0
@@ -3033,7 +3084,7 @@ extern	IOReturn	IOBluetoothDeviceInquirySetSearchCriteria(	IOBluetoothDeviceInqu
 	@param		configDict	Configuration dictionary containing a description of the audio controls to be attached to the driver
 	@result		Returns kIOReturnSuccess if the audio driver was successfully created.
 */
-IOReturn IOBluetoothAddSCOAudioDevice( IOBluetoothDeviceRef device, CFDictionaryRef configDict );
+extern IOReturn IOBluetoothAddSCOAudioDevice( IOBluetoothDeviceRef device, CFDictionaryRef configDict )	AVAILABLE_BLUETOOTH_VERSION_1_6_AND_LATER;
 
 /*!
     @function	IOBluetoothRemoveSCOAudioDevice
@@ -3041,7 +3092,7 @@ IOReturn IOBluetoothAddSCOAudioDevice( IOBluetoothDeviceRef device, CFDictionary
 	@param		device	Bluetooth audio device to remove
 	@result		Returns kIOReturnSuccess if the audio driver was successfully removed.
 */
-IOReturn IOBluetoothRemoveSCOAudioDevice( IOBluetoothDeviceRef device );
+extern IOReturn IOBluetoothRemoveSCOAudioDevice( IOBluetoothDeviceRef device )	AVAILABLE_BLUETOOTH_VERSION_1_6_AND_LATER;
 
 
 #ifdef	__cplusplus

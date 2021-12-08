@@ -32,9 +32,9 @@ __BEGIN_DECLS
 void	cpu_machine_init(
 	void);
 
-struct i386_interrupt_state;
+struct i386_saved_state;
 void	cpu_signal_handler(
-	struct i386_interrupt_state *regs);
+	struct i386_saved_state *regs);
 
 kern_return_t cpu_register(
         int *slot_nump);
@@ -42,7 +42,7 @@ __END_DECLS
 
 static inline void cpu_halt(void)
 {
-	asm volatile( "cli; hlt" );
+	asm volatile( "wbinvd; cli; hlt" );
 }
 
 static inline void cpu_pause(void)

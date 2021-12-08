@@ -3,7 +3,7 @@
  
      Contains:   HIView-based movie playback
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 2004-2005 by Apple Computer, Inc., all rights reserved.
  

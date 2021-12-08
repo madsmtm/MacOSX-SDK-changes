@@ -3,7 +3,7 @@
  
      Contains:   WebServicesCore Method Invocation API
  
-     Version:    WebServices-25~37
+     Version:    WebServices-26~67
  
      Copyright:  © 2002-2005 by Apple Computer, Inc., all rights reserved
  

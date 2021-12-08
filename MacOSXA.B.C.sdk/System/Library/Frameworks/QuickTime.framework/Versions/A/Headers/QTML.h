@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Cross-platform specific interfaces
  
-     Version:    QuickTime_6
+     Version:    QuickTime 7.0.4
  
      Copyright:  © 1997-2005 by Apple Computer, Inc., all rights reserved.
  

@@ -28,9 +28,24 @@ typedef enum CGImageAlphaInfo CGImageAlphaInfo;
 
 enum {
     kCGBitmapAlphaInfoMask = 0x1F,
-    kCGBitmapFloatComponents = (1 << 8)
+    kCGBitmapFloatComponents = (1 << 8),
+    
+    kCGBitmapByteOrderMask = 0x7000,
+    kCGBitmapByteOrderDefault = (0 << 12),
+    kCGBitmapByteOrder16Little = (1 << 12),
+    kCGBitmapByteOrder32Little = (2 << 12),
+    kCGBitmapByteOrder16Big = (3 << 12),
+    kCGBitmapByteOrder32Big = (4 << 12)
 };
 typedef uint32_t CGBitmapInfo; /* Available in MAC OS X 10.4 & later. */
+
+#ifdef __BIG_ENDIAN__
+#define kCGBitmapByteOrder16Host kCGBitmapByteOrder16Big
+#define kCGBitmapByteOrder32Host kCGBitmapByteOrder32Big
+#else    /* Little endian. */
+#define kCGBitmapByteOrder16Host kCGBitmapByteOrder16Little
+#define kCGBitmapByteOrder32Host kCGBitmapByteOrder32Little
+#endif
 
 /* Return the CFTypeID for CGImageRefs. */
 

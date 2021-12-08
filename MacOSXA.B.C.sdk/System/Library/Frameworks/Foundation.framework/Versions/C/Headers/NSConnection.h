@@ -12,13 +12,13 @@
     @private
     id		receivePort;
     id		sendPort;
-    NSTimeInterval requestLimit;
-    NSTimeInterval replyLimit;
     id          delegate;
+    int32_t	busy;
+    char	slack[12];
     id		statistics;
     unsigned char isDead;
     unsigned char isValid;
-    unsigned char busy;
+    unsigned char wantsInvalid;
     unsigned char authGen:1;
     unsigned char authCheck:1;
     unsigned char encryptFlag:1;

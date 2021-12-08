@@ -24,6 +24,21 @@
 /*
  *
  *	$Log: IOUSBControllerV2.h,v $
+ *	Revision 1.17  2005/11/28 23:09:07  rhoads
+ *	roll in changes from the UHCI rewrite branch
+ *	
+ *	Revision 1.16.2.2  2005/11/23 22:30:40  rhoads
+ *	more isoch changes
+ *	
+ *	Revision 1.16.2.1  2005/11/22 17:28:32  rhoads
+ *	fix a short packet problem as well as isoch
+ *	
+ *	Revision 1.16  2005/10/26 21:25:21  nano
+ *	Bring in branches to TOT
+ *	
+ *	Revision 1.15.150.1  2005/10/25 15:52:59  rhoads
+ *	moved some SPI from AppleUSBEHCI to IOUSBControllerV2 so that it can be shared with AppleUSBUHCI
+ *	
  *	Revision 1.15  2004/09/23 02:19:50  rhoads
  *	changes for hisgh speed isoch
  *	
@@ -64,6 +79,7 @@
 #ifndef _IOKIT_IOUSBCONTROLLERV2_H
 #define _IOKIT_IOUSBCONTROLLERV2_H
 
+#include <IOKit/usb/IOUSBControllerListElement.h>
 #include <IOKit/usb/IOUSBController.h>
 
 enum
@@ -101,24 +117,34 @@ protected:
     UInt8 _highSpeedPort[128];
 
     struct V2ExpansionData { 
-	UInt8 _multiTT[128];
-	IOUSBCommand 	*ClearTTCommand;
+		UInt8										_multiTT[128];
+		IOUSBCommand								*ClearTTCommand;
+		IOUSBControllerIsochEndpoint				*_isochEPList;						// linked list of active Isoch "endpoints"
+		IOUSBControllerIsochEndpoint				*_freeIsochEPList;					// linked list of freed Isoch EP data structures
+		thread_call_t								_returnIsochDoneQueueThread;
 	};
-    V2ExpansionData * _v2ExpansionData;
+    V2ExpansionData *_v2ExpansionData;
 
     // Super's expansion data
-    #define _freeUSBCommandPool		_expansionData->freeUSBCommandPool
-    #define _freeUSBIsocCommandPool	_expansionData->freeUSBIsocCommandPool
-    #define _watchdogUSBTimer		_expansionData->watchdogUSBTimer
-    #define _controllerTerminating	_expansionData->_terminating
-    #define _watchdogTimerActive	_expansionData->_watchdogTimerActive
-    #define _pcCardEjected		_expansionData->_pcCardEjected
-    #define _busNumber			_expansionData->_busNumber
-    #define _currentSizeOfCommandPool	_expansionData->_currentSizeOfCommandPool
-    #define _currentSizeOfIsocCommandPool	_expansionData->_currentSizeOfIsocCommandPool
-    #define _controllerSpeed		_expansionData->_controllerSpeed
+    #define _freeUSBCommandPool					_expansionData->freeUSBCommandPool
+    #define _freeUSBIsocCommandPool				_expansionData->freeUSBIsocCommandPool
+    #define _watchdogUSBTimer					_expansionData->watchdogUSBTimer
+    #define _controllerTerminating				_expansionData->_terminating
+    #define _watchdogTimerActive				_expansionData->_watchdogTimerActive
+    #define _pcCardEjected						_expansionData->_pcCardEjected
+    #define _busNumber							_expansionData->_busNumber
+    #define _currentSizeOfCommandPool			_expansionData->_currentSizeOfCommandPool
+    #define _currentSizeOfIsocCommandPool		_expansionData->_currentSizeOfIsocCommandPool
+    #define _controllerSpeed					_expansionData->_controllerSpeed
 
+	// this class's expansion data
+	#define _isochEPList						_v2ExpansionData->_isochEPList
+	#define _freeIsochEPList					_v2ExpansionData->_freeIsochEPList
+	#define _returnIsochDoneQueueThread			_v2ExpansionData->_returnIsochDoneQueueThread
+	
     virtual bool 		init( OSDictionary *  propTable );
+    virtual bool 		start( IOService *  provider );
+    virtual void		free();
 
     static IOReturn  DoCreateEP(OSObject *owner,
                            void *arg0, void *arg1,
@@ -256,7 +282,11 @@ public:
                                                         USBDeviceAddress	highSpeedHub,
                                                         int					highSpeedPort) = 0;
 
-    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  0);
+
+	static void 				ReturnIsochDoneQueueEntry(OSObject *target, thread_call_param_t endpointPtr);
+
+	
+	OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  0);
     virtual IOReturn		AddHSHub(USBDeviceAddress highSpeedHub, UInt32 flags);
     
     static IOReturn DOHSHubMaintenance(OSObject *owner, void *arg0, void *arg1, void *arg2, void *arg3);
@@ -312,8 +342,7 @@ public:
                            address split transactions to.
     @param highSpeedPort   If highSpeedHub is non zero, the hub port to address split transactions to
 */
-    virtual IOReturn 		UIMCreateIsochEndpoint(
-                                                        short				functionAddress,
+    virtual IOReturn 		UIMCreateIsochEndpoint(		short				functionAddress,
                                                         short				endpointNumber,
                                                         UInt32				maxPacketSize,
                                                         UInt8				direction,
@@ -322,17 +351,39 @@ public:
 														UInt8				interval);
 
 
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  9);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  10);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  11);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  12);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  13);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  14);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  15);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  16);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  17);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  18);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  19);
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  9);
+	virtual IOUSBControllerIsochEndpoint*		IOUSBControllerV2::AllocateIsochEP(void);	
+	
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  10);
+	virtual IOReturn							IOUSBControllerV2::DeallocateIsochEP(IOUSBControllerIsochEndpoint *pEP);
+
+	OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  11);
+    virtual IOUSBControllerIsochEndpoint* 	FindIsochronousEndpoint(short functionNumber, short endpointNumber, short direction, IOUSBControllerIsochEndpoint* *pEDBack);
+
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  12);
+    virtual IOUSBControllerIsochEndpoint*	CreateIsochronousEndpoint(short functionNumber, short endpointNumber, short direction);
+	
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  13);
+    virtual void								PutTDonToDoList(IOUSBControllerIsochEndpoint* pED, IOUSBControllerIsochListElement *pTD);
+
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  14);
+    virtual IOUSBControllerIsochListElement		*GetTDfromToDoList(IOUSBControllerIsochEndpoint* pED);
+
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  15);
+    virtual void								PutTDonDeferredQueue(IOUSBControllerIsochEndpoint* pED, IOUSBControllerIsochListElement *pTD);
+
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  16);
+	virtual IOUSBControllerIsochListElement		*GetTDfromDeferredQueue(IOUSBControllerIsochEndpoint* pED);
+
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  17);
+    virtual void								PutTDonDoneQueue(IOUSBControllerIsochEndpoint* pED, IOUSBControllerIsochListElement *pTD, bool checkDeferred);
+
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  18);
+    virtual IOUSBControllerIsochListElement		*GetTDfromDoneQueue(IOUSBControllerIsochEndpoint* pED);
+	
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  19);
+    virtual void								ReturnIsochDoneQueue(IOUSBControllerIsochEndpoint*);
+
     OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  20);
     OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  21);
     OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  22);
