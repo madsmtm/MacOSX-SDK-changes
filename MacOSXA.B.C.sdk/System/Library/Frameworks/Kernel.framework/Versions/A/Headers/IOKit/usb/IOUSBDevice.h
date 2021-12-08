@@ -101,8 +101,8 @@ protected:
         bool					_doneWaiting;                   // Obsolete
         bool					_notifiedWhileBooting;          // Obsolete
         IOWorkLoop *			_workLoop;
-        IOTimerEventSource *	_notifierHandlerTimer;
-        UInt32					_notificationType;
+        IOTimerEventSource *	_notifierHandlerTimer;          // Obsolete
+        UInt32					_notificationType;              // Obsolete
         bool					_suspendInProgress;
         bool					_portHasBeenSuspendedOrResumed;
         bool					_addExtraResetTime;
@@ -566,8 +566,7 @@ private:
     static void			DoMessageClientsEntry(OSObject *target, thread_call_param_t messageStruct);
     void				DoMessageClients( void * messageStructPtr);
 	
-    static void			DisplayUserNotificationForDeviceEntry (OSObject *owner, IOTimerEventSource *sender);
-    void				DisplayUserNotificationForDevice( );
+    void				DisplayUserNotificationForDevice(UInt32 notificationType, UInt8 port);
     
     UInt32              SimpleUnicodeToUTF8(UInt16 uChar, UInt8 utf8Bytes[4]);
     void                SwapUniWords (UInt16  **unicodeString, UInt32 uniSize);

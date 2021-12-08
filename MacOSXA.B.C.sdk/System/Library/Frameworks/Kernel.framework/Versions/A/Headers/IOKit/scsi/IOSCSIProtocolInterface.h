@@ -132,14 +132,6 @@ The value is a UInt32 corresponding to the number of retries.
  */
 #define kIOPropertyEjectRequireStartStopUnitKey		"Eject Requires START_STOP_UNIT"
 
-/*!
- @constant kIOPropertyRequiresQuiescingKey
- @discussion
- This key is used to indicate that the device requires a few seconds of inactivity before 
- a system restart. 
- */
-#define kIOPropertyRequiresQuiescingKey             "Requires Quiescing"
-
 #if defined(KERNEL) && defined(__cplusplus)
 
 

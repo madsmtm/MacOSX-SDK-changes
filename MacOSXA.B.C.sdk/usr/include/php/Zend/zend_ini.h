@@ -28,7 +28,7 @@
 #define ZEND_INI_ALL (ZEND_INI_USER|ZEND_INI_PERDIR|ZEND_INI_SYSTEM)
 
 #ifndef XtOffsetOf
-# if defined(CRAY) || (defined(__arm) && !defined(LINUX))
+# if defined(CRAY) || (defined(__ARMCC_VERSION) && !defined(LINUX))
 # ifdef __STDC__
 # define XtOffset(p_type, field) _Offsetof(p_type, field)
 # else
@@ -56,8 +56,6 @@
 # endif
 
 #endif
-
-typedef struct _zend_ini_entry zend_ini_entry;
 
 #define ZEND_INI_MH(name) int name(zend_ini_entry *entry, char *new_value, uint new_value_length, void *mh_arg1, void *mh_arg2, void *mh_arg3, int stage TSRMLS_DC)
 #define ZEND_INI_DISP(name) void name(zend_ini_entry *ini_entry, int type)
