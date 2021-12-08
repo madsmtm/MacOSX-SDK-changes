@@ -3,7 +3,7 @@
  
      Contains:   Header for the Basic Linear Algebra Subprograms, with Apple extensions.
  
-     Version:    vecLib-192.17
+     Version:    vecLib-.
  
      Copyright:  © 2000-2007 by Apple Computer, Inc., all rights reserved.
  

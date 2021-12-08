@@ -3,7 +3,7 @@
  
      Contains:   CoreFoundation Network socket streams header
  
-     Version:    CFNetwork-129.20~93
+     Version:    CFNetwork-219~1
  
      Copyright:  © 2001-2006 by Apple Computer, Inc., all rights reserved
  
@@ -72,7 +72,7 @@ extern const CFStringRef kCFHTTPVersion1_1                           AVAILABLE_M
  *  kCFHTTPAuthenticationSchemeBasic
  *  
  *  Discussion:
- *    Basic HTTP authentication scheme.
+ *    HTTP Basic authentication scheme.
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in CoreServices.framework
@@ -86,7 +86,7 @@ extern const CFStringRef kCFHTTPAuthenticationSchemeBasic            AVAILABLE_M
  *  kCFHTTPAuthenticationSchemeDigest
  *  
  *  Discussion:
- *    Digest HTTP authentication scheme.
+ *    HTTP Digest Access authentication scheme.
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in CoreServices.framework
@@ -94,6 +94,32 @@ extern const CFStringRef kCFHTTPAuthenticationSchemeBasic            AVAILABLE_M
  *    Non-Carbon CFM:   not available
  */
 extern const CFStringRef kCFHTTPAuthenticationSchemeDigest           AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+/*
+ *  kCFHTTPAuthenticationSchemeNTLM
+ *  
+ *  Discussion:
+ *    HTTP NTLM authentication scheme.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.5 and later in CoreServices.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern const CFStringRef kCFHTTPAuthenticationSchemeNTLM             AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
+
+/*
+ *  kCFHTTPAuthenticationSchemeNegotiate
+ *  
+ *  Discussion:
+ *    HTTP Negotiate authentication scheme.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.5 and later in CoreServices.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern const CFStringRef kCFHTTPAuthenticationSchemeNegotiate        AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
 
 /*
@@ -215,7 +241,7 @@ CFHTTPMessageCreateRequest(
 extern CFHTTPMessageRef 
 CFHTTPMessageCreateResponse(
   CFAllocatorRef   alloc,
-  int              statusCode,
+  CFIndex          statusCode,
   CFStringRef      statusDescription,
   CFStringRef      httpVersion)                               AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
 
@@ -743,7 +769,7 @@ CFHTTPMessageAddAuthentication(
  *    CarbonLib:        not available
  *    Non-Carbon CFM:   not available
  */
-extern UInt32 
+extern CFIndex 
 CFHTTPMessageGetResponseStatusCode(CFHTTPMessageRef response) AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
 
 

@@ -3,7 +3,7 @@
  
      Contains:   CoreFoundation Network HTTP streams header
  
-     Version:    CFNetwork-129.20~93
+     Version:    CFNetwork-219~1
  
      Copyright:  © 2001-2006 by Apple Computer, Inc., all rights reserved
  
@@ -115,6 +115,21 @@ extern const CFStringRef kCFStreamPropertyHTTPResponseHeader         AVAILABLE_M
  */
 extern const CFStringRef kCFStreamPropertyHTTPFinalURL               AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
+/*
+ *  kCFStreamPropertyHTTPFinalRequest
+ *  
+ *  Discussion:
+ *    Stream property key, for copy operations. The value is the
+ *    CFHTTPMessage transmitted by the stream, after all modifications
+ *    (such as for authentication, connection policy, or redirection)
+ *    have been made.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.5 and later in CoreServices.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern const CFStringRef kCFStreamPropertyHTTPFinalRequest           AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
 /*
  *  kCFStreamPropertyHTTPProxy

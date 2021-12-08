@@ -3,7 +3,7 @@
  
      Contains:   CoreFoundation Network header
  
-     Version:    CFNetwork-129.20~93
+     Version:    CFNetwork-219~1
  
      Copyright:  © 2001-2006 by Apple Computer, Inc., all rights reserved
  
@@ -23,6 +23,10 @@
 
 #ifndef __CFNETWORKDEFS__
 #include <CFNetwork/CFNetworkDefs.h>
+#endif
+
+#ifndef __CFNETWORKERRORS__
+#include <CFNetwork/CFNetworkErrors.h>
 #endif
 
 #ifndef __CFSOCKETSTREAM__
@@ -55,6 +59,10 @@
 
 #ifndef __CFNETSERVICES__
 #include <CFNetwork/CFNetServices.h>
+#endif
+
+#ifndef __CFPROXYSUPPORT__
+#include <CFNetwork/CFProxySupport.h>
 #endif
 
 

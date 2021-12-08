@@ -3,7 +3,7 @@
  
      Contains:   CoreFoundation Network Net Services header
  
-     Version:    CFNetwork-129.20~93
+     Version:    CFNetwork-219~1
  
      Copyright:  © 2001-2006 by Apple Computer, Inc., all rights reserved
  
@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-#pragma options align=mac68k
+#pragma pack(push, 2)
 
 #if PRAGMA_ENUM_ALWAYSINT
     #pragma enumsalwaysint on
@@ -74,7 +74,7 @@ typedef struct __CFNetServiceMonitor*   CFNetServiceMonitorRef;
  *    It may be used for discovering services or domains.
  */
 typedef struct __CFNetServiceBrowser*   CFNetServiceBrowserRef;
-
+#ifdef __MACH__
 /*
  *  kCFStreamErrorDomainMach
  *  
@@ -87,7 +87,7 @@ typedef struct __CFNetServiceBrowser*   CFNetServiceBrowserRef;
  *    Non-Carbon CFM:   not available
  */
 extern const SInt32 kCFStreamErrorDomainMach                         AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
-
+#endif  /* defined(__MACH__) */
 
 /*
  *  kCFStreamErrorDomainNetServices
@@ -447,7 +447,7 @@ CFNetServiceCreate(
   CFStringRef      domain,
   CFStringRef      serviceType,
   CFStringRef      name,
-  UInt32           port)                                      AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+  SInt32           port)                                      AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 
@@ -735,6 +735,36 @@ CFNetServiceCancel(CFNetServiceRef theService)                AVAILABLE_MAC_OS_X
  */
 extern CFStringRef 
 CFNetServiceGetTargetHost(CFNetServiceRef theService)         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+
+/*
+ *  CFNetServiceGetPortNumber()
+ *  
+ *  Discussion:
+ *    Query a Network Service for its port number.
+ *  
+ *  Mac OS X threading:
+ *    Thread safe
+ *    The function gets the data in a thread-safe manner.
+ *  
+ *  Parameters:
+ *    
+ *    theService:
+ *      The Network Service to be queried.  Must be non-NULL.
+ *  
+ *  Result:
+ *    Returns a SInt32 containing the port number in host byte order.
+ *    Returns -1 if the entity's port is not known (has not been
+ *    resolved)
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.5 and later in CoreServices.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern SInt32 
+CFNetServiceGetPortNumber(CFNetServiceRef theService)         AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
 
 
@@ -1543,7 +1573,7 @@ CFNetServiceBrowserUnscheduleFromRunLoop(
   CFStringRef              runLoopMode)                       AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
-
+#ifdef __MACH__
 /*
  *  CFNetServiceRegister()   *** DEPRECATED ***
  *  
@@ -1721,12 +1751,14 @@ CFNetServiceSetProtocolSpecificInformation(
   CFStringRef       theInfo)                                  AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_4;
 
 
+#endif  /* defined(__MACH__) */
+
 
 #if PRAGMA_ENUM_ALWAYSINT
     #pragma enumsalwaysint reset
 #endif
 
-#pragma options align=reset
+#pragma pack(pop)
 
 #ifdef __cplusplus
 }

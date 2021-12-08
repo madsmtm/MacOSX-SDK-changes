@@ -1,8 +1,8 @@
 /*
    +----------------------------------------------------------------------+
-   | PHP Version 4                                                        |
+   | PHP Version 5                                                        |
    +----------------------------------------------------------------------+
-   | Copyright (c) 1997-2008 The PHP Group                                |
+   | Copyright (c) 1997-2007 The PHP Group                                |
    +----------------------------------------------------------------------+
    | This source file is subject to version 3.01 of the PHP license,      |
    | that is bundled with this package in the file LICENSE, and is        |
@@ -20,7 +20,7 @@
    | Based on code from: Shawn Cokus <Cokus@math.washington.edu>          |
    +----------------------------------------------------------------------+
  */
-/* $Id: php_rand.h,v 1.19.4.5.4.3 2007/12/31 07:22:52 sebastian Exp $ */
+/* $Id: php_rand.h,v 1.28.2.1.2.1 2007/01/01 09:36:08 sebastian Exp $ */
 
 #ifndef PHP_RAND_H
 #define	PHP_RAND_H
@@ -41,7 +41,7 @@
 #endif
 
 #define RAND_RANGE(__n, __min, __max, __tmax) \
-    (__n) = (__min) + (long) ((double) ((__max) - (__min) + 1.0) * ((__n) / ((__tmax) + 1.0)))
+    (__n) = (__min) + (long) ((double) ( (double) (__max) - (__min) + 1.0) * ((__n) / ((__tmax) + 1.0)))
 
 /* MT Rand */
 #define PHP_MT_RAND_MAX ((long) (0x7FFFFFFF)) /* (1<<31) - 1 */ 

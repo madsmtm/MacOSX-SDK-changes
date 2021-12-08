@@ -3,7 +3,7 @@
  
      Contains:   CoreFoundation Network socket streams header
  
-     Version:    CFNetwork-129.20~93
+     Version:    CFNetwork-219~1
  
      Copyright:  © 2001-2006 by Apple Computer, Inc., all rights reserved
  
@@ -34,6 +34,13 @@
 
 
 
+/*
+  %CPassThru "
+  #if defined (__WIN32__)
+  extern __declspec(dllimport) const int kCFStreamErrorDomainWinSock;
+  #endif
+  ";
+*/
 
 
 
@@ -209,7 +216,21 @@ extern const CFStringRef kCFStreamSSLCertificates                    AVAILABLE_M
  *    Non-Carbon CFM:   not available
  */
 extern const CFStringRef kCFStreamSSLIsServer                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
-
+/*
+ *  kCFStreamErrorDomainWinSock
+ *  
+ *  Discussion:
+ *    WinSock error domain.  On Win32 platforms, networking errors will
+ *    come in this domain.  See <winsock2.h> for values.  Note that
+ *    non-networking errors, like ENOMEM, will continue to come in the
+ *    POSIX domain as on OS X.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.5 and later in CoreServices.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern const CFIndex kCFStreamErrorDomainWinSock                     AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 /*
  *  kCFStreamErrorDomainSOCKS
  *  
@@ -413,7 +434,6 @@ extern const CFStringRef kCFStreamPropertySOCKSPassword;
  */
 extern const int kCFStreamErrorDomainSSL;
 
-
 /*
  *  kCFStreamPropertySocketSecurityLevel
  *  
@@ -432,7 +452,6 @@ extern const int kCFStreamErrorDomainSSL;
  */
 extern const CFStringRef kCFStreamPropertySocketSecurityLevel;
 
-
 /*
  *  kCFStreamSocketSecurityLevelNone
  *  
@@ -446,7 +465,6 @@ extern const CFStringRef kCFStreamPropertySocketSecurityLevel;
  *    Non-Carbon CFM:   not available
  */
 extern const CFStringRef kCFStreamSocketSecurityLevelNone;
-
 
 /*
  *  kCFStreamSocketSecurityLevelSSLv2
@@ -462,7 +480,6 @@ extern const CFStringRef kCFStreamSocketSecurityLevelNone;
  */
 extern const CFStringRef kCFStreamSocketSecurityLevelSSLv2;
 
-
 /*
  *  kCFStreamSocketSecurityLevelSSLv3
  *  
@@ -476,7 +493,6 @@ extern const CFStringRef kCFStreamSocketSecurityLevelSSLv2;
  *    Non-Carbon CFM:   not available
  */
 extern const CFStringRef kCFStreamSocketSecurityLevelSSLv3;
-
 
 /*
  *  kCFStreamSocketSecurityLevelTLSv1
@@ -492,7 +508,6 @@ extern const CFStringRef kCFStreamSocketSecurityLevelSSLv3;
  */
 extern const CFStringRef kCFStreamSocketSecurityLevelTLSv1;
 
-
 /*
  *  kCFStreamSocketSecurityLevelNegotiatedSSL
  *  
@@ -507,7 +522,6 @@ extern const CFStringRef kCFStreamSocketSecurityLevelTLSv1;
  *    Non-Carbon CFM:   not available
  */
 extern const CFStringRef kCFStreamSocketSecurityLevelNegotiatedSSL;
-
 /*
  *  kCFStreamPropertyShouldCloseNativeSocket
  *  
@@ -603,7 +617,7 @@ extern void
 CFStreamCreatePairWithSocketToCFHost(
   CFAllocatorRef      alloc,
   CFHostRef           host,
-  UInt32              port,
+  SInt32              port,
   CFReadStreamRef *   readStream,        /* can be NULL */
   CFWriteStreamRef *  writeStream)       /* can be NULL */    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 

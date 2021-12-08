@@ -1,8 +1,8 @@
 /*
    +----------------------------------------------------------------------+
-   | PHP Version 4                                                        |
+   | PHP Version 5                                                        |
    +----------------------------------------------------------------------+
-   | Copyright (c) 1997-2008 The PHP Group                                |
+   | Copyright (c) 1997-2007 The PHP Group                                |
    +----------------------------------------------------------------------+
    | This source file is subject to version 3.01 of the PHP license,      |
    | that is bundled with this package in the file LICENSE, and is        |
@@ -12,11 +12,11 @@
    | obtain it through the world-wide-web, please send a note to          |
    | license@php.net so we can mail you a copy immediately.               |
    +----------------------------------------------------------------------+
-   | Author: Stig Sæther Bakken <ssb@fast.no>                             |
+   | Author: Stig Sæther Bakken <ssb@php.net>                             |
    +----------------------------------------------------------------------+
  */
 
-/* $Id: uniqid.h,v 1.7.8.2.8.3 2007/12/31 07:22:53 sebastian Exp $ */
+/* $Id: uniqid.h,v 1.13.2.1.2.1 2007/01/01 09:36:09 sebastian Exp $ */
 
 #ifndef UNIQID_H
 #define UNIQID_H

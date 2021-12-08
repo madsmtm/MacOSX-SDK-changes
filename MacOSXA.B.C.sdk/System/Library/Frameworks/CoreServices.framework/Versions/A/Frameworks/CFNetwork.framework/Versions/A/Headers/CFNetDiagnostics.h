@@ -4,7 +4,7 @@
      Contains:   CFNetDiagnostics interface
  
      Version:    Technology: 1.0
-                 Release:    CFNetwork-129.20~93
+                 Release:    CFNetwork-219~1
  
      Copyright:  © 2004-2006 by Apple Computer, Inc., all rights reserved
  
@@ -38,14 +38,6 @@ extern "C" {
     #pragma enumsalwaysint on
 #endif
 
-
-/*
- *  CFNetDiagnosticStatus
- *  
- *  Discussion:
- *    Returned by the various status and diagnostic calls
- */
-typedef int32_t                         CFNetDiagnosticStatus;
 
 /*
  *  CFNetDiagnosticRef
@@ -88,6 +80,13 @@ enum CFNetDiagnosticStatusValues {
 typedef enum CFNetDiagnosticStatusValues CFNetDiagnosticStatusValues;
 
 
+/*
+ *  CFNetDiagnosticStatus
+ *  
+ *  Discussion:
+ *    Returned by the various status and diagnostic calls
+ */
+typedef CFIndex                         CFNetDiagnosticStatus;
 /*
  *  CFNetDiagnosticCreateWithStreams()
  *  
@@ -161,7 +160,7 @@ CFNetDiagnosticCreateWithURL(
  *    the user it will derive it from the bundle identifier of the
  *    currently running application, in that application's current
  *    localization. If you want to override that you may use
- *    CFNetDiagnosticAddName to specify a CFStringRef to be used.
+ *    CFNetDiagnosticSetName to specify a CFStringRef to be used.
  *  
  *  Parameters:
  *    
@@ -211,6 +210,7 @@ extern CFNetDiagnosticStatus
 CFNetDiagnosticDiagnoseProblemInteractively(CFNetDiagnosticRef details) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
+
 /*
  *  CFNetDiagnosticCopyNetworkStatusPassively()
  *  
@@ -227,7 +227,7 @@ CFNetDiagnosticDiagnoseProblemInteractively(CFNetDiagnosticRef details) AVAILABL
  *  Parameters:
  *    
  *    details:
- *      CFNetDiagnosticRef referring to the current problem
+ *      CFNetDiagnosticRef referring to the current problem.
  *    
  *    description:
  *      A pointer to a CFStringRef that, upon return, will point to a

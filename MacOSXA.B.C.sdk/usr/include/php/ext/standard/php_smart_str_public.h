@@ -1,8 +1,8 @@
 /*
    +----------------------------------------------------------------------+
-   | PHP Version 4                                                        |
+   | PHP Version 5                                                        |
    +----------------------------------------------------------------------+
-   | Copyright (c) 1997-2008 The PHP Group                                |
+   | Copyright (c) 1997-2007 The PHP Group                                |
    +----------------------------------------------------------------------+
    | This source file is subject to version 3.01 of the PHP license,      |
    | that is bundled with this package in the file LICENSE, and is        |
@@ -15,6 +15,8 @@
    | Author: Sascha Schumann <sascha@schumann.cx>                         |
    +----------------------------------------------------------------------+
  */
+
+/* $Id: php_smart_str_public.h,v 1.10.2.1.2.1 2007/01/01 09:36:08 sebastian Exp $ */
 
 #ifndef PHP_SMART_STR_PUBLIC_H
 #define PHP_SMART_STR_PUBLIC_H

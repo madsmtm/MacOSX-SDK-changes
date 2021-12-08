@@ -1,8 +1,8 @@
 /*
   +----------------------------------------------------------------------+
-  | PHP Version 4                                                        |
+  | PHP Version 5                                                        |
   +----------------------------------------------------------------------+
-  | Copyright (c) 1997-2008 The PHP Group                                |
+  | Copyright (c) 1997-2007 The PHP Group                                |
   +----------------------------------------------------------------------+
   | This source file is subject to version 3.01 of the PHP license,      |
   | that is bundled with this package in the file LICENSE, and is        |
@@ -15,6 +15,8 @@
   | Author: Sascha Schumann <sascha@schumann.cx>                         |
   +----------------------------------------------------------------------+
 */
+
+/* $Id: url_scanner_ex.h,v 1.26.2.1.2.1 2007/01/01 09:36:09 sebastian Exp $ */
 
 #ifndef URL_SCANNER_EX_H
 #define URL_SCANNER_EX_H

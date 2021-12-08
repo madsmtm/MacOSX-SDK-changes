@@ -3,7 +3,7 @@
  
      Contains:   CoreFoundation CFHost header
  
-     Version:    CFNetwork-129.20~93
+     Version:    CFNetwork-219~1
  
      Copyright:  © 2001-2006 by Apple Computer, Inc., all rights reserved
  
@@ -24,6 +24,9 @@
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
+#ifndef __CFSTREAM__
+#include <CoreFoundation/CFStream.h>
+#endif
 
 
 
@@ -37,7 +40,7 @@
 extern "C" {
 #endif
 
-#pragma options align=mac68k
+#pragma pack(push, 2)
 
 #if PRAGMA_ENUM_ALWAYSINT
     #pragma enumsalwaysint on
@@ -217,8 +220,8 @@ CFHostGetTypeID(void)                                         AVAILABLE_MAC_OS_X
  *    
  *    hostname:
  *      A CFStringRef representing the name of the host. Must be
- *      non-NULL.  If this If this reference is not a valid
- *      CFStringRef, the behavior is undefined.
+ *      non-NULL.  If this reference is not a valid CFStringRef, the
+ *      behavior is undefined.
  *  
  *  Result:
  *    A valid CFHostRef which may now be resolved, or NULL if
@@ -253,8 +256,8 @@ CFHostCreateWithName(
  *    
  *    addr:
  *      A CFDataRef containing a struct sockaddr which is the address
- *      of the host. Must be non-NULL.  If this If this reference is
- *      not a valid CFDataRef, the behavior is undefined.
+ *      of the host. Must be non-NULL.  If this reference is not a
+ *      valid CFDataRef, the behavior is undefined.
  *  
  *  Result:
  *    A valid CFHostRef which may now be resolved, or NULL if
@@ -289,8 +292,8 @@ CFHostCreateWithAddress(
  *    
  *    host:
  *      A CFHostRef representing the original host. Must be non-NULL. 
- *      If this If this reference is not a valid CFHostRef, the
- *      behavior is undefined.
+ *      If this reference is not a valid CFHostRef, the behavior is
+ *      undefined.
  *  
  *  Result:
  *    A valid CFHostRef which contains a copy of all previously
@@ -631,7 +634,7 @@ CFHostUnscheduleFromRunLoop(
     #pragma enumsalwaysint reset
 #endif
 
-#pragma options align=reset
+#pragma pack(pop)
 
 #ifdef __cplusplus
 }

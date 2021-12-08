@@ -3,7 +3,7 @@
  
      Contains:   vector and matrix functions for AltiVec
  
-     Version:    vecLib-192.17
+     Version:    vecLib-238.0
  
      Copyright:  © 1999-2007 by Apple Computer, Inc., all rights reserved.
  
@@ -49,7 +49,7 @@ extern "C" {
  Following is a list of subprograms and a short description of each one.          
 -------------------------------------------------------------------------------------
 */
-#if defined(__VEC__) || defined(__SSE__)
+#if defined _AltiVecPIMLanguageExtensionsAreEnabled || defined __SSE__
 /*
 -------------------------------------------------------------------------------------
      Level 1
@@ -999,7 +999,7 @@ vSgevv(
   vFloat         m[])                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-#endif  /* defined(__VEC__) || defined(__SSE__) */
+#endif	// defined _AltiVecPIMLanguageExtensionsAreEnabled || defined __SSE__
 
 
 #ifdef __cplusplus

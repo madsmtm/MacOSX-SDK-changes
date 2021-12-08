@@ -1,8 +1,8 @@
 /* 
    +----------------------------------------------------------------------+
-   | PHP Version 4                                                        |
+   | PHP Version 5                                                        |
    +----------------------------------------------------------------------+
-   | Copyright (c) 1997-2008 The PHP Group                                |
+   | Copyright (c) 1997-2007 The PHP Group                                |
    +----------------------------------------------------------------------+
    | This source file is subject to version 3.01 of the PHP license,      |
    | that is bundled with this package in the file LICENSE, and is        |
@@ -16,7 +16,7 @@
    +----------------------------------------------------------------------+
 */
 
-/* $Id: php_mail.h,v 1.14.4.1.8.3 2007/12/31 07:22:52 sebastian Exp $ */
+/* $Id: php_mail.h,v 1.18.2.1.2.2 2007/07/11 17:36:56 johannes Exp $ */
 
 #ifndef PHP_MAIL_H
 #define PHP_MAIL_H
@@ -24,11 +24,7 @@
 PHP_FUNCTION(mail);
 PHP_MINFO_FUNCTION(mail);
 
-#if HAVE_SENDMAIL
-
 PHP_FUNCTION(ezmlm_hash);
 PHPAPI extern int php_mail(char *to, char *subject, char *message, char *headers, char *extra_cmd TSRMLS_DC);
-
-#endif
 
 #endif /* PHP_MAIL_H */
