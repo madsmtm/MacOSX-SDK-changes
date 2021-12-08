@@ -120,7 +120,7 @@ typedef struct MIDINoteMessage
 	UInt8		channel;
 	UInt8		note;
 	UInt8		velocity;
-	UInt8		releaseVelocity;	// was "reserved". 0 is the correct value when you don't know.
+	UInt8		reserved;
 	Float32		duration;
 } MIDINoteMessage;
 
@@ -583,7 +583,7 @@ extern OSStatus			MusicEventIteratorPreviousEvent(MusicEventIterator 	inIterator
 //		kMusicEventType_MIDIChannelMessage		MIDIChannelMessage*
 //		kMusicEventType_MIDIRawData				MIDIRawData*
 //		kMusicEventType_Parameter				ParameterEvent*
-//		kMusicEventType_AUPreset				AUPresetEvent*
+//		kMusicEventType_AUPreset				CFPropertyListRef
 extern OSStatus			MusicEventIteratorGetEventInfo(
 													MusicEventIterator 		inIterator,
 													MusicTimeStamp			*outTimeStamp,

@@ -30,6 +30,7 @@
 #include <IOKit/IOService.h>
 
 #include <IOKit/audio/IOAudioTypes.h>
+#include <IOKit/IOBufferMemoryDescriptor.h>
 
 class OSDictionary;
 class OSCollection;
@@ -210,21 +211,32 @@ protected:
     bool			deviceStartedAudioEngine;
     
 protected:
-    struct ExpansionData { };
+    struct ExpansionData {
+		UInt32								pauseCount;
+		IOBufferMemoryDescriptor			*statusDescriptor;
+		IOBufferMemoryDescriptor			*bytesInInputBufferArrayDescriptor;
+		IOBufferMemoryDescriptor			*bytesInOutputBufferArrayDescriptor;
+	};
     
     ExpansionData *reserved;
 
 public:
 // This takes the 0th reserved slot:
     virtual IOReturn performFormatChange(IOAudioStream *audioStream, const IOAudioStreamFormat *newFormat, const IOAudioStreamFormatExtension *formatExtension, const IOAudioSampleRate *newSampleRate);
+// This takes the 1st reserved slot:
+	virtual IOBufferMemoryDescriptor * getStatusDescriptor();
+// This takes the second reserved slot:
+	virtual IOReturn getNearestStartTime(IOAudioStream *audioStream, IOAudioTimeStamp *ioTimeStamp, bool isInput);
+	virtual IOBufferMemoryDescriptor * getBytesInInputBufferArrayDescriptor();
+	virtual IOBufferMemoryDescriptor * getBytesInOutputBufferArrayDescriptor();
 
 private:
     OSMetaClassDeclareReservedUsed(IOAudioEngine, 0);
+    OSMetaClassDeclareReservedUsed(IOAudioEngine, 1);
+    OSMetaClassDeclareReservedUsed(IOAudioEngine, 2);
+    OSMetaClassDeclareReservedUsed(IOAudioEngine, 3);
+    OSMetaClassDeclareReservedUsed(IOAudioEngine, 4);
 
-    OSMetaClassDeclareReservedUnused(IOAudioEngine, 1);
-    OSMetaClassDeclareReservedUnused(IOAudioEngine, 2);
-    OSMetaClassDeclareReservedUnused(IOAudioEngine, 3);
-    OSMetaClassDeclareReservedUnused(IOAudioEngine, 4);
     OSMetaClassDeclareReservedUnused(IOAudioEngine, 5);
     OSMetaClassDeclareReservedUnused(IOAudioEngine, 6);
     OSMetaClassDeclareReservedUnused(IOAudioEngine, 7);
@@ -469,7 +481,26 @@ public:
     virtual IOReturn pauseAudioEngine();
     virtual IOReturn resumeAudioEngine();
     
+    /*!
+     * @function performAudioEngineStart
+     * @abstract Called to start the audio I/O engine
+     * @discussion This method is called by startAudioEngine().  This must be overridden by the subclass.
+	 *	No call to the superclass' implementation is necessary.  The subclass' implementation must start up the
+	 *	audio I/O engine.  This includes any audio engine that needs to be started as well as any interrupts
+	 *	that need to be enabled.
+     * @result Must return kIOReturnSuccess on a successful start of the engine.
+     */
     virtual IOReturn performAudioEngineStart();
+
+    /*!
+     * @function performAudioEngineStop
+     * @abstract Called to stop the audio I/O engine
+     * @discussion This method is called by stopAudioEngine() and pauseAudioEngine.
+     *  This must be overridden by the subclass.  No call to the superclass' implementation is
+     *  necessary.  The subclass' implementation must stop the audio I/O engine.  This includes any audio
+     *  engine that needs to be stopped as well as any interrupts that need to be disabled.
+     * @result Must return kIOReturnSuccess on a successful stop of the engine.
+     */
     virtual IOReturn performAudioEngineStop();
 
     /*! 

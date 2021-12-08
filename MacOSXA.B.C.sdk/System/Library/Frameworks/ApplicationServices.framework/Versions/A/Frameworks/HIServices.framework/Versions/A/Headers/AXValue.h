@@ -30,11 +30,15 @@ typedef enum {
 
 } AXValueType;
 
+typedef const struct __AXValue *AXValueRef;
 
-extern CFTypeRef 	AXValueCreate (AXValueType theType, const void *valuePtr);
-extern AXValueType 	AXValueGetType(CFTypeRef value);
+extern CFTypeID		AXValueGetTypeID();
 
-extern Boolean 		AXValueGetValue(CFTypeRef value, AXValueType theType, void *valuePtr);
+
+extern AXValueRef 	AXValueCreate (AXValueType theType, const void *valuePtr);
+extern AXValueType 	AXValueGetType(AXValueRef value);
+
+extern Boolean 		AXValueGetValue(AXValueRef value, AXValueType theType, void *valuePtr);
 
 
 #ifdef __cplusplus

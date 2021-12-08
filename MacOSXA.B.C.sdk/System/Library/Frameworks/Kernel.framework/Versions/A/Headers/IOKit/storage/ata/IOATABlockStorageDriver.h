@@ -172,13 +172,26 @@ protected:
 	// binary compatibility instance variable expansion
 	struct ExpansionData
 	{
-		bool	fUseExtendedLBA;
-		bool	fPowerAckInProgress;
+		bool			fUseExtendedLBA;
+		bool			fPowerAckInProgress;
+		IONotifier *	fPowerDownNotifier;
 	};
 	ExpansionData * reserved;
 	
 	#define fUseExtendedLBA		reserved->fUseExtendedLBA
 	#define fPowerAckInProgress	reserved->fPowerAckInProgress
+	#define fPowerDownNotifier	reserved->fPowerDownNotifier
+
+public:
+		
+	// Called when system is going to power down
+	IOReturn		powerDownHandler (	void * 			refCon,
+										UInt32 			messageType,
+										IOService * 	provider,
+										void * 			messageArgument,
+										vm_size_t 		argSize );
+	
+protected:
 	
 	//-----------------------------------------------------------------------
 	// Static member functions
@@ -216,7 +229,7 @@ protected:
 	static void		sSaveStateData ( IOATACommand * cmd );
 	
 	static IOReturn	sValidateIdentifyData ( UInt8 * deviceIdentifyData );
-
+	
 	// The sSetWakeupResetOccurred method is used to safely set member variables
 	// behind the command gate.
 	static void				sSetWakeupResetOccurred ( IOATABlockStorageDriver * driver,
@@ -498,6 +511,16 @@ public:
 	virtual IOReturn reportWriteProtection ( bool * isWriteProtected );
 	
 	//-----------------------------------------------------------------------
+	// Gets the write cache state.
+	
+	IOReturn	getWriteCacheState ( bool * enabled );
+	
+	//-----------------------------------------------------------------------
+	// Sets the write cache state.
+	
+	IOReturn	setWriteCacheState ( bool enabled );
+	
+	//-----------------------------------------------------------------------
 	// Client calls this before making a request which could cause I/O to
 	// happen.
 	
@@ -526,7 +549,7 @@ public:
 	// Returns the device type.
 	
 	virtual const char * 	getDeviceTypeName ( void );
-
+	
 	//-----------------------------------------------------------------------
 	// Sends an ATA SMART command to the device.
 

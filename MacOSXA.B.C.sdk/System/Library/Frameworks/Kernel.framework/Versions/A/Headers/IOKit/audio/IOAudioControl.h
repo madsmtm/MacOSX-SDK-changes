@@ -142,12 +142,17 @@ protected:
     
 public:
 	virtual void sendChangeNotification(UInt32 notificationType);
+	// Call the setReadOnlyFlag() function to say that a control is read only.
+	// This call cannot be undone, so if a control is only temporarily unsetable,
+	// do not use this call but instead return an error from the control handler.
+	virtual void setReadOnlyFlag();
+	virtual void setPanChannelNumbers(SInt32 leftChannelNumber, SInt32 rightChannelNumber);
 
 private:
     OSMetaClassDeclareReservedUsed(IOAudioControl, 0);
+    OSMetaClassDeclareReservedUsed(IOAudioControl, 1);
+    OSMetaClassDeclareReservedUsed(IOAudioControl, 2);
 
-    OSMetaClassDeclareReservedUnused(IOAudioControl, 1);
-    OSMetaClassDeclareReservedUnused(IOAudioControl, 2);
     OSMetaClassDeclareReservedUnused(IOAudioControl, 3);
     OSMetaClassDeclareReservedUnused(IOAudioControl, 4);
     OSMetaClassDeclareReservedUnused(IOAudioControl, 5);
@@ -321,7 +326,7 @@ public:
     virtual void setValueChangeHandler(DataValueChangeHandler dataValueChangeHandler, OSObject *target);
     virtual void setValueChangeHandler(ObjectValueChangeHandler objectValueChangeHandler, OSObject *target);
 
-    virtual void IOAudioControl::setValueChangeTarget(OSObject *target);
+    virtual void setValueChangeTarget(OSObject *target);
 
     /*!
      * @function flushValue

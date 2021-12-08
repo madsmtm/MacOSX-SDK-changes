@@ -25,6 +25,7 @@
 
 #include <IOKit/IOCFPlugIn.h>
 #include <IOKit/firewire/IOFireWireFamilyCommon.h>
+#include <IOKit/avc/IOFireWireAVCConsts.h>
 
 // Unit type UUID
 /* 6AAF2EF7-D476-11D5-B57C-0003934B81A0 */
@@ -64,17 +65,7 @@
 typedef void (*IOFWAVCMessageCallback)( void * refCon, UInt32 type, void * arg );
 
 /*! @typedef IOFWAVCRequestCallback
-	@abstract Callback called to handle AVC commands sent to an AVC subunit inside the Mac.
-	@param refCon user specified reference number passed in when requests were enabled.
-    @param generation Bus generation command was received in
-	@param srcNodeID Node ID of the sender
-	@param command Pointer to the received data
-	@param cmdLen Length in bytes of incoming command
-	@param response Pointer to buffer to store response which will be sent back to the requesting device
-	@param responseLen On entry, *responseLen is max size of response buffer. On exit, set to number of bytes
-    to send back.
-    @result return kIOReturnSuccess if the command was handled and response now contains the AVC response to be
-    sent back to the device.
+	@abstract This Callback has been deprecated. Use installAVCCommandHandler instead.
 */
 typedef IOReturn (*IOFWAVCRequestCallback)( void *refCon, UInt32 generation, UInt16 srcNodeID,
                 const UInt8 * command, UInt32 cmdLen, UInt8 * response, UInt32 *responseLen);
@@ -91,6 +82,39 @@ typedef IOReturn (*IOFWAVCRequestCallback)( void *refCon, UInt32 generation, UIn
  */
 typedef void (*IOFWAVCPCRCallback)(void *refcon, UInt32 generation, UInt16 nodeID, UInt32 plug,
                                                                     UInt32 oldVal, UInt32 newVal);
+
+/*!
+    @typedef IOFWAVCCommandHandlerCallback
+    @abstract Callback called when a incoming AVC command matching a registered command handler is received.
+    @param refCon The refcon supplied when a client is registered
+    @param generation The FireWire bus generation value at the time the command was received
+    @param scrNodeID The node ID of the device who sent us this command
+    @param speed The speed the AVC command packet
+    @param command A pointer to the command bytes
+    @param cmdLen The length of the AVC command bytes buffer in bytes
+    @result The callback handler should return success if it will send the AVC response, or an error if it doesn't want to handle the command
+ */
+typedef IOReturn (*IOFWAVCCommandHandlerCallback)( void *refCon, UInt32 generation, UInt16 srcNodeID, IOFWSpeed speed, const UInt8 * command, UInt32 cmdLen);
+
+/*!
+    @typedef IOFWAVCSubunitPlugHandlerCallback
+    @abstract Callback called when a incoming AVC command matching a registered command handler is received.
+    @param refCon The refcon supplied when a client is registered
+    @param subunitTypeAndID The subunit type and id of this plug
+    @param plugType The type of plug receiving the message
+    @param plugNum The number of the plug receiving the message
+    @param plugMessage The plug message
+    @param messageParams The parameters associated with the plug message
+    @result The return value is only pertinent for the kIOFWAVCSubunitPlugMsgSignalFormatModified message. Return an error if not accepting the sig format change.
+ */
+typedef IOReturn (*IOFWAVCSubunitPlugHandlerCallback)(void *refCon,
+												   UInt32 subunitTypeAndID,
+												   IOFWAVCPlugTypes plugType,
+												   UInt32 plugNum,
+												   IOFWAVCSubunitPlugMessages plugMessage,
+												   UInt32 messageParams);
+
+typedef struct _IOFireWireAVCLibProtocolInterface IOFireWireAVCLibProtocolInterface;
 
 /*!
     @class IOFireWireAVCLibUnitInterface
@@ -282,6 +306,34 @@ public:
     */
     IOReturn (*updateAVCCommandTimeout)(void * self);
     
+    /*!
+        @function makeP2PInputConnection
+        @abstract increments the point-to-point connection count of a unit input plug
+        This function is only available if the interface version is > 3
+    */
+    IOReturn (*makeP2PInputConnection)(void * self, UInt32 inputPlug, UInt32 chan);
+    
+    /*!
+        @function breakLocalP2PInputConnection
+        @abstract decrements the point-to-point connection count of a unit input plug
+        This function is only available if the interface version is > 3
+    */
+    IOReturn (*breakP2PInputConnection)(void * self, UInt32 inputPlug);
+
+    /*!
+        @function makeLocalP2POutputConnection
+        @abstract increments the point-to-point connection count of a unit output plug
+        This function is only available if the interface version is > 3
+    */
+    IOReturn (*makeP2POutputConnection)(void * self, UInt32 outputPlug, UInt32 chan, IOFWSpeed speed);
+    
+    /*!
+        @function breakLocalP2POutputConnection
+        @abstract decrements the point-to-point connection count of a unit output plug
+        This function is only available if the interface version is > 3
+    */
+    IOReturn (*breakP2POutputConnection)(void * self, UInt32 outputPlug);
+
 } IOFireWireAVCLibUnitInterface;
 
 /*!
@@ -291,7 +343,7 @@ public:
     and to receive AVC requests
 */
 
-typedef struct
+struct _IOFireWireAVCLibProtocolInterface
  {
 /* headerdoc parse workaround	
 class IOFireWireAVCLibProtocolInterface: public IUnknown {
@@ -341,16 +393,7 @@ public:
     
     /*!
 		@function setAVCRequestCallback
-		@abstract Set callback for AVC requests.
-		@discussion AVC devices can send AVC commands to the Mac.
-        This call specifies a handler for requests sent to the Mac with the given subUnitType and ID.
-        An IOFireWireAVCLibProtocol object can only handle AVC requests for one SubUnitType/ID, repeated calls
-        to this routine replace the handled subunit. Call with callback==NULL to stop handling AVC requests.
-        @param self Pointer to IOFireWireAVCLibProtocolInterface.
-        @param subUnitType Type of subunit the callback is the handler for.
-        @param subUnitID ID of the handled subunit.
-        @param refCon RefCon to be returned as first argument of completion routine
-        @param callback Address of completion routine.
+		@abstract This function has been deprecated. Use installAVCCommandHandler instead.
     */
     
     IOReturn (*setAVCRequestCallback)( void *self, UInt32 subUnitType, UInt32 subUnitID,
@@ -448,8 +491,158 @@ public:
     @param newVal new value to store in plug if it's current value is oldVal.
 */
     IOReturn (*updateInputMasterPlug)( void *self, UInt32 oldVal, UInt32 newVal);
-    
-} IOFireWireAVCLibProtocolInterface;
+
+/*!
+    @function publishAVCUnitDirectory
+    @abstract Publish an AVC unit directory in the config ROM
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+*/
+	IOReturn (*publishAVCUnitDirectory)(void *self);
+
+/*!
+    @function installAVCCommandHandler
+    @abstract Install a command handler for handling specific incoming AVC commands
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+    @param subUnitTypeAndID The subunit type and id for this command handler
+    @param opCode The opcode for this command handler
+    @param refcon Arbitrary value passed back as first argument of callback.
+    @param callback A pointer to the callback function
+*/
+	IOReturn (*installAVCCommandHandler)(void *self,
+									  UInt32 subUnitTypeAndID,
+									  UInt32 opCode,
+									  void *refCon,
+									  IOFWAVCCommandHandlerCallback callback);
+
+/*!
+    @function sendAVCResponse
+    @abstract Send an AVC response packet
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+    @param generation The Firewire bus generation that this response should be sent in
+    @param nodeID The node ID of the device we are sending this response to
+    @param response A pointer to the response bytes
+    @param responseLen The number of response bytes
+*/
+	IOReturn (*sendAVCResponse)(void *self,
+							 UInt32 generation,
+							 UInt16 nodeID,
+							 const char *response,
+							 UInt32 responseLen);
+
+/*!
+    @function addSubunit
+    @abstract Install a virtual AVC subunit
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+    @param subunitType The type of subunit to create
+    @param numSourcePlugs The number of source plugs for this subunit
+    @param numDestPlugs The number of destination plugs for this subunit
+    @param refcon Arbitrary value passed back as first argument of callback.
+    @param callback A pointer to the callback to receive plug managment messages
+    @param pSubunitTypeAndID A pointer to a byte to hold the returned subunit address for the new subunit
+ */
+	IOReturn (*addSubunit)(void *self,
+						UInt32 subunitType,
+						UInt32 numSourcePlugs,
+						UInt32 numDestPlugs,
+						void *refCon,
+						IOFWAVCSubunitPlugHandlerCallback callback,
+						UInt32 *pSubunitTypeAndID);
+
+/*!
+    @function setSubunitPlugSignalFormat
+    @abstract Set the signal format of the specifed plug
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+    @param subunitTypeAndID The subunit type and id of the plug
+    @param plugType The plug type
+    @param plugNum The plug number
+    @param signalFormat The 32-bit signal format value
+*/
+	IOReturn (*setSubunitPlugSignalFormat)(void *self,
+										UInt32 subunitTypeAndID,
+										IOFWAVCPlugTypes plugType,
+										UInt32 plugNum,
+										UInt32 signalFormat);
+
+/*!
+    @function getSubunitPlugSignalFormat
+    @abstract Get the signal format of the specifed plug
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+	@param subunitTypeAndID The subunit type and id of the plug
+    @param plugType The plug type
+    @param plugNum The plug number
+    @param pSignalFormat A pointer to the location to return the signal format value
+*/
+	IOReturn (*getSubunitPlugSignalFormat)(void *self,
+										UInt32 subunitTypeAndID,
+										IOFWAVCPlugTypes plugType,
+										UInt32 plugNum,
+										UInt32 *pSignalFormat);
+
+/*!
+    @function connectTargetPlugs
+    @abstract Establish an internal AVC plug connection between subunit/unit plugs
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+    @param sourceSubunitTypeAndID The subunit type and id for the source plug
+	@param sourcePlugType The source plug type
+    @param pSourcePlugNum A pointer to the source plug num. Will return the actual source plug num here
+    @param destSubunitTypeAndID The subunit type and id for the destination plug
+    @param destPlugType The dest plug type
+    @param pDestPlugNum A pointer to the dest plug num. Will return the actual dest plug num here
+    @param lockConnection A flag to specify if this connection should be locked
+    @param permConnection A flag to specify if this connection is permanent
+*/
+	IOReturn (*connectTargetPlugs)(void *self,
+								UInt32 sourceSubunitTypeAndID,
+								IOFWAVCPlugTypes sourcePlugType,
+								UInt32 *pSourcePlugNum,
+								UInt32 destSubunitTypeAndID,
+								IOFWAVCPlugTypes destPlugType,
+								UInt32 *pDestPlugNum,
+								bool lockConnection,
+								bool permConnection);
+
+/*!
+    @function disconnectTargetPlugs
+    @abstract Break an internal AVC plug connection between subunit/unit plugs
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+    @param sourceSubunitTypeAndID The subunit type and id for the source plug
+    @param sourcePlugType The source plug type
+    @param pSourcePlugNum The source plug num
+    @param destSubunitTypeAndID The subunit type and id for the destination plug
+    @param destPlugType The dest plug type
+    @param pDestPlugNum The dest plug num
+*/
+	IOReturn (*disconnectTargetPlugs)(void *self,
+								   UInt32 sourceSubunitTypeAndID,
+								   IOFWAVCPlugTypes sourcePlugType,
+								   UInt32 sourcePlugNum,
+								   UInt32 destSubunitTypeAndID,
+								   IOFWAVCPlugTypes destPlugType,
+								   UInt32 destPlugNum);
+
+/*!
+    @function getTargetPlugConnection
+    @abstract Get the connection details for a specific plug
+    @param self Pointer to IOFireWireAVCLibProtocolInterface.
+    @param subunitTypeAndID The subunit type and id of the plug
+    @param plugType The plug type
+    @param plugNum The plug number
+    @param pConnectedSubunitTypeAndID The subunit type and id of the connected plug
+    @param pConnectedPlugType The type of the connected plug
+    @param pConnectedPlugNum The number of the connected plug
+    @param pLockConnection A pointer for returning the lock status of the connection
+    @param pPermConnection A pointer for returning the perm status of the connection
+*/
+	IOReturn (*getTargetPlugConnection)(void *self,
+									 UInt32 subunitTypeAndID,
+									 IOFWAVCPlugTypes plugType,
+									 UInt32 plugNum,
+									 UInt32 *pConnectedSubunitTypeAndID,
+									 IOFWAVCPlugTypes *pConnectedPlugType,
+									 UInt32 *pConnectedPlugNum,
+									 bool *pLockConnection,
+									 bool *pPermConnection);
+};
 
 typedef void (*IOFireWireAVCPortStateHandler)( void * refcon, UInt32 state );
 typedef void (*IOFireWireAVCFrameStatusHandler)( void * refcon, UInt32 mode, UInt32 count );

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2003 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  *
@@ -33,6 +33,7 @@
 	#include <IOKit/IOReturn.h>
 	#include <IOKit/IOTypes.h>
 	#include <IOKit/IOCFPlugIn.h>
+	#include <IOKit/storage/ata/IOATAStorageDefines.h>
 	
 #ifdef __cplusplus
 extern "C" {
@@ -305,6 +306,30 @@ typedef struct IOATASMARTInterface
 										   UInt32			logOffset,
 										   const void *		buffer,
 										   UInt32			size );
+	
+	/*!
+		@function GetATAIdentifyData
+		@abstract Reads the 512-byte data provided by the drive in response
+		to the ATA IDENTIFY DEVICE command.
+		@discussion Reads the 512-byte data provided by the drive in response
+		to the ATA IDENTIFY DEVICE command.
+		See section 8.15 of ATA/ATAPI-6.
+		The data placed in buffer is guaranteed to be in native endian form on return.
+		(i.e. it will be byte swapped on big endian platforms, so the caller need not
+		do anything)
+		@param interface A valid IOATASMARTInterface**.
+		@param buffer A valid buffer.
+		@param inSize The number of bytes to place in the buffer.
+		@param outSize The number of bytes placed in the buffer. Can be NULL if the information
+		is not required by the caller.
+		@return An IOReturn result code. If inSize is greater than 512 or less than 1,
+				kIOReturnBadArgument is returned.
+	*/
+	
+	IOReturn ( *GetATAIdentifyData ) ( void *				interface,
+									   void *				buffer,
+									   UInt32				inSize,
+									   UInt32 *				outSize );
 	
 } IOATASMARTInterface;
 

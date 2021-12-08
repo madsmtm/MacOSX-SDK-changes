@@ -63,7 +63,7 @@ protected:
 	};
 	ExpansionData * reserved;
 	
-	#define fClients	reserved->fClients
+	#define fClients			reserved->fClients
 	
 	virtual bool		attach ( IOService * provider );
 	virtual void		detach ( IOService * provider );
@@ -128,6 +128,9 @@ public:
     virtual IOReturn	reportRemovability ( bool * isRemovable );
     
     virtual IOReturn	reportWriteProtection ( bool * isWriteProtected );
+	
+	virtual IOReturn	getWriteCacheState ( bool * enabled );
+	virtual IOReturn	setWriteCacheState ( bool enabled );
 	
 	/* Added with 10.1.4 */
 	OSMetaClassDeclareReservedUsed ( IOATABlockStorageDevice, 1 )

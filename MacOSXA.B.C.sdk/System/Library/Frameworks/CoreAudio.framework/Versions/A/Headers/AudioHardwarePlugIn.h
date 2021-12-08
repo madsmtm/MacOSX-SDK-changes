@@ -22,7 +22,6 @@
 //	Includes
 //=============================================================================
 
-#include <AvailabilityMacros.h>
 #include <CoreAudio/AudioHardware.h>
 #include <CoreFoundation/CFPlugIn.h>
 #if COREFOUNDATION_CFPLUGINCOM_SEPARATE
@@ -145,54 +144,34 @@ enum
 //=============================================================================
 
 extern OSStatus
-AudioHardwareAddRunLoopSource(CFRunLoopSourceRef inRunLoopSource)											AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareAddRunLoopSource(CFRunLoopSourceRef inRunLoopSource);
 
 extern OSStatus
-AudioHardwareRemoveRunLoopSource(CFRunLoopSourceRef inRunLoopSource)										AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareRemoveRunLoopSource(CFRunLoopSourceRef inRunLoopSource);
 
 extern OSStatus
-AudioHardwareClaimAudioDeviceID(AudioHardwarePlugInRef inOwner, AudioDeviceID* outAudioDeviceID)			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareClaimAudioDeviceID(AudioHardwarePlugInRef inOwner, AudioDeviceID* outAudioDeviceID);
 
 extern OSStatus
-AudioHardwareDevicesCreated(	AudioHardwarePlugInRef  inOwner,
-								UInt32					inNumberDevices,
-								const AudioDeviceID*	inAudioDeviceIDs)									AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareDevicesCreated(AudioHardwarePlugInRef inOwner, UInt32 inNumberDevices, const AudioDeviceID* inAudioDeviceIDs);
 
 extern OSStatus
-AudioHardwareDevicesDied(   AudioHardwarePlugInRef  inOwner,
-							UInt32					inNumberDevices,
-							const AudioDeviceID*	inAudioDeviceIDs)										AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareDevicesDied(AudioHardwarePlugInRef inOwner, UInt32 inNumberDevices, const AudioDeviceID* inAudioDeviceIDs);
 
 extern OSStatus
-AudioHardwareDevicePropertyChanged( AudioHardwarePlugInRef  inOwner,
-									AudioDeviceID			inDeviceID,
-									UInt32					inChannel,
-									Boolean					isInput,
-									AudioDevicePropertyID   inPropertyID)									AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareDevicePropertyChanged(AudioHardwarePlugInRef inOwner, AudioDeviceID inDeviceID, UInt32 inChannel, Boolean isInput, AudioDevicePropertyID inPropertyID);
 
 extern OSStatus
-AudioHardwareClaimAudioStreamID(	AudioHardwarePlugInRef  inOwner,
-									AudioDeviceID			inOwningDeviceID,
-									AudioStreamID*			outAudioStreamID)								AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareClaimAudioStreamID(AudioHardwarePlugInRef inOwner, AudioDeviceID inOwningDeviceID, AudioStreamID* outAudioStreamID);
 
 extern OSStatus
-AudioHardwareStreamsCreated(	AudioHardwarePlugInRef  inOwner,
-								AudioDeviceID			inOwningDeviceID,
-								UInt32					inNumberStreams,
-								const AudioStreamID*	inAudioStreamIDs)									AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareStreamsCreated(AudioHardwarePlugInRef inOwner, AudioDeviceID inOwningDeviceID, UInt32 inNumberStreams, const AudioStreamID* inAudioStreamIDs);
 
 extern OSStatus
-AudioHardwareStreamsDied(   AudioHardwarePlugInRef  inOwner,
-							AudioDeviceID			inOwningDeviceID,
-							UInt32					inNumberStreams,
-							const AudioStreamID*	inAudioStreamIDs)										AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareStreamsDied(AudioHardwarePlugInRef inOwner, AudioDeviceID inOwningDeviceID, UInt32 inNumberStreams, const AudioStreamID* inAudioStreamIDs);
 
 extern OSStatus
-AudioHardwareStreamPropertyChanged( AudioHardwarePlugInRef  inOwner,
-									AudioDeviceID			inOwningDeviceID,
-									AudioStreamID			inStreamID,
-									UInt32					inChannel,
-									AudioDevicePropertyID   inPropertyID)									AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+AudioHardwareStreamPropertyChanged(AudioHardwarePlugInRef inOwner, AudioDeviceID inOwningDeviceID, AudioStreamID inStreamID, UInt32 inChannel, AudioDevicePropertyID inPropertyID);
 
 #if defined(__cplusplus)
 }

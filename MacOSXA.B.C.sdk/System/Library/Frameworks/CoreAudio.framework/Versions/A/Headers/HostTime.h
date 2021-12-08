@@ -21,7 +21,6 @@
 //	Includes
 //=============================================================================
 
-#include <AvailabilityMacros.h>
 #include <CoreAudio/CoreAudioTypes.h>
 
 #if PRAGMA_ENUM_ALWAYSINT
@@ -39,7 +38,7 @@ extern "C"
 //	Retrieve the current host time value.
 //-----------------------------------------------------------------------------
 
-extern UInt64	AudioGetCurrentHostTime()							AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+extern UInt64	AudioGetCurrentHostTime();
 
 //-----------------------------------------------------------------------------
 //	AudioGetHostClockFrequency
@@ -47,7 +46,7 @@ extern UInt64	AudioGetCurrentHostTime()							AVAILABLE_MAC_OS_X_VERSION_10_0_AN
 //	Retrieve the number of ticks per second of the host clock.
 //-----------------------------------------------------------------------------
 
-extern Float64	AudioGetHostClockFrequency()						AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+extern Float64	AudioGetHostClockFrequency();
 
 //-----------------------------------------------------------------------------
 //	AudioGetHostClockMinimumTimeDelta
@@ -58,7 +57,7 @@ extern Float64	AudioGetHostClockFrequency()						AVAILABLE_MAC_OS_X_VERSION_10_0
 //	will be at greater than or equal X+5.
 //-----------------------------------------------------------------------------
 
-extern UInt32	AudioGetHostClockMinimumTimeDelta()					AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+extern UInt32	AudioGetHostClockMinimumTimeDelta();
 
 //-----------------------------------------------------------------------------
 //	AudioConvertHostTimeToNanos
@@ -66,7 +65,7 @@ extern UInt32	AudioGetHostClockMinimumTimeDelta()					AVAILABLE_MAC_OS_X_VERSION
 //	Convert the given host time to a time in Nanoseconds.
 //-----------------------------------------------------------------------------
 
-extern UInt64	AudioConvertHostTimeToNanos(UInt64 inHostTime)		AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+extern UInt64	AudioConvertHostTimeToNanos(UInt64 inHostTime);
 
 //-----------------------------------------------------------------------------
 //	AudioConvertNanosToHostTime
@@ -75,7 +74,7 @@ extern UInt64	AudioConvertHostTimeToNanos(UInt64 inHostTime)		AVAILABLE_MAC_OS_X
 //	time base.
 //-----------------------------------------------------------------------------
 
-extern UInt64	AudioConvertNanosToHostTime(UInt64 inNanos)			AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+extern UInt64	AudioConvertNanosToHostTime(UInt64 inNanos);
 
 #if defined(__cplusplus)
 }
