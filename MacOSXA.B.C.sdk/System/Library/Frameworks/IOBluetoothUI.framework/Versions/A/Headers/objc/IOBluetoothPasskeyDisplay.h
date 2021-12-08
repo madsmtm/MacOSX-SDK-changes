@@ -1,9 +1,6 @@
 //
-//  BTPasskeyDisplay.h
-//  KeyboardPref
-//
-//  Created by maxym on 5/19/09.
-//  Copyright 2009 Apple, Inc.. All rights reserved.
+//  IOBluetoothPasskeyDisplay.h
+//  Copyright 2010 Apple, Inc.. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -50,3 +47,11 @@ typedef enum {
 - (void) setupUIForDevice:(IOBluetoothDevice *)device;
 
 @end
+
+// Accessiblity support
+@interface IOBluetoothAccessibilityIgnoredTextFieldCell : NSTextFieldCell {}
+@end
+
+@interface IOBluetoothAccessibilityIgnoredImageCell: NSImageCell {}
+@end
+

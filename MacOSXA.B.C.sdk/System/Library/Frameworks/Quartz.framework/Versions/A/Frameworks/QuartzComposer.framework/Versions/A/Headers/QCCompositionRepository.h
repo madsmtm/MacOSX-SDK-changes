@@ -32,15 +32,6 @@ Returns a unique and persistent identifier for the composition if its comes from
 
 /* System-wide composition repository */
 @interface QCCompositionRepository : NSObject
-{
-@private
-	pthread_mutex_t			_mutex;
-	CFMutableDictionaryRef	_compositions;
-	NSMutableDictionary*	_protocols;
-	NSMutableArray*			_directories;
-	BOOL					_safeMode;
-	NSString*				_requiredProtocol;
-}
 
 /*
 Returns the shared instance of the QCCompositionRepository.

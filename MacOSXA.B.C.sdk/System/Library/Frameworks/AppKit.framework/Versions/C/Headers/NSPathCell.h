@@ -1,13 +1,12 @@
 /*
     NSPathCell.h
     Application Kit
-    Copyright (c) 2005-2009, Apple Inc.
+    Copyright (c) 2005-2011, Apple Inc.
     All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 
 #import <AppKit/NSActionCell.h>
 
@@ -48,6 +47,7 @@ enum {
 
 typedef NSInteger NSPathStyle;
 
+NS_CLASS_AVAILABLE(10_5, NA)
 @interface NSPathCell : NSActionCell <NSOpenSavePanelDelegate> {
 @private
     NSColor *_backgroundColor;
@@ -62,7 +62,8 @@ typedef NSInteger NSPathStyle;
     SEL _doubleAction;
     id _delegate;
     struct {
-        unsigned int reserved:32;
+        unsigned int cbs:4;
+        unsigned int reserved:28;
     } _piFlags;
     NSPathStyle _pathStyle;
     id _aux;
@@ -158,4 +159,3 @@ typedef NSInteger NSPathStyle;
 
 @end
 
-#endif

@@ -1,5 +1,5 @@
 /*	NSException.h
-	Copyright (c) 1994-2009, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2011, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -49,8 +49,8 @@ __attribute__((__objc_exception__))
 - (NSString *)reason;
 - (NSDictionary *)userInfo;
 
-- (NSArray *)callStackReturnAddresses AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (NSArray *)callStackSymbols AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (NSArray *)callStackReturnAddresses NS_AVAILABLE(10_5, 2_0);
+- (NSArray *)callStackSymbols NS_AVAILABLE(10_6, 4_0);
 
 - (void)raise;
 
@@ -212,7 +212,7 @@ FOUNDATION_EXPORT void NSSetUncaughtExceptionHandler(NSUncaughtExceptionHandler 
 #endif
 
 
-extern NSString * const NSAssertionHandlerKey /* AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER */;
+FOUNDATION_EXPORT NSString * const NSAssertionHandlerKey NS_AVAILABLE(10_6, 4_0);
 
 @interface NSAssertionHandler : NSObject {
     @private
@@ -221,9 +221,9 @@ extern NSString * const NSAssertionHandlerKey /* AVAILABLE_MAC_OS_X_VERSION_10_6
 
 + (NSAssertionHandler *)currentHandler;
 
-- (void)handleFailureInMethod:(SEL)selector object:(id)object file:(NSString *)fileName lineNumber:(NSInteger)line description:(NSString *)format,...;
+- (void)handleFailureInMethod:(SEL)selector object:(id)object file:(NSString *)fileName lineNumber:(NSInteger)line description:(NSString *)format,... NS_FORMAT_FUNCTION(5,6);
 
-- (void)handleFailureInFunction:(NSString *)functionName file:(NSString *)fileName lineNumber:(NSInteger)line description:(NSString *)format,...;
+- (void)handleFailureInFunction:(NSString *)functionName file:(NSString *)fileName lineNumber:(NSInteger)line description:(NSString *)format,... NS_FORMAT_FUNCTION(4,5);
 
 @end
 
