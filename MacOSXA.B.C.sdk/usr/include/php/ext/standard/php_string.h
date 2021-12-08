@@ -2,7 +2,7 @@
    +----------------------------------------------------------------------+
    | PHP Version 5                                                        |
    +----------------------------------------------------------------------+
-   | Copyright (c) 1997-2008 The PHP Group                                |
+   | Copyright (c) 1997-2009 The PHP Group                                |
    +----------------------------------------------------------------------+
    | This source file is subject to version 3.01 of the PHP license,      |
    | that is bundled with this package in the file LICENSE, and is        |
@@ -17,7 +17,7 @@
    +----------------------------------------------------------------------+
 */
 
-/* $Id: php_string.h,v 1.87.2.2.2.4 2007/12/31 07:20:13 sebastian Exp $ */
+/* $Id: php_string.h,v 1.87.2.2.2.3.2.5 2009/04/01 17:05:35 mattwil Exp $ */
 
 /* Synced with php 3.0 revision 1.43 1999-06-16 [ssb] */
 
@@ -53,6 +53,7 @@ PHP_FUNCTION(strrchr);
 PHP_FUNCTION(substr);
 PHP_FUNCTION(quotemeta);
 PHP_FUNCTION(ucfirst);
+PHP_FUNCTION(lcfirst);
 PHP_FUNCTION(ucwords);
 PHP_FUNCTION(strtr);
 PHP_FUNCTION(strrev);
@@ -75,6 +76,7 @@ PHP_FUNCTION(nl_langinfo);
 PHP_FUNCTION(stristr);
 PHP_FUNCTION(chunk_split);
 PHP_FUNCTION(parse_str);
+PHP_FUNCTION(str_getcsv);
 PHP_FUNCTION(bin2hex);
 PHP_FUNCTION(similar_text);
 PHP_FUNCTION(strip_tags);
@@ -136,7 +138,7 @@ PHPAPI size_t php_strip_tags_ex(char *rbuf, int len, int *stateptr, char *allow,
 PHPAPI int php_char_to_str_ex(char *str, uint len, char from, char *to, int to_len, zval *result, int case_sensitivity, int *replace_count);
 PHPAPI int php_char_to_str(char *str, uint len, char from, char *to, int to_len, zval *result);
 PHPAPI void php_implode(zval *delim, zval *arr, zval *return_value TSRMLS_DC);
-PHPAPI void php_explode(zval *delim, zval *str, zval *return_value, int limit);
+PHPAPI void php_explode(zval *delim, zval *str, zval *return_value, long limit);
 
 PHPAPI size_t php_strspn(char *s1, char *s2, char *s1_end, char *s2_end); 
 PHPAPI size_t php_strcspn(char *s1, char *s2, char *s1_end, char *s2_end); 

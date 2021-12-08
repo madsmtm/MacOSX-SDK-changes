@@ -25,10 +25,10 @@
 #define _USB_H
 
 #if KERNEL
-#include <libkern/OSByteOrder.h>
-#include <IOKit/IOMemoryDescriptor.h>
+	#include <libkern/OSByteOrder.h>
+	#include <IOKit/IOMemoryDescriptor.h>
 #else
-#include <architecture/byte_order.h>
+	#include <libkern/OSByteOrder.h>
 #endif
 
 #include <IOKit/IOTypes.h>
@@ -47,9 +47,8 @@ extern "C" {
      @discussion	This header file contains definitions and structures that are used in the different USB API's in Mac OS X, both in the kernel and in the user space.
      */
 
-#if KERNEL
     /*!
-    @defined Kernel Endian conversion definitions
+    @defined	Endian conversion definitions
      @discussion The USB API's use a convention of specifying parameters in the host order.  The USB spec specifies that multi-byte items should be
      formatted in little endian order.  The following macros allow one to translate multi-byte values from Host order to USB order and vice versa.  There are separate macros for
      in-kernel use and for user space use.
@@ -58,18 +57,6 @@ extern "C" {
 #define HostToUSBWord OSSwapHostToLittleInt16
 #define USBToHostLong OSSwapLittleToHostInt32
 #define HostToUSBLong OSSwapHostToLittleInt32
-#else
-    /*!
-    @defined User Space Endian conversion definitions
-     @discussion The USB API's use a convention of specifying parameters in the host order.  The USB spec specifies that multi-byte items should be
-     formatted in little endian order.  The following macros allow one to translate multi-byte values from Host order to USB order and vice versa.  There are separate macros for
-     in-kernel use and for user space use.
-     */
-#define USBToHostWord NXSwapLittleShortToHost
-#define HostToUSBWord NXSwapHostShortToLittle
-#define USBToHostLong NXSwapLittleLongToHost
-#define HostToUSBLong NXSwapHostLongToLittle
-#endif
 
     /*!
     @enum Miscellaneous Constants
@@ -200,6 +187,7 @@ enum {
 
 typedef UInt16 USBDeviceAddress;
 
+typedef uint32_t USBPhysicalAddress32;
 
 /*!
     @typedef IOUSBIsocFrame
@@ -364,7 +352,8 @@ typedef struct IOUSBLowLatencyIsocCompletion {
 #define kIOUSBHighSpeedSplitError     iokit_usb_err(0x4b)		// 0xe000404b Error to hub on high speed bus trying to do split transaction
 #define kIOUSBSyncRequestOnWLThread	iokit_usb_err(0x4a)			// 0xe000404a  A synchronous USB request was made on the workloop thread (from a callback?).  Only async requests are permitted in that case
 #define kIOUSBDeviceNotHighSpeed	iokit_usb_err(0x49)			// 0xe0004049  The device is not a high speed device, so the EHCI driver returns an error
-
+#define kIOUSBDevicePortWasNotSuspended iokit_usb_err(0x50)		// 0xe0004050  Port was not suspended
+	
 /*!
 @defined IOUSBFamily hardware error codes
 @discussion These errors are returned by the OHCI controller.  The # in parenthesis (xx) corresponds to the OHCI Completion Code.
@@ -397,21 +386,23 @@ Completion Code         Error Returned              Description
 @discussion  Messages specific to the IOUSBFamily.  Note that the iokit_usb_msg(x) translates to 0xe0004xxx, where xxx is the value in parenthesis as a hex number.
 */
 #define iokit_usb_msg(message)						(UInt32)(sys_iokit|sub_iokit_usb|message)
-#define kIOUSBMessageHubResetPort					iokit_usb_msg(0x01)		// 0xe00004001  Message sent to a hub to reset a particular port
-#define kIOUSBMessageHubSuspendPort					iokit_usb_msg(0x02)		// 0xe00004002  Message sent to a hub to suspend a particular port
-#define kIOUSBMessageHubResumePort					iokit_usb_msg(0x03)		// 0xe00004003  Message sent to a hub to resume a particular port
-#define kIOUSBMessageHubIsDeviceConnected			iokit_usb_msg(0x04)		// 0xe00004004  Message sent to a hub to inquire whether a particular port has a device connected or not
-#define kIOUSBMessageHubIsPortEnabled				iokit_usb_msg(0x05)		// 0xe00004005  Message sent to a hub to inquire whether a particular port is enabled or not
-#define kIOUSBMessageHubReEnumeratePort				iokit_usb_msg(0x06)		// 0xe00004006  Message sent to a hub to reenumerate the device attached to a particular port
-#define kIOUSBMessagePortHasBeenReset				iokit_usb_msg(0x0a)		// 0xe0000400a  Message sent to a device indicating that the port it is attached to has been reset
-#define kIOUSBMessagePortHasBeenResumed				iokit_usb_msg(0x0b)		// 0xe0000400b  Message sent to a device indicating that the port it is attached to has been resumed
-#define kIOUSBMessageHubPortClearTT					iokit_usb_msg(0x0c)		// 0xe0000400c  Message sent to a hub to clear the transaction translator
-#define kIOUSBMessagePortHasBeenSuspended			iokit_usb_msg(0x0d)		// 0xe0000400d  Message sent to a device indicating that the port it is attached to has been suspended
-#define kIOUSBMessageFromThirdParty					iokit_usb_msg(0x0e)		// 0xe0000400e  Message sent from a third party.  Uses IOUSBThirdPartyParam to encode the sender's ID
-#define kIOUSBMessagePortWasNotSuspended			iokit_usb_msg(0x0f)		// 0xe0000400f  Message indicating that the hub driver received a resume request for a port that was not suspended
-#define kIOUSBMessageExpressCardCantWake			iokit_usb_msg(0x10)		// 0xe00004010  Message from a driver to a bus that an express card will disconnect on sleep and thus shouldn't wake
-#define kIOUSBMessageCompositeDriverReconfigured    iokit_usb_msg(0x11)		// 0xe00004011  Message from the composite driver indicating that it has finished re-configuring the device after a reset
-#define kIOUSBMessageHubSetPortRecoveryTime			iokit_usb_msg(0x12)		// 0xe00004012  Message sent to a hub to set the # of ms required when resuming a particular port
+#define kIOUSBMessageHubResetPort					iokit_usb_msg(0x01)		// 0xe0004001  Message sent to a hub to reset a particular port
+#define kIOUSBMessageHubSuspendPort					iokit_usb_msg(0x02)		// 0xe0004002  Message sent to a hub to suspend a particular port
+#define kIOUSBMessageHubResumePort					iokit_usb_msg(0x03)		// 0xe0004003  Message sent to a hub to resume a particular port
+#define kIOUSBMessageHubIsDeviceConnected			iokit_usb_msg(0x04)		// 0xe0004004  Message sent to a hub to inquire whether a particular port has a device connected or not
+#define kIOUSBMessageHubIsPortEnabled				iokit_usb_msg(0x05)		// 0xe0004005  Message sent to a hub to inquire whether a particular port is enabled or not
+#define kIOUSBMessageHubReEnumeratePort				iokit_usb_msg(0x06)		// 0xe0004006  Message sent to a hub to reenumerate the device attached to a particular port
+#define kIOUSBMessagePortHasBeenReset				iokit_usb_msg(0x0a)		// 0xe000400a  Message sent to a device indicating that the port it is attached to has been reset
+#define kIOUSBMessagePortHasBeenResumed				iokit_usb_msg(0x0b)		// 0xe000400b  Message sent to a device indicating that the port it is attached to has been resumed
+#define kIOUSBMessageHubPortClearTT					iokit_usb_msg(0x0c)		// 0xe000400c  Message sent to a hub to clear the transaction translator
+#define kIOUSBMessagePortHasBeenSuspended			iokit_usb_msg(0x0d)		// 0xe000400d  Message sent to a device indicating that the port it is attached to has been suspended
+#define kIOUSBMessageFromThirdParty					iokit_usb_msg(0x0e)		// 0xe000400e  Message sent from a third party.  Uses IOUSBThirdPartyParam to encode the sender's ID
+#define kIOUSBMessagePortWasNotSuspended			iokit_usb_msg(0x0f)		// 0xe000400f  Message indicating that the hub driver received a resume request for a port that was not suspended
+#define kIOUSBMessageExpressCardCantWake			iokit_usb_msg(0x10)		// 0xe0004010  Message from a driver to a bus that an express card will disconnect on sleep and thus shouldn't wake
+#define kIOUSBMessageCompositeDriverReconfigured    iokit_usb_msg(0x11)		// 0xe0004011  Message from the composite driver indicating that it has finished re-configuring the device after a reset
+#define kIOUSBMessageHubSetPortRecoveryTime			iokit_usb_msg(0x12)		// 0xe0004012  Message sent to a hub to set the # of ms required when resuming a particular port
+#define kIOUSBMessageOvercurrentCondition			iokit_usb_msg(0x13)     // 0xe0004013  Message sent to the clients of the device's hub parent, when a device causes an overcurrent condition.  The message argument contains the locationID of the device
+#define kIOUSBMessageNotEnoughPower					iokit_usb_msg(0x14)     // 0xe0004014  Message sent to the clients of the device's hub parent, when a device causes an low power notice to be displayed.  The message argument contains the locationID of the device
 
 // Obsolete
 //
@@ -939,23 +930,39 @@ struct LowLatencyUserBufferInfo {
     LowLatencyUserBufferInfo *	nextBuffer;
 };
 
-// This structure is used to pass information for the low latency calls between user space and the kernel.  
-//
+// This structure is DEPRECATED.  See the LowLatencyUserBufferInfoV3  
+
 typedef struct LowLatencyUserBufferInfoV2 LowLatencyUserBufferInfoV2;
 
 struct LowLatencyUserBufferInfoV2 
 {
-    UInt32							cookie;
-    void *							bufferAddress;
-    IOByteCount						bufferSize;
-    UInt32							bufferType;
-    Boolean							isPrepared;
+	UInt32							cookie;
+	void *							bufferAddress;
+	IOByteCount						bufferSize;
+	UInt32							bufferType;
+	Boolean							isPrepared;
 	void *							mappedUHCIAddress;
-    LowLatencyUserBufferInfoV2 *	nextBuffer;
+	LowLatencyUserBufferInfoV2 *	nextBuffer;
 };
 
+	
+// This structure is used to pass information for the low latency calls between user space and the kernel.  
+//
+typedef struct LowLatencyUserBufferInfoV3 LowLatencyUserBufferInfoV3;
 
-/*!
+struct LowLatencyUserBufferInfoV3 
+{
+	uint64_t						cookie;
+	mach_vm_address_t				bufferAddress;
+	mach_vm_size_t					bufferSize;
+	uint64_t						bufferType;
+	uint64_t						isPrepared;
+	mach_vm_address_t				mappedUHCIAddress;
+	LowLatencyUserBufferInfoV3 *	nextBuffer;
+};
+	
+	
+	/*!
     @enum USBLowLatencyBufferType
     @discussion Used to specify what kind of buffer to create when calling LowLatencyCreateBuffer(). 
     @constant	kUSBLowLatencyWriteBuffer	The buffer will be used to write data out to a device.
@@ -992,6 +999,8 @@ enum {
 #define kUSBControllerNeedsContiguousMemoryForIsoch	"Need contiguous memory for isoch"
 #define kUSBHubDontAllowLowPower				"kUSBHubDontAllowLowPower"
 #define kUSBDeviceResumeRecoveryTime			"kUSBDeviceResumeRecoveryTime"
+#define kUSBOutOfSpecMPSOK						"Out of spec MPS OK"
+
 /*!
 @enum USBReEnumerateOptions
  @discussion Options used when calling ReEnumerateDevice. 
@@ -1002,6 +1011,66 @@ typedef enum {
     kUSBAddExtraResetTimeMask		= ( 1 << kUSBAddExtraResetTimeBit)
 } USBReEnumerateOptions;
 
+/*!
+ @enum USBDeviceInformationBits
+ @discussion 	GetUSBDeviceInformation will return a unit32_t value with bits set indicating that a particular state is present in the USB device.  These bits are described here 
+ 
+ @constant	kUSBInformationDeviceIsCaptiveBit			The USB device is directly attached to its hub and cannot be removed.
+ @constant	kUSBInformationDeviceIsAttachedToRootHubBit	The USB device is directly attached to the root hub
+ @constant	kUSBInformationDeviceIsInternalBit			The USB device is internal to the computer (all the hubs it attaches to are captive)
+ @constant	kUSBInformationDeviceIsConnectedBit			The USB device is connected to its hub
+ @constant	kUSBInformationDeviceIsEnabledBit			The hub port to which the USB device is attached is enabled
+ @constant	kUSBInformationDeviceIsSuspendedBit			The hub port to which the USB device is attached is suspended
+ @constant	kUSBInformationDeviceIsInResetBit			The hub port to which the USB device is attached is being reset
+ @constant	kUSBInformationDeviceOvercurrentBit			The USB device generated an overcurrent
+ @constant	kUSBInformationDevicePortIsInTestModeBit	The hub port to which the USB device is attached is in test mode
+ @constant  kUSBInformationDeviceIsRootHub				The device is actually the root hub simulation
+ @constant  kUSBInformationRootHubisBuiltIn				If this is a root hub simulation and it's built into the machine, this bit is set.  If it's on an expansion card, it will be cleared
+ 
+ */
+	typedef enum {
+		kUSBInformationDeviceIsCaptiveBit				= 0,
+		kUSBInformationDeviceIsAttachedToRootHubBit		= 1,
+		kUSBInformationDeviceIsInternalBit				= 2,
+		kUSBInformationDeviceIsConnectedBit				= 3,
+		kUSBInformationDeviceIsEnabledBit				= 4,
+		kUSBInformationDeviceIsSuspendedBit				= 5,
+		kUSBInformationDeviceIsInResetBit				= 6,
+		kUSBInformationDeviceOvercurrentBit				= 7,
+		kUSBInformationDevicePortIsInTestModeBit		= 8,
+		kUSBInformationDeviceIsRootHub					= 9,
+		kUSBInformationRootHubisBuiltIn					= 10,
+		kUSBInformationDeviceIsCaptiveMask				= (1 << kUSBInformationDeviceIsCaptiveBit),
+		kUSBInformationDeviceIsAttachedToRootHubMask	= (1 << kUSBInformationDeviceIsAttachedToRootHubBit),
+		kUSBInformationDeviceIsInternalMask				= (1 << kUSBInformationDeviceIsInternalBit),
+		kUSBInformationDeviceIsConnectedMask			= (1 << kUSBInformationDeviceIsConnectedBit),
+		kUSBInformationDeviceIsEnabledMask				= (1 << kUSBInformationDeviceIsEnabledBit),
+		kUSBInformationDeviceIsSuspendedMask			= (1 << kUSBInformationDeviceIsSuspendedBit),
+		kUSBInformationDeviceIsInResetMask				= (1 << kUSBInformationDeviceIsInResetBit),
+		kUSBInformationDeviceOvercurrentMask			= (1 << kUSBInformationDeviceOvercurrentBit),
+		kUSBInformationDevicePortIsInTestModeMask		= (1 << kUSBInformationDevicePortIsInTestModeBit),
+		kUSBInformationDeviceIsRootHubMask				= (1 << kUSBInformationDeviceIsRootHub),
+		kUSBInformationRootHubisBuiltInMask				= (1 << kUSBInformationRootHubisBuiltIn)
+	} USBDeviceInformationBits;
+	
+	/*!
+	 @enum USBPowerRequestTypes
+	 @discussion Used to specify what kind of power will be reserved using the IOUSBDevice RequestExtraPower and ReturnExtraPower APIs. 
+	 @constant	kUSBPowerDuringSleep	The power is to be used during sleep.
+	 @constant	kUSBPowerDuringWake		The power is to be used while the system is awake (i.e not sleeping)
+	 */
+	typedef enum {
+		kUSBPowerDuringSleep 		= 0,
+		kUSBPowerDuringWake			= 1
+	} USBPowerRequestTypes;
+	
+	// Apple specific properties
+#define kAppleCurrentAvailable		"AAPL,current-available"
+#define kAppleCurrentInSleep		"AAPL,current-in-sleep"
+#define kAppleCurrentExtra			"AAPL,current-extra"
+#define kAppleInternalUSBDevice		"AAPL,device-internal"
+#define kUSBBusID					"AAPL,bus-id"
+	
 
 #ifdef __cplusplus
 }       

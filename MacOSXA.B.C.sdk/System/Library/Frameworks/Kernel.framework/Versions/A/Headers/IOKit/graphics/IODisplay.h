@@ -51,6 +51,7 @@ extern const OSSymbol * gIODisplayParametersTheatreModeWindowKey;
 
 extern const OSSymbol *	gIODisplayParametersCommitKey;
 extern const OSSymbol *	gIODisplayParametersDefaultKey;
+extern const OSSymbol *	gIODisplayParametersFlushKey;
 
 enum {
     kIODisplayNumPowerStates = 4,
@@ -88,8 +89,8 @@ public:
     virtual bool initWithConnection( IOIndex connection );
     virtual IOFramebuffer * getFramebuffer( void );
     virtual IOIndex getConnection( void );
-    virtual IOReturn getAttributeForConnection( IOSelect selector, UInt32 * value );
-    virtual IOReturn setAttributeForConnection( IOSelect selector, UInt32 value );
+    virtual IOReturn getAttributeForConnection( IOSelect selector, uintptr_t * value );
+    virtual IOReturn setAttributeForConnection( IOSelect selector, uintptr_t value );
     virtual void joinPMtree ( IOService * driver );
 };
 
@@ -208,9 +209,6 @@ protected:
     SInt32	fMinBrightness;
     SInt32	fMaxBrightness;
     UInt16	fMaxBrightnessLevel[kIODisplayNumPowerStates];
-    
-    OSSymbol    *fDisplaySleepUsesDimSettingKey;
-    OSObject    *fPMSettingNotificationHandle;
 
 public:
     virtual IOService * probe( IOService *, SInt32 * );
@@ -219,8 +217,6 @@ public:
     virtual unsigned long maxCapabilityForDomainState( IOPMPowerFlags );
     virtual unsigned long initialPowerStateForDomainState( IOPMPowerFlags );
     virtual unsigned long powerStateForDomainState( IOPMPowerFlags );
-    virtual IOReturn setAggressiveness( unsigned long type, unsigned long newLevel );
-    virtual IOReturn getAggressiveness( unsigned long type, unsigned long * currentLevel );
 
     // 
     virtual void initPowerManagement( IOService * );

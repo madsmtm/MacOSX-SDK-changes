@@ -1,6 +1,6 @@
 /*
 	Contains: 		OBEX File Transfer Services object for FTP and ObjectPush operations
-	Copyright:		(c) 2004 by Apple Computer, Inc., all rights reserved.
+	Copyright:		(c) 2008 by Apple Inc., all rights reserved.
 */
 
 
@@ -557,6 +557,15 @@ enum  FTSFileType
 #pragma mark === C API ===
 #endif
 
+//---------------------------------------------------------------------------------------------------------------------------
+/*!	
+	OBEXFileTransferServices C API is deprecated.
+	
+	***		DEPRECATED IN BLUETOOTH 2.2 (Mac OS X 10.6)
+	***		You should transition your code to Objective-C equivalents.
+	***		This API may be removed any time in the future.
+*/
+
 
 typedef struct OpaqueFileTransferServicesRef *			OBEXFileTransferServicesRef;
 
@@ -619,76 +628,76 @@ typedef void (*OBEXFileTransferServicesCopyRemoteFileComplete)(			void *						us
 
 
 
-extern OBEXFileTransferServicesRef OBEXFileTransferServicesCreateWithSession( OBEXSessionRef	inOBEXSession);
-extern void		OBEXFileTransferServicesDelete( OBEXFileTransferServicesRef inRef );
+extern OBEXFileTransferServicesRef OBEXFileTransferServicesCreateWithSession( OBEXSessionRef	inOBEXSession)	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern void		OBEXFileTransferServicesDelete( OBEXFileTransferServicesRef inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 
 extern void 	OBEXFileTransferServicesSetConnectCallback(					OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesConnectionComplete	callback );
+																			OBEXFileTransferServicesConnectionComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetDisconnectCallback(				OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesDisconnectionComplete	callback );
+																			OBEXFileTransferServicesDisconnectionComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetAbortCallback(					OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesAbortComplete		callback );
+																			OBEXFileTransferServicesAbortComplete		callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetRemoveItemCallback(				OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesRemoveItemComplete	callback );
+																			OBEXFileTransferServicesRemoveItemComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetCreateFolderCallback(			OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesCreateFolderComplete	callback );
+																			OBEXFileTransferServicesCreateFolderComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetPathChangeCallback(				OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesPathChangeComplete	callback );
+																			OBEXFileTransferServicesPathChangeComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetRetrieveFolderListingCallback(	OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesRetrieveFolderListingComplete	callback );
+																			OBEXFileTransferServicesRetrieveFolderListingComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 #if BLUETOOTH_VERSION_MAX_ALLOWED >= BLUETOOTH_VERSION_2_0
 
 extern void 	OBEXFileTransferServicesSetFilePreparationCompleteCallback(	OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesFilePreparationComplete	callback );
+																			OBEXFileTransferServicesFilePreparationComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 #endif /* BLUETOOTH_VERSION_MAX_ALLOWED >= BLUETOOTH_VERSION_2_0 */
 
 																		
 extern void 	OBEXFileTransferServicesSetSendFileCompleteCallback(		OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesSendFileComplete	callback );
+																			OBEXFileTransferServicesSendFileComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetSendFileProgressCallback(		OBEXFileTransferServicesRef					inRef,
-																			OBEXFileTransferServicesSendFileProgress	callback );
+																			OBEXFileTransferServicesSendFileProgress	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetCopyRemoteFileCompleteCallback(	OBEXFileTransferServicesRef						inRef,
-																			OBEXFileTransferServicesCopyRemoteFileComplete	callback );
+																			OBEXFileTransferServicesCopyRemoteFileComplete	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void 	OBEXFileTransferServicesSetCopyRemoteFileProgressCallback(	OBEXFileTransferServicesRef						inRef,
-																			OBEXFileTransferServicesCopyRemoteFileProgress	callback );
+																			OBEXFileTransferServicesCopyRemoteFileProgress	callback )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 
 extern void 	OBEXFileTransferServicesSetUserRefCon(						OBEXFileTransferServicesRef	inRef,
-																			void *						inUserRefCon );
+																			void *						inUserRefCon )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 extern void  *	OBEXFileTransferServicesGetUserRefCon(						OBEXFileTransferServicesRef	inRef,
-																			void *						inUserRefCon );
+																			void *						inUserRefCon )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 
-extern OBEXError OBEXFileTransferServicesConnectToFTPService(			OBEXFileTransferServicesRef	inRef);
-extern OBEXError OBEXFileTransferServicesConnectToObjectPushService(	OBEXFileTransferServicesRef	inRef );
-extern OBEXError OBEXFileTransferServicesDisconnect(					OBEXFileTransferServicesRef	inRef );
-extern OBEXError OBEXFileTransferServicesChangeCurrentFolderToRoot(		OBEXFileTransferServicesRef	inRef );
-extern OBEXError OBEXFileTransferServicesChangeCurrentFolderBackward(	OBEXFileTransferServicesRef	inRef );
-extern OBEXError OBEXFileTransferServicesChangeCurrentFolderForward(	OBEXFileTransferServicesRef	inRef, CFStringRef inDirName );
-extern OBEXError OBEXFileTransferServicesCreateFolder(					OBEXFileTransferServicesRef	inRef, CFStringRef inFolderName );
-extern OBEXError OBEXFileTransferServicesRemoveItem(					OBEXFileTransferServicesRef	inRef, CFStringRef inItemName );
-extern OBEXError OBEXFileTransferServicesRetrieveFolderListing(			OBEXFileTransferServicesRef	inRef );
-extern OBEXError OBEXFileTransferServicesSendFile(						OBEXFileTransferServicesRef	inRef, CFStringRef inLocalPathAndName );
-extern OBEXError OBEXFileTransferServicesCopyRemoteFile(				OBEXFileTransferServicesRef	inRef, CFStringRef inRemoteFileName, CFStringRef inLocalPathAndName );
-extern OBEXError OBEXFileTransferServicesSendData(						OBEXFileTransferServicesRef	inRef, CFDataRef inData, CFStringRef inType, CFStringRef inName );
-extern OBEXError OBEXFileTransferServicesGetDefaultVCard(				OBEXFileTransferServicesRef	inRef, CFStringRef inLocalPathAndName );
-extern OBEXError OBEXFileTransferServicesAbort(							OBEXFileTransferServicesRef	inRef );
+extern OBEXError OBEXFileTransferServicesConnectToFTPService(			OBEXFileTransferServicesRef	inRef)	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesConnectToObjectPushService(	OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesDisconnect(					OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesChangeCurrentFolderToRoot(		OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesChangeCurrentFolderBackward(	OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesChangeCurrentFolderForward(	OBEXFileTransferServicesRef	inRef, CFStringRef inDirName )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesCreateFolder(					OBEXFileTransferServicesRef	inRef, CFStringRef inFolderName )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesRemoveItem(					OBEXFileTransferServicesRef	inRef, CFStringRef inItemName )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesRetrieveFolderListing(			OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesSendFile(						OBEXFileTransferServicesRef	inRef, CFStringRef inLocalPathAndName )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesCopyRemoteFile(				OBEXFileTransferServicesRef	inRef, CFStringRef inRemoteFileName, CFStringRef inLocalPathAndName )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesSendData(						OBEXFileTransferServicesRef	inRef, CFDataRef inData, CFStringRef inType, CFStringRef inName )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesGetDefaultVCard(				OBEXFileTransferServicesRef	inRef, CFStringRef inLocalPathAndName )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern OBEXError OBEXFileTransferServicesAbort(							OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
-extern CFStringRef OBEXFileTransferServicesCurrentPath(					OBEXFileTransferServicesRef	inRef );
-extern BOOL OBEXFileTransferServicesIsBusy(								OBEXFileTransferServicesRef	inRef );
-extern BOOL OBEXFileTransferServicesIsConnected(						OBEXFileTransferServicesRef	inRef );
+extern CFStringRef OBEXFileTransferServicesCurrentPath(					OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern BOOL OBEXFileTransferServicesIsBusy(								OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
+extern BOOL OBEXFileTransferServicesIsConnected(						OBEXFileTransferServicesRef	inRef )	DEPRECATED_IN_BLUETOOTH_VERSION_2_2_AND_LATER;
 
 
 

@@ -1,7 +1,7 @@
 /*
 	File:		IOBluetoothOBEXSession.h
 	Contains:	Bluetooth Transport subclass of the OBEXSession object. 
-    Copyright:	© 2002-2003 by Apple Computer, Inc. All rights reserved.
+    Copyright:	(c) 2002-2003 by Apple Computer, Inc. All rights reserved.
 	Writers:	Jason Giles
 */
 

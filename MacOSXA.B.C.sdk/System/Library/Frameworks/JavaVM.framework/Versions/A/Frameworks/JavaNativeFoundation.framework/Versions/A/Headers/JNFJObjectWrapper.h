@@ -24,10 +24,9 @@
 	jobject jobj;
 }
 
-+ (JNFJObjectWrapper *) wrapperWithJObject:(jobject)jObjectIn withEnv:(JNIEnv *)env;
 - (id) initWithJObject:(jobject)jObjectIn withEnv:(JNIEnv *)env;
 - (void) setJObject:(jobject)jObjectIn withEnv:(JNIEnv *)env; // clears any pre-existing global-ref
-- (jobject) jObjectWithEnv:(JNIEnv *)env; // returns a new local-ref, must be released with DeleteLocalRef
+- (jobject) jObjectWithEnv:(JNIEnv *)env; // returns a new local-ref
 - (jobject) jObject; // returns the global-ref
 
 @end

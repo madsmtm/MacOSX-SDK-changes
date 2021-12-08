@@ -1,5 +1,5 @@
 /*
-	Copyright:  (c) 1999 by Apple Computer, Inc., all rights reserved.
+	Copyright:  (c) 1999-2008 Apple Inc. All rights reserved.
 */
 
 #ifndef _GLIDISPATCH_H
@@ -133,7 +133,7 @@ typedef struct __GLIFunctionDispatchRec
 	void (*get_pixel_mapfv)(GLIContext ctx, GLenum map, GLfloat *values);
 	void (*get_pixel_mapuiv)(GLIContext ctx, GLenum map, GLuint *values);
 	void (*get_pixel_mapusv)(GLIContext ctx, GLenum map, GLushort *values);
-	void (*get_pointerv)(GLIContext ctx, GLenum pname, GLvoid* *params);
+	void (*get_pointerv)(GLIContext ctx, GLenum pname, GLvoid **params);
 	void (*get_polygon_stipple)(GLIContext ctx, GLubyte *mask);
 	const GLubyte* (*get_string)(GLIContext ctx, GLenum name);
 	void (*get_tex_envfv)(GLIContext ctx, GLenum target, GLenum pname, GLfloat *params);
@@ -651,7 +651,7 @@ typedef struct __GLIFunctionDispatchRec
 	void (*bind_attrib_location_ARB) (GLIContext ctx, GLhandleARB programObj, GLuint index, const GLcharARB *name);
 	void (*get_active_attrib_ARB) (GLIContext ctx, GLhandleARB programObj, GLuint index, GLsizei maxLength, GLsizei *length, GLint *size, GLenum *type, GLcharARB *name);
 	GLint (*get_attrib_location_ARB) (GLIContext ctx, GLhandleARB programObj, const GLcharARB *name);
-	void (*pad) (GLIContext ctx);
+	void (*clamp_color_ARB) (GLIContext ctx, GLenum target, GLenum clamp);
 	void (*gen_queries) (GLIContext ctx, GLsizei n, GLuint *ids);
 	void (*delete_queries) (GLIContext ctx, GLsizei n, const GLuint *ids);
 	GLboolean (*is_query) (GLIContext ctx, GLuint id);
@@ -744,7 +744,7 @@ typedef struct __GLIFunctionDispatchRec
 	void (*tex_parameterIiv_EXT)(GLIContext ctx, GLenum target, GLenum pname, GLint *params );
 	void (*tex_parameterIuiv_EXT)(GLIContext ctx, GLenum target, GLenum pname, GLuint *params );
 	void (*get_tex_parameterIiv_EXT) (GLIContext ctx, GLenum target, GLenum pname, GLint *params);
-	void (*get_tex_parameterIiuv_EXT) (GLIContext ctx, GLenum target, GLenum pname, GLuint *params);
+	void (*get_tex_parameterIuiv_EXT) (GLIContext ctx, GLenum target, GLenum pname, GLuint *params);
 
 	/* gpu_shader4 */
 	void (*vertex_attribI1i_EXT)(GLIContext ctx, GLuint index, GLint x);
@@ -782,11 +782,11 @@ typedef struct __GLIFunctionDispatchRec
 	void (*bind_frag_data_location_EXT)(GLIContext ctx, GLuint program, GLuint colorNumber, const GLchar *name);
 	GLint (*get_frag_data_location_EXT)(GLIContext ctx, GLuint program, const GLchar *name);
 
-	/* introduced by OpenGL ES 2.0 */
-	void (*shader_binary_OES)(GLIContext ctx, GLint n, GLuint *shaders, GLenum binaryformat, const GLvoid *binary, GLint length);
-	void (*get_shader_precision_format_OES)(GLIContext ctx, GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision);
-	void (*release_shader_compiler_OES)(GLIContext ctx);
-	void (*get_renderbuffer_storage_formatsiv_OES)(GLIContext ctx, GLenum target, GLint n, GLint *listofformats, GLint *numsupportedformats);
+	/* EXT_draw_buffers2 */
+	void (*color_mask_indexed_EXT) (GLIContext ctx, GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
+	void (*enable_indexed_EXT) (GLIContext ctx, GLenum target, GLuint index);
+	void (*disable_indexed_EXT) (GLIContext ctx, GLenum target, GLuint index);
+	GLboolean (*is_enabled_indexed_EXT) (GLIContext ctx, GLenum target, GLuint index);
 
 	/* OpenGL 2.1 */
 	void (*uniform_matrix2x3fv) (GLIContext ctx, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
@@ -799,9 +799,14 @@ typedef struct __GLIFunctionDispatchRec
 	/* EXT_framebuffer_blit and EXT_framebuffer_multisample */
 	void (*blit_framebuffer_EXT) (GLIContext ctx, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
 	void (*renderbuffer_storage_multisample_EXT) (GLIContext ctx, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
-	
-	void (*depth_rangef)(GLIContext ctx, GLclampf zNear, GLclampf zFar);
-	void (*clear_depthf)(GLIContext ctx, GLclampf depth);
+
+	/* NV_conditional_render */
+	void (*begin_conditional_render_NV)(GLIContext ctx, GLuint id, GLenum mode);
+	void (*end_conditional_render_NV)(GLIContext ctx);
+
+	void (*get_attached_shaders) (GLIContext ctx, GLuint program, GLsizei maxCount, GLsizei *count, GLuint *shaders);
+
+    
 } GLIFunctionDispatch;
 
 #ifdef __cplusplus

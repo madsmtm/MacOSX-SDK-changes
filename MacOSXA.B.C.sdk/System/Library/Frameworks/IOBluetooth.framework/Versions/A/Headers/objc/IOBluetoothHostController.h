@@ -35,9 +35,8 @@
 	id							_delegate;
 	NSTimer *					_timerClassOfDeviceSetting;
 	void *						_eventListener;
-	void *						_expansionPtr;
 
-	void *						_expansion[4];
+	void *__strong				_expansion[4];
 }
 
 //---------------------------------------------------------------------------------------------------------------------------
@@ -118,17 +117,18 @@
 
 //---------------------------------------------------------------------------------------------------------------------------
 /*!	@method		readRSSIForDevice
-	@abstract	Gets the RSSI value for a Bluetooth device.
-	@result		Returns noErr if the command was successfully sent to the hardware. Results will be returned on the delegate method -RSSIForDevice.
+	@abstract	Gets the RSSI value for a (Connected) Bluetooth device.
+	@result		Returns noErr if the command was successfully sent to the hardware. Results will be returned on the delegate method -readRSSIForDeviceComplete.
 */
 
 - (IOReturn)readRSSIForDevice:(IOBluetoothDevice*)device;
 
 //---------------------------------------------------------------------------------------------------------------------------
-/*!	@method		readRSSIForDevice
-	@abstract	Gets the RSSI value for a Bluetooth device.
-	@result		Returns noErr if the command was successfully sent to the hardware. Results will be returned on the delegate method -linkQualityForDevice.
+/*!	@method		readLinkQualityForDevice
+	@abstract	Gets the link quality value for a (Connected) Bluetooth device.
+	@result		Returns noErr if the command was successfully sent to the hardware. Results will be returned on the delegate method -readLinkQualityForDeviceComplete.
 */
+
 - (IOReturn)readLinkQualityForDevice:(IOBluetoothDevice*)device;
 
 @end
@@ -161,7 +161,7 @@
 - (void)	controllerClassOfDeviceReverted:(id)sender;
 
 //---------------------------------------------------------------------------------------------------------------------------
-/*!	@method			RSSIForDevice:device:info:error:
+/*!	@method			readRSSIForDeviceComplete:device:info:error:
 	@discussion 	This delegate gets invoked when an RSSI command complete event occurs. This could occur because you
 					invoked it by issuing an -readRSSIForDevice: command, or someone else did from another app on the
 					same controller.
@@ -180,8 +180,10 @@
 
 - (void)	readLinkQualityForDeviceComplete:(id)controller device:(IOBluetoothDevice*)device	info:(BluetoothHCILinkQualityInfo*)info	error:(IOReturn)error;
 
-
 @end
+
+extern NSString * const IOBluetoothHostControllerPoweredOnNotification;
+extern NSString * const IOBluetoothHostControllerPoweredOffNotification;
 
 #endif /* BLUETOOTH_VERSION_MAX_ALLOWED >= BLUETOOTH_VERSION_2_0 */
 

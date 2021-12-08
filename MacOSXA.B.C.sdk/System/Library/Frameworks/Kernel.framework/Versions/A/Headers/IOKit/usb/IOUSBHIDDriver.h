@@ -88,6 +88,11 @@ enum
 };
 
 
+/*!
+ @class IOUSBHIDDriver
+ @abstract Driver that matches to USB HID devices.
+ @discussion This class can be overriden to provide for specific behaviors.
+ */
 class IOUSBHIDDriver : public IOHIDDevice
 {
     OSDeclareDefaultStructors(IOUSBHIDDriver)
@@ -207,9 +212,7 @@ public:
     virtual IOReturn 	setReport( IOMemoryDescriptor * report,
                                 IOHIDReportType      reportType,
                                 IOOptionBits         options = 0 );
-	
-	virtual OSNumber * newReportIntervalNumber() const;
-			
+
     // HID driver methods
     //
     virtual OSString * 	newIndexedString(UInt8 index) const;

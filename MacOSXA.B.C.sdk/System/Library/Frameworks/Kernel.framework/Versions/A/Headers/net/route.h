@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000,2007 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2008 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  * 
@@ -64,6 +64,7 @@
 #ifndef _NET_ROUTE_H_
 #define _NET_ROUTE_H_
 #include <sys/appleapiopts.h>
+#include <stdint.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 
@@ -105,10 +106,6 @@ struct rt_metrics {
 #define	RTM_RTTUNIT	1000000	/* units for rtt, rttvar, as units per sec */
 
 /*
- * XXX kernel function pointer `rt_output' is visible to applications.
- */
-
-/*
  * We distinguish between routes to hosts and routes to networks,
  * preferring the former if available.  For each route we infer
  * the interface to use from the gateway address supplied when
@@ -116,22 +113,6 @@ struct rt_metrics {
  * gateways are marked so that the output routines know to address the
  * gateway rather than the ultimate destination.
  */
-
-#ifdef __APPLE_API_OBSOLETE
-/*
- * Following structure necessary for 4.3 compatibility;
- * We should eventually move it to a compat file.
- */
-struct ortentry {
-	u_long	rt_hash;		/* to speed lookups */
-	struct	sockaddr rt_dst;	/* key */
-	struct	sockaddr rt_gateway;	/* value */
-	short	rt_flags;		/* up/down?, host/net */
-	short	rt_refcnt;		/* # held references */
-	u_long	rt_use;			/* raw # packets forwarded */
-	struct	ifnet *rt_ifp;		/* the answer: interface to use */
-};
-#endif /* __APPLE_API_OBSOLETE */
 
 
 #define	RTF_UP		0x1		/* route usable */
@@ -158,8 +139,9 @@ struct ortentry {
 #define	RTF_LOCAL	0x200000	/* route represents a local address */
 #define	RTF_BROADCAST	0x400000	/* route represents a bcast address */
 #define	RTF_MULTICAST	0x800000	/* route represents a mcast address */
-#define RTF_TRACKREFS	0x1000000	/* Debug references and releases */
-					/* 0x1000000 and up unassigned */
+#define RTF_IFSCOPE	0x1000000	/* has valid interface scope */
+#define RTF_CONDEMNED	0x2000000	/* defunct; no longer modifiable */
+					/* 0x4000000 and up unassigned */
 
 /*
  * Routing statistics.
@@ -281,6 +263,7 @@ struct route_cb {
 	int	iso_count;
 	int	any_count;
 };
+
 
 
 #endif

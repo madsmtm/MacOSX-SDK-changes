@@ -24,6 +24,63 @@
 /*
  *
  *	$Log: IOUSBDevice.h,v $
+ *	Revision 1.57.84.6  2009/03/13 22:45:11  nano
+ *	Bring in branches to fix 6676089 6675858 6567987 6490273
+ *	
+ *	Revision 1.57.84.5.4.1  2009/03/11 20:01:56  nano
+ *	rdar://6567987  Do not let a Reset or a ReEnumerate through while the other is executing.
+ *	
+ *	Revision 1.57.84.5  2009/02/26 13:44:32  nano
+ *	Bring in rdar://6536090&6586312 to SL branch
+ *	
+ *	Revision 1.57.84.4.10.1  2009/02/25 00:51:06  rhoads
+ *	change the mechanism of getConfigLock so as to prevent a deadlock
+ *	
+ *	Revision 1.57.84.4  2009/02/13 15:57:33  rhoads
+ *	roll in rdars: 6213394, 6489431, 6513000, 6515115, 6535200, 6567783
+ *	
+ *	Revision 1.57.84.3.48.3  2009/02/11 19:19:08  rhoads
+ *	add back an expansionData variable to preserve binary compatibility
+ *	
+ *	Revision 1.57.84.3.48.2  2009/02/11 03:05:56  arulchan
+ *	more ::SuspendDevice changes
+ *	
+ *	Revision 1.57.84.3.48.1  2009/01/23 21:34:15  arulchan
+ *	fix for rdar://6213394
+ *	
+ *	Revision 1.57.84.3  2008/06/16 21:31:16  nano
+ *	Bring in changes from Foxhound 320.2.17
+ *	
+ *	Revision 1.57.84.2  2008/04/22 22:38:01  nano
+ *	Bring in changes from Foxhound-320.2.9
+ *	
+ *	Revision 1.60.28.2  2008/05/22 17:36:18  nano
+ *	Fix the reporting of the internal bit for GetDeviceInformation
+ *	
+ *	Revision 1.60.28.1  2008/05/21 17:51:43  nano
+ *	<rdar://problem/5952635> GetDeviceInformation needs some fixes
+ *	
+ *	Revision 1.60  2008/04/18 22:03:28  nano
+ *	Bring in fix for rdar://5874560
+ *	
+ *	Revision 1.59.4.1  2008/04/18 21:55:55  nano
+ *	<rdar://problem/5874560> Need API to know how much extra power has been allocated
+ *	
+ *	Revision 1.59  2008/04/17 16:56:57  nano
+ *	Bring in branches for rdar://5867990 & rdar://5768343
+ *	
+ *	Revision 1.58.4.1  2008/04/16 20:26:13  nano
+ *	<rdar://problem/5867990> Add API to allocate sleep current, as well as making sure that we return any extra power if our client dies or our device is terminated without returning it
+ *	
+ *	Revision 1.58  2008/04/14 16:08:38  nano
+ *	Add new APIs for high power and for GetDeviceInformation.
+ *	
+ *	Revision 1.57.126.2  2008/04/13 05:25:40  nano
+ *	Call into PolicyMaker for the GetPortInformation
+ *	
+ *	Revision 1.57.126.1  2008/04/11 22:25:44  nano
+ *	Initial work on new user-client APIs and new IOUSBDevice APIs to return port state information and manage extra power requests, as well as groundwork for calling the policy maker directly from the IOUSBDevice
+ *	
  *	Revision 1.57  2007/08/07 20:30:36  rhoads
  *	rolled in a few branches to TOT
  *	
@@ -78,6 +135,7 @@
 class IOUSBController;
 class IOUSBControllerV2;
 class IOUSBInterface;
+class IOUSBHubPolicyMaker;
 /*!
     @class IOUSBDevice
     @abstract The IOService object representing a device on the USB bus.
@@ -121,7 +179,7 @@ protected:
         thread_call_t			_doPortReEnumerateThread;
         bool					_resetInProgress;
         bool					_portHasBeenReset;
-        IORecursiveLock*		_getConfigLock;
+        IORecursiveLock*		_XgetConfigLock;				// Obsolete
         bool					_doneWaiting;                   // Obsolete
         bool					_notifiedWhileBooting;          // Obsolete
         IOWorkLoop *			_workLoop;
@@ -137,7 +195,15 @@ protected:
 		IOReturn				_resetError;
 		IOReturn				_suspendError;
         thread_call_t			_doMessageClientsThread;
-    };
+		IOUSBHubPolicyMaker *	_hubPolicyMaker;
+		UInt32					_sleepPowerAllocated;				// how much sleep power we already gave to our client
+		UInt32					_wakePowerAllocated;				// how much extra power during wake did we already give our client
+		UInt32					_devicePortInfo;
+		bool					_deviceIsInternal;					// Will be set if all our upstream hubs are captive (internal to the computer)
+		bool					_deviceIsInternalIsValid;			// true if we have already determined whether the device is internal
+		bool					_newGetConfigLock;					// new lock, taken within the WL gate, when doing a GetConfig
+		UInt32					_resetAndReEnumerateLock;			// "Lock" to prevent us from doing a reset or a re-enumerate while the other one is in progress				
+    };	
     ExpansionData * _expansionData;
 
     const IOUSBConfigurationDescriptor *FindConfig(UInt8 configValue, UInt8 *configIndex=0);
@@ -378,15 +444,29 @@ public:
         if no data has been transferred on the bus.
         @param completionTimeout Specifies an amount of time (in ms) after which the command will be aborted if the entire command has
         not been completed.
-	@param completion Function to call when request completes. If omitted then
-        DeviceRequest() executes synchronously, blocking until the request is complete.
+		@param completion Function to call when request completes. If omitted then
+	 DeviceRequest() executes synchronously, blocking until the request is complete.  If the request is asynchronous, the client must make sure that
+	 the IOUSBDevRequest is not released until the callback has occurred.
+
     */
     virtual IOReturn DeviceRequest(IOUSBDevRequest	*request,
 				UInt32 noDataTimeout,
 				UInt32 completionTimeout,
                                 IOUSBCompletion	*completion = 0);
 
-    // Same but with a memory descriptor
+    /*!
+	 @function DeviceRequest
+	 @abstract execute a control request to the default control pipe (pipe zero)
+	 @param request The parameter block to send to the device (with the pData as an IOMemoryDesriptor)
+	 @param noDataTimeout Specifies an amount of time (in ms) after which the command will be aborted
+	 if no data has been transferred on the bus.
+	 @param completionTimeout Specifies an amount of time (in ms) after which the command will be aborted if the entire command has
+	 not been completed.
+	 @param completion Function to call when request completes. If omitted then
+	 DeviceRequest() executes synchronously, blocking until the request is complete.  If the request is asynchronous, the client must make sure that
+	 the IOUSBDevRequest is not released until the callback has occurred.
+	 
+	 */
     OSMetaClassDeclareReservedUsed(IOUSBDevice,  1);
     virtual IOReturn DeviceRequest(IOUSBDevRequestDesc	*request,
 				    UInt32 noDataTimeout,
@@ -432,12 +512,64 @@ public:
     virtual IOUSBPipe*	MakePipe(const IOUSBEndpointDescriptor *ep, IOUSBInterface *interface);
     
 	
-    OSMetaClassDeclareReservedUnused(IOUSBDevice,  6);
-    OSMetaClassDeclareReservedUnused(IOUSBDevice,  7);
-    OSMetaClassDeclareReservedUnused(IOUSBDevice,  8);
-    OSMetaClassDeclareReservedUnused(IOUSBDevice,  9);
-    OSMetaClassDeclareReservedUnused(IOUSBDevice,  10);
-    OSMetaClassDeclareReservedUnused(IOUSBDevice,  11);
+    OSMetaClassDeclareReservedUsed(IOUSBDevice,  6);
+	/*!
+	 @function SetHubParent
+	 @abstract Used by the hub driver to give the nub a pointer to its HubPolicyMaker object
+	 @param hubPolicyMaker	The object representing the Hub driver
+	 */
+    virtual void	SetHubParent(IOUSBHubPolicyMaker *hubParent);
+    
+    OSMetaClassDeclareReservedUsed(IOUSBDevice,  7);
+	/*!
+	 @function GetHubParent
+	 @abstract Used by the hub driver to give the nub a pointer to its HubPolicyMaker object
+	 @param hubPolicyMaker	The object representing the Hub driver
+	 */
+    virtual IOUSBHubPolicyMaker*	GetHubParent();
+    
+    OSMetaClassDeclareReservedUsed(IOUSBDevice,  8);
+    /*!
+	 @function 	GetDeviceInformation
+	 @abstract 	Returns status information about the USB device, such as whether the device is captive or whether it is in the suspended state.
+	 @param requestedPower 	The desired amount of power that the client wishes to reserve
+	 @result 		Actual power that was reserved
+	 
+		*/
+	virtual IOReturn	GetDeviceInformation(UInt32 *info);
+    
+    OSMetaClassDeclareReservedUsed(IOUSBDevice,  9);
+    /*!
+	 @function				RequestExtraPower
+	 @abstract				Clients can use this API to reserve extra power for use by this device while the machine is asleep or while it is awake.  Units are milliAmps (mA).
+	 @param type			Indicates whether the power is to be used during wake or sleep (One of kUSBPowerDuringSleep or kUSBPowerDuringWake)
+	 @param requestedPower 	Amount of power desired, in mA
+	 @result				Amount of power actually reserved, in mA.  It can be less than the requested or zero.
+	 
+	 */
+	virtual UInt32	RequestExtraPower(UInt32 type, UInt32 requestedPower);
+    
+    OSMetaClassDeclareReservedUsed(IOUSBDevice,  10);
+    /*!
+	 @function				ReturnExtraPower
+	 @abstract				Clients can use this API to tell the system that they will not use power that was previously reserved by using the RequestExtraPower API.
+	 @param type			Indicates whether the power is to be used during wake or sleep (One of kUSBPowerDuringSleep or kUSBPowerDuringWake)
+	 @param returnedPower 	Amount of power that is no longer needed, in mA
+	 @result				If the returnedPower was not previously allocated, an error will be returned.  This will include the case for power that was requested for sleep but was returned for wake.
+	 
+	 */
+	virtual IOReturn		ReturnExtraPower(UInt32 type, UInt32 returnedPower);
+    
+    OSMetaClassDeclareReservedUsed(IOUSBDevice,  11);
+    /*!
+	 @function				GetExtraPowerAllocated
+	 @abstract				Clients can use this API to ask how much extra power has already been reserved by this device.  Units are milliAmps (mA).
+	 @param type			Indicates whether the allocated power was to be used during wake or sleep (One of kUSBPowerDuringSleep or kUSBPowerDuringWake)
+	 @result				Amount of power allocated, in mA.  .
+	 
+	 */
+	virtual UInt32	GetExtraPowerAllocated(UInt32 type);
+    
     OSMetaClassDeclareReservedUnused(IOUSBDevice,  12);
     OSMetaClassDeclareReservedUnused(IOUSBDevice,  13);
     OSMetaClassDeclareReservedUnused(IOUSBDevice,  14);
@@ -454,9 +586,6 @@ private:
 
     void 		TerminateInterfaces(void);
 
-    static void 	ProcessPortSuspendEntry(OSObject *target, thread_call_param_t suspend);
-    void 		ProcessPortSuspend( bool suspend);
-   
     static void 	ProcessPortReEnumerateEntry(OSObject *target, thread_call_param_t options);
     void 		ProcessPortReEnumerate(UInt32 options);
 	
@@ -469,6 +598,9 @@ private:
     UInt32              SimpleUnicodeToUTF8(UInt16 uChar, UInt8 utf8Bytes[4]);
     void                SwapUniWords (UInt16  **unicodeString, UInt32 uniSize);
 
+    IOReturn			TakeGetConfigLock(void);
+    IOReturn			ReleaseGetConfigLock(void);
+    static IOReturn		ChangeGetConfigLock(OSObject *target, void *arg0, void *arg1, void *arg2, void *arg3);
 };
 
 #endif /* _IOKIT_IOUSBDEVICE_H */

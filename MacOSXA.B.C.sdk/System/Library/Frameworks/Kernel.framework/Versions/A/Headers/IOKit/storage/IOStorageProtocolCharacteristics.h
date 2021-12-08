@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2005 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2009 Apple Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -144,7 +144,7 @@ Example:
 @discussion This key is the SCSI Logical Unit Number for the device server
 controlled by the driver.
 
-Requirement: Mandatory for SCSI Parallel Interface and Fibre Channel Interface.
+Requirement: Mandatory for SCSI Parallel Interface, SAS, and Fibre Channel Interface.
 
 Example:
 <pre>

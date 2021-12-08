@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2007 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2008 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  * 
@@ -77,11 +77,6 @@
 #define	SIOCSPGRP	 _IOW('s',  8, int)		/* set process group */
 #define	SIOCGPGRP	 _IOR('s',  9, int)		/* get process group */
 
-#if 0
-#define        SIOCADDRT        _IOW('r', 10, struct ortentry) /* add route */
-#define        SIOCDELRT        _IOW('r', 11, struct ortentry) /* delete route */
-#endif
-
 /*
  * OSIOCGIF* ioctls are deprecated; they are kept for binary compatibility.
  */
@@ -155,5 +150,7 @@
 #define SIOCSIFMAC	_IOW('i', 131, struct ifreq)	/* set IF MAC label */
 #define	SIOCSIFKPI	_IOW('i', 134, struct ifreq) /* set interface kext param - root only */
 #define	SIOCGIFKPI	_IOWR('i', 135, struct ifreq) /* get interface kext param */
+
+#define	SIOCGIFWAKEFLAGS _IOWR('i', 136, struct ifreq) /* get interface wake property flags */
 
 #endif /* !_SYS_SOCKIO_H_ */

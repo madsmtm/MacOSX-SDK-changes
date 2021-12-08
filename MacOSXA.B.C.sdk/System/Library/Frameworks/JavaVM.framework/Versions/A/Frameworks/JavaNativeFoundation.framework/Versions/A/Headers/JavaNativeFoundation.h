@@ -16,7 +16,6 @@
 #import <JavaNativeFoundation/JNFPath.h>
 #import <JavaNativeFoundation/JNFTypeCoercion.h>
 #import <JavaNativeFoundation/JNFThread.h>
-#import <JavaNativeFoundation/JNFRunnable.h>
 #import <JavaNativeFoundation/JNFRunLoop.h>
 #import <JavaNativeFoundation/JNFException.h>
 #import <JavaNativeFoundation/JNFAssert.h>

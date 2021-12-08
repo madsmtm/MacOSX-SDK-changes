@@ -160,50 +160,51 @@
 #ifndef	ASSEMBLER
 
 #include <sys/cdefs.h>
+#include <stdint.h>
+
 __BEGIN_DECLS
 
-#define	set_ts() \
-	set_cr0(get_cr0() | CR0_TS)
+#define	set_ts() set_cr0(get_cr0() | CR0_TS)
 
-static inline unsigned int get_cr0(void)
+static inline uintptr_t get_cr0(void)
 {
-	register unsigned int cr0; 
+	uintptr_t cr0; 
 	__asm__ volatile("mov %%cr0, %0" : "=r" (cr0));
 	return(cr0);
 }
 
-static inline void set_cr0(unsigned int value)
+static inline void set_cr0(uintptr_t value)
 {
 	__asm__ volatile("mov %0, %%cr0" : : "r" (value));
 }
 
-static inline unsigned int get_cr2(void)
+static inline uintptr_t get_cr2(void)
 {
-	register unsigned int cr2;
+	uintptr_t cr2;
 	__asm__ volatile("mov %%cr2, %0" : "=r" (cr2));
 	return(cr2);
 }
 
-static inline unsigned int get_cr3(void)
+static inline uintptr_t get_cr3(void)
 {
-	register unsigned int cr3;
+	register uintptr_t cr3;
 	__asm__ volatile("mov %%cr3, %0" : "=r" (cr3));
 	return(cr3);
 }
 
-static inline void set_cr3(unsigned int value)
+static inline void set_cr3(uintptr_t value)
 {
 	__asm__ volatile("mov %0, %%cr3" : : "r" (value));
 }
 
-static inline uint32_t get_cr4(void)
+static inline uintptr_t get_cr4(void)
 {
-	uint32_t cr4;
+	uintptr_t cr4;
 	__asm__ volatile("mov %%cr4, %0" : "=r" (cr4));
 	return(cr4);
 }
 
-static inline void set_cr4(uint32_t value)
+static inline void set_cr4(uintptr_t value)
 {
 	__asm__ volatile("mov %0, %%cr4" : : "r" (value));
 }
@@ -237,13 +238,28 @@ static inline void lldt(unsigned int seg)
 	__asm__ volatile("lldt %0" : : "rm" ((unsigned short)(seg)));
 }
 
+static inline void lgdt(uintptr_t *desc)
+{
+	__asm__ volatile("lgdt %0" : : "m" (*desc));
+}
+
+static inline void lidt(uintptr_t *desc)
+{
+	__asm__ volatile("lidt %0" : : "m" (*desc));
+}
+
+static inline void swapgs(void)
+{
+	__asm__ volatile("swapgs");
+}
+
 
 static inline void wbinvd(void)
 {
 	__asm__ volatile("wbinvd");
 }
 
-static inline void invlpg(unsigned long addr)
+static inline void invlpg(uintptr_t addr)
 {
 	__asm__  volatile("invlpg (%0)" :: "r" (addr) : "memory");
 }
@@ -261,12 +277,14 @@ static inline void invlpg(unsigned long addr)
 	__asm__ volatile("wrmsr" : : "c" (msr), "a" (lo), "d" (hi))
 
 #define rdtsc(lo,hi) \
-	__asm__ volatile("rdtsc" : "=a" (lo), "=d" (hi))
+	__asm__ volatile("lfence; rdtsc; lfence" : "=a" (lo), "=d" (hi))
 
 #define write_tsc(lo,hi) wrmsr(0x10, lo, hi)
 
 #define rdpmc(counter,lo,hi) \
 	__asm__ volatile("rdpmc" : "=a" (lo), "=d" (hi) : "c" (counter))
+
+#ifdef __i386__
 
 static inline uint64_t rdmsr64(uint32_t msr)
 {
@@ -283,9 +301,54 @@ static inline void wrmsr64(uint32_t msr, uint64_t val)
 static inline uint64_t rdtsc64(void)
 {
 	uint64_t ret;
-	__asm__ volatile("rdtsc" : "=A" (ret));
+	__asm__ volatile("lfence; rdtsc; lfence" : "=A" (ret));
 	return ret;
 }
+
+static inline uint64_t rdtscp64(uint32_t *aux)
+{
+	uint64_t ret;
+	__asm__ volatile("rdtscp; mov %%ecx, %1"
+				: "=A" (ret), "=m" (*aux)
+				:
+				: "ecx");
+	return ret;
+}
+
+#elif defined(__x86_64__)
+
+static inline uint64_t rdmsr64(uint32_t msr)
+{
+	uint32_t lo=0, hi=0;
+	rdmsr(msr, lo, hi);
+	return (((uint64_t)hi) << 32) | ((uint64_t)lo);
+}
+
+static inline void wrmsr64(uint32_t msr, uint64_t val)
+{
+	wrmsr(msr, (val & 0xFFFFFFFFUL), ((val >> 32) & 0xFFFFFFFFUL));
+}
+
+static inline uint64_t rdtsc64(void)
+{
+	uint32_t lo, hi;
+	rdtsc(lo, hi);
+	return (((uint64_t)hi) << 32) | ((uint64_t)lo);
+}
+
+static inline uint64_t rdtscp64(uint32_t *aux)
+{
+	uint32_t lo, hi;
+	__asm__ volatile("rdtscp; mov %%ecx, %1"
+					 : "=a" (lo), "=d" (hi), "=m" (*aux)
+					 :
+					 : "ecx");
+	return (((uint64_t)hi) << 32) | ((uint64_t)lo);
+}
+
+#else
+#error Unsupported architecture
+#endif
 
 /*
  * rdmsr_carefully() returns 0 when the MSR has been read successfully,
@@ -395,5 +458,8 @@ __END_DECLS
 #define MSR_IA32_FS_BASE	0xC0000100
 #define MSR_IA32_GS_BASE	0xC0000101
 #define MSR_IA32_KERNEL_GS_BASE	0xC0000102
+
+#define MSR_IA32_BIOS_SIGN_ID	0x08B
+
 
 #endif	/* _I386_PROC_REG_H_ */

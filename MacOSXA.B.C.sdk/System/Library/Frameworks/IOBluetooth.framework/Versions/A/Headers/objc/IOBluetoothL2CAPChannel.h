@@ -31,7 +31,7 @@
                 on the IOBluetoothDevice object.
 */
 
-@interface IOBluetoothL2CAPChannel : IOBluetoothObject
+@interface IOBluetoothL2CAPChannel : IOBluetoothObject <NSPortDelegate>
 {
     NSPort										*mDataAvailablePort;
     IODataQueueMemory							*mIncomingDataQueue;
@@ -55,7 +55,7 @@
 	BOOL										mIsClosed;
     IOBluetoothObjectID							mObjectID;
     
-    void										*_mReserved;
+    __strong void								*_mReserved;
 }
 
 /*!

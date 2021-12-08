@@ -2,7 +2,7 @@
    +----------------------------------------------------------------------+
    | PHP Version 5                                                        |
    +----------------------------------------------------------------------+
-   | Copyright (c) 1997-2008 The PHP Group                                |
+   | Copyright (c) 1997-2009 The PHP Group                                |
    +----------------------------------------------------------------------+
    | This source file is subject to version 3.01 of the PHP license,      |
    | that is bundled with this package in the file LICENSE, and is        |
@@ -16,7 +16,7 @@
    +----------------------------------------------------------------------+
 */
 
-/* $Id: html.h,v 1.20.2.1.2.4 2007/12/31 07:20:12 sebastian Exp $ */
+/* $Id: html.h,v 1.20.2.1.2.3.2.3 2008/12/31 11:15:45 sebastian Exp $ */
 
 #ifndef HTML_H
 #define HTML_H
@@ -24,10 +24,12 @@
 #define ENT_HTML_QUOTE_NONE		0
 #define ENT_HTML_QUOTE_SINGLE	1
 #define ENT_HTML_QUOTE_DOUBLE	2
+#define ENT_HTML_IGNORE_ERRORS	4
 
 #define ENT_COMPAT    ENT_HTML_QUOTE_DOUBLE
 #define ENT_QUOTES    (ENT_HTML_QUOTE_DOUBLE | ENT_HTML_QUOTE_SINGLE)
 #define ENT_NOQUOTES  ENT_HTML_QUOTE_NONE
+#define ENT_IGNORE    ENT_HTML_IGNORE_ERRORS
 
 void register_html_constants(INIT_FUNC_ARGS);
 

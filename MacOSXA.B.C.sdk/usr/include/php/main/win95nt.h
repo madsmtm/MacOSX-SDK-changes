@@ -2,7 +2,7 @@
   +----------------------------------------------------------------------+
   | PHP Version 5                                                        |
   +----------------------------------------------------------------------+
-  | Copyright (c) 1997-2008 The PHP Group                                |
+  | Copyright (c) 1997-2009 The PHP Group                                |
   +----------------------------------------------------------------------+
   | This source file is subject to version 3.01 of the PHP license,      |
   | that is bundled with this package in the file LICENSE, and is        |
@@ -16,7 +16,7 @@
   +----------------------------------------------------------------------+
 */
 
-/* $Id: win95nt.h,v 1.20.2.2.2.3 2007/12/31 07:20:15 sebastian Exp $ */
+/* $Id: win95nt.h,v 1.20.2.2.2.2.2.4 2008/12/31 11:15:48 sebastian Exp $ */
 
 /* Defines and types for Windows 95/NT */
 #define HAVE_DECLARED_TIMEZONE
@@ -28,6 +28,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <sys/types.h>
+#include <process.h>
+
 typedef int uid_t;
 typedef int gid_t;
 typedef char * caddr_t;
@@ -72,7 +74,10 @@ typedef long pid_t;
 #endif
 
 /* General Windows stuff */
-#define WINDOWS 1
+#ifndef WINDOWS
+# define WINDOWS 1
+#endif
+
 
 /* Prevent use of VC5 OpenFile function */
 #define NOOPENFILE

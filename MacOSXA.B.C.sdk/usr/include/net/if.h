@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2004 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2008 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  * 
@@ -94,6 +94,7 @@
 #define KEV_DL_PROTO_ATTACHED	14
 #define KEV_DL_PROTO_DETACHED	15
 #define KEV_DL_LINK_ADDRESS_CHANGED	16
+#define KEV_DL_WAKEFLAGS_CHANGED	17
 
 #include <net/if_var.h>
 #include <sys/types.h>
@@ -242,6 +243,10 @@ struct ifkpi {
 	} ifk_data;
 };
 
+/* Wake capabilities of a interface */ 
+#define IF_WAKE_ON_MAGIC_PACKET 	0x01
+
+
 #pragma pack()
 
 /*
@@ -268,6 +273,7 @@ struct	ifreq {
 		caddr_t	ifru_data;
 		struct	ifdevmtu ifru_devmtu;
 		struct	ifkpi	ifru_kpi;
+		u_int32_t ifru_wake_flags;
 	} ifr_ifru;
 #define	ifr_addr	ifr_ifru.ifru_addr	/* address */
 #define	ifr_dstaddr	ifr_ifru.ifru_dstaddr	/* other end of p-to-p link */
@@ -286,6 +292,7 @@ struct	ifreq {
 #define ifr_devmtu	ifr_ifru.ifru_devmtu	
 #define ifr_intval	ifr_ifru.ifru_intval	/* integer value */
 #define ifr_kpi		ifr_ifru.ifru_kpi
+#define ifr_wake_flags	ifr_ifru.ifru_wake_flags /* wake capabilities of devive */
 };
 
 #define	_SIZEOF_ADDR_IFREQ(ifr) \
@@ -333,14 +340,13 @@ struct ifstat {
 	char	ascii[IFSTATMAX + 1];
 };
 
-#pragma pack(4)
-
 /*
  * Structure used in SIOCGIFCONF request.
  * Used to retrieve interface configuration
  * for machine (useful for programs which
  * must know all networks accessible).
  */
+#pragma pack(4)
 struct	ifconf {
 	int	ifc_len;		/* size of associated buffer */
 	union {
@@ -348,10 +354,9 @@ struct	ifconf {
 		struct	ifreq *ifcu_req;
 	} ifc_ifcu;
 };
+#pragma pack()
 #define	ifc_buf	ifc_ifcu.ifcu_buf	/* buffer address */
 #define	ifc_req	ifc_ifcu.ifcu_req	/* array of structures returned */
-
-#pragma pack()
 
 
 /*

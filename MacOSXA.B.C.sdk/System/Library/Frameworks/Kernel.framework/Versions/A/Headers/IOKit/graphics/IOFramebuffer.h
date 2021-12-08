@@ -50,35 +50,6 @@ typedef void (*CursorRemoveProc)(
                     int width,
                     int height );
 
-enum {
-   kHardwareCursorInfoMajorVersion		= 0x0001,
-   kHardwareCursorInfoMinorVersion		= 0x0000
-};
-
-/*!
- * @struct IOHardwareCursorInfo
- * @abstract A structure defining the converted data of a hardware cursor.
- * @discussion This structure is used by IOFramebuffer to return the data of a hardware cursor by convertCursorImage() after conversion based on the IOHardwareCursorDescriptor passed to that routine.
- * @field majorVersion Set to kHardwareCursorInfoMajorVersion.
- * @field minorVersion Set to kHardwareCursorInfoMinorVersion.
- * @field cursorHeight The actual size of the cursor is returned.
- * @field cursorWidth The actual size of the cursor is returned.
- * @field colorMap Pointer to array of IOColorEntry structures, with the number of elements set by the numColors field of the IOHardwareCursorDescriptor. Zero should be passed for direct pixel formats.
- * @field hardwareCursorData Buffer to receive the converted cursor data.
- * @field reserved Reserved, set to zero.
- */
-
-struct IOHardwareCursorInfo {
-   UInt16		majorVersion;
-   UInt16		minorVersion;
-   UInt32		cursorHeight;
-   UInt32		cursorWidth;
-   // nil or big enough for hardware's max colors
-   IOColorEntry *	colorMap;
-   UInt8 *		hardwareCursorData;
-   UInt32		reserved[6];
-};
-typedef struct IOHardwareCursorInfo IOHardwareCursorInfo;
 
 typedef void * IOFBCursorRef;
 
@@ -154,7 +125,9 @@ enum {
 
     kIOFBNotifyCaptureChange	= 30,
 
-    kIOFBNotifyOnlineChange	= 40
+    kIOFBNotifyOnlineChange	= 40,
+
+    kIOFBNotifyDisplayDimsChange = 50
 };
 
 enum {
@@ -332,6 +305,7 @@ public:
     virtual bool start( IOService * provider );
     virtual void stop( IOService * provider );
     virtual void free();
+    virtual IOWorkLoop * getWorkLoop() const;
     virtual IOReturn requestProbe( IOOptionBits options );
 
     virtual IOReturn powerStateWillChangeTo ( IOPMPowerFlags, unsigned long, IOService* );
@@ -577,7 +551,7 @@ public:
     @result an IOReturn code.
 */
 
-    virtual IOReturn setAttribute( IOSelect attribute, UInt32 value );
+    virtual IOReturn setAttribute( IOSelect attribute, uintptr_t value );
 
 /*! @function getAttribute
     @abstract Generic method to retrieve some attribute of the framebuffer device.
@@ -588,7 +562,7 @@ public:
     @result an IOReturn code.
 */
 
-    virtual IOReturn getAttribute( IOSelect attribute, UInt32 * value );
+    virtual IOReturn getAttribute( IOSelect attribute, uintptr_t * value );
 
 /*! @function getTimingInfoForDisplayMode
     @abstract Returns a timing description for a display mode.
@@ -643,7 +617,7 @@ public:
 */
 
     virtual IOReturn setAttributeForConnection( IOIndex connectIndex,
-                    IOSelect attribute, UInt32 value );
+                    IOSelect attribute, uintptr_t value );
 
 /*! @function getAttributeForConnection
     @abstract Generic method to retrieve some attribute of the framebuffer device, specific to one display connection.
@@ -656,7 +630,7 @@ public:
 */
 
     virtual IOReturn getAttributeForConnection( IOIndex connectIndex,
-                    IOSelect attribute, UInt32 * value );
+                    IOSelect attribute, uintptr_t * value );
 
 /*! @function convertCursorImage
     @abstract Utility method of IOFramebuffer to convert cursor image to a hardware cursor format.

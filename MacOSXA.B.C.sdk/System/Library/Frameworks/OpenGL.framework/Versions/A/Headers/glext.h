@@ -1,5 +1,5 @@
 /*
-	Copyright:  (c) 1999-2005 by Apple Computer, Inc., all rights reserved.
+	Copyright:  (c) 1999-2008 Apple Inc. All rights reserved.
 */
 
 #ifndef __glext_h_
@@ -76,6 +76,10 @@ extern "C" {
 #define GL_ARB_shader_texture_lod           1
 #define GL_ARB_texture_float                1
 #define GL_ARB_half_float_pixel             1
+#define GL_ARB_color_buffer_float           1
+#define GL_ARB_half_float_vertex            1
+#define GL_ARB_texture_compression_rgtc     1
+#define GL_ARB_texture_rg                   1
 #define GL_EXT_clip_volume_hint             1
 #define GL_EXT_rescale_normal               1
 #define GL_EXT_blend_color                  1
@@ -87,7 +91,6 @@ extern "C" {
 #define GL_EXT_abgr                         1
 #define GL_EXT_bgra                         1
 #define GL_EXT_texture_filter_anisotropic   1
-#define GL_EXT_paletted_texture             1
 #define GL_EXT_secondary_color              1
 #define GL_EXT_separate_specular_color      1
 #define GL_EXT_texture_compression_s3tc     1
@@ -111,9 +114,11 @@ extern "C" {
 #define GL_EXT_gpu_program_parameters       1
 #define GL_EXT_geometry_shader4             1
 #define GL_EXT_transform_feedback           1
-#define GL_EXT_bindable_uniform		        1
-#define GL_EXT_texture_integer		        1
-#define GL_EXT_gpu_shader4  		        1
+#define GL_EXT_bindable_uniform             1
+#define GL_EXT_texture_integer              1
+#define GL_EXT_gpu_shader4                  1
+#define GL_EXT_draw_buffers2                1
+#define GL_EXT_framebuffer_sRGB             1
 #define GL_APPLE_flush_buffer_range         1
 #define GL_APPLE_specular_vector            1
 #define GL_APPLE_transform_hint             1
@@ -132,29 +137,23 @@ extern "C" {
 #define GL_APPLE_aux_depth_stencil          1
 #define GL_APPLE_row_bytes                  1
 #define GL_APPLE_object_purgeable           1
+#define GL_APPLE_rgb_422                    1
 #define GL_ATI_point_cull_mode              1
 #define GL_ATI_texture_mirror_once          1
 #define GL_ATI_pn_triangles                 1
-#define GL_ATI_text_fragment_shader         1
 #define GL_ATI_blend_equation_separate      1
 #define GL_ATI_blend_weighted_minmax        1
 #define GL_ATI_texture_env_combine3         1
 #define GL_ATI_separate_stencil             1
-#define GL_ATI_array_rev_comps_in_4_bytes   1
 #define GL_ATI_texture_compression_3dc      1
 #define GL_ATI_texture_float                1
 #define GL_ATIX_pn_triangles                1
 #define GL_IBM_rasterpos_clip               1
 #define GL_NV_point_sprite                  1
-#define GL_NV_register_combiners            1
-#define GL_NV_register_combiners2           1
 #define GL_NV_blend_square                  1
 #define GL_NV_fog_distance                  1
 #define GL_NV_multisample_filter_hint       1
 #define GL_NV_texgen_reflection             1
-#define GL_NV_texture_shader                1
-#define GL_NV_texture_shader2               1
-#define GL_NV_texture_shader3               1
 #define GL_NV_depth_clamp                   1
 #define GL_NV_light_max_exponent            1
 #define GL_NV_fragment_program_option       1
@@ -165,6 +164,127 @@ extern "C" {
 #define GL_SGIS_texture_edge_clamp          1
 #define GL_SGIS_generate_mipmap             1
 #define GL_SGIS_texture_lod                 1
+#define GL_NV_conditional_render            1
+
+#ifdef GL_GLEXT_WUNDEF_SUPPORT
+#define GL_EXT_422_pixels                   0
+#define GL_EXT_cmyka                        0
+#define GL_EXT_convolution                  0
+#define GL_EXT_color_subtable               0
+#define GL_EXT_coordinate_frame             0
+#define GL_EXT_copy_texture                 0
+#define GL_EXT_cull_vertex                  0
+#define GL_EXT_fragment_shader              0
+#define GL_EXT_histogram                    0
+#define GL_EXT_index_array_formats          0
+#define GL_EXT_index_func                   0
+#define GL_EXT_index_material               0
+#define GL_EXT_light_texture                0
+#define GL_EXT_multisample                  0
+#define GL_EXT_packed_pixels                0
+#define GL_EXT_pixel_transform              0
+#define GL_EXT_polygon_offset               0
+#define GL_EXT_shared_texture_palette       0
+#define GL_EXT_subtexture                   0
+#define GL_EXT_texture                      0
+#define GL_EXT_texture3D                    0
+#define GL_EXT_texture_array                0
+#define GL_EXT_texture_cube_map             0
+#define GL_EXT_texture_env_combine          0
+#define GL_EXT_texture_object               0
+#define GL_EXT_texture_perturb_normal       0
+#define GL_EXT_timer_query                  0
+#define GL_EXT_vertex_array                 0
+#define GL_EXT_vertex_shader                0
+#define GL_EXT_vertex_weighting             0
+#define GL_EXT_paletted_texture             0
+#define GL_APPLE_vertex_point_size          0
+#define GL_ATI_text_fragment_shader         0
+#define GL_ATI_array_rev_comps_in_4_bytes   0
+#define GL_HP_convolution_border_modes      0
+#define GL_HP_image_transform               0
+#define GL_HP_occlusion_test                0
+#define GL_HP_texture_lighting              0
+#define GL_IBM_cull_vertex                  0
+#define GL_IBM_multimode_draw_arrays        0
+#define GL_IBM_vertex_array_lists           0
+#define GL_INGR_color_clamp                 0
+#define GL_INGR_interlace_read              0
+#define GL_INTEL_parallel_arrays            0
+#define GL_MESA_resize_buffers              0
+#define GL_NV_register_combiners            0
+#define GL_NV_register_combiners2           0
+#define GL_NV_texture_shader                0
+#define GL_NV_texture_shader2               0
+#define GL_NV_texture_shader3               0
+#define GL_NV_texgen_emboss                 0
+#define GL_NV_texture_env_combine4          0
+#define GL_NV_vertex_array_range            0
+#define GL_NV_vertex_array_range2           0
+#define GL_NV_vertex_program                0
+#define GL_PGI_misc_hints                   0
+#define GL_PGI_vertex_hints                 0
+#define GL_REND_screen_coordinates          0
+#define GL_SGI_color_table                  0
+#define GL_SGI_depth_pass_instrument        0
+#define GL_SGI_texture_color_table          0
+#define GL_SGIS_detail_texture              0
+#define GL_SGIS_fog_function                0
+#define GL_SGIS_multisample                 0
+#define GL_SGIS_pixel_texture               0
+#define GL_SGIS_point_line_texgen           0
+#define GL_SGIS_point_parameters            0
+#define GL_SGIS_sharpen_texture             0
+#define GL_SGIS_texture4D                   0
+#define GL_SGIS_texture_border_clamp        0
+#define GL_SGIS_texture_color_mask          0
+#define GL_SGIS_texture_filter4             0
+#define GL_SGIS_texture_select              0
+#define GL_SGIX_async                       0
+#define GL_SGIX_async_histogram             0
+#define GL_SGIX_async_pixel                 0
+#define GL_SGIX_blend_alpha_minmax          0
+#define GL_SGIX_calligraphic_fragment       0
+#define GL_SGIX_clipmap                     0
+#define GL_SGIX_convolution_accuracy        0
+#define GL_SGIX_depth_texture               0
+#define GL_SGIX_flush_raster                0
+#define GL_SGIX_fog_offset                  0
+#define GL_SGIX_fog_scale                   0
+#define GL_SGIX_fragment_lighting           0
+#define GL_SGIX_framezoom                   0
+#define GL_SGIX_igloo_interface             0
+#define GL_SGIX_instruments                 0
+#define GL_SGIX_interlace                   0
+#define GL_SGIX_ir_instrument1              0
+#define GL_SGIX_list_priority               0
+#define GL_SGIX_pixel_texture               0
+#define GL_SGIX_pixel_tiles                 0
+#define GL_SGIX_polynomial_ffd              0
+#define GL_SGIX_reference_plane             0
+#define GL_SGIX_resample                    0
+#define GL_SGIX_shadow                      0
+#define GL_SGIX_sprite                      0
+#define GL_SGIX_subsample                   0
+#define GL_SGIX_tag_sample_buffer           0
+#define GL_SGIX_texture_add_env             0
+#define GL_SGIX_texture_lod_bias            0
+#define GL_SGIX_texture_multi_buffer        0
+#define GL_SGIX_texture_scale_bias          0
+#define GL_SGIX_vertex_preclip              0
+#define GL_SGIX_ycrcb                       0
+#define GL_SGIX_ycrcba                      0
+#define GL_SUN_convolution_border_modes     0
+#define GL_SUN_global_alpha                 0
+#define GL_SUN_triangle_list                0
+#define GL_SUN_vertex                       0
+#define GL_SUNX_constant_data               0
+#define GL_WIN_phong_shading                0
+#define GL_WIN_specular_fog                 0
+#define GL_3DFX_multisample                 0
+#define GL_3DFX_tbuffer                     0
+#define GL_3DFX_texture_compression_FXT1    0
+#endif
 
 /*************************************************************/
 #if GL_ARB_shader_objects
@@ -175,6 +295,14 @@ typedef void *GLhandleARB;
 #if GL_ARB_vertex_buffer_object
 typedef long GLintptrARB;
 typedef long GLsizeiptrARB;
+#endif
+
+#if GL_ARB_half_float_pixel
+typedef unsigned short GLhalfARB;
+#endif
+
+#if GL_ARB_half_float_vertex
+typedef unsigned short GLhalf;
 #endif
 
 /*************************************************************/
@@ -576,7 +704,7 @@ typedef long GLsizeiptrARB;
 #endif
 
 #if GL_ARB_shading_language_100
-#define GL_SHADING_LANGUAGE_VERSION_ARB                    0x8B8C 
+#define GL_SHADING_LANGUAGE_VERSION_ARB                    0x8B8C
 #endif
 
 #if GL_ARB_vertex_buffer_object
@@ -680,7 +808,46 @@ typedef long GLsizeiptrARB;
 #if GL_ARB_half_float_pixel
 #define GL_HALF_FLOAT_ARB                 0x140B
 #endif
-    
+
+#if GL_ARB_color_buffer_float
+#define GL_RGBA_FLOAT_MODE_ARB            0x8820
+#define GL_CLAMP_VERTEX_COLOR_ARB         0x891A
+#define GL_CLAMP_FRAGMENT_COLOR_ARB       0x891B
+#define GL_CLAMP_READ_COLOR_ARB           0x891C
+#define GL_FIXED_ONLY_ARB                 0x891D
+#endif
+
+#if GL_ARB_half_float_vertex
+#define GL_HALF_FLOAT                     0x140B
+#endif
+
+#if GL_ARB_texture_rg
+#define GL_COMPRESSED_RED                 0x8225
+#define GL_COMPRESSED_RG                  0x8226
+#define GL_RG                             0x8227
+#define GL_RG_INTEGER                     0x8228
+#define GL_R8                             0x8229
+#define GL_R16                            0x822A
+#define GL_RG8                            0x822B
+#define GL_RG16                           0x822C
+#define GL_R16F                           0x822D
+#define GL_R32F                           0x822E
+#define GL_RG16F                          0x822F
+#define GL_RG32F                          0x8230
+#define GL_R8I                            0x8231
+#define GL_R8UI                           0x8232
+#define GL_R16I                           0x8233
+#define GL_R16UI                          0x8234
+#define GL_R32I                           0x8235
+#define GL_R32UI                          0x8236
+#define GL_RG8I                           0x8237
+#define GL_RG8UI                          0x8238
+#define GL_RG16I                          0x8239
+#define GL_RG16UI                         0x823A
+#define GL_RG32I                          0x823B
+#define GL_RG32UI                         0x823C
+#endif
+
 #if GL_EXT_abgr
 #define GL_ABGR_EXT                       0x8000
 #endif
@@ -1471,51 +1638,51 @@ typedef long GLsizeiptrARB;
 #endif
 
 #if GL_EXT_packed_depth_stencil
-#define GL_DEPTH_STENCIL_EXT					0x84F9
-#define GL_UNSIGNED_INT_24_8_EXT				0x84FA
-#define GL_DEPTH24_STENCIL8_EXT					0x88F0
-#define GL_TEXTURE_STENCIL_SIZE_EXT				0x88F1
+#define GL_DEPTH_STENCIL_EXT                    0x84F9
+#define GL_UNSIGNED_INT_24_8_EXT                0x84FA
+#define GL_DEPTH24_STENCIL8_EXT                 0x88F0
+#define GL_TEXTURE_STENCIL_SIZE_EXT             0x88F1
 #endif
 
 #if GL_EXT_geometry_shader4
-#define GL_GEOMETRY_SHADER_EXT						0x8DD9
-#define GL_GEOMETRY_VERTICES_OUT_EXT				0x8DDA
-#define GL_GEOMETRY_INPUT_TYPE_EXT					0x8DDB
-#define GL_GEOMETRY_OUTPUT_TYPE_EXT					0x8DDC
-#define GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_EXT		0x8C29
-#define GL_MAX_GEOMETRY_VARYING_COMPONENTS_EXT		0x8DDD
-#define GL_MAX_VERTEX_VARYING_COMPONENTS_EXT		0x8DDE
-#define GL_MAX_VARYING_COMPONENTS_EXT				0x8B4B
-#define GL_MAX_GEOMETRY_UNIFORM_COMPONENTS_EXT		0x8DDF
-#define GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT			0x8DE0
-#define GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_EXT	0x8DE1
-#define GL_LINES_ADJACENCY_EXT						0xA
-#define GL_LINE_STRIP_ADJACENCY_EXT					0xB
-#define GL_TRIANGLES_ADJACENCY_EXT					0xC
-#define GL_TRIANGLE_STRIP_ADJACENCY_EXT				0xD
-#define GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_EXT	0x8DA8
-#define GL_FRAMEBUFFER_INCOMPLETE_LAYER_COUNT_EXT	0x8DA9
-#define GL_FRAMEBUFFER_ATTACHMENT_LAYERED_EXT		0x8DA7
-#define GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT	0x8CD4
-#define GL_PROGRAM_POINT_SIZE_EXT					0x8642
+#define GL_GEOMETRY_SHADER_EXT                      0x8DD9
+#define GL_GEOMETRY_VERTICES_OUT_EXT                0x8DDA
+#define GL_GEOMETRY_INPUT_TYPE_EXT                  0x8DDB
+#define GL_GEOMETRY_OUTPUT_TYPE_EXT                 0x8DDC
+#define GL_MAX_GEOMETRY_TEXTURE_IMAGE_UNITS_EXT     0x8C29
+#define GL_MAX_GEOMETRY_VARYING_COMPONENTS_EXT      0x8DDD
+#define GL_MAX_VERTEX_VARYING_COMPONENTS_EXT        0x8DDE
+#define GL_MAX_VARYING_COMPONENTS_EXT               0x8B4B
+#define GL_MAX_GEOMETRY_UNIFORM_COMPONENTS_EXT      0x8DDF
+#define GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT         0x8DE0
+#define GL_MAX_GEOMETRY_TOTAL_OUTPUT_COMPONENTS_EXT 0x8DE1
+#define GL_LINES_ADJACENCY_EXT                      0xA
+#define GL_LINE_STRIP_ADJACENCY_EXT                 0xB
+#define GL_TRIANGLES_ADJACENCY_EXT                  0xC
+#define GL_TRIANGLE_STRIP_ADJACENCY_EXT             0xD
+#define GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS_EXT 0x8DA8
+#define GL_FRAMEBUFFER_INCOMPLETE_LAYER_COUNT_EXT   0x8DA9
+#define GL_FRAMEBUFFER_ATTACHMENT_LAYERED_EXT       0x8DA7
+#define GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER_EXT 0x8CD4
+#define GL_PROGRAM_POINT_SIZE_EXT                   0x8642
 #endif
 
 #if GL_EXT_transform_feedback
-#define GL_TRANSFORM_FEEDBACK_BUFFER_EXT                      0x8C8E 
-#define GL_TRANSFORM_FEEDBACK_BUFFER_START_EXT                0x8C84 
-#define GL_TRANSFORM_FEEDBACK_BUFFER_SIZE_EXT                 0x8C85 
-#define GL_TRANSFORM_FEEDBACK_BUFFER_BINDING_EXT              0x8C8F 
-#define GL_INTERLEAVED_ATTRIBS_EXT                            0x8C8C 
-#define GL_SEPARATE_ATTRIBS_EXT                               0x8C8D 
-#define GL_PRIMITIVES_GENERATED_EXT                           0x8C87 
-#define GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN_EXT          0x8C88 
-#define GL_RASTERIZER_DISCARD_EXT                             0x8C89 
-#define GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS_EXT  0x8C8A 
-#define GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS_EXT        0x8C8B 
-#define GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS_EXT     0x8C80 
-#define GL_TRANSFORM_FEEDBACK_VARYINGS_EXT                    0x8C83 
+#define GL_TRANSFORM_FEEDBACK_BUFFER_EXT                      0x8C8E
+#define GL_TRANSFORM_FEEDBACK_BUFFER_START_EXT                0x8C84
+#define GL_TRANSFORM_FEEDBACK_BUFFER_SIZE_EXT                 0x8C85
+#define GL_TRANSFORM_FEEDBACK_BUFFER_BINDING_EXT              0x8C8F
+#define GL_INTERLEAVED_ATTRIBS_EXT                            0x8C8C
+#define GL_SEPARATE_ATTRIBS_EXT                               0x8C8D
+#define GL_PRIMITIVES_GENERATED_EXT                           0x8C87
+#define GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN_EXT          0x8C88
+#define GL_RASTERIZER_DISCARD_EXT                             0x8C89
+#define GL_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS_EXT  0x8C8A
+#define GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS_EXT        0x8C8B
+#define GL_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS_EXT     0x8C80
+#define GL_TRANSFORM_FEEDBACK_VARYINGS_EXT                    0x8C83
 #define GL_TRANSFORM_FEEDBACK_BUFFER_MODE_EXT                 0x8C7F
-#define GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH_EXT          0x8C76 
+#define GL_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH_EXT          0x8C76
 #endif
 
 #if GL_EXT_bindable_uniform
@@ -1608,6 +1775,11 @@ typedef long GLsizeiptrARB;
 #define GL_MAX_PROGRAM_TEXEL_OFFSET_EXT                       0x8905
 #endif
 
+#if GL_EXT_framebuffer_sRGB
+#define GL_FRAMEBUFFER_SRGB_EXT                 0x8DB9
+#define GL_FRAMEBUFFER_SRGB_CAPABLE_EXT         0x8DBA
+#endif
+
 #if GL_APPLE_vertex_array_range
 #define GL_VERTEX_ARRAY_RANGE_APPLE             0x851D
 #define GL_VERTEX_ARRAY_RANGE_LENGTH_APPLE      0x851E
@@ -1628,12 +1800,11 @@ typedef long GLsizeiptrARB;
 #define GL_ELEMENT_ARRAY_APPLE             0x8A0C
 #define GL_ELEMENT_ARRAY_TYPE_APPLE        0x8A0D
 #define GL_ELEMENT_ARRAY_POINTER_APPLE     0x8A0E
-#define GL_ELEMENT_BUFFER_BINDING_APPLE    0x8A11
 #endif
 
 #if GL_APPLE_fence
 #define GL_DRAW_PIXELS_APPLE              0x8A0A
-#define GL_FENCE_APPLE             	      0x8A0B
+#define GL_FENCE_APPLE                    0x8A0B
 #define GL_BUFFER_OBJECT_APPLE            0x85B3
 #endif
 
@@ -1651,6 +1822,13 @@ typedef long GLsizeiptrARB;
 
 #if GL_APPLE_ycbcr_422
 #define GL_YCBCR_422_APPLE                 0x85B9
+#endif
+
+#if GL_APPLE_rgb_422
+#define GL_RGB_422_APPLE                   0x8A1F
+#endif
+	
+#if GL_APPLE_ycbcr_422 || GL_APPLE_rgb_422
 #define GL_UNSIGNED_SHORT_8_8_APPLE        0x85BA
 #define GL_UNSIGNED_SHORT_8_8_REV_APPLE    0x85BB
 #endif
@@ -1716,13 +1894,23 @@ typedef long GLsizeiptrARB;
 #endif
 
 #if GL_APPLE_object_purgeable
-#define GL_RELEASED_APPLE					0x8A19
-#define GL_VOLATILE_APPLE					0x8A1A
-#define GL_RETAINED_APPLE					0x8A1B
-#define GL_UNDEFINED_APPLE					0x8A1C
-#define GL_PURGEABLE_APPLE					0x8A1D
+#define GL_RELEASED_APPLE                 0x8A19
+#define GL_VOLATILE_APPLE                 0x8A1A
+#define GL_RETAINED_APPLE                 0x8A1B
+#define GL_UNDEFINED_APPLE                0x8A1C
+#define GL_PURGEABLE_APPLE                0x8A1D
 #endif
 
+#if GL_APPLE_vertex_point_size
+#define GL_VERTEX_POINT_SIZE_APPLE               0x8A26
+#define GL_CURRENT_POINT_SIZE_APPLE              0x8A27
+#define GL_POINT_SIZE_ARRAY_APPLE                0x8B9C
+#define GL_POINT_SIZE_ARRAY_TYPE_APPLE           0x898A
+#define GL_POINT_SIZE_ARRAY_STRIDE_APPLE         0x898B
+#define GL_POINT_SIZE_ARRAY_POINTER_APPLE        0x898C
+#define GL_POINT_SIZE_ARRAY_BUFFER_BINDING_APPLE 0x8B9F
+#endif
+	
 #if GL_ATI_blend_weighted_minmax
 #define GL_MIN_WEIGHTED_ATI               0x877D
 #define GL_MAX_WEIGHTED_ATI               0x877E
@@ -1790,6 +1978,13 @@ typedef long GLsizeiptrARB;
 
 #if GL_ATI_texture_compression_3dc
 #define GL_COMPRESSED_LUMINANCE_ALPHA_3DC_ATI           0x8837
+#endif
+
+#if GL_ARB_texture_compression_rgtc
+#define GL_COMPRESSED_RED_RGTC1                       0x8DBB
+#define GL_COMPRESSED_SIGNED_RED_RGTC1                0x8DBC
+#define GL_COMPRESSED_RG_RGTC2                        0x8DBD
+#define GL_COMPRESSED_SIGNED_RG_RGTC2                 0x8DBE
 #endif
 
 #if GL_ATI_texture_float
@@ -2198,8 +2393,8 @@ typedef long GLsizeiptrARB;
 #endif
 
 #if GL_NV_light_max_exponent
-#define GL_MAX_SHININESS_NV				                 0x8504
-#define GL_MAX_SPOT_EXPONENT_NV				             0x8505
+#define GL_MAX_SHININESS_NV                              0x8504
+#define GL_MAX_SPOT_EXPONENT_NV                          0x8505
 #endif
 
 #if GL_NV_fragment_program2 || GL_NV_vertex_program2_option
@@ -2211,6 +2406,13 @@ typedef long GLsizeiptrARB;
 #define GL_MAX_PROGRAM_IF_DEPTH_NV                       0x88F6
 #define GL_MAX_PROGRAM_LOOP_DEPTH_NV                     0x88F7
 #define GL_MAX_PROGRAM_LOOP_COUNT_NV                     0x88F8
+#endif
+
+#if GL_NV_conditional_render
+#define GL_QUERY_WAIT_NV                                 0x8E13
+#define GL_QUERY_NO_WAIT_NV                              0x8E14
+#define GL_QUERY_BY_REGION_WAIT_NV                       0x8E15
+#define GL_QUERY_BY_REGION_NO_WAIT_NV                    0x8E16
 #endif
 
 #if GL_PGI_vertex_hints
@@ -3226,6 +3428,14 @@ typedef void (* glDrawBuffersARBProcPtr) (GLsizei n, const GLenum *bufs);
 extern void glDrawBuffersARB(GLsizei n, const GLenum *bufs);
 #endif
 
+#if GL_ARB_color_buffer_float
+#ifdef GL_GLEXT_FUNCTION_POINTERS
+typedef void (* glClampColorARBProcPtr) (GLenum target, GLenum clamp);
+#else
+#endif /* GL_GLEXT_FUNCTION_POINTERS */
+extern void glClampColorARB(GLenum target, GLenum clamp);
+#endif
+
 
 #if GL_EXT_blend_color
 #ifdef GL_GLEXT_FUNCTION_POINTERS
@@ -3864,8 +4074,6 @@ typedef void (* glBeginTransformFeedbackEXTProcPtr) (GLenum primitiveMode);
 typedef void (* glEndTransformFeedbackEXTProcPtr) (void);
 typedef void (* glTransformFeedbackVaryingsEXTProcPtr) (GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode);
 typedef void (* glGetTransformFeedbackVaryingEXTProcPtr) (GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name);
-typedef void (* glGetIntegerIndexedvEXTProcPtr) (GLenum param, GLint index, GLint *values); 
-typedef void (* glGetBooleanIndexedvEXTProcPtr) (GLenum param, GLint index, GLboolean *values);
 #else
 extern void glBindBufferRangeEXT(GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
 extern void glBindBufferOffsetEXT(GLenum target, GLuint index, GLuint buffer, GLintptr offset);
@@ -3874,10 +4082,18 @@ extern void glBeginTransformFeedbackEXT(GLenum primitiveMode);
 extern void glEndTransformFeedbackEXT(void);
 extern void glTransformFeedbackVaryingsEXT(GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode);
 extern void glGetTransformFeedbackVaryingEXT(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name);
-extern void glGetIntegerIndexedvEXT(GLenum param, GLuint index, GLint *values); 
-extern void glGetBooleanIndexedvEXT(GLenum param, GLuint index, GLboolean *values);
 #endif
 #endif /* GL_EXT_transform_feedback */
+
+#if GL_EXT_transform_feedback || GL_EXT_draw_buffers2
+#ifdef GL_GLEXT_FUNCTION_POINTERS
+typedef void (* glGetIntegerIndexedvEXTProcPtr) (GLenum param, GLint index, GLint *values);
+typedef void (* glGetBooleanIndexedvEXTProcPtr) (GLenum param, GLint index, GLboolean *values);
+#else
+extern void glGetIntegerIndexedvEXT(GLenum param, GLuint index, GLint *values);
+extern void glGetBooleanIndexedvEXT(GLenum param, GLuint index, GLboolean *values);
+#endif
+#endif /* GL_EXT_transform_feedback || GL_EXT_draw_buffers2 */
 
 #if GL_EXT_bindable_uniform
 #ifdef GL_GLEXT_FUNCTION_POINTERS
@@ -3898,14 +4114,14 @@ typedef void (*glClearColorIuiEXTProcPtr) ( GLuint r, GLuint g, GLuint b, GLuint
 typedef void (*glTexParameterIivEXTProcPtr)( GLenum target, GLenum pname, GLint *params );
 typedef void (*glTexParameterIuivEXTProcPtr)( GLenum target, GLenum pname, GLuint *params );
 typedef void (*glGetTexParameterIivEXTProcPtr) ( GLenum target, GLenum pname, GLint *params);
-typedef void (*glGetTexParameterIiuvEXTProcPtr) ( GLenum target, GLenum pname, GLuint *params);
+typedef void (*glGetTexParameterIuivEXTProcPtr) ( GLenum target, GLenum pname, GLuint *params);
 #else
 extern void glClearColorIiEXT( GLint r, GLint g, GLint b, GLint a );
 extern void glClearColorIuiEXT( GLuint r, GLuint g, GLuint b, GLuint a );
 extern void glTexParameterIivEXT( GLenum target, GLenum pname, GLint *params );
 extern void glTexParameterIuivEXT( GLenum target, GLenum pname, GLuint *params );
 extern void glGetTexParameterIivEXT( GLenum target, GLenum pname, GLint *params);
-extern void glGetTexParameterIiuvEXT( GLenum target, GLenum pname, GLuint *params);
+extern void glGetTexParameterIuivEXT( GLenum target, GLenum pname, GLuint *params);
 #endif
 #endif /* GL_EXT_texture_integer */
 
@@ -3982,6 +4198,20 @@ extern void glBindFragDataLocationEXT(GLuint program, GLuint colorNumber, const 
 extern GLint glGetFragDataLocationEXT(GLuint program, const GLchar *name);
 #endif
 #endif /* GL_EXT_gpu_shader4 */
+
+#if GL_EXT_draw_buffers2
+#ifdef GL_GLEXT_FUNCTION_POINTERS
+typedef void (* glColorMaskIndexedEXTProcPtr) (GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
+typedef void (* glEnableIndexedEXTProcPtr) (GLenum target, GLuint index);
+typedef void (* glDisableIndexedEXTProcPtr) (GLenum target, GLuint index);
+typedef GLboolean (* glIsEnabledIndexedEXTProcPtr) (GLenum target, GLuint index);
+#else
+extern void glColorMaskIndexedEXT(GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
+extern void glEnableIndexedEXT(GLenum target, GLuint index);
+extern void glDisableIndexedEXT(GLenum target, GLuint index);
+extern GLboolean glIsEnabledIndexedEXT(GLenum target, GLuint index);
+#endif /* GL_GLEXT_FUNCTION_POINTERS */
+#endif
 
 #if GL_APPLE_texture_range
 #ifdef GL_GLEXT_FUNCTION_POINTERS
@@ -4109,6 +4339,16 @@ extern GLenum glObjectPurgeableAPPLE(GLenum objectType, GLuint name, GLenum opti
 extern GLenum glObjectUnpurgeableAPPLE(GLenum objectType, GLuint name, GLenum option);
 extern void   glGetObjectParameterivAPPLE(GLenum objectType, GLuint name, GLenum pname, GLint* params);
 #endif /* GL_GLEXT_FUNCTION_POINTERS */
+#endif
+
+#if GL_APPLE_vertex_point_size
+#ifdef GL_GLEXT_FUNCTION_POINTERS
+typedef void (* glPointSizePointerAPPLEProcPtr) (GLenum type, GLsizei stride, const GLvoid *pointer);
+typedef void (* glVertexPointSizefAPPLEProcPtr) (GLfloat size);
+#else
+extern void glPointSizePointerAPPLE(GLenum type, GLsizei stride, const GLvoid *pointer);
+extern void glVertexPointSizefAPPLE(GLfloat size);
+#endif
 #endif
 
 #if GL_ATI_pn_triangles
@@ -4854,6 +5094,15 @@ typedef void (* glTbufferMask3DFXProcPtr) (GLuint);
 #else
 extern void glTbufferMask3DFX (GLuint);
 #endif /* GL_GLEXT_FUNCTION_POINTERS */
+#endif
+
+
+#ifdef GL_GLEXT_FUNCTION_POINTERS
+typedef void (* glBeginConditionalRenderNVProcPtr) (GLuint id, GLenum mode);
+typedef void (* glEndConditionalRenderNVProcPtr) ();
+#else
+extern void glBeginConditionalRenderNV (GLuint id, GLenum mode);
+extern void glEndConditionalRenderNV (void);
 #endif
 
 #ifdef __cplusplus

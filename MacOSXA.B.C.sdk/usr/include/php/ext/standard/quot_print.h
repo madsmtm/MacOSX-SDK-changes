@@ -2,7 +2,7 @@
    +----------------------------------------------------------------------+
    | PHP Version 5                                                        |
    +----------------------------------------------------------------------+
-   | Copyright (c) 1997-2008 The PHP Group                                |
+   | Copyright (c) 1997-2009 The PHP Group                                |
    +----------------------------------------------------------------------+
    | This source file is subject to version 3.01 of the PHP license,      |
    | that is bundled with this package in the file LICENSE, and is        |
@@ -16,13 +16,15 @@
    +----------------------------------------------------------------------+
 */
 
-/* $Id: quot_print.h,v 1.13.2.1.2.2 2007/12/31 07:20:13 sebastian Exp $ */
+/* $Id: quot_print.h,v 1.13.2.1.2.1.2.3 2008/12/31 11:15:45 sebastian Exp $ */
 
 #ifndef QUOT_PRINT_H
 #define QUOT_PRINT_H
 
 PHPAPI unsigned char *php_quot_print_decode(const unsigned char *str, size_t length, size_t *ret_length, int replace_us_by_ws);
+PHPAPI unsigned char *php_quot_print_encode(const unsigned char *str, size_t length, size_t *ret_length);
 
 PHP_FUNCTION(quoted_printable_decode);
+PHP_FUNCTION(quoted_printable_encode);
 
 #endif /* QUOT_PRINT_H */

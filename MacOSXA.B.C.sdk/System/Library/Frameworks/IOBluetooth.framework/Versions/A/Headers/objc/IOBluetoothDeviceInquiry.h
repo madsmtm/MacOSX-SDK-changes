@@ -1,9 +1,7 @@
 /*
 	Contains:	A way to find bluetooth devices.
-	Copyright:	(C) 2004 by Apple Computer, Inc., all rights reserved.
+	Copyright:	(c) 2008 by Apple Computer, Inc., all rights reserved.
 */
-
-#import <Foundation/Foundation.h>
 
 #import <IOBluetooth/Bluetooth.h>
 #import <IOBluetooth/IOBluetoothUserLib.h>
@@ -12,6 +10,7 @@
 //	Forward Declarations
 //===========================================================================================================================
 
+@class NSMutableArray;
 @class IOBluetoothDevice;
 
 //===========================================================================================================================
@@ -36,10 +35,10 @@
 @private
 	
 	void *							_nameRequestHintType;
-	void *							_searchAttributes;
+	IOBluetoothDeviceSearchAttributes *_searchAttributes;
 	void *							_deviceAttributes;
 
-	void *							_expansion[4];
+	__strong void *					_expansion[4];
 
 	id								_delegate;
 

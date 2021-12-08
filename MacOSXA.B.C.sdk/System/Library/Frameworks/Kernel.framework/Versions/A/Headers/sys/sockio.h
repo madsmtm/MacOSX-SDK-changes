@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2007 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2008 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  * 
@@ -77,11 +77,6 @@
 #define	SIOCSPGRP	 _IOW('s',  8, int)		/* set process group */
 #define	SIOCGPGRP	 _IOR('s',  9, int)		/* get process group */
 
-#if 0
-#define        SIOCADDRT        _IOW('r', 10, struct ortentry) /* add route */
-#define        SIOCDELRT        _IOW('r', 11, struct ortentry) /* delete route */
-#endif
-
 /*
  * OSIOCGIF* ioctls are deprecated; they are kept for binary compatibility.
  */
@@ -105,7 +100,6 @@
 #define	SIOCGIFADDR	_IOWR('i', 33, struct ifreq)	/* get ifnet address */
 #define	SIOCGIFDSTADDR	_IOWR('i', 34, struct ifreq)	/* get p-p address */
 #define	SIOCGIFBRDADDR	_IOWR('i', 35, struct ifreq)	/* get broadcast addr */
-#define	SIOCGIFCONF	_IOWR('i', 36, struct ifconf)	/* get ifnet list */
 #define	SIOCGIFNETMASK	_IOWR('i', 37, struct ifreq)	/* get net addr mask */
 #define SIOCAUTOADDR	_IOWR('i', 38, struct ifreq)	/* autoconf address */
 #define SIOCAUTONETMASK	_IOW('i', 39, struct ifreq)	/* autoconf netmask */
@@ -155,5 +149,7 @@
 #define SIOCSIFMAC	_IOW('i', 131, struct ifreq)	/* set IF MAC label */
 #define	SIOCSIFKPI	_IOW('i', 134, struct ifreq) /* set interface kext param - root only */
 #define	SIOCGIFKPI	_IOWR('i', 135, struct ifreq) /* get interface kext param */
+
+#define	SIOCGIFWAKEFLAGS _IOWR('i', 136, struct ifreq) /* get interface wake property flags */
 
 #endif /* !_SYS_SOCKIO_H_ */
