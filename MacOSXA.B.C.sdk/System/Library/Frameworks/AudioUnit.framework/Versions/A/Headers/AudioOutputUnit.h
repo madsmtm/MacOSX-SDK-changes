@@ -14,8 +14,6 @@
                      http://developer.apple.com/bugreporter/
  
 */
-/*·#endif forMasterInterfaces*/
-/*·#ifndef forMergedInterfaces*/
 #ifndef __AUDIOOUTPUTUNIT__
 #define __AUDIOOUTPUTUNIT__
 
@@ -44,7 +42,6 @@ extern "C" {
     #pragma pack(2)
 #endif
 
-/*·#endif forMergedInterfaces*/
 
 /*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,7 +67,6 @@ AudioOutputUnitStop(AudioUnit ci)                             FIVEWORDINLINE(0x2
 
 
 
-/*·#ifndef forMergedInterfaces*/
 
 /* UPP call backs */
 
@@ -80,7 +76,6 @@ enum {
     kAudioOutputUnitStopSelect                 = 0x0202
 };
 
-/*·#endif forMergedInterfaces*/
 
 #if PRAGMA_STRUCT_ALIGN
     #pragma options align=reset

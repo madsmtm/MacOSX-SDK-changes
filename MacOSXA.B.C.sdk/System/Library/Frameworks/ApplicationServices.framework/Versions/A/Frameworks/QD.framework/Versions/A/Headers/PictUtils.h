@@ -3,7 +3,7 @@
  
      Contains:   Picture Utilities Interfaces.
  
-     Version:    Quickdraw-96.21~4
+     Version:    Quickdraw-96.21~1
  
      Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
  

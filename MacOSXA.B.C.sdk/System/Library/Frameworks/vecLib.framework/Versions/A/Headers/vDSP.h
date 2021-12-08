@@ -3,7 +3,7 @@
  
      Contains:   AltiVec DSP Interfaces
  
-     Version:    vecLib-141.7~1
+     Version:    vecLib-138.1~9
  
      Copyright:  © 2000-2002 by Apple Computer, Inc., all rights reserved.
  

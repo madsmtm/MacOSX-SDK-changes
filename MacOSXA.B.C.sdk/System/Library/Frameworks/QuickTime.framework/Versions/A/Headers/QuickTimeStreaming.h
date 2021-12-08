@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -1830,8 +1830,7 @@ enum {
 /* these data types are specific to presentations */
 enum {
   kQTSRTSPDataType              = 'rtsp',
-  kQTSSDPDataType               = 'sdp ',
-  kQTSSIPDataType               = 'sip '
+  kQTSSDPDataType               = 'sdp '
 };
 
 /*-----------------------------------------
@@ -1929,8 +1928,7 @@ enum {
 
 enum {
   kQTSDirectConnectHTTPProtocol = 'http',
-  kQTSDirectConnectRTSPProtocol = 'rtsp',
-  kQTSDirectConnectSIPProtocol  = 'sip '
+  kQTSDirectConnectRTSPProtocol = 'rtsp'
 };
 
 struct QTSDirectConnectPrefsRecord {
@@ -2001,7 +1999,6 @@ enum {
   kQTSHTTPProxyPrefsType        = 'http', /*     http proxy settings*/
   kQTSRTSPProxyPrefsType        = 'rtsp', /*     rtsp proxy settings*/
   kQTSSOCKSProxyPrefsType       = 'sock', /*     socks proxy settings*/
-  kQTSSIPProxyPrefsType         = 'sip ', /*     sip proxy settings*/
   kQTSProxyUserInfoPrefsType    = 'user', /*   proxy username/password root atom*/
   kQTSDontProxyPrefsAtomType    = 'nopr', /*   no-proxy prefs root atom*/
   kQTSDontProxyDataType         = 'data', /*     no proxy settings*/

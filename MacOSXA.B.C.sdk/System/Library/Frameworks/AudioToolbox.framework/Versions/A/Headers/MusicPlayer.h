@@ -33,7 +33,7 @@ extern "C"
 // Basic idea behind the Sequencing Services APIs:
 //
 //		A MusicSequence contains an arbitrary number of tracks (MusicTrack)
-//		each of which contains time-stamped (typically in units of beats, or seconds )
+//		each of which contains time-stamped (in units of beats)
 //		events in time-increasing order.  There are various types of events, defined below,
 //		including the expected MIDI events, tempo, and extended events.
 //		A MusicTrack has properties which may be inspected and assigned, including support
@@ -54,17 +54,20 @@ extern "C"
 //
 // MusicTrack properties are:
 //		- AUNode (in the AUGraph) of the AudioUnit addressed by the MusicTrack
-//		- textual info
 //		- mute / solo state
 //		- offset time
 //		- loop time and number of loops
+//				The default looping behaviour is to loop once through the entire track
+//				pass zero in for inNumberOfLoops to loop forever
 //		- time units for the event timestamps (beats, seconds, ...)
 //			beats go through tempo map, seconds map absolute time
 //		- automated - in this case the track:
 //			(1) Can only contain parameter events
 //				- these events are interpreted as points in the automation curve
 //			(2) Track can only address a v2 AudioUnit 
-
+//		- duration - the time of the last event in the track plus any additional time that is allowed
+//			when for instance a MIDI file is read in and puts its end of track event past the last event
+//			to allow for fading out of ending notes
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,8 +86,22 @@ enum
 	kMusicEventType_MIDIChannelMessage,	// MIDI channel messages (other than note-on/off)
 	kMusicEventType_MIDIRawData,		// for system exclusive data
 	kMusicEventType_Parameter,			// general purpose AudioUnit parameter
+	kMusicEventType_AUPreset,			// this is the AU's user preset CFDictionaryRef (the ClassInfo property)
 	kMusicEventType_Last				// always keep at end
 };
+
+// these are flags that can be passed in with MusicSequenceLoadSMFDataWithFlags
+
+enum
+{
+	//if this flag is set the resultant Sequence will contain:
+	// a tempo track
+	// 1 track for each MIDI Channel that is found in the SMF
+	// 1 track for SysEx or MetaEvents - this will be the last track 
+	// in the sequence after the LoadSMFWithFlags calls
+	kMusicSequenceLoadSMF_ChannelsToTracks 	= (1 << 0)
+};
+typedef UInt32		MusicSequenceLoadFlags;
 
 typedef UInt32		MusicEventType;
 typedef Float64		MusicTimeStamp;
@@ -103,7 +120,7 @@ typedef struct MIDINoteMessage
 	UInt8		channel;
 	UInt8		note;
 	UInt8		velocity;
-	UInt8		reserved;
+	UInt8		releaseVelocity;	// was "reserved". 0 is the correct value when you don't know.
 	Float32		duration;
 } MIDINoteMessage;
 
@@ -147,15 +164,6 @@ typedef struct ExtendedNoteOnEvent
 	MusicDeviceNoteParams		extendedParams;
 } ExtendedNoteOnEvent;
 
-// allocated space for 16 arguments
-typedef struct ExtendedNoteOnEvent16
-{
-	MusicDeviceInstrumentID		instrumentID;
-	MusicDeviceGroupID			groupID;
-	Float32						duration;
-	MusicDeviceNoteParams16		extendedParams;
-} ExtendedNoteOnEvent16;
-
 typedef struct ExtendedControlEvent
 {
 	MusicDeviceGroupID			groupID;
@@ -176,10 +184,26 @@ typedef struct ExtendedTempoEvent
 	Float64		bpm;
 } ExtendedTempoEvent;
 
+typedef struct AUPresetEvent
+{
+	AudioUnitScope				scope;
+    AudioUnitElement			element;
+	CFPropertyListRef 			preset;
+} AUPresetEvent;
+
 typedef struct OpaqueMusicPlayer		*MusicPlayer;
 typedef struct OpaqueMusicSequence		*MusicSequence;
 typedef struct OpaqueMusicTrack			*MusicTrack;
 typedef struct OpaqueMusicEventIterator *MusicEventIterator;
+
+// See MusicSequenceSetUserCallback
+typedef CALLBACK_API_C( void , MusicSequenceUserCallback )(void 	*inClientData,
+										MusicSequence					inSequence,
+										MusicTrack						inTrack,
+										MusicTimeStamp					inEventTime,
+										const MusicEventUserData		*inEventData,
+										MusicTimeStamp					inStartSliceBeat,
+										MusicTimeStamp					inEndSliceBeat);
 
 enum
 {
@@ -190,8 +214,14 @@ enum
     kAudioToolboxErr_IllegalTrackDestination = -10855,
     kAudioToolboxErr_NoSequence 			= -10854,
 	kAudioToolboxErr_InvalidEventType		= -10853,
-	kAudioToolboxErr_InvalidPlayerState		= -10852
+	kAudioToolboxErr_InvalidPlayerState		= -10852,
+	kAudioToolboxErr_CannotDoInCurrentContext = -10863
 };
+
+// Can't dispose a sequence whilst a MusicPlayer has it. Thus either, before disposing a MusicSequence
+// you either DiposeMusicPlayer or MusicPlayerSetSequence (NULL or another sequence)
+// DisposeMusicSequence will return kAudioToolboxErr_CannotDoInCurrentContext if disposing a sequence 
+// that is in use.
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MusicPlayer (transport) API's
@@ -203,6 +233,9 @@ extern OSStatus			DisposeMusicPlayer(		MusicPlayer		inPlayer );
 
 extern OSStatus			MusicPlayerSetSequence(	MusicPlayer 	inPlayer,
 												MusicSequence 	inSequence);
+
+extern OSStatus			MusicPlayerGetSequence(	MusicPlayer 	inPlayer,
+												MusicSequence 	*outSequence);
 
 								
 // The Get and Set Time calls take a specification of time
@@ -257,6 +290,12 @@ extern OSStatus			MusicPlayerStop(		MusicPlayer 	inPlayer);
 // MusicSequence, but it is still considered to be playing (and its time value increasing)
 // in that situation.
 extern OSStatus			MusicPlayerIsPlaying (	MusicPlayer 	inPlayer, Boolean* outIsPlaying);
+
+// This call will Scale the playback rate by the specified amount
+// It will alter the scheduling of events - so cannot be 0 or less than zero.
+extern OSStatus 		MusicPlayerSetPlayRateScalar (MusicPlayer inPlayer, Float64 inScaleRate);
+
+extern OSStatus			MusicPlayerGetPlayRateScalar (MusicPlayer inPlayer, Float64 *outScaleRate);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MusicSequence API's
@@ -329,6 +368,19 @@ extern OSStatus			MusicSequenceLoadSMF(		MusicSequence 	inSequence,
 extern OSStatus			MusicSequenceLoadSMFData(	MusicSequence	inSequence,
 													CFDataRef		inData );
 
+// passing a value of zero for the flags makes this call equivalent to MusicSequenceLoadSMFData
+// a paramErr is returned if the sequence has ANY data in it and the flags value is != 0
+// This will create a sequence with the first tracks containing MIDI Channel data
+// IF the MIDI file had Meta events or SysEx data, then the last track in the sequence
+// will contain that data.
+extern OSStatus			MusicSequenceLoadSMFWithFlags (MusicSequence			inSequence,
+													FSRef					*inFileRef,
+													MusicSequenceLoadFlags	inFlags );
+
+extern OSStatus			MusicSequenceLoadSMFDataWithFlags (	MusicSequence	inSequence,
+													CFDataRef				inData,
+													MusicSequenceLoadFlags	inFlags );
+
 								
 // inResolution is relationship between "tick" and quarter note for saving to SMF
 //  - pass in zero to use default (480 PPQ, normally)
@@ -357,6 +409,23 @@ extern OSStatus			MusicSequenceGetBeatsForSeconds (MusicSequence	inSequence,
 												  Float64				inSeconds,
 												  MusicTimeStamp*		outBeats);
 
+// This call is used to register (or remove if inCallback is NULL) a callback 
+// that the MusicSequence will call for ANY UserEvents that are added to any of the
+// tracks of the sequence.
+// If there is a callback registered, then UserEvents WILL BE CHASED when 
+// MusicPlayerSetTime is called. In that case the inStartSliceBeat and inEndSliceBeat
+// will both be the same value and will be the beat that the player is chasing too.
+// In normal cases, where the sequence data is being scheduled for playback, the
+// following will apply:
+//	inStartSliceBeat <= inEventTime < inEndSliceBeat
+// The only exception to this is if the track that owns the MusicEvent is looping.
+// In this case the start beat will still be less than the end beat (so your callback
+// can still determine that it is playing, and what beats are currently being scheduled),
+// however, the inEventTime will be the original time-stamped time of the user event. 
+extern OSStatus			MusicSequenceSetUserCallback (MusicSequence		inSequence,
+										MusicSequenceUserCallback		inCallback,
+										void*							inClientData);
+												
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // MusicTrack API's
 
@@ -391,20 +460,14 @@ extern OSStatus			MusicTrackSetProperty(	MusicTrack 			inTrack,
 												void				*inData,
 												UInt32				inLength );
 
-// if inData is NULL, then the length of the data will be passed back in outLength
+// if outData is NULL, then the length of the data will be passed back in outLength
 // This allows the client to allocate a buffer of the correct size (useful for variable
 // length properties -- currently all properties have fixed size)
 extern OSStatus			MusicTrackGetProperty(	MusicTrack 			inTrack,
 												UInt32 				inPropertyID,
-												void				*inData,
+												void				*outData,
 												UInt32				*ioLength );
 
-// Notes on properties
-//
-//	kSequenceTrackProperty_LoopInfo
-//		The default looping behaviour is to loop once through the entire track
-//		pass zero in for inNumberOfLoops to loop forever
-//		
 
 // the values for these properties are always passed by addressed (with get or set)
 enum
@@ -418,7 +481,9 @@ enum
 		// Boolean soloState;
 	kSequenceTrackProperty_SoloStatus = 3,
 		//UInt32 automatedState;
-	kSequenceTrackProperty_AutomatedParameters = 4
+	kSequenceTrackProperty_AutomatedParameters = 4,
+		// MusicTimeStamp trackLength
+	kSequenceTrackProperty_TrackLength = 5
 };
 
 
@@ -517,6 +582,8 @@ extern OSStatus			MusicEventIteratorPreviousEvent(MusicEventIterator 	inIterator
 //		kMusicEventType_MIDINoteMessage			MIDINoteMessage*
 //		kMusicEventType_MIDIChannelMessage		MIDIChannelMessage*
 //		kMusicEventType_MIDIRawData				MIDIRawData*
+//		kMusicEventType_Parameter				ParameterEvent*
+//		kMusicEventType_AUPreset				AUPresetEvent*
 extern OSStatus			MusicEventIteratorGetEventInfo(
 													MusicEventIterator 		inIterator,
 													MusicTimeStamp			*outTimeStamp,
@@ -607,6 +674,10 @@ extern OSStatus			MusicTrackNewMetaEvent(	MusicTrack 				inTrack,
 extern OSStatus			MusicTrackNewUserEvent(	MusicTrack 					inTrack,
 												MusicTimeStamp			 	inTimeStamp,
 										        const MusicEventUserData* 	inUserData);
+
+extern OSStatus			MusicTrackNewAUPresetEvent(	MusicTrack 					inTrack,
+													MusicTimeStamp			 	inTimeStamp,
+													const AUPresetEvent *		inPresetEvent);
 																												
 #if defined(__cplusplus)
 }

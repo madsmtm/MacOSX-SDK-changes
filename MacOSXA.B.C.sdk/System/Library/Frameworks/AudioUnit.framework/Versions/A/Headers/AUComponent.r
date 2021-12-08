@@ -3,8 +3,7 @@
  
      Contains:   AudioUnit Interfaces
  
-     Version:    Technology: System X
-                 Release:    Mac OS X
+     Version:    Mac OS X
  
      Copyright:  © 2002 by Apple Computer, Inc., all rights reserved.
  
@@ -32,6 +31,7 @@
 #define kAudioUnitType_MusicEffect 		'aumf'
 #define kAudioUnitType_FormatConverter 	'aufc'
 #define kAudioUnitSubType_AUConverter 	'conv'
+#define kAudioUnitSubType_Varispeed 	'vari'
 #define kAudioUnitType_Effect 			'aufx'
 #define kAudioUnitSubType_Delay 		'dely'
 #define kAudioUnitSubType_LowPassFilter  'lpas'
@@ -42,10 +42,15 @@
 #define kAudioUnitSubType_ParametricEQ 	'pmeq'
 #define kAudioUnitSubType_GraphicEQ 	'greq'
 #define kAudioUnitSubType_PeakLimiter 	'lmtr'
+#define kAudioUnitSubType_DynamicsProcessor  'dcmp'
+#define kAudioUnitSubType_MultiBandCompressor  'mcmp'
 #define kAudioUnitSubType_MatrixReverb 	'mrev'
 #define kAudioUnitType_Mixer 			'aumx'
 #define kAudioUnitSubType_StereoMixer 	'smxr'
 #define kAudioUnitSubType_3DMixer 		'3dmx'
+#define kAudioUnitSubType_MatrixMixer 	'mxmx'
+#define kAudioUnitType_Panner 			'aupn'
+#define kAudioUnitType_OfflineEffect 	'auol'
 #define kAudioUnitManufacturer_Apple 	'appl'
 
 

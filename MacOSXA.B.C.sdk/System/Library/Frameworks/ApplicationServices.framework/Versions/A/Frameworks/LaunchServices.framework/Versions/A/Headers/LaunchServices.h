@@ -3,7 +3,7 @@
  
      Contains:   Public interfaces for LaunchServices.framework
  
-     Version:    LaunchServices-70.4~1
+     Version:    LaunchServices-70.4~2
  
      Copyright:  © 2001-2002 by Apple Computer, Inc., all rights reserved.
  

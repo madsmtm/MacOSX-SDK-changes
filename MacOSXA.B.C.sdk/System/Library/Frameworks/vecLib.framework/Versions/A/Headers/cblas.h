@@ -655,83 +655,54 @@ typedef void (*BLASParamErrorProc)(const char *funcName, const char *paramName, 
 		const int *paramValue);
 void SetBLASParamErrorProc(BLASParamErrorProc ErrorProc);
 
-#if defined(__ppc__)
-    #ifdef __VEC__
-        typedef vector float			VectorFloat;
-        typedef vector float	                ConstVectorFloat; 
-    #endif
-
-#elif defined(__i386__)
-    typedef int __m128  __attribute__((mode(V4SF)));
-
-    typedef __m128  				VectorFloat;
-    typedef VectorFloat				ConstVectorFloat;
-    
-#else
-#error Unknown architecture
-#endif
-
-#if defined(__VEC__) || defined(__i386__)
 /*
    -------------------------------------------------------------------------------------------------
-   These routines provide optimized, SIMD-only support for common small matrix multiplications.
-   They do not check for the availability of SIMD instructions or parameter errors.  They just do
+   These routines provide optimized, AltiVec-only support for common small matrix multiplications.
+   They do not check for the availability of AltiVec instructions or parameter errors.  They just do
    the multiplication as fast as possible.  Matrices are presumed to use row major storage.  Because
    these are all square, column major matrices can be multiplied by simply reversing the parameters.
    -------------------------------------------------------------------------------------------------
 */
 
 
-void vMultVecMat_4x4(ConstVectorFloat X[1], ConstVectorFloat A[4][1], VectorFloat Y[1]);
-void vMultMatVec_4x4(ConstVectorFloat A[4][1], ConstVectorFloat X[1], VectorFloat Y[1]);
-void vMultMatMat_4x4(ConstVectorFloat A[4][1], ConstVectorFloat   B[4][1], VectorFloat C[4][1]);
-void vMultVecMat_8x8(ConstVectorFloat X[2], ConstVectorFloat A[8][2], VectorFloat Y[2]);
-void vMultMatVec_8x8(ConstVectorFloat A[8][2], ConstVectorFloat X[2], VectorFloat Y[2]);
-void vMultMatMat_8x8(ConstVectorFloat A[8][2], ConstVectorFloat   B[8][2], VectorFloat C[8][2]);
-void vMultVecMat_16x16(ConstVectorFloat X[4], ConstVectorFloat A[16][4], VectorFloat Y[4]);
-void vMultMatVec_16x16(ConstVectorFloat A[16][4], ConstVectorFloat X[4], VectorFloat Y[4]);
-void vMultMatMat_16x16(ConstVectorFloat A[16][4], ConstVectorFloat   B[16][4], VectorFloat C[16][4]);
-void vMultVecMat_32x32(ConstVectorFloat X[8], ConstVectorFloat A[32][8], VectorFloat Y[8]);
-void vMultMatVec_32x32(ConstVectorFloat A[32][8], ConstVectorFloat X[8], VectorFloat Y[8]);
-void vMultMatMat_32x32(ConstVectorFloat A[32][8], ConstVectorFloat   B[32][8], VectorFloat C[32][8]);
+typedef vector float ConstVectorFloat; /* Legacy typedef providing backwards source compatability */
+
+void vMultVecMat_4x4(ConstVectorFloat X[1], ConstVectorFloat A[4][1], vector float Y[1]);
+void vMultMatVec_4x4(ConstVectorFloat A[4][1], ConstVectorFloat X[1], vector float Y[1]);
+void vMultMatMat_4x4(ConstVectorFloat A[4][1], ConstVectorFloat   B[4][1], vector float C[4][1]);
+void vMultVecMat_8x8(ConstVectorFloat X[2], ConstVectorFloat A[8][2], vector float Y[2]);
+void vMultMatVec_8x8(ConstVectorFloat A[8][2], ConstVectorFloat X[2], vector float Y[2]);
+void vMultMatMat_8x8(ConstVectorFloat A[8][2], ConstVectorFloat   B[8][2], vector float C[8][2]);
+void vMultVecMat_16x16(ConstVectorFloat X[4], ConstVectorFloat A[16][4], vector float Y[4]);
+void vMultMatVec_16x16(ConstVectorFloat A[16][4], ConstVectorFloat X[4], vector float Y[4]);
+void vMultMatMat_16x16(ConstVectorFloat A[16][4], ConstVectorFloat   B[16][4], vector float C[16][4]);
+void vMultVecMat_32x32(ConstVectorFloat X[8], ConstVectorFloat A[32][8], vector float Y[8]);
+void vMultMatVec_32x32(ConstVectorFloat A[32][8], ConstVectorFloat X[8], vector float Y[8]);
+void vMultMatMat_32x32(ConstVectorFloat A[32][8], ConstVectorFloat   B[32][8], vector float C[32][8]);
 
 /*
    -------------------------------------------------------------------------------------------------
    These routines provide optimized support for common small matrix multiplications. They use
-   the scalar floating point unit and have no dependancy on SIMD instructions. They are intended
+   the scalar floating point unit and have no dependancy on AltiVec instructions. They are intended
    as complements to the AltiVec-only routines above. They do not check for parameter errors.  They just do
    the multiplication as fast as possible.  Matrices are presumed to use row major storage.  Because
    these are all square, column major matrices can be multiplied by simply reversing the parameters.
    -------------------------------------------------------------------------------------------------
 */
 
-void sMultVecMat_4x4(ConstVectorFloat X[1], ConstVectorFloat A[4][1], VectorFloat Y[1]);
-void sMultMatVec_4x4(ConstVectorFloat A[4][1], ConstVectorFloat X[1], VectorFloat Y[1]);
-void sMultMatMat_4x4(ConstVectorFloat A[4][1], ConstVectorFloat   B[4][1], VectorFloat C[4][1]);
-void sMultVecMat_8x8(ConstVectorFloat X[2], ConstVectorFloat A[8][2], VectorFloat Y[2]);
-void sMultMatVec_8x8(ConstVectorFloat A[8][2], ConstVectorFloat X[2], VectorFloat Y[2]);
-void sMultMatMat_8x8(ConstVectorFloat A[8][2], ConstVectorFloat   B[8][2], VectorFloat C[8][2]);
-void sMultVecMat_16x16(ConstVectorFloat X[4], ConstVectorFloat A[16][4], VectorFloat Y[4]);
-void sMultMatVec_16x16(ConstVectorFloat A[16][4], ConstVectorFloat X[4], VectorFloat Y[4]);
-void sMultMatMat_16x16(ConstVectorFloat A[16][4], ConstVectorFloat   B[16][4], VectorFloat C[16][4]);
-void sMultVecMat_32x32(ConstVectorFloat X[8], ConstVectorFloat A[32][8], VectorFloat Y[8]);
-void sMultMatVec_32x32(ConstVectorFloat A[32][8], ConstVectorFloat X[8], VectorFloat Y[8]);
-void sMultMatMat_32x32(ConstVectorFloat A[32][8], ConstVectorFloat   B[32][8], VectorFloat C[32][8]);
+void sMultVecMat_4x4(ConstVectorFloat X[1], ConstVectorFloat A[4][1], vector float Y[1]);
+void sMultMatVec_4x4(ConstVectorFloat A[4][1], ConstVectorFloat X[1], vector float Y[1]);
+void sMultMatMat_4x4(ConstVectorFloat A[4][1], ConstVectorFloat   B[4][1], vector float C[4][1]);
+void sMultVecMat_8x8(ConstVectorFloat X[2], ConstVectorFloat A[8][2], vector float Y[2]);
+void sMultMatVec_8x8(ConstVectorFloat A[8][2], ConstVectorFloat X[2], vector float Y[2]);
+void sMultMatMat_8x8(ConstVectorFloat A[8][2], ConstVectorFloat   B[8][2], vector float C[8][2]);
+void sMultVecMat_16x16(ConstVectorFloat X[4], ConstVectorFloat A[16][4], vector float Y[4]);
+void sMultMatVec_16x16(ConstVectorFloat A[16][4], ConstVectorFloat X[4], vector float Y[4]);
+void sMultMatMat_16x16(ConstVectorFloat A[16][4], ConstVectorFloat   B[16][4], vector float C[16][4]);
+void sMultVecMat_32x32(ConstVectorFloat X[8], ConstVectorFloat A[32][8], vector float Y[8]);
+void sMultMatVec_32x32(ConstVectorFloat A[32][8], ConstVectorFloat X[8], vector float Y[8]);
+void sMultMatMat_32x32(ConstVectorFloat A[32][8], ConstVectorFloat   B[32][8], vector float C[32][8]);
 
-void dMultVecMat_4x4(const double X[4], const double A[4][4], double Y[4]);
-void dMultMatVec_4x4(const double A[4][4], const double X[4], double Y[4]);
-void dMultMatMat_4x4(const double A[4][4], const double B[4][4], double C[4][4]);
-void dMultVecMat_8x8(const double X[8], const double A[8][8], double Y[8]);
-void dMultMatVec_8x8(const double A[8][8], const double X[8], double Y[8]);
-void dMultMatMat_8x8(const double A[8][8], const double B[8][8], double C[8][8]);
-void dMultVecMat_16x16(const double X[16], const double A[16][16], double Y[16]);
-void dMultMatVec_16x16(const double A[16][16], const double X[16], double Y[16]);
-void dMultMatMat_16x16(const double A[16][16], const double B[16][16], double C[16][16]);
-void dMultVecMat_32x32(const double X[32], const double A[32][32], double Y[32]);
-void dMultMatVec_32x32(const double A[32][32], const double X[32], double Y[32]);
-void dMultMatMat_32x32(const double A[32][32], const double B[32][32], double C[32][32]);
-
-#endif /* defined(__VEC__) || defined(__i386__) */
 #endif  /* end #ifdef CBLAS_ENUM_ONLY */
 
 #ifdef __cplusplus

@@ -3,9 +3,9 @@
  
      Contains:   Master include for CarbonSound private framework
  
-     Version:    CarbonSound-80.6.2~8
+     Version:    CarbonSound-94~244
  
-     Copyright:  © 1999-2002 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1999-2003 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:

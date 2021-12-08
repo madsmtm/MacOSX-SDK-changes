@@ -3,7 +3,7 @@
  
      Contains:   Power Manager Interfaces.
  
-     Version:    OSServices-39.2~418
+     Version:    OSServices-39.2~411
  
      Copyright:  © 1990-2002 by Apple Computer, Inc.  All rights reserved
  

@@ -43,6 +43,17 @@ AUMIDIControllerMapEventToParameter(	AUMIDIControllerRef		inController,
 										UInt8					inMIDIStatusByte,
 										UInt16					inMIDIControl,
 										const AudioUnitParameter *inParameter);
+
+// this will remove any mapping held by this controller
+// to the specified audio unit - whether those are:
+// (1) default mappings (AUMIDIControllerMapChannelToAU) 
+// (2) custom mappings (AUMIDIControllerMapEventToParameter)
+
+// Typically, this is done when (and should be done) when an AU no longer
+// should receive MIDI events for its parameters (or the AU is being disposed)
+extern OSStatus
+AUMIDIControllerUnmapAudioUnit(	AUMIDIControllerRef		inController,
+								AudioUnit				inAudioUnit);
 										
 /*
 	$$$ need description of timestamps in the packets (if any) are treated -- needs

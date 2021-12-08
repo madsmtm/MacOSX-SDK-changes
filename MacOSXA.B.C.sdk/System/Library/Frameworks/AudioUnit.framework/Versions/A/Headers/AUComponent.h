@@ -3,8 +3,7 @@
  
      Contains:   AudioUnit Interfaces
  
-     Version:    Technology: System X
-                 Release:    Mac OS X
+     Version:    Mac OS X
  
      Copyright:  © 2002 by Apple Computer, Inc., all rights reserved.
  
@@ -14,9 +13,6 @@
                      http://developer.apple.com/bugreporter/
  
 */
-/*·#endif forMasterInterfaces*/
-
-/*·#ifndef forMergedInterfaces*/
 #ifndef __AUCOMPONENT__
 #define __AUCOMPONENT__
 
@@ -44,7 +40,6 @@ extern "C" {
     #pragma pack(2)
 #endif
 
-/*·#endif forMergedInterfaces*/
 
 /*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -76,6 +71,7 @@ enum {
   kAudioUnitType_MusicEffect    = FOUR_CHAR_CODE('aumf'),
   kAudioUnitType_FormatConverter = FOUR_CHAR_CODE('aufc'),
   kAudioUnitSubType_AUConverter = FOUR_CHAR_CODE('conv'),
+  kAudioUnitSubType_Varispeed   = FOUR_CHAR_CODE('vari'),
   kAudioUnitType_Effect         = FOUR_CHAR_CODE('aufx'),
   kAudioUnitSubType_Delay       = FOUR_CHAR_CODE('dely'),
   kAudioUnitSubType_LowPassFilter = FOUR_CHAR_CODE('lpas'),
@@ -86,10 +82,15 @@ enum {
   kAudioUnitSubType_ParametricEQ = FOUR_CHAR_CODE('pmeq'),
   kAudioUnitSubType_GraphicEQ   = FOUR_CHAR_CODE('greq'),
   kAudioUnitSubType_PeakLimiter = FOUR_CHAR_CODE('lmtr'),
+  kAudioUnitSubType_DynamicsProcessor = FOUR_CHAR_CODE('dcmp'),
+  kAudioUnitSubType_MultiBandCompressor = FOUR_CHAR_CODE('mcmp'),
   kAudioUnitSubType_MatrixReverb = FOUR_CHAR_CODE('mrev'),
   kAudioUnitType_Mixer          = FOUR_CHAR_CODE('aumx'),
   kAudioUnitSubType_StereoMixer = FOUR_CHAR_CODE('smxr'),
   kAudioUnitSubType_3DMixer     = FOUR_CHAR_CODE('3dmx'),
+  kAudioUnitSubType_MatrixMixer = FOUR_CHAR_CODE('mxmx'),
+  kAudioUnitType_Panner         = FOUR_CHAR_CODE('aupn'),
+  kAudioUnitType_OfflineEffect  = FOUR_CHAR_CODE('auol'),
   kAudioUnitManufacturer_Apple  = FOUR_CHAR_CODE('appl')
 };
 
@@ -104,7 +105,10 @@ enum {
                                         /*    kAudioUnitRenderAction_UseProvidedBuffer   = (1 << 1),*/
   kAudioUnitRenderAction_PreRender = (1 << 2),
   kAudioUnitRenderAction_PostRender = (1 << 3),
-  kAudioUnitRenderAction_OutputIsSilence = (1 << 4) /* provides hint on return from Render(): if set the buffer contains all zeroes*/
+  kAudioUnitRenderAction_OutputIsSilence = (1 << 4), /* provides hint on return from Render(): if set the buffer contains all zeroes*/
+  kAudioOfflineUnitRenderAction_Preflight = (1 << 5),
+  kAudioOfflineUnitRenderAction_Render = (1 << 6),
+  kAudioOfflineUnitRenderAction_Complete = (1 << 7)
 };
 
 typedef UInt32                          AudioUnitRenderActionFlags;
@@ -128,8 +132,18 @@ enum {
   kAudioUnitErr_Uninitialized   = -10867,
   kAudioUnitErr_InvalidScope    = -10866,
   kAudioUnitErr_PropertyNotWritable = -10865,
-  kAudioUnitErr_InvalidPropertyValue = -10851, /* same error code but different calling context*/
-                                        /* as kAUGraphErr_CannotDoInCurrentContext    */
+  kAudioUnitErr_InvalidPropertyValue = -10851,
+  kAudioUnitErr_PropertyNotInUse = -10850,
+  kAudioUnitErr_Initialized     = -10849, /*returned if the operation cannot be performed because the AU is initialized*/
+  kAudioUnitErr_InvalidOfflineRender = -10848,
+  kAudioUnitErr_Unauthorized    = -10847
+};
+
+/*
+   same error code but different calling context
+   as kAUGraphErr_CannotDoInCurrentContext  
+*/
+enum {
   kAudioUnitErr_CannotDoInCurrentContext = -10863
 };
 
@@ -137,13 +151,15 @@ enum {
    Special note:
    A value of 0xFFFFFFFF should never be used for a real scope, paramID or element
    as this value is reserved for use with the AUParameterListener APIs to do wild card searches
+   Apple reserves the range of 0->1024 for Specifying Scopes..., any custom scope values should
+   lie outside of this range.
 */
 typedef UInt32                          AudioUnitPropertyID;
 typedef UInt32                          AudioUnitParameterID;
 typedef UInt32                          AudioUnitScope;
 typedef UInt32                          AudioUnitElement;
 /*
-   this is actually not used in the AudioUnit framework, but is used by AudioUnit/AudioUnitCarbonView
+   these are actually not used in the AudioUnit framework, but are used by AudioUnit/AudioUnitCarbonView
    and AudioToolbox/AudioUnitUtilities.
 */
 struct AudioUnitParameter {
@@ -153,6 +169,13 @@ struct AudioUnitParameter {
   AudioUnitElement    mElement;
 };
 typedef struct AudioUnitParameter       AudioUnitParameter;
+struct AudioUnitProperty {
+  AudioUnit           mAudioUnit;
+  AudioUnitPropertyID  mPropertyID;
+  AudioUnitScope      mScope;
+  AudioUnitElement    mElement;
+};
+typedef struct AudioUnitProperty        AudioUnitProperty;
 typedef CALLBACK_API_C( OSStatus , AURenderCallback )(void *inRefCon, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData);
 typedef CALLBACK_API_C( void , AudioUnitPropertyListenerProc )(void *inRefCon, AudioUnit ci, AudioUnitPropertyID inID, AudioUnitScope inScope, AudioUnitElement inElement);
 EXTERN_API( ComponentResult )
@@ -200,7 +223,7 @@ AudioUnitSetProperty(
   AudioUnitPropertyID   inID,
   AudioUnitScope        inScope,
   AudioUnitElement      inElement,
-  void *                inData,
+  const void *          inData,
   UInt32                inDataSize)                           FIVEWORDINLINE(0x2F3C, 0x0014, 0x0005, 0x7000, 0xA82A);
 
 
@@ -312,7 +335,6 @@ AudioUnitReset(
 
 
 
-/*·#ifndef forMergedInterfaces*/
 
 /* UPP call backs */
 
@@ -345,7 +367,6 @@ typedef CALLBACK_API_C( ComponentResult , AudioUnitGetParameterProc )(void *inCo
 typedef CALLBACK_API_C( ComponentResult , AudioUnitSetParameterProc )(void *inComponentStorage, AudioUnitParameterID inID, AudioUnitScope inScope, AudioUnitElement inElement, Float32 inValue, UInt32 inBufferOffsetInFrames);
 typedef CALLBACK_API_C( ComponentResult , AudioUnitRenderProc )(void *inComponentStorage, AudioUnitRenderActionFlags *ioActionFlags, const AudioTimeStamp *inTimeStamp, UInt32 inOutputBusNumber, UInt32 inNumberFrames, AudioBufferList *ioData);
 
-/*·#endif forMergedInterfaces*/
 
 #if PRAGMA_STRUCT_ALIGN
     #pragma options align=reset

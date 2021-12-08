@@ -3,7 +3,7 @@
  
      Contains:   interface to embedding a Java Applet in a Carbon Control
  
-     Version:    JavaEmbedding-21~26
+     Version:    JavaEmbedding-12~208
  
      Copyright:  © 2000-2002 by Apple Computer, Inc., all rights reserved.
  

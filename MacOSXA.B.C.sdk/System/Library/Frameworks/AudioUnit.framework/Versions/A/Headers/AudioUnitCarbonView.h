@@ -14,8 +14,6 @@
                      http://developer.apple.com/bugreporter/
  
 */
-/*·#endif forMasterInterfaces*/
-/*·#ifndef forMergedInterfaces*/
 #ifndef __AUDIOUNITCARBONVIEW__
 #define __AUDIOUNITCARBONVIEW__
 
@@ -43,7 +41,6 @@ extern "C" {
     #pragma pack(2)
 #endif
 
-/*·#endif forMergedInterfaces*/
 /*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    ranges
@@ -60,7 +57,7 @@ typedef ComponentInstance               AudioUnitCarbonView;
 */
 enum {
   kAudioUnitCarbonViewComponentType = FOUR_CHAR_CODE('auvw'),
-  kAUCarbonViewSubType_Generic  	= FOUR_CHAR_CODE('gnrc')
+  kAUCarbonViewSubType_Generic  = FOUR_CHAR_CODE('gnrc')
 };
 
 enum {
@@ -187,7 +184,6 @@ AudioUnitCarbonViewSetEventListener(
 
 
 
-/*·#ifndef forMergedInterfaces*/
 
 /* UPP call backs */
 
@@ -197,7 +193,6 @@ enum {
     kAudioUnitCarbonViewSetEventListenerSelect = 0x0302
 };
 
-/*·#endif forMergedInterfaces*/
 
 #if PRAGMA_STRUCT_ALIGN
     #pragma options align=reset

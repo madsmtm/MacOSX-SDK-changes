@@ -3,7 +3,7 @@
  
      Contains:   Master include for OSServices private framework
  
-     Version:    OSServices-39.2~418
+     Version:    OSServices-39.2~411
  
      Copyright:  © 2000-2002 by Apple Computer, Inc., all rights reserved.
  

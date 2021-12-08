@@ -14,8 +14,6 @@
                      http://developer.apple.com/bugreporter/
  
 */
-/*·#endif forMasterInterfaces*/
-/*·#ifndef forMergedInterfaces*/
 #ifndef __AUNTCOMPONENT__
 #define __AUNTCOMPONENT__
 
@@ -42,7 +40,6 @@ extern "C" {
     #pragma pack(2)
 #endif
 
-/*·#endif forMergedInterfaces*/
 
 /*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -103,7 +100,6 @@ AudioUnitRenderSlice(
 
 
 
-/*·#ifndef forMergedInterfaces*/
 
 /* UPP call backs */
 
@@ -131,7 +127,6 @@ enum {
 };
 
 
-/*·#endif forMergedInterfaces*/
 
 #if PRAGMA_STRUCT_ALIGN
     #pragma options align=reset

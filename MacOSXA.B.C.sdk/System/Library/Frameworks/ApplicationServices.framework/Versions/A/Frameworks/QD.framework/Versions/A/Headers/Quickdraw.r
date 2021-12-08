@@ -3,7 +3,7 @@
  
      Contains:   Interface to Quickdraw Graphics
  
-     Version:    Quickdraw-96.21~4
+     Version:    Quickdraw-96.21~1
  
      Copyright:  © 1985-2002 by Apple Computer, Inc., all rights reserved
  

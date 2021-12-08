@@ -154,7 +154,7 @@ kern_return_t memory_object_page_op
 	memory_object_control_t memory_control,
 	memory_object_offset_t offset,
 	integer_t ops,
-	uint32_t *phys_entry,
+	vm_offset_t *phys_entry,
 	integer_t *flags
 );
 
@@ -342,7 +342,7 @@ union __RequestUnion__memory_object_control_subsystem {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
-		uint32_t phys_entry;
+		vm_offset_t phys_entry;
 		integer_t flags;
 	} __Reply__memory_object_page_op_t;
 

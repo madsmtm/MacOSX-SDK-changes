@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -65,7 +65,9 @@
 #define kQTMediaConfigBinaryFile 		0x00800000			/*  file should be transfered in binary mode */
 #define kQTMediaConfigTextFile 			0					/*  not a bit, defined for clarity */
 #define kQTMediaConfigMacintoshFile 	0x01000000			/*  file's resource fork is significant */
-#define kQTMediaConfigAssociateByDefault  0x08000000		/*  take this file association by default */
+#define kQTMediaConfigCanDoFileAssociation  0x04000000		/*  can configure this file association  */
+#define kQTMediaConfigAssociateByDefault  0x08000000		/*  Deprecated, use kQTMediaConfigTakeFileAssociationByDefault instead */
+#define kQTMediaConfigTakeFileAssociationByDefault  0x08000000 /*  take this file association by default */
 #define kQTMediaConfigUseAppByDefault 	0x10000000			/*  use the app by default for this MIME type */
 #define kQTMediaConfigUsePluginByDefault  0x20000000		/*  use the plug-in by default for this MIME type */
 #define kQTMediaConfigDefaultsMask 		0x30000000

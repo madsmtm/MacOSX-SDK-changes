@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Image Compression Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -71,6 +71,10 @@ enum {
                                         /* the two data formats are identical.*/
   kDVCPALCodecType              = 'dvcp',
   kDVCProPALCodecType           = 'dvpp', /* available in QuickTime 6.0 or later*/
+  kDVCPro50NTSCCodecType        = 'dv5n',
+  kDVCPro50PALCodecType         = 'dv5p',
+  kDVCPro100NTSCCodecType       = 'dv1n',
+  kDVCPro100PALCodecType        = 'dv1p',
   kBaseCodecType                = 'base',
   kFLCCodecType                 = 'flic',
   kTargaCodecType               = 'tga ',
@@ -99,7 +103,9 @@ enum {
   k422YpCbCr16CodecType         = 'v216', /* Component Y'CbCr 10,12,14,16-bit 4:2:2*/
   k422YpCbCr10CodecType         = 'v210', /* Component Y'CbCr 10-bit 4:2:2 */
   k444YpCbCr10CodecType         = 'v410', /* Component Y'CbCr 10-bit 4:4:4 */
-  k4444YpCbCrA8RCodecType       = 'r408' /* Component Y'CbCrA 8-bit 4:4:4:4, rendering format. full range alpha, zero biased yuv*/
+  k4444YpCbCrA8RCodecType       = 'r408', /* Component Y'CbCrA 8-bit 4:4:4:4, rendering format. full range alpha, zero biased yuv*/
+  kJPEG2000CodecType            = 'mjp2',
+  kPixletCodecType              = 'pxlt'
 };
 
 
@@ -441,7 +447,8 @@ enum {
   graphicsModePreBlackAlpha     = 258,
   graphicsModeComposition       = 259,
   graphicsModeStraightAlphaBlend = 260,
-  graphicsModePreMulColorAlpha  = 261
+  graphicsModePreMulColorAlpha  = 261,
+  graphicsModePerComponentAlpha = 272
 };
 
 enum {
@@ -455,6 +462,7 @@ enum {
   oddField2ToOddFieldOut        = 1 << 7
 };
 
+/* Flags for ICMFrameTimeRecord.flags */
 enum {
   icmFrameTimeHasVirtualStartTimeAndDuration = 1 << 0
 };
@@ -1392,7 +1400,8 @@ enum {
   codecDSequenceSingleField     = (1L << 6),
   codecDSequenceBidirectionalPrediction = (1L << 7),
   codecDSequenceFlushInsteadOfDirtying = (1L << 8),
-  codecDSequenceEnableSubPixelPositioning = (1L << 9)
+  codecDSequenceEnableSubPixelPositioning = (1L << 9),
+  codecDSequenceDeinterlaceFields = (1L << 10)
 };
 
 typedef CodecComponent *                CodecComponentPtr;
@@ -2548,6 +2557,9 @@ struct ICMPixelFormatInfo {
                                               /* new fields for QuickTime 6.0*/
   short               horizontalSubsampling[14]; /* per plane; use 1 if plane is not subsampled*/
   short               verticalSubsampling[14]; /* per plane; use 1 if plane is not subsampled*/
+                                              /* new fields for QuickTime 6.5*/
+  short               cmpCount;               /* for use in PixMap.cmpCount*/
+  short               cmpSize;                /* for use in PixMap.cmpSize*/
 };
 typedef struct ICMPixelFormatInfo       ICMPixelFormatInfo;
 typedef ICMPixelFormatInfo *            ICMPixelFormatInfoPtr;
@@ -3861,10 +3873,16 @@ enum {
   GraphicsImporterComponentType = 'grip'
 };
 
+/* Component flags for Graphics Importer components */
 enum {
+  graphicsImporterIsBaseImporter = 1L << 0,
+  graphicsImporterCanValidateFile = 1L << 9,
+  graphicsImporterSubTypeIsFileExtension = 1L << 12,
+  graphicsImporterHasMIMEList   = 1L << 14,
   graphicsImporterUsesImageDecompressor = 1L << 23
 };
 
+/* Atom types for QuickTime Image files */
 enum {
   quickTimeImageFileImageDescriptionAtom = 'idsc',
   quickTimeImageFileImageDataAtom = 'idat',
@@ -3872,6 +3890,7 @@ enum {
   quickTimeImageFileColorSyncProfileAtom = 'iicc'
 };
 
+/* Flags for GraphicsImportDoesDrawAllPixels */
 enum {
   graphicsImporterDrawsAllPixels = 0,
   graphicsImporterDoesntDrawAllPixels = 1,
@@ -3882,7 +3901,13 @@ enum {
 enum {
   kGraphicsImporterDontDoGammaCorrection = 1L << 0,
   kGraphicsImporterTrustResolutionFromFile = 1L << 1,
-  kGraphicsImporterEnableSubPixelPositioning = 1L << 2
+  kGraphicsImporterEnableSubPixelPositioning = 1L << 2,
+  kGraphicsImporterDontUseColorMatching = 1L << 3 /* set this flag (*before* calling GraphicsImportGetColorSyncProfile) if you do matching yourself */
+};
+
+/* Flags for GraphicsImportCreateCGImage */
+enum {
+  kGraphicsImportCreateCGImageUsingCurrentSettings = 1L << 0
 };
 
 enum {
@@ -3899,7 +3924,7 @@ enum {
   kQTPhotoshopLayerOpacity      = 'lopa', /* UInt8, 0 = transparent .. 255 = opaque */
   kQTPhotoshopLayerClipping     = 'lclp', /* UInt8, 0 = base, 1 = non-base */
   kQTPhotoshopLayerFlags        = 'lflg', /* UInt8 */
-  kQTPhotoshopLayerName         = '©lnm', /* Text */
+  kQTPhotoshopLayerName         = (long)0xA96C6E6D/*'©lnm' */, /* Text */
   kQTPhotoshopLayerUnicodeName  = 'luni' /* Unicode characters, not terminated */
 };
 
@@ -3991,34 +4016,35 @@ enum {
 };
 
 /* Found in some Exif TIFF and Exif JPEG files; defined in the Exif 2.1 spec */
+/* Note: these were wrong in the QuickTime 6.0 headers -- the high two bytes were 0x677 instead of 0x6770. */
 enum {
-  kQTExifUserDataGPSVersionID   = 0x06770000, /* 4 BYTEs */
-  kQTExifUserDataGPSLatitudeRef = 0x06770001, /* 2 ASCIIs*/
-  kQTExifUserDataGPSLatitude    = 0x06770002, /* 3 RATIONALs */
-  kQTExifUserDataGPSLongitudeRef = 0x06770003, /* 2 ASCIIs */
-  kQTExifUserDataGPSLongitude   = 0x06770004, /* 3 RATIONALs */
-  kQTExifUserDataGPSAltitudeRef = 0x06770005, /* 1 BYTE */
-  kQTExifUserDataGPSAltitude    = 0x06770006, /* 1 RATIONAL */
-  kQTExifUserDataGPSTimeStamp   = 0x06770007, /* 3 RATIONALs */
-  kQTExifUserDataGPSSatellites  = 0x06770008, /* n ASCIIs */
-  kQTExifUserDataGPSStatus      = 0x06770009, /* 2 ASCIIs */
-  kQTExifUserDataGPSMeasureMode = 0x0677000A, /* 2 ASCIIs */
-  kQTExifUserDataGPSDOP         = 0x0677000B, /* 1 RATIONAL */
-  kQTExifUserDataGPSSpeedRef    = 0x0677000C, /* 2 ASCIIs */
-  kQTExifUserDataGPSSpeed       = 0x0677000D, /* 1 RATIONAL */
-  kQTExifUserDataGPSTrackRef    = 0x0677000E, /* 2 ASCIIs */
-  kQTExifUserDataGPSTrack       = 0x0677000F, /* 1 RATIONAL */
-  kQTExifUserDataGPSImgDirectionRef = 0x06770010, /* 2 ASCIIs */
-  kQTExifUserDataGPSImgDirection = 0x06770011, /* 1 RATIONAL */
-  kQTExifUserDataGPSMapDatum    = 0x06770012, /* n ASCII */
-  kQTExifUserDataGPSDestLatitudeRef = 0x06770013, /* 2 ASCIIs */
-  kQTExifUserDataGPSDestLatitude = 0x06770014, /* 3 RATIONALs */
-  kQTExifUserDataGPSDestLongitudeRef = 0x06770015, /* 2 ASCIIs */
-  kQTExifUserDataGPSDestLongitude = 0x06770016, /* 3 RATIONALs */
-  kQTExifUserDataGPSDestBearingRef = 0x06770017, /* 2 ASCIIs */
-  kQTExifUserDataGPSDestBearing = 0x06770018, /* 1 RATIONAL */
-  kQTExifUserDataGPSDestDistanceRef = 0x06770019, /* 2 ASCIIs */
-  kQTExifUserDataGPSDestDistance = 0x0677001A /* 1 RATIONAL */
+  kQTExifUserDataGPSVersionID   = 0x67700000, /* 4 BYTEs */
+  kQTExifUserDataGPSLatitudeRef = 0x67700001, /* 2 ASCIIs*/
+  kQTExifUserDataGPSLatitude    = 0x67700002, /* 3 RATIONALs */
+  kQTExifUserDataGPSLongitudeRef = 0x67700003, /* 2 ASCIIs */
+  kQTExifUserDataGPSLongitude   = 0x67700004, /* 3 RATIONALs */
+  kQTExifUserDataGPSAltitudeRef = 0x67700005, /* 1 BYTE */
+  kQTExifUserDataGPSAltitude    = 0x67700006, /* 1 RATIONAL */
+  kQTExifUserDataGPSTimeStamp   = 0x67700007, /* 3 RATIONALs */
+  kQTExifUserDataGPSSatellites  = 0x67700008, /* n ASCIIs */
+  kQTExifUserDataGPSStatus      = 0x67700009, /* 2 ASCIIs */
+  kQTExifUserDataGPSMeasureMode = 0x6770000A, /* 2 ASCIIs */
+  kQTExifUserDataGPSDOP         = 0x6770000B, /* 1 RATIONAL */
+  kQTExifUserDataGPSSpeedRef    = 0x6770000C, /* 2 ASCIIs */
+  kQTExifUserDataGPSSpeed       = 0x6770000D, /* 1 RATIONAL */
+  kQTExifUserDataGPSTrackRef    = 0x6770000E, /* 2 ASCIIs */
+  kQTExifUserDataGPSTrack       = 0x6770000F, /* 1 RATIONAL */
+  kQTExifUserDataGPSImgDirectionRef = 0x67700010, /* 2 ASCIIs */
+  kQTExifUserDataGPSImgDirection = 0x67700011, /* 1 RATIONAL */
+  kQTExifUserDataGPSMapDatum    = 0x67700012, /* n ASCII */
+  kQTExifUserDataGPSDestLatitudeRef = 0x67700013, /* 2 ASCIIs */
+  kQTExifUserDataGPSDestLatitude = 0x67700014, /* 3 RATIONALs */
+  kQTExifUserDataGPSDestLongitudeRef = 0x67700015, /* 2 ASCIIs */
+  kQTExifUserDataGPSDestLongitude = 0x67700016, /* 3 RATIONALs */
+  kQTExifUserDataGPSDestBearingRef = 0x67700017, /* 2 ASCIIs */
+  kQTExifUserDataGPSDestBearing = 0x67700018, /* 1 RATIONAL */
+  kQTExifUserDataGPSDestDistanceRef = 0x67700019, /* 2 ASCIIs */
+  kQTExifUserDataGPSDestDistance = 0x6770001A /* 1 RATIONAL */
 };
 
 
@@ -4949,6 +4975,232 @@ extern ComponentResult
 GraphicsImportSetImageIndexToThumbnail(GraphicsImportComponent ci) AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
+#if TARGET_API_MAC_OSX
+/*
+ *  GraphicsImportCreateCGImage()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsImportCreateCGImage(
+  GraphicsImportComponent   ci,
+  CGImageRef *              imageRefOut,
+  UInt32                    flags)                            AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+#endif  /* TARGET_API_MAC_OSX */
+
+/*
+ *  GraphicsImportSaveAsPictureToDataRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+GraphicsImportSaveAsPictureToDataRef(
+  GraphicsImportComponent   ci,
+  Handle                    dataRef,
+  OSType                    dataRefType)                      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsImportSaveAsQuickTimeImageFileToDataRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+GraphicsImportSaveAsQuickTimeImageFileToDataRef(
+  GraphicsImportComponent   ci,
+  Handle                    dataRef,
+  OSType                    dataRefType)                      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsImportExportImageFileToDataRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+GraphicsImportExportImageFileToDataRef(
+  GraphicsImportComponent   ci,
+  OSType                    fileType,
+  OSType                    fileCreator,
+  Handle                    dataRef,
+  OSType                    dataRefType)                      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsImportDoExportImageFileToDataRefDialog()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+GraphicsImportDoExportImageFileToDataRefDialog(
+  GraphicsImportComponent   ci,
+  Handle                    inDataRef,
+  OSType                    inDataRefType,
+  CFStringRef               prompt,
+  ModalFilterYDUPP          filterProc,
+  OSType *                  outExportedType,
+  Handle *                  outDataRef,
+  OSType *                  outDataRefType)                   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+#if TARGET_API_MAC_OSX
+/* NOTE: If the source override ColorSync profile is NULL, then the image's ColorSync profile may be used if available, otherwise a generic ColorSync profile may be used. */
+/*
+ *  GraphicsImportSetOverrideSourceColorSyncProfileRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsImportSetOverrideSourceColorSyncProfileRef(
+  GraphicsImportComponent   ci,
+  CMProfileRef              newOverrideSourceProfileRef)      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsImportGetOverrideSourceColorSyncProfileRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsImportGetOverrideSourceColorSyncProfileRef(
+  GraphicsImportComponent   ci,
+  CMProfileRef *            outOverrideSourceProfileRef)      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/* NOTE: If the destination ColorSync profile is NULL, then a generic ColorSync profile may be used. */
+/*
+ *  GraphicsImportSetDestinationColorSyncProfileRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsImportSetDestinationColorSyncProfileRef(
+  GraphicsImportComponent   ci,
+  CMProfileRef              newDestinationProfileRef)         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsImportGetDestinationColorSyncProfileRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsImportGetDestinationColorSyncProfileRef(
+  GraphicsImportComponent   ci,
+  CMProfileRef *            destinationProfileRef)            AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+#endif  /* TARGET_API_MAC_OSX */
+
+/*
+ *  GraphicsImportWillUseColorMatching()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+GraphicsImportWillUseColorMatching(
+  GraphicsImportComponent   ci,
+  Boolean *                 outWillMatch)                     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+#if TARGET_API_MAC_OSX
+/* This convenience API is implemented by the base graphics importer for format-specific importers. */
+/*
+ *  GraphicsImportGetGenericColorSyncProfile()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsImportGetGenericColorSyncProfile(
+  GraphicsImportComponent   ci,
+  OSType                    pixelFormat,
+  void *                    reservedSetToNULL,
+  UInt32                    flags,
+  Handle *                  genericColorSyncProfileOut)       AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+#endif  /* TARGET_API_MAC_OSX */
+
+/* Format-specific importers that implement GetColorSyncProfile and that want the base graphics 
+   importer to automatically support ColorSync matching should:
+   (a) implement GraphicsImportSetReturnGenericColorSyncProfile; when it is called, set an internal flag
+   (b) change GraphicsImportGetColorSyncProfile so that, if this internal flag is set,
+       when the source image file contains a profile 
+       and the kGraphicsImporterDontUseColorMatching flag is NOT set,
+       it returns a generic profile of the appropriate colorspace instead.
+   Other importers should *not* implement GraphicsImportSetReturnGenericColorSyncProfile. */
+/* WARNING: Applications should not call this API; it is internal graphics importer plumbing.
+   Set kGraphicsImporterDontUseColorMatching instead. */
+/*
+ *  GraphicsImportSetReturnGenericColorSyncProfile()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+GraphicsImportSetReturnGenericColorSyncProfile(
+  GraphicsImportComponent   ci,
+  Boolean                   returnGenericProfilesUnlessDontMatchFlagSet) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/* WARNING: Applications should not call this API; it is internal graphics importer plumbing. */
+/*
+ *  GraphicsImportGetReturnGenericColorSyncProfile()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+GraphicsImportGetReturnGenericColorSyncProfile(
+  GraphicsImportComponent   ci,
+  Boolean *                 returnGenericProfilesUnlessDontMatchFlagSet) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
 
 
 
@@ -4958,6 +5210,7 @@ enum {
   kBaseGraphicsExporterSubType  = 'base'
 };
 
+/* Component flags for Graphics Exporter components */
 enum {
   graphicsExporterIsBaseExporter = 1L << 0,
   graphicsExporterCanTranscode  = 1L << 1,
@@ -5009,6 +5262,11 @@ enum {
   kQTPNGInterlaceStyle          = 'ilac', /* UInt32*/
   kQTPNGInterlaceNone           = 0,
   kQTPNGInterlaceAdam7          = 1
+};
+
+enum {
+  kQTJPEGQuantizationTables     = 'jpqt',
+  kQTJPEGHuffmanTables          = 'jpht'
 };
 
 
@@ -5150,7 +5408,7 @@ GraphicsExportGetMIMETypeList(
   void *                    qtAtomContainerPtr)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/* GraphicsExportIsTranscodePossibleFromCurrentInput is removed; call GraphicsExportCanTranscode instead */
+/* (1 unused selector) */
 /* Graphics exporter settings: */
 /*
  *  GraphicsExportRequestSettings()
@@ -6201,6 +6459,93 @@ GraphicsExportGetExifEnabled(
   Boolean *                 exifEnabled)                      AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
 
 
+#if TARGET_API_MAC_OSX
+/*
+ *  GraphicsExportSetInputCGImage()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsExportSetInputCGImage(
+  GraphicsExportComponent   ci,
+  CGImageRef                imageRef)                         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsExportGetInputCGImage()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsExportGetInputCGImage(
+  GraphicsExportComponent   ci,
+  CGImageRef *              imageRefOut)                      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsExportSetInputCGBitmapContext()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsExportSetInputCGBitmapContext(
+  GraphicsExportComponent   ci,
+  CGContextRef              bitmapContextRef)                 AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsExportGetInputCGBitmapContext()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsExportGetInputCGBitmapContext(
+  GraphicsExportComponent   ci,
+  CGContextRef *            bitmapContextRefOut)              AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+#endif  /* TARGET_API_MAC_OSX */
+
+/*
+ *  GraphicsExportSetFlags()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsExportSetFlags(
+  GraphicsExportComponent   ci,
+  UInt32                    flags)                            AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GraphicsExportGetFlags()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+GraphicsExportGetFlags(
+  GraphicsExportComponent   ci,
+  UInt32 *                  flagsOut)                         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
 
 
 typedef ComponentInstance               ImageTranscoderComponent;
@@ -6274,6 +6619,494 @@ extern ComponentResult
 ImageTranscoderEndSequence(ImageTranscoderComponent itc)      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+
+
+#if (MAC_OS_X_VERSION_MAX_ALLOWED == MAC_OS_X_VERSION_10_2) || !defined(kComponentPropertyListenerCollectionContextVersion)
+
+
+
+/* MixedMode ProcInfo constants for component property calls */
+enum {
+    uppCallComponentGetComponentPropertyInfoProcInfo = 0x0003FFF0,
+    uppCallComponentGetComponentPropertyProcInfo = 0x0003FFF0,
+    uppCallComponentSetComponentPropertyProcInfo = 0x0000FFF0,
+    uppCallComponentAddComponentPropertyListenerProcInfo = 0x0000FFF0,
+    uppCallComponentRemoveComponentPropertyListenerProcInfo = 0x0000FFF0
+};
+
+
+
+/* == CallComponentGetComponentPropertyInfo flags == */
+enum {
+  kComponentPropertyFlagCanSetLater = (1L << 0),
+  kComponentPropertyFlagCanSetNow = (1L << 1),
+  kComponentPropertyFlagCanGetLater = (1L << 2),
+  kComponentPropertyFlagCanGetNow = (1L << 3),
+  kComponentPropertyFlagHasExtendedInfo = (1L << 4),
+  kComponentPropertyFlagValueMustBeReleased = (1L << 5),
+  kComponentPropertyFlagValueIsCFTypeRef = (1L << 6),
+  kComponentPropertyFlagGetBufferMustBeInitialized = (1L << 7),
+  kComponentPropertyFlagWillNotifyListeners = (1L << 8)
+};
+
+
+typedef OSType                          ComponentPropertyClass;
+typedef OSType                          ComponentPropertyID;
+typedef OSType                          ComponentValueType;
+typedef void *                          ComponentValuePtr;
+typedef const void *                    ConstComponentValuePtr;
+
+/* == standard property class constants == */
+enum {
+  kComponentPropertyClassPropertyInfo = 'pnfo', /* property info class */
+                                        /* property info property IDs */
+  kComponentPropertyInfoList    = 'list', /* array of ComponentPropertyInfo (CFData), one for each property */
+  kComponentPropertyCacheSeed   = 'seed', /* property cache seed value */
+  kComponentPropertyCacheFlags  = 'flgs', /* see kComponentPropertyCache flags */
+  kComponentPropertyExtendedInfo = 'meta' /* CFDictionary with extended property information*/
+};
+
+
+/* values for kComponentPropertyClassPropertyInfo/kComponentPropertyCacheFlags standard component property */
+enum {
+  kComponentPropertyCacheFlagNotPersistent = (1L << 0), /* property metadata should not be saved in persistent cache*/
+  kComponentPropertyCacheFlagIsDynamic = (1L << 1) /* property metadata should not cached at all*/
+};
+
+
+struct ComponentPropertyInfo {
+  ComponentPropertyClass  propClass;
+  ComponentPropertyID  propID;
+  ComponentValueType  propType;
+  ByteCount           propSize;
+  UInt32              propFlags;
+};
+typedef struct ComponentPropertyInfo    ComponentPropertyInfo;
+
+
+#endif  /* #MAC_OS_X_VERSION_10_3 <= MAC_OS_X_VERSION_MAX_ALLOWED */ 
+
+
+
+/* == "QT" prefixed Component Property calls == */
+
+typedef CALLBACK_API( void , QTComponentPropertyListenerProcPtr )(ComponentInstance inComponent, ComponentPropertyClass inPropClass, ComponentPropertyID inPropID, void *inUserData);
+typedef STACK_UPP_TYPE(QTComponentPropertyListenerProcPtr)      QTComponentPropertyListenerUPP;
+
+
+
+
+/*
+ *  QTGetComponentPropertyInfo()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+QTGetComponentPropertyInfo(
+  ComponentInstance        inComponent,
+  ComponentPropertyClass   inPropClass,
+  ComponentPropertyID      inPropID,
+  ComponentValueType *     outPropType,            /* can be NULL */
+  ByteCount *              outPropValueSize,       /* can be NULL */
+  UInt32 *                 outPropertyFlags)       /* can be NULL */ AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTGetComponentProperty()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+QTGetComponentProperty(
+  ComponentInstance        inComponent,
+  ComponentPropertyClass   inPropClass,
+  ComponentPropertyID      inPropID,
+  ByteCount                inPropValueSize,
+  ComponentValuePtr        outPropValueAddress,
+  ByteCount *              outPropValueSizeUsed)       /* can be NULL */ AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTSetComponentProperty()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+QTSetComponentProperty(
+  ComponentInstance        inComponent,
+  ComponentPropertyClass   inPropClass,
+  ComponentPropertyID      inPropID,
+  ByteCount                inPropValueSize,
+  ConstComponentValuePtr   inPropValueAddress)                AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+
+/*
+ *  QTAddComponentPropertyListener()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+QTAddComponentPropertyListener(
+  ComponentInstance                inComponent,
+  ComponentPropertyClass           inPropClass,
+  ComponentPropertyID              inPropID,
+  QTComponentPropertyListenerUPP   inDispatchProc,
+  void *                           inUserData)           /* can be NULL */ AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTRemoveComponentPropertyListener()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+QTRemoveComponentPropertyListener(
+  ComponentInstance                inComponent,
+  ComponentPropertyClass           inPropClass,
+  ComponentPropertyID              inPropID,
+  QTComponentPropertyListenerUPP   inDispatchProc,
+  void *                           inUserData)           /* can be NULL */ AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+
+
+/* == "QT" prefixed Component Property Listener helpers == */
+
+
+typedef CFTypeRef                       QTComponentPropertyListenersRef;
+typedef struct QTComponentPropertyListenerCollectionContext  QTComponentPropertyListenerCollectionContext;
+typedef CALLBACK_API( Boolean , QTComponentPropertyListenerFilterProcPtr )(QTComponentPropertyListenersRef inCollection, const QTComponentPropertyListenerCollectionContext *inCollectionContext, ComponentInstance inNotifier, ComponentPropertyClass inPropClass, ComponentPropertyID inPropID, QTComponentPropertyListenerUPP inListenerCallbackProc, const void *inListenerProcRefCon, const void *inFilterProcRefCon);
+typedef STACK_UPP_TYPE(QTComponentPropertyListenerFilterProcPtr)  QTComponentPropertyListenerFilterUPP;
+#define kQTComponentPropertyListenerCollectionContextVersion 1
+struct QTComponentPropertyListenerCollectionContext {
+  UInt32              version;                /* struct version */
+  QTComponentPropertyListenerFilterUPP  filterProcUPP;
+  void *              filterProcData;
+};
+
+/*
+ *  NewQTComponentPropertyListenerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern QTComponentPropertyListenerUPP
+NewQTComponentPropertyListenerUPP(QTComponentPropertyListenerProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  NewQTComponentPropertyListenerFilterUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern QTComponentPropertyListenerFilterUPP
+NewQTComponentPropertyListenerFilterUPP(QTComponentPropertyListenerFilterProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  DisposeQTComponentPropertyListenerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern void
+DisposeQTComponentPropertyListenerUPP(QTComponentPropertyListenerUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  DisposeQTComponentPropertyListenerFilterUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern void
+DisposeQTComponentPropertyListenerFilterUPP(QTComponentPropertyListenerFilterUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  InvokeQTComponentPropertyListenerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern void
+InvokeQTComponentPropertyListenerUPP(
+  ComponentInstance               inComponent,
+  ComponentPropertyClass          inPropClass,
+  ComponentPropertyID             inPropID,
+  void *                          inUserData,
+  QTComponentPropertyListenerUPP  userUPP)                    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  InvokeQTComponentPropertyListenerFilterUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern Boolean
+InvokeQTComponentPropertyListenerFilterUPP(
+  QTComponentPropertyListenersRef                       inCollection,
+  const QTComponentPropertyListenerCollectionContext *  inCollectionContext,
+  ComponentInstance                                     inNotifier,
+  ComponentPropertyClass                                inPropClass,
+  ComponentPropertyID                                   inPropID,
+  QTComponentPropertyListenerUPP                        inListenerCallbackProc,
+  const void *                                          inListenerProcRefCon,
+  const void *                                          inFilterProcRefCon,
+  QTComponentPropertyListenerFilterUPP                  userUPP) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  QTComponentPropertyListenerCollectionCreate()
+ *  
+ *  Summary:
+ *    Create a collection to use with the functions
+ *    ComponentPropertyListenerCollectionAddListener,
+ *    ComponentPropertyListenerCollectionRemoveListener,
+ *    ComponentPropertyListenerCollectionNotifyListeners,
+ *    ComponentPropertyListenerCollectionIsEmpty, and
+ *    ComponentPropertyListenerCollectionHasListenersForProperty.
+ *  
+ *  Parameters:
+ *    
+ *    outCollection:
+ *      Returns the new, empty, listener collection.
+ *    
+ *    inAllocator:
+ *      Allocator used to create the collection and it's contents.
+ *    
+ *    inContext:
+ *      The listener collection context. May be NULL.  A copy of the
+ *      contents of the structure is made, so a pointer to a structure
+ *      on the stack can be passed.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSStatus 
+QTComponentPropertyListenerCollectionCreate(
+  CFAllocatorRef                                        inAllocator,         /* can be NULL */
+  const QTComponentPropertyListenerCollectionContext *  inContext,           /* can be NULL */
+  QTComponentPropertyListenersRef *                     outCollection) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+
+/*
+ *  QTComponentPropertyListenerCollectionAddListener()
+ *  
+ *  Summary:
+ *    Add a listener callback for the specified property class and ID
+ *    to a property listener collection.
+ *  
+ *  Parameters:
+ *    
+ *    inCollection:
+ *      The property listener collection.
+ *    
+ *    inPropClass:
+ *      The property class.
+ *    
+ *    inPropID:
+ *      The property ID.
+ *    
+ *    inListenerProc:
+ *      The property listener callback function.
+ *    
+ *    inListenerProcRefCon:
+ *      The data parameter to pass to the listener callback function.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSStatus 
+QTComponentPropertyListenerCollectionAddListener(
+  QTComponentPropertyListenersRef   inCollection,
+  ComponentPropertyClass            inPropClass,
+  ComponentPropertyID               inPropID,
+  QTComponentPropertyListenerUPP    inListenerProc,
+  const void *                      inListenerProcRefCon)     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTComponentPropertyListenerCollectionRemoveListener()
+ *  
+ *  Summary:
+ *    Remove a listener callback for the specified property class and
+ *    ID from a property listener collection.
+ *  
+ *  Parameters:
+ *    
+ *    inCollection:
+ *      The property listener collection.
+ *    
+ *    inPropClass:
+ *      The property class.
+ *    
+ *    inPropID:
+ *      The property ID.
+ *    
+ *    inListenerProc:
+ *      The property listener callback function.
+ *    
+ *    inListenerProcRefCon:
+ *      The data parameter to pass to the listener callback function.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSStatus 
+QTComponentPropertyListenerCollectionRemoveListener(
+  QTComponentPropertyListenersRef   inCollection,
+  ComponentPropertyClass            inPropClass,
+  ComponentPropertyID               inPropID,
+  QTComponentPropertyListenerUPP    inListenerProc,
+  const void *                      inListenerProcRefCon)     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTComponentPropertyListenerCollectionNotifyListeners()
+ *  
+ *  Summary:
+ *    Call all listener callbacks in the collection registered for the
+ *    specified property class and ID.
+ *  
+ *  Discussion:
+ *    If the "filterProcUPP" in the collection's context is non-NULL,
+ *    the filter function will be called before each registered
+ *    listener that matches the specified property class and ID. If the
+ *    filter function return false, the listener proc will not be
+ *    called. This is intended to allow a component to change the
+ *    calling semantics (call another thread, etc), to use a different
+ *    listener callback signature, etc.
+ *  
+ *  Parameters:
+ *    
+ *    inCollection:
+ *      The property listener collection.
+ *    
+ *    inNotifier:
+ *      The calling ComponentInstance.
+ *    
+ *    inPropClass:
+ *      The property class.
+ *    
+ *    inPropID:
+ *      The property ID.
+ *    
+ *    inFilterProcRefCon:
+ *      The data parameter to pass to the filter function.
+ *    
+ *    inFlags:
+ *      Flags.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSStatus 
+QTComponentPropertyListenerCollectionNotifyListeners(
+  QTComponentPropertyListenersRef   inCollection,
+  ComponentInstance                 inNotifier,
+  ComponentPropertyClass            inPropClass,
+  ComponentPropertyID               inPropID,
+  const void *                      inFilterProcRefCon,       /* can be NULL */
+  UInt32                            inFlags)                  AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTComponentPropertyListenerCollectionIsEmpty()
+ *  
+ *  Summary:
+ *    Return true if the listener collection is empty.
+ *  
+ *  Parameters:
+ *    
+ *    inCollection:
+ *      The property listener collection.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern Boolean 
+QTComponentPropertyListenerCollectionIsEmpty(QTComponentPropertyListenersRef inCollection) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTComponentPropertyListenerCollectionHasListenersForProperty()
+ *  
+ *  Summary:
+ *    Returns true if there are any listeners registered for the
+ *    specified property class and ID.
+ *  
+ *  Parameters:
+ *    
+ *    inCollection:
+ *      The property listener collection.
+ *    
+ *    inPropClass:
+ *      The property class.
+ *    
+ *    inPropID:
+ *      The property ID.
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern Boolean 
+QTComponentPropertyListenerCollectionHasListenersForProperty(
+  QTComponentPropertyListenersRef   inCollection,
+  ComponentPropertyClass            inPropClass,
+  ComponentPropertyID               inPropID)                 AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/* DRM properties*/
+enum {
+  kQTPropertyClass_DRM          = 'drm '
+};
+
+enum {
+  kQTDRMPropertyID_InteractWithUser = 'shui', /* Boolean**/
+  kQTDRMPropertyID_IsProtected  = 'prot', /* Boolean**/
+  kQTDRMPropertyID_IsAuthorized = 'auth' /* Boolean**/
+};
+
+
+
 /* UPP call backs */
 
 /* selectors for component calls */
@@ -6338,6 +7171,19 @@ enum {
     kGraphicsImportGetFlagsSelect              = 0x003A,
     kGraphicsImportGetBaseDataOffsetAndSize64Select = 0x003D,
     kGraphicsImportSetImageIndexToThumbnailSelect = 0x003E,
+    kGraphicsImportCreateCGImageSelect         = 0x003F,
+    kGraphicsImportSaveAsPictureToDataRefSelect = 0x0040,
+    kGraphicsImportSaveAsQuickTimeImageFileToDataRefSelect = 0x0041,
+    kGraphicsImportExportImageFileToDataRefSelect = 0x0042,
+    kGraphicsImportDoExportImageFileToDataRefDialogSelect = 0x0043,
+    kGraphicsImportSetOverrideSourceColorSyncProfileRefSelect = 0x0044,
+    kGraphicsImportGetOverrideSourceColorSyncProfileRefSelect = 0x0045,
+    kGraphicsImportSetDestinationColorSyncProfileRefSelect = 0x0046,
+    kGraphicsImportGetDestinationColorSyncProfileRefSelect = 0x0047,
+    kGraphicsImportWillUseColorMatchingSelect  = 0x0048,
+    kGraphicsImportGetGenericColorSyncProfileSelect = 0x0049,
+    kGraphicsImportSetReturnGenericColorSyncProfileSelect = 0x004A,
+    kGraphicsImportGetReturnGenericColorSyncProfileSelect = 0x004B,
     kGraphicsExportDoExportSelect              = 0x0001,
     kGraphicsExportCanTranscodeSelect          = 0x0002,
     kGraphicsExportDoTranscodeSelect           = 0x0003,
@@ -6414,10 +7260,21 @@ enum {
     kGraphicsExportGetThumbnailEnabledSelect   = 0x004D,
     kGraphicsExportSetExifEnabledSelect        = 0x004E,
     kGraphicsExportGetExifEnabledSelect        = 0x004F,
+    kGraphicsExportSetInputCGImageSelect       = 0x0050,
+    kGraphicsExportGetInputCGImageSelect       = 0x0051,
+    kGraphicsExportSetInputCGBitmapContextSelect = 0x0052,
+    kGraphicsExportGetInputCGBitmapContextSelect = 0x0053,
+    kGraphicsExportSetFlagsSelect              = 0x0054,
+    kGraphicsExportGetFlagsSelect              = 0x0055,
     kImageTranscoderBeginSequenceSelect        = 0x0001,
     kImageTranscoderConvertSelect              = 0x0002,
     kImageTranscoderDisposeDataSelect          = 0x0003,
-    kImageTranscoderEndSequenceSelect          = 0x0004
+    kImageTranscoderEndSequenceSelect          = 0x0004,
+    kQTGetComponentPropertyInfoSelect          = -11,
+    kQTGetComponentPropertySelect              = -12,
+    kQTSetComponentPropertySelect              = -13,
+    kQTAddComponentPropertyListenerSelect      = -14,
+    kQTRemoveComponentPropertyListenerSelect   = -15
 };
 
 #pragma options align=reset

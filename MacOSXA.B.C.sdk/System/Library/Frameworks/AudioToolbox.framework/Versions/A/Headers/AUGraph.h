@@ -79,6 +79,15 @@ extern "C"
 typedef SInt32 	AUNode;
 typedef	struct OpaqueAUGraph	*AUGraph;
 
+struct AudioUnitNodeConnection
+{
+	AUNode		sourceNode;
+	UInt32		sourceOutputNumber;
+	AUNode		destNode;
+	UInt32		destInputNumber;
+};
+typedef struct AudioUnitNodeConnection AudioUnitNodeConnection;
+
 enum {
 	kAUGraphErr_NodeNotFound 				= -10860,
 	kAUGraphErr_InvalidConnection 			= -10861,
@@ -208,6 +217,24 @@ extern OSStatus AUGraphClearConnections(	AUGraph			inGraph );
 extern OSStatus AUGraphGetNumberOfConnections(	AUGraph		inGraph,
                                                 UInt32		*outNumberOfConnections );
 
+// this returns the number of connections where the specified node is 
+// either a source or a destination in the connection
+extern
+OSStatus	AUGraphCountNodeConnections (AUGraph 			inGraph,
+										AUNode 				inNode,
+										UInt32 				*outNumConnections);
+
+// returns a list of connections where the specified node is either a source or destination
+// Pass in a number of connection structures that are used to receive the connection info
+// On input, ioNumConnections contains the number of connection structs that can be returned
+// On output, ioNumConnections contains the number of connections returned
+// The connections are returned in the order that the conn. were made in the graph
+extern
+OSStatus	AUGraphGetNodeConnections (AUGraph				inGraph,
+								AUNode						inNode,
+								AudioUnitNodeConnection		*outConnections,
+								UInt32						*ioNumConnections);
+
 // it's OK to pass in NULL for any of the last four arguments
 extern OSStatus AUGraphGetConnectionInfo(	AUGraph		inGraph,
                                                 UInt32		inConnectionIndex,
@@ -297,7 +324,10 @@ extern OSStatus AUGraphIsRunning (AUGraph			inGraph,
 									Boolean			*outIsRunning );
 						
 extern OSStatus AUGraphGetCPULoad(		AUGraph		inGraph,
-										Float32		*outCPULoad );
+										Float32		*outAverageCPULoad );
+
+extern OSStatus AUGraphGetMaxCPULoad(AUGraph		inGraph,
+										Float32		*outMaxLoad );
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	AUGraph Render Notifications

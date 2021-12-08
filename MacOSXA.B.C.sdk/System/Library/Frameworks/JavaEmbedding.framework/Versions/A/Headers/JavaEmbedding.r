@@ -3,7 +3,7 @@
  
      Contains:   Master include for JavaEmbedding
  
-     Version:    JavaEmbedding-21~26
+     Version:    JavaEmbedding-12~208
  
      Copyright:  © 2001-2002 by Apple Computer, Inc., all rights reserved.
  

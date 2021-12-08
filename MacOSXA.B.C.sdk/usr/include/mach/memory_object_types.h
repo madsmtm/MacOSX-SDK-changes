@@ -276,28 +276,8 @@ typedef struct upl_page_info	upl_page_info_t;
 typedef upl_page_info_t		*upl_page_info_array_t;
 typedef upl_page_info_array_t	upl_page_list_ptr_t;
 
-/* named entry processor mapping options */
-/* enumerated */
-#define MAP_MEM_NOOP		0
-#define MAP_MEM_COPYBACK	1
-#define MAP_MEM_IO		2
-#define MAP_MEM_WTHRU		3
-#define MAP_MEM_WCOMB		4	/* Write combining mode */
-					/* aka store gather     */
-
-#define GET_MAP_MEM(flags)	\
-	((((unsigned int)(flags)) >> 24) & 0xFF)
-
-#define SET_MAP_MEM(caching, flags)	\
-	((flags) = ((((unsigned int)(caching)) << 24) \
-			& 0xFF000000) | ((flags) & 0xFFFFFF));
-
-/* leave room for vm_prot bits */
-#define MAP_MEM_ONLY		0x10000	/* change processor caching  */
-#define MAP_MEM_NAMED_CREATE	0x20000 /* create extant object      */
 
 /* upl invocation flags */
-/* top nibble is used by super upl */
 
 #define UPL_FLAGS_NONE		0x0
 #define UPL_COPYOUT_FROM	0x1
@@ -310,10 +290,6 @@ typedef upl_page_info_array_t	upl_page_list_ptr_t;
 #define	UPL_QUERY_OBJECT_TYPE	0x80
 #define UPL_RET_ONLY_ABSENT	0x100  /* used only for COPY_FROM = FALSE */
 #define UPL_FILE_IO             0x200
-#define UPL_SET_LITE		0x400
-#define UPL_SET_INTERRUPTIBLE	0x800
-#define UPL_SET_IO_WIRE		0x1000
-#define UPL_FOR_PAGEOUT		0x2000
 
 /* upl abort error flags */
 #define UPL_ABORT_RESTART	0x1
@@ -391,7 +367,6 @@ typedef upl_page_info_array_t	upl_page_list_ptr_t;
 #define UPL_POP_DUMP            0x20000000
 #define UPL_POP_SET		0x40000000
 #define UPL_POP_CLR		0x80000000
-
 
 
 

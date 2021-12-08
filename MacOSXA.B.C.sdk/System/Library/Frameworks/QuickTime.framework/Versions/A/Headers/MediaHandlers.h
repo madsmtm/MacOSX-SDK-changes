@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -1022,8 +1022,6 @@ MediaSetSoundLocalizationData(
 
 
 
-
-
 /*
  *  MediaGetInvalidRegion()
  *  
@@ -1760,6 +1758,22 @@ MediaGSetIdleManager(
   IdleManager    im)                                          AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
+/*
+ *  MediaGGetLatency()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+MediaGGetLatency(
+  MediaHandler   mh,
+  TimeRecord *   latency)                                     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+
 
 
 
@@ -1864,34 +1878,45 @@ enum {
     kMediaRefConGetPropertySelect              = 0x056A,
     kMediaNavigateTargetRefConSelect           = 0x056B,
     kMediaGGetIdleManagerSelect                = 0x056C,
-    kMediaGSetIdleManagerSelect                = 0x056D
+    kMediaGSetIdleManagerSelect                = 0x056D,
+    kMediaGGetLatencySelect                    = 0x0571
 };
 /*
  *  NewPrePrerollCompleteUPP()
  *  
  *  Availability:
- *    Mac OS X:         not available
- *    CarbonLib:        not available
+ *    Mac OS X:         in version 10.0 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.0.2 and later
  *    Non-Carbon CFM:   available as macro/inline
  */
+extern PrePrerollCompleteUPP
+NewPrePrerollCompleteUPP(PrePrerollCompleteProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposePrePrerollCompleteUPP()
  *  
  *  Availability:
- *    Mac OS X:         not available
- *    CarbonLib:        not available
+ *    Mac OS X:         in version 10.0 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.0.2 and later
  *    Non-Carbon CFM:   available as macro/inline
  */
+extern void
+DisposePrePrerollCompleteUPP(PrePrerollCompleteUPP userUPP)   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokePrePrerollCompleteUPP()
  *  
  *  Availability:
- *    Mac OS X:         not available
- *    CarbonLib:        not available
+ *    Mac OS X:         in version 10.0 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.0.2 and later
  *    Non-Carbon CFM:   available as macro/inline
  */
+extern void
+InvokePrePrerollCompleteUPP(
+  MediaHandler           mh,
+  OSErr                  err,
+  void *                 refcon,
+  PrePrerollCompleteUPP  userUPP)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 #pragma options align=reset

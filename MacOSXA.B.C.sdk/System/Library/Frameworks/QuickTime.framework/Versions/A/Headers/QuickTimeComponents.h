@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -221,15 +221,49 @@ ClockGetRate(
   Fixed *             rate)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+/*
+ *  ClockGetTimesForRateChange()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+ClockGetTimesForRateChange(
+  ComponentInstance   aClock,
+  Fixed               fromRate,
+  Fixed               toRate,
+  TimeRecord *        currentTime,
+  TimeRecord *        preferredTime,
+  TimeRecord *        safeIncrementForPreferredTime)          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  ClockGetRateChangeConstraints()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+ClockGetRateChangeConstraints(
+  ComponentInstance   aClock,
+  TimeRecord *        minimumDelay,
+  TimeRecord *        maximumDelay)                           AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 
 
+
+/* StdCompression component type and subtypes*/
 enum {
   StandardCompressionType       = 'scdi',
   StandardCompressionSubType    = 'imag',
   StandardCompressionSubTypeSound = 'soun'
 };
-
 
 typedef CALLBACK_API( Boolean , SCModalFilterProcPtr )(DialogRef theDialog, EventRecord *theEvent, short *itemHit, long refcon);
 typedef CALLBACK_API( short , SCModalHookProcPtr )(DialogRef theDialog, short itemHit, void *params, long refcon);
@@ -329,6 +363,16 @@ struct SCExtendedProcs {
   Str31               customName;
 };
 typedef struct SCExtendedProcs          SCExtendedProcs;
+enum {
+  scWindowRefKindCarbon         = 'carb' /* WindowRef*/
+};
+
+struct SCWindowSettings {
+  long                size;                   /* must be sizeof(SCWindowSettings)*/
+  long                windowRefKind;          /* type of parent window*/
+  void *              parentWindow;           /* parent window, for sheets or NIL for none*/
+};
+typedef struct SCWindowSettings         SCWindowSettings;
 /*  Get/SetInfo selectors*/
 enum {
   scSpatialSettingsType         = 'sptl', /* pointer to SCSpatialSettings struct*/
@@ -344,19 +388,21 @@ enum {
   scCodecFlagsType              = 'cflg', /* pointer to CodecFlags*/
   scCodecSettingsType           = 'cdec', /* pointer to Handle*/
   scForceKeyValueType           = 'ksim', /* pointer to long*/
-  scSoundSampleRateType         = 'ssrt', /* pointer to UnsignedFixed*/
-  scSoundSampleSizeType         = 'ssss', /* pointer to short*/
-  scSoundChannelCountType       = 'sscc', /* pointer to short*/
-  scSoundCompressionType        = 'ssct', /* pointer to OSType*/
   scCompressionListType         = 'ctyl', /* pointer to OSType Handle*/
   scCodecManufacturerType       = 'cmfr', /* pointer to OSType*/
+  scAvailableCompressionListType = 'avai', /* pointer to OSType Handle*/
+  scWindowOptionsType           = 'shee', /* pointer to SCWindowSettings struct*/
   scSoundVBRCompressionOK       = 'cvbr', /* pointer to Boolean*/
-  scSoundInputSampleRateType    = 'ssir', /* pointer to UnsignedFixed*/
   scSoundSampleRateChangeOK     = 'rcok', /* pointer to Boolean*/
-  scAvailableCompressionListType = 'avai' /* pointer to OSType Handle*/
+  scSoundCompressionType        = 'ssct', /* pointer to OSType*/
+  scSoundSampleRateType         = 'ssrt', /* pointer to UnsignedFixed*/
+  scSoundInputSampleRateType    = 'ssir', /* pointer to UnsignedFixed*/
+  scSoundSampleSizeType         = 'ssss', /* pointer to short*/
+  scSoundChannelCountType       = 'sscc' /* pointer to short*/
 };
 
 /*  scTypeNotFoundErr returned by Get/SetInfo when type cannot be found.*/
+
 
 
 struct SCParams {
@@ -1238,7 +1284,9 @@ enum {
   kQTMediaConfigBinaryFile      = (1L << 23), /* file should be transfered in binary mode*/
   kQTMediaConfigTextFile        = 0,    /* not a bit, defined for clarity*/
   kQTMediaConfigMacintoshFile   = (1L << 24), /* file's resource fork is significant*/
-  kQTMediaConfigAssociateByDefault = (1L << 27), /* take this file association by default*/
+  kQTMediaConfigCanDoFileAssociation = (1L << 26), /* can configure this file association */
+  kQTMediaConfigAssociateByDefault = (1L << 27), /* Deprecated, use kQTMediaConfigTakeFileAssociationByDefault instead*/
+  kQTMediaConfigTakeFileAssociationByDefault = (1L << 27), /* take this file association by default*/
   kQTMediaConfigUseAppByDefault = (1L << 28), /* use the app by default for this MIME type*/
   kQTMediaConfigUsePluginByDefault = (1L << 29), /* use the plug-in by default for this MIME type*/
   kQTMediaConfigDefaultsMask    = (kQTMediaConfigUseAppByDefault | kQTMediaConfigUsePluginByDefault),
@@ -1308,7 +1356,11 @@ enum {
   kQTFileTypeFLC                = 'FLC ',
   kQTFileTypeFlash              = 'SWFL',
   kQTFileTypeFlashPix           = 'FPix',
-  kQTFileTypeMP4                = 'mpg4'
+  kQTFileTypeMP4                = 'mpg4',
+  kQTFileTypePDF                = 'PDF ',
+  kQTFileType3GPP               = '3gpp',
+  kQTFileTypeAMR                = 'amr ',
+  kQTFileTypeSDV                = 'sdv '
 };
 
 /* QTAtomTypes for atoms in import/export settings containers*/
@@ -2079,6 +2131,39 @@ extern ComponentResult
 MovieImportGetDestinationMediaType(
   MovieImportComponent   ci,
   OSType *               mediaType)                           AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+ *  MovieImportSetMediaDataRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+MovieImportSetMediaDataRef(
+  MovieImportComponent   ci,
+  Handle                 dataRef,
+  OSType                 dataRefType)                         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  MovieImportDoUserDialogDataRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+MovieImportDoUserDialogDataRef(
+  MovieImportComponent   ci,
+  Handle                 dataRef,
+  OSType                 dataRefType,
+  Boolean *              canceled)                            AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 
 /*
@@ -5765,6 +5850,323 @@ VDSelectUniqueIDs(
   const UInt64 *            inInputID)                        AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
+/*
+ *  VDCopyPreferredAudioDevice()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern ComponentResult 
+VDCopyPreferredAudioDevice(
+  ComponentInstance   vdig,
+  CFStringRef *       outAudioDeviceUID)                      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+
+/*
+   IIDC (Instrumentation & Industrial Digital Camera) Video Digitizers
+   Video Digitizers of subtype vdSubtypeIIDC support FireWire cameras which conform to the
+   "IIDC 1394-based Digital Camera Specification." 
+*/
+
+enum {
+  vdSubtypeIIDC                 = 'iidc' /* Subtype for IIDC 1394-Digital Camera video digitizer*/
+};
+
+/*
+   vdIIDCAtomTypeFeature
+   Parent node for the QTAtoms which describe a given feature.  
+*/
+enum {
+  vdIIDCAtomTypeFeature         = 'feat'
+};
+
+/*
+   vdIIDCAtomTypeFeatureAtomTypeAndID
+   This atom describes the feature's OSType/group/name and QTAtomType & QTAtomID needed to retrieve its settings.
+   The contents of this atom is a VDIIDCFeatureAtomTypeAndID structure.  
+*/
+enum {
+  vdIIDCAtomTypeFeatureAtomTypeAndID = 't&id',
+  vdIIDCAtomIDFeatureAtomTypeAndID = 1
+};
+
+struct VDIIDCFeatureAtomTypeAndID {
+  OSType              feature;                /* OSType of feature*/
+  OSType              group;                  /* OSType of group that feature is categorized into*/
+  Str255              name;                   /* Name of this feature*/
+  QTAtomType          atomType;               /* Atom type which contains feature's settings*/
+  QTAtomID            atomID;                 /* Atom ID which contains feature's settings*/
+};
+typedef struct VDIIDCFeatureAtomTypeAndID VDIIDCFeatureAtomTypeAndID;
+/* IIDC Feature OSTypes*/
+enum {
+  vdIIDCFeatureHue              = 'hue ', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureSaturation       = 'satu', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureSharpness        = 'shrp', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureBrightness       = 'brit', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureGain             = 'gain', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureIris             = 'iris', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureShutter          = 'shtr', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureExposure         = 'xpsr', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureWhiteBalanceU    = 'whbu', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureWhiteBalanceV    = 'whbv', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureGamma            = 'gmma', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureTemperature      = 'temp', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureZoom             = 'zoom', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureFocus            = 'fcus', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeaturePan              = 'pan ', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureTilt             = 'tilt', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureOpticalFilter    = 'opft', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureTrigger          = 'trgr', /* Trigger's setttings handled by VDIIDCTriggerSettings*/
+  vdIIDCFeatureCaptureSize      = 'cpsz', /* Feature's settings is not defined*/
+  vdIIDCFeatureCaptureQuality   = 'cpql', /* Feature's settings is not defined*/
+  vdIIDCFeatureFocusPoint       = 'fpnt', /* Focus Point's settings handled by VDIIDCFocusPointSettings*/
+  vdIIDCFeatureEdgeEnhancement  = 'eden', /* Feature's settings handled by VDIIDCFeatureSettings*/
+  vdIIDCFeatureLightingHint     = 'lhnt' /* Feature's settings handled by VDIIDCLightingHintSettings*/
+};
+
+/*
+   IIDC Group OSTypes that features are categorized into
+   (The values used for the constants cannot be the same as any of the IIDC Feature OSTypes constants)
+*/
+enum {
+  vdIIDCGroupImage              = 'imag', /* Feature related to camera's image*/
+  vdIIDCGroupColor              = 'colr', /* Feature related to camera's color control*/
+  vdIIDCGroupMechanics          = 'mech', /* Feature related to camera's mechanics*/
+  vdIIDCGroupTrigger            = 'trig' /* Feature related to camera's trigger*/
+};
+
+/*
+   vdIIDCAtomTypeFeatureSettings
+   This atom describes the settings for the majority of features.
+   The contents of this atom is a VDIIDCFeatureSettings structure.
+*/
+enum {
+  vdIIDCAtomTypeFeatureSettings = 'fstg',
+  vdIIDCAtomIDFeatureSettings   = 1
+};
+
+struct VDIIDCFeatureCapabilities {
+  UInt32              flags;
+  UInt16              rawMinimum;
+  UInt16              rawMaximum;
+  QTFloatSingle       absoluteMinimum;
+  QTFloatSingle       absoluteMaximum;
+};
+typedef struct VDIIDCFeatureCapabilities VDIIDCFeatureCapabilities;
+struct VDIIDCFeatureState {
+  UInt32              flags;
+  QTFloatSingle       value;
+};
+typedef struct VDIIDCFeatureState       VDIIDCFeatureState;
+struct VDIIDCFeatureSettings {
+  VDIIDCFeatureCapabilities  capabilities;
+  VDIIDCFeatureState  state;
+};
+typedef struct VDIIDCFeatureSettings    VDIIDCFeatureSettings;
+/*
+   Flags for use in VDIIDCFeatureCapabilities.flags & VDIIDCFeatureState.flags
+   When indicating capabilities, the flag being set indicates that the feature can be put into the given state.
+   When indicating/setting state, the flag represents the current/desired state.
+   Note that certain combinations of flags are valid for cababilities (i.e. vdIIDCFeatureFlagOn | vdIIDCFeatureFlagOff)
+   but are mutally exclusive for state.
+*/
+enum {
+  vdIIDCFeatureFlagOn           = (1 << 0),
+  vdIIDCFeatureFlagOff          = (1 << 1),
+  vdIIDCFeatureFlagManual       = (1 << 2),
+  vdIIDCFeatureFlagAuto         = (1 << 3),
+  vdIIDCFeatureFlagTune         = (1 << 4),
+  vdIIDCFeatureFlagRawControl   = (1 << 5),
+  vdIIDCFeatureFlagAbsoluteControl = (1 << 6)
+};
+
+/*
+   vdIIDCAtomTypeTriggerSettings
+   This atom describes the settings for the trigger feature.
+   The contents of this atom is a VDIIDCTriggerSettings structure.
+*/
+enum {
+  vdIIDCAtomTypeTriggerSettings = 'tstg',
+  vdIIDCAtomIDTriggerSettings   = 1
+};
+
+struct VDIIDCTriggerCapabilities {
+  UInt32              flags;
+  QTFloatSingle       absoluteMinimum;
+  QTFloatSingle       absoluteMaximum;
+};
+typedef struct VDIIDCTriggerCapabilities VDIIDCTriggerCapabilities;
+struct VDIIDCTriggerState {
+  UInt32              flags;
+  UInt16              mode2TransitionCount;
+  UInt16              mode3FrameRateMultiplier;
+  QTFloatSingle       absoluteValue;
+};
+typedef struct VDIIDCTriggerState       VDIIDCTriggerState;
+struct VDIIDCTriggerSettings {
+  VDIIDCTriggerCapabilities  capabilities;
+  VDIIDCTriggerState  state;
+};
+typedef struct VDIIDCTriggerSettings    VDIIDCTriggerSettings;
+/*
+   Flags for use in VDIIDCTriggerCapabilities.flags & VDIIDCTriggerState.flags
+   When indicating capabilities, the flag being set indicates that the trigger can be put into the given state.
+   When indicating/setting state, the flag represents the current/desired state.
+   Note that certain combinations of flags are valid for cababilities (i.e. vdIIDCTriggerFlagOn | vdIIDCTriggerFlagOff)
+   but are mutally exclusive for state.
+*/
+enum {
+  vdIIDCTriggerFlagOn           = (1 << 0),
+  vdIIDCTriggerFlagOff          = (1 << 1),
+  vdIIDCTriggerFlagActiveHigh   = (1 << 2),
+  vdIIDCTriggerFlagActiveLow    = (1 << 3),
+  vdIIDCTriggerFlagMode0        = (1 << 4),
+  vdIIDCTriggerFlagMode1        = (1 << 5),
+  vdIIDCTriggerFlagMode2        = (1 << 6),
+  vdIIDCTriggerFlagMode3        = (1 << 7),
+  vdIIDCTriggerFlagRawControl   = (1 << 8),
+  vdIIDCTriggerFlagAbsoluteControl = (1 << 9)
+};
+
+
+/*
+   vdIIDCAtomTypeFocusPointSettings
+   This atom describes the settings for the focus point feature.
+   The contents of this atom is a VDIIDCFocusPointSettings structure.
+*/
+enum {
+  vdIIDCAtomTypeFocusPointSettings = 'fpst',
+  vdIIDCAtomIDFocusPointSettings = 1
+};
+
+struct VDIIDCFocusPointSettings {
+  Point               focusPoint;
+};
+typedef struct VDIIDCFocusPointSettings VDIIDCFocusPointSettings;
+/*
+   vdIIDCAtomTypeLightingHintSettings
+   This atom describes the settings for the light hint feature.
+   The contents of this atom is a VDIIDCLightingHintSettings structure.
+*/
+enum {
+  vdIIDCAtomTypeLightingHintSettings = 'lhst',
+  vdIIDCAtomIDLightingHintSettings = 1
+};
+
+struct VDIIDCLightingHintSettings {
+  UInt32              capabilityFlags;
+  UInt32              stateFlags;
+};
+typedef struct VDIIDCLightingHintSettings VDIIDCLightingHintSettings;
+/*
+   Flags for use in VDIIDCLightingHintSettings.capabilityFlags & VDIIDCLightingHintSettings.capabilityFlags
+   When indicating capabilities, the flag being set indicates that the hint can be applied.
+   When indicating/setting state, the flag represents the current/desired hints applied/to apply.
+   Certain combinations of flags are valid for cababilities (i.e. vdIIDCLightingHintNormal | vdIIDCLightingHintLow)
+   but are mutally exclusive for state.
+*/
+enum {
+  vdIIDCLightingHintNormal      = (1 << 0),
+  vdIIDCLightingHintLow         = (1 << 1)
+};
+
+
+/*
+   VDIIDC calls are additional calls for IIDC digitizers (vdSubtypeIIDC)
+   These calls are only valid for video digitizers of subtype vdSubtypeIIDC.
+*/
+/*
+ *  VDIIDCGetFeatures()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern VideoDigitizerError 
+VDIIDCGetFeatures(
+  VideoDigitizerComponent   ci,
+  QTAtomContainer *         container)                        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  VDIIDCSetFeatures()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern VideoDigitizerError 
+VDIIDCSetFeatures(
+  VideoDigitizerComponent   ci,
+  QTAtomContainer           container)                        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  VDIIDCGetDefaultFeatures()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern VideoDigitizerError 
+VDIIDCGetDefaultFeatures(
+  VideoDigitizerComponent   ci,
+  QTAtomContainer *         container)                        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  VDIIDCGetCSRData()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern VideoDigitizerError 
+VDIIDCGetCSRData(
+  VideoDigitizerComponent   ci,
+  Boolean                   offsetFromUnitBase,
+  UInt32                    offset,
+  UInt32 *                  data)                             AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  VDIIDCSetCSRData()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern VideoDigitizerError 
+VDIIDCSetCSRData(
+  VideoDigitizerComponent   ci,
+  Boolean                   offsetFromUnitBase,
+  UInt32                    offset,
+  UInt32                    data)                             AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  VDIIDCGetFeaturesForSpecifier()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern VideoDigitizerError 
+VDIIDCGetFeaturesForSpecifier(
+  VideoDigitizerComponent   ci,
+  OSType                    specifier,
+  QTAtomContainer *         container)                        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
 
 
 
@@ -5786,7 +6188,8 @@ enum {
   elementFlagPreserveWhiteSpace = 1L << 1, /*  Preserve whitespace in content, default is to remove it */
   xmlParseFlagAllowUppercase    = 1L << 0, /*    Entities and attributes do not have to be lowercase (strict XML), but can be upper or mixed case as in HTML*/
   xmlParseFlagAllowUnquotedAttributeValues = 1L << 1, /*    Attributes values do not have to be enclosed in quotes (strict XML), but can be left unquoted if they contain no spaces*/
-  xmlParseFlagEventParseOnly    = 1L << 2 /*    Do event parsing only*/
+  xmlParseFlagEventParseOnly    = 1L << 2, /*    Do event parsing only*/
+  xmlParseFlagPreserveWhiteSpace = 1L << 3 /*    Preserve whitespace throughout the document*/
 };
 
 enum {
@@ -9581,6 +9984,22 @@ QTVideoOutputBaseSetEchoPort(
   CGrafPtr                 echoPort)                          AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
+/*
+ *  QTVideoOutputCopyIndAudioOutputDeviceUID()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+QTVideoOutputCopyIndAudioOutputDeviceUID(
+  QTVideoOutputComponent   vo,
+  long                     index,
+  CFStringRef *            audioDeviceUID)                    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
 /* UPP call backs */
 /*
  *  NewDataHCompletionUPP()
@@ -10384,6 +10803,8 @@ enum {
     kClockSetTimeBaseSelect                    = 0x0008,
     kClockStartStopChangedSelect               = 0x0009,
     kClockGetRateSelect                        = 0x000A,
+    kClockGetTimesForRateChangeSelect          = 0x000B,
+    kClockGetRateChangeConstraintsSelect       = 0x000C,
     kSCGetCompressionExtendedSelect            = 0x0001,
     kSCPositionRectSelect                      = 0x0002,
     kSCPositionDialogSelect                    = 0x0003,
@@ -10458,6 +10879,8 @@ enum {
     kMovieImportSetIdleManagerSelect           = 0x001E,
     kMovieImportSetNewMovieFlagsSelect         = 0x001F,
     kMovieImportGetDestinationMediaTypeSelect  = 0x0020,
+    kMovieImportSetMediaDataRefSelect          = 0x0021,
+    kMovieImportDoUserDialogDataRefSelect      = 0x0022,
     kMovieExportToHandleSelect                 = 0x0080,
     kMovieExportToFileSelect                   = 0x0081,
     kMovieExportGetAuxiliaryDataSelect         = 0x0083,
@@ -10662,6 +11085,13 @@ enum {
     kVDCaptureStateChangingSelect              = 0x005F,
     kVDGetUniqueIDsSelect                      = 0x0060,
     kVDSelectUniqueIDsSelect                   = 0x0061,
+    kVDCopyPreferredAudioDeviceSelect          = 0x0063,
+    kVDIIDCGetFeaturesSelect                   = 0x0200,
+    kVDIIDCSetFeaturesSelect                   = 0x0201,
+    kVDIIDCGetDefaultFeaturesSelect            = 0x0202,
+    kVDIIDCGetCSRDataSelect                    = 0x0203,
+    kVDIIDCSetCSRDataSelect                    = 0x0204,
+    kVDIIDCGetFeaturesForSpecifierSelect       = 0x0205,
     kXMLParseDataRefSelect                     = 0x0001,
     kXMLParseFileSelect                        = 0x0002,
     kXMLParseDisposeXMLDocSelect               = 0x0003,
@@ -10867,7 +11297,8 @@ enum {
     kQTVideoOutputGetClockSelect               = 0x000F,
     kQTVideoOutputSetEchoPortSelect            = 0x0010,
     kQTVideoOutputGetIndImageDecompressorSelect = 0x0011,
-    kQTVideoOutputBaseSetEchoPortSelect        = 0x0012
+    kQTVideoOutputBaseSetEchoPortSelect        = 0x0012,
+    kQTVideoOutputCopyIndAudioOutputDeviceUIDSelect = 0x0016
 };
 
 

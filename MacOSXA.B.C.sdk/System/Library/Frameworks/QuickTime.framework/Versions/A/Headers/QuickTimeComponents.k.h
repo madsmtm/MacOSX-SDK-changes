@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -57,6 +57,10 @@
 
 	EXTERN_API( ComponentResult  ) ADD_CLOCK_BASENAME(GetRate) (CLOCK_GLOBALS() ADD_CLOCK_COMMA Fixed * rate);
 
+	EXTERN_API( ComponentResult  ) ADD_CLOCK_BASENAME(GetTimesForRateChange) (CLOCK_GLOBALS() ADD_CLOCK_COMMA Fixed  fromRate, Fixed  toRate, TimeRecord * currentTime, TimeRecord * preferredTime, TimeRecord * safeIncrementForPreferredTime);
+
+	EXTERN_API( ComponentResult  ) ADD_CLOCK_BASENAME(GetRateChangeConstraints) (CLOCK_GLOBALS() ADD_CLOCK_COMMA TimeRecord * minimumDelay, TimeRecord * maximumDelay);
+
 
 	/* MixedMode ProcInfo constants for component calls */
 	enum {
@@ -69,7 +73,9 @@
 		uppClockTimeChangedProcInfo = 0x000003F0,
 		uppClockSetTimeBaseProcInfo = 0x000003F0,
 		uppClockStartStopChangedProcInfo = 0x000017F0,
-		uppClockGetRateProcInfo = 0x000003F0
+		uppClockGetRateProcInfo = 0x000003F0,
+		uppClockGetTimesForRateChangeProcInfo = 0x0003FFF0,
+		uppClockGetRateChangeConstraintsProcInfo = 0x00000FF0
 	};
 
 #endif	/* CLOCK_BASENAME */
@@ -365,6 +371,10 @@
 
 	EXTERN_API( ComponentResult  ) ADD_MOVIEIMPORT_BASENAME(GetDestinationMediaType) (MOVIEIMPORT_GLOBALS() ADD_MOVIEIMPORT_COMMA OSType * mediaType);
 
+	EXTERN_API( ComponentResult  ) ADD_MOVIEIMPORT_BASENAME(SetMediaDataRef) (MOVIEIMPORT_GLOBALS() ADD_MOVIEIMPORT_COMMA Handle  dataRef, OSType  dataRefType);
+
+	EXTERN_API( ComponentResult  ) ADD_MOVIEIMPORT_BASENAME(DoUserDialogDataRef) (MOVIEIMPORT_GLOBALS() ADD_MOVIEIMPORT_COMMA Handle  dataRef, OSType  dataRefType, Boolean * canceled);
+
 
 	/* MixedMode ProcInfo constants for component calls */
 	enum {
@@ -399,7 +409,9 @@
 		uppMovieImportGetDontBlockProcInfo = 0x000003F0,
 		uppMovieImportSetIdleManagerProcInfo = 0x000003F0,
 		uppMovieImportSetNewMovieFlagsProcInfo = 0x000003F0,
-		uppMovieImportGetDestinationMediaTypeProcInfo = 0x000003F0
+		uppMovieImportGetDestinationMediaTypeProcInfo = 0x000003F0,
+		uppMovieImportSetMediaDataRefProcInfo = 0x00000FF0,
+		uppMovieImportDoUserDialogDataRefProcInfo = 0x00003FF0
 	};
 
 #endif	/* MOVIEIMPORT_BASENAME */
@@ -1067,6 +1079,8 @@ enum {
 
 	EXTERN_API( VideoDigitizerError  ) ADD_VD_BASENAME(SelectUniqueIDs) (VD_GLOBALS() ADD_VD_COMMA const UInt64 * inDeviceID, const UInt64 * inInputID);
 
+	EXTERN_API( ComponentResult  ) ADD_VD_BASENAME(CopyPreferredAudioDevice) (VD_GLOBALS() ADD_VD_COMMA CFStringRef * outAudioDeviceUID);
+
 #endif	/* VD_BASENAME */
 
 
@@ -1236,8 +1250,54 @@ enum {
 	uppVDGetDeviceNameAndFlagsProcInfo = 0x00000FF0,
 	uppVDCaptureStateChangingProcInfo = 0x000003F0,
 	uppVDGetUniqueIDsProcInfo = 0x00000FF0,
-	uppVDSelectUniqueIDsProcInfo = 0x00000FF0
+	uppVDSelectUniqueIDsProcInfo = 0x00000FF0,
+	uppVDCopyPreferredAudioDeviceProcInfo = 0x000003F0
 };
+
+/*
+	Example usage:
+
+		#define VDIIDC_BASENAME()	Fred
+		#define VDIIDC_GLOBALS()	FredGlobalsHandle
+		#include <QuickTime/QuickTimeComponents.k.h>
+
+	To specify that your component implementation does not use globals, do not #define VDIIDC_GLOBALS
+*/
+#ifdef VDIIDC_BASENAME
+	#ifndef VDIIDC_GLOBALS
+		#define VDIIDC_GLOBALS() 
+		#define ADD_VDIIDC_COMMA 
+	#else
+		#define ADD_VDIIDC_COMMA ,
+	#endif
+	#define VDIIDC_GLUE(a,b) a##b
+	#define VDIIDC_STRCAT(a,b) VDIIDC_GLUE(a,b)
+	#define ADD_VDIIDC_BASENAME(name) VDIIDC_STRCAT(VDIIDC_BASENAME(),name)
+
+	EXTERN_API( VideoDigitizerError  ) ADD_VDIIDC_BASENAME(GetFeatures) (VDIIDC_GLOBALS() ADD_VDIIDC_COMMA QTAtomContainer * container);
+
+	EXTERN_API( VideoDigitizerError  ) ADD_VDIIDC_BASENAME(SetFeatures) (VDIIDC_GLOBALS() ADD_VDIIDC_COMMA QTAtomContainer  container);
+
+	EXTERN_API( VideoDigitizerError  ) ADD_VDIIDC_BASENAME(GetDefaultFeatures) (VDIIDC_GLOBALS() ADD_VDIIDC_COMMA QTAtomContainer * container);
+
+	EXTERN_API( VideoDigitizerError  ) ADD_VDIIDC_BASENAME(GetCSRData) (VDIIDC_GLOBALS() ADD_VDIIDC_COMMA Boolean  offsetFromUnitBase, UInt32  offset, UInt32 * data);
+
+	EXTERN_API( VideoDigitizerError  ) ADD_VDIIDC_BASENAME(SetCSRData) (VDIIDC_GLOBALS() ADD_VDIIDC_COMMA Boolean  offsetFromUnitBase, UInt32  offset, UInt32  data);
+
+	EXTERN_API( VideoDigitizerError  ) ADD_VDIIDC_BASENAME(GetFeaturesForSpecifier) (VDIIDC_GLOBALS() ADD_VDIIDC_COMMA OSType  specifier, QTAtomContainer * container);
+
+
+	/* MixedMode ProcInfo constants for component calls */
+	enum {
+		uppVDIIDCGetFeaturesProcInfo = 0x000003F0,
+		uppVDIIDCSetFeaturesProcInfo = 0x000003F0,
+		uppVDIIDCGetDefaultFeaturesProcInfo = 0x000003F0,
+		uppVDIIDCGetCSRDataProcInfo = 0x00003DF0,
+		uppVDIIDCSetCSRDataProcInfo = 0x00003DF0,
+		uppVDIIDCGetFeaturesForSpecifierProcInfo = 0x00000FF0
+	};
+
+#endif	/* VDIIDC_BASENAME */
 
 /*
 	Example usage:
@@ -1913,6 +1973,8 @@ enum {
 
 	EXTERN_API( ComponentResult  ) ADD_QTVIDEOOUTPUT_BASENAME(BaseSetEchoPort) (QTVIDEOOUTPUT_GLOBALS() ADD_QTVIDEOOUTPUT_COMMA CGrafPtr  echoPort);
 
+	EXTERN_API( ComponentResult  ) ADD_QTVIDEOOUTPUT_BASENAME(CopyIndAudioOutputDeviceUID) (QTVIDEOOUTPUT_GLOBALS() ADD_QTVIDEOOUTPUT_COMMA long  index, CFStringRef * audioDeviceUID);
+
 
 	/* MixedMode ProcInfo constants for component calls */
 	enum {
@@ -1933,7 +1995,8 @@ enum {
 		uppQTVideoOutputGetClockProcInfo = 0x000003F0,
 		uppQTVideoOutputSetEchoPortProcInfo = 0x000003F0,
 		uppQTVideoOutputGetIndImageDecompressorProcInfo = 0x00000FF0,
-		uppQTVideoOutputBaseSetEchoPortProcInfo = 0x000003F0
+		uppQTVideoOutputBaseSetEchoPortProcInfo = 0x000003F0,
+		uppQTVideoOutputCopyIndAudioOutputDeviceUIDProcInfo = 0x00000FF0
 	};
 
 #endif	/* QTVIDEOOUTPUT_BASENAME */

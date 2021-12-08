@@ -3,9 +3,9 @@
  
      Contains:   Sound Manager Interfaces.
  
-     Version:    CarbonSound-80.6.2~8
+     Version:    CarbonSound-94~244
  
-     Copyright:  © 1986-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1986-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -383,7 +383,9 @@ enum {
   siClientAcceptsVBR            = 'cvbr', /*client handles VBR*/
   siSourceIsExhausted           = 'srcx', /*the ultimate source of data has run out (keep asking, but when you get nothing, that's it)*/
   siMediaContextID              = 'uuid', /*media context id -- UUID */
-  siCompressionMaxPacketSize    = 'cmxp' /*maximum compressed packet size for current configuration -- unsigned long */
+  siCompressionMaxPacketSize    = 'cmxp', /*maximum compressed packet size for current configuration -- unsigned long */
+  siAudioCodecPropertyValue     = 'spva', /*audio codec property value -- SoundAudioCodecPropertyRequestParams* */
+  siAudioCodecPropertyInfo      = 'spin' /*audio codec property info -- SoundAudioCodecPropertyRequestParams* */
 };
 
 enum {
@@ -478,6 +480,7 @@ enum {
   kALawCompression              = 'alaw', /*aLaw 2:1*/
   kMicrosoftADPCMFormat         = 0x6D730002, /*Microsoft ADPCM - ACM code 2*/
   kDVIIntelIMAFormat            = 0x6D730011, /*DVI/Intel IMA ADPCM - ACM code 17*/
+  kMicrosoftGSMCompression      = 0x6D730031, /*Microsoft GSM 6.10 - ACM code 49*/
   kDVAudioFormat                = 'dvca', /*DV Audio*/
   kQDesignCompression           = 'QDMC', /*QDesign music*/
   kQDesign2Compression          = 'QDM2', /*QDesign2 music*/
@@ -486,7 +489,9 @@ enum {
   kTwosComplement               = k16BitBigEndianFormat, /*for compatibility*/
   kLittleEndianFormat           = k16BitLittleEndianFormat, /*for compatibility*/
   kMPEGLayer3Format             = 0x6D730055, /*MPEG Layer 3, CBR only (pre QT4.1)*/
-  kFullMPEGLay3Format           = '.mp3' /*MPEG Layer 3, CBR & VBR (QT4.1 and later)*/
+  kFullMPEGLay3Format           = '.mp3', /*MPEG Layer 3, CBR & VBR (QT4.1 and later)*/
+  kVariableDurationDVAudioFormat = 'vdva', /*Variable Duration DV Audio*/
+  kMPEG4AudioFormat             = 'mp4a'
 };
 
 #if TARGET_RT_LITTLE_ENDIAN
@@ -527,7 +532,8 @@ enum {
   kSoundCodecInfoVariableCompression = (1L << 1), /* has variable compression format*/
   kSoundCodecInfoHasRestrictedInputRates = (1L << 2), /* compressor has restricted set of input sample rates*/
   kSoundCodecInfoCanChangeOutputRate = (1L << 3), /* compressor may output a different sample rate than it receives*/
-  kSoundCodecInfoRequiresExternalFraming = (1L << 4) /* format requires external framing information during decode/encode*/
+  kSoundCodecInfoRequiresExternalFraming = (1L << 4), /* format requires external framing information during decode/encode*/
+  kSoundCodecInfoVariableDuration = (1L << 5) /* audio packets can vary in duration*/
 };
 
 /*SoundComponentPlaySourceBuffer action flags*/
@@ -1093,10 +1099,25 @@ struct EQSpectrumBandsRecord {
 };
 typedef struct EQSpectrumBandsRecord    EQSpectrumBandsRecord;
 typedef EQSpectrumBandsRecord *         EQSpectrumBandsRecordPtr;
+enum {
+  kSoundAudioCodecPropertyWritableFlag = 1L << 0
+};
+
+struct SoundAudioCodecPropertyRequestParams {
+  UInt32              propertyClass;
+  UInt32              propertyID;
+  UInt32              propertyDataSize;       /* out -- GetPropertyInfo, in/out -- GetProperty, in -- SetProperty*/
+  void *              propertyData;           /* in -- GetPropertyInfo, GetProperty, SetProperty*/
+  UInt32              propertyRequestFlags;   /* out -- GetPropertyInfo*/
+  UInt32              propertyDataType;       /* out -- GetPropertyInfo, often 0*/
+  ComponentResult     propertyRequestResult;  /* out -- GetPropertyInfo, GetProperty, SetProperty*/
+};
+typedef struct SoundAudioCodecPropertyRequestParams SoundAudioCodecPropertyRequestParams;
 
 
 /* Sound Input Structures*/
 typedef struct SPB                      SPB;
+
 typedef SPB *                           SPBPtr;
 
 

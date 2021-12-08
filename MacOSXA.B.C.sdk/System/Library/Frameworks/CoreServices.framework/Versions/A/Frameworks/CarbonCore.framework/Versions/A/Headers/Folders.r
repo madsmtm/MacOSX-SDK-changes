@@ -3,7 +3,7 @@
  
      Contains:   Folder Manager Interfaces.
  
-     Version:    CarbonCore-490~1
+     Version:    CarbonCore-472~1
  
      Copyright:  © 1995-2002 by Apple Computer, Inc., all rights reserved.
  

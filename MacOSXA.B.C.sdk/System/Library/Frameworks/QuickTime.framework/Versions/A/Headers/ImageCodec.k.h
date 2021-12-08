@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -113,6 +113,10 @@
 
 	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(GetBaseMPWorkFunction) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA ComponentMPWorkFunctionUPP * workFunction, void ** refCon, ImageCodecMPDrawBandUPP  drawProc, void * drawProcRefCon);
 
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(LockBits) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA CGrafPtr  port);
+
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(UnlockBits) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA CGrafPtr  port);
+
 	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(RequestGammaLevel) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA Fixed  srcGammaLevel, Fixed  dstGammaLevel, long * codecCanMatch);
 
 	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(GetSourceDataGammaLevel) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA Fixed * sourceDataGammaLevel);
@@ -196,6 +200,8 @@
 		uppImageCodecHitTestDataWithFlagsProcInfo = 0x000FFFF0,
 		uppImageCodecValidateParametersProcInfo = 0x00003FF0,
 		uppImageCodecGetBaseMPWorkFunctionProcInfo = 0x0000FFF0,
+		uppImageCodecLockBitsProcInfo = 0x000003F0,
+		uppImageCodecUnlockBitsProcInfo = 0x000003F0,
 		uppImageCodecRequestGammaLevelProcInfo = 0x00003FF0,
 		uppImageCodecGetSourceDataGammaLevelProcInfo = 0x000003F0,
 		uppImageCodecGetDecompressLatencyProcInfo = 0x000003F0,
@@ -296,7 +302,7 @@
 
 	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(EffectDisposeSMPTEFrame) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA SMPTEFrameReference  frameRef);
 
-	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(EffectRenderSMPTEFrame) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA PixMapPtr  destPixMap, SMPTEFrameReference  frameRef, Fixed  effectPercentageEven, Fixed  effectPercentageOdd, Rect * pSourceRect, MatrixRecord * pMatrix, SMPTEWipeType  effectNumber, long  xRepeat, long  yRepeat, SMPTEFlags  flags, Fixed  penWidth, long  strokeValue);
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(EffectRenderSMPTEFrame) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA PixMapPtr  destPixMap, SMPTEFrameReference  frameRef, Fixed  effectPercentageEven, Fixed  effectPercentageOdd, Rect * pSourceRect, MatrixRecord * matrixP, SMPTEWipeType  effectNumber, long  xRepeat, long  yRepeat, SMPTEFlags  flags, Fixed  penWidth, long  strokeValue);
 
 
 	/* MixedMode ProcInfo constants for component calls */

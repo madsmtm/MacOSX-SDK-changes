@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -63,8 +63,6 @@ struct gxPaths {
   gxPath              contour[1];
 };
 typedef struct gxPaths                  gxPaths;
-
-
 /*  codec capabilities flags    */
 enum {
   codecCanScale                 = 1L << 0,
@@ -320,9 +318,13 @@ struct CodecDecompressParams {
   Boolean             bidirectionalPredictionMode;
   UInt8               destinationBufferMemoryPreference; /* a codec's PreDecompress/Preflight call can set this to express a preference about what kind of memory its destination buffer should go into.  no guarantees.*/
   UInt8               codecBufferMemoryPreference; /* may indicate preferred kind of memory that NewImageGWorld/NewImageBufferMemory should create its buffer in, if applicable.*/
-  Boolean             pad4[1];
+  Boolean             onlyUseCodecIfItIsInUserPreferredCodecList; /* set to prevent this codec from being used unless it is in the userPreferredCodec list*/
 
   QTMediaContextID    mediaContextID;
+
+                                              /* The following fields only exist for QuickTime 6.5 and greater */
+  UInt8               deinterlaceRequest;     /* set by the ICM before PreDecompress/Preflight */
+  UInt8               deinterlaceAnswer;      /* codec should set this in PreDecompress/Preflight if it will satisfy the deinterlaceRequest */
 };
 typedef struct CodecDecompressParams    CodecDecompressParams;
 enum {
@@ -351,6 +353,12 @@ enum {
   kICMImageBufferNoPreference   = 0,
   kICMImageBufferPreferMainMemory = 1,
   kICMImageBufferPreferVideoMemory = 2
+};
+
+/* values for deinterlaceRequest and deinterlaceAnswer */
+enum {
+  kICMNoDeinterlacing           = 0,
+  kICMDeinterlaceFields         = 1
 };
 
 typedef CALLBACK_API( void , ImageCodecTimeTriggerProcPtr )(void * refcon);
@@ -446,7 +454,8 @@ struct ImageSubCodecDecompressCapabilities {
 
                                               /* The following fields only exist for QuickTime 5.0.1 and greater */
   Boolean             isChildCodec;           /* set by base codec before calling Initialize*/
-  UInt8               pad3[3];
+  UInt8               reserved1;
+  UInt8               pad4[2];
 };
 typedef struct ImageSubCodecDecompressCapabilities ImageSubCodecDecompressCapabilities;
 enum {
@@ -695,6 +704,16 @@ struct ParameterAtomTypeAndID {
   Str255              atomName;               /* name of this value type*/
 };
 typedef struct ParameterAtomTypeAndID   ParameterAtomTypeAndID;
+/* optional specification of mapping between parameters and properties*/
+enum {
+  kParameterProperty            = 'prop'
+};
+
+struct ParameterProperty {
+  OSType              propertyClass;          /* class to set for this property (0 for default which is specified by caller)*/
+  OSType              propertyID;             /* id to set for this property (default is the atomType)*/
+};
+typedef struct ParameterProperty        ParameterProperty;
 /* data type of a parameter*/
 enum {
   kParameterDataType            = 'data'
@@ -879,6 +898,8 @@ enum {
 struct ControlBehaviors {
   QTAtomID            groupID;                /* group under control of this item*/
   long                controlValue;           /* control value for comparison purposes*/
+  QTAtomType          customType;             /* custom type identifier, for kCustomControl*/
+  QTAtomID            customID;               /* custom type ID, for kCustomControl*/
 };
 typedef struct ControlBehaviors         ControlBehaviors;
 struct ParameterDataBehavior {
@@ -904,7 +925,7 @@ enum {
   kParameterUsagePercent        = 'pcnt',
   kParameterUsageSeconds        = 'secs',
   kParameterUsageMilliseconds   = 'msec',
-  kParameterUsageMicroseconds   = 'µsec',
+  kParameterUsageMicroseconds   = (long)0xB5736563/*'µsec' */,
   kParameterUsage3by3Matrix     = '3by3',
   kParameterUsageCircularDegrees = 'degc',
   kParameterUsageCircularRadians = 'radc'
@@ -921,12 +942,12 @@ enum {
 
 /* atoms that help to fill in data within the info window */
 enum {
-  kParameterInfoLongName        = '©nam',
-  kParameterInfoCopyright       = '©cpy',
-  kParameterInfoDescription     = '©inf',
-  kParameterInfoWindowTitle     = '©wnt',
-  kParameterInfoPicture         = '©pix',
-  kParameterInfoManufacturer    = '©man',
+  kParameterInfoLongName        = (long)0xA96E616D/*'©nam' */,
+  kParameterInfoCopyright       = (long)0xA9637079/*'©cpy' */,
+  kParameterInfoDescription     = (long)0xA9696E66/*'©inf' */,
+  kParameterInfoWindowTitle     = (long)0xA9776E74/*'©wnt' */,
+  kParameterInfoPicture         = (long)0xA9706978/*'©pix' */,
+  kParameterInfoManufacturer    = (long)0xA96D616E/*'©man' */,
   kParameterInfoIDs             = 1
 };
 
@@ -1721,6 +1742,36 @@ ImageCodecGetBaseMPWorkFunction(
 
 
 /*
+ *  ImageCodecLockBits()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+ImageCodecLockBits(
+  ComponentInstance   ci,
+  CGrafPtr            port)                                   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  ImageCodecUnlockBits()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern ComponentResult 
+ImageCodecUnlockBits(
+  ComponentInstance   ci,
+  CGrafPtr            port)                                   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
  *  ImageCodecRequestGammaLevel()
  *  
  *  Availability:
@@ -1752,6 +1803,7 @@ ImageCodecGetSourceDataGammaLevel(
   Fixed *             sourceDataGammaLevel)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+/* (Selector 42 skipped) */
 /*
  *  ImageCodecGetDecompressLatency()
  *  
@@ -2089,6 +2141,8 @@ enum {
     kImageCodecHitTestDataWithFlagsSelect      = 0x0023,
     kImageCodecValidateParametersSelect        = 0x0024,
     kImageCodecGetBaseMPWorkFunctionSelect     = 0x0025,
+    kImageCodecLockBitsSelect                  = 0x0026,
+    kImageCodecUnlockBitsSelect                = 0x0027,
     kImageCodecRequestGammaLevelSelect         = 0x0028,
     kImageCodecGetSourceDataGammaLevelSelect   = 0x0029,
     kImageCodecGetDecompressLatencySelect      = 0x002B,
@@ -2259,7 +2313,6 @@ union SourceData {
   EffectSourcePtr     effect;
 };
 typedef union SourceData                SourceData;
-
 struct EffectSource {
   long                effectType;             /* type of effect or kEffectRawSource if raw ICM data*/
   Ptr                 data;                   /* track data for this effect*/
@@ -2282,7 +2335,6 @@ struct EffectsFrameParams {
 };
 typedef struct EffectsFrameParams       EffectsFrameParams;
 typedef EffectsFrameParams *            EffectsFrameParamsPtr;
-
 
 /*
  *  ImageCodecEffectSetup()
@@ -2585,7 +2637,7 @@ ImageCodecEffectRenderSMPTEFrame(
   Fixed                 effectPercentageEven,
   Fixed                 effectPercentageOdd,
   Rect *                pSourceRect,
-  MatrixRecord *        pMatrix,
+  MatrixRecord *        matrixP,
   SMPTEWipeType         effectNumber,
   long                  xRepeat,
   long                  yRepeat,

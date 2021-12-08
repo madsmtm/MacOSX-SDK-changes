@@ -57,6 +57,23 @@ enum
 		//	AudioConverterFillBuffer or as the output to
 		//	AudioConverterConvertBuffer
 		
+	kAudioConverterPropertyMaximumInputBufferSize		= 'xibs',
+		//	a UInt32 that indicates the size in bytes of the largest
+		//	buffer of input data that will be requested from the AudioConverterInputProc.
+		// This is mostly useful for variable bit rate compressed data.
+		// This will be equal to 0xFFFFFFFF if the maximum value depends on what 
+		// is requested from the output, which is usually the case for constant bit rate formats.
+		
+	kAudioConverterPropertyMaximumInputPacketSize		= 'xips',
+		//	a UInt32 that indicates the size in bytes of the largest
+		//	single packet of data in the input format.
+		// This is mostly useful for variable bit rate compressed data (decoders).
+		
+	kAudioConverterPropertyMaximumOutputPacketSize		= 'xops',
+		//	a UInt32 that indicates the size in bytes of the largest
+		//	single packet of data in the output format.
+		// This is mostly useful for variable bit rate compressed data (encoders).
+		
 	kAudioConverterPropertyCalculateInputBufferSize		= 'cibs',
 		//	a UInt32 that on input holds a size in bytes
 		//	that is desired for the output data. On output,
@@ -91,6 +108,10 @@ enum
 		//	A UInt32 that specifies rendering quality of the sample rate converter
 		//  (see enum constants below)
 
+	kAudioConverterCodecQuality							= 'cdqu',
+		//	A UInt32 that specifies rendering quality of a codec
+		//  (see enum constants below)
+
 	kAudioConverterPrimeMethod							= 'prmm',
 		// a UInt32 specifying priming method (usually for sample-rate converter)
 		// see explanation for struct AudioConverterPrimeInfo below
@@ -114,11 +135,53 @@ enum
 		// A void * pointing to memory set up by the caller. Required by some
         // formats in order to decompress the input data.
 
-	kAudioConverterCompressionMagicCookie				= 'cmgc'
+	kAudioConverterCompressionMagicCookie				= 'cmgc',
 		// A void * pointing to memory set up by the caller. Returned by the 
         // converter so that it may be stored along with the output data.
         // It can then be passed back to the converter for decompression
         // at a later time.
+
+	kAudioConverterEncodeBitRate						= 'brat',
+		//	A UInt32 containing the number of bits per second to aim
+		//	for when encoding data. This property is only relevant to
+		//	encoders.
+
+	kAudioConverterEncodeAdjustableSampleRate			= 'ajsr',
+		//	For encoders where the AudioConverter was created with an output sample rate of zero, 
+		//  and the codec can do rate conversion on its input, this provides a way to set the output sample rate.
+		//	The property value is a Float64
+
+	kAudioConverterInputChannelLayout					= 'icl ',
+		//  The property value is an AudioChannelLayout.	
+
+	kAudioConverterOutputChannelLayout					= 'ocl ',
+		//  The property value is an AudioChannelLayout.	
+
+	kAudioConverterApplicableEncodeBitRates				= 'aebr',
+		//  The property value is an array of AudioValueRange describing applicable bit rates based on current settings.
+	
+	kAudioConverterAvailableEncodeBitRates				= 'vebr',
+		//  The property value is an array of AudioValueRange describing available bit rates based on the input format.
+		//  You can get all available bit rates from the AudioFormat API.
+	
+	kAudioConverterApplicableEncodeSampleRates			= 'aesr',
+		//  The property value is an array of AudioValueRange describing applicable sample rates based on current settings.
+
+	kAudioConverterAvailableEncodeSampleRates			= 'vesr',
+		//  The property value is an array of AudioValueRange describing available sample rates based on the input format.
+		//  You can get all available sample rates from the AudioFormat API.
+	
+	kAudioConverterAvailableEncodeChannelLayoutTags		= 'aecl',
+		//  The property value is an array of AudioChannelLayoutTags for the format and number of
+		//  channels specified in the input format going to the encoder. 
+				
+	kAudioConverterCurrentOutputStreamDescription		= 'acod',
+		// Returns the current completely specified output AudioStreamBasicDescription.
+		// For example when encoding to AAC, your original output stream description will not have been 
+		// completely filled out.
+	
+	kAudioConverterCurrentInputStreamDescription		= 'acid'
+		// Returns the current completely specified input AudioStreamBasicDescription.
 
 };
 
@@ -185,7 +248,7 @@ enum
 //	by an additional number of trailing frames depending on the prime method.
 //	kConverterPrimeMethod_None is useful in a real-time application processing
 //	live input, in which case trailingFrames (relative to input sample rate) 
-//	of through latency will be seen at the output of the AudioConverter.  In other
+//	of through latency will be seen at the beginning of the output of the AudioConverter.  In other
 //	real-time applications such as DAW systems, it may be possible to provide these initial extra
 //	audio frames since they are stored on disk or in memory somewhere and kConverterPrimeMethod_Pre
 //  may be preferable.  The default method is kConverterPrimeMethod_Normal, which requires no
@@ -194,7 +257,7 @@ enum
 typedef struct AudioConverterPrimeInfo {
 	UInt32		leadingFrames;
 	UInt32		trailingFrames;
-} PrimeInfo;
+} AudioConverterPrimeInfo;
 
 //=============================================================================
 //	Errors
@@ -205,8 +268,13 @@ enum {
 	kAudioConverterErr_OperationNotSupported	= 0x6F703F3F, // 'op??', integer used because of trigraph
 	kAudioConverterErr_PropertyNotSupported		= 'prop',
 	kAudioConverterErr_InvalidInputSize			= 'insz',
-	kAudioConverterErr_InvalidOutputSize		= 'otsz'
+	kAudioConverterErr_InvalidOutputSize		= 'otsz',
 		// e.g. byte size is not a multiple of the frame size
+	kAudioConverterErr_UnspecifiedError			= 'what',
+	kAudioConverterErr_BadPropertySizeError		= '!siz',
+	kAudioConverterErr_RequiresPacketDescriptionsError = '!pkd',
+	kAudioConverterErr_InputSampleRateOutOfRange	= '!isr',
+	kAudioConverterErr_OutputSampleRateOutOfRange	= '!osr'
 };
 
 //=============================================================================

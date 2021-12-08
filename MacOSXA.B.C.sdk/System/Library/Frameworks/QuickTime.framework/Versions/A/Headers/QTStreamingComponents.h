@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -617,7 +617,8 @@ enum {
   kRTPSorensonReassemblerType   = 'SVQ1',
   kRTPMP3ReassemblerType        = 'mp3 ',
   kRTPMPEG4AudioReassemblerType = 'mp4a',
-  kRTPMPEG4VideoReassemblerType = 'mp4v'
+  kRTPMPEG4VideoReassemblerType = 'mp4v',
+  kRTPAMRReassemblerType        = 'amr '
 };
 
 struct RTPRssmInitParams {
@@ -1336,7 +1337,8 @@ enum {
   kRTPSorensonMediaPacketizerType = 'SVQ1',
   kRTPMP3MediaPacketizerType    = 'mp3 ',
   kRTPMPEG4AudioMediaPacketizerType = 'mp4a',
-  kRTPMPEG4VideoMediaPacketizerType = 'mp4v'
+  kRTPMPEG4VideoMediaPacketizerType = 'mp4v',
+  kRTPAMRMediaPacketizerType    = 'amr '
 };
 
 typedef UInt32                          RTPMPSampleRef;
@@ -1386,6 +1388,11 @@ typedef MediaPacketizerInfoPtr *        MediaPacketizerInfoHandle;
 enum {
   kMediaPacketizerInfoPadUpToBytes = 4
 };
+
+enum {
+  kRTPMediaPacketizerInfoRezType = 'pcki'
+};
+
 
 /*
  *  QTSFindMediaPacketizer()
@@ -1553,8 +1560,8 @@ enum {
   kRTPMPSetSettingsFromAtomContainerAtAtomSelect = 0x0517,
   kRTPMPGetSettingsIntoAtomContainerAtAtomSelect = 0x0518,
   kRTPMPGetSettingsAsTextSelect = 0x0519,
-  kRTPMPGetSettingsSelect       = 0x051A,
-  kRTPMPSetSettingsSelect       = 0x051B
+  kRTPMPGetSettingsSelect       = 0x051C,
+  kRTPMPSetSettingsSelect       = 0x051D
 };
 
 /*-----------------------------------------

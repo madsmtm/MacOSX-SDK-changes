@@ -100,10 +100,8 @@
 #else
 	#define PASCAL_RTN
 #endif
-#if !TARGET_OS_MAC || TARGET_CPU_PPC  || (TARGET_OS_MAC && TARGET_RT_LITTLE_ENDIAN)
-	#define C_DISPATCH_WITH_GLOBALS	1
-	#define C_DISPATCH_WITH_SWITCH	0
-#elif TARGET_CPU_68K
+
+#if TARGET_CPU_68K
 	#ifdef COMPONENT_C_DISPATCHER
 		#define C_DISPATCH_WITH_GLOBALS	0
 		#define C_DISPATCH_WITH_SWITCH	1
@@ -112,8 +110,11 @@
 		#define C_DISPATCH_WITH_SWITCH	0
 	#endif
 #else
-	#error "I have no idea what kind of machine you are using"
+	#define C_DISPATCH_WITH_GLOBALS	1
+	#define C_DISPATCH_WITH_SWITCH	0
 #endif
+
+
 
 /*
 	C_DISPATCH_WITH_GLOBALS implies global storage for dispatch information 
@@ -153,6 +154,7 @@
 #else
 	#define ComponentCallLittleEndian 		ComponentDelegate
 #endif
+
 
 #ifdef forPublicQTiRelease
 	#define ComponentQTiCall(procName)				ComponentCall(procName)

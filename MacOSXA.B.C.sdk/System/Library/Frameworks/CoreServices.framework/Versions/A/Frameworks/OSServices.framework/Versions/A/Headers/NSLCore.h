@@ -3,7 +3,7 @@
  
      Contains:   Interface to API for using the NSL Manager
  
-     Version:    NSLCore-79.1~8
+     Version:    NSLCore-79.1~117
  
      Copyright:  © 2000-2002 by Apple Computer, Inc., all rights reserved
  

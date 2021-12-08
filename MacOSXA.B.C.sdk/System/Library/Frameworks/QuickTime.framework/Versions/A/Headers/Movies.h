@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -38,6 +38,10 @@ extern "C" {
 
 #pragma options align=mac68k
 
+
+#if TARGET_API_MAC_OSX
+    #include <CoreAudio/CoreAudio.h>
+#endif
 
 /*  "kFix1" is defined in FixMath as "fixed1"  */
 /* error codes are in Errors.[haa] */
@@ -85,6 +89,7 @@ enum {
   NullDataHandlerSubType        = 'null',
   ResourceDataHandlerSubType    = 'rsrc',
   URLDataHandlerSubType         = 'url ',
+  AliasDataHandlerSubType       = 'alis',
   WiredActionHandlerType        = 'wire'
 };
 
@@ -103,38 +108,41 @@ enum {
 enum {
   kUserDataMovieControllerType  = 'ctyp',
   kUserDataName                 = 'name',
-  kUserDataTextAlbum            = '©alb',
-  kUserDataTextArtist           = '©ART',
-  kUserDataTextAuthor           = '©aut',
-  kUserDataTextChapter          = '©chp',
-  kUserDataTextComment          = '©cmt',
-  kUserDataTextComposer         = '©com',
-  kUserDataTextCopyright        = '©cpy',
-  kUserDataTextCreationDate     = '©day',
-  kUserDataTextDescription      = '©des',
-  kUserDataTextDirector         = '©dir',
-  kUserDataTextDisclaimer       = '©dis',
-  kUserDataTextEncodedBy        = '©enc',
-  kUserDataTextFullName         = '©nam',
-  kUserDataTextGenre            = '©gen',
-  kUserDataTextHostComputer     = '©hst',
-  kUserDataTextInformation      = '©inf',
-  kUserDataTextKeywords         = '©key',
-  kUserDataTextMake             = '©mak',
-  kUserDataTextModel            = '©mod',
-  kUserDataTextOriginalArtist   = '©ope',
-  kUserDataTextOriginalFormat   = '©fmt',
-  kUserDataTextOriginalSource   = '©src',
-  kUserDataTextPerformers       = '©prf',
-  kUserDataTextProducer         = '©prd',
-  kUserDataTextProduct          = '©PRD',
-  kUserDataTextSoftware         = '©swr',
-  kUserDataTextSpecialPlaybackRequirements = '©req',
-  kUserDataTextTrack            = '©trk',
-  kUserDataTextWarning          = '©wrn',
-  kUserDataTextWriter           = '©wrt',
-  kUserDataTextURLLink          = '©url',
-  kUserDataTextEditDate1        = '©ed1'
+  kUserDataTextAlbum            = (long)0xA9616C62/*'©alb' */,
+  kUserDataTextArtist           = (long)0xA9415254,
+  kUserDataTextAuthor           = (long)0xA9617574/*'©aut' */,
+  kUserDataTextChapter          = (long)0xA9636870/*'©chp' */,
+  kUserDataTextComment          = (long)0xA9636D74/*'©cmt' */,
+  kUserDataTextComposer         = (long)0xA9636F6D/*'©com' */,
+  kUserDataTextCopyright        = (long)0xA9637079/*'©cpy' */,
+  kUserDataTextCreationDate     = (long)0xA9646179/*'©day' */,
+  kUserDataTextDescription      = (long)0xA9646573/*'©des' */,
+  kUserDataTextDirector         = (long)0xA9646972/*'©dir' */,
+  kUserDataTextDisclaimer       = (long)0xA9646973/*'©dis' */,
+  kUserDataTextEncodedBy        = (long)0xA9656E63/*'©enc' */,
+  kUserDataTextFullName         = (long)0xA96E616D/*'©nam' */,
+  kUserDataTextGenre            = (long)0xA967656E/*'©gen' */,
+  kUserDataTextHostComputer     = (long)0xA9687374/*'©hst' */,
+  kUserDataTextInformation      = (long)0xA9696E66/*'©inf' */,
+  kUserDataTextKeywords         = (long)0xA96B6579/*'©key' */,
+  kUserDataTextMake             = (long)0xA96D616B/*'©mak' */,
+  kUserDataTextModel            = (long)0xA96D6F64/*'©mod' */,
+  kUserDataTextOriginalArtist   = (long)0xA96F7065/*'©ope' */,
+  kUserDataTextOriginalFormat   = (long)0xA9666D74/*'©fmt' */,
+  kUserDataTextOriginalSource   = (long)0xA9737263/*'©src' */,
+  kUserDataTextPerformers       = (long)0xA9707266/*'©prf' */,
+  kUserDataTextProducer         = (long)0xA9707264/*'©prd' */,
+  kUserDataTextProduct          = (long)0xA9505244,
+  kUserDataTextSoftware         = (long)0xA9737772/*'©swr' */,
+  kUserDataTextSpecialPlaybackRequirements = (long)0xA9726571/*'©req' */,
+  kUserDataTextTrack            = (long)0xA974726B/*'©trk' */,
+  kUserDataTextWarning          = (long)0xA977726E/*'©wrn' */,
+  kUserDataTextWriter           = (long)0xA9777274/*'©wrt' */,
+  kUserDataTextURLLink          = (long)0xA975726C/*'©url' */,
+  kUserDataTextEditDate1        = (long)0xA9656431/*'©ed1' */,
+  kUserDataAnimatedGIFLoopCount = 'gifc', /* data is big-endian UInt16 */
+  kQTAnimatedGIFLoopCountInfinite = 0,
+  kUserDataAnimatedGIFBufferingSize = 'gifb' /* data is big-endian UInt32 */
 };
 
 enum {
@@ -145,58 +153,17 @@ enum {
   DoTheRightThing               = 0
 };
 
-
-struct MovieRecord {
-  long                data[1];
-};
-typedef struct MovieRecord              MovieRecord;
-typedef MovieRecord *                   Movie;
-typedef Movie *                         MoviePtr;
-struct TrackRecord {
-  long                data[1];
-};
-typedef struct TrackRecord              TrackRecord;
-typedef TrackRecord *                   Track;
-struct MediaRecord {
-  long                data[1];
-};
-typedef struct MediaRecord              MediaRecord;
-typedef MediaRecord *                   Media;
-struct UserDataRecord {
-  long                data[1];
-};
-typedef struct UserDataRecord           UserDataRecord;
-typedef UserDataRecord *                UserData;
-struct TrackEditStateRecord {
-  long                data[1];
-};
-typedef struct TrackEditStateRecord     TrackEditStateRecord;
-typedef TrackEditStateRecord *          TrackEditState;
-struct MovieEditStateRecord {
-  long                data[1];
-};
-typedef struct MovieEditStateRecord     MovieEditStateRecord;
-typedef MovieEditStateRecord *          MovieEditState;
-struct QTRestrictionSetRecord {
-  long                data[1];
-};
-typedef struct QTRestrictionSetRecord   QTRestrictionSetRecord;
-typedef QTRestrictionSetRecord *        QTRestrictionSet;
-struct SpriteWorldRecord {
-  long                data[1];
-};
-typedef struct SpriteWorldRecord        SpriteWorldRecord;
-typedef SpriteWorldRecord *             SpriteWorld;
-struct SpriteRecord {
-  long                data[1];
-};
-typedef struct SpriteRecord             SpriteRecord;
-typedef SpriteRecord *                  Sprite;
-struct QTTweenerRecord {
-  long                data[1];
-};
-typedef struct QTTweenerRecord          QTTweenerRecord;
-typedef QTTweenerRecord *               QTTweener;
+typedef struct MovieType**              Movie;
+typedef Movie *                         PtrToMovie;
+typedef struct TrackType**              Track;
+typedef struct MediaType**              Media;
+typedef struct UserDataRecord**         UserData;
+typedef struct MovieStateRecord**       MovieEditState;
+typedef struct TrackStateRecord**       TrackEditState;
+typedef struct QTRestrictionSetRecord**  QTRestrictionSet;
+typedef struct SpriteWorldRecord*       SpriteWorld;
+typedef struct SpriteRecord*            Sprite;
+typedef struct QTTweenerRecord*         QTTweener;
 struct SampleDescription {
   long                descSize;
   long                dataFormat;
@@ -207,8 +174,8 @@ struct SampleDescription {
 typedef struct SampleDescription        SampleDescription;
 typedef SampleDescription *             SampleDescriptionPtr;
 typedef SampleDescriptionPtr *          SampleDescriptionHandle;
-typedef struct OpaqueQTBandwidthReference*  QTBandwidthReference;
-typedef struct OpaqueQTScheduledBandwidthReference*  QTScheduledBandwidthReference;
+typedef struct QTBandwidthUsageRecord**  QTBandwidthReference;
+typedef struct QTScheduledBandwidthUsageRecord**  QTScheduledBandwidthReference;
 enum {
   kQTNetworkStatusNoNetwork     = -2,
   kQTNetworkStatusUncertain     = -1,
@@ -258,6 +225,70 @@ struct SoundDescriptionV1 {
 typedef struct SoundDescriptionV1       SoundDescriptionV1;
 typedef SoundDescriptionV1 *            SoundDescriptionV1Ptr;
 typedef SoundDescriptionV1Ptr *         SoundDescriptionV1Handle;
+
+
+enum {
+  kTx3gSampleType               = 'tx3g',
+  kTx3gFontTableAtomType        = 'ftab',
+  kTx3gBlinkAtomType            = 'blnk'
+};
+
+struct Tx3gRGBAColor {
+  unsigned char       red;
+  unsigned char       green;
+  unsigned char       blue;
+  unsigned char       transparency;
+};
+typedef struct Tx3gRGBAColor            Tx3gRGBAColor;
+struct Tx3gStyleRecord {
+  unsigned short      startChar;
+  unsigned short      endChar;
+  unsigned short      fontID;
+  unsigned char       fontFace;
+  unsigned char       fontSize;
+  Tx3gRGBAColor       fontColor;
+};
+typedef struct Tx3gStyleRecord          Tx3gStyleRecord;
+typedef Tx3gStyleRecord *               Tx3gStylePtr;
+typedef Tx3gStylePtr *                  Tx3gStyleHandle;
+struct Tx3gStyleTableRecord {
+  unsigned short      count;
+  Tx3gStyleRecord     table[1];
+};
+typedef struct Tx3gStyleTableRecord     Tx3gStyleTableRecord;
+typedef Tx3gStyleTableRecord *          Tx3gStyleTablePtr;
+typedef Tx3gStyleTablePtr *             Tx3gStyleTableHandle;
+struct Tx3gFontRecord {
+  unsigned short      fontID;
+  unsigned char       nameLength;
+  unsigned char       name[1];
+};
+typedef struct Tx3gFontRecord           Tx3gFontRecord;
+typedef Tx3gFontRecord *                Tx3gFontRecordPtr;
+struct Tx3gFontTableRecord {
+  unsigned short      entryCount;
+  Tx3gFontRecord      fontEntries[1];
+};
+typedef struct Tx3gFontTableRecord      Tx3gFontTableRecord;
+typedef Tx3gFontTableRecord *           Tx3gFontTablePtr;
+typedef Tx3gFontTablePtr *              Tx3gFontTableHandle;
+struct Tx3gDescription {
+  long                descSize;
+  long                dataFormat;
+  long                resvd1;
+  short               resvd2;
+  short               dataRefIndex;
+
+  unsigned long       displayFlags;
+  char                horizontalJustification;
+  char                verticalJustification;
+  Tx3gRGBAColor       backgroundColor;
+  Rect                defaultTextBox;
+  Tx3gStyleRecord     defaultStyle;
+};
+typedef struct Tx3gDescription          Tx3gDescription;
+typedef Tx3gDescription *               Tx3gDescriptionPtr;
+typedef Tx3gDescriptionPtr *            Tx3gDescriptionHandle;
 struct TextDescription {
   long                descSize;               /* Total size of TextDescription*/
   long                dataFormat;             /* 'text'*/
@@ -601,7 +632,10 @@ enum {
   kActionListSetMatchingFromXML = 13316, /* (C string xml, C string targetParentPath) */
   kActionListSetFromURL         = 13317, /* (C string url, C string targetParentPath ) */
   kActionListExchangeLists      = 13318, /* (C string url, C string parentPath) */
-  kActionListServerQuery        = 13319 /* (C string url, C string keyValuePairs, long flags, C string parentPath) */
+  kActionListServerQuery        = 13319, /* (C string url, C string keyValuePairs, long flags, C string parentPath) */
+  kActionListAddAttribute       = 13320, /* (C string elementPath, long atIndex, C string newAttributeName) */
+  kActionListRemoveAttributes   = 13321, /* (C string elementPath, long startIndex, long endIndex) */
+  kActionListSetAttributeValue  = 13322 /* (C string elementPath, C string attributeName, C string valueString) */
 };
 
 
@@ -726,6 +760,9 @@ enum {
   kOperandListGetElementPathByIndex = 7169, /* (C string parentPath, long index) */
   kOperandListGetElementValue   = 7170, /* (C string elementPath) */
   kOperandListCopyToXML         = 7171, /* (C string parentPath, long startIndex, long endIndex) */
+  kOperandListCountAttributes   = 7172, /* (C string elementPath) */
+  kOperandListGetAttributeNameByIndex = 7173, /* (C string elementPath, long index) */
+  kOperandListGetAttributeValue = 7174, /* (C string elementPath, C string attributeName) */
   kOperandSin                   = 8192, /* float x    */
   kOperandCos                   = 8193, /* float x    */
   kOperandTan                   = 8194, /* float x    */
@@ -769,7 +806,7 @@ enum {
   kFirstTextTrackAction         = kActionTextTrackPasteText,
   kLastTextTrackAction          = kActionTextTrackSetEditable,
   kFirstMultiTargetAction       = kActionListAddElement,
-  kLastMultiTargetAction        = kActionListServerQuery,
+  kLastMultiTargetAction        = kActionListSetAttributeValue,
   kFirstAction                  = kFirstMovieAction,
   kLastAction                   = kLastMultiTargetAction
 };
@@ -898,7 +935,8 @@ enum {
 /* flags for kOperandSystemVersion*/
 enum {
   kSystemIsWindows9x            = 0x00010000,
-  kSystemIsWindowsNT            = 0x00020000
+  kSystemIsWindowsNT            = 0x00020000,
+  kSystemIsClassicBlueBox       = 0x00040000
 };
 
 /* constants for MediaPropertiesAtom*/
@@ -907,6 +945,12 @@ enum {
   kMediaPropertyHasActions      = 105
 };
 
+/* property types*/
+typedef OSType                          QTPropertyClass;
+typedef OSType                          QTPropertyID;
+typedef OSType                          QTPropertyValueType;
+typedef void *                          QTPropertyValuePtr;
+typedef const void *                    ConstQTPropertyValuePtr;
 /* TimeBase and TimeRecord moved to MacTypes.h */
 typedef UInt32 TimeBaseFlags;
 enum {
@@ -915,11 +959,7 @@ enum {
   maintainTimeBaseZero          = 4
 };
 
-struct CallBackRecord {
-  long                data[1];
-};
-typedef struct CallBackRecord           CallBackRecord;
-typedef CallBackRecord *                QTCallBack;
+typedef struct QTCallBackHeader*        QTCallBack;
 /* CallBack equates */
 typedef UInt16 QTCallBackFlags;
 enum {
@@ -940,7 +980,8 @@ enum {
 typedef UInt32 TimeBaseStatus;
 enum {
   timeBaseBeforeStartTime       = 1,
-  timeBaseAfterStopTime         = 2
+  timeBaseAfterStopTime         = 2,
+  timeBaseRateChanging          = 4
 };
 
 
@@ -963,12 +1004,12 @@ enum {
   qtcbNeedsStartStopChanges     = 4     /* wants to know when TimeBase start/stop is changed*/
 };
 
-struct QTCallBackHeader {
+struct QTCallBackOpaqueHeader {
   long                callBackFlags;
   long                reserved1;
-  SInt8               qtPrivate[40];
+  SInt8               qtPrivate[52];
 };
-typedef struct QTCallBackHeader         QTCallBackHeader;
+typedef struct QTCallBackOpaqueHeader   QTCallBackOpaqueHeader;
 typedef CALLBACK_API( void , QTSyncTaskProcPtr )(void * task);
 typedef STACK_UPP_TYPE(QTSyncTaskProcPtr)                       QTSyncTaskUPP;
 struct QTSyncTaskRecord {
@@ -1125,7 +1166,10 @@ enum {
   hintsSingleField              = 1 << 20,
   hintsNoRenderingTimeOut       = 1 << 21,
   hintsFlushVideoInsteadOfDirtying = 1 << 22,
-  hintsEnableSubPixelPositioning = 1L << 23
+  hintsEnableSubPixelPositioning = 1L << 23,
+  hintsRenderingMode            = 1L << 24,
+  hintsAllowIdleSleep           = 1L << 25, /* asks media handlers not to call UpdateSystemActivity etc */
+  hintsDeinterlaceFields        = 1L << 26
 };
 
 typedef unsigned long                   playHintsEnum;
@@ -1201,6 +1245,36 @@ EnterMovies(void)                                             AVAILABLE_MAC_OS_X
  */
 extern void 
 ExitMovies(void)                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+enum {
+  kQTEnterMoviesFlagDontSetComponentsThreadMode = 1L << 0
+};
+
+/*
+ *  EnterMoviesOnThread()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+EnterMoviesOnThread(UInt32 inFlags)                           AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  ExitMoviesOnThread()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+ExitMoviesOnThread(void)                                      AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 
 /*************************
@@ -2771,6 +2845,22 @@ extern OSErr
 QTUninstallNextTaskNeededSoonerCallback(
   QTNextTaskNeededSoonerCallbackUPP   callbackProc,
   void *                              refcon)                 AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+ *  GetMovieRateChangeConstraints()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+GetMovieRateChangeConstraints(
+  Movie         theMovie,
+  TimeRecord *  minimumDelay,
+  TimeRecord *  maximumDelay)                                 AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 
 /*************************
@@ -4590,6 +4680,49 @@ ConvertMovieToFile(
   ComponentInstance   userComp)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+/*
+ *  ConvertMovieToDataRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+ConvertMovieToDataRef(
+  Movie               m,
+  Track               onlyTrack,
+  Handle              dataRef,
+  OSType              dataRefType,
+  OSType              fileType,
+  OSType              creator,
+  long                flags,
+  ComponentInstance   userComp)                               AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  ConvertDataRefToMovieDataRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+ConvertDataRefToMovieDataRef(
+  Handle              inputDataRef,
+  OSType              inputDataRefType,
+  Handle              outputDataRef,
+  OSType              outputDataRefType,
+  OSType              creator,
+  long                flags,
+  ComponentInstance   userComp,
+  MovieProgressUPP    proc,
+  long                refCon)                                 AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
 enum {
   kGetMovieImporterValidateToFind = 1L << 0,
   kGetMovieImporterAllowNewFile = 1L << 1,
@@ -5966,6 +6099,55 @@ extern long
 GetMovieLoadState(Movie theMovie)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+
+/****
+    Thread related Movie routines
+****/
+/*
+ *  AttachMovieToCurrentThread()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+AttachMovieToCurrentThread(Movie m)                           AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  DetachMovieFromCurrentThread()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+DetachMovieFromCurrentThread(Movie m)                         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GetMovieThreadAttachState()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+GetMovieThreadAttachState(
+  Movie      m,
+  Boolean *  outAttachedToCurrentThread,
+  Boolean *  outAttachedToAnyThread)                          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/****
+    CanQuickTimeOpenFile, etc.
+****/
 /* Input flags for CanQuickTimeOpenFile/DataRef */
 enum {
   kQTDontUseDataToFindImporter  = 1L << 0,
@@ -6014,6 +6196,244 @@ CanQuickTimeOpenDataRef(
   Boolean *  outCanOpenAsMovie,
   Boolean *  outPreferGraphicsImporter,
   UInt32     inFlags)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+
+/****
+    Data Reference Utilities
+****/
+enum {
+  kQTNativeDefaultPathStyle     = -1,
+  kQTPOSIXPathStyle             = 0,
+  kQTHFSPathStyle               = 1,
+  kQTWindowsPathStyle           = 2
+};
+
+typedef unsigned long                   QTPathStyle;
+/*
+ *  QTNewDataReferenceFromFSRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTNewDataReferenceFromFSRef(
+  const FSRef *  fileRef,
+  UInt32         flags,
+  Handle *       outDataRef,
+  OSType *       outDataRefType)                              AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTNewDataReferenceFromFSRefCFString()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTNewDataReferenceFromFSRefCFString(
+  const FSRef *  directoryRef,
+  CFStringRef    fileName,
+  UInt32         flags,
+  Handle *       outDataRef,
+  OSType *       outDataRefType)                              AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTNewDataReferenceFromFSSpec()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTNewDataReferenceFromFSSpec(
+  const FSSpec *  fsspec,
+  UInt32          flags,
+  Handle *        outDataRef,
+  OSType *        outDataRefType)                             AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTNewDataReferenceWithDirectoryCFString()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTNewDataReferenceWithDirectoryCFString(
+  Handle        inDataRef,
+  OSType        inDataRefType,
+  CFStringRef   targetName,
+  UInt32        flags,
+  Handle *      outDataRef,
+  OSType *      outDataRefType)                               AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTNewDataReferenceFromFullPathCFString()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTNewDataReferenceFromFullPathCFString(
+  CFStringRef   filePath,
+  QTPathStyle   pathStyle,
+  UInt32        flags,
+  Handle *      outDataRef,
+  OSType *      outDataRefType)                               AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTNewDataReferenceFromCFURL()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTNewDataReferenceFromCFURL(
+  CFURLRef   url,
+  UInt32     flags,
+  Handle *   outDataRef,
+  OSType *   outDataRefType)                                  AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTNewDataReferenceFromURLCFString()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTNewDataReferenceFromURLCFString(
+  CFStringRef   urlString,
+  UInt32        flags,
+  Handle *      outDataRef,
+  OSType *      outDataRefType)                               AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+
+/*
+ *  QTGetDataReferenceDirectoryDataReference()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTGetDataReferenceDirectoryDataReference(
+  Handle    dataRef,
+  OSType    dataRefType,
+  UInt32    flags,
+  Handle *  outDataRef,
+  OSType *  outDataRefType)                                   AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTGetDataReferenceTargetNameCFString()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTGetDataReferenceTargetNameCFString(
+  Handle         dataRef,
+  OSType         dataRefType,
+  CFStringRef *  name)                                        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTGetDataReferenceFullPathCFString()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTGetDataReferenceFullPathCFString(
+  Handle         dataRef,
+  OSType         dataRefType,
+  QTPathStyle    style,
+  CFStringRef *  outPath)                                     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+
+/*
+ *  QTGetDataHandlerDirectoryDataReference()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTGetDataHandlerDirectoryDataReference(
+  DataHandler   dh,
+  UInt32        flags,
+  Handle *      outDataRef,
+  OSType *      outDataRefType)                               AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTGetDataHandlerTargetNameCFString()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTGetDataHandlerTargetNameCFString(
+  DataHandler    dh,
+  CFStringRef *  fileName)                                    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTGetDataHandlerFullPathCFString()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTGetDataHandlerFullPathCFString(
+  DataHandler    dh,
+  QTPathStyle    style,
+  CFStringRef *  outPath)                                     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
 
 
 /****
@@ -6301,7 +6721,10 @@ enum {
   fullScreenHideCursor          = 1L << 0,
   fullScreenAllowEvents         = 1L << 1,
   fullScreenDontChangeMenuBar   = 1L << 2,
-  fullScreenPreflightSize       = 1L << 3
+  fullScreenPreflightSize       = 1L << 3,
+  fullScreenDontSwitchMonitorResolution = 1L << 4,
+  fullScreenCaptureDisplay      = 1 << 5L, /* capturedisplay is a mac os x specific parameter */
+  fullScreenCaptureAllDisplays  = 1 << 6L /* capturealldisplays is a mac os x specific parameter */
 };
 
 /*
@@ -7192,7 +7615,6 @@ GetMediaPropertyAtom(
   QTAtomContainer *  propertyAtom)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-
 /*****
     Tween Support
 *****/
@@ -7437,6 +7859,24 @@ struct QTParamFetchPreviewRecord {
 };
 typedef struct QTParamFetchPreviewRecord QTParamFetchPreviewRecord;
 typedef QTParamFetchPreviewRecord *     QTParamFetchPreviewPtr;
+
+#if TARGET_API_MAC_CARBON
+/* Only available on OS X */
+enum {
+ kEffectParentWindowCarbon = 'carb'
+};
+struct QTEventLoopDescriptionRecord
+  {
+  long                    recordSize;     /* must be == sizeof(QTEventLoopDescriptionRecord) */
+  long                    windowRefKind;  /* kind of window reference */
+ void *                  parentWindow;   /* parent window (for sheets) or NIL to use Carbon FrontWindow() */
+    void *                  eventTarget;    /* EventTargetRef to receive kHICommandOK and kHICommandCancel */
+};
+
+typedef struct QTEventLoopDescriptionRecord QTEventLoopDescriptionRecord, *QTEventLoopDescriptionPtr;
+#endif
+
+
 enum {
   pdActionConfirmDialog         = 1,    /* no param*/
   pdActionSetAppleMenu          = 2,    /* param is MenuRef*/
@@ -7473,7 +7913,14 @@ enum {
   pdActionCustomGetEnableValue  = 32,   /* param is QTCustomControlGetEnableValuePtr */
   pdActionCustomSetSampleTime   = 33,   /* param is QTCustomControlSetSampleTimePtr */
   pdActionCustomGetValue        = 34,   /* param is QTCustomControlGetValue */
-  pdActionCustomDoEditCommand   = 35    /* param is QTCustomControlDoEditCommand */
+  pdActionCustomDoEditCommand   = 35,   /* param is QTCustomControlDoEditCommand */
+                                        /* more actions for the dialog */
+  pdActionRunInEventLoop        = 36,   /* param is QTEventLoopDescriptionPtr - OS X only*/
+  pdActionConvertSettingsToXML  = 37,   /* param is QTAtomContainer* inbound, Handle* outbound contains the XML - createdDialog may be NIL */
+  pdActionConvertSettingsToXMLWithComments = 38, /* param is QTAtomContainer* inbound, Handle* outbound contains the XML with comments - createdDialog may be NIL */
+  pdActionConvertSettingsToText = 39,   /* param is QTAtomContainer* inbound, Handle* outbound contains human readable text - createdDialog may be NIL */
+  pdActionConvertXMLToSettings  = 40,   /* param is Handle* inbound, QTAtomContainer* outbound contains parameters - createdDialog may be NIL */
+  pdActionSetPropertyComponent  = 41    /* param is QTParamComponentPropertyPtr */
 };
 
 /* Sample Time information */
@@ -7481,6 +7928,12 @@ enum {
   pdSampleTimeDisplayOptionsNone = 0x00000000
 };
 
+struct QTParamComponentPropertyRecord {
+  ComponentInstance   component;              /* component to call for get/set properties*/
+  OSType              defaultClass;           /* default property class if not overriden by a given parameter*/
+};
+typedef struct QTParamComponentPropertyRecord QTParamComponentPropertyRecord;
+typedef QTParamComponentPropertyRecord * QTParamComponentPropertyPtr;
 struct QTParamSampleTimeRecord {
   long                displayOptions;
   TimeRecord          sampleStartTime;
@@ -7496,6 +7949,15 @@ struct QTParamPreviewCalloutRecord {
 };
 typedef struct QTParamPreviewCalloutRecord QTParamPreviewCalloutRecord;
 typedef QTParamPreviewCalloutRecord *   QTParamPreviewCalloutPtr;
+enum {
+  pdOptionsCollectOneValue      = 0x00000001, /* should collect a single value only*/
+  pdOptionsAllowOptionalInterpolations = 0x00000002, /* non-novice interpolation options are shown */
+  pdOptionsModalDialogBox       = 0x00000004, /* dialog box should be modal */
+  pdOptionsEditCurrentEffectOnly = 0x00000008, /* List of effects will not be shown */
+  pdOptionsHidePreview          = 0x00000010, /* Preview item will not be shown */
+  pdOptionsDisplayAsSheet       = 0x00000020 /* Dialog will be used as a sheet (on platforms that support it) */
+};
+
 typedef long                            QTParameterDialogOptions;
 /* ------- CUSTOM EFFECT CONTROLS*/
 /*
@@ -7765,14 +8227,6 @@ enum {
 };
 
 typedef long                            QTEffectListOptions;
-enum {
-  pdOptionsCollectOneValue      = 0x00000001, /* should collect a single value only*/
-  pdOptionsAllowOptionalInterpolations = 0x00000002, /* non-novice interpolation options are shown */
-  pdOptionsModalDialogBox       = 0x00000004, /* dialog box should be modal */
-  pdOptionsEditCurrentEffectOnly = 0x00000008, /* List of effects will not be shown */
-  pdOptionsHidePreview          = 0x00000010 /* Preview item will not be shown */
-};
-
 enum {
   effectIsRealtime              = 0     /* effect can be rendered in real time */
 };
@@ -9028,6 +9482,26 @@ InvokeQTBandwidthNotificationUPP(
   QTBandwidthNotificationUPP  userUPP)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*****
+    Connection Speed
+*****/
+enum {
+  ConnectionSpeedIsValidPrefsType = 'vspd'
+};
+
+/*
+ *  QTGetConnectionSpeedFromPrefs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+QTGetConnectionSpeedFromPrefs(long * pConnectionSpeed)        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*****
     QT International Text Atom Support
 *****/
 enum {
@@ -9373,7 +9847,9 @@ enum {
   kQTRestrictionEditDontPaste   = (1L << 2), /* disable paste */
   kQTRestrictionEditDontClear   = (1L << 3), /* disable clear*/
   kQTRestrictionEditDontModify  = (1L << 4), /* don't allow modification of content*/
-  kQTRestrictionEditDontExtract = (1L << 5) /* don't allow any form of extraction of content*/
+  kQTRestrictionEditDontExtract = (1L << 5), /* don't allow any form of extraction of content*/
+  kQTRestrictionClassPlay       = 'play',
+  kQTRestrictionPlayDontPlay    = (1L << 0) /* disable playback   */
 };
 
 
@@ -10959,10 +11435,20 @@ enum {
   mcActionAutoPlay              = 83,   /* param is Fixed, play rate*/
   mcActionPauseToBuffer         = 84,   /* param is Fixed, play rate on restart*/
   mcActionAppMessageReceived    = 85,   /* param is a long, application message*/
+  mcActionMovieFinished         = 86,   /* no param*/
   mcActionEvaluateExpressionWithType = 89, /* param is a QTEvaluateExpressionWithTypePtr*/
   mcActionGetMovieName          = 90,   /* param is a p String Handle*/
   mcActionGetMovieID            = 91,   /* param is pointer to long*/
-  mcActionGetMovieActive        = 92    /* param is pointer to Boolean*/
+  mcActionGetMovieActive        = 92,   /* param is pointer to Boolean*/
+  mcActionGetKeyboardFocus      = 93,   /* param is QTKeyboardFocusPtr*/
+  mcActionSetKeyboardFocus      = 94,   /* param is QTKeyboardFocusPtr*/
+  mcActionAddActionNotification = 95,   /* param is QTMCActionNotificationPtr*/
+  mcActionRemoveActionNotification = 96, /* param is QTMCActionNotificationPtr*/
+  mcActionKeyUp                 = 97,   /* param is pointer to EventRecord */
+  mcActionGetConnectionStatus   = 98,   /* param is QTConnectionStatusPtr*/
+  mcActionChapterListChanged    = 99,   /* no param */
+  mcActionMovieLoadStateChanged = 100,  /* param is SInt32, new load state*/
+  mcActionEditStateChanged      = 101   /* param is a Boolean, editing enabled?*/
 };
 
 typedef short                           mcAction;
@@ -10999,8 +11485,10 @@ enum {
 typedef unsigned long                   MCInterfaceElement;
 typedef CALLBACK_API( Boolean , MCActionFilterProcPtr )(MovieController mc, short *action, void *params);
 typedef CALLBACK_API( Boolean , MCActionFilterWithRefConProcPtr )(MovieController mc, short action, void *params, long refCon);
+typedef CALLBACK_API( Boolean , MCActionNotificationProcPtr )(MovieController mc, short action, void *params, UInt32 inFlags, UInt32 *outFlags, void *refCon);
 typedef STACK_UPP_TYPE(MCActionFilterProcPtr)                   MCActionFilterUPP;
 typedef STACK_UPP_TYPE(MCActionFilterWithRefConProcPtr)         MCActionFilterWithRefConUPP;
+typedef STACK_UPP_TYPE(MCActionNotificationProcPtr)             MCActionNotificationUPP;
 /*
     menu related stuff
 */
@@ -11047,7 +11535,7 @@ struct QTGetExternalMovieRecord {
   long                targetType;             /* set to kTargetMovieName or kTargetMovieID*/
   StringPtr           movieName;
   long                movieID;
-  MoviePtr            theMovie;
+  PtrToMovie          theMovie;
   MovieControllerPtr  theController;
 };
 typedef struct QTGetExternalMovieRecord QTGetExternalMovieRecord;
@@ -11147,8 +11635,54 @@ enum {
 
 
 
+/* keyboard focus items*/
+
+enum {
+  kKeyboardAllowFocus           = 1,
+  kKeyboardHaveFocus            = 2,
+  kKeyboardValidate             = 4
+};
 
 
+enum {
+  kRefConNavigateClick          = 'clik'
+};
+
+
+struct QTKeyboardFocusRecord {
+  long                recordSize;             /* -> size of structure*/
+  long                navigation;             /* -> same as in MediaNavigateTargetRefCon*/
+  long                focusRefCon;            /* <-> refcon*/
+  short               focusFlags;             /* <-> flags from kKeyboard... enum */
+};
+typedef struct QTKeyboardFocusRecord    QTKeyboardFocusRecord;
+typedef QTKeyboardFocusRecord *         QTKeyboardFocusPtr;
+enum {
+  kQTMCActionNotifyBefore       = (1L << 0),
+  kQTMCActionNotifyAfter        = (1L << 1),
+  kQTMCActionNotifyParamChanged = (1L << 8),
+  kQTMCActionNotifyCancelled    = (1L << 9),
+  kQTMCActionNotifyUserFilterCancelled = (1L << 10),
+  kQTMCActionNotifySignature    = 'noti'
+};
+
+struct QTMCActionNotificationRecord {
+  OSType              returnSignature;        /* Set to zero when passed to movieController, set to 'noti' if mcActionAddActionNotification is implemented*/
+  MCActionNotificationUPP  notifyAction;      /* Function to be called at action time*/
+  void *              refcon;                 /* Something to pass to the action function*/
+  UInt32              flags;                  /* Option flags*/
+};
+typedef struct QTMCActionNotificationRecord QTMCActionNotificationRecord;
+typedef QTMCActionNotificationRecord *  QTMCActionNotificationPtr;
+struct QTConnectionStatusRecord {
+
+  short               flags;
+  short               error;
+
+  Handle              message;
+};
+typedef struct QTConnectionStatusRecord QTConnectionStatusRecord;
+typedef QTConnectionStatusRecord *      QTConnectionStatusPtr;
 
 /* target management */
 /*
@@ -12331,6 +12865,109 @@ extern Fixed
 GetTimeBaseEffectiveRate(TimeBase tb)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+/*
+ *  GetTimeBaseRateChangeStatus()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+GetTimeBaseRateChangeStatus(
+  TimeBase          tb,
+  TimeScale         scale,
+  Fixed *           ratedChangedTo,
+  TimeBaseStatus *  flags,
+  TimeRecord *      rateChangeTimeBaseTime,
+  TimeRecord *      rateChangeClockTime,
+  TimeRecord *      currentClockTime)                         AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  ConvertTimeToClockTime()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern void 
+ConvertTimeToClockTime(TimeRecord * time)                     AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GetTimeBaseMasterOffsetTimeBase()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern TimeBase 
+GetTimeBaseMasterOffsetTimeBase(TimeBase tb)                  AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  SetTimeBaseOffsetTimeBase()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+SetTimeBaseOffsetTimeBase(
+  TimeBase            tb,
+  TimeBase            offsettb,
+  const TimeRecord *  offsetZero)                             AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  AttachTimeBaseToCurrentThread()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+AttachTimeBaseToCurrentThread(TimeBase tb)                    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  DetachTimeBaseFromCurrentThread()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+DetachTimeBaseFromCurrentThread(TimeBase tb)                  AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  GetTimeBaseThreadAttachState()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ *    Windows:          in qtmlClient.lib 6.5 and later
+ */
+extern OSErr 
+GetTimeBaseThreadAttachState(
+  TimeBase   inTimeBase,
+  Boolean *  outAttachedToCurrentThread,
+  Boolean *  outAttachedToAnyThread)                          AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
 
 /****************************************
 *                                       *
@@ -12497,6 +13134,101 @@ ExecuteCallBack(QTCallBack cb)                                AVAILABLE_MAC_OS_X
 
 
 
+/****************************************
+*                                       *
+*   M O V I E  P R O P E R T I E S      *
+*                                       *
+****************************************/
+
+typedef CALLBACK_API( void , QTMoviePropertyListenerProcPtr )(Movie inMovie, QTPropertyClass inPropClass, QTPropertyID inPropID, void *inUserData);
+typedef STACK_UPP_TYPE(QTMoviePropertyListenerProcPtr)          QTMoviePropertyListenerUPP;
+/*
+ *  QTGetMoviePropertyInfo()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSErr 
+QTGetMoviePropertyInfo(
+  Movie                  inMovie,
+  QTPropertyClass        inPropClass,
+  QTPropertyID           inPropID,
+  QTPropertyValueType *  outPropType,
+  ByteCount *            outPropValueSize,
+  UInt32 *               outPropertyFlags)                    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTGetMovieProperty()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSErr 
+QTGetMovieProperty(
+  Movie                inMovie,
+  QTPropertyClass      inPropClass,
+  QTPropertyID         inPropID,
+  ByteCount            inPropValueSize,
+  QTPropertyValuePtr   outPropValueAddress,
+  ByteCount *          outPropValueSizeUsed)                  AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTSetMovieProperty()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSErr 
+QTSetMovieProperty(
+  Movie                     inMovie,
+  QTPropertyClass           inPropClass,
+  QTPropertyID              inPropID,
+  ByteCount                 inPropValueSize,
+  ConstQTPropertyValuePtr   inPropValueAddress)               AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTAddMoviePropertyListener()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSErr 
+QTAddMoviePropertyListener(
+  Movie                        inMovie,
+  QTPropertyClass              inPropClass,
+  QTPropertyID                 inPropID,
+  QTMoviePropertyListenerUPP   inListenerProc,
+  void *                       inUserData)                    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
+/*
+ *  QTRemoveMoviePropertyListener()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern OSErr 
+QTRemoveMoviePropertyListener(
+  Movie                        inMovie,
+  QTPropertyClass              inPropClass,
+  QTPropertyID                 inPropID,
+  QTMoviePropertyListenerUPP   inListenerProc,
+  void *                       inUserData)                    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+
 
 
 /*
@@ -12513,7 +13245,6 @@ MusicMediaGetIndexedTunePlayer(
   ComponentInstance    ti,
   long                 sampleDescIndex,
   ComponentInstance *  tp)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
-
 
 
 /* UPP call backs */
@@ -12540,6 +13271,28 @@ extern MCActionFilterWithRefConUPP
 NewMCActionFilterWithRefConUPP(MCActionFilterWithRefConProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
+ *  NewMCActionNotificationUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern MCActionNotificationUPP
+NewMCActionNotificationUPP(MCActionNotificationProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  NewQTMoviePropertyListenerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 9.9 and later
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern QTMoviePropertyListenerUPP
+NewQTMoviePropertyListenerUPP(QTMoviePropertyListenerProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
  *  DisposeMCActionFilterUPP()
  *  
  *  Availability:
@@ -12560,6 +13313,28 @@ DisposeMCActionFilterUPP(MCActionFilterUPP userUPP)           AVAILABLE_MAC_OS_X
  */
 extern void
 DisposeMCActionFilterWithRefConUPP(MCActionFilterWithRefConUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+/*
+ *  DisposeMCActionNotificationUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern void
+DisposeMCActionNotificationUPP(MCActionNotificationUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  DisposeQTMoviePropertyListenerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 9.9 and later
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern void
+DisposeQTMoviePropertyListenerUPP(QTMoviePropertyListenerUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 /*
  *  InvokeMCActionFilterUPP()
@@ -12591,6 +13366,40 @@ InvokeMCActionFilterWithRefConUPP(
   void *                       params,
   long                         refCon,
   MCActionFilterWithRefConUPP  userUPP)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+/*
+ *  InvokeMCActionNotificationUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern Boolean
+InvokeMCActionNotificationUPP(
+  MovieController          mc,
+  short                    action,
+  void *                   params,
+  UInt32                   inFlags,
+  UInt32 *                 outFlags,
+  void *                   refCon,
+  MCActionNotificationUPP  userUPP)                           AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*
+ *  InvokeQTMoviePropertyListenerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.3 (or QuickTime 6.4) and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 9.9 and later
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern void
+InvokeQTMoviePropertyListenerUPP(
+  Movie                       inMovie,
+  QTPropertyClass             inPropClass,
+  QTPropertyID                inPropID,
+  void *                      inUserData,
+  QTMoviePropertyListenerUPP  userUPP)                        AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 
 /* selectors for component calls */

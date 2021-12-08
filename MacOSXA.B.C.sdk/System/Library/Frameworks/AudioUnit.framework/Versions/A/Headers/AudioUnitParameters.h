@@ -18,6 +18,54 @@
 #ifndef __AudioUnitParameters
 #define __AudioUnitParameters
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The following specifies the equivalent parameterID's for the Group Scope for the standard
+MIDI Controllers. The list is not exhaustive, but represents a recommended set of 
+parameters in Group Scope (and their corresponding MIDI messages) that should be supported
+
+ParameterID ranges on the Group Scope from 0 < 512 are reserved for usage when Mapping MIDI 
+controllers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+enum {
+	kAUGroupParameterID_Volume					= 7,	// value 0 < 128
+	kAUGroupParameterID_Sustain					= 64, 	// value 0-63 (off), 64-127 (on)
+	kAUGroupParameterID_AllNotesOff				= 123,	// value ignored
+	kAUGroupParameterID_ModWheel				= 1,	// value 0 < 128
+	kAUGroupParameterID_PitchBend				= 0xE0,	// value -8192 - 8191
+	kAUGroupParameterID_AllSoundOff				= 120,	// value ignored
+	kAUGroupParameterID_ResetAllControllers		= 121,	// value ignored
+	kAUGroupParameterID_Pan						= 10,	// value 0 < 128
+	kAUGroupParameterID_Foot					= 4,	// value 0 < 128
+	kAUGroupParameterID_ChannelPressure			= 0xD0,	// value 0 < 128
+	kAUGroupParameterID_KeyPressure				= 0xA0,	// values 0 < 128
+	kAUGroupParameterID_Expression				= 11,	// value 0 < 128
+	kAUGroupParameterID_DataEntry				= 6,	// value 0 < 128
+
+	kAUGroupParameterID_Volume_LSB				= kAUGroupParameterID_Volume + 32,		// value 0 < 128
+	kAUGroupParameterID_ModWheel_LSB			= kAUGroupParameterID_ModWheel + 32,	// value 0 < 128
+	kAUGroupParameterID_Pan_LSB					= kAUGroupParameterID_Pan + 32,			// value 0 < 128
+	kAUGroupParameterID_Foot_LSB				= kAUGroupParameterID_Foot + 32,		// value 0 < 128
+	kAUGroupParameterID_Expression_LSB			= kAUGroupParameterID_Expression + 32,	// value 0 < 128
+	kAUGroupParameterID_DataEntry_LSB			= kAUGroupParameterID_DataEntry + 32,	// value 0 < 128
+	
+	kAUGroupParameterID_KeyPressure_FirstKey	= 256,	// value 0 < 128
+	kAUGroupParameterID_KeyPressure_LastKey		= 383	// value 0 < 128
+};	
+
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A special note on kAUGroupParameterID_KeyPressure (Polyphonic Aftertouch)
+	Publish this (0xA0) to say you support polyphonic key pressure.
+	Polyphonic key pressure is not a single control; it is a control for each of the 128
+		MIDI key numbers.
+	The key pressure values pairs actualy values are to be get or set in the following parameter range
+		ParameterID: 256-383
+		Thus to set/get the value of Poly Key pressure add kAUGroupParameterID_KeyPressure_FirstKey (256)
+		to the MIDI key number - this becomes the parameter ID
+		The pressure Value is 0 < 128
+	Thus to get/set by key value you take the MIDI key number (0 - 127) and add/subtract to/from:
+		kAUGroupParameterID_KeyPressure_FirstKey
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The following file specifies the parameter IDs for the various audio units that apple ships,
@@ -38,7 +86,7 @@ get the parameter information from the AudioUnit itself
 // Some parameters of effects units are dependent on the sample rate of the audio unit
 // (ie. the maximum value is typically the Nyquist limit, or half the sample rate)
 
-// These are the parameters for the BandpassFilter Unit
+// Parameters for the BandpassFilter Unit
 enum {
 		// Global, Hz, 20->(SampleRate/2), 5000
 	kBandpassParam_CenterFrequency 			= 0,
@@ -47,7 +95,7 @@ enum {
 	kBandpassParam_Bandwidth 				= 1
 };
 
-// These are the parameters of the AUHipass Unit
+// Parameters of the AUHipass Unit
 enum {
 		// Global, Hz, 10->(SampleRate/2), 6900
 	kHipassParam_CutoffFrequency 			= 0,
@@ -56,7 +104,7 @@ enum {
 	kHipassParam_Resonance					= 1
 };
 
-// These are the parameters of the AULowpass Unit
+// Parameters of the AULowpass Unit
 enum {
 		// Global, Hz, 10->(SampleRate/2), 6900
 	kLowPassParam_CutoffFrequency 			= 0,
@@ -65,7 +113,7 @@ enum {
 	kLowPassParam_Resonance 				= 1
 };
 
-// These are the parameters of the AUHighShelfFilter
+// Parameters of the AUHighShelfFilter
 enum {
 		// Global, Hz, 10000->(SampleRate/2), 10000
 	kHighShelfParam_CutOffFrequency 		= 0,
@@ -74,7 +122,7 @@ enum {
 	kHighShelfParam_Gain 					= 1
 };
 
-// These are the parameters of the AULowShelfFilter
+// Parameters of the AULowShelfFilter
 enum {
 		// Global, Hz, 10->200, 80
 	kAULowShelfParam_CutoffFrequency = 0,
@@ -83,7 +131,7 @@ enum {
 	kAULowShelfParam_Gain = 1
 };
 
-// These are the parameters of the AUParametricEQ
+// Parameters of the AUParametricEQ
 enum {
 		// Global, Hz, 20->(SampleRate/2), 2000
     kParametricEQParam_CenterFreq = 0,
@@ -95,7 +143,7 @@ enum {
     kParametricEQParam_Gain = 2
 };
 
-// These are the parameters of the AUMatrixReverb
+// Parameters of the AUMatrixReverb
 enum {
 		// Global, EqPow CrossFade, 0->100, 100
 	kReverbParam_DryWetMix 							= 0,
@@ -140,7 +188,7 @@ enum {
 	kReverbParam_ModulationDepth					= 13
 };
 
-// These are the parameters for the Delay Unit
+// Parameters for the Delay Unit
 enum {
 		// Global, EqPow Crossfade, 0->100, 50
 	kDelayParam_WetDryMix 				= 0,
@@ -155,7 +203,7 @@ enum {
 	kDelayParam_LopassCutoff	 		= 3
 };
 
-// These are the parameters for the AUPeakLimiter
+// Parameters for the AUPeakLimiter
 enum {
 		// Global, Secs, 0.001->0.03, 0.012
 	kLimiterParam_AttackTime 			= 0,
@@ -168,30 +216,72 @@ enum {
 };
 
 
-// These are the parameters for the AUDynamicsProcessor
+// Parameters for the AUDynamicsProcessor
 enum {
 		// Global, dB, -40->20, -20
 	kDynamicsProcessorParam_Threshold 			= 0,
 		
-		// Global, rate, 1->50.0, 2
-	kDynamicsProcessorParam_CompressionRatio	 = 1,
+		// Global, rate, 0.1->40.0, 5
+	kDynamicsProcessorParam_HeadRoom	 		= 1,
 		
 		// Global, rate, 1->50.0, 2
-	kDynamicsProcessorParam_ExpansionRatio		 = 2,
+	kDynamicsProcessorParam_ExpansionRatio		= 2,
+		
+		// Global, dB
+	kDynamicsProcessorParam_ExpansionThreshold	= 3,
 		
 		// Global, secs, 0.0001->0.2, 0.001
-	kDynamicsProcessorParam_AttackTime 			= 3,
+	kDynamicsProcessorParam_AttackTime 			= 4,
 		
 		// Global, secs, 0.01->3, 0.05
-	kDynamicsProcessorParam_DecayTime 			= 4,
+	kDynamicsProcessorParam_ReleaseTime 		= 5,
 		
 		// Global, dB, -40->40, 0
-	kDynamicsProcessorParam_MasterGain 			= 5
+	kDynamicsProcessorParam_MasterGain 			= 6,
+	
+		// Global, dB, read-only parameter
+	kDynamicsProcessorParam_CompressionAmount 	= 1000
+};
+
+
+// Parameters for the AUMultibandCompressor
+enum {
+	kMultibandCompressorParam_Pregain 			= 0,
+	kMultibandCompressorParam_Postgain 			= 1,
+	kMultibandCompressorParam_Crossover1 		= 2,
+	kMultibandCompressorParam_Crossover2 		= 3,
+	kMultibandCompressorParam_Crossover3 		= 4,
+	kMultibandCompressorParam_Threshold1 		= 5,
+	kMultibandCompressorParam_Threshold2 		= 6,
+	kMultibandCompressorParam_Threshold3 		= 7,
+	kMultibandCompressorParam_Threshold4 		= 8,
+	kMultibandCompressorParam_Headroom1 		= 9,
+	kMultibandCompressorParam_Headroom2 		= 10,
+	kMultibandCompressorParam_Headroom3 		= 11,
+	kMultibandCompressorParam_Headroom4 		= 12,
+	kMultibandCompressorParam_AttackTime 		= 13,
+	kMultibandCompressorParam_ReleaseTime 		= 14,
+	kMultibandCompressorParam_EQ1 				= 15,
+	kMultibandCompressorParam_EQ2 				= 16,
+	kMultibandCompressorParam_EQ3 				= 17,
+	kMultibandCompressorParam_EQ4 				= 18,
+	
+	// read-only parameters
+	kMultibandCompressorParam_CompressionAmount1 = 1000,
+	kMultibandCompressorParam_CompressionAmount2 = 2000,
+	kMultibandCompressorParam_CompressionAmount3 = 3000,
+	kMultibandCompressorParam_CompressionAmount4 = 4000
+};
+
+// Parameters for the AUVarispeed
+enum {
+	kVarispeedParam_PlaybackRate				= 0,
+	kVarispeedParam_PlaybackCents				= 1
 };
 
 
 // Mixer Units
-// These are the parameters for the 3DMixer AudioUnit
+// Parameters for the 3DMixer AudioUnit
 enum {
         // Input, Degrees, -180->180, 0
     k3DMixerParam_Azimuth		= 0,
@@ -203,27 +293,61 @@ enum {
     k3DMixerParam_Distance		= 2,
         
 		// Input/Output, dB, -120->20, 0
-    k3DMixerParam_Gain			= 3
+    k3DMixerParam_Gain			= 3,
+	
+		// Input, rate scaler	0.5 -> 2.0
+    k3DMixerParam_PlaybackRate	= 4,
+	
+		// read-only
+	k3DMixerParam_PreAveragePower	= 1000,
+	k3DMixerParam_PrePeakHoldLevel	= 2000,
+	k3DMixerParam_PostAveragePower	= 3000,
+	k3DMixerParam_PostPeakHoldLevel	= 4000
 };
 
-// These are the parameters for the Stereo Mixer AudioUnit
+// Parameters for the Stereo Mixer AudioUnit
 enum {
 		// Input/Output, Mixer Fader Curve, 0->1, 1
 	kStereoMixerParam_Volume 	= 0,
 		
 		// Input, Pan, 0->1, 0.5
-	kStereoMixerParam_Pan		= 1
+	kStereoMixerParam_Pan		= 1,
+	
+		// read-only
+	kStereoMixerParam_PreAveragePower	= 1000,
+	kStereoMixerParam_PrePeakHoldLevel	= 2000,
+	kStereoMixerParam_PostAveragePower	= 3000,
+	kStereoMixerParam_PostPeakHoldLevel	= 4000
+};
+
+// Parameters for the Matrix Mixer AudioUnit
+enum {
+	kMatrixMixerParam_Volume 	= 0,
+	kMatrixMixerParam_Enable 	= 1,
+	
+		// read-only
+	// these report level in dB, as do the other mixers
+	kMatrixMixerParam_PreAveragePower	= 1000,
+	kMatrixMixerParam_PrePeakHoldLevel	= 2000,
+	kMatrixMixerParam_PostAveragePower	= 3000,
+	kMatrixMixerParam_PostPeakHoldLevel	= 4000,
+
+	// these report linear levels - for "expert" use only.
+	kMatrixMixerParam_PreAveragePowerLinear			= 5000,
+	kMatrixMixerParam_PrePeakHoldLevelLinear		= 6000,
+	kMatrixMixerParam_PostAveragePowerLinear		= 7000,
+	kMatrixMixerParam_PostPeakHoldLevelLinear		= 8000
 };
 
 // Output Units
-// These are the parameters for the HAL Output Unit (and Default and System Output units)
+// Parameters for the HAL Output Unit (and Default and System Output units)
 enum {
 		// Global, LinearGain, 0->1, 1
 	kHALOutputParam_Volume 		= 14 
 };
 
 // Music Device
-// These are the parameters for the DLSMusicDevice Unit - defined and reported in the global scope
+// Parameters for the DLSMusicDevice Unit - defined and reported in the global scope
 enum {
 		// Global, Cents, -1200, 1200, 0
 	kMusicDeviceParam_Tuning 	= 0,

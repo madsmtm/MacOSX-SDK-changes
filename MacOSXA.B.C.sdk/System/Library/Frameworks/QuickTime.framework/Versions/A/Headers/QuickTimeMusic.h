@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -54,8 +54,8 @@ enum {
   kaiSampleDataQUIDType         = 'quid',
   kaiInstInfoType               = 'iinf',
   kaiPictType                   = 'pict',
-  kaiWriterType                 = '©wrt',
-  kaiCopyrightType              = '©cpy',
+  kaiWriterType                 = (long)0xA9777274/*'©wrt' */,
+  kaiCopyrightType              = (long)0xA9637079/*'©cpy' */,
   kaiOtherStrType               = 'str ',
   kaiInstrumentRefType          = 'iref',
   kaiInstGMQualityType          = 'qual',
@@ -243,6 +243,7 @@ QTMIDISendMIDI(
   QTMIDIComponent    ci,
   long               portIndex,
   MusicMIDIPacket *  mp)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
 
 
 
@@ -1221,6 +1222,7 @@ MusicSendMIDI(
   MusicMIDIPacket *  mp)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+
 /*
  *  MusicStartOffline()
  *  
@@ -1641,8 +1643,8 @@ struct NoteRequest {
   ToneDescription     tone;
 };
 typedef struct NoteRequest              NoteRequest;
-typedef struct OpaqueNoteChannel*       NoteChannel;
 
+typedef long                            NoteChannel;
 
 enum {
   kPickDontMix                  = 1,    /* dont mix instruments with drum sounds */

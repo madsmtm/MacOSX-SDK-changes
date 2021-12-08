@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-174.20~22
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2003 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -615,6 +615,12 @@ enum {
 	#define ADD_MUSICMEDIA_BASENAME(name) MUSICMEDIA_STRCAT(MUSICMEDIA_BASENAME(),name)
 
 	EXTERN_API( ComponentResult  ) ADD_MUSICMEDIA_BASENAME(GetIndexedTunePlayer) (MUSICMEDIA_GLOBALS() ADD_MUSICMEDIA_COMMA long  sampleDescIndex, ComponentInstance * tp);
+
+
+	/* MixedMode ProcInfo constants for component calls */
+	enum {
+		uppMusicMediaGetIndexedTunePlayerProcInfo = 0x00000FF0
+	};
 
 #endif	/* MUSICMEDIA_BASENAME */
 
