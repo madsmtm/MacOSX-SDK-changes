@@ -3,7 +3,7 @@
  
      Contains:   Definition of the separator view provided by HIToolbox.
  
-     Version:    HIToolbox-569.7~1
+     Version:    HIToolbox-624~3
  
      Copyright:  © 2006-2008 by Apple Computer, Inc., all rights reserved.
  

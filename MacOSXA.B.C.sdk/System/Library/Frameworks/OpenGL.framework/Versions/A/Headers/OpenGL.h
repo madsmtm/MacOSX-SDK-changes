@@ -1,5 +1,5 @@
 /*
-	Copyright:	(c) 1999-2008 Apple Inc. All rights reserved.
+	Copyright:	(c) 1999-2012 Apple Inc. All rights reserved.
 */
 
 #ifndef _OPENGL_H
@@ -7,6 +7,9 @@
 
 #include <AvailabilityMacros.h>
 #include <OpenGL/CGLCurrent.h>
+#include <OpenGL/CGLDevice.h>
+#include <OpenGL/CGLRenderers.h>
+#include <OpenGL/CGLIOSurface.h>
 #include <OpenGL/gltypes.h>
 
 #ifdef __cplusplus
@@ -45,7 +48,11 @@ extern CGLError CGLDescribeRenderer(CGLRendererInfoObj rend, GLint rend_num, CGL
 */
 extern CGLError CGLCreateContext(CGLPixelFormatObj pix, CGLContextObj share, CGLContextObj *ctx);
 extern CGLError CGLDestroyContext(CGLContextObj ctx);
+#ifdef AVAILABLE_MAC_OS_X_VERSION_10_8_AND_LATER
+extern CGLError CGLCopyContext(CGLContextObj src, CGLContextObj dst, GLbitfield mask) DEPRECATED_IN_MAC_OS_X_VERSION_10_8_AND_LATER;
+#else
 extern CGLError CGLCopyContext(CGLContextObj src, CGLContextObj dst, GLbitfield mask);
+#endif
 extern CGLContextObj CGLRetainContext(CGLContextObj ctx) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 extern void CGLReleaseContext(CGLContextObj ctx) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 extern GLuint CGLGetContextRetainCount(CGLContextObj ctx) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;

@@ -4,7 +4,7 @@
 //
 //  Copyright 2006 Apple Computer, Inc. All rights reserved.
 
-extern NSString *const CalCalendarStoreErrorDomain;
+extern NSString *const CalCalendarStoreErrorDomain NS_DEPRECATED_MAC(10_5, 10_8);
 
 enum {
 	// Calendar saving and modification errors

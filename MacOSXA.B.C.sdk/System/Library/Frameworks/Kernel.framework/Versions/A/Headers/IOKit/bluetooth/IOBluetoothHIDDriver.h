@@ -13,6 +13,12 @@
 #include "IOKit/pwr_mgt/RootDomain.h"
 
 //===========================================================================================================================
+// Macros
+//===========================================================================================================================
+
+#define kBSKernelMonitor2Notification				'bsk2'
+
+//===========================================================================================================================
 // Forwards
 //===========================================================================================================================
 
@@ -109,6 +115,10 @@ class IOBluetoothHIDDriver : public IOHIDDevice
 		
 		bool					mGotNoDeepSleepAssertionID;
 		
+        OSString*				disconnectionNotificationString;
+        OSString*				connectionNotificationString;
+        
+		IOTimerEventSource*		deviceConnectTimer;
     };
     ExpansionData	*_expansionData;
 	
@@ -191,6 +201,7 @@ public:
 	virtual IOReturn	interruptChannelOpeningWL( IOBluetoothL2CAPChannel* theChannel );
 
 	// Timeout Handler
+	static	void		deviceConnectTimerFired( OSObject* owner, IOTimerEventSource* sender );
 	static	void		timerFired( OSObject* owner, IOTimerEventSource* sender );
 	virtual void		handleTimeout();
 	

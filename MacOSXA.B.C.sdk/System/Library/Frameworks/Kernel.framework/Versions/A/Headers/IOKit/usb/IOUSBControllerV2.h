@@ -28,13 +28,6 @@
 #include <IOKit/usb/IOUSBControllerListElement.h>
 #include <IOKit/usb/IOUSBController.h>
 
-enum
-{
-    kUSBHSHubCommandAddHub	= 1,
-    kUSBHSHubCommandRemoveHub	= 2,
-    
-    kUSBHSHubFlagsMultiTT	= 1
-};
 
 
 /*!
@@ -83,6 +76,7 @@ protected:
     #define _controllerSpeed					_expansionData->_controllerSpeed
 	#define _activeIsochTransfers				_expansionData->_activeIsochTransfers
 	#define _activeInterruptTransfers			_expansionData->_activeInterruptTransfers
+	#define _rootHubDeviceSS					_expansionData->_rootHubDeviceSS
 
 	// this class's expansion data
 	#define _isochEPList						_v2ExpansionData->_isochEPList
@@ -105,11 +99,11 @@ protected:
 
 public:
 
-        /*!
+       /*!
         @function openPipe
          Open a pipe to the specified device endpoint
          @param address Address of the device on the USB bus
-         @param speed of the device: kUSBDeviceSpeedLow, kUSBDeviceSpeedFull or kUSBDeviceSpeedHigh
+         @param speed of the device: kUSBDeviceSpeedLow, kUSBDeviceSpeedFull, kUSBDeviceSpeedHigh or kUSBDeviceSpeedSuper
          @param endpoint description of endpoint to connect to
          */
         virtual IOReturn 		OpenPipe(   USBDeviceAddress 	address,
@@ -117,18 +111,18 @@ public:
                                        Endpoint *		endpoint );
 
     /*!
-    @function CreateDevice
-    @abstract Create a new device as IOUSBController, making a note of the
-                high speed hub device ID and port number the full/low speed
-                device is attached to.
-    @param newDevice       new device object to work with
-    @param deviceAddress   USB device ID
-    @param maxPacketSize   max packet size of endpoint zero
-    @param speed           speed of the device kUSBDeviceSpeedLow, kUSBDeviceSpeedFull, kUSBDeviceSpeedHigh
-    @param powerAvailable  power available to the device 
-    @param hub             USB ID of hub the device is immediatly attached to. (Not necessarily high speed)
-    @param port            port number of port the device is attached to.
-*/
+     @function CreateDevice
+     @abstract Create a new device as IOUSBController, making a note of the
+     high speed hub device ID and port number the full/low speed
+     device is attached to.
+     @param newDevice       new device object to work with
+     @param deviceAddress   USB device ID
+     @param maxPacketSize   max packet size of endpoint zero
+     @param speed           speed of the device kUSBDeviceSpeedLow, kUSBDeviceSpeedFull, kUSBDeviceSpeedHigh, kUSBDeviceSpeedSuper
+     @param powerAvailable  power available to the device 
+     @param hub             USB ID of hub the device is immediatly attached to. (Not necessarily high speed)
+     @param port            port number of port the device is attached to.
+     */
     virtual  IOReturn CreateDevice(	IOUSBDevice 		*newDevice,
                                     USBDeviceAddress	deviceAddress,
                                     UInt8		 	maxPacketSize,
@@ -137,15 +131,15 @@ public:
                                     USBDeviceAddress		hub,
                                     int      port);
 
-/*!
-	@function ConfigureDeviceZero
-    @abstract configure pipe zero of device zero, as IOUSBController, but also keeping 
-                 note of high speed hub device is attached to.
-    @param maxPacketSize  max packet size for the pipe
-    @param speed           speed of the device kUSBDeviceSpeedLow, kUSBDeviceSpeedFull, kUSBDeviceSpeedHigh
-    @param hub            USB ID of hub the device is immediatly attached to.  (Not necessarily high speed)
-    @param port           port number of port the device is attached to.
-*/
+    /*!
+     @function ConfigureDeviceZero
+     @abstract configure pipe zero of device zero, as IOUSBController, but also keeping 
+     note of high speed hub device is attached to.
+     @param maxPacketSize  max packet size for the pipe
+     @param speed           speed of the device kUSBDeviceSpeedLow, kUSBDeviceSpeedFull, kUSBDeviceSpeedHigh, kUSBDeviceSpeedSuper
+     @param hub            USB ID of hub the device is immediatly attached to.  (Not necessarily high speed)
+     @param port           port number of port the device is attached to.
+     */
     virtual  IOReturn ConfigureDeviceZero(UInt8 maxPacketSize, UInt8 speed, USBDeviceAddress hub, int port);
 
 /*!
@@ -361,15 +355,71 @@ public:
 	virtual IOReturn		GetFrameNumberWithTime(UInt64* frameNumber, AbsoluteTime *theTime);
 	
 	
-	OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  23);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  24);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  25);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  26);
-    OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  27);
+	OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  23);
+    /*!
+	 @function Read
+     Read from a stream on a bulk endpoint
+     @param streamID stream ID of the stream to read from
+     @param buffer place to put the transferred data
+     @param address Address of the device on the USB bus
+     @param endpoint description of endpoint
+     @param completion describes action to take when buffer has been filled
+     @param noDataTimeout number of milliseconds of no data movement before the request is aborted
+     @param completionTimeout number of milliseonds after the command is on the bus in which it must complete
+     @param reqCount number of bytes requested for the transfer (must not be greater than the length of the buffer)
+     */
+    virtual IOReturn ReadStream(UInt32							streamID,
+							IOMemoryDescriptor *			buffer,
+							USBDeviceAddress					address,
+							Endpoint *						endpoint,
+							IOUSBCompletion *	completion,
+							UInt32							noDataTimeout,
+							UInt32							completionTimeout,
+							IOByteCount						reqCount );
+
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  24);
+    /*!
+	 @function Write
+	 Write to a stream on a bulk endpoint
+     @param streamID stream ID of the stream to write to
+	 @param buffer place to get the transferred data
+	 @param address Address of the device on the USB bus
+	 @param endpoint description of endpoint
+	 @param completion describes action to take when buffer has been emptied
+	 @param noDataTimeout number of milliseconds of no data movement before the request is aborted
+	 @param completionTimeout number of milliseonds after the command is on the bus in which it must complete
+	 @param reqCount number of bytes requested for the transfer (must not be greater than the length of the buffer)
+	 */
+    virtual IOReturn WriteStream(UInt32				streamID,
+								  IOMemoryDescriptor *	buffer,
+								  USBDeviceAddress 	address,
+								  Endpoint *		endpoint,
+								  IOUSBCompletion *	completion,
+								  UInt32			noDataTimeout,
+								  UInt32			completionTimeout,
+								  IOByteCount		reqCount );
+
+    OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  25);
+	/*!
+	 @function openPipe
+	 Open a pipe to the specified device endpoint
+	 @param address Address of the device on the USB bus
+	 @param speed of the device: kUSBDeviceSpeedLow, kUSBDeviceSpeedFull, kUSBDeviceSpeedHigh or kUSBDeviceSpeedSuper
+	 @param endpoint description of endpoint to connect to
+	 @param maxStreams maximum number of streams pipe supports
+	 */
+	virtual IOReturn 		OpenSSPipe(   USBDeviceAddress 	address,
+									 UInt8 		speed,
+									 Endpoint *		endpoint,
+									 UInt32   maxStreams,
+                                     UInt32   maxBurst);
+    
+	OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  26);
+	OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  27);
     OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  28);
     OSMetaClassDeclareReservedUnused(IOUSBControllerV2,  29);
     
 };
 
 
-#endif /* ! _IOKIT_IOUSBCONTROLLERV2_H */
+#endif

@@ -22,8 +22,8 @@ extern NSString * const CalAttendeeStatusTentative;
     NSString *_status;      // The attendee status, one of the CalAttendeeStatuses defined above
 }
 
-@property(readonly) NSURL *address;
-@property(readonly) NSString *commonName;  // The user-entered name of the attendee. 
-@property(readonly) NSString *status;      // The attendee status, one of the CalAttendeeStatuses defined above
+@property(readonly) NSURL *address NS_DEPRECATED_MAC(10_5, 10_8);
+@property(readonly) NSString *commonName NS_DEPRECATED_MAC(10_5, 10_8);  // The user-entered name of the attendee. 
+@property(readonly) NSString *status NS_DEPRECATED_MAC(10_5, 10_8);      // The attendee status, one of the CalAttendeeStatuses defined above
 
 @end

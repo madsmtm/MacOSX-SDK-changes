@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright:  (c) 2010-2011 by Apple, Inc., All Rights Reserved.
+ * Copyright:  (c) 2010-2012 by Apple, Inc., All Rights Reserved.
  ******************************************************************************/
 
 #ifndef __GCL_H
@@ -18,6 +18,7 @@ extern "C" {
 #endif
 
 #include <OpenGL/gltypes.h>
+
 #include <OpenCL/opencl.h>
 #include <dispatch/dispatch.h>
   
@@ -64,7 +65,7 @@ typedef enum clk_sampler_type
     CLK_FILTER_NEAREST             = 0 << __CLK_FILTER_BASE,
     CLK_FILTER_LINEAR              = 1 << __CLK_FILTER_BASE,
     __CLK_FILTER_MASK              = CLK_FILTER_NEAREST | CLK_FILTER_LINEAR,
-    __CLK_FILTER_BITS              = 2,        // number of bits required to represent address info
+    __CLK_FILTER_BITS              = 2         // number of bits required to represent address info
 
 } clk_sampler_type;
   

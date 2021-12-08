@@ -46,6 +46,7 @@ enum {
 	kUSBDeviceUserClientRequestExtraPower,
 	kUSBDeviceUserClientReturnExtraPower,
 	kUSBDeviceUserClientGetExtraPowerAllocated,
+	kUSBDeviceUserClientGetBandwidthAvailableForDevice,
     kIOUSBLibDeviceUserClientNumCommands
     };
 
@@ -78,6 +79,7 @@ enum {
     kUSBInterfaceUserClientLowLatencyReadIsochPipe,
     kUSBInterfaceUserClientLowLatencyWriteIsochPipe,
 	kUSBInterfaceUserClientGetConfigDescriptor,
+	kUSBInterfaceUserClientGetPipePropertiesV2,
     kIOUSBLibInterfaceUserClientNumCommands
     };
 
@@ -138,7 +140,7 @@ public:
     virtual bool		MergeDictionaryIntoDictionary(OSDictionary *  sourceDictionary,  OSDictionary *  targetDictionary);
 };
 
-#endif // KERNEL
+#endif
 
-#endif /* ! _IOKIT_IOUSBUSERCLIENT_H */
+#endif
 

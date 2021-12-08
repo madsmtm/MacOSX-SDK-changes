@@ -124,19 +124,10 @@ class IOMemoryDescriptor : public OSObject
     OSDeclareDefaultStructors(IOMemoryDescriptor);
 
 protected:
-/*! @struct ExpansionData
-    @discussion This structure will be used to expand the capablilties of this class in the future.
-    */    
-    struct ExpansionData {
-        void *				devicePager;
-        unsigned int			pagerContig:1;
-        unsigned int			unused:31;
-	IOMemoryDescriptor *		memory;
-    };
 
 /*! @var reserved
     Reserved for future use.  (Internal use only)  */
-    ExpansionData * reserved;
+    struct IOMemoryDescriptorReserved * reserved;
 
 protected:
     OSSet *		_mappings;
@@ -228,6 +219,8 @@ typedef IOOptionBits DMACommandOps;
 #endif /* !__LP64__ */
 
     virtual uint64_t getPreparationID( void );
+    void             setPreparationID( void );
+
 	
 private:
     OSMetaClassDeclareReservedUsed(IOMemoryDescriptor, 0);

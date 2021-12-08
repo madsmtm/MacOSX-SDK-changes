@@ -50,7 +50,7 @@
 // Allow clients to define their own debug level.
 
 #if ( !defined( DEBUG_LEVEL ) )
-	#define	DEBUG_LEVEL			DEBUG_LEVEL_FINAL
+	#define	DEBUG_LEVEL			DEBUG_LEVEL_PRODUCTION
 #endif
 
 // Index for user client methods
@@ -245,5 +245,5 @@ public:
 
 
 #endif
-#endif /* ! _IOKIT_IOUSBLOG_H */
+#endif
 

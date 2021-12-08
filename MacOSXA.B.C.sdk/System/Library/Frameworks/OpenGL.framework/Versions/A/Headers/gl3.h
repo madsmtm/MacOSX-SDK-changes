@@ -14,7 +14,7 @@ extern "C" {
 #endif
 
 /*
-** Copyright (c) 2007-2009 The Khronos Group Inc.
+** Copyright (c) 2007-2010 The Khronos Group Inc.
 ** 
 ** Permission is hereby granted, free of charge, to any person obtaining a
 ** copy of this software and/or associated documentation files (the
@@ -36,8 +36,8 @@ extern "C" {
 ** MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
 */
 
-/* This is a draft release of gl3.h, a header for use with OpenGL 3.1
- * and OpenGL 3.2 core profile implementations. The current version is
+/* This is a draft release of gl3.h, a header for use with OpenGL 3.1, and
+ * 3.2 and later core profile implementations. The current version is
  * available at http://www.opengl.org/registry/ . Please don't package
  * gl3.h for release with other software until it's out of draft status.
  * The structure of the file may change significantly, and the details
@@ -46,21 +46,21 @@ extern "C" {
  *
  * gl3.h last updated on $Date: 2010/12/14 02:44:48 $
  *
- * RELEASE NOTES - 2009/09/11
+ * RELEASE NOTES - 2010/03/11
  *
  * gl3.h should be placed under a directory 'GL3' and included as
  * '<GL3/gl3.h>'.
  *
- * gl3.h only includes interfaces supported in a core OpenGL 3.1 or
- * OpenGL 3.2 core profile implementation implementation, as well as
- * interfaces for a few ARB extensions which have identical enums and
- * entry points. It does not, and never will include functionality
- * removed from core OpenGL 3.1, such as fixed-function vertex and
- * fragment processing.
+ * gl3.h only includes interfaces supported in a OpenGL 3.1 (without
+ * GL_ARB_compatibility) or OpenGL 3.2 or later core profile
+ * implementation, as well as interfaces for newer ARB extensions which
+ * can be supported by the core profile. It does not, and never will
+ * include functionality removed from the core profile, such as
+ * fixed-function vertex and fragment processing.
  *
  * Implementations of OpenGL 3.1 supporting the optional
  * GL_ARB_compatibility extension continue to provide that functionality,
- * as do implementations of the OpenGL 3.2 compatibility profile, and
+ * as do implementations of the OpenGL 3.2+ compatibility profiles, and
  * source code requiring it should use the traditional <GL/gl.h> and
  * <GL/glext.h> headers instead of <GL3/gl3.h>.
  *
@@ -628,8 +628,6 @@ typedef void GLvoid;
 #define GL_MINOR_VERSION                  0x821C
 #define GL_NUM_EXTENSIONS                 0x821D
 #define GL_CONTEXT_FLAGS                  0x821E
-#define GL_DEPTH_BUFFER                   0x8223
-#define GL_STENCIL_BUFFER                 0x8224
 #define GL_COMPRESSED_RED                 0x8225
 #define GL_COMPRESSED_RG                  0x8226
 #define GL_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT 0x0001
@@ -733,7 +731,6 @@ typedef void GLvoid;
 /* reuse GL_FRAMEBUFFER_DEFAULT */
 /* reuse GL_FRAMEBUFFER_UNDEFINED */
 /* reuse GL_DEPTH_STENCIL_ATTACHMENT */
-/* reuse GL_INDEX */
 /* reuse GL_MAX_RENDERBUFFER_SIZE */
 /* reuse GL_DEPTH_STENCIL */
 /* reuse GL_UNSIGNED_INT_24_8 */
@@ -872,7 +869,7 @@ typedef void GLvoid;
 /* Reuse tokens from ARB_copy_buffer */
 /* reuse GL_COPY_READ_BUFFER */
 /* reuse GL_COPY_WRITE_BUFFER */
-/* Would reuse tokens from ARB_draw_instanced, but it has none */
+/* Reuse tokens from ARB_draw_instanced (none) */
 /* Reuse tokens from ARB_uniform_buffer_object */
 /* reuse GL_UNIFORM_BUFFER */
 /* reuse GL_UNIFORM_BUFFER_BINDING */
@@ -933,16 +930,14 @@ typedef void GLvoid;
 /* reuse GL_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER */
 /* Reuse tokens from ARB_depth_clamp */
 /* reuse GL_DEPTH_CLAMP */
-/* Would reuse tokens from ARB_draw_elements_base_vertex, but it has none */
-/* Would reuse tokens from ARB_fragment_coord_conventions, but it has none */
+/* Reuse tokens from ARB_draw_elements_base_vertex (none) */
+/* Reuse tokens from ARB_fragment_coord_conventions (none) */
 /* Reuse tokens from ARB_provoking_vertex */
-/* reuse GL_QUADS_FOLLOW_PROVOKING_VERTEX_CONVENTION */
 /* reuse GL_FIRST_VERTEX_CONVENTION */
 /* reuse GL_LAST_VERTEX_CONVENTION */
 /* reuse GL_PROVOKING_VERTEX */
 /* Reuse tokens from ARB_seamless_cube_map */
 /* reuse GL_TEXTURE_CUBE_MAP_SEAMLESS */
-#define GL_TEXTURE_CUBE_MAP_SEAMLESS      0x884F
 /* Reuse tokens from ARB_sync */
 /* reuse GL_MAX_SERVER_WAIT_TIMEOUT */
 /* reuse GL_OBJECT_TYPE */
@@ -1229,32 +1224,6 @@ typedef void GLvoid;
 
 #ifndef GL_ARB_vertex_array_bgra
 /* reuse GL_BGRA */
-#endif
-
-#ifndef GL_ARB_draw_buffers_blend
-#endif
-
-#ifndef GL_ARB_sample_shading
-#define GL_SAMPLE_SHADING                 0x8C36
-#define GL_MIN_SAMPLE_SHADING_VALUE       0x8C37
-#endif
-
-#ifndef GL_ARB_sync
-#define GL_MAX_SERVER_WAIT_TIMEOUT        0x9111
-#define GL_OBJECT_TYPE                    0x9112
-#define GL_SYNC_CONDITION                 0x9113
-#define GL_SYNC_STATUS                    0x9114
-#define GL_SYNC_FLAGS                     0x9115
-#define GL_SYNC_FENCE                     0x9116
-#define GL_SYNC_GPU_COMMANDS_COMPLETE     0x9117
-#define GL_UNSIGNALED                     0x9118
-#define GL_SIGNALED                       0x9119
-#define GL_ALREADY_SIGNALED               0x911A
-#define GL_TIMEOUT_EXPIRED                0x911B
-#define GL_CONDITION_SATISFIED            0x911C
-#define GL_WAIT_FAILED                    0x911D
-#define GL_SYNC_FLUSH_COMMANDS_BIT        0x00000001
-#define GL_TIMEOUT_IGNORED                0xFFFFFFFFFFFFFFFFull
 #endif
 
 /*************************************************************/
@@ -1924,7 +1893,6 @@ GLAPI void APIENTRY glGenerateMipmap (GLenum target);
 GLAPI void APIENTRY glBlitFramebuffer (GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
 GLAPI void APIENTRY glRenderbufferStorageMultisample (GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
 GLAPI void APIENTRY glFramebufferTextureLayer (GLenum target, GLenum attachment, GLuint texture, GLint level, GLint layer);
-
 #endif /* GL3_PROTOTYPES */
 typedef GLboolean (APIENTRYP PFNGLISRENDERBUFFERPROC) (GLuint renderbuffer);
 typedef void (APIENTRYP PFNGLBINDRENDERBUFFERPROC) (GLenum target, GLuint renderbuffer);

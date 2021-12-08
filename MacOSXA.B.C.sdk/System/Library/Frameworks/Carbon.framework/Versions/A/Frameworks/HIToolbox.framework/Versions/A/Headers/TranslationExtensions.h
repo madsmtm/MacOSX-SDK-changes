@@ -3,7 +3,7 @@
  
      Contains:   Macintosh Easy Open Translation Extension Interfaces.
  
-     Version:    HIToolbox-569.7~1
+     Version:    HIToolbox-624~3
  
      Copyright:  © 1993-2008 by Apple Computer, Inc., all rights reserved.
  

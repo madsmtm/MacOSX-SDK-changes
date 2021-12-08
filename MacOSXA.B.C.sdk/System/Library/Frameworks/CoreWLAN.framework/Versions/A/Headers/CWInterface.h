@@ -33,6 +33,9 @@
 	dispatch_queue_t _internalQueue;
 	void *_serviceStore;
 	void *_interfaceStore;
+    
+    BOOL _swapTransitionInProgress;
+    BOOL _lastPowerState;
 }
 
 /*!
