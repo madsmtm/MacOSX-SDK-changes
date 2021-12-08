@@ -1,11 +1,11 @@
 //
 //  GKGameModel.h
-//  GameLogic
+//  GameplayKit
 //
 //  Copyright (c) 2014 Apple. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <GameplayKit/GameplayKitBase.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

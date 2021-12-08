@@ -1,7 +1,7 @@
 /*
         NSTextView.h
         Application Kit
-        Copyright (c) 1994-2015, Apple Inc.
+        Copyright (c) 1994-2016, Apple Inc.
         All rights reserved.
 */
 
@@ -54,7 +54,9 @@ typedef NS_ENUM(NSUInteger, NSSelectionAffinity) {
 */
 APPKIT_EXTERN NSString * NSAllRomanInputSourcesLocaleIdentifier NS_AVAILABLE_MAC(10_5);
 
+#if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_12
 NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE
+#endif
 @interface NSTextView : NSText <NSUserInterfaceValidations, NSTextInputClient, NSTextLayoutOrientationProvider, NSDraggingSource, NSTextInput, NSAccessibilityNavigableStaticText>
 
 /**************************** Initializing ****************************/
@@ -178,7 +180,7 @@ NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE
 /************************* Vertical text support *************************/
 
 // Changes the receiver's layout orientation and invalidates the contents.  Unlike other NSTextView properties, this is not shared by sibling views.  It also rotates the bounds 90 degrees, swaps horizontal and vertical bits of the autoresizing mask, and reconfigures isHorizontallyResizable and isVerticallyResizable properties accordingly.  Also, if -enclosingScrollView returns non-nil, it reconfigures horizontal and vertical ruler views, horizontal and vertical scrollers, and the frame.
-- (void)setLayoutOrientation:(NSTextLayoutOrientation)theOrientation NS_AVAILABLE_MAC(10_7);
+- (void)setLayoutOrientation:(NSTextLayoutOrientation)orientation NS_AVAILABLE_MAC(10_7);
 
 // An action method that calls -setLayoutOrientation: with the sender's tag as the orientation.
 - (void)changeLayoutOrientation:(nullable id)sender NS_AVAILABLE_MAC(10_7);
@@ -187,6 +189,10 @@ NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE
 
 // Here point is in view coordinates, and the return value is a character index appropriate for placing a zero-length selection for an insertion point associated with the mouse at the given point.  The NSTextInput method characterIndexForPoint: is not suitable for this role.
 - (NSUInteger)characterIndexForInsertionAtPoint:(NSPoint)point NS_AVAILABLE_MAC(10_5);
+
+/**************************** Ownership policy ****************************/
+// Returns whether instances of the class operate in the object ownership policy introduced with macOS Sierra and later. When YES, the new object owner policy is used. Under the policy, each text view strongly retains its text storage and its text container weakly references the view. Also, the text views are compatible with __weak storage. The default is YES.
+@property(readonly, class) BOOL stronglyReferencesTextStorage NS_AVAILABLE_MAC(10_12);
 
 @end
 
@@ -536,12 +542,12 @@ NS_AUTOMATED_REFCOUNT_WEAK_UNAVAILABLE
 @end
 
 // NSOldNotifyingTextView -> the old view, NSNewNotifyingTextView -> the new view.  The text view delegate is not automatically registered to receive this notification because the text machinery will automatically switch over the delegate to observe the new first text view as the first text view changes.
-APPKIT_EXTERN NSString * NSTextViewWillChangeNotifyingTextViewNotification;
+APPKIT_EXTERN NSNotificationName NSTextViewWillChangeNotifyingTextViewNotification;
 
 // NSOldSelectedCharacterRange -> NSValue with old range.
-APPKIT_EXTERN NSString * NSTextViewDidChangeSelectionNotification;
+APPKIT_EXTERN NSNotificationName NSTextViewDidChangeSelectionNotification;
 
-APPKIT_EXTERN NSString * NSTextViewDidChangeTypingAttributesNotification;
+APPKIT_EXTERN NSNotificationName NSTextViewDidChangeTypingAttributesNotification;
 
 
 /* These constants are deprecated in favor of their NSTextFinder equivalents. */

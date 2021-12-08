@@ -9,7 +9,6 @@
 #import <TargetConditionals.h>
 #import <CoreGraphics/CGGeometry.h>
 #import <Foundation/Foundation.h>
-#import <QuartzCore/QuartzCore.h>
 
 #import <SpriteKit/SKVersion.h>
 
@@ -17,6 +16,13 @@
 #import <UIKit/UIKit.h>
 #else
 #import <AppKit/AppKit.h>
+#endif
+
+
+#if TARGET_OS_IPHONE && !__has_include(<UIKit/UIView.h>)
+#define SKVIEW_AVAILABLE 0
+#else
+#define SKVIEW_AVAILABLE 1
 #endif
 
 #ifdef __cplusplus

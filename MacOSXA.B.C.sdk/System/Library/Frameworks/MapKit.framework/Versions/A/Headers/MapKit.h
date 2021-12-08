@@ -12,6 +12,7 @@
 #import <MapKit/MKGeometry.h>
 #import <MapKit/MKMapItem.h>
 #import <MapKit/MKPlacemark.h>
+#import <MapKit/NSUserActivity+MKMapItem.h>
 
 #if __has_include(<MapKit/MKMapView.h>)
 #import <MapKit/MKAnnotationView.h>

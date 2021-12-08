@@ -1,6 +1,6 @@
 //
 //  GKMinmaxStrategist.h
-//  GameLogic
+//  GameplayKit
 //
 //  Copyright (c) 2014 Apple. All rights reserved.
 //

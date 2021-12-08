@@ -1,7 +1,7 @@
 /*
     NSGestureRecognizer.h
     Application Kit
-    Copyright (c) 2013-2015, Apple Inc.
+    Copyright (c) 2013-2016, Apple Inc.
     All rights reserved.
 */
 
@@ -32,12 +32,12 @@ NS_CLASS_AVAILABLE_MAC(10_10)
 @interface NSGestureRecognizer : NSObject <NSCoding> {
   @private
     NSMutableArray                   *_targets;
-    __weak id                        _target;
-    SEL                              _action;
+    id                                _target;
+    SEL                               _action;
     NSMutableArray                   *_delayedEvents;
-    __weak NSView                    *_view;
+    NSView                           *_view;
     NSEvent                          *_updateEvent;
-    __weak id <NSGestureRecognizerDelegate>  _delegate;
+    id <NSGestureRecognizerDelegate>  _delegate;
     NSMutableSet                     *_friends;
     NSGestureRecognizerState          _state;
     NSUInteger                        _gestureFlags;

@@ -1,6 +1,6 @@
-.Dd October 17, 2015
+.Dd June 30, 2016
 .Dt fdesetup 8 
-.Os MacOSX
+.Os macOS
 .Sh NAME
 .Nm fdesetup
 .Nd FileVault configuration tool
@@ -98,12 +98,14 @@ FileVault root volume.  Use
 to prevent saving the key across standby modes. Once 
 .Sy authrestart
 is authenticated, it launches
-.Xr reboot 8
+.Xr shutdown 8
 and, upon successful unlock, the unlock key will be removed.  You can also use this as an option to the
 .Sy enable
 command if the system supports this feature.  The
 .Sy supportsauthrestart
-command will check the system to see if it supports this option, however you should note that even if this returns true, FileVault must still be enabled for
+command will check the system to see if it supports the
+.Sy authrestart
+command option, however you should note that even if this returns true, FileVault must still be enabled for
 .Sy authrestart
 to work.
 .Pp
@@ -120,9 +122,9 @@ Shows abbreviated help
 .Pp
 .\"             -- list --
 .It Sy list
-.Op Sy -extended
+.Op Fl -extended
 .Op Fl -offline
-.Op Sy -verbose
+.Op Fl -verbose
 .br
 List enabled users, or locked volumes.
 .Pp
@@ -225,9 +227,10 @@ Removes the current recovery key.   Either personal and/or institutional options
 .\"             -- authrestart --
 .It Sy authrestart
 .Op Fl inputplist
+.Op Fl delayminutes Ar number_of_minutes_to_delay
 .Op Fl verbose
 .br
-If FileVault is enabled on the current volume, it restarts the system, bypassing the initial unlock.   The command may not work on all systems.
+If FileVault is enabled on the current volume, it restarts the system, bypassing the initial unlock.   The optional -delayminutes option can be used to delay the restart command for a set number of minutes.  A value of 0 represents 'immediately', and a value of -1 represents 'never'.  The command may not work on all systems.
 .Pp
 .\"             -- isactive --
 .It Sy isactive
@@ -337,6 +340,9 @@ Display the current offline and locked FileVault volumes. Currently only used fo
 .Pp
 .It Fl device Ar bsd_name_or_mount_path_or_lvf_or_lv_UUID
 Device location to be applied for the command.  This can be in the form "disk1", "/Volumes/MyVolume" or a UUID for the Logical Volume or Logical Volume Family of a volume.
+.Pp
+.It Fl delayminutes Ar number_of_minutes_to_delay
+The integer number of minutes to delay the authenticated restart.  If this option is not set or the value is 0, the auth restart will happen immediately.   A value of -1 will never attempt to automatically restart; instead the auth restart operation will occur whenever the user next restarts.
 .El
 .Sh DEFERRED ENABLEMENT
 .Pp
@@ -425,7 +431,7 @@ The institutional recovery key asymmetric certficate data.
 The path to the private key keychain file if you are authenticating to certain comamnds.
 .Pp
 .El
-Care should be taken with passwords that may be used within files.  For example, if you are scripting and need to securely remove a file, you should use 'srm' instead of 'rm'.  Other precautions should be taken in your scripts to try to pass plist data directly from one tool to another to avoid writing this information to a persistent location.
+Care should be taken with passwords that may be used within files. Precautions should be taken in your scripts to try to pass plist data directly from one tool to another to avoid writing this information to a persistent location.
 .Pp
 .Sh EXAMPLES
 .Pp
@@ -498,7 +504,7 @@ Enable failed (DiskManager) error.
 .It 24
 Already enabled error.
 .It 25
-Unable to remove user.
+Unable to remove user or disable FileVault.
 .It 26
 Unable to change recovery key.
 .It 27
@@ -507,6 +513,10 @@ Unable to remove recovery key.
 FileVault is either off, busy, or the volume is locked.
 .It 29
 Did not find FileVault information at the specified location.
+.It 30
+Unable to add user to FileVault because user record could not be found.
+.It 31
+Unable to enable FileVault due to management settings.
 .It 99
 Internal error.
 .El
@@ -514,4 +524,5 @@ Internal error.
 .Xr security 1 ,
 .Xr diskutil 8 ,
 .Xr base64 1 ,
-.Xr pmset 1
+.Xr pmset 1 ,
+.Xr shutdown 8

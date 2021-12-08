@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-MK_CLASS_AVAILABLE(10_9, 6_0) __TVOS_AVAILABLE(9_2)
+NS_CLASS_AVAILABLE(10_9, 6_0) __TVOS_AVAILABLE(9_2)
 @interface MKMapItem : NSObject
 
 // If this MKMapItem represents your current location (isCurrentLocation == YES), then placemark will be nil.
@@ -37,6 +37,7 @@ MK_EXTERN NSString * const MKLaunchOptionsMapTypeKey            NS_AVAILABLE(10_
 MK_EXTERN NSString * const MKLaunchOptionsShowsTrafficKey       NS_AVAILABLE(10_9, 6_0) __TVOS_PROHIBITED __WATCHOS_PROHIBITED; // Key to a boolean NSNumber
 
 // Directions modes
+MK_EXTERN NSString * const MKLaunchOptionsDirectionsModeDefault NS_AVAILABLE(10_12, 10_0) __TVOS_PROHIBITED __WATCHOS_AVAILABLE(3_0); // Will pick the best directions mode, given the user's preferences
 MK_EXTERN NSString * const MKLaunchOptionsDirectionsModeDriving NS_AVAILABLE(10_9, 6_0) __TVOS_PROHIBITED;
 MK_EXTERN NSString * const MKLaunchOptionsDirectionsModeWalking NS_AVAILABLE(10_9, 6_0) __TVOS_PROHIBITED;
 MK_EXTERN NSString * const MKLaunchOptionsDirectionsModeTransit NS_AVAILABLE(10_11, 9_0) __TVOS_PROHIBITED;

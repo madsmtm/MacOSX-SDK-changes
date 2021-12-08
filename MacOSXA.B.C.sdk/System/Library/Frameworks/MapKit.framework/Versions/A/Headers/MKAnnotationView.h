@@ -28,14 +28,15 @@ typedef NS_ENUM(NSUInteger, MKAnnotationViewDragState) {
 @protocol MKAnnotation;
 
 #if TARGET_OS_IPHONE
-MK_CLASS_AVAILABLE(NA, 3_0) __TVOS_AVAILABLE(9_2) __WATCHOS_PROHIBITED
+NS_CLASS_AVAILABLE(NA, 3_0) __TVOS_AVAILABLE(9_2) __WATCHOS_PROHIBITED
 @interface MKAnnotationView : UIView
 #else
-MK_CLASS_AVAILABLE(10_9, NA)
+NS_CLASS_AVAILABLE(10_9, NA)
 @interface MKAnnotationView : NSView
 #endif
 
-- (instancetype)initWithAnnotation:(nullable id <MKAnnotation>)annotation reuseIdentifier:(nullable NSString *)reuseIdentifier;
+- (instancetype)initWithAnnotation:(nullable id <MKAnnotation>)annotation reuseIdentifier:(nullable NSString *)reuseIdentifier NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, readonly, nullable) NSString *reuseIdentifier;
 

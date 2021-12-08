@@ -14,7 +14,7 @@
 /*!
  @header
  @abstract	Hands free superclass. Superclass of IOBluetoothHandsFreeDevice or IOBluetoothHandsFreeAudioGateway.
- 			Contains the common code used to support the Bluetoooth hands free profile.
+ Contains the common code used to support the Bluetoooth hands free profile.
  @copyright	(c) 2010 by Apple Inc. All rights reserved.
  */
 
@@ -126,23 +126,23 @@ IOBLUETOOTH_EXPORT NSString * const IOBluetoothPDUUserData;					/* PDU's payload
  @class IOBluetoothHandsFree
  @abstract Hands free profile class.
  @discussion Superclass of IOBluetoothHandsFreeDevice and IOBluetoothHandsFreeAudioGateway classes.
-			 Contains the common code used to support the bluetoooth hands free profile.
+ Contains the common code used to support the bluetoooth hands free profile.
  @coclass IOBluetoothHandsFreeDevice
  @coclass IOBluetoothHandsFreeAudioGateway
  */
 NS_CLASS_AVAILABLE(10_7, NA)
 @interface IOBluetoothHandsFree : NSObject {
-    IOBluetoothRFCOMMChannel *		_rfcommChannel;
+	IOBluetoothRFCOMMChannel *		_rfcommChannel;
 	IOBluetoothUserNotification *	_rfcommChannelNotification;
-    
+	
 	uint32_t						_supportedFeatures;
 	
 	void *							_reserved1;
-    
+	
 	float							_previousInputVolume;
 	float							_previousOutputVolume;
 	BOOL							_previousOutputMuted;
-    
+	
 	IOBluetoothDevice *				_device;
 	BluetoothRFCOMMChannelID		_deviceRFCOMMChannelID;
 	uint32_t						_deviceSupportedFeatures;
@@ -153,10 +153,10 @@ NS_CLASS_AVAILABLE(10_7, NA)
 	int								_handsFreeState;
 	IOBluetoothSMSMode				_SMSMode;
 	BOOL							_SMSEnabled;
-    
-    BOOL							_connectSCOAfterSLCConnected;
-
-    IOBluetoothHandsFreeExpansion *	_reserved;
+	
+	BOOL							_connectSCOAfterSLCConnected;
+	
+	IOBluetoothHandsFreeExpansion *	_reserved;
 }
 
 
@@ -324,7 +324,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
  @method		connect
  @abstract		Connect to the device
  @discussion	Connects to the device and sets up a service level connection (RFCOMM channel).
- 				Delegate methods will be called once the connection is complete or a failure occurs.
+ Delegate methods will be called once the connection is complete or a failure occurs.
  */
 - (void)connect NS_AVAILABLE_MAC(10_7);
 
@@ -332,7 +332,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
  @method		disconnect
  @abstract		Disconnect from the device
  @discussion	Disconnects from the device, closes the SCO and service level connection if they are connected.
- 				Delegate methods will be called once the disconnection is complete.
+ Delegate methods will be called once the disconnection is complete.
  */
 - (void)disconnect NS_AVAILABLE_MAC(10_7);
 
@@ -348,7 +348,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
  @method		connectSCO
  @abstract		Open a SCO connection with the device
  @discussion	Opens a SCO connection with the device. The device must already have a service level connection or this will return immediately.
- 				Delegate methods will be called once the connection is complete of a failure occurs.
+ Delegate methods will be called once the connection is complete of a failure occurs.
  */
 - (void)connectSCO NS_AVAILABLE_MAC(10_7);
 
@@ -356,7 +356,7 @@ NS_CLASS_AVAILABLE(10_7, NA)
  @method		disconnectSCO
  @abstract		Disconnect the SCO connection with the device
  @discussion	Disconnects the SCO connection with the device (if one exists).
- 				Delegate methods will be called once the disconnection is complete.
+ Delegate methods will be called once the disconnection is complete.
  */
 - (void)disconnectSCO NS_AVAILABLE_MAC(10_7);
 

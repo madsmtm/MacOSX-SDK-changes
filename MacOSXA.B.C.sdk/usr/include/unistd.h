@@ -437,12 +437,12 @@ int	 close(int) __DARWIN_ALIAS_C(close);
 
 int	 dup(int);
 int	 dup2(int, int);
-int	 execl(const char *, const char *, ...) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
-int	 execle(const char *, const char *, ...) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
-int	 execlp(const char *, const char *, ...) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
-int	 execv(const char *, char * const *) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
-int	 execve(const char *, char * const *, char * const *) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
-int	 execvp(const char *, char * const *) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
+int	 execl(const char * __path, const char * __arg0, ...) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
+int	 execle(const char * __path, const char * __arg0, ...) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
+int	 execlp(const char * __file, const char * __arg0, ...) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
+int	 execv(const char * __path, char * const * __argv) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
+int	 execve(const char * __file, char * const * __argv, char * const * __envp) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
+int	 execvp(const char * __file, char * const * __argv) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
 pid_t	 fork(void) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
 long	 fpathconf(int, int);
 char	*getcwd(char *, size_t);
@@ -492,7 +492,7 @@ char	*ttyname_r(int, char *, size_t);
 
 int	 unlink(const char *);
 
-ssize_t	 write(int, const void *, size_t) __DARWIN_ALIAS_C(write);
+ssize_t	 write(int __fd, const void * __buf, size_t __nbyte) __DARWIN_ALIAS_C(write);
 __END_DECLS
 
 
@@ -573,9 +573,9 @@ int	 lockf(int, int, off_t) __DARWIN_ALIAS_C(lockf);
 
 int	 nice(int) __DARWIN_ALIAS(nice);
 
-ssize_t	 pread(int, void *, size_t, off_t) __DARWIN_ALIAS_C(pread);
+ssize_t	 pread(int __fd, void * __buf, size_t __nbyte, off_t __offset) __DARWIN_ALIAS_C(pread);
 
-ssize_t	 pwrite(int, const void *, size_t, off_t) __DARWIN_ALIAS_C(pwrite);
+ssize_t	 pwrite(int __fd, const void * __buf, size_t __nbyte, off_t __offset) __DARWIN_ALIAS_C(pwrite);
 
 /* Removed in Issue 6 */
 #if !defined(_POSIX_C_SOURCE) || _POSIX_C_SOURCE < 200112L
@@ -647,7 +647,7 @@ int	 accessx_np(const struct accessx_descriptor *, size_t, int *, uid_t);
 int	 acct(const char *);
 int	 add_profil(char *, size_t, unsigned long, unsigned int) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
 void	 endusershell(void);
-int	 execvP(const char *, const char *, char * const *)  __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
+int	 execvP(const char * __file, const char * __searchpath, char * const * __argv)  __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
 char	*fflagstostr(unsigned long);
 int	 getdomainname(char *, int);
 int	 getgrouplist(const char *, int, int *, int *);
@@ -666,27 +666,42 @@ int	 getsgroups_np(int *, uuid_t);
 char	*getusershell(void);
 int	 getwgroups_np(int *, uuid_t);
 int	 initgroups(const char *, int);
-int	 iruserok(unsigned long, int, const char *, const char *);
-int	 iruserok_sa(const void *, int, int, const char *, const char *);
 int	 issetugid(void);
 char	*mkdtemp(char *);
 int	 mknod(const char *, mode_t, dev_t);
 int	 mkpath_np(const char *path, mode_t omode) __OSX_AVAILABLE_STARTING(__MAC_10_8, __IPHONE_5_0); /* returns errno */
+int	 mkpathat_np(int dfd, const char *path, mode_t omode) /* returns errno */
+		__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0)
+		__TVOS_AVAILABLE(10.0) __WATCHOS_AVAILABLE(3.0);
 int	 mkstemp(char *);
 int	 mkstemps(char *, int);
 char	*mktemp(char *);
+int	 mkostemp(char *path, int oflags)
+		__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0)
+		__TVOS_AVAILABLE(10.0) __WATCHOS_AVAILABLE(3.0);
+int	 mkostemps(char *path, int slen, int oflags)
+		__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0)
+		__TVOS_AVAILABLE(10.0) __WATCHOS_AVAILABLE(3.0);
+/* Non-portable mkstemp that uses open_dprotected_np */
+int	 mkstemp_dprotected_np(char *path, int dpclass, int dpflags)
+		__OSX_UNAVAILABLE __IOS_AVAILABLE(10.0)
+		__TVOS_AVAILABLE(10.0) __WATCHOS_AVAILABLE(3.0);
 int	 nfssvc(int, void *);
 int	 profil(char *, size_t, unsigned long, unsigned int);
 int	 pthread_setugid_np(uid_t, gid_t);
 int	 pthread_getugid_np( uid_t *, gid_t *);
-int	 rcmd(char **, int, const char *, const char *, const char *, int *);
-int	 rcmd_af(char **, int, const char *, const char *, const char *, int *,
-		int);
 int	 reboot(int);
 int	 revoke(const char *);
-int	 rresvport(int *);
-int	 rresvport_af(int *, int);
-int	 ruserok(const char *, int, const char *, const char *);
+
+__deprecated int	 rcmd(char **, int, const char *, const char *, const char *, int *);
+__deprecated int	 rcmd_af(char **, int, const char *, const char *, const char *, int *,
+		int);
+__deprecated int	 rresvport(int *);
+__deprecated int	 rresvport_af(int *, int);
+__deprecated int	 iruserok(unsigned long, int, const char *, const char *);
+__deprecated int	 iruserok_sa(const void *, int, int, const char *, const char *);
+__deprecated int	 ruserok(const char *, int, const char *, const char *);
+
 int	 setdomainname(const char *, int);
 int	 setgroups(int, const gid_t *);
 void	 sethostid(long);
@@ -705,11 +720,17 @@ void	 setusershell(void);
 int	 setwgroups_np(int, const uuid_t);
 int	 strtofflags(char **, unsigned long *, unsigned long *);
 int	 swapon(const char *);
-int	 syscall(int, ...) __WATCHOS_PROHIBITED __TVOS_PROHIBITED;
 int	 ttyslot(void);
 int	 undelete(const char *);
 int	 unwhiteout(const char *);
 void	*valloc(size_t);			
+
+__WATCHOS_PROHIBITED __TVOS_PROHIBITED
+__OS_AVAILABILITY_MSG(ios,deprecated=10.0,"syscall(2) is unsupported; "
+    "please switch to a supported interface. For SYS_kdebug_trace use kdebug_signpost().")
+__OS_AVAILABILITY_MSG(macosx,deprecated=10.12,"syscall(2) is unsupported; "
+    "please switch to a supported interface. For SYS_kdebug_trace use kdebug_signpost().")
+int	 syscall(int, ...);
 
 extern char *suboptarg;			/* getsubopt(3) external variable */
 int	 getsubopt(char **, char * const *, char **);

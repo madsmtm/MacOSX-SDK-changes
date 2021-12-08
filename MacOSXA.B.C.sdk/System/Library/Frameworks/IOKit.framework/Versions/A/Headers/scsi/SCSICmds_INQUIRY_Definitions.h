@@ -643,6 +643,12 @@ Page Code 80h.
 Page Code 83h.
 @constant kINQUIRY_Page89_PageCode
 Page Code 89h.
+@constant kINQUIRY_PageB0_PageCode
+Page Code B0h.
+@constant kINQUIRY_PageB1_PageCode
+Page Code B1h.
+@constant kINQUIRY_PageB2_PageCode
+Page Code B2h.
 */
 enum
 {
@@ -650,7 +656,9 @@ enum
 	kINQUIRY_Page80_PageCode				= 0x80,
 	kINQUIRY_Page83_PageCode				= 0x83,
 	kINQUIRY_Page89_PageCode				= 0x89,
-	kINQUIRY_PageB1_PageCode				= 0xB1
+	kINQUIRY_PageB0_PageCode				= 0xB0,
+	kINQUIRY_PageB1_PageCode				= 0xB1,
+	kINQUIRY_PageB2_PageCode				= 0xB2
 };	
 
 
@@ -977,7 +985,7 @@ typedef struct SCSICmd_INQUIRY_Page83_LogicalUnitGroup_Identifier
 /*!
 @struct SCSICmd_INQUIRY_Page89_Data
 @discussion INQUIRY Page 89h data as defined in the SAT 1.0
-specification. This section contians all structures and
+specification. This section contains all structures and
 definitions used by the INQUIRY command in response to a request
 for page 89h - ATA information VPD Page.
 */
@@ -996,11 +1004,44 @@ typedef struct SCSICmd_INQUIRY_Page89_Data
 	UInt8		IDENTIFY_DATA[512];
 } SCSICmd_INQUIRY_Page89_Data;
 
+#pragma pack(push, 1)
+
+/*!
+ @struct SCSICmd_INQUIRY_PageB0_Data
+ @discussion INQUIRY Page B0h data as defined in the SBC
+ specification. This section contains all structures and
+ definitions used by the INQUIRY command in response to a request
+ for page B0h - Block Limits VPD Page.
+ */
+typedef struct SCSICmd_INQUIRY_PageB0_Data
+{
+	UInt8 		PERIPHERAL_DEVICE_TYPE;					// 7-5 = Qualifier. 4-0 = Device type.
+	UInt8 		PAGE_CODE;								// Must be equal to B0h
+	UInt16 		PAGE_LENGTH;							// Must be equal to 3Ch
+	UInt8 		WSNZ;									// 0 = WSNZ, 7-1 = Reserved.
+	UInt8 		MAXIMUM_COMPARE_AND_WRITE_LENGTH;
+	UInt16 		OPTIMAL_TRANSFER_LENGTH_GRANULARITY;
+	UInt32		MAXIMUM_TRANSFER_LENGTH;
+	UInt32 		OPTIMAL_TRANSFER_LENGTH;
+	UInt32 		MAXIMUM_PREFETCH_LENGTH;
+	UInt32 		MAXIMUM_UNMAP_LBA_COUNT;
+	UInt32 		MAXIMUM_UNMAP_BLOCK_DESCRIPTOR_COUNT;
+	UInt32 		OPTIMAL_UNMAP_GRANULARITY;
+	UInt32 		UNMAP_GRANULARITY_ALIGNMENT;
+	UInt64 		MAXIMUM_WRITE_SAME_LENGTH;
+	UInt32		MAXIMUM_ATOMIC_TRANSFER_LENGTH;
+	UInt32		ATOMIC_ALIGNMENT;
+	UInt32		ATOMIC_TRANSFER_LENGTH_GRANULARITY;
+	UInt32		MAXIMUM_ATOMIC_TRANSFER_LENGTH_WITH_ATOMIC_BOUNDARY;
+	UInt32		MAXIMUM_ATOMIC_BOUNDARY_SIZE;
+} SCSICmd_INQUIRY_PageB0_Data;
+
+#pragma pack(pop)
 
 /*!
 @struct SCSICmd_INQUIRY_PageB1_Data
 @discussion INQUIRY Page B1h data as defined in the SBC 
-specification. This section contians all structures and
+specification. This section contains all structures and
 definitions used by the INQUIRY command in response to a request
 for page B1h - Block Device Characteristics VPD Page.
 */
@@ -1019,6 +1060,35 @@ enum
 	kINQUIRY_PageB1_Page_Length	= 0x3C
 };
 
+#pragma pack(push, 1)
+
+/*!
+ @struct SCSICmd_INQUIRY_PageB2_Data
+ @discussion INQUIRY Page B2h data as defined in the SBC
+ specification. This section contains all structures and
+ definitions used by the INQUIRY command in response to a request
+ for page B2h - Logical Block Provisioning VPD Page.
+ */
+typedef struct SCSICmd_INQUIRY_PageB2_Data
+{
+	UInt8 		PERIPHERAL_DEVICE_TYPE;			// 7-5 = Qualifier. 4-0 = Device type.
+	UInt8 		PAGE_CODE;						// Must be equal to B2h.
+	UInt16 		PAGE_LENGTH;					// Must be n-3.
+	UInt8 		THRESHOLD_EXPONENT;
+	UInt8 		LBP_FLAGS;						// 7 = LBPU, 6 = LBPWS, 5 = LBPWS10,
+												// 4-2 = LBPRZ, 1 = ANC_SUP, 0 = DP.
+	UInt8 		MINIMUM_PERCENTAGE;				// 7-3 = MINIMUM PERCENTAGE,
+												// 2-0 = PROVISIONING TYPE.
+	UInt8		THRESHOLD_PERCENTAGE;
+} SCSICmd_INQUIRY_PageB2_Data;
+
+typedef struct SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor
+{
+	UInt8	DESIGNATION_DESCRIPTOR[20];
+	UInt8	RESERVED[18];
+} SCSICmd_INQUIRY_PageB2_Provisioning_Group_Descriptor;
+
+#pragma pack(pop)
 
 /*!
 @define kIOPropertySATVendorIdentification

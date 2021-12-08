@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-MK_CLASS_AVAILABLE(10_9, 7_0) __TVOS_AVAILABLE(9_2)
+NS_CLASS_AVAILABLE(10_9, 7_0) __TVOS_AVAILABLE(9_2)
 @interface MKDistanceFormatter : NSFormatter
 
 // Convenience methods. MKDistanceFormatter also responds to the usual NSFormatter methods.

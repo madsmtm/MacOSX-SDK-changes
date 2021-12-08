@@ -16,7 +16,8 @@ NS_CLASS_AVAILABLE(10_11, 9_2)
  */
 - (instancetype)initWithAPIToken:(NSString *)APIToken NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, copy) NSString *APIToken;
+/* APIToken is expected to be set before you begin this operation. */
+@property (nonatomic, copy, nullable) NSString *APIToken;
 
 @property (nonatomic, copy, nullable) void (^fetchWebAuthTokenCompletionBlock)(NSString *webAuthToken, NSError *operationError);
 

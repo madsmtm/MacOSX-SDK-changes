@@ -133,6 +133,17 @@ public:
 	virtual IOReturn	getWriteCacheState ( bool * enabled ) APPLE_KEXT_OVERRIDE;
 	
 	virtual IOReturn	setWriteCacheState ( bool enabled ) APPLE_KEXT_OVERRIDE;
+    
+	virtual IOReturn	doUnmap ( IOBlockStorageDeviceExtent * extents,
+								  UInt32                       extentsCount,
+								  IOStorageUnmapOptions        options = 0 ) APPLE_KEXT_OVERRIDE;
+    
+    virtual IOReturn	doGetProvisionStatus ( UInt64                                block,
+											   UInt64                                nblks,
+											   UInt32 *                              extentsCount,
+											   IOBlockStorageProvisionDeviceExtent * extents,
+											   IOStorageGetProvisionStatusOptions    options = 0) APPLE_KEXT_OVERRIDE;
+
 	
 #if !TARGET_OS_EMBEDDED
 	// Space reserved for future expansion.

@@ -239,7 +239,7 @@ __OSX_AVAILABLE_STARTING(__MAC_10_11, __IPHONE_9_0);
  is successfully decompressed.  If there is not enough space in the destination
  buffer to hold the entire expanded output, only the first dst_size bytes will
  be written to the buffer and dst_size is returned.   Note that this behavior
- differs from that of compression_encode.
+ differs from that of compression_encode.  If an error occurs, 0 is returned.
  
 */
 extern size_t

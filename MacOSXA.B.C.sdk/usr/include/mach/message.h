@@ -222,20 +222,23 @@ typedef unsigned int mach_msg_bits_t;
 typedef	natural_t mach_msg_size_t;
 typedef integer_t mach_msg_id_t;
 
-
 #define MACH_MSG_SIZE_NULL (mach_msg_size_t *) 0
+
+typedef unsigned int mach_msg_priority_t;
+
+#define MACH_MSG_PRIORITY_UNSPECIFIED (mach_msg_priority_t) 0
 
 typedef unsigned int mach_msg_type_name_t;
 
-#define MACH_MSG_TYPE_MOVE_RECEIVE	16	/* Must hold receive right */
-#define MACH_MSG_TYPE_MOVE_SEND		17	/* Must hold send right(s) */
-#define MACH_MSG_TYPE_MOVE_SEND_ONCE	18	/* Must hold sendonce right */
-#define MACH_MSG_TYPE_COPY_SEND		19	/* Must hold send right(s) */
-#define MACH_MSG_TYPE_MAKE_SEND		20	/* Must hold receive right */
-#define MACH_MSG_TYPE_MAKE_SEND_ONCE	21	/* Must hold receive right */
-#define MACH_MSG_TYPE_COPY_RECEIVE	22	/* NOT VALID */
-#define MACH_MSG_TYPE_DISPOSE_RECEIVE	24	/* must hold receive right */
-#define MACH_MSG_TYPE_DISPOSE_SEND	25	/* must hold send right(s) */
+#define MACH_MSG_TYPE_MOVE_RECEIVE      16	/* Must hold receive right */
+#define MACH_MSG_TYPE_MOVE_SEND         17	/* Must hold send right(s) */
+#define MACH_MSG_TYPE_MOVE_SEND_ONCE    18	/* Must hold sendonce right */
+#define MACH_MSG_TYPE_COPY_SEND         19	/* Must hold send right(s) */
+#define MACH_MSG_TYPE_MAKE_SEND         20	/* Must hold receive right */
+#define MACH_MSG_TYPE_MAKE_SEND_ONCE    21	/* Must hold receive right */
+#define MACH_MSG_TYPE_COPY_RECEIVE      22	/* NOT VALID */
+#define MACH_MSG_TYPE_DISPOSE_RECEIVE   24	/* must hold receive right */
+#define MACH_MSG_TYPE_DISPOSE_SEND      25	/* must hold send right(s) */
 #define MACH_MSG_TYPE_DISPOSE_SEND_ONCE 26	/* must hold sendonce right */
 
 typedef unsigned int mach_msg_copy_options_t;
@@ -637,6 +640,7 @@ typedef integer_t mach_msg_option_t;
 #define MACH_RCV_LARGE_IDENTITY	0x00000008	/* identify source of large messages */
 
 #define MACH_SEND_TIMEOUT	0x00000010	/* timeout value applies to send */
+#define MACH_SEND_OVERRIDE  0x00000020  /* priority override for send */
 #define MACH_SEND_INTERRUPT	0x00000040	/* don't restart interrupted sends */
 #define MACH_SEND_NOTIFY	0x00000080	/* arm send-possible notify */
 #define MACH_SEND_ALWAYS	0x00010000	/* ignore qlimits - kernel only */
@@ -651,6 +655,7 @@ typedef integer_t mach_msg_option_t;
 #define MACH_RCV_INTERRUPT	0x00000400	/* don't restart interrupted receive */
 #define MACH_RCV_VOUCHER	0x00000800	/* willing to receive voucher port */
 #define MACH_RCV_OVERWRITE	0x00001000	/* scatter receive (deprecated) */
+
 
 /* 
  * NOTE: a 0x00------ RCV mask implies to ask for
@@ -798,6 +803,7 @@ typedef kern_return_t mach_msg_return_t;
 		/* trailer type or number of trailer elements not supported */
 #define MACH_RCV_IN_PROGRESS_TIMED      0x10004011
                 /* Waiting for receive with timeout. (Internal use only.) */
+
 
 
 __BEGIN_DECLS

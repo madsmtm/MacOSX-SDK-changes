@@ -1,7 +1,7 @@
 /*
 	NSImage.h
 	Application Kit
-	Copyright (c) 1994-2015, Apple Inc.
+	Copyright (c) 1994-2016, Apple Inc.
 	All rights reserved.
 */
 
@@ -15,6 +15,8 @@
 #import <AppKit/NSPasteboard.h>
 #import <AppKit/NSLayoutConstraint.h>
 #import <ApplicationServices/ApplicationServices.h>
+
+#define NS_IMAGE_DECLARES_DESIGNATED_INITIALIZERS APPKIT_SWIFT_SDK_EPOCH_AT_LEAST(2)
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -80,7 +82,11 @@ typedef NS_ENUM(NSInteger, NSImageResizingMode) {
 
 + (nullable NSImage *)imageNamed:(NSString *)name;	/* If this finds & creates the image, only name is saved when archived */
 
-- (instancetype)initWithSize:(NSSize)aSize;
+#if NS_IMAGE_DECLARES_DESIGNATED_INITIALIZERS
+- (instancetype)initWithSize:(NSSize)size NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
+#endif
+
 - (nullable instancetype)initWithData:(NSData *)data;			/* When archived, saves contents */
 - (nullable instancetype)initWithContentsOfFile:(NSString *)fileName;	/* When archived, saves contents */
 - (nullable instancetype)initWithContentsOfURL:(NSURL *)url;               /* When archived, saves contents */
@@ -115,7 +121,7 @@ typedef NS_ENUM(NSInteger, NSImageResizingMode) {
 
 - (void)recache;
 @property (nullable, readonly, strong) NSData *TIFFRepresentation;
-- (nullable NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)aFloat;
+- (nullable NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor;
 
 @property (readonly, copy) NSArray<NSImageRep *> *representations;
 - (void)addRepresentations:(NSArray<NSImageRep *> *)imageReps;
@@ -222,11 +228,12 @@ typedef NS_ENUM(NSInteger, NSImageResizingMode) {
 
 APPKIT_EXTERN NSString * const NSImageHintCTM NS_AVAILABLE_MAC(10_6); // value is NSAffineTransform
 APPKIT_EXTERN NSString * const NSImageHintInterpolation NS_AVAILABLE_MAC(10_6); // value is NSNumber with NSImageInterpolation enum value
+APPKIT_EXTERN NSString *const NSImageHintUserInterfaceLayoutDirection NS_AVAILABLE_MAC(10_12); // value is NSNumber with NSUserInterfaceLayoutDirection enum value
 
 @protocol NSImageDelegate <NSObject>
 @optional
 
-- (nullable NSImage *)imageDidNotDraw:(NSImage *)sender inRect:(NSRect)aRect;
+- (nullable NSImage *)imageDidNotDraw:(NSImage *)sender inRect:(NSRect)rect;
 
 - (void)image:(NSImage *)image willLoadRepresentation:(NSImageRep *)rep;
 - (void)image:(NSImage *)image didLoadRepresentationHeader:(NSImageRep *)rep;
@@ -250,8 +257,8 @@ APPKIT_EXTERN NSString * const NSImageHintInterpolation NS_AVAILABLE_MAC(10_6); 
 - (BOOL)isFlipped NS_DEPRECATED_MAC(10_0, 10_6);
 
 // these methods have surprising semantics.  Prefer to use the 'draw' methods (and note the new draw method taking respectContextIsFlipped as a parameter).  Please see the AppKit 10.6 release notes for exactly what's going on.
-- (void)dissolveToPoint:(NSPoint)point fraction:(CGFloat)aFloat NS_DEPRECATED_MAC(10_0, 10_6, "Use -drawAtPoint:... or -drawInRect:... methods instead");
-- (void)dissolveToPoint:(NSPoint)point fromRect:(NSRect)rect fraction:(CGFloat)aFloat NS_DEPRECATED_MAC(10_0, 10_6, "Use -drawAtPoint:... or -drawInRect:... methods instead");
+- (void)dissolveToPoint:(NSPoint)point fraction:(CGFloat)fraction NS_DEPRECATED_MAC(10_0, 10_6, "Use -drawAtPoint:... or -drawInRect:... methods instead");
+- (void)dissolveToPoint:(NSPoint)point fromRect:(NSRect)rect fraction:(CGFloat)fraction NS_DEPRECATED_MAC(10_0, 10_6, "Use -drawAtPoint:... or -drawInRect:... methods instead");
 - (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op NS_DEPRECATED_MAC(10_0, 10_6, "Use -drawAtPoint:... or -drawInRect:... methods instead");
 - (void)compositeToPoint:(NSPoint)point fromRect:(NSRect)rect operation:(NSCompositingOperation)op NS_DEPRECATED_MAC(10_0, 10_6, "Use -drawAtPoint:... or -drawInRect:... methods instead");
 - (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op fraction:(CGFloat)delta NS_DEPRECATED_MAC(10_0, 10_6, "Use -drawAtPoint:... or -drawInRect:... methods instead");
@@ -316,12 +323,17 @@ APPKIT_EXTERN NSString * const NSImageNameInvalidDataFreestandingTemplate NS_AVA
 APPKIT_EXTERN NSString * const NSImageNameLockLockedTemplate NS_AVAILABLE_MAC(10_5);
 APPKIT_EXTERN NSString * const NSImageNameLockUnlockedTemplate NS_AVAILABLE_MAC(10_5);
 
-/* Use these images for "go forward" or "go back" functions, as seen in Safari's toolbar.  See also the right and left facing triangle images.
+/* Use these images for "go forward" or "go back" functions, as seen in Safari's toolbar.  These images will automatically mirror when the user interface layout direction is right to left.
  */
-APPKIT_EXTERN NSString * const NSImageNameGoRightTemplate NS_AVAILABLE_MAC(10_5); 
-APPKIT_EXTERN NSString * const NSImageNameGoLeftTemplate NS_AVAILABLE_MAC(10_5); 
+APPKIT_EXTERN NSString * const NSImageNameGoForwardTemplate NS_AVAILABLE_MAC(10_12);
+APPKIT_EXTERN NSString * const NSImageNameGoBackTemplate NS_AVAILABLE_MAC(10_12);
 
-/* Prefer the "GoLeft" and "GoRight" images for situations where they apply.  These generic triangles aren't endorsed for any particular use, but you can use them if you don't have any better art.
+/* These images are like GoForward and GoBack except that they always point in the specified direction regardless of layout direction.  See also the right and left facing triangle images.
+ */
+APPKIT_EXTERN NSString * const NSImageNameGoRightTemplate NS_AVAILABLE_MAC(10_5);
+APPKIT_EXTERN NSString * const NSImageNameGoLeftTemplate NS_AVAILABLE_MAC(10_5);
+
+/* Prefer the GoForward and GoBack or GoLeft and GoRight images for situations where they apply.  These generic triangles aren't endorsed for any particular use, but you can use them if you don't have any better art.
  */
 APPKIT_EXTERN NSString * const NSImageNameRightFacingTriangleTemplate NS_AVAILABLE_MAC(10_5);
 APPKIT_EXTERN NSString * const NSImageNameLeftFacingTriangleTemplate NS_AVAILABLE_MAC(10_5);

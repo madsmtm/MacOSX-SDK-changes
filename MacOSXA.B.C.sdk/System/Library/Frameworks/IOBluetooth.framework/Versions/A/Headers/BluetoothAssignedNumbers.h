@@ -390,6 +390,8 @@ enum
     
 	// Range 0x1001-0xFFFF dynamically assigned.
     kBluetoothL2CAPPSMDynamicStart				= 0x1001,
+	// AACP
+	kBluetoothL2CAPPSMAACP						= 0x1001,
 	kBluetoothL2CAPPSMD2D						= 0x100F,
     kBluetoothL2CAPPSMDynamicEnd				= 0xFFFF,
     
@@ -637,6 +639,17 @@ enum BluetoothHCIExtendedInquiryResponseDataTypes
     kBluetoothHCIExtendedInquiryResponseDataTypePublicTargetAddress                         =   0x17,
     kBluetoothHCIExtendedInquiryResponseDataTypeRandomTargetAddress                         =   0x18,
     kBluetoothHCIExtendedInquiryResponseDataTypeAppearance                                  =   0x19,
+    kBluetoothHCIExtendedInquiryResponseDataTypeAdvertisingInterval							=	0x1A,
+    kBluetoothHCIExtendedInquiryResponseDataTypeLEBluetoothDeviceAddress					=	0x1B,
+    kBluetoothHCIExtendedInquiryResponseDataTypeLERole										=	0x1C,
+    kBluetoothHCIExtendedInquiryResponseDataTypeSimplePairingHash							=	0x1D,
+    kBluetoothHCIExtendedInquiryResponseDataTypeSimplePairingRandomizer						=	0x1E,
+    kBluetoothHCIExtendedInquiryResponseDataTypeServiceSolicitation32BitUUIDs				=	0x1F,
+    kBluetoothHCIExtendedInquiryResponseDataTypeServiceData32BitUUID						=	0x20,
+    kBluetoothHCIExtendedInquiryResponseDataTypeServiceData128BitUUID						=	0x21,
+    kBluetoothHCIExtendedInquiryResponseDataTypeSecureConnectionsConfirmationValue			=	0x22,
+    kBluetoothHCIExtendedInquiryResponseDataTypeSecureConnectionsRandomValue				=	0x23,
+    kBluetoothHCIExtendedInquiryResponseDataType3DInformationData							=	0x3D,
 	kBluetoothHCIExtendedInquiryResponseDataTypeManufacturerSpecificData					=	0xFF
 };
 

@@ -97,12 +97,13 @@
 
 
 
-
 __BEGIN_DECLS
 
 extern task_t	current_task(void);
 
 extern void		task_reference(task_t	task);
+
+#define TF_NONE                 0
 
 __END_DECLS
 

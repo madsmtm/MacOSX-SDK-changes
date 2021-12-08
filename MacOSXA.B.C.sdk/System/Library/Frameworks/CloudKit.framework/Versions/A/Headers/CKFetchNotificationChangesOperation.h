@@ -35,7 +35,7 @@ NS_CLASS_AVAILABLE(10_10, 8_0)
     block so that already fetched notifications don't need to be re-downloaded on a subsequent operation.
    If the server returns a CKErrorChangeTokenExpired error, the previousServerChangeToken value was too old and the client should toss its local cache and
    re-fetch notification changes starting with a nil previousServerChangeToken. */
-@property (nonatomic, copy, nullable) void (^fetchNotificationChangesCompletionBlock)(CKServerChangeToken * __nullable serverChangeToken, NSError * __nullable operationError);
+@property (nonatomic, copy, nullable) void (^fetchNotificationChangesCompletionBlock)(CKServerChangeToken * _Nullable serverChangeToken, NSError * _Nullable operationError);
 
 @end
 NS_ASSUME_NONNULL_END

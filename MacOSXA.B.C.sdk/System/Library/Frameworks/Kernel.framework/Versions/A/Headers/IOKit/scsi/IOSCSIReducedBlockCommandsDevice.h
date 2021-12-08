@@ -530,7 +530,7 @@ public:
 	/*!
 	@function ReportEjectability
 	@abstract Reports whether or not the media is ejectable.
-	@discussion Called by IOBlockStorageDevice subclasses to determine wether or not the media is ejectable.
+	@discussion Called by IOBlockStorageDevice subclasses to determine whether or not the media is ejectable.
 	@param isEjectable a valid pointer to a bool in which the ejectability of the media is to be stored.
 	@result A valid IOReturn value.
 	*/

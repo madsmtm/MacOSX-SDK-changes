@@ -55,6 +55,18 @@ NS_CLASS_AVAILABLE(10_10, 8_0)
  */
 @property (nonatomic, assign, getter=isLongLived) BOOL longLived NS_AVAILABLE(10_12, 9_3);
 
+/* 
+   If non-zero, overrides the timeout interval for any network requests issued by this operation.
+   See NSURLSessionConfiguration.timeoutIntervalForRequest 
+*/
+@property (nonatomic, assign) NSTimeInterval timeoutIntervalForRequest NS_AVAILABLE(10_12, 10_0);
+
+/*
+ If non-zero, overrides the timeout interval for any network resources retrieved by this operation.
+ See NSURLSessionConfiguration.timeoutIntervalForResource
+ */
+@property (nonatomic, assign) NSTimeInterval timeoutIntervalForResource NS_AVAILABLE(10_12, 10_0);
+
 /*
    This callback is called after a long lived operation has begun running and is persisted. Once this callback is called the operation will continue running even if the current process exits.
  */

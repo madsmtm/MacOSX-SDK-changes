@@ -65,10 +65,10 @@ enum
 
 // SCSI Architecture Model Family includes
 #include <IOKit/scsi/IOSCSIPrimaryCommandsDevice.h>
+#include <IOKit/storage/IOBlockStorageDevice.h>
 
 // Build includes
 #include <TargetConditionals.h>
-
 
 // Forward declaration for the SCSIBlockCommands that is used internally by the
 // IOSCSIBlockCommandsDevice class.
@@ -105,11 +105,23 @@ protected:
 #endif /* !TARGET_OS_EMBEDDED */
 		bool				fProtocolSpecificPowerControl;
 		bool				fRequiresEjectWithStartStopUnit;
+		UInt32				fMaximumUnmapLBACount;
+		UInt32				fMaximumUnmapBlockDescriptorCount;
+        UInt64              fMaximumWriteSameLength;
+        UInt8               fLBPRZ;
+		bool				fUnmapAllowed;
+        bool                fUseWriteSame;
 	};
     IOSCSIBlockCommandsDeviceExpansionData * fIOSCSIBlockCommandsDeviceReserved;
 	
-	#define fPowerDownNotifier	fIOSCSIBlockCommandsDeviceReserved->fPowerDownNotifier
-	#define fWriteCacheEnabled	fIOSCSIBlockCommandsDeviceReserved->fWriteCacheEnabled
+	#define fPowerDownNotifier					fIOSCSIBlockCommandsDeviceReserved->fPowerDownNotifier
+	#define fWriteCacheEnabled					fIOSCSIBlockCommandsDeviceReserved->fWriteCacheEnabled
+	#define fMaximumUnmapLBACount				fIOSCSIBlockCommandsDeviceReserved->fMaximumUnmapLBACount
+	#define fMaximumUnmapBlockDescriptorCount	fIOSCSIBlockCommandsDeviceReserved->fMaximumUnmapBlockDescriptorCount
+    #define fMaximumWriteSameLength             fIOSCSIBlockCommandsDeviceReserved->fMaximumWriteSameLength
+    #define fLBPRZ                              fIOSCSIBlockCommandsDeviceReserved->fLBPRZ
+	#define fUnmapAllowed						fIOSCSIBlockCommandsDeviceReserved->fUnmapAllowed
+    #define fUseWriteSame						fIOSCSIBlockCommandsDeviceReserved->fUseWriteSame
 	
 	// The fDeviceIsShared is used to indicate whether this device exists on a Physical
 	// Interconnect that allows multiple initiators to access it.  This is used mainly
@@ -197,6 +209,8 @@ protected:
 	virtual void 		CreateStorageServiceNub ( void );
 	virtual bool		DetermineDeviceCharacteristics ( void );
 	void				GetMediumRotationRate ( void );
+	bool				LogicalBlockProvisioningUnmapSupport ( void );
+	void				GetDeviceUnmapCharacteristics ( );
 	
 	// ---- Methods used for controlling the polling thread ----
 	virtual void		ProcessPoll ( void );
@@ -249,6 +263,10 @@ protected:
 						 	UInt64					startBlock,
 					  		UInt64					blockCount,
 							void * 					clientData );
+	
+	IOReturn			IssueUnmap (
+							IOBlockStorageDeviceExtent *	extentsList,
+							UInt32							blockDescriptorCount );
 	
 	// ----- Power Management Support ------
 	
@@ -343,13 +361,56 @@ public:
 	virtual UInt64		ReportMediumBlockSize ( void );
 	virtual UInt64		ReportMediumTotalBlockCount ( void );
 	virtual bool		ReportMediumWriteProtection ( void );
+    
+    // ---- Query method to report the device provision initialization pattern ----
+    IOReturn            ReportProvisioningInitializationPattern (
+                            IOMemoryDescriptor *                    buffer );
 	
 	virtual IOReturn	message ( UInt32 type, IOService * nub, void * arg ) APPLE_KEXT_OVERRIDE;
 	
 	// ---- Called prior to restarting or shutting down ----
 	virtual void systemWillShutdown ( IOOptionBits specifier ) APPLE_KEXT_OVERRIDE;
+ 
+    // ---- Unmap related methods ----
+    // Check to see if we can coalesce the current and the next extent
+    bool		UnmapTryExtentCoalesce (
+							IOBlockStorageDeviceExtent *			mergedExtent,
+							IOBlockStorageDeviceExtent *			currentExtent,
+							IOBlockStorageDeviceExtent *			nextExtent );
+    
+    // Add the merged extent to the dispatch list. If required, truncate the
+    // extent.
+    bool		UnmapTruncateAndAccumulate (
+							IOBlockStorageDeviceExtent *			extentDispatchList,
+							UInt32									blockDescriptorCount,
+							UInt32 *								unmapLBACount,
+							IOBlockStorageDeviceExtent *			mergedExtent );
+
+    // Use the write same command to do unmaps on the given extents.
+    IOReturn	WriteSameUnmap (
+							IOBlockStorageDeviceExtent *			extents,
+							UInt32									extentsCount,
+							UInt32									requestBlockSize );
+
+	// Update the extents with the provision status that we got from the device.
+	IOReturn	UpdateLBAProvisionStatus (
+							UInt32 *								extentsCount,
+							IOBlockStorageProvisionDeviceExtent *	extents,
+							IOMemoryDescriptor *					dataBuffer,
+							UInt32									transferLength );
 	
+	bool		IsUnmapAllowed ( );
+	
+	bool		IsUseWriteSame ( );
+
 protected:
+	
+	bool GET_LBA_STATUS (
+						SCSITaskIdentifier			request,
+						IOMemoryDescriptor *		dataBuffer,
+						SCSICmdField8Byte			LOGICAL_BLOCK_ADDRESS,
+						SCSICmdField4Byte			ALLOCATION_LENGTH,
+						SCSICmdField1Byte			CONTROL );
 	
 	virtual bool READ_10 (
 						SCSITaskIdentifier			request,
@@ -372,7 +433,7 @@ protected:
 						SCSICmdField1Bit 			FUA,
 						SCSICmdField1Bit 			FUA_NV,
 						SCSICmdField4Byte 			LOGICAL_BLOCK_ADDRESS,
-						SCSICmdField5Bit			GROUP_NUMBER,
+						SCSICmdField6Bit			GROUP_NUMBER,
 						SCSICmdField2Byte 			TRANSFER_LENGTH,
 						SCSICmdField1Byte 			CONTROL );
 
@@ -398,7 +459,7 @@ protected:
 						SCSICmdField1Bit 			FUA_NV,
 						SCSICmdField4Byte 			LOGICAL_BLOCK_ADDRESS,
 						SCSICmdField4Byte 			TRANSFER_LENGTH,
-						SCSICmdField5Bit			GROUP_NUMBER,
+						SCSICmdField6Bit			GROUP_NUMBER,
 						SCSICmdField1Byte 			CONTROL );
 
 	bool READ_16 (
@@ -411,7 +472,7 @@ protected:
 						SCSICmdField1Bit			FUA_NV,
 						SCSICmdField8Byte			LOGICAL_BLOCK_ADDRESS,
 						SCSICmdField4Byte			TRANSFER_LENGTH,
-						SCSICmdField5Bit			GROUP_NUMBER,
+						SCSICmdField6Bit			GROUP_NUMBER,
 						SCSICmdField1Byte			CONTROL );
 	
 	virtual bool READ_CAPACITY (
@@ -429,6 +490,12 @@ protected:
 						SCSICmdField4Byte			ALLOCATION_LENGTH,
 						SCSICmdField1Bit 			PMI,
 						SCSICmdField1Byte 			CONTROL );
+    
+    bool REPORT_PROVISIONING_INITIALIZATION_PATTERN (
+                        SCSITaskIdentifier          request,
+                        IOMemoryDescriptor *        dataBuffer,
+                        SCSICmdField4Byte           ALLOCATION_LENGTH,
+                        SCSICmdField1Byte           CONTROL );
 	
 	virtual bool START_STOP_UNIT (
 						SCSITaskIdentifier			request,
@@ -452,7 +519,7 @@ protected:
 						SCSICmdField1Bit 			IMMED,
 						SCSICmdField1Bit 			SYNC_NV,
 						SCSICmdField4Byte 			LOGICAL_BLOCK_ADDRESS,
-						SCSICmdField5Bit			GROUP_NUMBER,
+						SCSICmdField6Bit			GROUP_NUMBER,
 						SCSICmdField2Byte 			NUMBER_OF_BLOCKS,
 						SCSICmdField1Byte 			CONTROL );
 
@@ -462,9 +529,19 @@ protected:
 						SCSICmdField1Bit			IMMED,
 						SCSICmdField8Byte			LOGICAL_BLOCK_ADDRESS,
 						SCSICmdField4Byte			NUMBER_OF_BLOCKS,
-						SCSICmdField5Bit			GROUP_NUMBER,
+						SCSICmdField6Bit			GROUP_NUMBER,
 						SCSICmdField1Byte			CONTROL );
+	
+	bool UNMAP (
+						SCSITaskIdentifier          request,
+						IOMemoryDescriptor *        dataBuffer,
+						SCSICmdField1Bit            ANCHOR,
+						SCSICmdField6Bit            GROUP_NUMBER,
+						SCSICmdField2Byte           PARAMETER_LIST_LENGTH,
+						SCSICmdField1Byte           CONTROL );
+	
 
+    
 	virtual bool WRITE_10 (
 						SCSITaskIdentifier			request,
 						IOMemoryDescriptor *		dataBuffer,
@@ -487,7 +564,7 @@ protected:
 						SCSICmdField1Bit 			FUA,
 						SCSICmdField1Bit 			FUA_NV,
 						SCSICmdField4Byte 			LOGICAL_BLOCK_ADDRESS,
-						SCSICmdField5Bit			GROUP_NUMBER,
+						SCSICmdField6Bit			GROUP_NUMBER,
 						SCSICmdField2Byte 			TRANSFER_LENGTH,
 						SCSICmdField1Byte 			CONTROL );
 
@@ -513,7 +590,7 @@ protected:
 						SCSICmdField1Bit 			FUA,
 						SCSICmdField1Bit 			FUA_NV,
 						SCSICmdField4Byte 			LOGICAL_BLOCK_ADDRESS,
-						SCSICmdField5Bit			GROUP_NUMBER,
+						SCSICmdField6Bit			GROUP_NUMBER,
 						SCSICmdField4Byte 			TRANSFER_LENGTH,
 						SCSICmdField1Byte 			CONTROL );
 
@@ -527,12 +604,37 @@ protected:
 						SCSICmdField1Bit			FUA_NV,
 						SCSICmdField8Byte			LOGICAL_BLOCK_ADDRESS,
 						SCSICmdField4Byte			TRANSFER_LENGTH,
-						SCSICmdField5Bit			GROUP_NUMBER,
+						SCSICmdField6Bit			GROUP_NUMBER,
 						SCSICmdField1Byte			CONTROL );	
 	
-	/* Added with 10.2 */	
+    bool WRITE_SAME_10 (
+                        SCSITaskIdentifier          request,
+                        IOMemoryDescriptor *        buffer,
+                        UInt32                      requestBlockSize,
+                        SCSICmdField3Bit			WRPROTECT,
+                        SCSICmdField1Bit            ANCHOR,
+                        SCSICmdField1Bit            UNMAP,
+                        SCSICmdField4Byte           startBlock,
+                        SCSICmdField6Bit			GROUP_NUMBER,
+                        SCSICmdField2Byte           blockCount,
+                        SCSICmdField1Byte           CONTROL );
+    
+    bool WRITE_SAME_16 (
+                        SCSITaskIdentifier          request,
+                        IOMemoryDescriptor *        buffer,
+                        UInt32                      requestBlockSize,
+                        SCSICmdField3Bit			WRPROTECT,
+                        SCSICmdField1Bit            ANCHOR,
+                        SCSICmdField1Bit            UNMAP,
+                        SCSICmdField1Bit            NDOB,
+                        SCSICmdField8Byte           startBlock,
+                        SCSICmdField4Byte           blockCount,
+                        SCSICmdField6Bit            GROUP_NUMBER,
+                        SCSICmdField1Byte           CONTROL );
+    
+	/* Added with 10.2 */
 	OSMetaClassDeclareReservedUsed ( IOSCSIBlockCommandsDevice, 1 );
-	
+
 public:
 	
 	virtual IOReturn	PowerDownHandler (	void * 			refCon,
@@ -570,15 +672,33 @@ public:
 							UInt64					blockSize,
 							IOStorageAttributes *	attributes,
 							void * 					clientData );
+
+	OSMetaClassDeclareReservedUsed ( IOSCSIBlockCommandsDevice, 5 );
 	
+	virtual IOReturn Unmap ( IOBlockStorageDeviceExtent *	extents,
+							 UInt32							ExtentsCount );
+    
+    OSMetaClassDeclareReservedUsed ( IOSCSIBlockCommandsDevice, 6 );
+
+    virtual IOReturn WriteSame (
+                            IOMemoryDescriptor *	buffer,
+                            UInt64					startBlock,
+                            UInt64					blockCount,
+                            UInt8                   writeSameOptions,
+                            UInt32                  requestBlockSize );
+	
+	OSMetaClassDeclareReservedUsed ( IOSCSIBlockCommandsDevice, 7 );
+
+	virtual IOReturn GetProvisionStatus ( UInt64									block,
+										  UInt64									nblks,
+										  UInt32 *									extentsCount,
+										  IOBlockStorageProvisionDeviceExtent *		extents );
+
 	
 private:
 	
 #if !TARGET_OS_EMBEDDED
 	// Space reserved for future expansion.
-	OSMetaClassDeclareReservedUnused ( IOSCSIBlockCommandsDevice, 5 );
-	OSMetaClassDeclareReservedUnused ( IOSCSIBlockCommandsDevice, 6 );
-	OSMetaClassDeclareReservedUnused ( IOSCSIBlockCommandsDevice, 7 );
 	OSMetaClassDeclareReservedUnused ( IOSCSIBlockCommandsDevice, 8 );
 	OSMetaClassDeclareReservedUnused ( IOSCSIBlockCommandsDevice, 9 );
 	OSMetaClassDeclareReservedUnused ( IOSCSIBlockCommandsDevice, 10 );

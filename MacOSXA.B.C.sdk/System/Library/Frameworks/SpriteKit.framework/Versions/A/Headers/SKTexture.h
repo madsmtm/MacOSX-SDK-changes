@@ -8,7 +8,9 @@
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKitBase.h>
 
+#if __has_include(<CoreImage/CIFilter.h>)
 @class CIFilter;
+#endif
 
 typedef NS_ENUM(NSInteger, SKTextureFilteringMode) {
     SKTextureFilteringNearest,
@@ -91,12 +93,15 @@ SK_EXPORT @interface SKTexture : NSObject <NSCopying, NSCoding>
  */
 + (instancetype)textureWithData:(NSData *)pixelData size:(CGSize)size rowLength:(unsigned int)rowLength alignment:(unsigned int)alignment;
 
+
+#if __has_include(<CoreImage/CIFilter.h>)
 /**
  Create new texture by applying a CIFilter to an existing one. Any CIFilter that requires only a single "inputImage" and produces an "outputImage" is allowed.
  
  @param filter the CI filter to apply in the copy.
  */
 - (instancetype)textureByApplyingCIFilter:(CIFilter *)filter;
+#endif
 
 
 /**

@@ -32,7 +32,7 @@ CSEXTERN CFStringRef kColorSyncDCIP3Profile;                /* com.apple.ColorSy
 CSEXTERN CFStringRef kColorSyncITUR709Profile;              /* com.apple.ColorSync.ITUR709 */
 CSEXTERN CFStringRef kColorSyncITUR2020Profile;             /* com.apple.ColorSync.ITUR2020 */
 CSEXTERN CFStringRef kColorSyncROMMRGBProfile;              /* com.apple.ColorSync.ROMMRGB */
-    
+
 CSEXTERN CFStringRef kColorSyncProfileHeader;      /* com.apple.ColorSync.ProfileHeader */
 CSEXTERN CFStringRef kColorSyncProfileClass;       /* com.apple.ColorSync.ProfileClass */
 CSEXTERN CFStringRef kColorSyncProfileColorSpace;  /* com.apple.ColorSync.ProfileColorSpace */

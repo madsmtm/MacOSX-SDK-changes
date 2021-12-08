@@ -1,6 +1,6 @@
 //
 //  GKStrategist.h
-//  GameLogic
+//  GameplayKit
 //
 //  Copyright (c) 2015 Apple. All rights reserved.
 //

@@ -76,7 +76,7 @@ __END_DECLS
 
 #ifndef	_ANSI_SOURCE
 __BEGIN_DECLS
-void	(*bsd_signal(int, void (*)(int)))(int);
+void	(* _Nullable bsd_signal(int, void (* _Nullable)(int)))(int);
 int	kill(pid_t, int) __DARWIN_ALIAS(kill);
 int	killpg(pid_t, int) __DARWIN_ALIAS(killpg);
 int	pthread_kill(pthread_t, int);
@@ -96,7 +96,7 @@ int	sigpause(int) __DARWIN_ALIAS_C(sigpause);
 int	sigpending(sigset_t *);
 int	sigprocmask(int, const sigset_t * __restrict, sigset_t * __restrict);
 int	sigrelse(int);
-void    (*sigset(int, void (*)(int)))(int);
+void    (* _Nullable sigset(int, void (* _Nullable)(int)))(int);
 int	sigsuspend(const sigset_t *) __DARWIN_ALIAS_C(sigsuspend);
 int	sigwait(const sigset_t * __restrict, int * __restrict) __DARWIN_ALIAS_C(sigwait);
 #if !defined(_POSIX_C_SOURCE) || defined(_DARWIN_C_SOURCE)

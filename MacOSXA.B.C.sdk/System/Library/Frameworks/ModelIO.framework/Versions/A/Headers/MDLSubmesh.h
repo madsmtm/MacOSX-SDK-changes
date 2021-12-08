@@ -160,6 +160,8 @@ MDL_EXPORT
  */
 @property (nonatomic, readonly, retain) id<MDLMeshBuffer> indexBuffer;
 
+- (id<MDLMeshBuffer>)indexBufferAsIndexType:(MDLIndexBitDepth)indexType;
+
 /*!
  @property indexCount
  @abstract Number of indices in the indexBuffer

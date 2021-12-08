@@ -1,7 +1,9 @@
----
+--- !tapi-tbd-v2
 archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 1C33F20E-6F64-3630-BB2F-58263698D52C' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreDuetDaemonProtocol.framework/Versions/A/CoreDuetDaemonProtocol
+objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CDDProtocolMessageXPCFieldBudgetOptions, _CDDProtocolMessageXPCFieldEndTimestamps, 

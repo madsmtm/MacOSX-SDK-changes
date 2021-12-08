@@ -1,7 +1,7 @@
 /*
 	NSTextField.h
 	Application Kit
-	Copyright (c) 1994-2015, Apple Inc.
+	Copyright (c) 1994-2016, Apple Inc.
 	All rights reserved.
 */
 
@@ -52,6 +52,39 @@ NS_ASSUME_NONNULL_BEGIN
 /* Maps to -[NSParagraphStyle allowsDefaultTighteningForTruncation] in rendering and sizing the text field. Ignored when the content value is an attributed string.
  */
 @property BOOL allowsDefaultTighteningForTruncation NS_AVAILABLE_MAC(10_11);
+
+@end
+
+@interface NSTextField(NSTextFieldConvenience)
+
+/*!
+ Creates a non-wrapping, non-editable, non-selectable text field that displays text in the default system font.
+ @param stringValue The title text to display in the field.
+ @return An initialized text field object.
+ */
++ (instancetype)labelWithString:(NSString *)stringValue NS_SWIFT_NAME(init(labelWithString:)) NS_AVAILABLE_MAC(10_12);
+
+/*!
+ Creates a wrapping, non-editable, selectable text field that displays text in the default system font.
+ @param stringValue The title text to display in the field.
+ @return An initialized text field object.
+ */
++ (instancetype)wrappingLabelWithString:(NSString *)stringValue NS_SWIFT_NAME(init(wrappingLabelWithString:)) NS_AVAILABLE_MAC(10_12);
+
+/*!
+ Creates a non-editable, non-selectable text field that displays attributed text.
+ The line break mode of this field is determined by the attributed string's NSParagraphStyle attribute.
+ @param attributedStringValue The attributed string to display in the field.
+ @return An initialized text field object.
+ */
++ (instancetype)labelWithAttributedString:(NSAttributedString *)attributedStringValue NS_SWIFT_NAME(init(labelWithAttributedString:)) NS_AVAILABLE_MAC(10_12);
+
+/*!
+ Creates a non-wrapping editable text field.
+ @param stringValue The initial contents of the text field, or nil for an initially empty text field.
+ @return An initialized text field object.
+ */
++ (instancetype)textFieldWithString:(nullable NSString *)stringValue NS_AVAILABLE_MAC(10_12);
 
 @end
 

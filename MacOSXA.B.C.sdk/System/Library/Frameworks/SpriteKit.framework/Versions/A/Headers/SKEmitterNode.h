@@ -5,7 +5,7 @@
  Particle Emitter Node
  
  
- @copyright 2011 Apple, Inc. All rights reserve.
+ @copyright 2011 Apple, Inc. All rights reserved.
  
  */
 

@@ -1,7 +1,7 @@
 /*
     NSTouch.h
     Application Kit
-    Copyright (c) 2009-2015, Apple Inc.
+    Copyright (c) 2009-2016, Apple Inc.
     All rights reserved.
 */
 
@@ -33,15 +33,12 @@ NS_CLASS_AVAILABLE(10_6, NA)
     NSInteger _index;
     id _identity;
     NSTouchPhase _phase;
-    NSPoint _normalizedPosition;
+    NSPoint _pos1;
     NSInteger _privateFlags;
     NSView *_view;
     id _reserved1;
-#if ! __LP64__
-    id _reserved2;
-    id _reserved3;
-    id _reserved4;
-#endif
+    NSPoint _pos0;
+    NSInteger _reserved4;
     id _device;
     NSSize  _deviceSize;
 #if ! __LP64__

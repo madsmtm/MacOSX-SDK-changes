@@ -1,7 +1,7 @@
 /*
 	AppKit.h
 	Application Kit
-	Copyright (c) 1994-2015, Apple Inc.
+	Copyright (c) 1994-2016, Apple Inc.
 	All rights reserved.
 
 	This file is included by all AppKit application source files for easy building.  Using this file is preferred over importing individual files because it will use a precompiled version.
@@ -59,6 +59,8 @@
 #import <AppKit/NSDragging.h>
 #import <AppKit/NSDraggingItem.h>
 #import <AppKit/NSDraggingSession.h>
+#import <AppKit/NSFilePromiseProvider.h>
+#import <AppKit/NSFilePromiseReceiver.h>
 #import <AppKit/NSEPSImageRep.h>
 #import <AppKit/NSErrors.h>
 #import <AppKit/NSEvent.h>
@@ -110,6 +112,7 @@
 #import <AppKit/NSSliderCell.h>
 #import <AppKit/NSSpellProtocol.h>
 #import <AppKit/NSStackView.h>
+#import <AppKit/NSGridView.h>
 #import <AppKit/NSText.h>
 #import <AppKit/NSTextField.h>
 #import <AppKit/NSTextFieldCell.h>
@@ -227,3 +230,4 @@
 #import <AppKit/NSAlignmentFeedbackFilter.h>
 #import <AppKit/NSHapticFeedback.h>
 #import <AppKit/NSPressureConfiguration.h>
+#import <AppKit/AppKitLegacySwiftCompatibility.h>

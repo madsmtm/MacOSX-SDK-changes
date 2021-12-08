@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2000-2015 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2016 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
- * 
+ *
  * This file contains Original Code and/or Modifications of Original Code
  * as defined in and that are subject to the Apple Public Source License
  * Version 2.0 (the 'License'). You may not use this file except in
@@ -11,10 +11,10 @@
  * unlawful or unlicensed copies of an Apple operating system, or to
  * circumvent, violate, or enable the circumvention or violation of, any
  * terms of an Apple operating system software license agreement.
- * 
+ *
  * Please obtain a copy of the License at
  * http://www.opensource.apple.com/apsl/ and read it before using this file.
- * 
+ *
  * The Original Code and all software distributed under the License are
  * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
  * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
@@ -22,7 +22,7 @@
  * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
  * Please see the License for the specific language governing rights and
  * limitations under the License.
- * 
+ *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_END@
  */
 /*
@@ -75,7 +75,7 @@
 #define _TCPCB_LIST_HEAD(name, type)	\
 struct name {				\
 	u_int32_t	lh_first;	\
-};
+}
 #else
 #define _TCPCB_PTR(x)			x
 #define _TCPCB_LIST_HEAD(name, type)	LIST_HEAD(name, type)
@@ -400,6 +400,15 @@ struct	tcpstat {
 	u_int32_t	tcps_tfo_syn_data_acked;/* SYN+data has been acknowledged */
 	u_int32_t	tcps_tfo_syn_loss;	/* SYN+TFO has been lost and we fallback */
 	u_int32_t	tcps_tfo_blackhole;	/* TFO got blackholed by a middlebox. */
+	u_int32_t	tcps_tfo_cookie_wrong;	/* TFO-cookie we sent was wrong */
+	u_int32_t	tcps_tfo_no_cookie_rcv;	/* We asked for a cookie but didn't get one */
+	u_int32_t	tcps_tfo_heuristics_disable; /* TFO got disabled due to heuristics */
+	u_int32_t	tcps_tfo_sndblackhole;	/* TFO got blackholed in the sending direction */
+	u_int32_t	tcps_mss_to_default;	/* Change MSS to default using link status report */
+	u_int32_t	tcps_mss_to_medium;	/* Change MSS to medium using link status report */
+	u_int32_t	tcps_mss_to_low;	/* Change MSS to low using link status report */
+	u_int32_t	tcps_ecn_fallback_droprst; /* ECN fallback caused by connection drop due to RST */
+	u_int32_t	tcps_ecn_fallback_droprxmt; /* ECN fallback due to drop after multiple retransmits */
 };
 
 
