@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-142~1
+     Version:    QuickTime-174.20~22
  
-     Copyright:  © 1990-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -34,6 +34,7 @@
 
 
 
+#include <AvailabilityMacros.h>
 
 #if PRAGMA_ONCE
 #pragma once
@@ -43,13 +44,7 @@
 extern "C" {
 #endif
 
-#if PRAGMA_STRUCT_ALIGN
-    #pragma options align=mac68k
-#elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(push, 2)
-#elif PRAGMA_STRUCT_PACK
-    #pragma pack(2)
-#endif
+#pragma options align=mac68k
 
 enum {
   clockComponentType            = 'clok',
@@ -81,7 +76,7 @@ enum {
 extern ComponentResult 
 ClockGetTime(
   ComponentInstance   aClock,
-  TimeRecord *        out);
+  TimeRecord *        out)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -98,7 +93,7 @@ extern QTCallBack
 ClockNewCallBack(
   ComponentInstance   aClock,
   TimeBase            tb,
-  short               callBackType);
+  short               callBackType)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -113,7 +108,7 @@ ClockNewCallBack(
 extern ComponentResult 
 ClockDisposeCallBack(
   ComponentInstance   aClock,
-  QTCallBack          cb);
+  QTCallBack          cb)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -131,7 +126,7 @@ ClockCallMeWhen(
   QTCallBack          cb,
   long                param1,
   long                param2,
-  long                param3);
+  long                param3)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -146,7 +141,7 @@ ClockCallMeWhen(
 extern ComponentResult 
 ClockCancelCallBack(
   ComponentInstance   aClock,
-  QTCallBack          cb);
+  QTCallBack          cb)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -161,7 +156,7 @@ ClockCancelCallBack(
 extern ComponentResult 
 ClockRateChanged(
   ComponentInstance   aClock,
-  QTCallBack          cb);
+  QTCallBack          cb)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -176,7 +171,7 @@ ClockRateChanged(
 extern ComponentResult 
 ClockTimeChanged(
   ComponentInstance   aClock,
-  QTCallBack          cb);
+  QTCallBack          cb)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -191,7 +186,7 @@ ClockTimeChanged(
 extern ComponentResult 
 ClockSetTimeBase(
   ComponentInstance   aClock,
-  TimeBase            tb);
+  TimeBase            tb)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -208,7 +203,7 @@ ClockStartStopChanged(
   ComponentInstance   aClock,
   QTCallBack          cb,
   Boolean             startChanged,
-  Boolean             stopChanged);
+  Boolean             stopChanged)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -223,7 +218,7 @@ ClockStartStopChanged(
 extern ComponentResult 
 ClockGetRate(
   ComponentInstance   aClock,
-  Fixed *             rate);
+  Fixed *             rate)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -354,7 +349,11 @@ enum {
   scSoundChannelCountType       = 'sscc', /* pointer to short*/
   scSoundCompressionType        = 'ssct', /* pointer to OSType*/
   scCompressionListType         = 'ctyl', /* pointer to OSType Handle*/
-  scCodecManufacturerType       = 'cmfr' /* pointer to OSType*/
+  scCodecManufacturerType       = 'cmfr', /* pointer to OSType*/
+  scSoundVBRCompressionOK       = 'cvbr', /* pointer to Boolean*/
+  scSoundInputSampleRateType    = 'ssir', /* pointer to UnsignedFixed*/
+  scSoundSampleRateChangeOK     = 'rcok', /* pointer to Boolean*/
+  scAvailableCompressionListType = 'avai' /* pointer to OSType Handle*/
 };
 
 /*  scTypeNotFoundErr returned by Get/SetInfo when type cannot be found.*/
@@ -416,7 +415,7 @@ SCGetCompressionExtended(
   SCModalFilterUPP    filterProc,
   SCModalHookUPP      hookProc,
   long                refcon,
-  StringPtr           customName);
+  StringPtr           customName)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -432,7 +431,7 @@ extern ComponentResult
 SCPositionRect(
   ComponentInstance   ci,
   Rect *              rp,
-  Point *             where);
+  Point *             where)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -448,7 +447,7 @@ extern ComponentResult
 SCPositionDialog(
   ComponentInstance   ci,
   short               id,
-  Point *             where);
+  Point *             where)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -465,7 +464,7 @@ SCSetTestImagePictHandle(
   ComponentInstance   ci,
   PicHandle           testPict,
   Rect *              testRect,
-  short               testFlags);
+  short               testFlags)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -482,7 +481,7 @@ SCSetTestImagePictFile(
   ComponentInstance   ci,
   short               testFileRef,
   Rect *              testRect,
-  short               testFlags);
+  short               testFlags)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -499,7 +498,7 @@ SCSetTestImagePixMap(
   ComponentInstance   ci,
   PixMapHandle        testPixMap,
   Rect *              testRect,
-  short               testFlags);
+  short               testFlags)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -514,7 +513,7 @@ SCSetTestImagePixMap(
 extern ComponentResult 
 SCGetBestDeviceRect(
   ComponentInstance   ci,
-  Rect *              r);
+  Rect *              r)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -528,7 +527,7 @@ SCGetBestDeviceRect(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SCRequestImageSettings(ComponentInstance ci);
+SCRequestImageSettings(ComponentInstance ci)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -546,7 +545,7 @@ SCCompressImage(
   PixMapHandle              src,
   const Rect *              srcRect,
   ImageDescriptionHandle *  desc,
-  Handle *                  data);
+  Handle *                  data)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -562,7 +561,7 @@ extern ComponentResult
 SCCompressPicture(
   ComponentInstance   ci,
   PicHandle           srcPicture,
-  PicHandle           dstPicture);
+  PicHandle           dstPicture)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -578,7 +577,7 @@ extern ComponentResult
 SCCompressPictureFile(
   ComponentInstance   ci,
   short               srcRefNum,
-  short               dstRefNum);
+  short               dstRefNum)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -591,7 +590,7 @@ SCCompressPictureFile(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SCRequestSequenceSettings(ComponentInstance ci);
+SCRequestSequenceSettings(ComponentInstance ci)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -608,7 +607,7 @@ SCCompressSequenceBegin(
   ComponentInstance         ci,
   PixMapHandle              src,
   const Rect *              srcRect,
-  ImageDescriptionHandle *  desc);
+  ImageDescriptionHandle *  desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -627,7 +626,7 @@ SCCompressSequenceFrame(
   const Rect *        srcRect,
   Handle *            data,
   long *              dataSize,
-  short *             notSyncFlag);
+  short *             notSyncFlag)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -640,7 +639,7 @@ SCCompressSequenceFrame(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SCCompressSequenceEnd(ComponentInstance ci);
+SCCompressSequenceEnd(ComponentInstance ci)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -656,7 +655,7 @@ extern ComponentResult
 SCDefaultPictHandleSettings(
   ComponentInstance   ci,
   PicHandle           srcPicture,
-  short               motion);
+  short               motion)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -672,7 +671,7 @@ extern ComponentResult
 SCDefaultPictFileSettings(
   ComponentInstance   ci,
   short               srcRef,
-  short               motion);
+  short               motion)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -688,7 +687,7 @@ extern ComponentResult
 SCDefaultPixMapSettings(
   ComponentInstance   ci,
   PixMapHandle        src,
-  short               motion);
+  short               motion)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -704,7 +703,7 @@ extern ComponentResult
 SCGetInfo(
   ComponentInstance   ci,
   OSType              infoType,
-  void *              info);
+  void *              info)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -720,7 +719,7 @@ extern ComponentResult
 SCSetInfo(
   ComponentInstance   ci,
   OSType              infoType,
-  void *              info);
+  void *              info)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -737,7 +736,7 @@ SCNewGWorld(
   ComponentInstance   ci,
   GWorldPtr *         gwp,
   Rect *              rp,
-  GWorldFlags         flags);
+  GWorldFlags         flags)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -752,7 +751,7 @@ SCNewGWorld(
 extern ComponentResult 
 SCSetCompressFlags(
   ComponentInstance   ci,
-  long                flags);
+  long                flags)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -767,7 +766,7 @@ SCSetCompressFlags(
 extern ComponentResult 
 SCGetCompressFlags(
   ComponentInstance   ci,
-  long *              flags);
+  long *              flags)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -782,7 +781,7 @@ SCGetCompressFlags(
 extern ComponentResult 
 SCGetSettingsAsText(
   ComponentInstance   ci,
-  Handle *            text);
+  Handle *            text)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -797,7 +796,7 @@ SCGetSettingsAsText(
 extern ComponentResult 
 SCGetSettingsAsAtomContainer(
   ComponentInstance   ci,
-  QTAtomContainer *   settings);
+  QTAtomContainer *   settings)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -812,7 +811,7 @@ SCGetSettingsAsAtomContainer(
 extern ComponentResult 
 SCSetSettingsFromAtomContainer(
   ComponentInstance   ci,
-  QTAtomContainer     settings);
+  QTAtomContainer     settings)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Note: if you're using SCCompressSequenceFrameAsync with a scForceKeyValue setting, you must call SCAsyncIdle occasionally at main task time. */
@@ -833,7 +832,7 @@ SCCompressSequenceFrameAsync(
   Handle *                     data,
   long *                       dataSize,
   short *                      notSyncFlag,
-  ICMCompletionProcRecordPtr   asyncCompletionProc);
+  ICMCompletionProcRecordPtr   asyncCompletionProc)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -846,7 +845,7 @@ SCCompressSequenceFrameAsync(
  *    Windows:          in qtmlClient.lib 5.0 and later
  */
 extern ComponentResult 
-SCAsyncIdle(ComponentInstance ci);
+SCAsyncIdle(ComponentInstance ci)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -872,7 +871,7 @@ TweenerInitialize(
   TweenerComponent   tc,
   QTAtomContainer    container,
   QTAtom             tweenAtom,
-  QTAtom             dataAtom);
+  QTAtom             dataAtom)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -887,7 +886,7 @@ TweenerInitialize(
 extern ComponentResult 
 TweenerDoTween(
   TweenerComponent   tc,
-  TweenRecord *      tr);
+  TweenRecord *      tr)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -900,7 +899,7 @@ TweenerDoTween(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-TweenerReset(TweenerComponent tc);
+TweenerReset(TweenerComponent tc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -987,7 +986,7 @@ TCGetCurrentTimeCode(
   long *            frameNum,
   TimeCodeDef *     tcdef,
   TimeCodeRecord *  tcrec,
-  UserData *        srcRefH);
+  UserData *        srcRefH)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1006,7 +1005,7 @@ TCGetTimeCodeAtTime(
   long *            frameNum,
   TimeCodeDef *     tcdef,
   TimeCodeRecord *  tcdata,
-  UserData *        srcRefH);
+  UserData *        srcRefH)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1023,7 +1022,7 @@ TCTimeCodeToString(
   MediaHandler      mh,
   TimeCodeDef *     tcdef,
   TimeCodeRecord *  tcrec,
-  StringPtr         tcStr);
+  StringPtr         tcStr)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1040,7 +1039,7 @@ TCTimeCodeToFrameNumber(
   MediaHandler      mh,
   TimeCodeDef *     tcdef,
   TimeCodeRecord *  tcrec,
-  long *            frameNumber);
+  long *            frameNumber)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1057,7 +1056,7 @@ TCFrameNumberToTimeCode(
   MediaHandler      mh,
   long              frameNumber,
   TimeCodeDef *     tcdef,
-  TimeCodeRecord *  tcrec);
+  TimeCodeRecord *  tcrec)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1073,7 +1072,7 @@ extern HandlerError
 TCGetSourceRef(
   MediaHandler                mh,
   TimeCodeDescriptionHandle   tcdH,
-  UserData *                  srefH);
+  UserData *                  srefH)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1089,7 +1088,7 @@ extern HandlerError
 TCSetSourceRef(
   MediaHandler                mh,
   TimeCodeDescriptionHandle   tcdH,
-  UserData                    srefH);
+  UserData                    srefH)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1105,7 +1104,7 @@ extern HandlerError
 TCSetTimeCodeFlags(
   MediaHandler   mh,
   long           flags,
-  long           flagsMask);
+  long           flagsMask)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1120,7 +1119,7 @@ TCSetTimeCodeFlags(
 extern HandlerError 
 TCGetTimeCodeFlags(
   MediaHandler   mh,
-  long *         flags);
+  long *         flags)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1135,7 +1134,7 @@ TCGetTimeCodeFlags(
 extern HandlerError 
 TCSetDisplayOptions(
   MediaHandler       mh,
-  TCTextOptionsPtr   textOptions);
+  TCTextOptionsPtr   textOptions)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1150,7 +1149,7 @@ TCSetDisplayOptions(
 extern HandlerError 
 TCGetDisplayOptions(
   MediaHandler       mh,
-  TCTextOptionsPtr   textOptions);
+  TCTextOptionsPtr   textOptions)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -1182,6 +1181,7 @@ enum {
   canMovieImportAvoidBlocking   = 1 << 15,
   canMovieExportFromProcedures  = 1 << 15,
   canMovieExportValidateMovie   = 1L << 16,
+  movieImportMustGetDestinationMediaType = 1L << 16,
   movieExportNeedsResourceFork  = 1L << 17,
   canMovieImportDataReferences  = 1L << 18,
   movieExportMustGetSourceMediaType = 1L << 19,
@@ -1221,7 +1221,9 @@ enum {
   kQTMediaConfigResourceType    = 'mcfg',
   kQTMediaConfigResourceVersion = 2,
   kQTMediaGroupResourceType     = 'mgrp',
-  kQTMediaGroupResourceVersion  = 1
+  kQTMediaGroupResourceVersion  = 1,
+  kQTBrowserInfoResourceType    = 'brws',
+  kQTBrowserInfoResourceVersion = 1
 };
 
 
@@ -1240,7 +1242,8 @@ enum {
   kQTMediaConfigUseAppByDefault = (1L << 28), /* use the app by default for this MIME type*/
   kQTMediaConfigUsePluginByDefault = (1L << 29), /* use the plug-in by default for this MIME type*/
   kQTMediaConfigDefaultsMask    = (kQTMediaConfigUseAppByDefault | kQTMediaConfigUsePluginByDefault),
-  kQTMediaConfigDefaultsShift   = 12    /* ((flags & kQTMediaConfigDefaultsMask) >> kQTMediaConfigDefaultsShift) to get default setting*/
+  kQTMediaConfigDefaultsShift   = 12,   /* ((flags & kQTMediaConfigDefaultsMask) >> kQTMediaConfigDefaultsShift) to get default setting */
+  kQTMediaConfigHasFileHasQTAtoms = (1L << 30) /* the file has a "QuickTime like" file format */
 };
 
 
@@ -1304,7 +1307,8 @@ enum {
   kQTFileType3DMF               = '3DMF',
   kQTFileTypeFLC                = 'FLC ',
   kQTFileTypeFlash              = 'SWFL',
-  kQTFileTypeFlashPix           = 'FPix'
+  kQTFileTypeFlashPix           = 'FPix',
+  kQTFileTypeMP4                = 'mpg4'
 };
 
 /* QTAtomTypes for atoms in import/export settings containers*/
@@ -1329,7 +1333,8 @@ enum {
   kQTSettingsTime               = 'time', /* Time related container*/
   kQTSettingsTimeDuration       = 'dura', /* . Time related container*/
   kQTSettingsAudioCDTrack       = 'trak', /* Audio CD track related container*/
-  kQTSettingsAudioCDTrackRateShift = 'rshf' /* . Rate shift to be performed (SInt16)*/
+  kQTSettingsAudioCDTrackRateShift = 'rshf', /* . Rate shift to be performed (SInt16)*/
+  kQTSettingsDVExportDVFormat   = 'dvcf' /* Exported DV Format, DV('dv  ') or DVCPRO('dvp '). (OSType)*/
 };
 
 
@@ -1418,7 +1423,7 @@ typedef STACK_UPP_TYPE(MovieExportGetPropertyProcPtr)           MovieExportGetPr
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SCModalFilterUPP
-NewSCModalFilterUPP(SCModalFilterProcPtr userRoutine);
+NewSCModalFilterUPP(SCModalFilterProcPtr userRoutine)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSCModalHookUPP()
@@ -1429,7 +1434,7 @@ NewSCModalFilterUPP(SCModalFilterProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SCModalHookUPP
-NewSCModalHookUPP(SCModalHookProcPtr userRoutine);
+NewSCModalHookUPP(SCModalHookProcPtr userRoutine)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewMovieExportGetDataUPP()
@@ -1440,7 +1445,7 @@ NewSCModalHookUPP(SCModalHookProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern MovieExportGetDataUPP
-NewMovieExportGetDataUPP(MovieExportGetDataProcPtr userRoutine);
+NewMovieExportGetDataUPP(MovieExportGetDataProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewMovieExportGetPropertyUPP()
@@ -1451,7 +1456,7 @@ NewMovieExportGetDataUPP(MovieExportGetDataProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern MovieExportGetPropertyUPP
-NewMovieExportGetPropertyUPP(MovieExportGetPropertyProcPtr userRoutine);
+NewMovieExportGetPropertyUPP(MovieExportGetPropertyProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSCModalFilterUPP()
@@ -1462,7 +1467,7 @@ NewMovieExportGetPropertyUPP(MovieExportGetPropertyProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSCModalFilterUPP(SCModalFilterUPP userUPP);
+DisposeSCModalFilterUPP(SCModalFilterUPP userUPP)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSCModalHookUPP()
@@ -1473,7 +1478,7 @@ DisposeSCModalFilterUPP(SCModalFilterUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSCModalHookUPP(SCModalHookUPP userUPP);
+DisposeSCModalHookUPP(SCModalHookUPP userUPP)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeMovieExportGetDataUPP()
@@ -1484,7 +1489,7 @@ DisposeSCModalHookUPP(SCModalHookUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeMovieExportGetDataUPP(MovieExportGetDataUPP userUPP);
+DisposeMovieExportGetDataUPP(MovieExportGetDataUPP userUPP)   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeMovieExportGetPropertyUPP()
@@ -1495,7 +1500,7 @@ DisposeMovieExportGetDataUPP(MovieExportGetDataUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeMovieExportGetPropertyUPP(MovieExportGetPropertyUPP userUPP);
+DisposeMovieExportGetPropertyUPP(MovieExportGetPropertyUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSCModalFilterUPP()
@@ -1511,7 +1516,7 @@ InvokeSCModalFilterUPP(
   EventRecord *     theEvent,
   short *           itemHit,
   long              refcon,
-  SCModalFilterUPP  userUPP);
+  SCModalFilterUPP  userUPP)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSCModalHookUPP()
@@ -1527,7 +1532,7 @@ InvokeSCModalHookUPP(
   short           itemHit,
   void *          params,
   long            refcon,
-  SCModalHookUPP  userUPP);
+  SCModalHookUPP  userUPP)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeMovieExportGetDataUPP()
@@ -1541,7 +1546,7 @@ extern OSErr
 InvokeMovieExportGetDataUPP(
   void *                      refCon,
   MovieExportGetDataParams *  params,
-  MovieExportGetDataUPP       userUPP);
+  MovieExportGetDataUPP       userUPP)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeMovieExportGetPropertyUPP()
@@ -1557,7 +1562,7 @@ InvokeMovieExportGetPropertyUPP(
   long                       trackID,
   OSType                     propertyType,
   void *                     propertyValue,
-  MovieExportGetPropertyUPP  userUPP);
+  MovieExportGetPropertyUPP  userUPP)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  MovieImportHandle()
@@ -1578,7 +1583,7 @@ MovieImportHandle(
   TimeValue              atTime,
   TimeValue *            addedDuration,
   long                   inFlags,
-  long *                 outFlags);
+  long *                 outFlags)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1600,7 +1605,7 @@ MovieImportFile(
   TimeValue              atTime,
   TimeValue *            addedDuration,
   long                   inFlags,
-  long *                 outFlags);
+  long *                 outFlags)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1616,7 +1621,7 @@ extern ComponentResult
 MovieImportSetSampleDuration(
   MovieImportComponent   ci,
   TimeValue              duration,
-  TimeScale              scale);
+  TimeScale              scale)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1632,7 +1637,7 @@ extern ComponentResult
 MovieImportSetSampleDescription(
   MovieImportComponent      ci,
   SampleDescriptionHandle   desc,
-  OSType                    mediaType);
+  OSType                    mediaType)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1647,7 +1652,7 @@ MovieImportSetSampleDescription(
 extern ComponentResult 
 MovieImportSetMediaFile(
   MovieImportComponent   ci,
-  AliasHandle            alias);
+  AliasHandle            alias)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1663,7 +1668,7 @@ extern ComponentResult
 MovieImportSetDimensions(
   MovieImportComponent   ci,
   Fixed                  width,
-  Fixed                  height);
+  Fixed                  height)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1678,7 +1683,7 @@ MovieImportSetDimensions(
 extern ComponentResult 
 MovieImportSetChunkSize(
   MovieImportComponent   ci,
-  long                   chunkSize);
+  long                   chunkSize)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1694,7 +1699,7 @@ extern ComponentResult
 MovieImportSetProgressProc(
   MovieImportComponent   ci,
   MovieProgressUPP       proc,
-  long                   refcon);
+  long                   refcon)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1710,7 +1715,7 @@ extern ComponentResult
 MovieImportSetAuxiliaryData(
   MovieImportComponent   ci,
   Handle                 data,
-  OSType                 handleType);
+  OSType                 handleType)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1725,7 +1730,7 @@ MovieImportSetAuxiliaryData(
 extern ComponentResult 
 MovieImportSetFromScrap(
   MovieImportComponent   ci,
-  Boolean                fromScrap);
+  Boolean                fromScrap)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1742,7 +1747,7 @@ MovieImportDoUserDialog(
   MovieImportComponent   ci,
   const FSSpec *         theFile,
   Handle                 theData,
-  Boolean *              canceled);
+  Boolean *              canceled)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1757,7 +1762,7 @@ MovieImportDoUserDialog(
 extern ComponentResult 
 MovieImportSetDuration(
   MovieImportComponent   ci,
-  TimeValue              duration);
+  TimeValue              duration)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1772,7 +1777,7 @@ MovieImportSetDuration(
 extern ComponentResult 
 MovieImportGetAuxiliaryDataType(
   MovieImportComponent   ci,
-  OSType *               auxType);
+  OSType *               auxType)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1789,7 +1794,7 @@ MovieImportValidate(
   MovieImportComponent   ci,
   const FSSpec *         theFile,
   Handle                 theData,
-  Boolean *              valid);
+  Boolean *              valid)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1804,7 +1809,7 @@ MovieImportValidate(
 extern ComponentResult 
 MovieImportGetFileType(
   MovieImportComponent   ci,
-  OSType *               fileType);
+  OSType *               fileType)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1827,7 +1832,7 @@ MovieImportDataRef(
   TimeValue              atTime,
   TimeValue *            addedDuration,
   long                   inFlags,
-  long *                 outFlags);
+  long *                 outFlags)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1843,7 +1848,7 @@ extern ComponentResult
 MovieImportGetSampleDescription(
   MovieImportComponent       ci,
   SampleDescriptionHandle *  desc,
-  OSType *                   mediaType);
+  OSType *                   mediaType)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1858,7 +1863,7 @@ MovieImportGetSampleDescription(
 extern ComponentResult 
 MovieImportGetMIMETypeList(
   MovieImportComponent   ci,
-  QTAtomContainer *      mimeInfo);
+  QTAtomContainer *      mimeInfo)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1874,7 +1879,7 @@ extern ComponentResult
 MovieImportSetOffsetAndLimit(
   MovieImportComponent   ci,
   unsigned long          offset,
-  unsigned long          limit);
+  unsigned long          limit)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1889,7 +1894,7 @@ MovieImportSetOffsetAndLimit(
 extern ComponentResult 
 MovieImportGetSettingsAsAtomContainer(
   MovieImportComponent   ci,
-  QTAtomContainer *      settings);
+  QTAtomContainer *      settings)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1904,7 +1909,7 @@ MovieImportGetSettingsAsAtomContainer(
 extern ComponentResult 
 MovieImportSetSettingsFromAtomContainer(
   MovieImportComponent   ci,
-  QTAtomContainer        settings);
+  QTAtomContainer        settings)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1920,7 +1925,7 @@ extern ComponentResult
 MovieImportSetOffsetAndLimit64(
   MovieImportComponent   ci,
   const wide *           offset,
-  const wide *           limit);
+  const wide *           limit)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1936,7 +1941,7 @@ extern ComponentResult
 MovieImportIdle(
   MovieImportComponent   ci,
   long                   inFlags,
-  long *                 outFlags);
+  long *                 outFlags)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1953,7 +1958,7 @@ MovieImportValidateDataRef(
   MovieImportComponent   ci,
   Handle                 dataRef,
   OSType                 dataRefType,
-  UInt8 *                valid);
+  UInt8 *                valid)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1968,7 +1973,7 @@ MovieImportValidateDataRef(
 extern ComponentResult 
 MovieImportGetLoadState(
   MovieImportComponent   ci,
-  long *                 importerLoadState);
+  long *                 importerLoadState)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1983,7 +1988,7 @@ MovieImportGetLoadState(
 extern ComponentResult 
 MovieImportGetMaxLoadedTime(
   MovieImportComponent   ci,
-  TimeValue *            time);
+  TimeValue *            time)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1998,7 +2003,7 @@ MovieImportGetMaxLoadedTime(
 extern ComponentResult 
 MovieImportEstimateCompletionTime(
   MovieImportComponent   ci,
-  TimeRecord *           time);
+  TimeRecord *           time)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2013,7 +2018,7 @@ MovieImportEstimateCompletionTime(
 extern ComponentResult 
 MovieImportSetDontBlock(
   MovieImportComponent   ci,
-  Boolean                dontBlock);
+  Boolean                dontBlock)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2028,7 +2033,52 @@ MovieImportSetDontBlock(
 extern ComponentResult 
 MovieImportGetDontBlock(
   MovieImportComponent   ci,
-  Boolean *              willBlock);
+  Boolean *              willBlock)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+/*
+ *  MovieImportSetIdleManager()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+MovieImportSetIdleManager(
+  MovieImportComponent   ci,
+  IdleManager            im)                                  AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+ *  MovieImportSetNewMovieFlags()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+MovieImportSetNewMovieFlags(
+  MovieImportComponent   ci,
+  long                   newMovieFlags)                       AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+ *  MovieImportGetDestinationMediaType()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+MovieImportGetDestinationMediaType(
+  MovieImportComponent   ci,
+  OSType *               mediaType)                           AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 /*
@@ -2047,7 +2097,7 @@ MovieExportToHandle(
   Movie                  theMovie,
   Track                  onlyThisTrack,
   TimeValue              startTime,
-  TimeValue              duration);
+  TimeValue              duration)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2066,7 +2116,7 @@ MovieExportToFile(
   Movie                  theMovie,
   Track                  onlyThisTrack,
   TimeValue              startTime,
-  TimeValue              duration);
+  TimeValue              duration)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2082,7 +2132,7 @@ extern ComponentResult
 MovieExportGetAuxiliaryData(
   MovieExportComponent   ci,
   Handle                 dataH,
-  OSType *               handleType);
+  OSType *               handleType)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2098,7 +2148,7 @@ extern ComponentResult
 MovieExportSetProgressProc(
   MovieExportComponent   ci,
   MovieProgressUPP       proc,
-  long                   refcon);
+  long                   refcon)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2114,7 +2164,7 @@ extern ComponentResult
 MovieExportSetSampleDescription(
   MovieExportComponent      ci,
   SampleDescriptionHandle   desc,
-  OSType                    mediaType);
+  OSType                    mediaType)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2133,7 +2183,7 @@ MovieExportDoUserDialog(
   Track                  onlyThisTrack,
   TimeValue              startTime,
   TimeValue              duration,
-  Boolean *              canceled);
+  Boolean *              canceled)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2148,7 +2198,7 @@ MovieExportDoUserDialog(
 extern ComponentResult 
 MovieExportGetCreatorType(
   MovieExportComponent   ci,
-  OSType *               creator);
+  OSType *               creator)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2168,7 +2218,7 @@ MovieExportToDataRef(
   Movie                  theMovie,
   Track                  onlyThisTrack,
   TimeValue              startTime,
-  TimeValue              duration);
+  TimeValue              duration)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2184,7 +2234,7 @@ extern ComponentResult
 MovieExportFromProceduresToDataRef(
   MovieExportComponent   ci,
   Handle                 dataRef,
-  OSType                 dataRefType);
+  OSType                 dataRefType)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2204,7 +2254,7 @@ MovieExportAddDataSource(
   long *                      trackID,
   MovieExportGetPropertyUPP   getPropertyProc,
   MovieExportGetDataUPP       getDataProc,
-  void *                      refCon);
+  void *                      refCon)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2221,7 +2271,7 @@ MovieExportValidate(
   MovieExportComponent   ci,
   Movie                  theMovie,
   Track                  onlyThisTrack,
-  Boolean *              valid);
+  Boolean *              valid)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2236,7 +2286,7 @@ MovieExportValidate(
 extern ComponentResult 
 MovieExportGetSettingsAsAtomContainer(
   MovieExportComponent   ci,
-  QTAtomContainer *      settings);
+  QTAtomContainer *      settings)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2251,7 +2301,7 @@ MovieExportGetSettingsAsAtomContainer(
 extern ComponentResult 
 MovieExportSetSettingsFromAtomContainer(
   MovieExportComponent   ci,
-  QTAtomContainer        settings);
+  QTAtomContainer        settings)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2266,7 +2316,7 @@ MovieExportSetSettingsFromAtomContainer(
 extern ComponentResult 
 MovieExportGetFileNameExtension(
   MovieExportComponent   ci,
-  OSType *               extension);
+  OSType *               extension)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2281,7 +2331,7 @@ MovieExportGetFileNameExtension(
 extern ComponentResult 
 MovieExportGetShortFileTypeString(
   MovieExportComponent   ci,
-  Str255                 typeString);
+  Str255                 typeString)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2296,7 +2346,7 @@ MovieExportGetShortFileTypeString(
 extern ComponentResult 
 MovieExportGetSourceMediaType(
   MovieExportComponent   ci,
-  OSType *               mediaType);
+  OSType *               mediaType)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2312,7 +2362,7 @@ extern ComponentResult
 MovieExportSetGetMoviePropertyProc(
   MovieExportComponent        ci,
   MovieExportGetPropertyUPP   getPropertyProc,
-  void *                      refCon);
+  void *                      refCon)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Text Export Display Info data structure*/
@@ -2347,7 +2397,7 @@ typedef ComponentInstance               GraphicImageMovieImportComponent;
 extern ComponentResult 
 TextExportGetDisplayData(
   TextExportComponent   ci,
-  TextDisplayData *     textDisplay);
+  TextDisplayData *     textDisplay)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2362,7 +2412,7 @@ TextExportGetDisplayData(
 extern ComponentResult 
 TextExportGetTimeFraction(
   TextExportComponent   ci,
-  long *                movieTimeFraction);
+  long *                movieTimeFraction)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2377,7 +2427,7 @@ TextExportGetTimeFraction(
 extern ComponentResult 
 TextExportSetTimeFraction(
   TextExportComponent   ci,
-  long                  movieTimeFraction);
+  long                  movieTimeFraction)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2392,7 +2442,7 @@ TextExportSetTimeFraction(
 extern ComponentResult 
 TextExportGetSettings(
   TextExportComponent   ci,
-  long *                setting);
+  long *                setting)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2407,7 +2457,7 @@ TextExportGetSettings(
 extern ComponentResult 
 TextExportSetSettings(
   TextExportComponent   ci,
-  long                  setting);
+  long                  setting)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2423,7 +2473,7 @@ TextExportSetSettings(
 extern ComponentResult 
 MIDIImportGetSettings(
   TextExportComponent   ci,
-  long *                setting);
+  long *                setting)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2438,7 +2488,7 @@ MIDIImportGetSettings(
 extern ComponentResult 
 MIDIImportSetSettings(
   TextExportComponent   ci,
-  long                  setting);
+  long                  setting)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2461,7 +2511,7 @@ MovieExportNewGetDataAndPropertiesProcs(
   TimeValue                    duration,
   MovieExportGetPropertyUPP *  getPropertyProc,
   MovieExportGetDataUPP *      getDataProc,
-  void **                      refCon);
+  void **                      refCon)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2478,7 +2528,7 @@ MovieExportDisposeGetDataAndPropertiesProcs(
   MovieExportComponent        ci,
   MovieExportGetPropertyUPP   getPropertyProc,
   MovieExportGetDataUPP       getDataProc,
-  void *                      refCon);
+  void *                      refCon)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
@@ -2502,7 +2552,7 @@ enum {
 extern ComponentResult 
 GraphicsImageImportSetSequenceEnabled(
   GraphicImageMovieImportComponent   ci,
-  Boolean                            enable);
+  Boolean                            enable)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2517,7 +2567,7 @@ GraphicsImageImportSetSequenceEnabled(
 extern ComponentResult 
 GraphicsImageImportGetSequenceEnabled(
   GraphicImageMovieImportComponent   ci,
-  Boolean *                          enable);
+  Boolean *                          enable)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2525,7 +2575,22 @@ GraphicsImageImportGetSequenceEnabled(
 
 
 
+/*----------------------------'brws' ¥ browser prefs configuration info ------------------------*/
+enum {
+  kQTBrowserInfoCanUseSystemFolderPlugin = (1L << 0) /* Mac browser can use plug-in from System "Internet Plug-ins" folder */
+};
 
+
+
+
+enum {
+  kQTPreFlightOpenComponent     = (1L << 1) /* Open component as preflight check*/
+};
+
+struct ComponentPreflightFlags {
+  long                flags;
+};
+typedef struct ComponentPreflightFlags  ComponentPreflightFlags;
 
 
 
@@ -2536,6 +2601,7 @@ GraphicsImageImportGetSequenceEnabled(
     File Preview Components
 
 ***************/
+
 typedef ComponentInstance               pnotComponent;
 enum {
   pnotComponentWantsEvents      = 1,
@@ -2561,7 +2627,7 @@ PreviewShowData(
   pnotComponent   p,
   OSType          dataType,
   Handle          data,
-  const Rect *    inHere);
+  const Rect *    inHere)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2579,7 +2645,7 @@ PreviewMakePreview(
   OSType *                   previewType,
   Handle *                   previewResult,
   const FSSpec *             sourceFile,
-  ICMProgressProcRecordPtr   progress);
+  ICMProgressProcRecordPtr   progress)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2596,7 +2662,7 @@ PreviewMakePreviewReference(
   pnotComponent   p,
   OSType *        previewType,
   short *         resID,
-  const FSSpec *  sourceFile);
+  const FSSpec *  sourceFile)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2612,7 +2678,7 @@ extern ComponentResult
 PreviewEvent(
   pnotComponent   p,
   EventRecord *   e,
-  Boolean *       handledEvent);
+  Boolean *       handledEvent)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2644,7 +2710,7 @@ DataCodecDecompress(
   void *               srcData,
   UInt32               srcSize,
   void *               dstData,
-  UInt32               dstBufferSize);
+  UInt32               dstBufferSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2660,7 +2726,7 @@ extern ComponentResult
 DataCodecGetCompressBufferSize(
   DataCodecComponent   dc,
   UInt32               srcSize,
-  UInt32 *             dstSize);
+  UInt32 *             dstSize)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2680,7 +2746,7 @@ DataCodecCompress(
   void *               dstData,
   UInt32               dstBufferSize,
   UInt32 *             actualDstSize,
-  UInt32 *             decompressSlop);
+  UInt32 *             decompressSlop)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2695,7 +2761,7 @@ DataCodecCompress(
 extern ComponentResult 
 DataCodecBeginInterruptSafe(
   DataCodecComponent   dc,
-  unsigned long        maxSrcSize);
+  unsigned long        maxSrcSize)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2708,7 +2774,7 @@ DataCodecBeginInterruptSafe(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-DataCodecEndInterruptSafe(DataCodecComponent dc);
+DataCodecEndInterruptSafe(DataCodecComponent dc)              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2729,7 +2795,7 @@ DataCodecDecompressPartial(
   void **              next_out,
   unsigned long *      avail_out,
   unsigned long *      total_out,
-  Boolean *            didFinish);
+  Boolean *            didFinish)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2751,7 +2817,7 @@ DataCodecCompressPartial(
   unsigned long *      avail_out,
   unsigned long *      total_out,
   Boolean              tryToFinish,
-  Boolean *            didFinish);
+  Boolean *            didFinish)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2791,7 +2857,8 @@ enum {
   kDataRefExtensionFileName     = 'fnam',
   kDataRefExtensionMIMEType     = 'mime',
   kDataRefExtensionMacOSFileType = 'ftyp',
-  kDataRefExtensionInitializationData = 'data'
+  kDataRefExtensionInitializationData = 'data',
+  kDataRefExtensionQuickTimeMediaType = 'mtyp'
 };
 
 enum {
@@ -2857,7 +2924,7 @@ DataHGetData(
   Handle        h,
   long          hOffset,
   long          offset,
-  long          size);
+  long          size)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2875,7 +2942,7 @@ DataHPutData(
   Handle        h,
   long          hOffset,
   long *        offset,
-  long          size);
+  long          size)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2888,7 +2955,7 @@ DataHPutData(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-DataHFlushData(DataHandler dh);
+DataHFlushData(DataHandler dh)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2901,7 +2968,7 @@ DataHFlushData(DataHandler dh);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-DataHOpenForWrite(DataHandler dh);
+DataHOpenForWrite(DataHandler dh)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2914,7 +2981,7 @@ DataHOpenForWrite(DataHandler dh);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-DataHCloseForWrite(DataHandler dh);
+DataHCloseForWrite(DataHandler dh)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2928,7 +2995,7 @@ DataHCloseForWrite(DataHandler dh);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-DataHOpenForRead(DataHandler dh);
+DataHOpenForRead(DataHandler dh)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2941,7 +3008,7 @@ DataHOpenForRead(DataHandler dh);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-DataHCloseForRead(DataHandler dh);
+DataHCloseForRead(DataHandler dh)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2956,7 +3023,7 @@ DataHCloseForRead(DataHandler dh);
 extern ComponentResult 
 DataHSetDataRef(
   DataHandler   dh,
-  Handle        dataRef);
+  Handle        dataRef)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2971,7 +3038,7 @@ DataHSetDataRef(
 extern ComponentResult 
 DataHGetDataRef(
   DataHandler   dh,
-  Handle *      dataRef);
+  Handle *      dataRef)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2987,7 +3054,7 @@ extern ComponentResult
 DataHCompareDataRef(
   DataHandler   dh,
   Handle        dataRef,
-  Boolean *     equal);
+  Boolean *     equal)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3000,7 +3067,7 @@ DataHCompareDataRef(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-DataHTask(DataHandler dh);
+DataHTask(DataHandler dh)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3020,7 +3087,7 @@ DataHScheduleData(
   long                 DataSize,
   long                 RefCon,
   DataHSchedulePtr     scheduleRec,
-  DataHCompletionUPP   CompletionRtn);
+  DataHCompletionUPP   CompletionRtn)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3036,7 +3103,7 @@ extern ComponentResult
 DataHFinishData(
   DataHandler   dh,
   Ptr           PlaceToPutDataPtr,
-  Boolean       Cancel);
+  Boolean       Cancel)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3049,7 +3116,7 @@ DataHFinishData(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-DataHFlushCache(DataHandler dh);
+DataHFlushCache(DataHandler dh)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3066,7 +3133,7 @@ DataHResolveDataRef(
   DataHandler   dh,
   Handle        theDataRef,
   Boolean *     wasChanged,
-  Boolean       userInterfaceAllowed);
+  Boolean       userInterfaceAllowed)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3081,7 +3148,7 @@ DataHResolveDataRef(
 extern ComponentResult 
 DataHGetFileSize(
   DataHandler   dh,
-  long *        fileSize);
+  long *        fileSize)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3097,7 +3164,7 @@ extern ComponentResult
 DataHCanUseDataRef(
   DataHandler   dh,
   Handle        dataRef,
-  long *        useFlags);
+  long *        useFlags)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3112,7 +3179,7 @@ DataHCanUseDataRef(
 extern ComponentResult 
 DataHGetVolumeList(
   DataHandler        dh,
-  DataHVolumeList *  volumeList);
+  DataHVolumeList *  volumeList)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3131,7 +3198,7 @@ DataHWrite(
   long                 offset,
   long                 size,
   DataHCompletionUPP   completion,
-  long                 refCon);
+  long                 refCon)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3147,7 +3214,7 @@ extern ComponentResult
 DataHPreextend(
   DataHandler      dh,
   unsigned long    maxToAdd,
-  unsigned long *  spaceAdded);
+  unsigned long *  spaceAdded)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3162,7 +3229,7 @@ DataHPreextend(
 extern ComponentResult 
 DataHSetFileSize(
   DataHandler   dh,
-  long          fileSize);
+  long          fileSize)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3177,7 +3244,7 @@ DataHSetFileSize(
 extern ComponentResult 
 DataHGetFreeSpace(
   DataHandler      dh,
-  unsigned long *  freeSize);
+  unsigned long *  freeSize)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3193,7 +3260,7 @@ extern ComponentResult
 DataHCreateFile(
   DataHandler   dh,
   OSType        creator,
-  Boolean       deleteExisting);
+  Boolean       deleteExisting)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3208,7 +3275,7 @@ DataHCreateFile(
 extern ComponentResult 
 DataHGetPreferredBlockSize(
   DataHandler   dh,
-  long *        blockSize);
+  long *        blockSize)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3223,7 +3290,7 @@ DataHGetPreferredBlockSize(
 extern ComponentResult 
 DataHGetDeviceIndex(
   DataHandler   dh,
-  long *        deviceIndex);
+  long *        deviceIndex)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3238,7 +3305,7 @@ DataHGetDeviceIndex(
 extern ComponentResult 
 DataHIsStreamingDataHandler(
   DataHandler   dh,
-  Boolean *     yes);
+  Boolean *     yes)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3254,7 +3321,7 @@ extern ComponentResult
 DataHGetDataInBuffer(
   DataHandler   dh,
   long          startOffset,
-  long *        size);
+  long *        size)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3269,7 +3336,7 @@ DataHGetDataInBuffer(
 extern ComponentResult 
 DataHGetScheduleAheadTime(
   DataHandler   dh,
-  long *        millisecs);
+  long *        millisecs)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3284,7 +3351,7 @@ DataHGetScheduleAheadTime(
 extern ComponentResult 
 DataHSetCacheSizeLimit(
   DataHandler   dh,
-  Size          cacheSizeLimit);
+  Size          cacheSizeLimit)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3299,7 +3366,7 @@ DataHSetCacheSizeLimit(
 extern ComponentResult 
 DataHGetCacheSizeLimit(
   DataHandler   dh,
-  Size *        cacheSizeLimit);
+  Size *        cacheSizeLimit)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3315,7 +3382,7 @@ extern ComponentResult
 DataHGetMovie(
   DataHandler   dh,
   Movie *       theMovie,
-  short *       id);
+  short *       id)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3331,7 +3398,7 @@ extern ComponentResult
 DataHAddMovie(
   DataHandler   dh,
   Movie         theMovie,
-  short *       id);
+  short *       id)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3347,7 +3414,7 @@ extern ComponentResult
 DataHUpdateMovie(
   DataHandler   dh,
   Movie         theMovie,
-  short         id);
+  short         id)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3363,7 +3430,7 @@ extern ComponentResult
 DataHDoesBuffer(
   DataHandler   dh,
   Boolean *     buffersReads,
-  Boolean *     buffersWrites);
+  Boolean *     buffersWrites)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3378,7 +3445,7 @@ DataHDoesBuffer(
 extern ComponentResult 
 DataHGetFileName(
   DataHandler   dh,
-  Str255        str);
+  Str255        str)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3393,7 +3460,7 @@ DataHGetFileName(
 extern ComponentResult 
 DataHGetAvailableFileSize(
   DataHandler   dh,
-  long *        fileSize);
+  long *        fileSize)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3408,7 +3475,7 @@ DataHGetAvailableFileSize(
 extern ComponentResult 
 DataHGetMacOSFileType(
   DataHandler   dh,
-  OSType *      fileType);
+  OSType *      fileType)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3423,7 +3490,7 @@ DataHGetMacOSFileType(
 extern ComponentResult 
 DataHGetMIMEType(
   DataHandler   dh,
-  Str255        mimeType);
+  Str255        mimeType)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3440,7 +3507,7 @@ DataHSetDataRefWithAnchor(
   DataHandler   dh,
   Handle        anchorDataRef,
   OSType        dataRefType,
-  Handle        dataRef);
+  Handle        dataRef)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3457,7 +3524,7 @@ DataHGetDataRefWithAnchor(
   DataHandler   dh,
   Handle        anchorDataRef,
   OSType        dataRefType,
-  Handle *      dataRef);
+  Handle *      dataRef)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3472,7 +3539,7 @@ DataHGetDataRefWithAnchor(
 extern ComponentResult 
 DataHSetMacOSFileType(
   DataHandler   dh,
-  OSType        fileType);
+  OSType        fileType)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3487,7 +3554,7 @@ DataHSetMacOSFileType(
 extern ComponentResult 
 DataHSetTimeBase(
   DataHandler   dh,
-  TimeBase      tb);
+  TimeBase      tb)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3502,7 +3569,7 @@ DataHSetTimeBase(
 extern ComponentResult 
 DataHGetInfoFlags(
   DataHandler   dh,
-  UInt32 *      flags);
+  UInt32 *      flags)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3522,7 +3589,7 @@ DataHScheduleData64(
   long                 DataSize,
   long                 RefCon,
   DataHSchedulePtr     scheduleRec,
-  DataHCompletionUPP   CompletionRtn);
+  DataHCompletionUPP   CompletionRtn)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3541,7 +3608,7 @@ DataHWrite64(
   const wide *         offset,
   long                 size,
   DataHCompletionUPP   completion,
-  long                 refCon);
+  long                 refCon)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3556,7 +3623,7 @@ DataHWrite64(
 extern ComponentResult 
 DataHGetFileSize64(
   DataHandler   dh,
-  wide *        fileSize);
+  wide *        fileSize)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3572,7 +3639,7 @@ extern ComponentResult
 DataHPreextend64(
   DataHandler   dh,
   const wide *  maxToAdd,
-  wide *        spaceAdded);
+  wide *        spaceAdded)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3587,7 +3654,7 @@ DataHPreextend64(
 extern ComponentResult 
 DataHSetFileSize64(
   DataHandler   dh,
-  const wide *  fileSize);
+  const wide *  fileSize)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3602,7 +3669,7 @@ DataHSetFileSize64(
 extern ComponentResult 
 DataHGetFreeSpace64(
   DataHandler   dh,
-  wide *        freeSize);
+  wide *        freeSize)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3619,7 +3686,7 @@ DataHAppend64(
   DataHandler     dh,
   void *          data,
   wide *          fileOffset,
-  unsigned long   size);
+  unsigned long   size)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3638,7 +3705,7 @@ DataHReadAsync(
   UInt32               dataSize,
   const wide *         dataOffset,
   DataHCompletionUPP   completion,
-  long                 refCon);
+  long                 refCon)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3654,7 +3721,7 @@ extern ComponentResult
 DataHPollRead(
   DataHandler   dh,
   void *        dataPtr,
-  UInt32 *      dataSizeSoFar);
+  UInt32 *      dataSizeSoFar)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3672,7 +3739,7 @@ DataHGetDataAvailability(
   long          offset,
   long          len,
   long *        missing_offset,
-  long *        missing_len);
+  long *        missing_len)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3689,7 +3756,7 @@ DataHGetFileSizeAsync(
   DataHandler          dh,
   wide *               fileSize,
   DataHCompletionUPP   completionRtn,
-  long                 refCon);
+  long                 refCon)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3705,7 +3772,7 @@ extern ComponentResult
 DataHGetDataRefAsType(
   DataHandler   dh,
   OSType        requestedType,
-  Handle *      dataRef);
+  Handle *      dataRef)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3721,7 +3788,7 @@ extern ComponentResult
 DataHSetDataRefExtension(
   DataHandler   dh,
   Handle        extension,
-  OSType        idType);
+  OSType        idType)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3737,7 +3804,7 @@ extern ComponentResult
 DataHGetDataRefExtension(
   DataHandler   dh,
   Handle *      extension,
-  OSType        idType);
+  OSType        idType)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3754,7 +3821,7 @@ DataHGetMovieWithFlags(
   DataHandler   dh,
   Movie *       theMovie,
   short *       id,
-  short         flags);
+  short         flags)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -3770,7 +3837,7 @@ DataHGetMovieWithFlags(
 extern ComponentResult 
 DataHGetFileTypeOrdering(
   DataHandler                    dh,
-  DataHFileTypeOrderingHandle *  orderingListHandle);
+  DataHFileTypeOrderingHandle *  orderingListHandle)          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* flags for DataHCreateFileWithFlags*/
@@ -3792,7 +3859,7 @@ DataHCreateFileWithFlags(
   DataHandler   dh,
   OSType        creator,
   Boolean       deleteExisting,
-  UInt32        flags);
+  UInt32        flags)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3809,7 +3876,7 @@ DataHGetMIMETypeAsync(
   DataHandler          dh,
   Str255               mimeType,
   DataHCompletionUPP   completionRtn,
-  long                 refCon);
+  long                 refCon)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3817,7 +3884,7 @@ DataHGetMIMETypeAsync(
  *  
  *  Availability:
  *    Mac OS X:         in version 10.1 and later in QuickTime.framework
- *    CarbonLib:        not available in CarbonLib 1.x, is available on Mac OS X version 10.1 and later
+ *    CarbonLib:        in CarbonLib 1.6 and later
  *    Non-Carbon CFM:   in QuickTimeLib 5.0.1 and later
  *    Windows:          in qtmlClient.lib 5.0.1 and later
  */
@@ -3825,7 +3892,108 @@ extern ComponentResult
 DataHGetInfo(
   DataHandler   dh,
   OSType        what,
-  void *        info);
+  void *        info)                                         AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
+
+
+/*
+ *  DataHSetIdleManager()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+DataHSetIdleManager(
+  DataHandler   dh,
+  IdleManager   im)                                           AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+ *  DataHDeleteFile()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+DataHDeleteFile(DataHandler dh)                               AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+enum {
+  kDataHMovieUsageDoAppendMDAT  = 1L << 0 /* if set, datahandler should append wide and mdat atoms in append call*/
+};
+
+/*
+ *  DataHSetMovieUsageFlags()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+DataHSetMovieUsageFlags(
+  DataHandler   dh,
+  long          flags)                                        AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+
+enum {
+  kDataHTempUseSameDirectory    = 1L << 0, /* temp data ref should be in same directory as current data ref (vs. in temporary directory)*/
+  kDataHTempUseSameVolume       = 1L << 1, /* temp data ref should be on same volume as current data ref (vs. find "best" volume)*/
+  kDataHTempCreateFile          = 1L << 2, /* create the file*/
+  kDataHTempOpenFile            = 1L << 3 /* open temporary file for write (kDataHTempCreateFile must be passed, too)*/
+};
+
+/*
+ *  DataHUseTemporaryDataRef()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+DataHUseTemporaryDataRef(
+  DataHandler   dh,
+  long          inFlags)                                      AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+ *  DataHGetTemporaryDataRefCapabilities()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+DataHGetTemporaryDataRefCapabilities(
+  DataHandler   dh,
+  long *        outUnderstoodFlags)                           AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+ *  DataHRenameFile()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+DataHRenameFile(
+  DataHandler   dh,
+  Handle        newDataRef)                                   AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
 
 
 /*
@@ -3843,7 +4011,7 @@ DataHPlaybackHints(
   long            flags,
   unsigned long   minFileOffset,
   unsigned long   maxFileOffset,
-  long            bytesPerSecond);
+  long            bytesPerSecond)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3861,7 +4029,7 @@ DataHPlaybackHints64(
   long          flags,
   const wide *  minFileOffset,
   const wide *  maxFileOffset,
-  long          bytesPerSecond);
+  long          bytesPerSecond)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Symbolic constants for DataHGetDataRate*/
@@ -3882,7 +4050,7 @@ extern ComponentResult
 DataHGetDataRate(
   DataHandler   dh,
   long          flags,
-  long *        bytesPerSecond);
+  long *        bytesPerSecond)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Flags for DataHSetTimeHints*/
@@ -3906,7 +4074,7 @@ DataHSetTimeHints(
   long          bandwidthPriority,
   TimeScale     scale,
   TimeValue     minTime,
-  TimeValue     maxTime);
+  TimeValue     maxTime)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -4117,7 +4285,7 @@ extern VideoDigitizerError
 VDGetMaxSrcRect(
   VideoDigitizerComponent   ci,
   short                     inputStd,
-  Rect *                    maxSrcRect);
+  Rect *                    maxSrcRect)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4133,7 +4301,7 @@ extern VideoDigitizerError
 VDGetActiveSrcRect(
   VideoDigitizerComponent   ci,
   short                     inputStd,
-  Rect *                    activeSrcRect);
+  Rect *                    activeSrcRect)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4148,7 +4316,7 @@ VDGetActiveSrcRect(
 extern VideoDigitizerError 
 VDSetDigitizerRect(
   VideoDigitizerComponent   ci,
-  Rect *                    digitizerRect);
+  Rect *                    digitizerRect)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4163,7 +4331,7 @@ VDSetDigitizerRect(
 extern VideoDigitizerError 
 VDGetDigitizerRect(
   VideoDigitizerComponent   ci,
-  Rect *                    digitizerRect);
+  Rect *                    digitizerRect)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4179,7 +4347,7 @@ extern VideoDigitizerError
 VDGetVBlankRect(
   VideoDigitizerComponent   ci,
   short                     inputStd,
-  Rect *                    vBlankRect);
+  Rect *                    vBlankRect)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4194,7 +4362,7 @@ VDGetVBlankRect(
 extern VideoDigitizerError 
 VDGetMaskPixMap(
   VideoDigitizerComponent   ci,
-  PixMapHandle              maskPixMap);
+  PixMapHandle              maskPixMap)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4212,7 +4380,7 @@ VDGetPlayThruDestination(
   PixMapHandle *            dest,
   Rect *                    destRect,
   MatrixRecord *            m,
-  RgnHandle *               mask);
+  RgnHandle *               mask)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4227,7 +4395,7 @@ VDGetPlayThruDestination(
 extern VideoDigitizerError 
 VDUseThisCLUT(
   VideoDigitizerComponent   ci,
-  CTabHandle                colorTableHandle);
+  CTabHandle                colorTableHandle)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4244,7 +4412,7 @@ VDSetInputGammaValue(
   VideoDigitizerComponent   ci,
   Fixed                     channel1,
   Fixed                     channel2,
-  Fixed                     channel3);
+  Fixed                     channel3)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4261,7 +4429,7 @@ VDGetInputGammaValue(
   VideoDigitizerComponent   ci,
   Fixed *                   channel1,
   Fixed *                   channel2,
-  Fixed *                   channel3);
+  Fixed *                   channel3)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4276,7 +4444,7 @@ VDGetInputGammaValue(
 extern VideoDigitizerError 
 VDSetBrightness(
   VideoDigitizerComponent   ci,
-  unsigned short *          brightness);
+  unsigned short *          brightness)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4291,7 +4459,7 @@ VDSetBrightness(
 extern VideoDigitizerError 
 VDGetBrightness(
   VideoDigitizerComponent   ci,
-  unsigned short *          brightness);
+  unsigned short *          brightness)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4306,7 +4474,7 @@ VDGetBrightness(
 extern VideoDigitizerError 
 VDSetContrast(
   VideoDigitizerComponent   ci,
-  unsigned short *          contrast);
+  unsigned short *          contrast)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4321,7 +4489,7 @@ VDSetContrast(
 extern VideoDigitizerError 
 VDSetHue(
   VideoDigitizerComponent   ci,
-  unsigned short *          hue);
+  unsigned short *          hue)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4336,7 +4504,7 @@ VDSetHue(
 extern VideoDigitizerError 
 VDSetSharpness(
   VideoDigitizerComponent   ci,
-  unsigned short *          sharpness);
+  unsigned short *          sharpness)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4351,7 +4519,7 @@ VDSetSharpness(
 extern VideoDigitizerError 
 VDSetSaturation(
   VideoDigitizerComponent   ci,
-  unsigned short *          saturation);
+  unsigned short *          saturation)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4366,7 +4534,7 @@ VDSetSaturation(
 extern VideoDigitizerError 
 VDGetContrast(
   VideoDigitizerComponent   ci,
-  unsigned short *          contrast);
+  unsigned short *          contrast)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4381,7 +4549,7 @@ VDGetContrast(
 extern VideoDigitizerError 
 VDGetHue(
   VideoDigitizerComponent   ci,
-  unsigned short *          hue);
+  unsigned short *          hue)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4396,7 +4564,7 @@ VDGetHue(
 extern VideoDigitizerError 
 VDGetSharpness(
   VideoDigitizerComponent   ci,
-  unsigned short *          sharpness);
+  unsigned short *          sharpness)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4411,7 +4579,7 @@ VDGetSharpness(
 extern VideoDigitizerError 
 VDGetSaturation(
   VideoDigitizerComponent   ci,
-  unsigned short *          saturation);
+  unsigned short *          saturation)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4424,7 +4592,7 @@ VDGetSaturation(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern VideoDigitizerError 
-VDGrabOneFrame(VideoDigitizerComponent ci);
+VDGrabOneFrame(VideoDigitizerComponent ci)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4440,7 +4608,7 @@ extern VideoDigitizerError
 VDGetMaxAuxBuffer(
   VideoDigitizerComponent   ci,
   PixMapHandle *            pm,
-  Rect *                    r);
+  Rect *                    r)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4455,7 +4623,7 @@ VDGetMaxAuxBuffer(
 extern VideoDigitizerError 
 VDGetDigitizerInfo(
   VideoDigitizerComponent   ci,
-  DigitizerInfo *           info);
+  DigitizerInfo *           info)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4471,7 +4639,7 @@ extern VideoDigitizerError
 VDGetCurrentFlags(
   VideoDigitizerComponent   ci,
   long *                    inputCurrentFlag,
-  long *                    outputCurrentFlag);
+  long *                    outputCurrentFlag)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4486,7 +4654,7 @@ VDGetCurrentFlags(
 extern VideoDigitizerError 
 VDSetKeyColor(
   VideoDigitizerComponent   ci,
-  long                      index);
+  long                      index)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4501,7 +4669,7 @@ VDSetKeyColor(
 extern VideoDigitizerError 
 VDGetKeyColor(
   VideoDigitizerComponent   ci,
-  long *                    index);
+  long *                    index)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4516,7 +4684,7 @@ VDGetKeyColor(
 extern VideoDigitizerError 
 VDAddKeyColor(
   VideoDigitizerComponent   ci,
-  long *                    index);
+  long *                    index)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4531,7 +4699,7 @@ VDAddKeyColor(
 extern VideoDigitizerError 
 VDGetNextKeyColor(
   VideoDigitizerComponent   ci,
-  long                      index);
+  long                      index)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4547,7 +4715,7 @@ extern VideoDigitizerError
 VDSetKeyColorRange(
   VideoDigitizerComponent   ci,
   RGBColor *                minRGB,
-  RGBColor *                maxRGB);
+  RGBColor *                maxRGB)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4563,7 +4731,7 @@ extern VideoDigitizerError
 VDGetKeyColorRange(
   VideoDigitizerComponent   ci,
   RGBColor *                minRGB,
-  RGBColor *                maxRGB);
+  RGBColor *                maxRGB)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4580,7 +4748,7 @@ VDSetDigitizerUserInterrupt(
   VideoDigitizerComponent   ci,
   long                      flags,
   VdigIntUPP                userInterruptProc,
-  long                      refcon);
+  long                      refcon)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4595,7 +4763,7 @@ VDSetDigitizerUserInterrupt(
 extern VideoDigitizerError 
 VDSetInputColorSpaceMode(
   VideoDigitizerComponent   ci,
-  short                     colorSpaceMode);
+  short                     colorSpaceMode)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4610,7 +4778,7 @@ VDSetInputColorSpaceMode(
 extern VideoDigitizerError 
 VDGetInputColorSpaceMode(
   VideoDigitizerComponent   ci,
-  short *                   colorSpaceMode);
+  short *                   colorSpaceMode)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4625,7 +4793,7 @@ VDGetInputColorSpaceMode(
 extern VideoDigitizerError 
 VDSetClipState(
   VideoDigitizerComponent   ci,
-  short                     clipEnable);
+  short                     clipEnable)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4640,7 +4808,7 @@ VDSetClipState(
 extern VideoDigitizerError 
 VDGetClipState(
   VideoDigitizerComponent   ci,
-  short *                   clipEnable);
+  short *                   clipEnable)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4655,7 +4823,7 @@ VDGetClipState(
 extern VideoDigitizerError 
 VDSetClipRgn(
   VideoDigitizerComponent   ci,
-  RgnHandle                 clipRegion);
+  RgnHandle                 clipRegion)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4670,7 +4838,7 @@ VDSetClipRgn(
 extern VideoDigitizerError 
 VDClearClipRgn(
   VideoDigitizerComponent   ci,
-  RgnHandle                 clipRegion);
+  RgnHandle                 clipRegion)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4685,7 +4853,7 @@ VDClearClipRgn(
 extern VideoDigitizerError 
 VDGetCLUTInUse(
   VideoDigitizerComponent   ci,
-  CTabHandle *              colorTableHandle);
+  CTabHandle *              colorTableHandle)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4700,7 +4868,7 @@ VDGetCLUTInUse(
 extern VideoDigitizerError 
 VDSetPLLFilterType(
   VideoDigitizerComponent   ci,
-  short                     pllType);
+  short                     pllType)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4715,7 +4883,7 @@ VDSetPLLFilterType(
 extern VideoDigitizerError 
 VDGetPLLFilterType(
   VideoDigitizerComponent   ci,
-  short *                   pllType);
+  short *                   pllType)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4732,7 +4900,7 @@ VDGetMaskandValue(
   VideoDigitizerComponent   ci,
   unsigned short            blendLevel,
   long *                    mask,
-  long *                    value);
+  long *                    value)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4747,7 +4915,7 @@ VDGetMaskandValue(
 extern VideoDigitizerError 
 VDSetMasterBlendLevel(
   VideoDigitizerComponent   ci,
-  unsigned short *          blendLevel);
+  unsigned short *          blendLevel)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4765,7 +4933,7 @@ VDSetPlayThruDestination(
   PixMapHandle              dest,
   RectPtr                   destRect,
   MatrixRecordPtr           m,
-  RgnHandle                 mask);
+  RgnHandle                 mask)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4780,7 +4948,7 @@ VDSetPlayThruDestination(
 extern VideoDigitizerError 
 VDSetPlayThruOnOff(
   VideoDigitizerComponent   ci,
-  short                     state);
+  short                     state)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4795,7 +4963,7 @@ VDSetPlayThruOnOff(
 extern VideoDigitizerError 
 VDSetFieldPreference(
   VideoDigitizerComponent   ci,
-  short                     fieldFlag);
+  short                     fieldFlag)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4810,7 +4978,7 @@ VDSetFieldPreference(
 extern VideoDigitizerError 
 VDGetFieldPreference(
   VideoDigitizerComponent   ci,
-  short *                   fieldFlag);
+  short *                   fieldFlag)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4828,7 +4996,7 @@ VDPreflightDestination(
   Rect *                    digitizerRect,
   PixMap **                 dest,
   RectPtr                   destRect,
-  MatrixRecordPtr           m);
+  MatrixRecordPtr           m)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4844,7 +5012,7 @@ extern VideoDigitizerError
 VDPreflightGlobalRect(
   VideoDigitizerComponent   ci,
   GrafPtr                   theWindow,
-  Rect *                    globalRect);
+  Rect *                    globalRect)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4860,7 +5028,7 @@ extern VideoDigitizerError
 VDSetPlayThruGlobalRect(
   VideoDigitizerComponent   ci,
   GrafPtr                   theWindow,
-  Rect *                    globalRect);
+  Rect *                    globalRect)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4875,7 +5043,7 @@ VDSetPlayThruGlobalRect(
 extern VideoDigitizerError 
 VDSetInputGammaRecord(
   VideoDigitizerComponent   ci,
-  VDGamRecPtr               inputGammaPtr);
+  VDGamRecPtr               inputGammaPtr)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4890,7 +5058,7 @@ VDSetInputGammaRecord(
 extern VideoDigitizerError 
 VDGetInputGammaRecord(
   VideoDigitizerComponent   ci,
-  VDGamRecPtr *             inputGammaPtr);
+  VDGamRecPtr *             inputGammaPtr)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4905,7 +5073,7 @@ VDGetInputGammaRecord(
 extern VideoDigitizerError 
 VDSetBlackLevelValue(
   VideoDigitizerComponent   ci,
-  unsigned short *          blackLevel);
+  unsigned short *          blackLevel)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4920,7 +5088,7 @@ VDSetBlackLevelValue(
 extern VideoDigitizerError 
 VDGetBlackLevelValue(
   VideoDigitizerComponent   ci,
-  unsigned short *          blackLevel);
+  unsigned short *          blackLevel)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4935,7 +5103,7 @@ VDGetBlackLevelValue(
 extern VideoDigitizerError 
 VDSetWhiteLevelValue(
   VideoDigitizerComponent   ci,
-  unsigned short *          whiteLevel);
+  unsigned short *          whiteLevel)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4950,7 +5118,7 @@ VDSetWhiteLevelValue(
 extern VideoDigitizerError 
 VDGetWhiteLevelValue(
   VideoDigitizerComponent   ci,
-  unsigned short *          whiteLevel);
+  unsigned short *          whiteLevel)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4971,7 +5139,7 @@ VDGetVideoDefaults(
   unsigned short *          hue,
   unsigned short *          saturation,
   unsigned short *          contrast,
-  unsigned short *          sharpness);
+  unsigned short *          sharpness)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4986,7 +5154,7 @@ VDGetVideoDefaults(
 extern VideoDigitizerError 
 VDGetNumberOfInputs(
   VideoDigitizerComponent   ci,
-  short *                   inputs);
+  short *                   inputs)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5002,7 +5170,7 @@ extern VideoDigitizerError
 VDGetInputFormat(
   VideoDigitizerComponent   ci,
   short                     input,
-  short *                   format);
+  short *                   format)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5017,7 +5185,7 @@ VDGetInputFormat(
 extern VideoDigitizerError 
 VDSetInput(
   VideoDigitizerComponent   ci,
-  short                     input);
+  short                     input)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5032,7 +5200,7 @@ VDSetInput(
 extern VideoDigitizerError 
 VDGetInput(
   VideoDigitizerComponent   ci,
-  short *                   input);
+  short *                   input)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5047,7 +5215,7 @@ VDGetInput(
 extern VideoDigitizerError 
 VDSetInputStandard(
   VideoDigitizerComponent   ci,
-  short                     inputStandard);
+  short                     inputStandard)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5062,7 +5230,7 @@ VDSetInputStandard(
 extern VideoDigitizerError 
 VDSetupBuffers(
   VideoDigitizerComponent   ci,
-  VdigBufferRecListHandle   bufferList);
+  VdigBufferRecListHandle   bufferList)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5077,7 +5245,7 @@ VDSetupBuffers(
 extern VideoDigitizerError 
 VDGrabOneFrameAsync(
   VideoDigitizerComponent   ci,
-  short                     buffer);
+  short                     buffer)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5092,7 +5260,7 @@ VDGrabOneFrameAsync(
 extern VideoDigitizerError 
 VDDone(
   VideoDigitizerComponent   ci,
-  short                     buffer);
+  short                     buffer)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5112,7 +5280,7 @@ VDSetCompression(
   Rect *                    bounds,
   CodecQ                    spatialQuality,
   CodecQ                    temporalQuality,
-  long                      keyFrameRate);
+  long                      keyFrameRate)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5125,9 +5293,12 @@ VDSetCompression(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern VideoDigitizerError 
-VDCompressOneFrameAsync(VideoDigitizerComponent ci);
+VDCompressOneFrameAsync(VideoDigitizerComponent ci)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+/*    Note that UInt8* queuedFrameCount replaces Boolean* done. 0(==false) still means no frames, and 1(==true) one, 
+    but if more than one are available the number should be returned here. The value 2 previously meant more than one frame,
+    so some VDIGs may return 2 even if more than 2 are available, and some will still return 1 as they are using the original definition */
 /*
  *  VDCompressDone()
  *  
@@ -5140,11 +5311,11 @@ VDCompressOneFrameAsync(VideoDigitizerComponent ci);
 extern VideoDigitizerError 
 VDCompressDone(
   VideoDigitizerComponent   ci,
-  Boolean *                 done,
+  UInt8 *                   queuedFrameCount,
   Ptr *                     theData,
   long *                    dataSize,
   UInt8 *                   similarity,
-  TimeRecord *              t);
+  TimeRecord *              t)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5159,7 +5330,7 @@ VDCompressDone(
 extern VideoDigitizerError 
 VDReleaseCompressBuffer(
   VideoDigitizerComponent   ci,
-  Ptr                       bufferAddr);
+  Ptr                       bufferAddr)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5174,7 +5345,7 @@ VDReleaseCompressBuffer(
 extern VideoDigitizerError 
 VDGetImageDescription(
   VideoDigitizerComponent   ci,
-  ImageDescriptionHandle    desc);
+  ImageDescriptionHandle    desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5187,7 +5358,7 @@ VDGetImageDescription(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern VideoDigitizerError 
-VDResetCompressSequence(VideoDigitizerComponent ci);
+VDResetCompressSequence(VideoDigitizerComponent ci)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5202,7 +5373,7 @@ VDResetCompressSequence(VideoDigitizerComponent ci);
 extern VideoDigitizerError 
 VDSetCompressionOnOff(
   VideoDigitizerComponent   ci,
-  Boolean                   state);
+  Boolean                   state)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5217,7 +5388,7 @@ VDSetCompressionOnOff(
 extern VideoDigitizerError 
 VDGetCompressionTypes(
   VideoDigitizerComponent   ci,
-  VDCompressionListHandle   h);
+  VDCompressionListHandle   h)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5232,7 +5403,7 @@ VDGetCompressionTypes(
 extern VideoDigitizerError 
 VDSetTimeBase(
   VideoDigitizerComponent   ci,
-  TimeBase                  t);
+  TimeBase                  t)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5247,7 +5418,7 @@ VDSetTimeBase(
 extern VideoDigitizerError 
 VDSetFrameRate(
   VideoDigitizerComponent   ci,
-  Fixed                     framesPerSecond);
+  Fixed                     framesPerSecond)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5264,7 +5435,7 @@ VDGetDataRate(
   VideoDigitizerComponent   ci,
   long *                    milliSecPerFrame,
   Fixed *                   framesPerSecond,
-  long *                    bytesPerSecond);
+  long *                    bytesPerSecond)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5279,7 +5450,7 @@ VDGetDataRate(
 extern VideoDigitizerError 
 VDGetSoundInputDriver(
   VideoDigitizerComponent   ci,
-  Str255                    soundDriverName);
+  Str255                    soundDriverName)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5295,7 +5466,7 @@ extern VideoDigitizerError
 VDGetDMADepths(
   VideoDigitizerComponent   ci,
   long *                    depthArray,
-  long *                    preferredDepth);
+  long *                    preferredDepth)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5310,7 +5481,7 @@ VDGetDMADepths(
 extern VideoDigitizerError 
 VDGetPreferredTimeScale(
   VideoDigitizerComponent   ci,
-  TimeScale *               preferred);
+  TimeScale *               preferred)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5323,7 +5494,7 @@ VDGetPreferredTimeScale(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern VideoDigitizerError 
-VDReleaseAsyncBuffers(VideoDigitizerComponent ci);
+VDReleaseAsyncBuffers(VideoDigitizerComponent ci)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* 83 is reserved for compatibility reasons */
@@ -5339,7 +5510,7 @@ VDReleaseAsyncBuffers(VideoDigitizerComponent ci);
 extern VideoDigitizerError 
 VDSetDataRate(
   VideoDigitizerComponent   ci,
-  long                      bytesPerSecond);
+  long                      bytesPerSecond)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5356,7 +5527,7 @@ VDGetTimeCode(
   VideoDigitizerComponent   ci,
   TimeRecord *              atTime,
   void *                    timeCodeFormat,
-  void *                    timeCodeTime);
+  void *                    timeCodeTime)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5371,7 +5542,7 @@ VDGetTimeCode(
 extern VideoDigitizerError 
 VDUseSafeBuffers(
   VideoDigitizerComponent   ci,
-  Boolean                   useSafeBuffers);
+  Boolean                   useSafeBuffers)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5387,7 +5558,7 @@ extern VideoDigitizerError
 VDGetSoundInputSource(
   VideoDigitizerComponent   ci,
   long                      videoInput,
-  long *                    soundInput);
+  long *                    soundInput)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5407,7 +5578,7 @@ VDGetCompressionTime(
   Rect *                    srcRect,
   CodecQ *                  spatialQuality,
   CodecQ *                  temporalQuality,
-  unsigned long *           compressTime);
+  unsigned long *           compressTime)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5422,7 +5593,7 @@ VDGetCompressionTime(
 extern VideoDigitizerError 
 VDSetPreferredPacketSize(
   VideoDigitizerComponent   ci,
-  long                      preferredPacketSizeInBytes);
+  long                      preferredPacketSizeInBytes)       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5438,7 +5609,7 @@ extern VideoDigitizerError
 VDSetPreferredImageDimensions(
   VideoDigitizerComponent   ci,
   long                      width,
-  long                      height);
+  long                      height)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5454,7 +5625,7 @@ extern VideoDigitizerError
 VDGetPreferredImageDimensions(
   VideoDigitizerComponent   ci,
   long *                    width,
-  long *                    height);
+  long *                    height)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5470,7 +5641,7 @@ extern VideoDigitizerError
 VDGetInputName(
   VideoDigitizerComponent   ci,
   long                      videoInput,
-  Str255                    name);
+  Str255                    name)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5485,7 +5656,114 @@ VDGetInputName(
 extern VideoDigitizerError 
 VDSetDestinationPort(
   VideoDigitizerComponent   ci,
-  CGrafPtr                  destPort);
+  CGrafPtr                  destPort)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+/*
+   The following call is designed to give the VDIG a little more control over how it is presented to the User, to clarify the 
+   distinction between Devices and Inputs. Historically, the assumption has been that there is one component registered per device
+   and the component name is displayed. This change lets a component choose its name after registration.
+   vdDeviceFlagShowInputsAsDevices is meant for components that register once and support multiple devices 
+   The UI is clearer if these are presented as device rather than inputs, 
+   and this allows a VDIG to present itself this way without huge restructuring
+   vdDeviceFlagHideDevice is for the kind of VDIG that registers itself, and then can register a further VDIG for each device. 
+   If no hardware is available, returning this flag will omit it from the list. 
+   This call being made is also a good time to check for hardware and register further VDIG components if needed, 
+   allowing for lazy initialization when the Application needs to find a VDIG rather than on every launch or replug.
+*/
+
+enum {
+  vdDeviceFlagShowInputsAsDevices = (1 << 0), /* Tell the Panel to promote Inputs to Devices*/
+  vdDeviceFlagHideDevice        = (1 << 1) /* Omit this Device entirely from the list*/
+};
+
+/*
+ *  VDGetDeviceNameAndFlags()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern VideoDigitizerError 
+VDGetDeviceNameAndFlags(
+  VideoDigitizerComponent   ci,
+  Str255                    outName,
+  UInt32 *                  outNameFlags)                     AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+enum {
+  vdFlagCaptureStarting         = (1 << 0), /* Capture is about to start; allocate bandwidth */
+  vdFlagCaptureStopping         = (1 << 1), /* Capture is about to stop; stop queuing frames*/
+  vdFlagCaptureIsForPreview     = (1 << 2), /* Capture is just to screen for preview purposes*/
+  vdFlagCaptureIsForRecord      = (1 << 3), /* Capture is going to be recorded*/
+  vdFlagCaptureLowLatency       = (1 << 4), /* Fresh frames are more important than delivering every frame - don't queue too much*/
+  vdFlagCaptureAlwaysUseTimeBase = (1 << 5), /* Use the timebase for every frame; don't worry about making durations uniform*/
+  vdFlagCaptureSetSettingsBegin = (1 << 6), /* A series of calls are about to be made to restore settings.*/
+  vdFlagCaptureSetSettingsEnd   = (1 << 7) /* Finished restoring settings; any set calls after this are from the app or UI*/
+};
+
+/*
+ *  VDCaptureStateChanging()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern VideoDigitizerError 
+VDCaptureStateChanging(
+  VideoDigitizerComponent   ci,
+  UInt32                    inStateFlags)                     AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+   These UniqueID calls are so that the VDIG can give the SG information enabling it to restore a particular
+   configuration - choose a particular device and input from those available.
+   For example, restoring the specific camera for a set of several hot-plugged FireWire cameras 
+   the caller can pass nil if it is not interested in one of the IDs
+   returning 0 in an ID means you don't have one
+*/
+
+/*
+ *  VDGetUniqueIDs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern VideoDigitizerError 
+VDGetUniqueIDs(
+  VideoDigitizerComponent   ci,
+  UInt64 *                  outDeviceID,
+  UInt64 *                  outInputID)                       AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/*
+   Note this is a 'Select' not a 'Set' - the assumption is that the Unique ID is a function of the hardware
+   and not modifiable by the calling application. Either a nil pointer or 0 an the ID means don't care.
+   return vdDontHaveThatUniqueIDErr if your device doesn't have a match.
+*/
+
+/*
+ *  VDSelectUniqueIDs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern VideoDigitizerError 
+VDSelectUniqueIDs(
+  VideoDigitizerComponent   ci,
+  const UInt64 *            inDeviceID,
+  const UInt64 *            inInputID)                        AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
 
 
 
@@ -5588,8 +5866,9 @@ typedef CALLBACK_API( ComponentResult , EndDocumentHandler )(long refcon);
 typedef CALLBACK_API( ComponentResult , StartElementHandler )(const char *name, const char **atts, long refcon);
 typedef CALLBACK_API( ComponentResult , EndElementHandler )(const char *name, long refcon);
 typedef CALLBACK_API( ComponentResult , CharDataHandler )(const char *charData, long refcon);
-typedef CALLBACK_API( ComponentResult , PreprocessInstructionHandler )(const char *name, const char **atts, long refcon);
+typedef CALLBACK_API( ComponentResult , PreprocessInstructionHandler )(const char *name, const char *const atts[], long refcon);
 typedef CALLBACK_API( ComponentResult , CommentHandler )(const char *comment, long refcon);
+typedef CALLBACK_API( ComponentResult , CDataHandler )(const char *cdata, long refcon);
 typedef STACK_UPP_TYPE(StartDocumentHandler)                    StartDocumentHandlerUPP;
 typedef STACK_UPP_TYPE(EndDocumentHandler)                      EndDocumentHandlerUPP;
 typedef STACK_UPP_TYPE(StartElementHandler)                     StartElementHandlerUPP;
@@ -5597,6 +5876,8 @@ typedef STACK_UPP_TYPE(EndElementHandler)                       EndElementHandle
 typedef STACK_UPP_TYPE(CharDataHandler)                         CharDataHandlerUPP;
 typedef STACK_UPP_TYPE(PreprocessInstructionHandler)            PreprocessInstructionHandlerUPP;
 typedef STACK_UPP_TYPE(CommentHandler)                          CommentHandlerUPP;
+typedef STACK_UPP_TYPE(CDataHandler)                            CDataHandlerUPP;
+/*  Parses the XML file pointed to by dataRef, returning a XMLDoc parse tree*/
 /*
  *  XMLParseDataRef()
  *  
@@ -5612,10 +5893,10 @@ XMLParseDataRef(
   Handle              dataRef,
   OSType              dataRefType,
   long                parseFlags,
-  XMLDoc *            document);
+  XMLDoc *            document)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Parses the XML file pointed to by dataRef, returning a XMLDoc parse tree*/
+/*  Parses the XML file pointed to by fileSpec, returning a XMLDoc parse tree*/
 /*
  *  XMLParseFile()
  *  
@@ -5630,10 +5911,10 @@ XMLParseFile(
   ComponentInstance   aParser,
   ConstFSSpecPtr      fileSpec,
   long                parseFlags,
-  XMLDoc *            document);
+  XMLDoc *            document)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Parses the XML file pointed to by fileSpec, returning a XMLDoc parse tree*/
+/*  Disposes of a XMLDoc parse tree*/
 /*
  *  XMLParseDisposeXMLDoc()
  *  
@@ -5646,10 +5927,13 @@ XMLParseFile(
 extern ComponentResult 
 XMLParseDisposeXMLDoc(
   ComponentInstance   aParser,
-  XMLDoc              document);
+  XMLDoc              document)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Disposes of a XMLDoc parse tree*/
+/*
+    Returns a more detailed description of the error and the line in which it occurred, if a
+    file failed to parse properly.
+*/
 /*
  *  XMLParseGetDetailedParseError()
  *  
@@ -5663,12 +5947,13 @@ extern ComponentResult
 XMLParseGetDetailedParseError(
   ComponentInstance   aParser,
   long *              errorLine,
-  StringPtr           errDesc);
+  StringPtr           errDesc)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
-    Returns a more detailed description of the error and the line in which it occurred, if a
-    file failed to parse properly.
+    Tell the parser of an element to be recognized. The tokenized element unique identifier is
+    passed in *elementID, unless *elementID is zero, whereupon a unique ID is generated and returned.
+    Thus, a valid element identifier can never be zero.
 */
 /*
  *  XMLParseAddElement()
@@ -5685,13 +5970,13 @@ XMLParseAddElement(
   char *              elementName,
   UInt32              nameSpaceID,
   UInt32 *            elementID,
-  long                elementFlags);
+  long                elementFlags)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
-    Tell the parser of an element to be recognized. The tokenized element unique identifier is
-    passed in *elementID, unless *elementID is zero, whereupon a unique ID is generated and returned.
-    Thus, a valid element identifier can never be zero.
+    Tells the parser of an attribute for the specified element. The tokenized attribute unique
+    ID is passed in *attributeID, unless *attributeID is zero, whereupon a unique ID is generated and
+    returned. Thus, a valid attribute identifier can never be zero.
 */
 /*
  *  XMLParseAddAttribute()
@@ -5708,13 +5993,14 @@ XMLParseAddAttribute(
   UInt32              elementID,
   UInt32              nameSpaceID,
   char *              attributeName,
-  UInt32 *            attributeID);
+  UInt32 *            attributeID)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
-    Tells the parser of an attribute for the specified element. The tokenized attribute unique
-    ID is passed in *attributeID, unless *attributeID is zero, whereupon a unique ID is generated and
-    returned. Thus, a valid attribute identifier can never be zero.
+    Tells the parser of several attributes for the specified element. The attributes are passed
+    as a zero-delimited, double-zero-terminated C string in attributeNames, and the attribute
+    IDs are passed in on attributeIDs as an array; if any attributeIDs are zero, unique IDs
+    are generated for those and returned
 */
 /*
  *  XMLParseAddMultipleAttributes()
@@ -5731,14 +6017,14 @@ XMLParseAddMultipleAttributes(
   UInt32              elementID,
   UInt32 *            nameSpaceIDs,
   char *              attributeNames,
-  UInt32 *            attributeIDs);
+  UInt32 *            attributeIDs)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
-    Tells the parser of several attributes for the specified element. The attributes are passed
-    as a zero-delimited, double-zero-terminated C string in attributeNames, and the attribute
-    IDs are passed in on attributeIDs as an array; if any attributeIDs are zero, unique IDs
-    are generated for those and returned
+    Tells the parser of an attribute, which may have a particular type of value, for the
+    specified element. Params are as in XMLParseAddAttribute, plus all the kinds of values
+    the attribute may have are passed in attributeValueKind, and optional additional information
+    required to tokenize the particular kind of attribute is passed in attributeValueKindInfo
 */
 /*
  *  XMLParseAddAttributeAndValue()
@@ -5757,14 +6043,14 @@ XMLParseAddAttributeAndValue(
   char *              attributeName,
   UInt32 *            attributeID,
   UInt32              attributeValueKind,
-  void *              attributeValueKindInfo);
+  void *              attributeValueKindInfo)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
-    Tells the parser of an attribute, which may have a particular type of value, for the
-    specified element. Params are as in XMLParseAddAttribute, plus all the kinds of values
-    the attribute may have are passed in attributeValueKind, and optional additional information
-    required to tokenize the particular kind of attribute is passed in attributeValueKindInfo
+    Tells the parser of several attributes, which may have a particular type of value, for the
+    specified element. Params are as in XMLParseAddMultipleAttributes, plus all the kinds of values
+    the attributes may have are passed in attributeValueKinds, and optional additional information
+    required to tokenize the particular kind of attributes is passed in attributeValueKindInfos
 */
 /*
  *  XMLParseAddMultipleAttributesAndValues()
@@ -5783,14 +6069,12 @@ XMLParseAddMultipleAttributesAndValues(
   char *              attributeNames,
   UInt32 *            attributeIDs,
   UInt32 *            attributeValueKinds,
-  void **             attributeValueKindInfos);
+  void **             attributeValueKindInfos)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
-    Tells the parser of several attributes, which may have a particular type of value, for the
-    specified element. Params are as in XMLParseAddMultipleAttributes, plus all the kinds of values
-    the attributes may have are passed in attributeValueKinds, and optional additional information
-    required to tokenize the particular kind of attributes is passed in attributeValueKindInfos
+    Tells the parser that the particular attribute may have an additional kind of
+    value, as specified by attributeValueKind and attributeValueKindInfo
 */
 /*
  *  XMLParseAddAttributeValueKind()
@@ -5807,12 +6091,13 @@ XMLParseAddAttributeValueKind(
   UInt32              elementID,
   UInt32              attributeID,
   UInt32              attributeValueKind,
-  void *              attributeValueKindInfo);
+  void *              attributeValueKindInfo)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
-    Tells the parser that the particular attribute may have an additional kind of
-    value, as specified by attributeValueKind and attributeValueKindInfo
+    Tell the parser of a namespace to be recognized. The tokenized namespace unique identifier is
+    passed in *nameSpaceID, unless *nameSpaceID is zero, whereupon a unique ID is generated and returned.
+    Thus, a valid nameSpaceID identifier can never be zero.
 */
 /*
  *  XMLParseAddNameSpace()
@@ -5827,14 +6112,10 @@ extern ComponentResult
 XMLParseAddNameSpace(
   ComponentInstance   aParser,
   char *              nameSpaceURL,
-  UInt32 *            nameSpaceID);
+  UInt32 *            nameSpaceID)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*
-    Tell the parser of a namespace to be recognized. The tokenized namespace unique identifier is
-    passed in *nameSpaceID, unless *nameSpaceID is zero, whereupon a unique ID is generated and returned.
-    Thus, a valid nameSpaceID identifier can never be zero.
-*/
+/*  Specifies the offset and limit for reading from the dataref to be used when parsing*/
 /*
  *  XMLParseSetOffsetAndLimit()
  *  
@@ -5848,10 +6129,10 @@ extern ComponentResult
 XMLParseSetOffsetAndLimit(
   ComponentInstance   aParser,
   UInt32              offset,
-  UInt32              limit);
+  UInt32              limit)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Specifies the offset and limit for reading from the dataref to be used when parsing*/
+/*  Set the event parse refcon*/
 /*
  *  XMLParseSetEventParseRefCon()
  *  
@@ -5864,10 +6145,10 @@ XMLParseSetOffsetAndLimit(
 extern ComponentResult 
 XMLParseSetEventParseRefCon(
   ComponentInstance   aParser,
-  long                refcon);
+  long                refcon)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Set the event parse refcon*/
+/*  Set the start document handler UPP for event parsing*/
 /*
  *  XMLParseSetStartDocumentHandler()
  *  
@@ -5880,10 +6161,10 @@ XMLParseSetEventParseRefCon(
 extern ComponentResult 
 XMLParseSetStartDocumentHandler(
   ComponentInstance         aParser,
-  StartDocumentHandlerUPP   startDocument);
+  StartDocumentHandlerUPP   startDocument)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Set the start document handler UPP for event parsing*/
+/*  Set the end document handler UPP for event parsing*/
 /*
  *  XMLParseSetEndDocumentHandler()
  *  
@@ -5896,10 +6177,10 @@ XMLParseSetStartDocumentHandler(
 extern ComponentResult 
 XMLParseSetEndDocumentHandler(
   ComponentInstance       aParser,
-  EndDocumentHandlerUPP   endDocument);
+  EndDocumentHandlerUPP   endDocument)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Set the end document handler UPP for event parsing*/
+/*  Set the start element handler UPP for event parsing*/
 /*
  *  XMLParseSetStartElementHandler()
  *  
@@ -5912,10 +6193,10 @@ XMLParseSetEndDocumentHandler(
 extern ComponentResult 
 XMLParseSetStartElementHandler(
   ComponentInstance        aParser,
-  StartElementHandlerUPP   startElement);
+  StartElementHandlerUPP   startElement)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Set the start element handler UPP for event parsing*/
+/*  Set the end element handler UPP for event parsing*/
 /*
  *  XMLParseSetEndElementHandler()
  *  
@@ -5928,10 +6209,10 @@ XMLParseSetStartElementHandler(
 extern ComponentResult 
 XMLParseSetEndElementHandler(
   ComponentInstance      aParser,
-  EndElementHandlerUPP   endElement);
+  EndElementHandlerUPP   endElement)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Set the end element handler UPP for event parsing*/
+/*  Set the character data handler UPP for event parsing*/
 /*
  *  XMLParseSetCharDataHandler()
  *  
@@ -5944,10 +6225,10 @@ XMLParseSetEndElementHandler(
 extern ComponentResult 
 XMLParseSetCharDataHandler(
   ComponentInstance    aParser,
-  CharDataHandlerUPP   charData);
+  CharDataHandlerUPP   charData)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Set the character data handler UPP for event parsing*/
+/*  Set the preprocess instruction handler UPP for event parsing*/
 /*
  *  XMLParseSetPreprocessInstructionHandler()
  *  
@@ -5960,10 +6241,10 @@ XMLParseSetCharDataHandler(
 extern ComponentResult 
 XMLParseSetPreprocessInstructionHandler(
   ComponentInstance                 aParser,
-  PreprocessInstructionHandlerUPP   preprocessInstruction);
+  PreprocessInstructionHandlerUPP   preprocessInstruction)    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Set the preprocess instruction handler UPP for event parsing*/
+/*  Set the comment handler UPP for event parsing*/
 /*
  *  XMLParseSetCommentHandler()
  *  
@@ -5976,10 +6257,25 @@ XMLParseSetPreprocessInstructionHandler(
 extern ComponentResult 
 XMLParseSetCommentHandler(
   ComponentInstance   aParser,
-  CommentHandlerUPP   comment);
+  CommentHandlerUPP   comment)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
-/*  Set the comment handler UPP for event parsing*/
+/*  Set the cdata handler UPP for event parsing*/
+/*
+ *  XMLParseSetCDataHandler()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+XMLParseSetCDataHandler(
+  ComponentInstance   aParser,
+  CDataHandlerUPP     cdata)                                  AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
 /*
     Helper Macros
     
@@ -6018,17 +6314,13 @@ XMLParseSetCommentHandler(
             
         Finally, the existence of local variables elementID and attributeID is required.
 */
-
-#define XML_ADD_ELEMENT_NS(elementName,nameSpaceID)        elementID   =   GLUE2(element_,elementName);    XMLParseAddElement(xmlParser, #elementName, nameSpaceID, &elementID, 0)
-#define XML_ADD_ELEMENT(elementName)                    XML_ADD_ELEMENT_NS(elementName,nameSpaceIDNone)
-
 /*
     Adds the specified element to the parser, i.e. XML_ADD_ELEMENT(head) adds the element "head" with
     a unique identifier of element_head
 */
 
-#define XML_ADD_COMPLEX_ELEMENT_NS(elementName,elemID,nameSpaceID)     elementID   =   GLUE2(element_,elemID);     XMLParseAddElement(xmlParser, #elementName, nameSpaceID, &elementID, 0)
-#define XML_ADD_COMPLEX_ELEMENT(elementName,elemID)                     XML_ADD_COMPLEX_ELEMENT_NS(elementName,elemID,nameSpaceIDNone)
+#define XML_ADD_ELEMENT_NS(elementName,nameSpaceID)        elementID   =   GLUE2(element_,elementName);    XMLParseAddElement(xmlParser, #elementName, nameSpaceID, &elementID, 0)
+#define XML_ADD_ELEMENT(elementName)                    XML_ADD_ELEMENT_NS(elementName,nameSpaceIDNone)
 
 /*
     Adds the specified element to the parser, not using the same string to generate the identifier and
@@ -6037,16 +6329,16 @@ XMLParseSetCommentHandler(
     identifier of element_rootlayout
 */
 
-#define XML_ADD_ATTRIBUTE_NS(attrName,nameSpaceID)     attributeID =   GLUE2(attr_,attrName);      XMLParseAddAttribute(xmlParser, elementID, nameSpaceID, #attrName, &attributeID);
-#define XML_ADD_ATTRIBUTE(attrName)                       XML_ADD_ATTRIBUTE_NS(attrName,nameSpaceIDNone)
+#define XML_ADD_COMPLEX_ELEMENT_NS(elementName,elemID,nameSpaceID)     elementID   =   GLUE2(element_,elemID);     XMLParseAddElement(xmlParser, #elementName, nameSpaceID, &elementID, 0)
+#define XML_ADD_COMPLEX_ELEMENT(elementName,elemID)                     XML_ADD_COMPLEX_ELEMENT_NS(elementName,elemID,nameSpaceIDNone)
 
 /*
     Adds the specified attribute to the current element in the parser, i.e. XML_ADD_ATTRIBUTE(src)
     adds the attribute "src" to the current element, and identifies it by attr_src
 */
 
-#define XML_ADD_COMPLEX_ATTRIBUTE_NS(attrName,attrID,nameSpaceID)  attributeID =   GLUE2(attr_,attrID);        XMLParseAddAttribute(xmlParser, elementID, nameSpaceID, #attrName, &attributeID);
-#define XML_ADD_COMPLEX_ATTRIBUTE(attrName,attrID)                    XML_ADD_COMPLEX_ATTRIBUTE_NS(attrName,attrID,nameSpaceIDNone)
+#define XML_ADD_ATTRIBUTE_NS(attrName,nameSpaceID)     attributeID =   GLUE2(attr_,attrName);      XMLParseAddAttribute(xmlParser, elementID, nameSpaceID, #attrName, &attributeID);
+#define XML_ADD_ATTRIBUTE(attrName)                       XML_ADD_ATTRIBUTE_NS(attrName,nameSpaceIDNone)
 
 /*
     Adds the specified attribute to the current element in the parser, i.e. XML_ADD_ATTRIBUTE(element_img, src)
@@ -6056,6 +6348,10 @@ XMLParseSetCommentHandler(
     are illegal in identifiers, i.e XML_ADD_COMPLEX_ATTRIBUTE("http-equiv",httpequiv) adds the element
     "http-equiv" with a unique identifier of attr_httpequiv
 */
+
+#define XML_ADD_COMPLEX_ATTRIBUTE_NS(attrName,attrID,nameSpaceID)  attributeID =   GLUE2(attr_,attrID);        XMLParseAddAttribute(xmlParser, elementID, nameSpaceID, #attrName, &attributeID);
+#define XML_ADD_COMPLEX_ATTRIBUTE(attrName,attrID)                    XML_ADD_COMPLEX_ATTRIBUTE_NS(attrName,attrID,nameSpaceIDNone)
+
 
 #define XML_ADD_ATTRIBUTE_AND_VALUE_NS(attrName,valueKind,valueKindInfo,nameSpaceID)   attributeID =   GLUE2(attr_,attrName);      XMLParseAddAttributeAndValue(xmlParser, elementID, nameSpaceID, #attrName, &attributeID, valueKind, valueKindInfo);
 #define XML_ADD_ATTRIBUTE_AND_VALUE(attrName,valueKind,valueKindInfo)                   XML_ADD_ATTRIBUTE_AND_VALUE_NS(attrName,valueKind,valueKindInfo,nameSpaceIDNone)
@@ -6095,7 +6391,9 @@ typedef unsigned long                   SeqGrabDataOutputEnum;
 enum {
   seqGrabRecord                 = 1,
   seqGrabPreview                = 2,
-  seqGrabPlayDuringRecord       = 4
+  seqGrabPlayDuringRecord       = 4,
+  seqGrabLowLatencyCapture      = 8,    /* return the freshest frame possible, for live work (videoconferencing, live broadcast, live image processing) */
+  seqGrabAlwaysUseTimeBase      = 16    /* Tell VDIGs to use TimebaseTime always, rather than creating uniform frame durations, for more accurate live sync with audio */
 };
 
 typedef unsigned long                   SeqGrabUsageEnum;
@@ -6145,16 +6443,37 @@ enum {
 
 typedef CALLBACK_API( OSErr , SGDataProcPtr )(SGChannel c, Ptr p, long len, long *offset, long chRefCon, TimeValue time, short writeType, long refCon);
 typedef STACK_UPP_TYPE(SGDataProcPtr)                           SGDataUPP;
+struct SGDeviceInputName {
+  Str63               name;
+  Handle              icon;
+  long                flags;
+  long                reserved;               /* zero*/
+};
+typedef struct SGDeviceInputName        SGDeviceInputName;
+enum {
+  sgDeviceInputNameFlagInputUnavailable = (1 << 0)
+};
+
+struct SGDeviceInputListRecord {
+  short               count;
+  short               selectedIndex;
+  long                reserved;               /* zero*/
+  SGDeviceInputName   entry[1];
+};
+typedef struct SGDeviceInputListRecord  SGDeviceInputListRecord;
+typedef SGDeviceInputListRecord *       SGDeviceInputListPtr;
+typedef SGDeviceInputListPtr *          SGDeviceInputList;
 struct SGDeviceName {
   Str63               name;
   Handle              icon;
   long                flags;
   long                refCon;
-  long                reserved;               /* zero*/
+  SGDeviceInputList   inputs;                 /* list of inputs; formerly reserved to 0*/
 };
 typedef struct SGDeviceName             SGDeviceName;
 enum {
-  sgDeviceNameFlagDeviceUnavailable = (1 << 0)
+  sgDeviceNameFlagDeviceUnavailable = (1 << 0),
+  sgDeviceNameFlagShowInputsAsDevices = (1 << 1)
 };
 
 struct SGDeviceListRecord {
@@ -6168,7 +6487,8 @@ typedef SGDeviceListRecord *            SGDeviceListPtr;
 typedef SGDeviceListPtr *               SGDeviceList;
 enum {
   sgDeviceListWithIcons         = (1 << 0),
-  sgDeviceListDontCheckAvailability = (1 << 1)
+  sgDeviceListDontCheckAvailability = (1 << 1),
+  sgDeviceListIncludeInputs     = (1 << 2)
 };
 
 enum {
@@ -6216,7 +6536,7 @@ enum {
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGInitialize(SeqGrabComponent s);
+SGInitialize(SeqGrabComponent s)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6232,7 +6552,7 @@ extern ComponentResult
 SGSetDataOutput(
   SeqGrabComponent   s,
   const FSSpec *     movieFile,
-  long               whereFlags);
+  long               whereFlags)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6248,7 +6568,7 @@ extern ComponentResult
 SGGetDataOutput(
   SeqGrabComponent   s,
   FSSpec *           movieFile,
-  long *             whereFlags);
+  long *             whereFlags)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6264,7 +6584,7 @@ extern ComponentResult
 SGSetGWorld(
   SeqGrabComponent   s,
   CGrafPtr           gp,
-  GDHandle           gd);
+  GDHandle           gd)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6280,7 +6600,7 @@ extern ComponentResult
 SGGetGWorld(
   SeqGrabComponent   s,
   CGrafPtr *         gp,
-  GDHandle *         gd);
+  GDHandle *         gd)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6296,7 +6616,7 @@ extern ComponentResult
 SGNewChannel(
   SeqGrabComponent   s,
   OSType             channelType,
-  SGChannel *        ref);
+  SGChannel *        ref)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6311,7 +6631,7 @@ SGNewChannel(
 extern ComponentResult 
 SGDisposeChannel(
   SeqGrabComponent   s,
-  SGChannel          c);
+  SGChannel          c)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6324,7 +6644,7 @@ SGDisposeChannel(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGStartPreview(SeqGrabComponent s);
+SGStartPreview(SeqGrabComponent s)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6337,7 +6657,7 @@ SGStartPreview(SeqGrabComponent s);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGStartRecord(SeqGrabComponent s);
+SGStartRecord(SeqGrabComponent s)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6350,7 +6670,7 @@ SGStartRecord(SeqGrabComponent s);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGIdle(SeqGrabComponent s);
+SGIdle(SeqGrabComponent s)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6363,7 +6683,7 @@ SGIdle(SeqGrabComponent s);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGStop(SeqGrabComponent s);
+SGStop(SeqGrabComponent s)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6378,7 +6698,7 @@ SGStop(SeqGrabComponent s);
 extern ComponentResult 
 SGPause(
   SeqGrabComponent   s,
-  Byte               pause);
+  Byte               pause)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6394,7 +6714,7 @@ extern ComponentResult
 SGPrepare(
   SeqGrabComponent   s,
   Boolean            prepareForPreview,
-  Boolean            prepareForRecord);
+  Boolean            prepareForRecord)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6407,7 +6727,7 @@ SGPrepare(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGRelease(SeqGrabComponent s);
+SGRelease(SeqGrabComponent s)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6420,7 +6740,7 @@ SGRelease(SeqGrabComponent s);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern Movie 
-SGGetMovie(SeqGrabComponent s);
+SGGetMovie(SeqGrabComponent s)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6435,7 +6755,7 @@ SGGetMovie(SeqGrabComponent s);
 extern ComponentResult 
 SGSetMaximumRecordTime(
   SeqGrabComponent   s,
-  unsigned long      ticks);
+  unsigned long      ticks)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6450,7 +6770,7 @@ SGSetMaximumRecordTime(
 extern ComponentResult 
 SGGetMaximumRecordTime(
   SeqGrabComponent   s,
-  unsigned long *    ticks);
+  unsigned long *    ticks)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6465,7 +6785,7 @@ SGGetMaximumRecordTime(
 extern ComponentResult 
 SGGetStorageSpaceRemaining(
   SeqGrabComponent   s,
-  unsigned long *    bytes);
+  unsigned long *    bytes)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6480,7 +6800,7 @@ SGGetStorageSpaceRemaining(
 extern ComponentResult 
 SGGetTimeRemaining(
   SeqGrabComponent   s,
-  long *             ticksLeft);
+  long *             ticksLeft)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6498,7 +6818,7 @@ SGGrabPict(
   PicHandle *        p,
   const Rect *       bounds,
   short              offscreenDepth,
-  long               grabPictFlags);
+  long               grabPictFlags)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6513,7 +6833,7 @@ SGGrabPict(
 extern ComponentResult 
 SGGetLastMovieResID(
   SeqGrabComponent   s,
-  short *            resID);
+  short *            resID)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6528,7 +6848,7 @@ SGGetLastMovieResID(
 extern ComponentResult 
 SGSetFlags(
   SeqGrabComponent   s,
-  long               sgFlags);
+  long               sgFlags)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6543,7 +6863,7 @@ SGSetFlags(
 extern ComponentResult 
 SGGetFlags(
   SeqGrabComponent   s,
-  long *             sgFlags);
+  long *             sgFlags)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6559,7 +6879,7 @@ extern ComponentResult
 SGSetDataProc(
   SeqGrabComponent   s,
   SGDataUPP          proc,
-  long               refCon);
+  long               refCon)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6575,7 +6895,7 @@ extern ComponentResult
 SGNewChannelFromComponent(
   SeqGrabComponent   s,
   SGChannel *        newChannel,
-  Component          sgChannelComponent);
+  Component          sgChannelComponent)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6590,7 +6910,7 @@ SGNewChannelFromComponent(
 extern ComponentResult 
 SGDisposeDeviceList(
   SeqGrabComponent   s,
-  SGDeviceList       list);
+  SGDeviceList       list)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6606,7 +6926,7 @@ extern ComponentResult
 SGAppendDeviceListToMenu(
   SeqGrabComponent   s,
   SGDeviceList       list,
-  MenuRef            mh);
+  MenuRef            mh)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6622,7 +6942,7 @@ extern ComponentResult
 SGSetSettings(
   SeqGrabComponent   s,
   UserData           ud,
-  long               flags);
+  long               flags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6638,7 +6958,7 @@ extern ComponentResult
 SGGetSettings(
   SeqGrabComponent   s,
   UserData *         ud,
-  long               flags);
+  long               flags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6655,7 +6975,7 @@ SGGetIndChannel(
   SeqGrabComponent   s,
   short              index,
   SGChannel *        ref,
-  OSType *           chanType);
+  OSType *           chanType)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6670,7 +6990,7 @@ SGGetIndChannel(
 extern ComponentResult 
 SGUpdate(
   SeqGrabComponent   s,
-  RgnHandle          updateRgn);
+  RgnHandle          updateRgn)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6685,7 +7005,7 @@ SGUpdate(
 extern ComponentResult 
 SGGetPause(
   SeqGrabComponent   s,
-  Byte *             paused);
+  Byte *             paused)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 typedef const Component *               ConstComponentListPtr;
@@ -6706,7 +7026,7 @@ SGSettingsDialog(
   ConstComponentListPtr   panelList,
   long                    flags,
   SGModalFilterUPP        proc,
-  long                    procRefNum);
+  long                    procRefNum)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6721,7 +7041,7 @@ SGSettingsDialog(
 extern ComponentResult 
 SGGetAlignmentProc(
   SeqGrabComponent            s,
-  ICMAlignmentProcRecordPtr   alignmentProc);
+  ICMAlignmentProcRecordPtr   alignmentProc)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6738,7 +7058,7 @@ SGSetChannelSettings(
   SeqGrabComponent   s,
   SGChannel          c,
   UserData           ud,
-  long               flags);
+  long               flags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6755,7 +7075,7 @@ SGGetChannelSettings(
   SeqGrabComponent   s,
   SGChannel          c,
   UserData *         ud,
-  long               flags);
+  long               flags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6771,7 +7091,7 @@ extern ComponentResult
 SGGetMode(
   SeqGrabComponent   s,
   Boolean *          previewMode,
-  Boolean *          recordMode);
+  Boolean *          recordMode)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6788,7 +7108,7 @@ SGSetDataRef(
   SeqGrabComponent   s,
   Handle             dataRef,
   OSType             dataRefType,
-  long               whereFlags);
+  long               whereFlags)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6805,7 +7125,7 @@ SGGetDataRef(
   SeqGrabComponent   s,
   Handle *           dataRef,
   OSType *           dataRefType,
-  long *             whereFlags);
+  long *             whereFlags)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6823,7 +7143,7 @@ SGNewOutput(
   Handle             dataRef,
   OSType             dataRefType,
   long               whereFlags,
-  SGOutput *         sgOut);
+  SGOutput *         sgOut)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6838,7 +7158,7 @@ SGNewOutput(
 extern ComponentResult 
 SGDisposeOutput(
   SeqGrabComponent   s,
-  SGOutput           sgOut);
+  SGOutput           sgOut)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6854,7 +7174,7 @@ extern ComponentResult
 SGSetOutputFlags(
   SeqGrabComponent   s,
   SGOutput           sgOut,
-  long               whereFlags);
+  long               whereFlags)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6870,7 +7190,7 @@ extern ComponentResult
 SGSetChannelOutput(
   SeqGrabComponent   s,
   SGChannel          c,
-  SGOutput           sgOut);
+  SGOutput           sgOut)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6886,7 +7206,7 @@ extern ComponentResult
 SGGetDataOutputStorageSpaceRemaining(
   SeqGrabComponent   s,
   SGOutput           sgOut,
-  unsigned long *    space);
+  unsigned long *    space)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6902,7 +7222,7 @@ extern ComponentResult
 SGHandleUpdateEvent(
   SeqGrabComponent     s,
   const EventRecord *  event,
-  Boolean *            handled);
+  Boolean *            handled)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6918,7 +7238,7 @@ extern ComponentResult
 SGSetOutputNextOutput(
   SeqGrabComponent   s,
   SGOutput           sgOut,
-  SGOutput           nextOut);
+  SGOutput           nextOut)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6934,7 +7254,7 @@ extern ComponentResult
 SGGetOutputNextOutput(
   SeqGrabComponent   s,
   SGOutput           sgOut,
-  SGOutput *         nextOut);
+  SGOutput *         nextOut)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6950,7 +7270,7 @@ extern ComponentResult
 SGSetOutputMaximumOffset(
   SeqGrabComponent   s,
   SGOutput           sgOut,
-  const wide *       maxOffset);
+  const wide *       maxOffset)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6966,7 +7286,7 @@ extern ComponentResult
 SGGetOutputMaximumOffset(
   SeqGrabComponent   s,
   SGOutput           sgOut,
-  wide *             maxOffset);
+  wide *             maxOffset)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6983,7 +7303,7 @@ SGGetOutputDataReference(
   SeqGrabComponent   s,
   SGOutput           sgOut,
   Handle *           dataRef,
-  OSType *           dataRefType);
+  OSType *           dataRefType)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7002,7 +7322,7 @@ SGWriteExtendedMovieData(
   Ptr                p,
   long               len,
   wide *             offset,
-  SGOutput *         sgOut);
+  SGOutput *         sgOut)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7017,7 +7337,7 @@ SGWriteExtendedMovieData(
 extern ComponentResult 
 SGGetStorageSpaceRemaining64(
   SeqGrabComponent   s,
-  wide *             bytes);
+  wide *             bytes)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7033,7 +7353,7 @@ extern ComponentResult
 SGGetDataOutputStorageSpaceRemaining64(
   SeqGrabComponent   s,
   SGOutput           sgOut,
-  wide *             space);
+  wide *             space)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7054,7 +7374,7 @@ SGWriteMovieData(
   SGChannel          c,
   Ptr                p,
   long               len,
-  long *             offset);
+  long *             offset)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7069,7 +7389,7 @@ SGWriteMovieData(
 extern ComponentResult 
 SGAddFrameReference(
   SeqGrabComponent      s,
-  SeqGrabFrameInfoPtr   frameInfo);
+  SeqGrabFrameInfoPtr   frameInfo)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7086,7 +7406,7 @@ SGGetNextFrameReference(
   SeqGrabComponent      s,
   SeqGrabFrameInfoPtr   frameInfo,
   TimeValue *           frameDuration,
-  long *                frameNumber);
+  long *                frameNumber)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7101,7 +7421,7 @@ SGGetNextFrameReference(
 extern ComponentResult 
 SGGetTimeBase(
   SeqGrabComponent   s,
-  TimeBase *         tb);
+  TimeBase *         tb)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7116,7 +7436,7 @@ SGGetTimeBase(
 extern ComponentResult 
 SGSortDeviceList(
   SeqGrabComponent   s,
-  SGDeviceList       list);
+  SGDeviceList       list)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7137,7 +7457,7 @@ SGAddMovieData(
   long *             offset,
   long               chRefCon,
   TimeValue          time,
-  short              writeType);
+  short              writeType)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7152,7 +7472,7 @@ SGAddMovieData(
 extern ComponentResult 
 SGChangedSource(
   SeqGrabComponent   s,
-  SGChannel          c);
+  SGChannel          c)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7167,7 +7487,7 @@ SGChangedSource(
 extern ComponentResult 
 SGAddExtendedFrameReference(
   SeqGrabComponent              s,
-  SeqGrabExtendedFrameInfoPtr   frameInfo);
+  SeqGrabExtendedFrameInfoPtr   frameInfo)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7184,7 +7504,7 @@ SGGetNextExtendedFrameReference(
   SeqGrabComponent              s,
   SeqGrabExtendedFrameInfoPtr   frameInfo,
   TimeValue *                   frameDuration,
-  long *                        frameNumber);
+  long *                        frameNumber)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7206,7 +7526,7 @@ SGAddExtendedMovieData(
   long               chRefCon,
   TimeValue          time,
   short              writeType,
-  SGOutput *         whichOutput);
+  SGOutput *         whichOutput)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7223,7 +7543,22 @@ SGAddOutputDataRefToMedia(
   SeqGrabComponent          s,
   SGOutput                  sgOut,
   Media                     theMedia,
-  SampleDescriptionHandle   desc);
+  SampleDescriptionHandle   desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+/*
+ *  SGSetSettingsSummary()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+SGSetSettingsSummary(
+  SeqGrabComponent   s,
+  Handle             summaryText)                             AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 
@@ -7242,7 +7577,7 @@ SGAddOutputDataRefToMedia(
 extern ComponentResult 
 SGSetChannelUsage(
   SGChannel   c,
-  long        usage);
+  long        usage)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7257,7 +7592,7 @@ SGSetChannelUsage(
 extern ComponentResult 
 SGGetChannelUsage(
   SGChannel   c,
-  long *      usage);
+  long *      usage)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7272,7 +7607,7 @@ SGGetChannelUsage(
 extern ComponentResult 
 SGSetChannelBounds(
   SGChannel     c,
-  const Rect *  bounds);
+  const Rect *  bounds)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7287,7 +7622,7 @@ SGSetChannelBounds(
 extern ComponentResult 
 SGGetChannelBounds(
   SGChannel   c,
-  Rect *      bounds);
+  Rect *      bounds)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7302,7 +7637,7 @@ SGGetChannelBounds(
 extern ComponentResult 
 SGSetChannelVolume(
   SGChannel   c,
-  short       volume);
+  short       volume)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7317,7 +7652,7 @@ SGSetChannelVolume(
 extern ComponentResult 
 SGGetChannelVolume(
   SGChannel   c,
-  short *     volume);
+  short *     volume)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7332,7 +7667,7 @@ SGGetChannelVolume(
 extern ComponentResult 
 SGGetChannelInfo(
   SGChannel   c,
-  long *      channelInfo);
+  long *      channelInfo)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7347,7 +7682,7 @@ SGGetChannelInfo(
 extern ComponentResult 
 SGSetChannelPlayFlags(
   SGChannel   c,
-  long        playFlags);
+  long        playFlags)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7362,7 +7697,7 @@ SGSetChannelPlayFlags(
 extern ComponentResult 
 SGGetChannelPlayFlags(
   SGChannel   c,
-  long *      playFlags);
+  long *      playFlags)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7377,7 +7712,7 @@ SGGetChannelPlayFlags(
 extern ComponentResult 
 SGSetChannelMaxFrames(
   SGChannel   c,
-  long        frameCount);
+  long        frameCount)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7392,7 +7727,7 @@ SGSetChannelMaxFrames(
 extern ComponentResult 
 SGGetChannelMaxFrames(
   SGChannel   c,
-  long *      frameCount);
+  long *      frameCount)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7407,7 +7742,7 @@ SGGetChannelMaxFrames(
 extern ComponentResult 
 SGSetChannelRefCon(
   SGChannel   c,
-  long        refCon);
+  long        refCon)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7422,7 +7757,7 @@ SGSetChannelRefCon(
 extern ComponentResult 
 SGSetChannelClip(
   SGChannel   c,
-  RgnHandle   theClip);
+  RgnHandle   theClip)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7437,7 +7772,7 @@ SGSetChannelClip(
 extern ComponentResult 
 SGGetChannelClip(
   SGChannel    c,
-  RgnHandle *  theClip);
+  RgnHandle *  theClip)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7452,7 +7787,7 @@ SGGetChannelClip(
 extern ComponentResult 
 SGGetChannelSampleDescription(
   SGChannel   c,
-  Handle      sampleDesc);
+  Handle      sampleDesc)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7468,7 +7803,7 @@ extern ComponentResult
 SGGetChannelDeviceList(
   SGChannel       c,
   long            selectionFlags,
-  SGDeviceList *  list);
+  SGDeviceList *  list)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7483,7 +7818,7 @@ SGGetChannelDeviceList(
 extern ComponentResult 
 SGSetChannelDevice(
   SGChannel   c,
-  StringPtr   name);
+  StringPtr   name)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7498,7 +7833,7 @@ SGSetChannelDevice(
 extern ComponentResult 
 SGSetChannelMatrix(
   SGChannel             c,
-  const MatrixRecord *  m);
+  const MatrixRecord *  m)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7513,7 +7848,7 @@ SGSetChannelMatrix(
 extern ComponentResult 
 SGGetChannelMatrix(
   SGChannel       c,
-  MatrixRecord *  m);
+  MatrixRecord *  m)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7528,7 +7863,7 @@ SGGetChannelMatrix(
 extern ComponentResult 
 SGGetChannelTimeScale(
   SGChannel    c,
-  TimeScale *  scale);
+  TimeScale *  scale)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7541,7 +7876,7 @@ SGGetChannelTimeScale(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGChannelPutPicture(SGChannel c);
+SGChannelPutPicture(SGChannel c)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7556,7 +7891,7 @@ SGChannelPutPicture(SGChannel c);
 extern ComponentResult 
 SGChannelSetRequestedDataRate(
   SGChannel   c,
-  long        bytesPerSecond);
+  long        bytesPerSecond)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7571,7 +7906,7 @@ SGChannelSetRequestedDataRate(
 extern ComponentResult 
 SGChannelGetRequestedDataRate(
   SGChannel   c,
-  long *      bytesPerSecond);
+  long *      bytesPerSecond)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7587,7 +7922,7 @@ extern ComponentResult
 SGChannelSetDataSourceName(
   SGChannel          c,
   ConstStr255Param   name,
-  ScriptCode         scriptTag);
+  ScriptCode         scriptTag)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7603,7 +7938,7 @@ extern ComponentResult
 SGChannelGetDataSourceName(
   SGChannel     c,
   Str255        name,
-  ScriptCode *  scriptTag);
+  ScriptCode *  scriptTag)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7618,7 +7953,7 @@ SGChannelGetDataSourceName(
 extern ComponentResult 
 SGChannelSetCodecSettings(
   SGChannel   c,
-  Handle      settings);
+  Handle      settings)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7633,7 +7968,7 @@ SGChannelSetCodecSettings(
 extern ComponentResult 
 SGChannelGetCodecSettings(
   SGChannel   c,
-  Handle *    settings);
+  Handle *    settings)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7648,7 +7983,78 @@ SGChannelGetCodecSettings(
 extern ComponentResult 
 SGGetChannelTimeBase(
   SGChannel   c,
-  TimeBase *  tb);
+  TimeBase *  tb)                                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+/*
+ *  SGGetChannelRefCon()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+SGGetChannelRefCon(
+  SGChannel   c,
+  long *      refCon)                                         AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/* A utility call to find out the current device and input names, instead of having to call GetDeviceList and walk it yourself */
+/*
+ *  SGGetChannelDeviceAndInputNames()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+SGGetChannelDeviceAndInputNames(
+  SGChannel   c,
+  Str255      outDeviceName,
+  Str255      outInputName,
+  short *     outInputNumber)                                 AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/* A media format independent call for this. Inputs start at 0 here (Sound starts at 1, VDIGs at 0 in direct calls) */
+/*
+ *  SGSetChannelDeviceInput()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+SGSetChannelDeviceInput(
+  SGChannel   c,
+  short       inInputNumber)                                  AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+/* A call to bracket SetSettings related calls, to give downstream components an opportunity to deal with the entire 
+    settings change in one go */
+enum {
+  sgSetSettingsBegin            = (1 << 0), /* SGSetSettings related set calls about to start*/
+  sgSetSettingsEnd              = (1 << 1) /* Finished SGSetSettings calls. Get ready to use the new settings*/
+};
+
+/*
+ *  SGSetChannelSettingsStateChanging()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+SGSetChannelSettingsStateChanging(
+  SGChannel   c,
+  UInt32      inFlags)                                        AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 /*
@@ -7666,7 +8072,7 @@ SGGetChannelTimeBase(
 extern ComponentResult 
 SGInitChannel(
   SGChannel          c,
-  SeqGrabComponent   owner);
+  SeqGrabComponent   owner)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7682,7 +8088,7 @@ extern ComponentResult
 SGWriteSamples(
   SGChannel     c,
   Movie         m,
-  AliasHandle   theFile);
+  AliasHandle   theFile)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7697,7 +8103,7 @@ SGWriteSamples(
 extern ComponentResult 
 SGGetDataRate(
   SGChannel   c,
-  long *      bytesPerSecond);
+  long *      bytesPerSecond)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7712,7 +8118,7 @@ SGGetDataRate(
 extern ComponentResult 
 SGAlignChannelRect(
   SGChannel   c,
-  Rect *      r);
+  Rect *      r)                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7730,7 +8136,7 @@ SGAlignChannelRect(
 extern ComponentResult 
 SGPanelGetDitl(
   SeqGrabComponent   s,
-  Handle *           ditl);
+  Handle *           ditl)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7745,7 +8151,7 @@ SGPanelGetDitl(
 extern ComponentResult 
 SGPanelGetTitle(
   SeqGrabComponent   s,
-  Str255             title);
+  Str255             title)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7760,7 +8166,7 @@ SGPanelGetTitle(
 extern ComponentResult 
 SGPanelCanRun(
   SeqGrabComponent   s,
-  SGChannel          c);
+  SGChannel          c)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7777,7 +8183,7 @@ SGPanelInstall(
   SeqGrabComponent   s,
   SGChannel          c,
   DialogRef          d,
-  short              itemOffset);
+  short              itemOffset)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7797,7 +8203,7 @@ SGPanelEvent(
   short                itemOffset,
   const EventRecord *  theEvent,
   short *              itemHit,
-  Boolean *            handled);
+  Boolean *            handled)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7815,7 +8221,7 @@ SGPanelItem(
   SGChannel          c,
   DialogRef          d,
   short              itemOffset,
-  short              itemNum);
+  short              itemNum)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7832,7 +8238,7 @@ SGPanelRemove(
   SeqGrabComponent   s,
   SGChannel          c,
   DialogRef          d,
-  short              itemOffset);
+  short              itemOffset)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7847,7 +8253,7 @@ SGPanelRemove(
 extern ComponentResult 
 SGPanelSetGrabber(
   SeqGrabComponent   s,
-  SeqGrabComponent   sg);
+  SeqGrabComponent   sg)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7862,7 +8268,7 @@ SGPanelSetGrabber(
 extern ComponentResult 
 SGPanelSetResFile(
   SeqGrabComponent   s,
-  short              resRef);
+  short              resRef)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7879,7 +8285,7 @@ SGPanelGetSettings(
   SeqGrabComponent   s,
   SGChannel          c,
   UserData *         ud,
-  long               flags);
+  long               flags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7896,7 +8302,7 @@ SGPanelSetSettings(
   SeqGrabComponent   s,
   SGChannel          c,
   UserData           ud,
-  long               flags);
+  long               flags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7911,7 +8317,7 @@ SGPanelSetSettings(
 extern ComponentResult 
 SGPanelValidateInput(
   SeqGrabComponent   s,
-  Boolean *          ok);
+  Boolean *          ok)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -7927,8 +8333,35 @@ extern ComponentResult
 SGPanelSetEventFilter(
   SeqGrabComponent   s,
   SGModalFilterUPP   proc,
-  long               refCon);
+  long               refCon)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
+
+/*
+    SGPanelGetDITLForSize is used to retrieve user interface elements that fit within a specified size
+    panel.  The component should return badComponentSelector for sizes it does not support.  The component
+    is required to support kSGSmallestDITLSize, and it is recommended to support kSGLargestDITLSize.
+    
+    If SGPanelGetDITLForSize is unimplemented entirely, the panel is assumed to not have resizable UI elements.
+*/
+enum {
+  kSGSmallestDITLSize           = -1,   /* requestedSize h and v set to this to retrieve small size*/
+  kSGLargestDITLSize            = -2    /* requestedSize h and v set to this to retrieve large size*/
+};
+
+/*
+ *  SGPanelGetDITLForSize()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+SGPanelGetDITLForSize(
+  SeqGrabComponent   s,
+  Handle *           ditl,
+  Point *            requestedSize)                           AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 /*** Sequence Grab VIDEO CHANNEL Component Stuff ***/
@@ -7949,7 +8382,10 @@ typedef CALLBACK_API( ComponentResult , SGCompressBottleProcPtr )(SGChannel c, s
 typedef CALLBACK_API( ComponentResult , SGCompressCompleteBottleProcPtr )(SGChannel c, short bufferNum, Boolean *done, SGCompressInfo *ci, long refCon);
 typedef CALLBACK_API( ComponentResult , SGAddFrameBottleProcPtr )(SGChannel c, short bufferNum, TimeValue atTime, TimeScale scale, const SGCompressInfo *ci, long refCon);
 typedef CALLBACK_API( ComponentResult , SGTransferFrameBottleProcPtr )(SGChannel c, short bufferNum, MatrixRecord *mp, RgnHandle clipRgn, long refCon);
-typedef CALLBACK_API( ComponentResult , SGGrabCompressCompleteBottleProcPtr )(SGChannel c, Boolean *done, SGCompressInfo *ci, TimeRecord *t, long refCon);
+/*    Note that UInt8 *queuedFrameCount replaces Boolean *done. 0(==false) still means no frames, and 1(==true) one, 
+    but if more than one are available the number should be returned here. The value 2 previously meant more than one frame,
+    so some VDIGs may return 2 even if more than 2 are available, and some will still return 1 as they are using the original definition. */
+typedef CALLBACK_API( ComponentResult , SGGrabCompressCompleteBottleProcPtr )(SGChannel c, UInt8 *queuedFrameCount, SGCompressInfo *ci, TimeRecord *t, long refCon);
 typedef CALLBACK_API( ComponentResult , SGDisplayCompressBottleProcPtr )(SGChannel c, Ptr dataPtr, ImageDescriptionHandle desc, MatrixRecord *mp, RgnHandle clipRgn, long refCon);
 typedef STACK_UPP_TYPE(SGGrabBottleProcPtr)                     SGGrabBottleUPP;
 typedef STACK_UPP_TYPE(SGGrabCompleteBottleProcPtr)             SGGrabCompleteBottleUPP;
@@ -7985,7 +8421,7 @@ typedef struct VideoBottles             VideoBottles;
 extern ComponentResult 
 SGGetSrcVideoBounds(
   SGChannel   c,
-  Rect *      r);
+  Rect *      r)                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8000,7 +8436,7 @@ SGGetSrcVideoBounds(
 extern ComponentResult 
 SGSetVideoRect(
   SGChannel     c,
-  const Rect *  r);
+  const Rect *  r)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8015,7 +8451,7 @@ SGSetVideoRect(
 extern ComponentResult 
 SGGetVideoRect(
   SGChannel   c,
-  Rect *      r);
+  Rect *      r)                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8030,7 +8466,7 @@ SGGetVideoRect(
 extern ComponentResult 
 SGGetVideoCompressorType(
   SGChannel   c,
-  OSType *    compressorType);
+  OSType *    compressorType)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8045,7 +8481,7 @@ SGGetVideoCompressorType(
 extern ComponentResult 
 SGSetVideoCompressorType(
   SGChannel   c,
-  OSType      compressorType);
+  OSType      compressorType)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8064,7 +8500,7 @@ SGSetVideoCompressor(
   CompressorComponent   compressor,
   CodecQ                spatialQuality,
   CodecQ                temporalQuality,
-  long                  keyFrameRate);
+  long                  keyFrameRate)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8083,7 +8519,7 @@ SGGetVideoCompressor(
   CompressorComponent *  compressor,
   CodecQ *               spatialQuality,
   CodecQ *               temporalQuality,
-  long *                 keyFrameRate);
+  long *                 keyFrameRate)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8096,7 +8532,7 @@ SGGetVideoCompressor(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentInstance 
-SGGetVideoDigitizerComponent(SGChannel c);
+SGGetVideoDigitizerComponent(SGChannel c)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8111,7 +8547,7 @@ SGGetVideoDigitizerComponent(SGChannel c);
 extern ComponentResult 
 SGSetVideoDigitizerComponent(
   SGChannel           c,
-  ComponentInstance   vdig);
+  ComponentInstance   vdig)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8124,7 +8560,7 @@ SGSetVideoDigitizerComponent(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGVideoDigitizerChanged(SGChannel c);
+SGVideoDigitizerChanged(SGChannel c)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8139,7 +8575,7 @@ SGVideoDigitizerChanged(SGChannel c);
 extern ComponentResult 
 SGSetVideoBottlenecks(
   SGChannel       c,
-  VideoBottles *  vb);
+  VideoBottles *  vb)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8154,7 +8590,7 @@ SGSetVideoBottlenecks(
 extern ComponentResult 
 SGGetVideoBottlenecks(
   SGChannel       c,
-  VideoBottles *  vb);
+  VideoBottles *  vb)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8169,7 +8605,7 @@ SGGetVideoBottlenecks(
 extern ComponentResult 
 SGGrabFrame(
   SGChannel   c,
-  short       bufferNum);
+  short       bufferNum)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8185,7 +8621,7 @@ extern ComponentResult
 SGGrabFrameComplete(
   SGChannel   c,
   short       bufferNum,
-  Boolean *   done);
+  Boolean *   done)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8202,7 +8638,7 @@ SGDisplayFrame(
   SGChannel             c,
   short                 bufferNum,
   const MatrixRecord *  mp,
-  RgnHandle             clipRgn);
+  RgnHandle             clipRgn)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8217,7 +8653,7 @@ SGDisplayFrame(
 extern ComponentResult 
 SGCompressFrame(
   SGChannel   c,
-  short       bufferNum);
+  short       bufferNum)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8234,7 +8670,7 @@ SGCompressFrameComplete(
   SGChannel         c,
   short             bufferNum,
   Boolean *         done,
-  SGCompressInfo *  ci);
+  SGCompressInfo *  ci)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8252,7 +8688,7 @@ SGAddFrame(
   short                   bufferNum,
   TimeValue               atTime,
   TimeScale               scale,
-  const SGCompressInfo *  ci);
+  const SGCompressInfo *  ci)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8269,7 +8705,7 @@ SGTransferFrameForCompress(
   SGChannel             c,
   short                 bufferNum,
   const MatrixRecord *  mp,
-  RgnHandle             clipRgn);
+  RgnHandle             clipRgn)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8285,7 +8721,7 @@ extern ComponentResult
 SGSetCompressBuffer(
   SGChannel     c,
   short         depth,
-  const Rect *  compressSize);
+  const Rect *  compressSize)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8301,7 +8737,7 @@ extern ComponentResult
 SGGetCompressBuffer(
   SGChannel   c,
   short *     depth,
-  Rect *      compressSize);
+  Rect *      compressSize)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8320,7 +8756,7 @@ SGGetBufferInfo(
   PixMapHandle *  bufferPM,
   Rect *          bufferRect,
   GWorldPtr *     compressBuffer,
-  Rect *          compressBufferRect);
+  Rect *          compressBufferRect)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8335,7 +8771,7 @@ SGGetBufferInfo(
 extern ComponentResult 
 SGSetUseScreenBuffer(
   SGChannel   c,
-  Boolean     useScreenBuffer);
+  Boolean     useScreenBuffer)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8350,9 +8786,12 @@ SGSetUseScreenBuffer(
 extern ComponentResult 
 SGGetUseScreenBuffer(
   SGChannel   c,
-  Boolean *   useScreenBuffer);
+  Boolean *   useScreenBuffer)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+/*    Note that UInt8 *queuedFrameCount replaces Boolean *done. 0(==false) still means no frames, and 1(==true) one, 
+    but if more than one are available the number should be returned here. The value 2 previously meant more than one frame,
+    so some VDIGs may return 2 even if more than 2 are available, and some will still return 1 as they are using the original definition. */
 /*
  *  SGGrabCompressComplete()
  *  
@@ -8365,9 +8804,9 @@ SGGetUseScreenBuffer(
 extern ComponentResult 
 SGGrabCompressComplete(
   SGChannel         c,
-  Boolean *         done,
+  UInt8 *           queuedFrameCount,
   SGCompressInfo *  ci,
-  TimeRecord *      tr);
+  TimeRecord *      tr)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8385,7 +8824,7 @@ SGDisplayCompress(
   Ptr                      dataPtr,
   ImageDescriptionHandle   desc,
   MatrixRecord *           mp,
-  RgnHandle                clipRgn);
+  RgnHandle                clipRgn)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8400,7 +8839,7 @@ SGDisplayCompress(
 extern ComponentResult 
 SGSetFrameRate(
   SGChannel   c,
-  Fixed       frameRate);
+  Fixed       frameRate)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8415,7 +8854,7 @@ SGSetFrameRate(
 extern ComponentResult 
 SGGetFrameRate(
   SGChannel   c,
-  Fixed *     frameRate);
+  Fixed *     frameRate)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -8431,7 +8870,7 @@ SGGetFrameRate(
 extern ComponentResult 
 SGSetPreferredPacketSize(
   SGChannel   c,
-  long        preferredPacketSizeInBytes);
+  long        preferredPacketSizeInBytes)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8446,7 +8885,7 @@ SGSetPreferredPacketSize(
 extern ComponentResult 
 SGGetPreferredPacketSize(
   SGChannel   c,
-  long *      preferredPacketSizeInBytes);
+  long *      preferredPacketSizeInBytes)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8461,7 +8900,7 @@ SGGetPreferredPacketSize(
 extern ComponentResult 
 SGSetUserVideoCompressorList(
   SGChannel   c,
-  Handle      compressorTypes);
+  Handle      compressorTypes)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8476,7 +8915,7 @@ SGSetUserVideoCompressorList(
 extern ComponentResult 
 SGGetUserVideoCompressorList(
   SGChannel   c,
-  Handle *    compressorTypes);
+  Handle *    compressorTypes)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*** Sequence Grab SOUND CHANNEL Component Stuff ***/
@@ -8496,7 +8935,7 @@ SGGetUserVideoCompressorList(
 extern ComponentResult 
 SGSetSoundInputDriver(
   SGChannel          c,
-  ConstStr255Param   driverName);
+  ConstStr255Param   driverName)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8509,7 +8948,7 @@ SGSetSoundInputDriver(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern long 
-SGGetSoundInputDriver(SGChannel c);
+SGGetSoundInputDriver(SGChannel c)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8522,7 +8961,7 @@ SGGetSoundInputDriver(SGChannel c);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-SGSoundInputDriverChanged(SGChannel c);
+SGSoundInputDriverChanged(SGChannel c)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8537,7 +8976,7 @@ SGSoundInputDriverChanged(SGChannel c);
 extern ComponentResult 
 SGSetSoundRecordChunkSize(
   SGChannel   c,
-  long        seconds);
+  long        seconds)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8550,7 +8989,7 @@ SGSetSoundRecordChunkSize(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern long 
-SGGetSoundRecordChunkSize(SGChannel c);
+SGGetSoundRecordChunkSize(SGChannel c)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8565,7 +9004,7 @@ SGGetSoundRecordChunkSize(SGChannel c);
 extern ComponentResult 
 SGSetSoundInputRate(
   SGChannel   c,
-  Fixed       rate);
+  Fixed       rate)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8578,7 +9017,7 @@ SGSetSoundInputRate(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern Fixed 
-SGGetSoundInputRate(SGChannel c);
+SGGetSoundInputRate(SGChannel c)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8595,7 +9034,7 @@ SGSetSoundInputParameters(
   SGChannel   c,
   short       sampleSize,
   short       numChannels,
-  OSType      compressionType);
+  OSType      compressionType)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8612,7 +9051,7 @@ SGGetSoundInputParameters(
   SGChannel   c,
   short *     sampleSize,
   short *     numChannels,
-  OSType *    compressionType);
+  OSType *    compressionType)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8627,7 +9066,7 @@ SGGetSoundInputParameters(
 extern ComponentResult 
 SGSetAdditionalSoundRates(
   SGChannel   c,
-  Handle      rates);
+  Handle      rates)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8642,7 +9081,7 @@ SGSetAdditionalSoundRates(
 extern ComponentResult 
 SGGetAdditionalSoundRates(
   SGChannel   c,
-  Handle *    rates);
+  Handle *    rates)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8660,7 +9099,7 @@ SGGetAdditionalSoundRates(
 extern ComponentResult 
 SGSetFontName(
   SGChannel   c,
-  StringPtr   pstr);
+  StringPtr   pstr)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8675,7 +9114,7 @@ SGSetFontName(
 extern ComponentResult 
 SGSetFontSize(
   SGChannel   c,
-  short       fontSize);
+  short       fontSize)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8690,7 +9129,7 @@ SGSetFontSize(
 extern ComponentResult 
 SGSetTextForeColor(
   SGChannel   c,
-  RGBColor *  theColor);
+  RGBColor *  theColor)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8705,7 +9144,7 @@ SGSetTextForeColor(
 extern ComponentResult 
 SGSetTextBackColor(
   SGChannel   c,
-  RGBColor *  theColor);
+  RGBColor *  theColor)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8720,7 +9159,7 @@ SGSetTextBackColor(
 extern ComponentResult 
 SGSetJustification(
   SGChannel   c,
-  short       just);
+  short       just)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8735,7 +9174,7 @@ SGSetJustification(
 extern ComponentResult 
 SGGetTextReturnToSpaceValue(
   SGChannel   c,
-  short *     rettospace);
+  short *     rettospace)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8750,7 +9189,7 @@ SGGetTextReturnToSpaceValue(
 extern ComponentResult 
 SGSetTextReturnToSpaceValue(
   SGChannel   c,
-  short       rettospace);
+  short       rettospace)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8768,7 +9207,7 @@ SGSetTextReturnToSpaceValue(
 extern ComponentResult 
 SGGetInstrument(
   SGChannel          c,
-  ToneDescription *  td);
+  ToneDescription *  td)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8783,7 +9222,7 @@ SGGetInstrument(
 extern ComponentResult 
 SGSetInstrument(
   SGChannel          c,
-  ToneDescription *  td);
+  ToneDescription *  td)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -8796,6 +9235,9 @@ enum {
 
 enum {
   sgDeviceNameType              = 'name',
+  sgDeviceDisplayNameType       = 'dnam',
+  sgDeviceUIDType               = 'duid',
+  sgInputUIDType                = 'iuid',
   sgUsageType                   = 'use ',
   sgPlayFlagsType               = 'plyf',
   sgClipType                    = 'clip',
@@ -8811,6 +9253,7 @@ enum {
 
 enum {
   sgcSoundCompressionType       = 'scmp',
+  sgcSoundCodecSettingsType     = 'cdec',
   sgcSoundSampleRateType        = 'srat',
   sgcSoundChannelCountType      = 'schn',
   sgcSoundSampleSizeType        = 'ssiz',
@@ -8880,7 +9323,7 @@ enum {
 extern ComponentResult 
 QTVideoOutputGetDisplayModeList(
   QTVideoOutputComponent   vo,
-  QTAtomContainer *        outputs);
+  QTAtomContainer *        outputs)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8895,7 +9338,7 @@ QTVideoOutputGetDisplayModeList(
 extern ComponentResult 
 QTVideoOutputGetCurrentClientName(
   QTVideoOutputComponent   vo,
-  Str255                   str);
+  Str255                   str)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8910,7 +9353,7 @@ QTVideoOutputGetCurrentClientName(
 extern ComponentResult 
 QTVideoOutputSetClientName(
   QTVideoOutputComponent   vo,
-  ConstStr255Param         str);
+  ConstStr255Param         str)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8925,7 +9368,7 @@ QTVideoOutputSetClientName(
 extern ComponentResult 
 QTVideoOutputGetClientName(
   QTVideoOutputComponent   vo,
-  Str255                   str);
+  Str255                   str)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8938,7 +9381,7 @@ QTVideoOutputGetClientName(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-QTVideoOutputBegin(QTVideoOutputComponent vo);
+QTVideoOutputBegin(QTVideoOutputComponent vo)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8951,7 +9394,7 @@ QTVideoOutputBegin(QTVideoOutputComponent vo);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-QTVideoOutputEnd(QTVideoOutputComponent vo);
+QTVideoOutputEnd(QTVideoOutputComponent vo)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8966,7 +9409,7 @@ QTVideoOutputEnd(QTVideoOutputComponent vo);
 extern ComponentResult 
 QTVideoOutputSetDisplayMode(
   QTVideoOutputComponent   vo,
-  long                     displayModeID);
+  long                     displayModeID)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8981,7 +9424,7 @@ QTVideoOutputSetDisplayMode(
 extern ComponentResult 
 QTVideoOutputGetDisplayMode(
   QTVideoOutputComponent   vo,
-  long *                   displayModeID);
+  long *                   displayModeID)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -8996,7 +9439,7 @@ QTVideoOutputGetDisplayMode(
 extern ComponentResult 
 QTVideoOutputCustomConfigureDisplay(
   QTVideoOutputComponent   vo,
-  ModalFilterUPP           filter);
+  ModalFilterUPP           filter)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -9011,7 +9454,7 @@ QTVideoOutputCustomConfigureDisplay(
 extern ComponentResult 
 QTVideoOutputSaveState(
   QTVideoOutputComponent   vo,
-  QTAtomContainer *        state);
+  QTAtomContainer *        state)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -9026,7 +9469,7 @@ QTVideoOutputSaveState(
 extern ComponentResult 
 QTVideoOutputRestoreState(
   QTVideoOutputComponent   vo,
-  QTAtomContainer          state);
+  QTAtomContainer          state)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -9041,7 +9484,7 @@ QTVideoOutputRestoreState(
 extern ComponentResult 
 QTVideoOutputGetGWorld(
   QTVideoOutputComponent   vo,
-  GWorldPtr *              gw);
+  GWorldPtr *              gw)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -9058,7 +9501,7 @@ QTVideoOutputGetGWorldParameters(
   QTVideoOutputComponent   vo,
   Ptr *                    baseAddr,
   long *                   rowBytes,
-  CTabHandle *             colorTable);
+  CTabHandle *             colorTable)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -9074,7 +9517,7 @@ extern ComponentResult
 QTVideoOutputGetIndSoundOutput(
   QTVideoOutputComponent   vo,
   long                     index,
-  Component *              outputComponent);
+  Component *              outputComponent)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -9089,7 +9532,7 @@ QTVideoOutputGetIndSoundOutput(
 extern ComponentResult 
 QTVideoOutputGetClock(
   QTVideoOutputComponent   vo,
-  ComponentInstance *      clock);
+  ComponentInstance *      clock)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -9104,7 +9547,7 @@ QTVideoOutputGetClock(
 extern ComponentResult 
 QTVideoOutputSetEchoPort(
   QTVideoOutputComponent   vo,
-  CGrafPtr                 echoPort);
+  CGrafPtr                 echoPort)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -9120,7 +9563,22 @@ extern ComponentResult
 QTVideoOutputGetIndImageDecompressor(
   QTVideoOutputComponent   vo,
   long                     index,
-  Component *              codec);
+  Component *              codec)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+/*
+ *  QTVideoOutputBaseSetEchoPort()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+QTVideoOutputBaseSetEchoPort(
+  QTVideoOutputComponent   vo,
+  CGrafPtr                 echoPort)                          AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 /* UPP call backs */
@@ -9133,7 +9591,7 @@ QTVideoOutputGetIndImageDecompressor(
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern DataHCompletionUPP
-NewDataHCompletionUPP(DataHCompletionProcPtr userRoutine);
+NewDataHCompletionUPP(DataHCompletionProcPtr userRoutine)     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewVdigIntUPP()
@@ -9144,7 +9602,7 @@ NewDataHCompletionUPP(DataHCompletionProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern VdigIntUPP
-NewVdigIntUPP(VdigIntProcPtr userRoutine);
+NewVdigIntUPP(VdigIntProcPtr userRoutine)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewStartDocumentHandlerUPP()
@@ -9155,7 +9613,7 @@ NewVdigIntUPP(VdigIntProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern StartDocumentHandlerUPP
-NewStartDocumentHandlerUPP(StartDocumentHandler userRoutine);
+NewStartDocumentHandlerUPP(StartDocumentHandler userRoutine)  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewEndDocumentHandlerUPP()
@@ -9166,7 +9624,7 @@ NewStartDocumentHandlerUPP(StartDocumentHandler userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern EndDocumentHandlerUPP
-NewEndDocumentHandlerUPP(EndDocumentHandler userRoutine);
+NewEndDocumentHandlerUPP(EndDocumentHandler userRoutine)      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewStartElementHandlerUPP()
@@ -9177,7 +9635,7 @@ NewEndDocumentHandlerUPP(EndDocumentHandler userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern StartElementHandlerUPP
-NewStartElementHandlerUPP(StartElementHandler userRoutine);
+NewStartElementHandlerUPP(StartElementHandler userRoutine)    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewEndElementHandlerUPP()
@@ -9188,7 +9646,7 @@ NewStartElementHandlerUPP(StartElementHandler userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern EndElementHandlerUPP
-NewEndElementHandlerUPP(EndElementHandler userRoutine);
+NewEndElementHandlerUPP(EndElementHandler userRoutine)        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewCharDataHandlerUPP()
@@ -9199,7 +9657,7 @@ NewEndElementHandlerUPP(EndElementHandler userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern CharDataHandlerUPP
-NewCharDataHandlerUPP(CharDataHandler userRoutine);
+NewCharDataHandlerUPP(CharDataHandler userRoutine)            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewPreprocessInstructionHandlerUPP()
@@ -9210,7 +9668,7 @@ NewCharDataHandlerUPP(CharDataHandler userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern PreprocessInstructionHandlerUPP
-NewPreprocessInstructionHandlerUPP(PreprocessInstructionHandler userRoutine);
+NewPreprocessInstructionHandlerUPP(PreprocessInstructionHandler userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewCommentHandlerUPP()
@@ -9221,7 +9679,18 @@ NewPreprocessInstructionHandlerUPP(PreprocessInstructionHandler userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern CommentHandlerUPP
-NewCommentHandlerUPP(CommentHandler userRoutine);
+NewCommentHandlerUPP(CommentHandler userRoutine)              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+/*
+ *  NewCDataHandlerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern CDataHandlerUPP
+NewCDataHandlerUPP(CDataHandler userRoutine)                  AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 /*
  *  NewSGDataUPP()
@@ -9232,7 +9701,7 @@ NewCommentHandlerUPP(CommentHandler userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGDataUPP
-NewSGDataUPP(SGDataProcPtr userRoutine);
+NewSGDataUPP(SGDataProcPtr userRoutine)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGModalFilterUPP()
@@ -9243,7 +9712,7 @@ NewSGDataUPP(SGDataProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGModalFilterUPP
-NewSGModalFilterUPP(SGModalFilterProcPtr userRoutine);
+NewSGModalFilterUPP(SGModalFilterProcPtr userRoutine)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGGrabBottleUPP()
@@ -9254,7 +9723,7 @@ NewSGModalFilterUPP(SGModalFilterProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGGrabBottleUPP
-NewSGGrabBottleUPP(SGGrabBottleProcPtr userRoutine);
+NewSGGrabBottleUPP(SGGrabBottleProcPtr userRoutine)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGGrabCompleteBottleUPP()
@@ -9265,7 +9734,7 @@ NewSGGrabBottleUPP(SGGrabBottleProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGGrabCompleteBottleUPP
-NewSGGrabCompleteBottleUPP(SGGrabCompleteBottleProcPtr userRoutine);
+NewSGGrabCompleteBottleUPP(SGGrabCompleteBottleProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGDisplayBottleUPP()
@@ -9276,7 +9745,7 @@ NewSGGrabCompleteBottleUPP(SGGrabCompleteBottleProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGDisplayBottleUPP
-NewSGDisplayBottleUPP(SGDisplayBottleProcPtr userRoutine);
+NewSGDisplayBottleUPP(SGDisplayBottleProcPtr userRoutine)     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGCompressBottleUPP()
@@ -9287,7 +9756,7 @@ NewSGDisplayBottleUPP(SGDisplayBottleProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGCompressBottleUPP
-NewSGCompressBottleUPP(SGCompressBottleProcPtr userRoutine);
+NewSGCompressBottleUPP(SGCompressBottleProcPtr userRoutine)   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGCompressCompleteBottleUPP()
@@ -9298,7 +9767,7 @@ NewSGCompressBottleUPP(SGCompressBottleProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGCompressCompleteBottleUPP
-NewSGCompressCompleteBottleUPP(SGCompressCompleteBottleProcPtr userRoutine);
+NewSGCompressCompleteBottleUPP(SGCompressCompleteBottleProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGAddFrameBottleUPP()
@@ -9309,7 +9778,7 @@ NewSGCompressCompleteBottleUPP(SGCompressCompleteBottleProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGAddFrameBottleUPP
-NewSGAddFrameBottleUPP(SGAddFrameBottleProcPtr userRoutine);
+NewSGAddFrameBottleUPP(SGAddFrameBottleProcPtr userRoutine)   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGTransferFrameBottleUPP()
@@ -9320,7 +9789,7 @@ NewSGAddFrameBottleUPP(SGAddFrameBottleProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGTransferFrameBottleUPP
-NewSGTransferFrameBottleUPP(SGTransferFrameBottleProcPtr userRoutine);
+NewSGTransferFrameBottleUPP(SGTransferFrameBottleProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGGrabCompressCompleteBottleUPP()
@@ -9331,7 +9800,7 @@ NewSGTransferFrameBottleUPP(SGTransferFrameBottleProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGGrabCompressCompleteBottleUPP
-NewSGGrabCompressCompleteBottleUPP(SGGrabCompressCompleteBottleProcPtr userRoutine);
+NewSGGrabCompressCompleteBottleUPP(SGGrabCompressCompleteBottleProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSGDisplayCompressBottleUPP()
@@ -9342,7 +9811,7 @@ NewSGGrabCompressCompleteBottleUPP(SGGrabCompressCompleteBottleProcPtr userRouti
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SGDisplayCompressBottleUPP
-NewSGDisplayCompressBottleUPP(SGDisplayCompressBottleProcPtr userRoutine);
+NewSGDisplayCompressBottleUPP(SGDisplayCompressBottleProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeDataHCompletionUPP()
@@ -9353,7 +9822,7 @@ NewSGDisplayCompressBottleUPP(SGDisplayCompressBottleProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeDataHCompletionUPP(DataHCompletionUPP userUPP);
+DisposeDataHCompletionUPP(DataHCompletionUPP userUPP)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeVdigIntUPP()
@@ -9364,7 +9833,7 @@ DisposeDataHCompletionUPP(DataHCompletionUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeVdigIntUPP(VdigIntUPP userUPP);
+DisposeVdigIntUPP(VdigIntUPP userUPP)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeStartDocumentHandlerUPP()
@@ -9375,7 +9844,7 @@ DisposeVdigIntUPP(VdigIntUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeStartDocumentHandlerUPP(StartDocumentHandlerUPP userUPP);
+DisposeStartDocumentHandlerUPP(StartDocumentHandlerUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeEndDocumentHandlerUPP()
@@ -9386,7 +9855,7 @@ DisposeStartDocumentHandlerUPP(StartDocumentHandlerUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeEndDocumentHandlerUPP(EndDocumentHandlerUPP userUPP);
+DisposeEndDocumentHandlerUPP(EndDocumentHandlerUPP userUPP)   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeStartElementHandlerUPP()
@@ -9397,7 +9866,7 @@ DisposeEndDocumentHandlerUPP(EndDocumentHandlerUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeStartElementHandlerUPP(StartElementHandlerUPP userUPP);
+DisposeStartElementHandlerUPP(StartElementHandlerUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeEndElementHandlerUPP()
@@ -9408,7 +9877,7 @@ DisposeStartElementHandlerUPP(StartElementHandlerUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeEndElementHandlerUPP(EndElementHandlerUPP userUPP);
+DisposeEndElementHandlerUPP(EndElementHandlerUPP userUPP)     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeCharDataHandlerUPP()
@@ -9419,7 +9888,7 @@ DisposeEndElementHandlerUPP(EndElementHandlerUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeCharDataHandlerUPP(CharDataHandlerUPP userUPP);
+DisposeCharDataHandlerUPP(CharDataHandlerUPP userUPP)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposePreprocessInstructionHandlerUPP()
@@ -9430,7 +9899,7 @@ DisposeCharDataHandlerUPP(CharDataHandlerUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposePreprocessInstructionHandlerUPP(PreprocessInstructionHandlerUPP userUPP);
+DisposePreprocessInstructionHandlerUPP(PreprocessInstructionHandlerUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeCommentHandlerUPP()
@@ -9441,7 +9910,18 @@ DisposePreprocessInstructionHandlerUPP(PreprocessInstructionHandlerUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeCommentHandlerUPP(CommentHandlerUPP userUPP);
+DisposeCommentHandlerUPP(CommentHandlerUPP userUPP)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+/*
+ *  DisposeCDataHandlerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern void
+DisposeCDataHandlerUPP(CDataHandlerUPP userUPP)               AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 /*
  *  DisposeSGDataUPP()
@@ -9452,7 +9932,7 @@ DisposeCommentHandlerUPP(CommentHandlerUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGDataUPP(SGDataUPP userUPP);
+DisposeSGDataUPP(SGDataUPP userUPP)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGModalFilterUPP()
@@ -9463,7 +9943,7 @@ DisposeSGDataUPP(SGDataUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGModalFilterUPP(SGModalFilterUPP userUPP);
+DisposeSGModalFilterUPP(SGModalFilterUPP userUPP)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGGrabBottleUPP()
@@ -9474,7 +9954,7 @@ DisposeSGModalFilterUPP(SGModalFilterUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGGrabBottleUPP(SGGrabBottleUPP userUPP);
+DisposeSGGrabBottleUPP(SGGrabBottleUPP userUPP)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGGrabCompleteBottleUPP()
@@ -9485,7 +9965,7 @@ DisposeSGGrabBottleUPP(SGGrabBottleUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGGrabCompleteBottleUPP(SGGrabCompleteBottleUPP userUPP);
+DisposeSGGrabCompleteBottleUPP(SGGrabCompleteBottleUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGDisplayBottleUPP()
@@ -9496,7 +9976,7 @@ DisposeSGGrabCompleteBottleUPP(SGGrabCompleteBottleUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGDisplayBottleUPP(SGDisplayBottleUPP userUPP);
+DisposeSGDisplayBottleUPP(SGDisplayBottleUPP userUPP)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGCompressBottleUPP()
@@ -9507,7 +9987,7 @@ DisposeSGDisplayBottleUPP(SGDisplayBottleUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGCompressBottleUPP(SGCompressBottleUPP userUPP);
+DisposeSGCompressBottleUPP(SGCompressBottleUPP userUPP)       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGCompressCompleteBottleUPP()
@@ -9518,7 +9998,7 @@ DisposeSGCompressBottleUPP(SGCompressBottleUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGCompressCompleteBottleUPP(SGCompressCompleteBottleUPP userUPP);
+DisposeSGCompressCompleteBottleUPP(SGCompressCompleteBottleUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGAddFrameBottleUPP()
@@ -9529,7 +10009,7 @@ DisposeSGCompressCompleteBottleUPP(SGCompressCompleteBottleUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGAddFrameBottleUPP(SGAddFrameBottleUPP userUPP);
+DisposeSGAddFrameBottleUPP(SGAddFrameBottleUPP userUPP)       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGTransferFrameBottleUPP()
@@ -9540,7 +10020,7 @@ DisposeSGAddFrameBottleUPP(SGAddFrameBottleUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGTransferFrameBottleUPP(SGTransferFrameBottleUPP userUPP);
+DisposeSGTransferFrameBottleUPP(SGTransferFrameBottleUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGGrabCompressCompleteBottleUPP()
@@ -9551,7 +10031,7 @@ DisposeSGTransferFrameBottleUPP(SGTransferFrameBottleUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGGrabCompressCompleteBottleUPP(SGGrabCompressCompleteBottleUPP userUPP);
+DisposeSGGrabCompressCompleteBottleUPP(SGGrabCompressCompleteBottleUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSGDisplayCompressBottleUPP()
@@ -9562,7 +10042,7 @@ DisposeSGGrabCompressCompleteBottleUPP(SGGrabCompressCompleteBottleUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSGDisplayCompressBottleUPP(SGDisplayCompressBottleUPP userUPP);
+DisposeSGDisplayCompressBottleUPP(SGDisplayCompressBottleUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeDataHCompletionUPP()
@@ -9577,7 +10057,7 @@ InvokeDataHCompletionUPP(
   Ptr                 request,
   long                refcon,
   OSErr               err,
-  DataHCompletionUPP  userUPP);
+  DataHCompletionUPP  userUPP)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeVdigIntUPP()
@@ -9591,7 +10071,7 @@ extern void
 InvokeVdigIntUPP(
   long        flags,
   long        refcon,
-  VdigIntUPP  userUPP);
+  VdigIntUPP  userUPP)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeStartDocumentHandlerUPP()
@@ -9604,7 +10084,7 @@ InvokeVdigIntUPP(
 extern ComponentResult
 InvokeStartDocumentHandlerUPP(
   long                     refcon,
-  StartDocumentHandlerUPP  userUPP);
+  StartDocumentHandlerUPP  userUPP)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeEndDocumentHandlerUPP()
@@ -9617,7 +10097,7 @@ InvokeStartDocumentHandlerUPP(
 extern ComponentResult
 InvokeEndDocumentHandlerUPP(
   long                   refcon,
-  EndDocumentHandlerUPP  userUPP);
+  EndDocumentHandlerUPP  userUPP)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeStartElementHandlerUPP()
@@ -9632,7 +10112,7 @@ InvokeStartElementHandlerUPP(
   const char *            name,
   const char **           atts,
   long                    refcon,
-  StartElementHandlerUPP  userUPP);
+  StartElementHandlerUPP  userUPP)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeEndElementHandlerUPP()
@@ -9646,7 +10126,7 @@ extern ComponentResult
 InvokeEndElementHandlerUPP(
   const char *          name,
   long                  refcon,
-  EndElementHandlerUPP  userUPP);
+  EndElementHandlerUPP  userUPP)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeCharDataHandlerUPP()
@@ -9660,7 +10140,7 @@ extern ComponentResult
 InvokeCharDataHandlerUPP(
   const char *        charData,
   long                refcon,
-  CharDataHandlerUPP  userUPP);
+  CharDataHandlerUPP  userUPP)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokePreprocessInstructionHandlerUPP()
@@ -9673,9 +10153,9 @@ InvokeCharDataHandlerUPP(
 extern ComponentResult
 InvokePreprocessInstructionHandlerUPP(
   const char *                     name,
-  const char **                    atts,
+  const char *const                atts[],
   long                             refcon,
-  PreprocessInstructionHandlerUPP  userUPP);
+  PreprocessInstructionHandlerUPP  userUPP)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeCommentHandlerUPP()
@@ -9689,7 +10169,21 @@ extern ComponentResult
 InvokeCommentHandlerUPP(
   const char *       comment,
   long               refcon,
-  CommentHandlerUPP  userUPP);
+  CommentHandlerUPP  userUPP)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+/*
+ *  InvokeCDataHandlerUPP()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   available as macro/inline
+ */
+extern ComponentResult
+InvokeCDataHandlerUPP(
+  const char *     cdata,
+  long             refcon,
+  CDataHandlerUPP  userUPP)                                   AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 /*
  *  InvokeSGDataUPP()
@@ -9709,7 +10203,7 @@ InvokeSGDataUPP(
   TimeValue  time,
   short      writeType,
   long       refCon,
-  SGDataUPP  userUPP);
+  SGDataUPP  userUPP)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGModalFilterUPP()
@@ -9725,7 +10219,7 @@ InvokeSGModalFilterUPP(
   const EventRecord *  theEvent,
   short *              itemHit,
   long                 refCon,
-  SGModalFilterUPP     userUPP);
+  SGModalFilterUPP     userUPP)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGGrabBottleUPP()
@@ -9740,7 +10234,7 @@ InvokeSGGrabBottleUPP(
   SGChannel        c,
   short            bufferNum,
   long             refCon,
-  SGGrabBottleUPP  userUPP);
+  SGGrabBottleUPP  userUPP)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGGrabCompleteBottleUPP()
@@ -9756,7 +10250,7 @@ InvokeSGGrabCompleteBottleUPP(
   short                    bufferNum,
   Boolean *                done,
   long                     refCon,
-  SGGrabCompleteBottleUPP  userUPP);
+  SGGrabCompleteBottleUPP  userUPP)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGDisplayBottleUPP()
@@ -9773,7 +10267,7 @@ InvokeSGDisplayBottleUPP(
   MatrixRecord *      mp,
   RgnHandle           clipRgn,
   long                refCon,
-  SGDisplayBottleUPP  userUPP);
+  SGDisplayBottleUPP  userUPP)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGCompressBottleUPP()
@@ -9788,7 +10282,7 @@ InvokeSGCompressBottleUPP(
   SGChannel            c,
   short                bufferNum,
   long                 refCon,
-  SGCompressBottleUPP  userUPP);
+  SGCompressBottleUPP  userUPP)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGCompressCompleteBottleUPP()
@@ -9805,7 +10299,7 @@ InvokeSGCompressCompleteBottleUPP(
   Boolean *                    done,
   SGCompressInfo *             ci,
   long                         refCon,
-  SGCompressCompleteBottleUPP  userUPP);
+  SGCompressCompleteBottleUPP  userUPP)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGAddFrameBottleUPP()
@@ -9823,7 +10317,7 @@ InvokeSGAddFrameBottleUPP(
   TimeScale               scale,
   const SGCompressInfo *  ci,
   long                    refCon,
-  SGAddFrameBottleUPP     userUPP);
+  SGAddFrameBottleUPP     userUPP)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGTransferFrameBottleUPP()
@@ -9840,7 +10334,7 @@ InvokeSGTransferFrameBottleUPP(
   MatrixRecord *            mp,
   RgnHandle                 clipRgn,
   long                      refCon,
-  SGTransferFrameBottleUPP  userUPP);
+  SGTransferFrameBottleUPP  userUPP)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGGrabCompressCompleteBottleUPP()
@@ -9853,11 +10347,11 @@ InvokeSGTransferFrameBottleUPP(
 extern ComponentResult
 InvokeSGGrabCompressCompleteBottleUPP(
   SGChannel                        c,
-  Boolean *                        done,
+  UInt8 *                          queuedFrameCount,
   SGCompressInfo *                 ci,
   TimeRecord *                     t,
   long                             refCon,
-  SGGrabCompressCompleteBottleUPP  userUPP);
+  SGGrabCompressCompleteBottleUPP  userUPP)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSGDisplayCompressBottleUPP()
@@ -9875,7 +10369,7 @@ InvokeSGDisplayCompressBottleUPP(
   MatrixRecord *              mp,
   RgnHandle                   clipRgn,
   long                        refCon,
-  SGDisplayCompressBottleUPP  userUPP);
+  SGDisplayCompressBottleUPP  userUPP)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* selectors for component calls */
@@ -9961,6 +10455,9 @@ enum {
     kMovieImportEstimateCompletionTimeSelect   = 0x001B,
     kMovieImportSetDontBlockSelect             = 0x001C,
     kMovieImportGetDontBlockSelect             = 0x001D,
+    kMovieImportSetIdleManagerSelect           = 0x001E,
+    kMovieImportSetNewMovieFlagsSelect         = 0x001F,
+    kMovieImportGetDestinationMediaTypeSelect  = 0x0020,
     kMovieExportToHandleSelect                 = 0x0080,
     kMovieExportToFileSelect                   = 0x0081,
     kMovieExportGetAuxiliaryDataSelect         = 0x0083,
@@ -10062,6 +10559,12 @@ enum {
     kDataHCreateFileWithFlagsSelect            = 0x0041,
     kDataHGetMIMETypeAsyncSelect               = 0x0042,
     kDataHGetInfoSelect                        = 0x0043,
+    kDataHSetIdleManagerSelect                 = 0x0044,
+    kDataHDeleteFileSelect                     = 0x0045,
+    kDataHSetMovieUsageFlagsSelect             = 0x0046,
+    kDataHUseTemporaryDataRefSelect            = 0x0047,
+    kDataHGetTemporaryDataRefCapabilitiesSelect = 0x0048,
+    kDataHRenameFileSelect                     = 0x0049,
     kDataHPlaybackHintsSelect                  = 0x0103,
     kDataHPlaybackHints64Select                = 0x010E,
     kDataHGetDataRateSelect                    = 0x0110,
@@ -10155,6 +10658,10 @@ enum {
     kVDGetPreferredImageDimensionsSelect       = 0x005B,
     kVDGetInputNameSelect                      = 0x005C,
     kVDSetDestinationPortSelect                = 0x005D,
+    kVDGetDeviceNameAndFlagsSelect             = 0x005E,
+    kVDCaptureStateChangingSelect              = 0x005F,
+    kVDGetUniqueIDsSelect                      = 0x0060,
+    kVDSelectUniqueIDsSelect                   = 0x0061,
     kXMLParseDataRefSelect                     = 0x0001,
     kXMLParseFileSelect                        = 0x0002,
     kXMLParseDisposeXMLDocSelect               = 0x0003,
@@ -10175,6 +10682,7 @@ enum {
     kXMLParseSetCharDataHandlerSelect          = 0x0012,
     kXMLParseSetPreprocessInstructionHandlerSelect = 0x0013,
     kXMLParseSetCommentHandlerSelect           = 0x0014,
+    kXMLParseSetCDataHandlerSelect             = 0x0015,
     kSGInitializeSelect                        = 0x0001,
     kSGSetDataOutputSelect                     = 0x0002,
     kSGGetDataOutputSelect                     = 0x0003,
@@ -10239,6 +10747,7 @@ enum {
     kSGGetNextExtendedFrameReferenceSelect     = 0x0108,
     kSGAddExtendedMovieDataSelect              = 0x0109,
     kSGAddOutputDataRefToMediaSelect           = 0x010A,
+    kSGSetSettingsSummarySelect                = 0x010B,
     kSGSetChannelUsageSelect                   = 0x0080,
     kSGGetChannelUsageSelect                   = 0x0081,
     kSGSetChannelBoundsSelect                  = 0x0082,
@@ -10267,6 +10776,10 @@ enum {
     kSGChannelSetCodecSettingsSelect           = 0x0099,
     kSGChannelGetCodecSettingsSelect           = 0x009A,
     kSGGetChannelTimeBaseSelect                = 0x009B,
+    kSGGetChannelRefConSelect                  = 0x009C,
+    kSGGetChannelDeviceAndInputNamesSelect     = 0x009D,
+    kSGSetChannelDeviceInputSelect             = 0x009E,
+    kSGSetChannelSettingsStateChangingSelect   = 0x009F,
     kSGInitChannelSelect                       = 0x0180,
     kSGWriteSamplesSelect                      = 0x0181,
     kSGGetDataRateSelect                       = 0x0182,
@@ -10284,6 +10797,7 @@ enum {
     kSGPanelSetSettingsSelect                  = 0x020A,
     kSGPanelValidateInputSelect                = 0x020B,
     kSGPanelSetEventFilterSelect               = 0x020C,
+    kSGPanelGetDITLForSizeSelect               = 0x020D,
     kSGGetSrcVideoBoundsSelect                 = 0x0100,
     kSGSetVideoRectSelect                      = 0x0101,
     kSGGetVideoRectSelect                      = 0x0102,
@@ -10352,17 +10866,12 @@ enum {
     kQTVideoOutputGetIndSoundOutputSelect      = 0x000E,
     kQTVideoOutputGetClockSelect               = 0x000F,
     kQTVideoOutputSetEchoPortSelect            = 0x0010,
-    kQTVideoOutputGetIndImageDecompressorSelect = 0x0011
+    kQTVideoOutputGetIndImageDecompressorSelect = 0x0011,
+    kQTVideoOutputBaseSetEchoPortSelect        = 0x0012
 };
 
 
-#if PRAGMA_STRUCT_ALIGN
-    #pragma options align=reset
-#elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(pop)
-#elif PRAGMA_STRUCT_PACK
-    #pragma pack()
-#endif
+#pragma options align=reset
 
 #ifdef __cplusplus
 }

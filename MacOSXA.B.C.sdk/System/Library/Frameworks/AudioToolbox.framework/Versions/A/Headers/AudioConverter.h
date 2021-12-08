@@ -61,7 +61,7 @@ enum
 		//	a UInt32 that on input holds a size in bytes
 		//	that is desired for the output data. On output,
 		//	it will hold the size in bytes of the input buffer
-		//	requried to generate that much output data. Note
+		//	required to generate that much output data. Note
 		//	that some converters cannot do this calculation.
 		
 	kAudioConverterPropertyCalculateOutputBufferSize	= 'cobs',
@@ -82,12 +82,25 @@ enum
 		//	as a buffer of untyped data.
 		
 	kAudioConverterSampleRateConverterAlgorithm			= 'srci',
+		// DEPRECATED : please use kAudioConverterSampleRateConverterQuality instead
+		//
 		//	An OSType that specifies the sample rate converter to use
 		//	(as defined in AudioUnit/AudioUnitProperties.h -- for now only Apple SRC's can be used)
 
-	kAudioConverterChannelMap							= 'chmp'
-		// An array of SInt32's used when the number of input and output
-		// channels differ.  The size of the array is the number of output
+	kAudioConverterSampleRateConverterQuality			= 'srcq',
+		//	A UInt32 that specifies rendering quality of the sample rate converter
+		//  (see enum constants below)
+
+	kAudioConverterPrimeMethod							= 'prmm',
+		// a UInt32 specifying priming method (usually for sample-rate converter)
+		// see explanation for struct AudioConverterPrimeInfo below
+		// along with enum constants
+
+	kAudioConverterPrimeInfo							= 'prim',
+		//  A pointer to AudioConverterPrimeInfo (see explanation for struct AudioConverterPrimeInfo below)
+
+	kAudioConverterChannelMap							= 'chmp',
+		// An array of SInt32's.  The size of the array is the number of output
 		// channels, and each element specifies which input channel's
 		// data is routed to that output channel (using a 0-based index
 		// of the input channels), or -1 if no input channel is to be
@@ -96,7 +109,92 @@ enum
 		// When I > O, the first O inputs are routed to the first O outputs,
 		// and the remaining puts discarded.  When O > I, the first I inputs are 
 		// routed to the first O outputs, and the remaining outputs are zeroed.
+
+	kAudioConverterDecompressionMagicCookie				= 'dmgc',
+		// A void * pointing to memory set up by the caller. Required by some
+        // formats in order to decompress the input data.
+
+	kAudioConverterCompressionMagicCookie				= 'cmgc'
+		// A void * pointing to memory set up by the caller. Returned by the 
+        // converter so that it may be stored along with the output data.
+        // It can then be passed back to the converter for decompression
+        // at a later time.
+
 };
+
+// constants to be used with kAudioConverterSampleRateConverterQuality
+enum {
+	kAudioConverterQuality_Max								= 0x7F,
+	kAudioConverterQuality_High								= 0x60,
+	kAudioConverterQuality_Medium							= 0x40,
+	kAudioConverterQuality_Low								= 0x20,
+	kAudioConverterQuality_Min								= 0
+};
+
+
+		
+// constants to be used with kAudioConverterPrimeMethod
+enum
+{
+	kConverterPrimeMethod_Pre 		= 0,	// primes with leading + trailing input frames
+	kConverterPrimeMethod_Normal 	= 1,	// only primes with trailing (zero latency)
+											// leading frames are assumed to be silence
+	kConverterPrimeMethod_None 		= 2		// acts in "latency" mode
+											// both leading and trailing frames assumed to be silence
+};
+
+// Priming method and AudioConverterPrimeInfo
+//
+//  When using AudioConverterFillBuffer() (either single call or series of calls),
+//  some conversions (particularly involving sample-rate conversion)
+//  ideally require a certain number of input frames previous to the normal
+//  start input frame and beyond the end of the last expected input frame
+//  in order to yield high-quality results.
+//
+//	leadingFrames
+//		specifies the number of leading (previous) input frames
+//		(relative to the normal/desired start input frame) required by the converter
+//		to perform a high quality conversion.
+//		If using kConverterPrimeMethod_Pre the client should "pre-seek"
+//		the input stream provided through the input proc by "leadingFrames"
+//		If no frames are available previous to the desired input start frame
+//		(because, for example, the desired start frame is at the very beginning
+//		of available audio) then provide "leadingFrames" worth of initial zero frames
+//		in the input proc.  Do not "pre-seek" in the default case of kConverterPrimeMethod_Normal
+//		or when using kConverterPrimeMethod_None.
+//		 
+//
+//	trailingFrames
+//		specifies the number of trailing input frames
+//		(past the normal/expected end input frame) required by the converter
+//		to perform a high quality conversion.  The client should be prepared
+//		to provide this number of additional input frames except when using
+//		kConverterPrimeMethod_None.
+//		If no more frames of input are available in the input stream
+//		(because, for example, the desired end frame is at the end of an audio file),
+//		then zero (silent) trailing frames will be synthesized for the client. 
+//
+//	The very first call to AudioConverterFillBuffer() or first call after AudioConverterReset()
+//	will request additional input frames approximately equal to:
+//			kConverterPrimeMethod_Pre		: leadingFrames + trailingFrames
+//			kConverterPrimeMethod_Normal	: trailingFrames
+//			kConverterPrimeMethod_None		: 0
+//	beyond that normally expected in the input proc callback(s) to fullfil
+//	this first AudioConverterFillBuffer() request.  Thus, in effect, the first input proc
+//	callback(s) may provide not only the leading frames, but also may "read ahead"
+//	by an additional number of trailing frames depending on the prime method.
+//	kConverterPrimeMethod_None is useful in a real-time application processing
+//	live input, in which case trailingFrames (relative to input sample rate) 
+//	of through latency will be seen at the output of the AudioConverter.  In other
+//	real-time applications such as DAW systems, it may be possible to provide these initial extra
+//	audio frames since they are stored on disk or in memory somewhere and kConverterPrimeMethod_Pre
+//  may be preferable.  The default method is kConverterPrimeMethod_Normal, which requires no
+//  pre-seeking of the input stream and generates no latency at the output.
+//	
+typedef struct AudioConverterPrimeInfo {
+	UInt32		leadingFrames;
+	UInt32		trailingFrames;
+} PrimeInfo;
 
 //=============================================================================
 //	Errors
@@ -104,7 +202,7 @@ enum
 
 enum {
 	kAudioConverterErr_FormatNotSupported		= 'fmt?',
-	kAudioConverterErr_OperationNotSupported	= 'op??',
+	kAudioConverterErr_OperationNotSupported	= 0x6F703F3F, // 'op??', integer used because of trigraph
 	kAudioConverterErr_PropertyNotSupported		= 'prop',
 	kAudioConverterErr_InvalidInputSize			= 'insz',
 	kAudioConverterErr_InvalidOutputSize		= 'otsz'
@@ -170,7 +268,7 @@ extern OSStatus
 AudioConverterSetProperty(	AudioConverterRef			inAudioConverter,
 							AudioConverterPropertyID	inPropertyID,
 							UInt32						inPropertyDataSize,
-							void*						inPropertyData);
+							const void*					inPropertyData);
 
 //-----------------------------------------------------------------------------
 //	AudioConverterDataProc
@@ -207,6 +305,31 @@ AudioConverterConvertBuffer(	AudioConverterRef				inAudioConverter,
 								void*							inInputData,
 								UInt32*							ioOutputDataSize,
 								void*							outOutputData);
+
+//-----------------------------------------------------------------------------
+//	AudioConverterComplexInputDataProc
+//
+//	ioData - provided by the converter, must be filled out by the callback
+//-----------------------------------------------------------------------------
+
+typedef OSStatus
+(*AudioConverterComplexInputDataProc)(	AudioConverterRef				inAudioConverter,
+										UInt32*							ioNumberDataPackets,
+										AudioBufferList*				ioData,
+										AudioStreamPacketDescription**	outDataPacketDescription,
+										void*							inUserData);
+
+//-----------------------------------------------------------------------------
+//	AudioConverterFillComplexBuffer
+//-----------------------------------------------------------------------------
+
+extern OSStatus
+AudioConverterFillComplexBuffer(	AudioConverterRef					inAudioConverter,
+									AudioConverterComplexInputDataProc	inInputDataProc,
+									void*								inInputDataProcUserData,
+									UInt32*								ioOutputDataPacketSize,
+									AudioBufferList*					outOutputData,
+									AudioStreamPacketDescription*		outPacketDescription);
 
 #if defined(__cplusplus)
 }

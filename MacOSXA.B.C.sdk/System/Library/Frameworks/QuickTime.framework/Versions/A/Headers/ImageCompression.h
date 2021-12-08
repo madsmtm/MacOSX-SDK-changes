@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Image Compression Interfaces.
  
-     Version:    QuickTime-142~1
+     Version:    QuickTime-174.20~22
  
-     Copyright:  © 1990-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -21,6 +21,7 @@
 #endif
 
 
+#include <AvailabilityMacros.h>
 
 #if PRAGMA_ONCE
 #pragma once
@@ -30,13 +31,7 @@
 extern "C" {
 #endif
 
-#if PRAGMA_STRUCT_ALIGN
-    #pragma options align=mac68k
-#elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(push, 2)
-#elif PRAGMA_STRUCT_PACK
-    #pragma pack(2)
-#endif
+#pragma options align=mac68k
 
 struct MatrixRecord {
   Fixed               matrix[3][3];
@@ -70,17 +65,19 @@ enum {
   kCloudCodecType               = 'clou',
   kH261CodecType                = 'h261',
   kH263CodecType                = 'h263',
-  kDVCNTSCCodecType             = 'dvc ',
+  kDVCNTSCCodecType             = 'dvc ', /* DV - NTSC and DVCPRO NTSC (available in QuickTime 6.0 or later)*/
+                                        /* NOTE: kDVCProNTSCCodecType is deprecated.  */
+                                        /* Use kDVCNTSCCodecType instead -- as far as the codecs are concerned, */
+                                        /* the two data formats are identical.*/
   kDVCPALCodecType              = 'dvcp',
-  kDVCProNTSCCodecType          = 'dvpn',
-  kDVCProPALCodecType           = 'dvpp',
+  kDVCProPALCodecType           = 'dvpp', /* available in QuickTime 6.0 or later*/
   kBaseCodecType                = 'base',
   kFLCCodecType                 = 'flic',
   kTargaCodecType               = 'tga ',
   kPNGCodecType                 = 'png ',
-  kTIFFCodecType                = 'tiff', /*    NOTE: despite what might seem obvious from the two constants*/
-                                        /*    below and their names, they really are correct. 'yuvu' really */
-                                        /*    does mean signed, and 'yuvs' really does mean unsigned. Really. */
+  kTIFFCodecType                = 'tiff', /* NOTE: despite what might seem obvious from the two constants*/
+                                        /* below and their names, they really are correct. 'yuvu' really */
+                                        /* does mean signed, and 'yuvs' really does mean unsigned. Really. */
   kComponentVideoSigned         = 'yuvu',
   kComponentVideoUnsigned       = 'yuvs',
   kCMYKCodecType                = 'cmyk',
@@ -88,6 +85,7 @@ enum {
   kSorensonCodecType            = 'SVQ1',
   kSorenson3CodecType           = 'SVQ3', /* available in QuickTime 5 and later*/
   kIndeo4CodecType              = 'IV41',
+  kMPEG4VisualCodecType         = 'mp4v',
   k64ARGBCodecType              = 'b64a',
   k48RGBCodecType               = 'b48r',
   k32AlphaGrayCodecType         = 'b32a',
@@ -127,6 +125,7 @@ enum {
 enum {
   kAlphaCompositorTransitionType = 'blnd',
   kCrossFadeTransitionType      = 'dslv',
+  kChannelCompositeEffectType   = 'chan',
   kChromaKeyTransitionType      = 'ckey',
   kImplodeTransitionType        = 'mplo',
   kExplodeTransitionType        = 'xplo',
@@ -144,6 +143,29 @@ enum {
 enum {
   kTravellingMatteEffectType    = 'trav'
 };
+
+
+/* Supported by QTNewGWorld in QuickTime 4.0 and later */
+enum {
+  kCMYKPixelFormat              = 'cmyk', /* CMYK, 8-bit */
+  k64ARGBPixelFormat            = 'b64a', /* ARGB, 16-bit big-endian samples */
+  k48RGBPixelFormat             = 'b48r', /* RGB, 16-bit big-endian samples */
+  k32AlphaGrayPixelFormat       = 'b32a', /* AlphaGray, 16-bit big-endian samples */
+  k16GrayPixelFormat            = 'b16g', /* Grayscale, 16-bit big-endian samples */
+  k422YpCbCr8PixelFormat        = '2vuy' /* Component Y'CbCr 8-bit 4:2:2, ordered Cb Y'0 Cr Y'1 */
+};
+
+/* Supported by QTNewGWorld in QuickTime 4.1.2 and later */
+enum {
+  k4444YpCbCrA8PixelFormat      = 'v408', /* Component Y'CbCrA 8-bit 4:4:4:4, ordered Cb Y' Cr A */
+  k4444YpCbCrA8RPixelFormat     = 'r408' /* Component Y'CbCrA 8-bit 4:4:4:4, rendering format. full range alpha, zero biased yuv, ordered A Y' Cb Cr */
+};
+
+/* Supported by QTNewGWorld in QuickTime 6.0 and later */
+enum {
+  kYUV420PixelFormat            = 'y420' /* Planar Component Y'CbCr 8-bit 4:2:0.  PixMap baseAddr points to a big-endian PlanarPixmapInfoYUV420 struct; see ImageCodec.i. */
+};
+
 
 /* These are the bits that are set in the Component flags, and also in the codecInfo struct. */
 enum {
@@ -456,6 +478,19 @@ struct ICMFrameTimeRecord {
 };
 typedef struct ICMFrameTimeRecord       ICMFrameTimeRecord;
 typedef ICMFrameTimeRecord *            ICMFrameTimePtr;
+#ifndef __QTUUID__
+#define __QTUUID__ 1
+/* QuickTime flavor of universally unique identifier (uuid)*/
+struct QTUUID {
+  UInt32              data1;
+  UInt16              data2;
+  UInt16              data3;
+  UInt8               data4[8];
+};
+typedef struct QTUUID                   QTUUID;
+typedef QTUUID                          QTMediaContextID;
+#endif  /* !defined(__QTUUID__) */
+
 /*
  *  NewICMDataUPP()
  *  
@@ -465,7 +500,7 @@ typedef ICMFrameTimeRecord *            ICMFrameTimePtr;
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern ICMDataUPP
-NewICMDataUPP(ICMDataProcPtr userRoutine);
+NewICMDataUPP(ICMDataProcPtr userRoutine)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewICMFlushUPP()
@@ -476,7 +511,7 @@ NewICMDataUPP(ICMDataProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern ICMFlushUPP
-NewICMFlushUPP(ICMFlushProcPtr userRoutine);
+NewICMFlushUPP(ICMFlushProcPtr userRoutine)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewICMCompletionUPP()
@@ -487,7 +522,7 @@ NewICMFlushUPP(ICMFlushProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern ICMCompletionUPP
-NewICMCompletionUPP(ICMCompletionProcPtr userRoutine);
+NewICMCompletionUPP(ICMCompletionProcPtr userRoutine)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewICMProgressUPP()
@@ -498,7 +533,7 @@ NewICMCompletionUPP(ICMCompletionProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern ICMProgressUPP
-NewICMProgressUPP(ICMProgressProcPtr userRoutine);
+NewICMProgressUPP(ICMProgressProcPtr userRoutine)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewStdPixUPP()
@@ -509,7 +544,7 @@ NewICMProgressUPP(ICMProgressProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern StdPixUPP
-NewStdPixUPP(StdPixProcPtr userRoutine);
+NewStdPixUPP(StdPixProcPtr userRoutine)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewQDPixUPP()
@@ -520,7 +555,7 @@ NewStdPixUPP(StdPixProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern QDPixUPP
-NewQDPixUPP(QDPixProcPtr userRoutine);
+NewQDPixUPP(QDPixProcPtr userRoutine)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewICMAlignmentUPP()
@@ -531,7 +566,7 @@ NewQDPixUPP(QDPixProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern ICMAlignmentUPP
-NewICMAlignmentUPP(ICMAlignmentProcPtr userRoutine);
+NewICMAlignmentUPP(ICMAlignmentProcPtr userRoutine)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewICMCursorShieldedUPP()
@@ -542,7 +577,7 @@ NewICMAlignmentUPP(ICMAlignmentProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern ICMCursorShieldedUPP
-NewICMCursorShieldedUPP(ICMCursorShieldedProcPtr userRoutine);
+NewICMCursorShieldedUPP(ICMCursorShieldedProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewICMMemoryDisposedUPP()
@@ -553,7 +588,7 @@ NewICMCursorShieldedUPP(ICMCursorShieldedProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern ICMMemoryDisposedUPP
-NewICMMemoryDisposedUPP(ICMMemoryDisposedProcPtr userRoutine);
+NewICMMemoryDisposedUPP(ICMMemoryDisposedProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewICMConvertDataFormatUPP()
@@ -564,7 +599,7 @@ NewICMMemoryDisposedUPP(ICMMemoryDisposedProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern ICMConvertDataFormatUPP
-NewICMConvertDataFormatUPP(ICMConvertDataFormatProcPtr userRoutine);
+NewICMConvertDataFormatUPP(ICMConvertDataFormatProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeICMDataUPP()
@@ -575,7 +610,7 @@ NewICMConvertDataFormatUPP(ICMConvertDataFormatProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeICMDataUPP(ICMDataUPP userUPP);
+DisposeICMDataUPP(ICMDataUPP userUPP)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeICMFlushUPP()
@@ -586,7 +621,7 @@ DisposeICMDataUPP(ICMDataUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeICMFlushUPP(ICMFlushUPP userUPP);
+DisposeICMFlushUPP(ICMFlushUPP userUPP)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeICMCompletionUPP()
@@ -597,7 +632,7 @@ DisposeICMFlushUPP(ICMFlushUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeICMCompletionUPP(ICMCompletionUPP userUPP);
+DisposeICMCompletionUPP(ICMCompletionUPP userUPP)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeICMProgressUPP()
@@ -608,7 +643,7 @@ DisposeICMCompletionUPP(ICMCompletionUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeICMProgressUPP(ICMProgressUPP userUPP);
+DisposeICMProgressUPP(ICMProgressUPP userUPP)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeStdPixUPP()
@@ -619,7 +654,7 @@ DisposeICMProgressUPP(ICMProgressUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeStdPixUPP(StdPixUPP userUPP);
+DisposeStdPixUPP(StdPixUPP userUPP)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeQDPixUPP()
@@ -630,7 +665,7 @@ DisposeStdPixUPP(StdPixUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeQDPixUPP(QDPixUPP userUPP);
+DisposeQDPixUPP(QDPixUPP userUPP)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeICMAlignmentUPP()
@@ -641,7 +676,7 @@ DisposeQDPixUPP(QDPixUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeICMAlignmentUPP(ICMAlignmentUPP userUPP);
+DisposeICMAlignmentUPP(ICMAlignmentUPP userUPP)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeICMCursorShieldedUPP()
@@ -652,7 +687,7 @@ DisposeICMAlignmentUPP(ICMAlignmentUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeICMCursorShieldedUPP(ICMCursorShieldedUPP userUPP);
+DisposeICMCursorShieldedUPP(ICMCursorShieldedUPP userUPP)     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeICMMemoryDisposedUPP()
@@ -663,7 +698,7 @@ DisposeICMCursorShieldedUPP(ICMCursorShieldedUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeICMMemoryDisposedUPP(ICMMemoryDisposedUPP userUPP);
+DisposeICMMemoryDisposedUPP(ICMMemoryDisposedUPP userUPP)     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeICMConvertDataFormatUPP()
@@ -674,7 +709,7 @@ DisposeICMMemoryDisposedUPP(ICMMemoryDisposedUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeICMConvertDataFormatUPP(ICMConvertDataFormatUPP userUPP);
+DisposeICMConvertDataFormatUPP(ICMConvertDataFormatUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeICMDataUPP()
@@ -689,7 +724,7 @@ InvokeICMDataUPP(
   Ptr *       dataP,
   long        bytesNeeded,
   long        refcon,
-  ICMDataUPP  userUPP);
+  ICMDataUPP  userUPP)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeICMFlushUPP()
@@ -704,7 +739,7 @@ InvokeICMFlushUPP(
   Ptr          data,
   long         bytesAdded,
   long         refcon,
-  ICMFlushUPP  userUPP);
+  ICMFlushUPP  userUPP)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeICMCompletionUPP()
@@ -719,7 +754,7 @@ InvokeICMCompletionUPP(
   OSErr             result,
   short             flags,
   long              refcon,
-  ICMCompletionUPP  userUPP);
+  ICMCompletionUPP  userUPP)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeICMProgressUPP()
@@ -734,7 +769,7 @@ InvokeICMProgressUPP(
   short           message,
   Fixed           completeness,
   long            refcon,
-  ICMProgressUPP  userUPP);
+  ICMProgressUPP  userUPP)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeStdPixUPP()
@@ -754,7 +789,7 @@ InvokeStdPixUPP(
   PixMap *        matte,
   Rect *          matteRect,
   short           flags,
-  StdPixUPP       userUPP);
+  StdPixUPP       userUPP)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeQDPixUPP()
@@ -774,7 +809,7 @@ InvokeQDPixUPP(
   PixMap *        matte,
   Rect *          matteRect,
   short           flags,
-  QDPixUPP        userUPP);
+  QDPixUPP        userUPP)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeICMAlignmentUPP()
@@ -788,7 +823,7 @@ extern void
 InvokeICMAlignmentUPP(
   Rect *           rp,
   long             refcon,
-  ICMAlignmentUPP  userUPP);
+  ICMAlignmentUPP  userUPP)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeICMCursorShieldedUPP()
@@ -803,7 +838,7 @@ InvokeICMCursorShieldedUPP(
   const Rect *          r,
   void *                refcon,
   long                  flags,
-  ICMCursorShieldedUPP  userUPP);
+  ICMCursorShieldedUPP  userUPP)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeICMMemoryDisposedUPP()
@@ -817,7 +852,7 @@ extern void
 InvokeICMMemoryDisposedUPP(
   Ptr                   memoryBlock,
   void *                refcon,
-  ICMMemoryDisposedUPP  userUPP);
+  ICMMemoryDisposedUPP  userUPP)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeICMConvertDataFormatUPP()
@@ -837,7 +872,7 @@ InvokeICMConvertDataFormatUPP(
   long                     srcDataSize,
   void **                  dstData,
   long *                   dstDataSize,
-  ICMConvertDataFormatUPP  userUPP);
+  ICMConvertDataFormatUPP  userUPP)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  CodecManagerVersion()
@@ -849,7 +884,7 @@ InvokeICMConvertDataFormatUPP(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-CodecManagerVersion(long * version);
+CodecManagerVersion(long * version)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -864,7 +899,7 @@ CodecManagerVersion(long * version);
 extern OSErr 
 GetCodecNameList(
   CodecNameSpecListPtr *  list,
-  short                   showAll);
+  short                   showAll)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -877,7 +912,7 @@ GetCodecNameList(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-DisposeCodecNameList(CodecNameSpecListPtr list);
+DisposeCodecNameList(CodecNameSpecListPtr list)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -893,7 +928,7 @@ extern OSErr
 GetCodecInfo(
   CodecInfo *      info,
   CodecType        cType,
-  CodecComponent   codec);
+  CodecComponent   codec)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -913,7 +948,7 @@ GetMaxCompressionSize(
   CodecQ                quality,
   CodecType             cType,
   CompressorComponent   codec,
-  long *                size);
+  long *                size)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -929,7 +964,7 @@ extern OSErr
 GetCSequenceMaxCompressionSize(
   ImageSequence   seqID,
   PixMapHandle    src,
-  long *          size);
+  long *          size)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -950,7 +985,7 @@ GetCompressionTime(
   CompressorComponent   codec,
   CodecQ *              spatialQuality,
   CodecQ *              temporalQuality,
-  unsigned long *       compressTime);
+  unsigned long *       compressTime)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -969,7 +1004,7 @@ CompressImage(
   CodecQ                   quality,
   CodecType                cType,
   ImageDescriptionHandle   desc,
-  Ptr                      data);
+  Ptr                      data)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -995,7 +1030,7 @@ FCompressImage(
   ICMFlushProcRecordPtr      flushProc,
   ICMProgressProcRecordPtr   progressProc,
   ImageDescriptionHandle     desc,
-  Ptr                        data);
+  Ptr                        data)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1015,7 +1050,7 @@ DecompressImage(
   const Rect *             srcRect,
   const Rect *             dstRect,
   short                    mode,
-  RgnHandle                mask);
+  RgnHandle                mask)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1042,7 +1077,7 @@ FDecompressImage(
   DecompressorComponent      codec,
   long                       bufferSize,
   ICMDataProcRecordPtr       dataProc,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1069,7 +1104,7 @@ CompressSequenceBegin(
   long                     keyFrameRate,
   CTabHandle               ctable,
   CodecFlags               flags,
-  ImageDescriptionHandle   desc);
+  ImageDescriptionHandle   desc)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1090,7 +1125,7 @@ CompressSequenceFrame(
   Ptr                          data,
   long *                       dataSize,
   UInt8 *                      similarity,
-  ICMCompletionProcRecordPtr   asyncCompletionProc);
+  ICMCompletionProcRecordPtr   asyncCompletionProc)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1114,7 +1149,7 @@ DecompressSequenceBegin(
   RgnHandle                mask,
   CodecFlags               flags,
   CodecQ                   accuracy,
-  DecompressorComponent    codec);
+  DecompressorComponent    codec)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1140,7 +1175,7 @@ DecompressSequenceBeginS(
   RgnHandle                mask,
   CodecFlags               flags,
   CodecQ                   accuracy,
-  DecompressorComponent    codec);
+  DecompressorComponent    codec)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1158,7 +1193,7 @@ DecompressSequenceFrame(
   Ptr                          data,
   CodecFlags                   inFlags,
   CodecFlags *                 outFlags,
-  ICMCompletionProcRecordPtr   asyncCompletionProc);
+  ICMCompletionProcRecordPtr   asyncCompletionProc)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1177,7 +1212,7 @@ DecompressSequenceFrameS(
   long                         dataSize,
   CodecFlags                   inFlags,
   CodecFlags *                 outFlags,
-  ICMCompletionProcRecordPtr   asyncCompletionProc);
+  ICMCompletionProcRecordPtr   asyncCompletionProc)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1197,7 +1232,7 @@ DecompressSequenceFrameWhen(
   CodecFlags                   inFlags,
   CodecFlags *                 outFlags,
   ICMCompletionProcRecordPtr   asyncCompletionProc,
-  const ICMFrameTimeRecord *   frameTime);
+  const ICMFrameTimeRecord *   frameTime)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1210,7 +1245,7 @@ DecompressSequenceFrameWhen(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-CDSequenceFlush(ImageSequence seqID);
+CDSequenceFlush(ImageSequence seqID)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1225,7 +1260,7 @@ CDSequenceFlush(ImageSequence seqID);
 extern OSErr 
 SetDSequenceMatrix(
   ImageSequence     seqID,
-  MatrixRecordPtr   matrix);
+  MatrixRecordPtr   matrix)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1240,7 +1275,7 @@ SetDSequenceMatrix(
 extern OSErr 
 GetDSequenceMatrix(
   ImageSequence     seqID,
-  MatrixRecordPtr   matrix);
+  MatrixRecordPtr   matrix)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1256,7 +1291,7 @@ extern OSErr
 SetDSequenceMatte(
   ImageSequence   seqID,
   PixMapHandle    matte,
-  const Rect *    matteRect);
+  const Rect *    matteRect)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1271,7 +1306,7 @@ SetDSequenceMatte(
 extern OSErr 
 SetDSequenceMask(
   ImageSequence   seqID,
-  RgnHandle       mask);
+  RgnHandle       mask)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1287,7 +1322,7 @@ extern OSErr
 SetDSequenceTransferMode(
   ImageSequence     seqID,
   short             mode,
-  const RGBColor *  opColor);
+  const RGBColor *  opColor)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1303,7 +1338,7 @@ extern OSErr
 SetDSequenceDataProc(
   ImageSequence          seqID,
   ICMDataProcRecordPtr   dataProc,
-  long                   bufferSize);
+  long                   bufferSize)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1318,7 +1353,7 @@ SetDSequenceDataProc(
 extern OSErr 
 SetDSequenceAccuracy(
   ImageSequence   seqID,
-  CodecQ          accuracy);
+  CodecQ          accuracy)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1333,7 +1368,7 @@ SetDSequenceAccuracy(
 extern OSErr 
 SetDSequenceSrcRect(
   ImageSequence   seqID,
-  const Rect *    srcRect);
+  const Rect *    srcRect)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1349,15 +1384,20 @@ extern OSErr
 SetDSequenceFlags(
   ImageSequence   seqID,
   long            flags,
-  long            flagsMask);
+  long            flagsMask)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
-  codecDSequenceSingleField     = (1L << 6)
+  codecDSequenceDisableOverlaySurface = (1L << 5),
+  codecDSequenceSingleField     = (1L << 6),
+  codecDSequenceBidirectionalPrediction = (1L << 7),
+  codecDSequenceFlushInsteadOfDirtying = (1L << 8),
+  codecDSequenceEnableSubPixelPositioning = (1L << 9)
 };
 
 typedef CodecComponent *                CodecComponentPtr;
 typedef CodecComponentPtr *             CodecComponentHandle;
+/* selectors for ICMSequenceGet/SetInfo*/
 enum {
   kICMSequenceTaskWeight        = 'twei', /* data is pointer to UInt32*/
   kICMSequenceTaskName          = 'tnam', /* data is pointer to OSType*/
@@ -1377,7 +1417,7 @@ extern OSErr
 ICMSequenceGetInfo(
   ImageSequence   seqID,
   OSType          which,
-  void *          data);
+  void *          data)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1394,7 +1434,7 @@ ICMSequenceSetInfo(
   ImageSequence   seqID,
   OSType          which,
   void *          data,
-  Size            dataSize);
+  Size            dataSize)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1409,7 +1449,7 @@ ICMSequenceSetInfo(
 extern OSErr 
 GetDSequenceImageBuffer(
   ImageSequence   seqID,
-  GWorldPtr *     gworld);
+  GWorldPtr *     gworld)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1424,7 +1464,7 @@ GetDSequenceImageBuffer(
 extern OSErr 
 GetDSequenceScreenBuffer(
   ImageSequence   seqID,
-  GWorldPtr *     gworld);
+  GWorldPtr *     gworld)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1440,7 +1480,7 @@ extern OSErr
 SetCSequenceQuality(
   ImageSequence   seqID,
   CodecQ          spatialQuality,
-  CodecQ          temporalQuality);
+  CodecQ          temporalQuality)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1456,7 +1496,7 @@ extern OSErr
 SetCSequencePrev(
   ImageSequence   seqID,
   PixMapHandle    prev,
-  const Rect *    prevRect);
+  const Rect *    prevRect)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1472,7 +1512,7 @@ extern OSErr
 SetCSequenceFlushProc(
   ImageSequence           seqID,
   ICMFlushProcRecordPtr   flushProc,
-  long                    bufferSize);
+  long                    bufferSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1487,7 +1527,7 @@ SetCSequenceFlushProc(
 extern OSErr 
 SetCSequenceKeyFrameRate(
   ImageSequence   seqID,
-  long            keyFrameRate);
+  long            keyFrameRate)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1502,7 +1542,7 @@ SetCSequenceKeyFrameRate(
 extern OSErr 
 GetCSequenceKeyFrameRate(
   ImageSequence   seqID,
-  long *          keyFrameRate);
+  long *          keyFrameRate)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1517,7 +1557,7 @@ GetCSequenceKeyFrameRate(
 extern OSErr 
 GetCSequencePrevBuffer(
   ImageSequence   seqID,
-  GWorldPtr *     gworld);
+  GWorldPtr *     gworld)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1530,7 +1570,7 @@ GetCSequencePrevBuffer(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-CDSequenceBusy(ImageSequence seqID);
+CDSequenceBusy(ImageSequence seqID)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1543,7 +1583,7 @@ CDSequenceBusy(ImageSequence seqID);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-CDSequenceEnd(ImageSequence seqID);
+CDSequenceEnd(ImageSequence seqID)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1559,7 +1599,7 @@ extern OSErr
 CDSequenceEquivalentImageDescription(
   ImageSequence            seqID,
   ImageDescriptionHandle   newDesc,
-  Boolean *                equivalent);
+  Boolean *                equivalent)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1576,7 +1616,7 @@ CDSequenceEquivalentImageDescriptionS(
   ImageSequence            seqID,
   ImageDescriptionHandle   newDesc,
   Boolean *                equivalent,
-  Boolean *                canSwitch);
+  Boolean *                canSwitch)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1591,7 +1631,7 @@ CDSequenceEquivalentImageDescriptionS(
 extern OSErr 
 ReplaceDSequenceImageDescription(
   ImageSequence            seqID,
-  ImageDescriptionHandle   newDesc);
+  ImageDescriptionHandle   newDesc)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1609,7 +1649,7 @@ GetCompressedImageSize(
   Ptr                      data,
   long                     bufferSize,
   ICMDataProcRecordPtr     dataProc,
-  long *                   dataSize);
+  long *                   dataSize)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1627,7 +1667,7 @@ GetSimilarity(
   const Rect *             srcRect,
   ImageDescriptionHandle   desc,
   Ptr                      data,
-  Fixed *                  similarity);
+  Fixed *                  similarity)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
@@ -1652,7 +1692,7 @@ enum {
 extern OSErr 
 GetImageDescriptionCTable(
   ImageDescriptionHandle   desc,
-  CTabHandle *             ctable);
+  CTabHandle *             ctable)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1667,7 +1707,7 @@ GetImageDescriptionCTable(
 extern OSErr 
 SetImageDescriptionCTable(
   ImageDescriptionHandle   desc,
-  CTabHandle               ctable);
+  CTabHandle               ctable)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1684,7 +1724,7 @@ GetImageDescriptionExtension(
   ImageDescriptionHandle   desc,
   Handle *                 extension,
   long                     idType,
-  long                     index);
+  long                     index)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1700,7 +1740,7 @@ extern OSErr
 AddImageDescriptionExtension(
   ImageDescriptionHandle   desc,
   Handle                   extension,
-  long                     idType);
+  long                     idType)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1716,7 +1756,7 @@ extern OSErr
 RemoveImageDescriptionExtension(
   ImageDescriptionHandle   desc,
   long                     idType,
-  long                     index);
+  long                     index)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1732,7 +1772,7 @@ extern OSErr
 CountImageDescriptionExtensionType(
   ImageDescriptionHandle   desc,
   long                     idType,
-  long *                   count);
+  long *                   count)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1747,7 +1787,7 @@ CountImageDescriptionExtensionType(
 extern OSErr 
 GetNextImageDescriptionExtensionType(
   ImageDescriptionHandle   desc,
-  long *                   idType);
+  long *                   idType)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1764,7 +1804,7 @@ FindCodec(
   CodecType                cType,
   CodecComponent           specCodec,
   CompressorComponent *    compressor,
-  DecompressorComponent *  decompressor);
+  DecompressorComponent *  decompressor)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1781,7 +1821,7 @@ CompressPicture(
   PicHandle   srcPicture,
   PicHandle   dstPicture,
   CodecQ      quality,
-  CodecType   cType);
+  CodecType   cType)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1804,7 +1844,7 @@ FCompressPicture(
   short                      compressAgain,
   ICMProgressProcRecordPtr   progressProc,
   CodecType                  cType,
-  CompressorComponent        codec);
+  CompressorComponent        codec)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1821,7 +1861,7 @@ CompressPictureFile(
   short       srcRefNum,
   short       dstRefNum,
   CodecQ      quality,
-  CodecType   cType);
+  CodecType   cType)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1844,7 +1884,7 @@ FCompressPictureFile(
   short                      compressAgain,
   ICMProgressProcRecordPtr   progressProc,
   CodecType                  cType,
-  CompressorComponent        codec);
+  CompressorComponent        codec)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1860,7 +1900,7 @@ extern OSErr
 GetPictureFileHeader(
   short             refNum,
   Rect *            frame,
-  OpenCPicParams *  header);
+  OpenCPicParams *  header)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1876,7 +1916,7 @@ extern OSErr
 DrawPictureFile(
   short                      refNum,
   const Rect *               frame,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1894,7 +1934,7 @@ DrawTrimmedPicture(
   const Rect *               frame,
   RgnHandle                  trimMask,
   short                      doDither,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1912,7 +1952,7 @@ DrawTrimmedPictureFile(
   const Rect *               frame,
   RgnHandle                  trimMask,
   short                      doDither,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1929,7 +1969,7 @@ MakeThumbnailFromPicture(
   PicHandle                  picture,
   short                      colorDepth,
   PicHandle                  thumbnail,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1946,7 +1986,7 @@ MakeThumbnailFromPictureFile(
   short                      refNum,
   short                      colorDepth,
   PicHandle                  thumbnail,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1964,7 +2004,7 @@ MakeThumbnailFromPixMap(
   const Rect *               srcRect,
   short                      colorDepth,
   PicHandle                  thumbnail,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1986,7 +2026,7 @@ TrimImage(
   long                       outBufferSize,
   ICMFlushProcRecordPtr      flushProc,
   Rect *                     trimRect,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2009,7 +2049,7 @@ ConvertImage(
   CodecType                cType,
   CodecComponent           codec,
   ImageDescriptionHandle   dstDD,
-  Ptr                      dstData);
+  Ptr                      dstData)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2028,7 +2068,7 @@ GetCompressedPixMapInfo(
   Ptr *                     data,
   long *                    bufferSize,
   ICMDataProcRecord *       dataProc,
-  ICMProgressProcRecord *   progressProc);
+  ICMProgressProcRecord *   progressProc)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2047,7 +2087,7 @@ SetCompressedPixMapInfo(
   Ptr                        data,
   long                       bufferSize,
   ICMDataProcRecordPtr       dataProc,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2068,7 +2108,7 @@ StdPix(
   RgnHandle         mask,
   PixMapPtr         matte,
   const Rect *      matteRect,
-  short             flags);
+  short             flags)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2083,7 +2123,7 @@ StdPix(
 extern OSErr 
 TransformRgn(
   MatrixRecordPtr   matrix,
-  RgnHandle         rgn);
+  RgnHandle         rgn)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /***********
@@ -2145,7 +2185,7 @@ TransformRgn(
 extern OSErr 
 MakeFilePreview(
   short                      resRefNum,
-  ICMProgressProcRecordPtr   progress);
+  ICMProgressProcRecordPtr   progress)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2161,7 +2201,7 @@ extern OSErr
 AddFilePreview(
   short    resRefNum,
   OSType   previewType,
-  Handle   previewData);
+  Handle   previewData)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 struct PreviewResourceRecord {
@@ -2185,7 +2225,7 @@ typedef PreviewResourcePtr *            PreviewResource;
 extern void 
 AlignScreenRect(
   Rect *                      rp,
-  ICMAlignmentProcRecordPtr   alignmentProc);
+  ICMAlignmentProcRecordPtr   alignmentProc)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2202,7 +2242,7 @@ AlignWindow(
   WindowRef                   wp,
   Boolean                     front,
   const Rect *                alignmentRect,
-  ICMAlignmentProcRecordPtr   alignmentProc);
+  ICMAlignmentProcRecordPtr   alignmentProc)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2220,7 +2260,7 @@ DragAlignedWindow(
   Point                       startPt,
   Rect *                      boundsRect,
   Rect *                      alignmentRect,
-  ICMAlignmentProcRecordPtr   alignmentProc);
+  ICMAlignmentProcRecordPtr   alignmentProc)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2241,7 +2281,7 @@ DragAlignedGrayRgn(
   short                       axis,
   UniversalProcPtr            actionProc,
   Rect *                      alignmentRect,
-  ICMAlignmentProcRecordPtr   alignmentProc);
+  ICMAlignmentProcRecordPtr   alignmentProc)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2256,7 +2296,7 @@ DragAlignedGrayRgn(
 extern OSErr 
 SetCSequenceDataRateParams(
   ImageSequence       seqID,
-  DataRateParamsPtr   params);
+  DataRateParamsPtr   params)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2271,7 +2311,7 @@ SetCSequenceDataRateParams(
 extern OSErr 
 SetCSequenceFrameNumber(
   ImageSequence   seqID,
-  long            frameNumber);
+  long            frameNumber)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2286,7 +2326,7 @@ SetCSequenceFrameNumber(
 extern OSErr 
 SetCSequencePreferredPacketSize(
   ImageSequence   seqID,
-  long            preferredPacketSizeInBytes);
+  long            preferredPacketSizeInBytes)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2302,7 +2342,7 @@ extern OSErr
 NewImageGWorld(
   GWorldPtr *              gworld,
   ImageDescriptionHandle   idh,
-  GWorldFlags              flags);
+  GWorldFlags              flags)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2317,7 +2357,7 @@ NewImageGWorld(
 extern OSErr 
 GetCSequenceDataRateParams(
   ImageSequence       seqID,
-  DataRateParamsPtr   params);
+  DataRateParamsPtr   params)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2332,7 +2372,7 @@ GetCSequenceDataRateParams(
 extern OSErr 
 GetCSequenceFrameNumber(
   ImageSequence   seqID,
-  long *          frameNumber);
+  long *          frameNumber)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2347,7 +2387,7 @@ GetCSequenceFrameNumber(
 extern OSErr 
 GetBestDeviceRect(
   GDHandle *  gdh,
-  Rect *      rp);
+  Rect *      rp)                                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2362,7 +2402,7 @@ GetBestDeviceRect(
 extern OSErr 
 SetSequenceProgressProc(
   ImageSequence            seqID,
-  ICMProgressProcRecord *  progressProc);
+  ICMProgressProcRecord *  progressProc)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2378,7 +2418,7 @@ extern OSErr
 GDHasScale(
   GDHandle   gdh,
   short      depth,
-  Fixed *    scale);
+  Fixed *    scale)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2394,7 +2434,7 @@ extern OSErr
 GDGetScale(
   GDHandle   gdh,
   Fixed *    scale,
-  short *    flags);
+  short *    flags)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2410,7 +2450,7 @@ extern OSErr
 GDSetScale(
   GDHandle   gdh,
   Fixed      scale,
-  short      flags);
+  short      flags)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2423,7 +2463,7 @@ GDSetScale(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-ICMShieldSequenceCursor(ImageSequence seqID);
+ICMShieldSequenceCursor(ImageSequence seqID)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2440,7 +2480,7 @@ ICMDecompressComplete(
   ImageSequence                seqID,
   OSErr                        err,
   short                        flag,
-  ICMCompletionProcRecordPtr   completionRtn);
+  ICMCompletionProcRecordPtr   completionRtn)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2457,7 +2497,7 @@ ICMDecompressCompleteS(
   ImageSequence                seqID,
   OSErr                        err,
   short                        flag,
-  ICMCompletionProcRecordPtr   completionRtn);
+  ICMCompletionProcRecordPtr   completionRtn)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2473,7 +2513,7 @@ extern OSErr
 ICMSequenceLockBits(
   ImageSequence   seqID,
   PixMapPtr       dst,
-  long            flags);
+  long            flags)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2488,24 +2528,30 @@ ICMSequenceLockBits(
 extern OSErr 
 ICMSequenceUnlockBits(
   ImageSequence   seqID,
-  long            flags);
+  long            flags)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
-  kICMPixelFormatIsPlanarMask   = 0x0F,
+  kICMPixelFormatIsPlanarMask   = 0x0F, /* these bits in formatFlags indicate how many planes there are; they're 0 if chunky*/
   kICMPixelFormatIsIndexed      = (1L << 4),
-  kICMPixelFormatIsSupportedByQD = (1L << 5)
+  kICMPixelFormatIsSupportedByQD = (1L << 5),
+  kICMPixelFormatIsMonochrome   = (1L << 6),
+  kICMPixelFormatHasAlphaChannel = (1L << 7)
 };
 
 struct ICMPixelFormatInfo {
-  long                size;
+  long                size;                   /* caller MUST fill this in with sizeof(ICMPixelFormatInfo) before calling ICMGet/SetPixelFormatInfo*/
   unsigned long       formatFlags;
-  short               bitsPerPixel[14];
+  short               bitsPerPixel[14];       /* list each plane's bits per pixel separately if planar*/
                                               /* new field for QuickTime 4.1*/
   Fixed               defaultGammaLevel;
+                                              /* new fields for QuickTime 6.0*/
+  short               horizontalSubsampling[14]; /* per plane; use 1 if plane is not subsampled*/
+  short               verticalSubsampling[14]; /* per plane; use 1 if plane is not subsampled*/
 };
 typedef struct ICMPixelFormatInfo       ICMPixelFormatInfo;
 typedef ICMPixelFormatInfo *            ICMPixelFormatInfoPtr;
+/* IMPORTANT: Fill in theInfo->size with sizeof(ICMPixelFormatInfo) before calling ICMGetPixelFormatInfo */
 /*
  *  ICMGetPixelFormatInfo()
  *  
@@ -2518,9 +2564,10 @@ typedef ICMPixelFormatInfo *            ICMPixelFormatInfoPtr;
 extern OSErr 
 ICMGetPixelFormatInfo(
   OSType                  PixelFormat,
-  ICMPixelFormatInfoPtr   theInfo);
+  ICMPixelFormatInfoPtr   theInfo)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+/* IMPORTANT: Fill in theInfo->size with sizeof(ICMPixelFormatInfo) before calling ICMSetPixelFormatInfo */
 /*
  *  ICMSetPixelFormatInfo()
  *  
@@ -2533,7 +2580,7 @@ ICMGetPixelFormatInfo(
 extern OSErr 
 ICMSetPixelFormatInfo(
   OSType                  PixelFormat,
-  ICMPixelFormatInfoPtr   theInfo);
+  ICMPixelFormatInfoPtr   theInfo)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
@@ -2556,7 +2603,7 @@ extern OSErr
 ICMSequenceGetChainMember(
   ImageSequence    seqID,
   ImageSequence *  retSeqID,
-  long             flags);
+  long             flags)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2572,7 +2619,7 @@ extern OSErr
 SetDSequenceTimeCode(
   ImageSequence   seqID,
   void *          timeCodeFormat,
-  void *          timeCodeTime);
+  void *          timeCodeTime)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2591,7 +2638,7 @@ CDSequenceNewMemory(
   Size                   dataSize,
   long                   dataUse,
   ICMMemoryDisposedUPP   memoryGoneProc,
-  void *                 refCon);
+  void *                 refCon)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2606,7 +2653,7 @@ CDSequenceNewMemory(
 extern OSErr 
 CDSequenceDisposeMemory(
   ImageSequence   seqID,
-  Ptr             data);
+  Ptr             data)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2626,7 +2673,7 @@ CDSequenceNewDataSource(
   long                       sourceInputNumber,
   Handle                     dataDescription,
   ICMConvertDataFormatUPP    transferProc,
-  void *                     refCon);
+  void *                     refCon)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2639,7 +2686,7 @@ CDSequenceNewDataSource(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-CDSequenceDisposeDataSource(ImageSequenceDataSource sourceID);
+CDSequenceDisposeDataSource(ImageSequenceDataSource sourceID) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2655,7 +2702,7 @@ extern OSErr
 CDSequenceSetSourceData(
   ImageSequenceDataSource   sourceID,
   void *                    data,
-  long                      dataSize);
+  long                      dataSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2668,7 +2715,7 @@ CDSequenceSetSourceData(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-CDSequenceChangedSourceData(ImageSequenceDataSource sourceID);
+CDSequenceChangedSourceData(ImageSequenceDataSource sourceID) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2683,7 +2730,7 @@ CDSequenceChangedSourceData(ImageSequenceDataSource sourceID);
 extern OSErr 
 CDSequenceSetSourceDataQueue(
   ImageSequenceDataSource   sourceID,
-  QHdrPtr                   dataQueue);
+  QHdrPtr                   dataQueue)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2700,7 +2747,7 @@ CDSequenceGetDataSource(
   ImageSequence              seqID,
   ImageSequenceDataSource *  sourceID,
   OSType                     sourceType,
-  long                       sourceInputNumber);
+  long                       sourceInputNumber)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2718,7 +2765,7 @@ PtInDSequenceData(
   void *          data,
   Size            dataSize,
   Point           where,
-  Boolean *       hit);
+  Boolean *       hit)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2737,7 +2784,7 @@ HitTestDSequenceData(
   Size            dataSize,
   Point           where,
   long *          hit,
-  long            hitFlags);
+  long            hitFlags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2752,7 +2799,7 @@ HitTestDSequenceData(
 extern OSErr 
 GetGraphicsImporterForFile(
   const FSSpec *       theFile,
-  ComponentInstance *  gi);
+  ComponentInstance *  gi)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2768,7 +2815,7 @@ extern OSErr
 GetGraphicsImporterForDataRef(
   Handle               dataRef,
   OSType               dataRefType,
-  ComponentInstance *  gi);
+  ComponentInstance *  gi)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
@@ -2788,7 +2835,7 @@ extern OSErr
 GetGraphicsImporterForFileWithFlags(
   const FSSpec *       theFile,
   ComponentInstance *  gi,
-  long                 flags);
+  long                 flags)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2805,7 +2852,7 @@ GetGraphicsImporterForDataRefWithFlags(
   Handle               dataRef,
   OSType               dataRefType,
   ComponentInstance *  gi,
-  long                 flags);
+  long                 flags)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2821,7 +2868,7 @@ extern OSErr
 QTGetFileNameExtension(
   ConstStrFileNameParam   fileName,
   OSType                  fileType,
-  OSType *                extension);
+  OSType *                extension)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2841,7 +2888,7 @@ ImageTranscodeSequenceBegin(
   OSType                    destType,
   ImageDescriptionHandle *  dstDesc,
   void *                    data,
-  long                      dataSize);
+  long                      dataSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2854,7 +2901,7 @@ ImageTranscodeSequenceBegin(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-ImageTranscodeSequenceEnd(ImageTranscodeSequence its);
+ImageTranscodeSequenceEnd(ImageTranscodeSequence its)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2872,7 +2919,7 @@ ImageTranscodeFrame(
   void *                   srcData,
   long                     srcDataSize,
   void **                  dstData,
-  long *                   dstDataSize);
+  long *                   dstDataSize)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2887,7 +2934,7 @@ ImageTranscodeFrame(
 extern OSErr 
 ImageTranscodeDisposeFrameData(
   ImageTranscodeSequence   its,
-  void *                   dstData);
+  void *                   dstData)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2902,7 +2949,7 @@ ImageTranscodeDisposeFrameData(
 extern OSErr 
 CDSequenceInvalidate(
   ImageSequence   seqID,
-  RgnHandle       invalRgn);
+  RgnHandle       invalRgn)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2917,7 +2964,7 @@ CDSequenceInvalidate(
 extern OSErr 
 CDSequenceSetTimeBase(
   ImageSequence   seqID,
-  void *          base);
+  void *          base)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2934,7 +2981,7 @@ ImageFieldSequenceBegin(
   ImageFieldSequence *     ifs,
   ImageDescriptionHandle   desc1,
   ImageDescriptionHandle   desc2,
-  ImageDescriptionHandle   descOut);
+  ImageDescriptionHandle   descOut)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2955,7 +3002,7 @@ ImageFieldSequenceExtractCombine(
   void *               data2,
   long                 dataSize2,
   void *               outputData,
-  long *               outDataSize);
+  long *               outDataSize)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2968,7 +3015,7 @@ ImageFieldSequenceExtractCombine(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern OSErr 
-ImageFieldSequenceEnd(ImageFieldSequence ifs);
+ImageFieldSequenceEnd(ImageFieldSequence ifs)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
@@ -2992,7 +3039,7 @@ QTNewGWorld(
   const Rect *  boundsRect,
   CTabHandle    cTable,
   GDHandle      aGDevice,
-  GWorldFlags   flags);
+  GWorldFlags   flags)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3013,7 +3060,7 @@ QTNewGWorldFromPtr(
   GDHandle      aGDevice,
   GWorldFlags   flags,
   void *        baseAddr,
-  long          rowBytes);
+  long          rowBytes)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3032,7 +3079,7 @@ QTUpdateGWorld(
   const Rect *  boundsRect,
   CTabHandle    cTable,
   GDHandle      aGDevice,
-  GWorldFlags   flags);
+  GWorldFlags   flags)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3047,7 +3094,7 @@ QTUpdateGWorld(
 extern OSErr 
 MakeImageDescriptionForPixMap(
   PixMapHandle              pixmap,
-  ImageDescriptionHandle *  idh);
+  ImageDescriptionHandle *  idh)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3062,7 +3109,7 @@ MakeImageDescriptionForPixMap(
 extern OSErr 
 MakeImageDescriptionForEffect(
   OSType                    effectType,
-  ImageDescriptionHandle *  idh);
+  ImageDescriptionHandle *  idh)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3075,7 +3122,20 @@ MakeImageDescriptionForEffect(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern short 
-QTGetPixelSize(OSType PixelFormat);
+QTGetPixelSize(OSType PixelFormat)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+/*
+ *  QTGetPixelFormatDepthForImageDescription()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern short 
+QTGetPixelFormatDepthForImageDescription(OSType PixelFormat)  AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 /*
@@ -3088,7 +3148,7 @@ QTGetPixelSize(OSType PixelFormat);
  *    Windows:          in qtmlClient.lib 4.0 and later
  */
 extern long 
-QTGetPixMapPtrRowBytes(PixMapPtr pm);
+QTGetPixMapPtrRowBytes(PixMapPtr pm)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3101,7 +3161,7 @@ QTGetPixMapPtrRowBytes(PixMapPtr pm);
  *    Windows:          in qtmlClient.lib 4.0 and later
  */
 extern long 
-QTGetPixMapHandleRowBytes(PixMapHandle pm);
+QTGetPixMapHandleRowBytes(PixMapHandle pm)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3116,7 +3176,7 @@ QTGetPixMapHandleRowBytes(PixMapHandle pm);
 extern OSErr 
 QTSetPixMapPtrRowBytes(
   PixMapPtr   pm,
-  long        rowBytes);
+  long        rowBytes)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3131,7 +3191,7 @@ QTSetPixMapPtrRowBytes(
 extern OSErr 
 QTSetPixMapHandleRowBytes(
   PixMapHandle   pm,
-  long           rowBytes);
+  long           rowBytes)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
@@ -3150,7 +3210,7 @@ enum {
  *    Windows:          in qtmlClient.lib 5.0 and later
  */
 extern Fixed 
-QTGetPixMapPtrGammaLevel(PixMapPtr pm);
+QTGetPixMapPtrGammaLevel(PixMapPtr pm)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3165,7 +3225,7 @@ QTGetPixMapPtrGammaLevel(PixMapPtr pm);
 extern OSErr 
 QTSetPixMapPtrGammaLevel(
   PixMapPtr   pm,
-  Fixed       gammaLevel);
+  Fixed       gammaLevel)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3178,7 +3238,7 @@ QTSetPixMapPtrGammaLevel(
  *    Windows:          in qtmlClient.lib 5.0 and later
  */
 extern Fixed 
-QTGetPixMapHandleGammaLevel(PixMapHandle pm);
+QTGetPixMapHandleGammaLevel(PixMapHandle pm)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3193,7 +3253,7 @@ QTGetPixMapHandleGammaLevel(PixMapHandle pm);
 extern OSErr 
 QTSetPixMapHandleGammaLevel(
   PixMapHandle   pm,
-  Fixed          gammaLevel);
+  Fixed          gammaLevel)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3206,7 +3266,7 @@ QTSetPixMapHandleGammaLevel(
  *    Windows:          in qtmlClient.lib 5.0 and later
  */
 extern Fixed 
-QTGetPixMapPtrRequestedGammaLevel(PixMapPtr pm);
+QTGetPixMapPtrRequestedGammaLevel(PixMapPtr pm)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3221,7 +3281,7 @@ QTGetPixMapPtrRequestedGammaLevel(PixMapPtr pm);
 extern OSErr 
 QTSetPixMapPtrRequestedGammaLevel(
   PixMapPtr   pm,
-  Fixed       requestedGammaLevel);
+  Fixed       requestedGammaLevel)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3234,7 +3294,7 @@ QTSetPixMapPtrRequestedGammaLevel(
  *    Windows:          in qtmlClient.lib 5.0 and later
  */
 extern Fixed 
-QTGetPixMapHandleRequestedGammaLevel(PixMapHandle pm);
+QTGetPixMapHandleRequestedGammaLevel(PixMapHandle pm)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3249,7 +3309,7 @@ QTGetPixMapHandleRequestedGammaLevel(PixMapHandle pm);
 extern OSErr 
 QTSetPixMapHandleRequestedGammaLevel(
   PixMapHandle   pm,
-  Fixed          requestedGammaLevel);
+  Fixed          requestedGammaLevel)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3265,7 +3325,7 @@ extern OSErr
 QuadToQuadMatrix(
   const Fixed *   source,
   const Fixed *   dest,
-  MatrixRecord *  map);
+  MatrixRecord *  map)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -3291,7 +3351,7 @@ typedef unsigned short                  MatrixFlags;
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern short 
-GetMatrixType(const MatrixRecord * m);
+GetMatrixType(const MatrixRecord * m)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3306,7 +3366,7 @@ GetMatrixType(const MatrixRecord * m);
 extern void 
 CopyMatrix(
   const MatrixRecord *  m1,
-  MatrixRecord *        m2);
+  MatrixRecord *        m2)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3321,7 +3381,7 @@ CopyMatrix(
 extern Boolean 
 EqualMatrix(
   const MatrixRecord *  m1,
-  const MatrixRecord *  m2);
+  const MatrixRecord *  m2)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3334,7 +3394,7 @@ EqualMatrix(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern void 
-SetIdentityMatrix(MatrixRecord * matrix);
+SetIdentityMatrix(MatrixRecord * matrix)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3350,7 +3410,7 @@ extern void
 TranslateMatrix(
   MatrixRecord *  m,
   Fixed           deltaH,
-  Fixed           deltaV);
+  Fixed           deltaV)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3367,7 +3427,7 @@ RotateMatrix(
   MatrixRecord *  m,
   Fixed           degrees,
   Fixed           aboutX,
-  Fixed           aboutY);
+  Fixed           aboutY)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3385,7 +3445,7 @@ ScaleMatrix(
   Fixed           scaleX,
   Fixed           scaleY,
   Fixed           aboutX,
-  Fixed           aboutY);
+  Fixed           aboutY)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3403,7 +3463,7 @@ SkewMatrix(
   Fixed           skewX,
   Fixed           skewY,
   Fixed           aboutX,
-  Fixed           aboutY);
+  Fixed           aboutY)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3419,7 +3479,7 @@ extern OSErr
 TransformFixedPoints(
   const MatrixRecord *  m,
   FixedPoint *          fpt,
-  long                  count);
+  long                  count)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3435,7 +3495,7 @@ extern OSErr
 TransformPoints(
   const MatrixRecord *  mp,
   Point *               pt1,
-  long                  count);
+  long                  count)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3451,7 +3511,7 @@ extern Boolean
 TransformFixedRect(
   const MatrixRecord *  m,
   FixedRect *           fr,
-  FixedPoint *          fpp);
+  FixedPoint *          fpp)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3467,7 +3527,7 @@ extern Boolean
 TransformRect(
   const MatrixRecord *  m,
   Rect *                r,
-  FixedPoint *          fpp);
+  FixedPoint *          fpp)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3482,7 +3542,7 @@ TransformRect(
 extern Boolean 
 InverseMatrix(
   const MatrixRecord *  m,
-  MatrixRecord *        im);
+  MatrixRecord *        im)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3497,7 +3557,7 @@ InverseMatrix(
 extern void 
 ConcatMatrix(
   const MatrixRecord *  a,
-  MatrixRecord *        b);
+  MatrixRecord *        b)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3513,7 +3573,7 @@ extern void
 RectMatrix(
   MatrixRecord *  matrix,
   const Rect *    srcRect,
-  const Rect *    dstRect);
+  const Rect *    dstRect)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3529,7 +3589,7 @@ extern void
 MapMatrix(
   MatrixRecord *  matrix,
   const Rect *    fromRect,
-  const Rect *    toRect);
+  const Rect *    toRect)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -3550,7 +3610,7 @@ MapMatrix(
 extern void 
 CompAdd(
   wide *  src,
-  wide *  dst);
+  wide *  dst)                                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3565,7 +3625,7 @@ CompAdd(
 extern void 
 CompSub(
   wide *  src,
-  wide *  dst);
+  wide *  dst)                                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3578,7 +3638,7 @@ CompSub(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern void 
-CompNeg(wide * dst);
+CompNeg(wide * dst)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3593,7 +3653,7 @@ CompNeg(wide * dst);
 extern void 
 CompShift(
   wide *  src,
-  short   shift);
+  short   shift)                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3609,7 +3669,7 @@ extern void
 CompMul(
   long    src1,
   long    src2,
-  wide *  dst);
+  wide *  dst)                                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3625,7 +3685,7 @@ extern long
 CompDiv(
   wide *  numerator,
   long    denominator,
-  long *  remainder);
+  long *  remainder)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3641,7 +3701,7 @@ extern void
 CompFixMul(
   wide *  compSrc,
   Fixed   fixSrc,
-  wide *  compDst);
+  wide *  compDst)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3657,7 +3717,7 @@ extern void
 CompMulDiv(
   wide *  co,
   long    mul,
-  long    divisor);
+  long    divisor)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3674,7 +3734,7 @@ CompMulDivTrunc(
   wide *  co,
   long    mul,
   long    divisor,
-  long *  remainder);
+  long *  remainder)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3689,7 +3749,7 @@ CompMulDivTrunc(
 extern long 
 CompCompare(
   const wide *  a,
-  const wide *  minusb);
+  const wide *  minusb)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3702,7 +3762,7 @@ CompCompare(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern unsigned long 
-CompSquareRoot(const wide * src);
+CompSquareRoot(const wide * src)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3718,7 +3778,7 @@ extern Fixed
 FixMulDiv(
   Fixed   src,
   Fixed   mul,
-  Fixed   divisor);
+  Fixed   divisor)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3734,7 +3794,7 @@ extern Fixed
 UnsignedFixMulDiv(
   Fixed   src,
   Fixed   mul,
-  Fixed   divisor);
+  Fixed   divisor)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3749,7 +3809,7 @@ UnsignedFixMulDiv(
 extern Fract 
 FracSinCos(
   Fixed    degree,
-  Fract *  cosOut);
+  Fract *  cosOut)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3762,7 +3822,7 @@ FracSinCos(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern Fixed 
-FixExp2(Fixed src);
+FixExp2(Fixed src)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3775,7 +3835,7 @@ FixExp2(Fixed src);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern Fixed 
-FixLog2(Fixed src);
+FixLog2(Fixed src)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3790,7 +3850,7 @@ FixLog2(Fixed src);
 extern Fixed 
 FixPow(
   Fixed   base,
-  Fixed   exp);
+  Fixed   exp)                                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -3820,7 +3880,9 @@ enum {
 
 /* Flags for GraphicsImportSetFlags */
 enum {
-  kGraphicsImporterDontDoGammaCorrection = 1L
+  kGraphicsImporterDontDoGammaCorrection = 1L << 0,
+  kGraphicsImporterTrustResolutionFromFile = 1L << 1,
+  kGraphicsImporterEnableSubPixelPositioning = 1L << 2
 };
 
 enum {
@@ -3863,6 +3925,102 @@ enum {
   kUserDataIPTC                 = 'iptc'
 };
 
+/* Found in TIFF and Exif JPEG files */
+enum {
+  kQTTIFFUserDataOrientation    = 0x74690112, /* 1 SHORT */
+  kQTTIFFUserDataTransferFunction = 0x7469012D, /* n SHORTs */
+  kQTTIFFUserDataWhitePoint     = 0x7469013E, /* 2 RATIONALs */
+  kQTTIFFUserDataPrimaryChromaticities = 0x7469013F, /* 6 RATIONALs */
+  kQTTIFFUserDataTransferRange  = 0x74690156, /* 6 SHORTs */
+  kQTTIFFUserDataYCbCrPositioning = 0x74690213, /* 1 SHORT */
+  kQTTIFFUserDataReferenceBlackWhite = 0x74690214 /* n LONGs */
+};
+
+/* Found in GeoTIFF files; defined in the GeoTIFF 1.0 spec */
+enum {
+  kQTTIFFUserDataModelPixelScale = 0x7469830E, /* 3 DOUBLEs */
+  kQTTIFFUserDataModelTransformation = 0x746985D8, /* 16 DOUBLEs */
+  kQTTIFFUserDataModelTiepoint  = 0x74698482, /* n DOUBLEs */
+  kQTTIFFUserDataGeoKeyDirectory = 0x746987AF, /* n SHORTs */
+  kQTTIFFUserDataGeoDoubleParams = 0x746987B0, /* n DOUBLEs */
+  kQTTIFFUserDataGeoAsciiParams = 0x746987B1, /* n ASCIIs */
+  kQTTIFFUserDataIntergraphMatrix = 0x74698480 /* 16 or 17 DOUBLEs */
+};
+
+/* Found in Exif TIFF and Exif JPEG files; defined in the Exif 2.1 spec */
+enum {
+  kQTExifUserDataExifVersion    = 0x65789000, /* 4 bytes (import only) */
+  kQTExifUserDataFlashPixVersion = 0x6578A000, /* 4 bytes */
+  kQTExifUserDataColorSpace     = 0x6578A001, /* 1 SHORT */
+  kQTExifUserDataComponentsConfiguration = 0x65789101, /* 4 bytes */
+  kQTExifUserDataCompressedBitsPerPixel = 0x65789102, /* 1 RATIONAL */
+  kQTExifUserDataPixelXDimension = 0x6578A002, /* 1 SHORT or LONG */
+  kQTExifUserDataPixelYDimension = 0x6578A003, /* 1 SHORT or LONG */
+  kQTExifUserDataMakerNote      = 0x6578927C, /* n bytes */
+  kQTExifUserDataUserComment    = 0x6578928C, /* n bytes */
+  kQTExifUserDataRelatedSoundFile = 0x6578A004, /* 13 ASCIIs*/
+  kQTExifUserDataDateTimeOriginal = 0x65789003, /* 20 ASCIIs */
+  kQTExifUserDataDateTimeDigitized = 0x65789004, /* 20 ASCIIs */
+  kQTExifUserDataSubSecTime     = 0x65789290, /* n ASCIIs */
+  kQTExifUserDataSubSecTimeOriginal = 0x65789291, /* n ASCIIs */
+  kQTExifUserDataSubSecTimeDigitized = 0x65789292, /* n ASCIIs */
+  kQTExifUserDataExposureTime   = 0x6578829A, /* 1 RATIONAL */
+  kQTExifUserDataFNumber        = 0x6578829D, /* 1 RATIONAL */
+  kQTExifUserDataExposureProgram = 0x65788822, /* 1 SHORT */
+  kQTExifUserDataSpectralSensitivity = 0x65788824, /* n ASCIIs */
+  kQTExifUserDataISOSpeedRatings = 0x65788827, /* n SHORTs */
+  kQTExifUserDataShutterSpeedValue = 0x65789201, /* 1 SIGNED RATIONAL */
+  kQTExifUserDataApertureValue  = 0x65789202, /* 1 RATIONAL */
+  kQTExifUserDataBrightnessValue = 0x65789203, /* 1 SIGNED RATIONAL */
+  kQTExifUserDataExposureBiasValue = 0x65789204, /* 1 SIGNED RATIONAL */
+  kQTExifUserDataMaxApertureValue = 0x65789205, /* 1 RATIONAL */
+  kQTExifUserDataSubjectDistance = 0x65789206, /* 1 RATIONAL */
+  kQTExifUserDataMeteringMode   = 0x65789207, /* 1 SHORT */
+  kQTExifUserDataLightSource    = 0x65789208, /* 1 SHORT */
+  kQTExifUserDataFlash          = 0x65789209, /* 1 SHORT */
+  kQTExifUserDataFocalLength    = 0x6578920A, /* 1 RATIONAL */
+  kQTExifUserDataFlashEnergy    = 0x6578A20B, /* 1 RATIONAL */
+  kQTExifUserDataFocalPlaneXResolution = 0x6578A20E, /* 1 RATIONAL */
+  kQTExifUserDataFocalPlaneYResolution = 0x6578A20F, /* 1 RATIONAL */
+  kQTExifUserDataFocalPlaneResolutionUnit = 0x6578A210, /* 1 SHORT */
+  kQTExifUserDataSubjectLocation = 0x6578A214, /* 1 SHORT */
+  kQTExifUserDataExposureIndex  = 0x6578A215, /* 1 RATIONAL */
+  kQTExifUserDataSensingMethod  = 0x6578A217, /* 1 SHORT */
+  kQTExifUserDataFileSource     = 0x6578A300, /* 1 UNDEFINED */
+  kQTExifUserDataSceneType      = 0x6578A301 /* 1 UNDEFINED */
+};
+
+/* Found in some Exif TIFF and Exif JPEG files; defined in the Exif 2.1 spec */
+enum {
+  kQTExifUserDataGPSVersionID   = 0x06770000, /* 4 BYTEs */
+  kQTExifUserDataGPSLatitudeRef = 0x06770001, /* 2 ASCIIs*/
+  kQTExifUserDataGPSLatitude    = 0x06770002, /* 3 RATIONALs */
+  kQTExifUserDataGPSLongitudeRef = 0x06770003, /* 2 ASCIIs */
+  kQTExifUserDataGPSLongitude   = 0x06770004, /* 3 RATIONALs */
+  kQTExifUserDataGPSAltitudeRef = 0x06770005, /* 1 BYTE */
+  kQTExifUserDataGPSAltitude    = 0x06770006, /* 1 RATIONAL */
+  kQTExifUserDataGPSTimeStamp   = 0x06770007, /* 3 RATIONALs */
+  kQTExifUserDataGPSSatellites  = 0x06770008, /* n ASCIIs */
+  kQTExifUserDataGPSStatus      = 0x06770009, /* 2 ASCIIs */
+  kQTExifUserDataGPSMeasureMode = 0x0677000A, /* 2 ASCIIs */
+  kQTExifUserDataGPSDOP         = 0x0677000B, /* 1 RATIONAL */
+  kQTExifUserDataGPSSpeedRef    = 0x0677000C, /* 2 ASCIIs */
+  kQTExifUserDataGPSSpeed       = 0x0677000D, /* 1 RATIONAL */
+  kQTExifUserDataGPSTrackRef    = 0x0677000E, /* 2 ASCIIs */
+  kQTExifUserDataGPSTrack       = 0x0677000F, /* 1 RATIONAL */
+  kQTExifUserDataGPSImgDirectionRef = 0x06770010, /* 2 ASCIIs */
+  kQTExifUserDataGPSImgDirection = 0x06770011, /* 1 RATIONAL */
+  kQTExifUserDataGPSMapDatum    = 0x06770012, /* n ASCII */
+  kQTExifUserDataGPSDestLatitudeRef = 0x06770013, /* 2 ASCIIs */
+  kQTExifUserDataGPSDestLatitude = 0x06770014, /* 3 RATIONALs */
+  kQTExifUserDataGPSDestLongitudeRef = 0x06770015, /* 2 ASCIIs */
+  kQTExifUserDataGPSDestLongitude = 0x06770016, /* 3 RATIONALs */
+  kQTExifUserDataGPSDestBearingRef = 0x06770017, /* 2 ASCIIs */
+  kQTExifUserDataGPSDestBearing = 0x06770018, /* 1 RATIONAL */
+  kQTExifUserDataGPSDestDistanceRef = 0x06770019, /* 2 ASCIIs */
+  kQTExifUserDataGPSDestDistance = 0x0677001A /* 1 RATIONAL */
+};
+
 
 /** These are GraphicsImport procedures **/
 /*
@@ -3878,7 +4036,7 @@ extern ComponentResult
 GraphicsImportSetDataReference(
   GraphicsImportComponent   ci,
   Handle                    dataRef,
-  OSType                    dataReType);
+  OSType                    dataReType)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3894,7 +4052,7 @@ extern ComponentResult
 GraphicsImportGetDataReference(
   GraphicsImportComponent   ci,
   Handle *                  dataRef,
-  OSType *                  dataReType);
+  OSType *                  dataReType)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3909,7 +4067,7 @@ GraphicsImportGetDataReference(
 extern ComponentResult 
 GraphicsImportSetDataFile(
   GraphicsImportComponent   ci,
-  const FSSpec *            theFile);
+  const FSSpec *            theFile)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3924,7 +4082,7 @@ GraphicsImportSetDataFile(
 extern ComponentResult 
 GraphicsImportGetDataFile(
   GraphicsImportComponent   ci,
-  FSSpec *                  theFile);
+  FSSpec *                  theFile)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3939,7 +4097,7 @@ GraphicsImportGetDataFile(
 extern ComponentResult 
 GraphicsImportSetDataHandle(
   GraphicsImportComponent   ci,
-  Handle                    h);
+  Handle                    h)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3954,7 +4112,7 @@ GraphicsImportSetDataHandle(
 extern ComponentResult 
 GraphicsImportGetDataHandle(
   GraphicsImportComponent   ci,
-  Handle *                  h);
+  Handle *                  h)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3969,7 +4127,7 @@ GraphicsImportGetDataHandle(
 extern ComponentResult 
 GraphicsImportGetImageDescription(
   GraphicsImportComponent   ci,
-  ImageDescriptionHandle *  desc);
+  ImageDescriptionHandle *  desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -3985,7 +4143,7 @@ extern ComponentResult
 GraphicsImportGetDataOffsetAndSize(
   GraphicsImportComponent   ci,
   unsigned long *           offset,
-  unsigned long *           size);
+  unsigned long *           size)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4002,7 +4160,7 @@ GraphicsImportReadData(
   GraphicsImportComponent   ci,
   void *                    dataPtr,
   unsigned long             dataOffset,
-  unsigned long             dataSize);
+  unsigned long             dataSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4017,7 +4175,7 @@ GraphicsImportReadData(
 extern ComponentResult 
 GraphicsImportSetClip(
   GraphicsImportComponent   ci,
-  RgnHandle                 clipRgn);
+  RgnHandle                 clipRgn)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4032,7 +4190,7 @@ GraphicsImportSetClip(
 extern ComponentResult 
 GraphicsImportGetClip(
   GraphicsImportComponent   ci,
-  RgnHandle *               clipRgn);
+  RgnHandle *               clipRgn)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4047,7 +4205,7 @@ GraphicsImportGetClip(
 extern ComponentResult 
 GraphicsImportSetSourceRect(
   GraphicsImportComponent   ci,
-  const Rect *              sourceRect);
+  const Rect *              sourceRect)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4062,7 +4220,7 @@ GraphicsImportSetSourceRect(
 extern ComponentResult 
 GraphicsImportGetSourceRect(
   GraphicsImportComponent   ci,
-  Rect *                    sourceRect);
+  Rect *                    sourceRect)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4077,7 +4235,7 @@ GraphicsImportGetSourceRect(
 extern ComponentResult 
 GraphicsImportGetNaturalBounds(
   GraphicsImportComponent   ci,
-  Rect *                    naturalBounds);
+  Rect *                    naturalBounds)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4090,7 +4248,7 @@ GraphicsImportGetNaturalBounds(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-GraphicsImportDraw(GraphicsImportComponent ci);
+GraphicsImportDraw(GraphicsImportComponent ci)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4106,7 +4264,7 @@ extern ComponentResult
 GraphicsImportSetGWorld(
   GraphicsImportComponent   ci,
   CGrafPtr                  port,
-  GDHandle                  gd);
+  GDHandle                  gd)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4122,7 +4280,7 @@ extern ComponentResult
 GraphicsImportGetGWorld(
   GraphicsImportComponent   ci,
   CGrafPtr *                port,
-  GDHandle *                gd);
+  GDHandle *                gd)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4137,7 +4295,7 @@ GraphicsImportGetGWorld(
 extern ComponentResult 
 GraphicsImportSetMatrix(
   GraphicsImportComponent   ci,
-  const MatrixRecord *      matrix);
+  const MatrixRecord *      matrix)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4152,7 +4310,7 @@ GraphicsImportSetMatrix(
 extern ComponentResult 
 GraphicsImportGetMatrix(
   GraphicsImportComponent   ci,
-  MatrixRecord *            matrix);
+  MatrixRecord *            matrix)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4167,7 +4325,7 @@ GraphicsImportGetMatrix(
 extern ComponentResult 
 GraphicsImportSetBoundsRect(
   GraphicsImportComponent   ci,
-  const Rect *              bounds);
+  const Rect *              bounds)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4182,7 +4340,7 @@ GraphicsImportSetBoundsRect(
 extern ComponentResult 
 GraphicsImportGetBoundsRect(
   GraphicsImportComponent   ci,
-  Rect *                    bounds);
+  Rect *                    bounds)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4198,7 +4356,7 @@ extern ComponentResult
 GraphicsImportSaveAsPicture(
   GraphicsImportComponent   ci,
   const FSSpec *            fss,
-  ScriptCode                scriptTag);
+  ScriptCode                scriptTag)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4214,7 +4372,7 @@ extern ComponentResult
 GraphicsImportSetGraphicsMode(
   GraphicsImportComponent   ci,
   long                      graphicsMode,
-  const RGBColor *          opColor);
+  const RGBColor *          opColor)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4230,7 +4388,7 @@ extern ComponentResult
 GraphicsImportGetGraphicsMode(
   GraphicsImportComponent   ci,
   long *                    graphicsMode,
-  RGBColor *                opColor);
+  RGBColor *                opColor)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4245,7 +4403,7 @@ GraphicsImportGetGraphicsMode(
 extern ComponentResult 
 GraphicsImportSetQuality(
   GraphicsImportComponent   ci,
-  CodecQ                    quality);
+  CodecQ                    quality)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4260,7 +4418,7 @@ GraphicsImportSetQuality(
 extern ComponentResult 
 GraphicsImportGetQuality(
   GraphicsImportComponent   ci,
-  CodecQ *                  quality);
+  CodecQ *                  quality)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4276,7 +4434,7 @@ extern ComponentResult
 GraphicsImportSaveAsQuickTimeImageFile(
   GraphicsImportComponent   ci,
   const FSSpec *            fss,
-  ScriptCode                scriptTag);
+  ScriptCode                scriptTag)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4292,7 +4450,7 @@ extern ComponentResult
 GraphicsImportSetDataReferenceOffsetAndLimit(
   GraphicsImportComponent   ci,
   unsigned long             offset,
-  unsigned long             limit);
+  unsigned long             limit)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4308,7 +4466,7 @@ extern ComponentResult
 GraphicsImportGetDataReferenceOffsetAndLimit(
   GraphicsImportComponent   ci,
   unsigned long *           offset,
-  unsigned long *           limit);
+  unsigned long *           limit)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4324,7 +4482,7 @@ extern ComponentResult
 GraphicsImportGetAliasedDataReference(
   GraphicsImportComponent   ci,
   Handle *                  dataRef,
-  OSType *                  dataRefType);
+  OSType *                  dataRefType)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4339,7 +4497,7 @@ GraphicsImportGetAliasedDataReference(
 extern ComponentResult 
 GraphicsImportValidate(
   GraphicsImportComponent   ci,
-  Boolean *                 valid);
+  Boolean *                 valid)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4354,7 +4512,7 @@ GraphicsImportValidate(
 extern ComponentResult 
 GraphicsImportGetMetaData(
   GraphicsImportComponent   ci,
-  void *                    userData);
+  void *                    userData)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4369,7 +4527,7 @@ GraphicsImportGetMetaData(
 extern ComponentResult 
 GraphicsImportGetMIMETypeList(
   GraphicsImportComponent   ci,
-  void *                    qtAtomContainerPtr);
+  void *                    qtAtomContainerPtr)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4384,7 +4542,7 @@ GraphicsImportGetMIMETypeList(
 extern ComponentResult 
 GraphicsImportDoesDrawAllPixels(
   GraphicsImportComponent   ci,
-  short *                   drawsAllPixels);
+  short *                   drawsAllPixels)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4399,7 +4557,7 @@ GraphicsImportDoesDrawAllPixels(
 extern ComponentResult 
 GraphicsImportGetAsPicture(
   GraphicsImportComponent   ci,
-  PicHandle *               picture);
+  PicHandle *               picture)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4417,7 +4575,7 @@ GraphicsImportExportImageFile(
   OSType                    fileType,
   OSType                    fileCreator,
   const FSSpec *            fss,
-  ScriptCode                scriptTag);
+  ScriptCode                scriptTag)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4432,7 +4590,7 @@ GraphicsImportExportImageFile(
 extern ComponentResult 
 GraphicsImportGetExportImageTypeList(
   GraphicsImportComponent   ci,
-  void *                    qtAtomContainerPtr);
+  void *                    qtAtomContainerPtr)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4452,7 +4610,7 @@ GraphicsImportDoExportImageFileDialog(
   ModalFilterYDUPP          filterProc,
   OSType *                  outExportedType,
   FSSpec *                  outExportedSpec,
-  ScriptCode *              outScriptTag);
+  ScriptCode *              outScriptTag)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4467,7 +4625,7 @@ GraphicsImportDoExportImageFileDialog(
 extern ComponentResult 
 GraphicsImportGetExportSettingsAsAtomContainer(
   GraphicsImportComponent   ci,
-  void *                    qtAtomContainerPtr);
+  void *                    qtAtomContainerPtr)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4482,7 +4640,7 @@ GraphicsImportGetExportSettingsAsAtomContainer(
 extern ComponentResult 
 GraphicsImportSetExportSettingsFromAtomContainer(
   GraphicsImportComponent   ci,
-  void *                    qtAtomContainer);
+  void *                    qtAtomContainer)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4497,7 +4655,7 @@ GraphicsImportSetExportSettingsFromAtomContainer(
 extern ComponentResult 
 GraphicsImportSetProgressProc(
   GraphicsImportComponent    ci,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4512,7 +4670,7 @@ GraphicsImportSetProgressProc(
 extern ComponentResult 
 GraphicsImportGetProgressProc(
   GraphicsImportComponent    ci,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4527,7 +4685,7 @@ GraphicsImportGetProgressProc(
 extern ComponentResult 
 GraphicsImportGetImageCount(
   GraphicsImportComponent   ci,
-  unsigned long *           imageCount);
+  unsigned long *           imageCount)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4542,7 +4700,7 @@ GraphicsImportGetImageCount(
 extern ComponentResult 
 GraphicsImportSetImageIndex(
   GraphicsImportComponent   ci,
-  unsigned long             imageIndex);
+  unsigned long             imageIndex)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4557,7 +4715,7 @@ GraphicsImportSetImageIndex(
 extern ComponentResult 
 GraphicsImportGetImageIndex(
   GraphicsImportComponent   ci,
-  unsigned long *           imageIndex);
+  unsigned long *           imageIndex)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4573,7 +4731,7 @@ extern ComponentResult
 GraphicsImportGetDataOffsetAndSize64(
   GraphicsImportComponent   ci,
   wide *                    offset,
-  wide *                    size);
+  wide *                    size)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4590,7 +4748,7 @@ GraphicsImportReadData64(
   GraphicsImportComponent   ci,
   void *                    dataPtr,
   const wide *              dataOffset,
-  unsigned long             dataSize);
+  unsigned long             dataSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4606,7 +4764,7 @@ extern ComponentResult
 GraphicsImportSetDataReferenceOffsetAndLimit64(
   GraphicsImportComponent   ci,
   const wide *              offset,
-  const wide *              limit);
+  const wide *              limit)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4622,7 +4780,7 @@ extern ComponentResult
 GraphicsImportGetDataReferenceOffsetAndLimit64(
   GraphicsImportComponent   ci,
   wide *                    offset,
-  wide *                    limit);
+  wide *                    limit)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4637,7 +4795,7 @@ GraphicsImportGetDataReferenceOffsetAndLimit64(
 extern ComponentResult 
 GraphicsImportGetDefaultMatrix(
   GraphicsImportComponent   ci,
-  MatrixRecord *            defaultMatrix);
+  MatrixRecord *            defaultMatrix)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4652,7 +4810,7 @@ GraphicsImportGetDefaultMatrix(
 extern ComponentResult 
 GraphicsImportGetDefaultClip(
   GraphicsImportComponent   ci,
-  RgnHandle *               defaultRgn);
+  RgnHandle *               defaultRgn)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4668,7 +4826,7 @@ extern ComponentResult
 GraphicsImportGetDefaultGraphicsMode(
   GraphicsImportComponent   ci,
   long *                    defaultGraphicsMode,
-  RGBColor *                defaultOpColor);
+  RGBColor *                defaultOpColor)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4683,7 +4841,7 @@ GraphicsImportGetDefaultGraphicsMode(
 extern ComponentResult 
 GraphicsImportGetDefaultSourceRect(
   GraphicsImportComponent   ci,
-  Rect *                    defaultSourceRect);
+  Rect *                    defaultSourceRect)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4698,7 +4856,7 @@ GraphicsImportGetDefaultSourceRect(
 extern ComponentResult 
 GraphicsImportGetColorSyncProfile(
   GraphicsImportComponent   ci,
-  Handle *                  profile);
+  Handle *                  profile)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4713,7 +4871,7 @@ GraphicsImportGetColorSyncProfile(
 extern ComponentResult 
 GraphicsImportSetDestRect(
   GraphicsImportComponent   ci,
-  const Rect *              destRect);
+  const Rect *              destRect)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4728,7 +4886,7 @@ GraphicsImportSetDestRect(
 extern ComponentResult 
 GraphicsImportGetDestRect(
   GraphicsImportComponent   ci,
-  Rect *                    destRect);
+  Rect *                    destRect)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4743,7 +4901,7 @@ GraphicsImportGetDestRect(
 extern ComponentResult 
 GraphicsImportSetFlags(
   GraphicsImportComponent   ci,
-  long                      flags);
+  long                      flags)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4758,7 +4916,7 @@ GraphicsImportSetFlags(
 extern ComponentResult 
 GraphicsImportGetFlags(
   GraphicsImportComponent   ci,
-  long *                    flags);
+  long *                    flags)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* 2 private selectors */
@@ -4775,7 +4933,21 @@ extern ComponentResult
 GraphicsImportGetBaseDataOffsetAndSize64(
   GraphicsImportComponent   ci,
   wide *                    offset,
-  wide *                    size);
+  wide *                    size)                             AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
+
+
+/*
+ *  GraphicsImportSetImageIndexToThumbnail()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.2 and later in QuickTime.framework
+ *    CarbonLib:        in CarbonLib 1.6 and later
+ *    Non-Carbon CFM:   in QuickTimeLib 6.0 and later
+ *    Windows:          in qtmlClient.lib 6.0 and later
+ */
+extern ComponentResult 
+GraphicsImportSetImageIndexToThumbnail(GraphicsImportComponent ci) AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
 
 
 
@@ -4854,7 +5026,7 @@ enum {
 extern ComponentResult 
 GraphicsExportDoExport(
   GraphicsExportComponent   ci,
-  unsigned long *           actualSizeWritten);
+  unsigned long *           actualSizeWritten)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Used for internal communication between the base and format-specific graphics exporter: */
@@ -4870,7 +5042,7 @@ GraphicsExportDoExport(
 extern ComponentResult 
 GraphicsExportCanTranscode(
   GraphicsExportComponent   ci,
-  Boolean *                 canTranscode);
+  Boolean *                 canTranscode)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4883,7 +5055,7 @@ GraphicsExportCanTranscode(
  *    Windows:          in qtmlClient.lib 4.0 and later
  */
 extern ComponentResult 
-GraphicsExportDoTranscode(GraphicsExportComponent ci);
+GraphicsExportDoTranscode(GraphicsExportComponent ci)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4899,7 +5071,7 @@ extern ComponentResult
 GraphicsExportCanUseCompressor(
   GraphicsExportComponent   ci,
   Boolean *                 canUseCompressor,
-  void *                    codecSettingsAtomContainerPtr);
+  void *                    codecSettingsAtomContainerPtr)    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4915,7 +5087,7 @@ extern ComponentResult
 GraphicsExportDoUseCompressor(
   GraphicsExportComponent   ci,
   void *                    codecSettingsAtomContainer,
-  ImageDescriptionHandle *  outDesc);
+  ImageDescriptionHandle *  outDesc)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4928,7 +5100,7 @@ GraphicsExportDoUseCompressor(
  *    Windows:          in qtmlClient.lib 4.0 and later
  */
 extern ComponentResult 
-GraphicsExportDoStandaloneExport(GraphicsExportComponent ci);
+GraphicsExportDoStandaloneExport(GraphicsExportComponent ci)  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Queries applications can make of a format-specific graphics exporter: */
@@ -4945,7 +5117,7 @@ extern ComponentResult
 GraphicsExportGetDefaultFileTypeAndCreator(
   GraphicsExportComponent   ci,
   OSType *                  fileType,
-  OSType *                  fileCreator);
+  OSType *                  fileCreator)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4960,7 +5132,7 @@ GraphicsExportGetDefaultFileTypeAndCreator(
 extern ComponentResult 
 GraphicsExportGetDefaultFileNameExtension(
   GraphicsExportComponent   ci,
-  OSType *                  fileNameExtension);
+  OSType *                  fileNameExtension)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -4975,7 +5147,7 @@ GraphicsExportGetDefaultFileNameExtension(
 extern ComponentResult 
 GraphicsExportGetMIMETypeList(
   GraphicsExportComponent   ci,
-  void *                    qtAtomContainerPtr);
+  void *                    qtAtomContainerPtr)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* GraphicsExportIsTranscodePossibleFromCurrentInput is removed; call GraphicsExportCanTranscode instead */
@@ -4993,7 +5165,7 @@ extern ComponentResult
 GraphicsExportRequestSettings(
   GraphicsExportComponent   ci,
   ModalFilterYDUPP          filterProc,
-  void *                    yourDataProc);
+  void *                    yourDataProc)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5008,7 +5180,7 @@ GraphicsExportRequestSettings(
 extern ComponentResult 
 GraphicsExportSetSettingsFromAtomContainer(
   GraphicsExportComponent   ci,
-  void *                    qtAtomContainer);
+  void *                    qtAtomContainer)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5023,7 +5195,7 @@ GraphicsExportSetSettingsFromAtomContainer(
 extern ComponentResult 
 GraphicsExportGetSettingsAsAtomContainer(
   GraphicsExportComponent   ci,
-  void *                    qtAtomContainerPtr);
+  void *                    qtAtomContainerPtr)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5038,7 +5210,7 @@ GraphicsExportGetSettingsAsAtomContainer(
 extern ComponentResult 
 GraphicsExportGetSettingsAsText(
   GraphicsExportComponent   ci,
-  Handle *                  theText);
+  Handle *                  theText)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Graphics exporters may implement some or none of the following: */
@@ -5054,7 +5226,7 @@ GraphicsExportGetSettingsAsText(
 extern ComponentResult 
 GraphicsExportSetDontRecompress(
   GraphicsExportComponent   ci,
-  Boolean                   dontRecompress);
+  Boolean                   dontRecompress)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5069,7 +5241,7 @@ GraphicsExportSetDontRecompress(
 extern ComponentResult 
 GraphicsExportGetDontRecompress(
   GraphicsExportComponent   ci,
-  Boolean *                 dontRecompress);
+  Boolean *                 dontRecompress)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5084,7 +5256,7 @@ GraphicsExportGetDontRecompress(
 extern ComponentResult 
 GraphicsExportSetInterlaceStyle(
   GraphicsExportComponent   ci,
-  unsigned long             interlaceStyle);
+  unsigned long             interlaceStyle)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5099,7 +5271,7 @@ GraphicsExportSetInterlaceStyle(
 extern ComponentResult 
 GraphicsExportGetInterlaceStyle(
   GraphicsExportComponent   ci,
-  unsigned long *           interlaceStyle);
+  unsigned long *           interlaceStyle)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5114,7 +5286,7 @@ GraphicsExportGetInterlaceStyle(
 extern ComponentResult 
 GraphicsExportSetMetaData(
   GraphicsExportComponent   ci,
-  void *                    userData);
+  void *                    userData)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5129,7 +5301,7 @@ GraphicsExportSetMetaData(
 extern ComponentResult 
 GraphicsExportGetMetaData(
   GraphicsExportComponent   ci,
-  void *                    userData);
+  void *                    userData)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5144,7 +5316,7 @@ GraphicsExportGetMetaData(
 extern ComponentResult 
 GraphicsExportSetTargetDataSize(
   GraphicsExportComponent   ci,
-  unsigned long             targetDataSize);
+  unsigned long             targetDataSize)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5159,7 +5331,7 @@ GraphicsExportSetTargetDataSize(
 extern ComponentResult 
 GraphicsExportGetTargetDataSize(
   GraphicsExportComponent   ci,
-  unsigned long *           targetDataSize);
+  unsigned long *           targetDataSize)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5174,7 +5346,7 @@ GraphicsExportGetTargetDataSize(
 extern ComponentResult 
 GraphicsExportSetCompressionMethod(
   GraphicsExportComponent   ci,
-  long                      compressionMethod);
+  long                      compressionMethod)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5189,7 +5361,7 @@ GraphicsExportSetCompressionMethod(
 extern ComponentResult 
 GraphicsExportGetCompressionMethod(
   GraphicsExportComponent   ci,
-  long *                    compressionMethod);
+  long *                    compressionMethod)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5204,7 +5376,7 @@ GraphicsExportGetCompressionMethod(
 extern ComponentResult 
 GraphicsExportSetCompressionQuality(
   GraphicsExportComponent   ci,
-  CodecQ                    spatialQuality);
+  CodecQ                    spatialQuality)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5219,7 +5391,7 @@ GraphicsExportSetCompressionQuality(
 extern ComponentResult 
 GraphicsExportGetCompressionQuality(
   GraphicsExportComponent   ci,
-  CodecQ *                  spatialQuality);
+  CodecQ *                  spatialQuality)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5235,7 +5407,7 @@ extern ComponentResult
 GraphicsExportSetResolution(
   GraphicsExportComponent   ci,
   Fixed                     horizontalResolution,
-  Fixed                     verticalResolution);
+  Fixed                     verticalResolution)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5251,7 +5423,7 @@ extern ComponentResult
 GraphicsExportGetResolution(
   GraphicsExportComponent   ci,
   Fixed *                   horizontalResolution,
-  Fixed *                   verticalResolution);
+  Fixed *                   verticalResolution)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5266,7 +5438,7 @@ GraphicsExportGetResolution(
 extern ComponentResult 
 GraphicsExportSetDepth(
   GraphicsExportComponent   ci,
-  long                      depth);
+  long                      depth)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5281,9 +5453,10 @@ GraphicsExportSetDepth(
 extern ComponentResult 
 GraphicsExportGetDepth(
   GraphicsExportComponent   ci,
-  long *                    depth);
+  long *                    depth)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
+/* (2 unused selectors) */
 /*
  *  GraphicsExportSetColorSyncProfile()
  *  
@@ -5296,7 +5469,7 @@ GraphicsExportGetDepth(
 extern ComponentResult 
 GraphicsExportSetColorSyncProfile(
   GraphicsExportComponent   ci,
-  Handle                    colorSyncProfile);
+  Handle                    colorSyncProfile)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5311,7 +5484,7 @@ GraphicsExportSetColorSyncProfile(
 extern ComponentResult 
 GraphicsExportGetColorSyncProfile(
   GraphicsExportComponent   ci,
-  Handle *                  colorSyncProfile);
+  Handle *                  colorSyncProfile)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Always implemented by the base graphics exporter: */
@@ -5327,7 +5500,7 @@ GraphicsExportGetColorSyncProfile(
 extern ComponentResult 
 GraphicsExportSetProgressProc(
   GraphicsExportComponent    ci,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5342,7 +5515,7 @@ GraphicsExportSetProgressProc(
 extern ComponentResult 
 GraphicsExportGetProgressProc(
   GraphicsExportComponent    ci,
-  ICMProgressProcRecordPtr   progressProc);
+  ICMProgressProcRecordPtr   progressProc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Sources for the input image: */
@@ -5360,7 +5533,7 @@ GraphicsExportSetInputDataReference(
   GraphicsExportComponent   ci,
   Handle                    dataRef,
   OSType                    dataRefType,
-  ImageDescriptionHandle    desc);
+  ImageDescriptionHandle    desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5376,7 +5549,7 @@ extern ComponentResult
 GraphicsExportGetInputDataReference(
   GraphicsExportComponent   ci,
   Handle *                  dataRef,
-  OSType *                  dataRefType);
+  OSType *                  dataRefType)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5392,7 +5565,7 @@ extern ComponentResult
 GraphicsExportSetInputFile(
   GraphicsExportComponent   ci,
   const FSSpec *            theFile,
-  ImageDescriptionHandle    desc);
+  ImageDescriptionHandle    desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5407,7 +5580,7 @@ GraphicsExportSetInputFile(
 extern ComponentResult 
 GraphicsExportGetInputFile(
   GraphicsExportComponent   ci,
-  FSSpec *                  theFile);
+  FSSpec *                  theFile)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5423,7 +5596,7 @@ extern ComponentResult
 GraphicsExportSetInputHandle(
   GraphicsExportComponent   ci,
   Handle                    h,
-  ImageDescriptionHandle    desc);
+  ImageDescriptionHandle    desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5438,7 +5611,7 @@ GraphicsExportSetInputHandle(
 extern ComponentResult 
 GraphicsExportGetInputHandle(
   GraphicsExportComponent   ci,
-  Handle *                  h);
+  Handle *                  h)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5455,7 +5628,7 @@ GraphicsExportSetInputPtr(
   GraphicsExportComponent   ci,
   Ptr                       p,
   unsigned long             size,
-  ImageDescriptionHandle    desc);
+  ImageDescriptionHandle    desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5471,7 +5644,7 @@ extern ComponentResult
 GraphicsExportGetInputPtr(
   GraphicsExportComponent   ci,
   Ptr *                     p,
-  unsigned long *           size);
+  unsigned long *           size)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5486,7 +5659,7 @@ GraphicsExportGetInputPtr(
 extern ComponentResult 
 GraphicsExportSetInputGraphicsImporter(
   GraphicsExportComponent   ci,
-  GraphicsImportComponent   grip);
+  GraphicsImportComponent   grip)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5501,7 +5674,7 @@ GraphicsExportSetInputGraphicsImporter(
 extern ComponentResult 
 GraphicsExportGetInputGraphicsImporter(
   GraphicsExportComponent    ci,
-  GraphicsImportComponent *  grip);
+  GraphicsImportComponent *  grip)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5516,7 +5689,7 @@ GraphicsExportGetInputGraphicsImporter(
 extern ComponentResult 
 GraphicsExportSetInputPicture(
   GraphicsExportComponent   ci,
-  PicHandle                 picture);
+  PicHandle                 picture)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5531,7 +5704,7 @@ GraphicsExportSetInputPicture(
 extern ComponentResult 
 GraphicsExportGetInputPicture(
   GraphicsExportComponent   ci,
-  PicHandle *               picture);
+  PicHandle *               picture)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5546,7 +5719,7 @@ GraphicsExportGetInputPicture(
 extern ComponentResult 
 GraphicsExportSetInputGWorld(
   GraphicsExportComponent   ci,
-  GWorldPtr                 gworld);
+  GWorldPtr                 gworld)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5561,7 +5734,7 @@ GraphicsExportSetInputGWorld(
 extern ComponentResult 
 GraphicsExportGetInputGWorld(
   GraphicsExportComponent   ci,
-  GWorldPtr *               gworld);
+  GWorldPtr *               gworld)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5576,7 +5749,7 @@ GraphicsExportGetInputGWorld(
 extern ComponentResult 
 GraphicsExportSetInputPixmap(
   GraphicsExportComponent   ci,
-  PixMapHandle              pixmap);
+  PixMapHandle              pixmap)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5591,7 +5764,7 @@ GraphicsExportSetInputPixmap(
 extern ComponentResult 
 GraphicsExportGetInputPixmap(
   GraphicsExportComponent   ci,
-  PixMapHandle *            pixmap);
+  PixMapHandle *            pixmap)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Only applicable when the input is a data reference, file, handle or ptr: */
@@ -5608,7 +5781,7 @@ extern ComponentResult
 GraphicsExportSetInputOffsetAndLimit(
   GraphicsExportComponent   ci,
   unsigned long             offset,
-  unsigned long             limit);
+  unsigned long             limit)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5624,7 +5797,7 @@ extern ComponentResult
 GraphicsExportGetInputOffsetAndLimit(
   GraphicsExportComponent   ci,
   unsigned long *           offset,
-  unsigned long *           limit);
+  unsigned long *           limit)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Used by format-specific graphics exporters when transcoding: */
@@ -5640,7 +5813,7 @@ GraphicsExportGetInputOffsetAndLimit(
 extern ComponentResult 
 GraphicsExportMayExporterReadInputData(
   GraphicsExportComponent   ci,
-  Boolean *                 mayReadInputData);
+  Boolean *                 mayReadInputData)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5655,7 +5828,7 @@ GraphicsExportMayExporterReadInputData(
 extern ComponentResult 
 GraphicsExportGetInputDataSize(
   GraphicsExportComponent   ci,
-  unsigned long *           size);
+  unsigned long *           size)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5672,7 +5845,7 @@ GraphicsExportReadInputData(
   GraphicsExportComponent   ci,
   void *                    dataPtr,
   unsigned long             dataOffset,
-  unsigned long             dataSize);
+  unsigned long             dataSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Used by format-specific graphics exporters, especially when doing standalone export: */
@@ -5688,7 +5861,7 @@ GraphicsExportReadInputData(
 extern ComponentResult 
 GraphicsExportGetInputImageDescription(
   GraphicsExportComponent   ci,
-  ImageDescriptionHandle *  desc);
+  ImageDescriptionHandle *  desc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5703,7 +5876,7 @@ GraphicsExportGetInputImageDescription(
 extern ComponentResult 
 GraphicsExportGetInputImageDimensions(
   GraphicsExportComponent   ci,
-  Rect *                    dimensions);
+  Rect *                    dimensions)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5718,7 +5891,7 @@ GraphicsExportGetInputImageDimensions(
 extern ComponentResult 
 GraphicsExportGetInputImageDepth(
   GraphicsExportComponent   ci,
-  long *                    inputDepth);
+  long *                    inputDepth)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5736,7 +5909,7 @@ GraphicsExportDrawInputImage(
   CGrafPtr                  gw,
   GDHandle                  gd,
   const Rect *              srcRect,
-  const Rect *              dstRect);
+  const Rect *              dstRect)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Destinations for the output image: */
@@ -5753,7 +5926,7 @@ extern ComponentResult
 GraphicsExportSetOutputDataReference(
   GraphicsExportComponent   ci,
   Handle                    dataRef,
-  OSType                    dataRefType);
+  OSType                    dataRefType)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5769,7 +5942,7 @@ extern ComponentResult
 GraphicsExportGetOutputDataReference(
   GraphicsExportComponent   ci,
   Handle *                  dataRef,
-  OSType *                  dataRefType);
+  OSType *                  dataRefType)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5784,7 +5957,7 @@ GraphicsExportGetOutputDataReference(
 extern ComponentResult 
 GraphicsExportSetOutputFile(
   GraphicsExportComponent   ci,
-  const FSSpec *            theFile);
+  const FSSpec *            theFile)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5799,7 +5972,7 @@ GraphicsExportSetOutputFile(
 extern ComponentResult 
 GraphicsExportGetOutputFile(
   GraphicsExportComponent   ci,
-  FSSpec *                  theFile);
+  FSSpec *                  theFile)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5814,7 +5987,7 @@ GraphicsExportGetOutputFile(
 extern ComponentResult 
 GraphicsExportSetOutputHandle(
   GraphicsExportComponent   ci,
-  Handle                    h);
+  Handle                    h)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5829,7 +6002,7 @@ GraphicsExportSetOutputHandle(
 extern ComponentResult 
 GraphicsExportGetOutputHandle(
   GraphicsExportComponent   ci,
-  Handle *                  h);
+  Handle *                  h)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5846,7 +6019,7 @@ GraphicsExportSetOutputOffsetAndMaxSize(
   GraphicsExportComponent   ci,
   unsigned long             offset,
   unsigned long             maxSize,
-  Boolean                   truncateFile);
+  Boolean                   truncateFile)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5863,7 +6036,7 @@ GraphicsExportGetOutputOffsetAndMaxSize(
   GraphicsExportComponent   ci,
   unsigned long *           offset,
   unsigned long *           maxSize,
-  Boolean *                 truncateFile);
+  Boolean *                 truncateFile)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5879,7 +6052,7 @@ extern ComponentResult
 GraphicsExportSetOutputFileTypeAndCreator(
   GraphicsExportComponent   ci,
   OSType                    fileType,
-  OSType                    fileCreator);
+  OSType                    fileCreator)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5895,7 +6068,7 @@ extern ComponentResult
 GraphicsExportGetOutputFileTypeAndCreator(
   GraphicsExportComponent   ci,
   OSType *                  fileType,
-  OSType *                  fileCreator);
+  OSType *                  fileCreator)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Used by format-specific graphics exporters: */
@@ -5912,7 +6085,7 @@ extern ComponentResult
 GraphicsExportWriteOutputData(
   GraphicsExportComponent   ci,
   const void *              dataPtr,
-  unsigned long             dataSize);
+  unsigned long             dataSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5927,7 +6100,7 @@ GraphicsExportWriteOutputData(
 extern ComponentResult 
 GraphicsExportSetOutputMark(
   GraphicsExportComponent   ci,
-  unsigned long             mark);
+  unsigned long             mark)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5942,7 +6115,7 @@ GraphicsExportSetOutputMark(
 extern ComponentResult 
 GraphicsExportGetOutputMark(
   GraphicsExportComponent   ci,
-  unsigned long *           mark);
+  unsigned long *           mark)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -5959,7 +6132,7 @@ GraphicsExportReadOutputData(
   GraphicsExportComponent   ci,
   void *                    dataPtr,
   unsigned long             dataOffset,
-  unsigned long             dataSize);
+  unsigned long             dataSize)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Allows embedded thumbnail creation, if supported. */
@@ -5977,7 +6150,7 @@ GraphicsExportSetThumbnailEnabled(
   GraphicsExportComponent   ci,
   Boolean                   enableThumbnail,
   long                      maxThumbnailWidth,
-  long                      maxThumbnailHeight);
+  long                      maxThumbnailHeight)               AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
 
 
 /*
@@ -5994,7 +6167,7 @@ GraphicsExportGetThumbnailEnabled(
   GraphicsExportComponent   ci,
   Boolean *                 thumbnailEnabled,
   long *                    maxThumbnailWidth,
-  long *                    maxThumbnailHeight);
+  long *                    maxThumbnailHeight)               AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
 
 
 /* Allows export of Exif files, if supported.  This disables Exif-incompatible settings such as grayscale JPEG and compressed TIFF, and enables export of Exif metadata. */
@@ -6010,7 +6183,7 @@ GraphicsExportGetThumbnailEnabled(
 extern ComponentResult 
 GraphicsExportSetExifEnabled(
   GraphicsExportComponent   ci,
-  Boolean                   enableExif);
+  Boolean                   enableExif)                       AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
 
 
 /*
@@ -6025,7 +6198,7 @@ GraphicsExportSetExifEnabled(
 extern ComponentResult 
 GraphicsExportGetExifEnabled(
   GraphicsExportComponent   ci,
-  Boolean *                 exifEnabled);
+  Boolean *                 exifEnabled)                      AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER;
 
 
 
@@ -6052,7 +6225,7 @@ ImageTranscoderBeginSequence(
   ImageDescriptionHandle     srcDesc,
   ImageDescriptionHandle *   dstDesc,
   void *                     data,
-  long                       dataSize);
+  long                       dataSize)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6070,7 +6243,7 @@ ImageTranscoderConvert(
   void *                     srcData,
   long                       srcDataSize,
   void **                    dstData,
-  long *                     dstDataSize);
+  long *                     dstDataSize)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6085,7 +6258,7 @@ ImageTranscoderConvert(
 extern ComponentResult 
 ImageTranscoderDisposeData(
   ImageTranscoderComponent   itc,
-  void *                     dstData);
+  void *                     dstData)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -6098,7 +6271,7 @@ ImageTranscoderDisposeData(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-ImageTranscoderEndSequence(ImageTranscoderComponent itc);
+ImageTranscoderEndSequence(ImageTranscoderComponent itc)      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* UPP call backs */
@@ -6164,6 +6337,7 @@ enum {
     kGraphicsImportSetFlagsSelect              = 0x0039,
     kGraphicsImportGetFlagsSelect              = 0x003A,
     kGraphicsImportGetBaseDataOffsetAndSize64Select = 0x003D,
+    kGraphicsImportSetImageIndexToThumbnailSelect = 0x003E,
     kGraphicsExportDoExportSelect              = 0x0001,
     kGraphicsExportCanTranscodeSelect          = 0x0002,
     kGraphicsExportDoTranscodeSelect           = 0x0003,
@@ -6246,13 +6420,7 @@ enum {
     kImageTranscoderEndSequenceSelect          = 0x0004
 };
 
-#if PRAGMA_STRUCT_ALIGN
-    #pragma options align=reset
-#elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(pop)
-#elif PRAGMA_STRUCT_PACK
-    #pragma pack()
-#endif
+#pragma options align=reset
 
 #ifdef __cplusplus
 }

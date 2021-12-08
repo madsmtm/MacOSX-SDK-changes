@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2001 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2002 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -130,35 +130,34 @@ public:
         @function GetPipeObj
 	returns a handle to the pipe at the corresponding index
         @param index value from zero to kUSBMaxPipes-1
-	@result The pipe.
+	@result The IOUSBPipe object. Note that the client does not own a reference to this pipe, so the client should retain() the IOUSBPipe object if necessary.
     */
-    virtual IOUSBPipe *GetPipeObj(UInt8 index) { return (index < kUSBMaxPipes) ? _pipeList[index] : NULL ; }
+    virtual IOUSBPipe *GetPipeObj(UInt8 index);
     /*!
         @function GetConfigValue
 	returns the device configuration value for the interface
 	@result The device configuration value.
     */
-    virtual UInt8 GetConfigValue() { return _configDesc->bConfigurationValue; }
+    virtual UInt8 GetConfigValue();
     /*!
         @function GetDevice
         returns the device the interface is part of.
-	@result Pointer to the device.
+	@result Pointer to the IOUSBDevice object which is the parent of this IOUSBInterface object.
     */
-    virtual IOUSBDevice *GetDevice() { return _device; }
+    virtual IOUSBDevice *GetDevice();
     /*!
         @function GetInterfaceNumber
         returns the zero based value identifying the index in the array of concurrent
         interfaces supported by the current configuration
         @result the interface index
     */
-    virtual UInt8 GetInterfaceNumber() { return _bInterfaceNumber; }
+    virtual UInt8 GetInterfaceNumber();
     /*!
         @function GetAlternateSetting
-        returns value used to select alternate setting for the interface
-        identified by GetInterfaceNumber
+        returns the alternate setting for this interface.
         @result the alternate setting
     */
-    virtual UInt8 GetAlternateSetting() { return _bAlternateSetting; }
+    virtual UInt8 GetAlternateSetting();
     /*!
         @function GetNumEndpoints
         returns the number of endpoints used by this interface (excluding
@@ -166,7 +165,7 @@ public:
         uses endpoint zero.
         @result the number of endpoints
     */
-    virtual UInt8 GetNumEndpoints() { return _bNumEndpoints; }
+    virtual UInt8 GetNumEndpoints();
     /*!
         @function GetInterfaceClass
         returns the class code for this interface (assigned by the USB)
@@ -175,44 +174,55 @@ public:
         all other values are reserved for assignment by the USB
         @result the interface class
     */
-    virtual UInt8 GetInterfaceClass() { return _bInterfaceClass; }
+    virtual UInt8 GetInterfaceClass();
     /*!
         @function GetInterfaceSubClass
         returns the subclass code (assigned by the USB).
         These codes are qualified by the value returned by GetInterfaceClass
         @result the interface subclass
     */
-    virtual UInt8 GetInterfaceSubClass() { return _bInterfaceSubClass; }
+    virtual UInt8 GetInterfaceSubClass();
     /*!
         @function GetInterfaceProtocol
         returns the protocol code (assigned by the USB).
         @result the interface index
     */
-    virtual UInt8 GetInterfaceProtocol() { return _bInterfaceProtocol; }
+    virtual UInt8 GetInterfaceProtocol();
     /*!
         @function GetInterfaceStringIndex
         returns the index of the string descriptor describing the interface
         @result the string index
     */
-    virtual UInt8 GetInterfaceStringIndex() { return _iInterface; }
+    virtual UInt8 GetInterfaceStringIndex();
     
     /*!
 	@function DeviceRequest
-        @abstract execute a device request
+        @abstract Sends a control request to the default control pipe in the device (pipe zero)
         @param request The parameter block to send to the device
-	@completion Function to call when request completes. If omitted then deviceRequest()
-	executes synchronously, blocking until the request is complete.
+	@param completion Function to call when request completes. If omitted then
+        DeviceRequest() executes synchronously, blocking until the request is complete.
     */
-    virtual IOReturn DeviceRequest(IOUSBDevRequest *request, IOUSBCompletion *completion = 0) 
-        { return _device->DeviceRequest(request, completion); }
+    virtual IOReturn DeviceRequest(IOUSBDevRequest *request, IOUSBCompletion *completion = 0); 
 
     // Same but with a memory descriptor
-    virtual IOReturn DeviceRequest(IOUSBDevRequestDesc *request, IOUSBCompletion *completion = 0)
-        { return _device->DeviceRequest(request, completion); }
+    virtual IOReturn DeviceRequest(IOUSBDevRequestDesc *request, IOUSBCompletion *completion = 0);
 
     virtual bool matchPropertyTable(OSDictionary * table, SInt32 *score);
 
-    OSMetaClassDeclareReservedUnused(IOUSBInterface,  0);
+    OSMetaClassDeclareReservedUsed(IOUSBInterface,  0);
+    /*!
+	@function GetEndpointProperties
+        @abstract Returns the properties of an endpoint, possibly in an alternate interface.
+        @param alternateSetting specifies the desired alternate setting
+        @param endpointNumber specifies the endpoint number
+        @param direction specifies the direction (kUSBIn, kUSBOut)
+        @param transferType a pointer to hold the transfer type (kUSBControl, kUSBBulk, etc.) of the endpoint if found.
+        @param maxPacketSize a pointer to hold the maxPacketSize in the endpoint descriptor.
+        @param interval a pointer to hold the interval value in the endpoint descriptor.
+	@result returns kIOReturnSuccess if the endpoint is found, and kIOUSBEndpointNotFound if it is not.
+    */
+    virtual IOReturn GetEndpointProperties(UInt8 alternateSetting, UInt8 endpointNumber, UInt8 direction, UInt8 *transferType, UInt16 *maxPacketSize, UInt8 *interval);
+    
     OSMetaClassDeclareReservedUnused(IOUSBInterface,  1);
     OSMetaClassDeclareReservedUnused(IOUSBInterface,  2);
     OSMetaClassDeclareReservedUnused(IOUSBInterface,  3);

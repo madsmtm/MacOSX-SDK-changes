@@ -210,12 +210,19 @@ protected:
     bool			deviceStartedAudioEngine;
     
 protected:
-    struct ExpansionData { };
+    struct ExpansionData {
+		UInt32		pauseCount;
+	};
     
     ExpansionData *reserved;
-    
+
+public:
+// This takes the 0th reserved slot:
+    virtual IOReturn performFormatChange(IOAudioStream *audioStream, const IOAudioStreamFormat *newFormat, const IOAudioStreamFormatExtension *formatExtension, const IOAudioSampleRate *newSampleRate);
+
 private:
-    OSMetaClassDeclareReservedUnused(IOAudioEngine, 0);
+    OSMetaClassDeclareReservedUsed(IOAudioEngine, 0);
+
     OSMetaClassDeclareReservedUnused(IOAudioEngine, 1);
     OSMetaClassDeclareReservedUnused(IOAudioEngine, 2);
     OSMetaClassDeclareReservedUnused(IOAudioEngine, 3);
@@ -265,7 +272,6 @@ private:
     OSMetaClassDeclareReservedUnused(IOAudioEngine, 47);
 
 public:
-
     /*!
      * @function createDictionaryFromSampleRate
      * @abstract Internal routine used to generate a dictionary matching the given sample rate.
@@ -465,7 +471,26 @@ public:
     virtual IOReturn pauseAudioEngine();
     virtual IOReturn resumeAudioEngine();
     
+    /*!
+     * @function performAudioEngineStart
+     * @abstract Called to start the audio I/O engine
+     * @discussion This method is called by startAudioEngine().  This must be overridden by the subclass.
+	 *	No call to the superclass' implementation is necessary.  The subclass' implementation must start up the
+	 *	audio I/O engine.  This includes any audio engine that needs to be started as well as any interrupts
+	 *	that need to be enabled.
+     * @result Must return kIOReturnSuccess on a successful start of the engine.
+     */
     virtual IOReturn performAudioEngineStart();
+
+    /*!
+     * @function performAudioEngineStop
+     * @abstract Called to stop the audio I/O engine
+     * @discussion This method is called by stopAudioEngine() and pauseAudioEngine.
+     *  This must be overridden by the subclass.  No call to the superclass' implementation is
+     *  necessary.  The subclass' implementation must stop the audio I/O engine.  This includes any audio
+     *  engine that needs to be stopped as well as any interrupts that need to be disabled.
+     * @result Must return kIOReturnSuccess on a successful stop of the engine.
+     */
     virtual IOReturn performAudioEngineStop();
 
     /*! 
@@ -674,6 +699,7 @@ protected:
     virtual IOReturn decrementActiveUserClients();
     
     virtual void detachAudioStreams();
+	void setWorkLoopOnAllAudioControls(IOWorkLoop *wl);
 };
 
 #endif /* _IOKIT_IOAUDIOENGINE_H */

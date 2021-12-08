@@ -6,7 +6,7 @@
      Version:    Technology: System 9
                  Release:    Mac OS X
  
-     Copyright:  (c) 2000 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 2000-2002 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -14,12 +14,12 @@
                      http://developer.apple.com/bugreporter/
  
 */
-/*.#endif forMasterInterfaces*/
-/*.#ifndef forMergedInterfaces*/
+/*·#endif forMasterInterfaces*/
+/*·#ifndef forMergedInterfaces*/
 #ifndef __MUSICDEVICE__
 #define __MUSICDEVICE__
 
-#include <AudioUnit/AudioUnit.h>
+#include <AudioUnit/AUComponent.h>
 
 
 #if PRAGMA_ONCE
@@ -42,7 +42,13 @@ extern "C" {
     #pragma pack(2)
 #endif
 
-/*.#endif forMergedInterfaces*/
+/*·#endif forMergedInterfaces*/
+/*
+   A music device can control far more independent instruments than the 16 channels of MIDI
+   through the use of the extended APIs. AudioUnitSetParameter is used with the kAudioUnitScope_Group
+   to use this extended control facilities. See documentation for further details.
+*/
+
 
 /*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,13 +66,8 @@ enum {
 
 
 
-/*
-   it's possible to call AudioUnitGetProperty(kMusicDeviceProperty_InstrumentName, instrumentID) to
-   get the instrument name 
-*/
 typedef UInt32                          MusicDeviceInstrumentID;
 /* "varargs" structure for passing parameters to MusicDevice instruments*/
-
 struct MusicDeviceNoteParams {
   UInt32              argCount;
   float               args[1];
@@ -74,13 +75,11 @@ struct MusicDeviceNoteParams {
 typedef struct MusicDeviceNoteParams    MusicDeviceNoteParams;
 typedef MusicDeviceNoteParams *         MusicDeviceNoteParamsPtr;
 /* this is normally used for packing in MIDI note params (note number, velocity)*/
-
 struct MusicDeviceNoteParams3 {
   UInt32              argCount;
   float               args[3];
 };
 typedef struct MusicDeviceNoteParams3   MusicDeviceNoteParams3;
-
 struct MusicDeviceNoteParams16 {
   UInt32              argCount;
   float               args[16];
@@ -90,25 +89,6 @@ typedef struct MusicDeviceNoteParams16  MusicDeviceNoteParams16;
 typedef UInt32                          MusicDeviceGroupID;
 typedef UInt32                          NoteInstanceID;
 typedef ComponentInstance               MusicDeviceComponent;
-/*
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        two sets of event API's (MIDI and extended ):
-            - the MIDI API's address the device using the standardized MIDI semantics
-                    MusicDeviceMIDIEvent()
-                    MusicDeviceSysEx()
-            - the extended API's allow more sophisticated control of notes, but would
-                not be available for all MusicDevices (external MIDI devices)
-                    MusicDeviceStartNote()
-                    MusicDeviceStopNote()
-                    AudioUnitSetParameter()   (for group control changes...)
-*/
-
-/*
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   any arbitrary MIDI event should be possible with MusicDeviceMIDIEvent() and MusicDeviceSysEx(),
-   and they MUST be implemented by the MusicDevice developer
-*/
-
 EXTERN_API( ComponentResult )
 MusicDeviceMIDIEvent(
   MusicDeviceComponent   ci,
@@ -122,30 +102,22 @@ MusicDeviceMIDIEvent(
 EXTERN_API( ComponentResult )
 MusicDeviceSysEx(
   MusicDeviceComponent   ci,
-  UInt8 *                inData,
+  const UInt8 *          inData,
   UInt32                 inLength)                            FIVEWORDINLINE(0x2F3C, 0x0008, 0x0102, 0x7000, 0xA82A);
 
 
-
-
-/*
-   allows MusicDevice to prepare the instrument for play (loading any required resources,
-   for example, sample data from hard-disk)
-*/
 EXTERN_API( ComponentResult )
 MusicDevicePrepareInstrument(
   MusicDeviceComponent      ci,
   MusicDeviceInstrumentID   inInstrument)                     FIVEWORDINLINE(0x2F3C, 0x0004, 0x0103, 0x7000, 0xA82A);
 
 
-/* allows MusicDevice to release any resources used by the instrument*/
 EXTERN_API( ComponentResult )
 MusicDeviceReleaseInstrument(
   MusicDeviceComponent      ci,
   MusicDeviceInstrumentID   inInstrument)                     FIVEWORDINLINE(0x2F3C, 0x0004, 0x0104, 0x7000, 0xA82A);
 
 
-/* */
 EXTERN_API( ComponentResult )
 MusicDeviceStartNote(
   MusicDeviceComponent           ci,
@@ -166,7 +138,7 @@ MusicDeviceStopNote(
 
 
 
-/*.#ifndef forMergedInterfaces*/
+/*·#ifndef forMergedInterfaces*/
 
 /* UPP call backs */
 
@@ -180,7 +152,7 @@ enum {
     kMusicDeviceStopNoteSelect                 = 0x0106
 };
 
-/*.#endif forMergedInterfaces*/
+/*·#endif forMergedInterfaces*/
 
 #if PRAGMA_STRUCT_ALIGN
     #pragma options align=reset

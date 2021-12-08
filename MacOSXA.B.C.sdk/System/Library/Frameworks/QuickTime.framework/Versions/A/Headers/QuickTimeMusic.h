@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-142~1
+     Version:    QuickTime-174.20~22
  
-     Copyright:  © 1990-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -31,6 +31,7 @@
 
 
 
+#include <AvailabilityMacros.h>
 
 #if PRAGMA_ONCE
 #pragma once
@@ -40,13 +41,7 @@
 extern "C" {
 #endif
 
-#if PRAGMA_STRUCT_ALIGN
-    #pragma options align=mac68k
-#elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(push, 2)
-#elif PRAGMA_STRUCT_PACK
-    #pragma pack(2)
-#endif
+#pragma options align=mac68k
 
 enum {
   kaiToneDescType               = 'tone',
@@ -164,7 +159,7 @@ enum {
 
 /*
     The sampleBankFile field of this structure can be used to pass in a pointer to an FSSpec
-    that specifies a SoundFont 2 or DLS file (otherwise set it to NULL ).
+    that represents a SoundFont 2 or DLS file (otherwise set it to NULL ).
     
     You then pass in a structure with this field set (all other fields should be zero) to
     NARegisterMusicDevice:
@@ -186,7 +181,7 @@ struct SynthesizerConnections {
   long                midiChannel;            /* The system channel; others are configurable (or the nubus slot number) */
   long                flags;
   long                unique;                 /* unique id may be used instead of index, to getinfo and unregister calls */
-  FSSpecPtr           sampleBankFile;         /* see notes above */
+  FSSpecPtr           sampleBankFile;         /*  see notes above */
   long                reserved2;              /* should be zero */
 };
 typedef struct SynthesizerConnections   SynthesizerConnections;
@@ -215,7 +210,7 @@ extern ComponentResult
 QTMIDIGetMIDIPorts(
   QTMIDIComponent         ci,
   QTMIDIPortListHandle *  inputPorts,
-  QTMIDIPortListHandle *  outputPorts);
+  QTMIDIPortListHandle *  outputPorts)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -231,7 +226,7 @@ extern ComponentResult
 QTMIDIUseSendPort(
   QTMIDIComponent   ci,
   long              portIndex,
-  long              inUse);
+  long              inUse)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -247,7 +242,7 @@ extern ComponentResult
 QTMIDISendMIDI(
   QTMIDIComponent    ci,
   long               portIndex,
-  MusicMIDIPacket *  mp);
+  MusicMIDIPacket *  mp)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -724,7 +719,7 @@ typedef InstrumentInfoListPtr *         InstrumentInfoListHandle;
 extern ComponentResult 
 MusicGetDescription(
   MusicComponent            mc,
-  SynthesizerDescription *  sd);
+  SynthesizerDescription *  sd)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -741,7 +736,7 @@ MusicGetPart(
   MusicComponent   mc,
   long             part,
   long *           midiChannel,
-  long *           polyphony);
+  long *           polyphony)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -758,7 +753,7 @@ MusicSetPart(
   MusicComponent   mc,
   long             part,
   long             midiChannel,
-  long             polyphony);
+  long             polyphony)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -774,7 +769,7 @@ extern ComponentResult
 MusicSetPartInstrumentNumber(
   MusicComponent   mc,
   long             part,
-  long             instrumentNumber);
+  long             instrumentNumber)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 #if OLDROUTINENAMES
@@ -793,7 +788,7 @@ MusicSetPartInstrumentNumber(
 extern ComponentResult 
 MusicGetPartInstrumentNumber(
   MusicComponent   mc,
-  long             part);
+  long             part)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -809,7 +804,7 @@ extern ComponentResult
 MusicStorePartInstrument(
   MusicComponent   mc,
   long             part,
-  long             instrumentNumber);
+  long             instrumentNumber)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -827,7 +822,7 @@ MusicGetPartAtomicInstrument(
   MusicComponent      mc,
   long                part,
   AtomicInstrument *  ai,
-  long                flags);
+  long                flags)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -844,7 +839,7 @@ MusicSetPartAtomicInstrument(
   MusicComponent        mc,
   long                  part,
   AtomicInstrumentPtr   aiP,
-  long                  flags);
+  long                  flags)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -861,7 +856,7 @@ extern ComponentResult
 MusicGetPartKnob(
   MusicComponent   mc,
   long             part,
-  long             knobID);
+  long             knobID)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -878,7 +873,7 @@ MusicSetPartKnob(
   MusicComponent   mc,
   long             part,
   long             knobID,
-  long             knobValue);
+  long             knobValue)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -893,7 +888,7 @@ MusicSetPartKnob(
 extern ComponentResult 
 MusicGetKnob(
   MusicComponent   mc,
-  long             knobID);
+  long             knobID)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -909,7 +904,7 @@ extern ComponentResult
 MusicSetKnob(
   MusicComponent   mc,
   long             knobID,
-  long             knobValue);
+  long             knobValue)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -925,7 +920,7 @@ extern ComponentResult
 MusicGetPartName(
   MusicComponent   mc,
   long             part,
-  StringPtr        name);
+  StringPtr        name)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -941,7 +936,7 @@ extern ComponentResult
 MusicSetPartName(
   MusicComponent   mc,
   long             part,
-  StringPtr        name);
+  StringPtr        name)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -958,7 +953,7 @@ MusicFindTone(
   MusicComponent     mc,
   ToneDescription *  td,
   long *             libraryIndexOut,
-  unsigned long *    fit);
+  unsigned long *    fit)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -975,7 +970,7 @@ MusicPlayNote(
   MusicComponent   mc,
   long             part,
   long             pitch,
-  long             velocity);
+  long             velocity)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -990,7 +985,7 @@ MusicPlayNote(
 extern ComponentResult 
 MusicResetPart(
   MusicComponent   mc,
-  long             part);
+  long             part)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1007,7 +1002,7 @@ MusicSetPartController(
   MusicComponent    mc,
   long              part,
   MusicController   controllerNumber,
-  long              controllerValue);
+  long              controllerValue)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 #if OLDROUTINENAMES
@@ -1027,7 +1022,7 @@ extern ComponentResult
 MusicGetPartController(
   MusicComponent    mc,
   long              part,
-  MusicController   controllerNumber);
+  MusicController   controllerNumber)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1043,7 +1038,7 @@ extern ComponentResult
 MusicGetMIDIProc(
   MusicComponent      mc,
   MusicMIDISendUPP *  midiSendProc,
-  long *              refCon);
+  long *              refCon)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1059,7 +1054,7 @@ extern ComponentResult
 MusicSetMIDIProc(
   MusicComponent     mc,
   MusicMIDISendUPP   midiSendProc,
-  long               refCon);
+  long               refCon)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1077,7 +1072,7 @@ MusicGetInstrumentNames(
   long             modifiableInstruments,
   Handle *         instrumentNames,
   Handle *         instrumentCategoryLasts,
-  Handle *         instrumentCategoryNames);
+  Handle *         instrumentCategoryNames)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1094,7 +1089,7 @@ MusicGetDrumNames(
   MusicComponent   mc,
   long             modifiableInstruments,
   Handle *         instrumentNumbers,
-  Handle *         instrumentNames);
+  Handle *         instrumentNames)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1107,7 +1102,7 @@ MusicGetDrumNames(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-MusicGetMasterTune(MusicComponent mc);
+MusicGetMasterTune(MusicComponent mc)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1122,7 +1117,7 @@ MusicGetMasterTune(MusicComponent mc);
 extern ComponentResult 
 MusicSetMasterTune(
   MusicComponent   mc,
-  long             masterTune);
+  long             masterTune)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -1139,7 +1134,7 @@ extern ComponentResult
 MusicGetInstrumentAboutInfo(
   MusicComponent         mc,
   long                   part,
-  InstrumentAboutInfo *  iai);
+  InstrumentAboutInfo *  iai)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1156,7 +1151,7 @@ MusicGetDeviceConnection(
   MusicComponent   mc,
   long             index,
   long *           id1,
-  long *           id2);
+  long *           id2)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1172,7 +1167,7 @@ extern ComponentResult
 MusicUseDeviceConnection(
   MusicComponent   mc,
   long             id1,
-  long             id2);
+  long             id2)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1191,7 +1186,7 @@ MusicGetKnobSettingStrings(
   long             isGlobal,
   Handle *         settingsNames,
   Handle *         settingsCategoryLasts,
-  Handle *         settingsCategoryNames);
+  Handle *         settingsCategoryNames)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1207,7 +1202,7 @@ extern ComponentResult
 MusicGetMIDIPorts(
   MusicComponent   mc,
   long *           inputPortCount,
-  long *           outputPortCount);
+  long *           outputPortCount)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1223,7 +1218,7 @@ extern ComponentResult
 MusicSendMIDI(
   MusicComponent     mc,
   long               portIndex,
-  MusicMIDIPacket *  mp);
+  MusicMIDIPacket *  mp)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1242,7 +1237,7 @@ MusicStartOffline(
   UnsignedFixed *       sampleRate,
   unsigned short *      sampleSize,
   MusicOfflineDataUPP   dataProc,
-  long                  dataProcRefCon);
+  long                  dataProcRefCon)                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1257,7 +1252,7 @@ MusicStartOffline(
 extern ComponentResult 
 MusicSetOfflineTimeTo(
   MusicComponent   mc,
-  long             newTimeStamp);
+  long             newTimeStamp)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1273,7 +1268,7 @@ extern ComponentResult
 MusicGetInstrumentKnobDescription(
   MusicComponent     mc,
   long               knobIndex,
-  KnobDescription *  mkd);
+  KnobDescription *  mkd)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1289,7 +1284,7 @@ extern ComponentResult
 MusicGetDrumKnobDescription(
   MusicComponent     mc,
   long               knobIndex,
-  KnobDescription *  mkd);
+  KnobDescription *  mkd)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1305,7 +1300,7 @@ extern ComponentResult
 MusicGetKnobDescription(
   MusicComponent     mc,
   long               knobIndex,
-  KnobDescription *  mkd);
+  KnobDescription *  mkd)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1322,7 +1317,7 @@ MusicGetInfoText(
   MusicComponent   mc,
   long             selector,
   Handle *         textH,
-  Handle *         styleH);
+  Handle *         styleH)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 enum {
@@ -1344,7 +1339,7 @@ extern ComponentResult
 MusicGetInstrumentInfo(
   MusicComponent              mc,
   long                        getInstrumentInfoFlags,
-  InstrumentInfoListHandle *  infoListH);
+  InstrumentInfoListHandle *  infoListH)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -1360,7 +1355,7 @@ MusicGetInstrumentInfo(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-MusicTask(MusicComponent mc);
+MusicTask(MusicComponent mc)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1376,7 +1371,7 @@ extern ComponentResult
 MusicSetPartInstrumentNumberInterruptSafe(
   MusicComponent   mc,
   long             part,
-  long             instrumentNumber);
+  long             instrumentNumber)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1392,7 +1387,7 @@ extern ComponentResult
 MusicSetPartSoundLocalization(
   MusicComponent   mc,
   long             part,
-  Handle           data);
+  Handle           data)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1409,7 +1404,7 @@ MusicGenericConfigure(
   MusicComponent   mc,
   long             mode,
   long             flags,
-  long             baseResID);
+  long             baseResID)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1425,7 +1420,7 @@ extern ComponentResult
 MusicGenericGetPart(
   MusicComponent   mc,
   long             partNumber,
-  GCPart **        part);
+  GCPart **        part)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1441,7 +1436,7 @@ extern ComponentResult
 MusicGenericGetKnobList(
   MusicComponent                      mc,
   long                                knobType,
-  GenericKnobDescriptionListHandle *  gkdlH);
+  GenericKnobDescriptionListHandle *  gkdlH)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1456,7 +1451,7 @@ MusicGenericGetKnobList(
 extern ComponentResult 
 MusicGenericSetResourceNumbers(
   MusicComponent   mc,
-  Handle           resourceIDH);
+  Handle           resourceIDH)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1471,7 +1466,7 @@ MusicGenericSetResourceNumbers(
 extern ComponentResult 
 MusicDerivedMIDISend(
   MusicComponent     mc,
-  MusicMIDIPacket *  packet);
+  MusicMIDIPacket *  packet)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1491,7 +1486,7 @@ MusicDerivedSetKnob(
   long                      knobValue,
   long                      partNumber,
   GCPart *                  p,
-  GenericKnobDescription *  gkd);
+  GenericKnobDescription *  gkd)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1507,7 +1502,7 @@ extern ComponentResult
 MusicDerivedSetPart(
   MusicComponent   mc,
   long             partNumber,
-  GCPart *         p);
+  GCPart *         p)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1523,7 +1518,7 @@ extern ComponentResult
 MusicDerivedSetInstrument(
   MusicComponent   mc,
   long             partNumber,
-  GCPart *         p);
+  GCPart *         p)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1539,7 +1534,7 @@ extern ComponentResult
 MusicDerivedSetPartInstrumentNumber(
   MusicComponent   mc,
   long             partNumber,
-  GCPart *         p);
+  GCPart *         p)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1556,7 +1551,7 @@ MusicDerivedSetMIDI(
   MusicComponent     mc,
   MusicMIDISendUPP   midiProc,
   long               refcon,
-  long               midiChannel);
+  long               midiChannel)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1573,7 +1568,7 @@ MusicDerivedStorePartInstrument(
   MusicComponent   mc,
   long             partNumber,
   GCPart *         p,
-  long             instrumentNumber);
+  long             instrumentNumber)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1586,7 +1581,7 @@ MusicDerivedStorePartInstrument(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-MusicDerivedOpenResFile(MusicComponent mc);
+MusicDerivedOpenResFile(MusicComponent mc)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1601,7 +1596,8 @@ MusicDerivedOpenResFile(MusicComponent mc);
 extern ComponentResult 
 MusicDerivedCloseResFile(
   MusicComponent   mc,
-  short            resRefNum);
+  short            resRefNum)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
 
 
 
@@ -1612,7 +1608,6 @@ MusicDerivedCloseResFile(
 /*--------------------------
     Types
 --------------------------*/
-typedef ComponentInstance               NoteAllocator;
 enum {
   kNoteRequestNoGM              = 1,    /* don't degrade to a GM synth */
   kNoteRequestNoSynthType       = 2,    /* don't degrade to another synth of same type but different name */
@@ -1624,6 +1619,7 @@ enum {
   kNoteRequestSpecifyMIDIChannel = 0x80
 };
 
+typedef ComponentInstance               NoteAllocator;
 /*
     The midiChannelAssignment field of this structure is used to assign a MIDI channel 
     when a NoteChannel is created from a NoteRequest.
@@ -1634,8 +1630,8 @@ enum {
 */
 typedef UInt8                           NoteRequestMIDIChannel;
 struct NoteRequestInfo {
-  UInt8               flags;                  /* kNoteRequest flags, above */
-  NoteRequestMIDIChannel  midiChannelAssignment; /* (kNoteRequestSpecifyMIDIChannel | 1->16) as MIDI Channel assignment or zero - see notes above */
+  UInt8               flags;                  /* 1: dont accept GM match, 2: dont accept same-synth-type match */
+  NoteRequestMIDIChannel  midiChannelAssignment; /* (kNoteRequestSpecifyMIDIChannel | 1->16) as MIDI Channel assignement or zero - see notes above  */
   BigEndianShort      polyphony;              /* Maximum number of voices */
   BigEndianFixed      typicalPolyphony;       /* Hint for level mixing */
 };
@@ -1681,7 +1677,7 @@ NARegisterMusicDevice(
   NoteAllocator             na,
   OSType                    synthType,
   Str31                     name,
-  SynthesizerConnections *  connections);
+  SynthesizerConnections *  connections)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1696,7 +1692,7 @@ NARegisterMusicDevice(
 extern ComponentResult 
 NAUnregisterMusicDevice(
   NoteAllocator   na,
-  long            index);
+  long            index)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1715,7 +1711,7 @@ NAGetRegisteredMusicDevice(
   OSType *                  synthType,
   Str31                     name,
   SynthesizerConnections *  connections,
-  MusicComponent *          mc);
+  MusicComponent *          mc)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1728,7 +1724,7 @@ NAGetRegisteredMusicDevice(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-NASaveMusicConfiguration(NoteAllocator na);
+NASaveMusicConfiguration(NoteAllocator na)                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1744,7 +1740,7 @@ extern ComponentResult
 NANewNoteChannel(
   NoteAllocator   na,
   NoteRequest *   noteRequest,
-  NoteChannel *   outChannel);
+  NoteChannel *   outChannel)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1759,7 +1755,7 @@ NANewNoteChannel(
 extern ComponentResult 
 NADisposeNoteChannel(
   NoteAllocator   na,
-  NoteChannel     noteChannel);
+  NoteChannel     noteChannel)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1776,7 +1772,7 @@ NAGetNoteChannelInfo(
   NoteAllocator   na,
   NoteChannel     noteChannel,
   long *          index,
-  long *          part);
+  long *          part)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1791,7 +1787,7 @@ NAGetNoteChannelInfo(
 extern ComponentResult 
 NAPrerollNoteChannel(
   NoteAllocator   na,
-  NoteChannel     noteChannel);
+  NoteChannel     noteChannel)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1806,7 +1802,7 @@ NAPrerollNoteChannel(
 extern ComponentResult 
 NAUnrollNoteChannel(
   NoteAllocator   na,
-  NoteChannel     noteChannel);
+  NoteChannel     noteChannel)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -1823,7 +1819,7 @@ extern ComponentResult
 NASetNoteChannelVolume(
   NoteAllocator   na,
   NoteChannel     noteChannel,
-  Fixed           volume);
+  Fixed           volume)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1838,7 +1834,7 @@ NASetNoteChannelVolume(
 extern ComponentResult 
 NAResetNoteChannel(
   NoteAllocator   na,
-  NoteChannel     noteChannel);
+  NoteChannel     noteChannel)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1855,7 +1851,7 @@ NAPlayNote(
   NoteAllocator   na,
   NoteChannel     noteChannel,
   long            pitch,
-  long            velocity);
+  long            velocity)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1872,7 +1868,7 @@ NASetController(
   NoteAllocator   na,
   NoteChannel     noteChannel,
   long            controllerNumber,
-  long            controllerValue);
+  long            controllerValue)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1889,7 +1885,7 @@ NASetKnob(
   NoteAllocator   na,
   NoteChannel     noteChannel,
   long            knobNumber,
-  long            knobValue);
+  long            knobValue)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1906,7 +1902,7 @@ NAFindNoteChannelTone(
   NoteAllocator      na,
   NoteChannel        noteChannel,
   ToneDescription *  td,
-  long *             instrumentNumber);
+  long *             instrumentNumber)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1922,7 +1918,7 @@ extern ComponentResult
 NASetInstrumentNumber(
   NoteAllocator   na,
   NoteChannel     noteChannel,
-  long            instrumentNumber);
+  long            instrumentNumber)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -1949,7 +1945,7 @@ NAPickInstrument(
   unsigned long      flags,
   long               refCon,
   long               reserved1,
-  long               reserved2);
+  long               reserved2)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1969,7 +1965,7 @@ NAPickArrangement(
   long             zero1,
   long             zero2,
   Track            t,
-  StringPtr        songName);
+  StringPtr        songName)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -1986,7 +1982,7 @@ extern ComponentResult
 NAStuffToneDescription(
   NoteAllocator      na,
   long               gmNumber,
-  ToneDescription *  td);
+  ToneDescription *  td)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2007,7 +2003,7 @@ NACopyrightDialog(
   StringPtr        other,
   StringPtr        title,
   ModalFilterUPP   filterProc,
-  long             refCon);
+  long             refCon)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2030,7 +2026,7 @@ NAGetIndNoteChannel(
   NoteAllocator   na,
   long            index,
   NoteChannel *   nc,
-  long *          seed);
+  long *          seed)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2047,7 +2043,7 @@ extern ComponentResult
 NAGetMIDIPorts(
   NoteAllocator           na,
   QTMIDIPortListHandle *  inputPorts,
-  QTMIDIPortListHandle *  outputPorts);
+  QTMIDIPortListHandle *  outputPorts)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2063,7 +2059,7 @@ extern ComponentResult
 NAGetNoteRequest(
   NoteAllocator   na,
   NoteChannel     noteChannel,
-  NoteRequest *   nrOut);
+  NoteRequest *   nrOut)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2079,7 +2075,7 @@ extern ComponentResult
 NASendMIDI(
   NoteAllocator      na,
   NoteChannel        noteChannel,
-  MusicMIDIPacket *  mp);
+  MusicMIDIPacket *  mp)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2099,7 +2095,7 @@ NAPickEditInstrument(
   long               refCon,
   NoteChannel        nc,
   AtomicInstrument   ai,
-  long               flags);
+  long               flags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2116,7 +2112,7 @@ NANewNoteChannelFromAtomicInstrument(
   NoteAllocator         na,
   AtomicInstrumentPtr   instrument,
   long                  flags,
-  NoteChannel *         outChannel);
+  NoteChannel *         outChannel)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2133,7 +2129,7 @@ NASetAtomicInstrument(
   NoteAllocator         na,
   NoteChannel           noteChannel,
   AtomicInstrumentPtr   instrument,
-  long                  flags);
+  long                  flags)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2152,7 +2148,7 @@ NAGetKnob(
   NoteAllocator   na,
   NoteChannel     noteChannel,
   long            knobNumber,
-  long *          knobValue);
+  long *          knobValue)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2165,7 +2161,7 @@ NAGetKnob(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-NATask(NoteAllocator na);
+NATask(NoteAllocator na)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2181,7 +2177,7 @@ extern ComponentResult
 NASetNoteChannelBalance(
   NoteAllocator   na,
   NoteChannel     noteChannel,
-  long            balance);
+  long            balance)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2197,7 +2193,7 @@ extern ComponentResult
 NASetInstrumentNumberInterruptSafe(
   NoteAllocator   na,
   NoteChannel     noteChannel,
-  long            instrumentNumber);
+  long            instrumentNumber)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2213,7 +2209,7 @@ extern ComponentResult
 NASetNoteChannelSoundLocalization(
   NoteAllocator   na,
   NoteChannel     noteChannel,
-  Handle          data);
+  Handle          data)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2230,7 +2226,7 @@ NAGetController(
   NoteAllocator   na,
   NoteChannel     noteChannel,
   long            controllerNumber,
-  long *          controllerValue);
+  long *          controllerValue)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2275,7 +2271,7 @@ enum {
 extern ComponentResult 
 TuneSetHeader(
   TunePlayer       tp,
-  unsigned long *  header);
+  unsigned long *  header)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2290,7 +2286,7 @@ TuneSetHeader(
 extern ComponentResult 
 TuneGetTimeBase(
   TunePlayer   tp,
-  TimeBase *   tb);
+  TimeBase *   tb)                                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2305,7 +2301,7 @@ TuneGetTimeBase(
 extern ComponentResult 
 TuneSetTimeScale(
   TunePlayer   tp,
-  TimeScale    scale);
+  TimeScale    scale)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2320,7 +2316,7 @@ TuneSetTimeScale(
 extern ComponentResult 
 TuneGetTimeScale(
   TunePlayer   tp,
-  TimeScale *  scale);
+  TimeScale *  scale)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2336,7 +2332,7 @@ extern ComponentResult
 TuneGetIndexedNoteChannel(
   TunePlayer     tp,
   long           i,
-  NoteChannel *  nc);
+  NoteChannel *  nc)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2370,7 +2366,7 @@ TuneQueue(
   unsigned long     tuneStopPosition,
   unsigned long     queueFlags,
   TuneCallBackUPP   callBackProc,
-  long              refCon);
+  long              refCon)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2386,7 +2382,7 @@ extern ComponentResult
 TuneInstant(
   TunePlayer       tp,
   unsigned long *  tune,
-  unsigned long    tunePosition);
+  unsigned long    tunePosition)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2401,7 +2397,7 @@ TuneInstant(
 extern ComponentResult 
 TuneGetStatus(
   TunePlayer    tp,
-  TuneStatus *  status);
+  TuneStatus *  status)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Values for stopping. */
@@ -2424,7 +2420,7 @@ enum {
 extern ComponentResult 
 TuneStop(
   TunePlayer   tp,
-  long         stopFlags);
+  long         stopFlags)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2440,7 +2436,7 @@ TuneStop(
 extern ComponentResult 
 TuneSetVolume(
   TunePlayer   tp,
-  Fixed        volume);
+  Fixed        volume)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2453,7 +2449,7 @@ TuneSetVolume(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-TuneGetVolume(TunePlayer tp);
+TuneGetVolume(TunePlayer tp)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2466,7 +2462,7 @@ TuneGetVolume(TunePlayer tp);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-TunePreroll(TunePlayer tp);
+TunePreroll(TunePlayer tp)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2479,7 +2475,7 @@ TunePreroll(TunePlayer tp);
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-TuneUnroll(TunePlayer tp);
+TuneUnroll(TunePlayer tp)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2497,7 +2493,7 @@ TuneSetNoteChannels(
   unsigned long         count,
   NoteChannel *         noteChannelList,
   TunePlayCallBackUPP   playCallBackProc,
-  long                  refCon);
+  long                  refCon)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2514,7 +2510,7 @@ TuneSetPartTranspose(
   TunePlayer      tp,
   unsigned long   part,
   long            transpose,
-  long            velocityShift);
+  long            velocityShift)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2528,7 +2524,7 @@ TuneSetPartTranspose(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern NoteAllocator 
-TuneGetNoteAllocator(TunePlayer tp);
+TuneGetNoteAllocator(TunePlayer tp)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2543,7 +2539,7 @@ TuneGetNoteAllocator(TunePlayer tp);
 extern ComponentResult 
 TuneSetSofter(
   TunePlayer   tp,
-  long         softer);
+  long         softer)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2556,7 +2552,7 @@ TuneSetSofter(
  *    Windows:          in qtmlClient.lib 3.0 and later
  */
 extern ComponentResult 
-TuneTask(TunePlayer tp);
+TuneTask(TunePlayer tp)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2571,7 +2567,7 @@ TuneTask(TunePlayer tp);
 extern ComponentResult 
 TuneSetBalance(
   TunePlayer   tp,
-  long         balance);
+  long         balance)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2586,7 +2582,7 @@ TuneSetBalance(
 extern ComponentResult 
 TuneSetSoundLocalization(
   TunePlayer   tp,
-  Handle       data);
+  Handle       data)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2602,7 +2598,7 @@ extern ComponentResult
 TuneSetHeaderWithSize(
   TunePlayer       tp,
   unsigned long *  header,
-  unsigned long    size);
+  unsigned long    size)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* flags for part mix. */
@@ -2627,7 +2623,7 @@ TuneSetPartMix(
   unsigned long   partNumber,
   long            volume,
   long            balance,
-  long            mixFlags);
+  long            mixFlags)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2645,7 +2641,7 @@ TuneGetPartMix(
   unsigned long   partNumber,
   long *          volumeOut,
   long *          balanceOut,
-  long *          mixFlagsOut);
+  long *          mixFlagsOut)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2965,7 +2961,7 @@ enum {
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern MusicMIDISendUPP
-NewMusicMIDISendUPP(MusicMIDISendProcPtr userRoutine);
+NewMusicMIDISendUPP(MusicMIDISendProcPtr userRoutine)         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewMusicOfflineDataUPP()
@@ -2976,7 +2972,7 @@ NewMusicMIDISendUPP(MusicMIDISendProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern MusicOfflineDataUPP
-NewMusicOfflineDataUPP(MusicOfflineDataProcPtr userRoutine);
+NewMusicOfflineDataUPP(MusicOfflineDataProcPtr userRoutine)   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewTuneCallBackUPP()
@@ -2987,7 +2983,7 @@ NewMusicOfflineDataUPP(MusicOfflineDataProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern TuneCallBackUPP
-NewTuneCallBackUPP(TuneCallBackProcPtr userRoutine);
+NewTuneCallBackUPP(TuneCallBackProcPtr userRoutine)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewTunePlayCallBackUPP()
@@ -2998,7 +2994,7 @@ NewTuneCallBackUPP(TuneCallBackProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern TunePlayCallBackUPP
-NewTunePlayCallBackUPP(TunePlayCallBackProcPtr userRoutine);
+NewTunePlayCallBackUPP(TunePlayCallBackProcPtr userRoutine)   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeMusicMIDISendUPP()
@@ -3009,7 +3005,7 @@ NewTunePlayCallBackUPP(TunePlayCallBackProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeMusicMIDISendUPP(MusicMIDISendUPP userUPP);
+DisposeMusicMIDISendUPP(MusicMIDISendUPP userUPP)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeMusicOfflineDataUPP()
@@ -3020,7 +3016,7 @@ DisposeMusicMIDISendUPP(MusicMIDISendUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeMusicOfflineDataUPP(MusicOfflineDataUPP userUPP);
+DisposeMusicOfflineDataUPP(MusicOfflineDataUPP userUPP)       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeTuneCallBackUPP()
@@ -3031,7 +3027,7 @@ DisposeMusicOfflineDataUPP(MusicOfflineDataUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeTuneCallBackUPP(TuneCallBackUPP userUPP);
+DisposeTuneCallBackUPP(TuneCallBackUPP userUPP)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeTunePlayCallBackUPP()
@@ -3042,7 +3038,7 @@ DisposeTuneCallBackUPP(TuneCallBackUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeTunePlayCallBackUPP(TunePlayCallBackUPP userUPP);
+DisposeTunePlayCallBackUPP(TunePlayCallBackUPP userUPP)       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeMusicMIDISendUPP()
@@ -3057,7 +3053,7 @@ InvokeMusicMIDISendUPP(
   ComponentInstance  self,
   long               refCon,
   MusicMIDIPacket *  mmp,
-  MusicMIDISendUPP   userUPP);
+  MusicMIDISendUPP   userUPP)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeMusicOfflineDataUPP()
@@ -3072,7 +3068,7 @@ InvokeMusicOfflineDataUPP(
   Ptr                  SoundData,
   long                 numBytes,
   long                 myRefCon,
-  MusicOfflineDataUPP  userUPP);
+  MusicOfflineDataUPP  userUPP)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeTuneCallBackUPP()
@@ -3086,7 +3082,7 @@ extern void
 InvokeTuneCallBackUPP(
   const TuneStatus *  status,
   long                refCon,
-  TuneCallBackUPP     userUPP);
+  TuneCallBackUPP     userUPP)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeTunePlayCallBackUPP()
@@ -3101,7 +3097,7 @@ InvokeTunePlayCallBackUPP(
   unsigned long *      event,
   long                 seed,
   long                 refCon,
-  TunePlayCallBackUPP  userUPP);
+  TunePlayCallBackUPP  userUPP)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* selectors for component calls */
@@ -3222,13 +3218,7 @@ enum {
 };
 
 
-#if PRAGMA_STRUCT_ALIGN
-    #pragma options align=reset
-#elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(pop)
-#elif PRAGMA_STRUCT_PACK
-    #pragma pack()
-#endif
+#pragma options align=reset
 
 #ifdef __cplusplus
 }

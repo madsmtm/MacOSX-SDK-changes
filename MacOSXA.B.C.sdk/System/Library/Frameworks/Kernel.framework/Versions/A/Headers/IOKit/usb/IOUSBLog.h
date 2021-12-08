@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2001 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2002 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -45,7 +45,7 @@
 #define	DEBUG_LEVEL_BETA			3
 #define	DEBUG_LEVEL_FINAL			DEBUG_LEVEL_PRODUCTION
 
-// Default to production if it is not specified.
+// Allow clients to define their own debug level.
 
 #if( !defined( DEBUG_LEVEL ) )
 	#define	DEBUG_LEVEL			DEBUG_LEVEL_PRODUCTION
@@ -62,6 +62,9 @@ enum
     kUSBControllerUserClientSetDebuggingType,
     kUSBControllerUserClientGetDebuggingLevel,
     kUSBControllerUserClientGetDebuggingType,
+    kUSBControllerUserClientSetTestMode,
+    kUSBControllerUserClientReadRegister,
+    kUSBControllerUserClientWriteRegister,
     kNumUSBControllerMethods
 };
 

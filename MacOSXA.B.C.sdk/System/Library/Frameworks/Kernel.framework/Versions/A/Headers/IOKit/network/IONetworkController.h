@@ -203,7 +203,7 @@ enum {
     kIOPacketFilterMulticast       = 0x10,
     kIOPacketFilterMulticastAll    = 0x20,
     kIOPacketFilterPromiscuous     = 0x100,
-    kIOPacketFilterPromiscuousAll  = 0x200,
+    kIOPacketFilterPromiscuousAll  = 0x200
 };
 
 /*! @enum Feature flags returned by the getFeatures() method.
@@ -212,7 +212,7 @@ enum {
         "IOBSD" resource by the IONetworkController::start() method. */
 
 enum {
-    kIONetworkFeatureNoBSDWait = 0x01,
+    kIONetworkFeatureNoBSDWait = 0x01
 };
 
 /*
@@ -251,7 +251,7 @@ enum {
     kIOPacketBufferAlign4   = 4,
     kIOPacketBufferAlign8   = 8,
     kIOPacketBufferAlign16  = 16,
-    kIOPacketBufferAlign32  = 32,
+    kIOPacketBufferAlign32  = 32
 };
 
 /*!	@defined gIONetworkFilterGroup
@@ -487,7 +487,7 @@ public:
     @result The current selected medium, the default medium, or 0. */
 
     virtual const IONetworkMedium * getSelectedMedium() const;
-    inline  const IONetworkMedium * getCurrentMedium() const;
+	const IONetworkMedium * getCurrentMedium() const;
 
 /*! @function getMediumDictionary
     @abstract Returns the medium dictionary published by the driver.
@@ -857,7 +857,7 @@ public:
         kChecksumUDP                 = 0x0004,
         kChecksumTCPNoPseudoHeader   = 0x0100,
         kChecksumUDPNoPseudoHeader   = 0x0200,
-        kChecksumTCPSum16            = 0x1000,
+        kChecksumTCPSum16            = 0x1000
     };
 
 /*! @function getChecksumSupport
@@ -975,7 +975,7 @@ public:
     any entry from the published medium dictionary. */
 
     virtual bool setSelectedMedium(const IONetworkMedium * medium);
-    inline  bool setCurrentMedium(const IONetworkMedium * medium);
+    bool setCurrentMedium(const IONetworkMedium * medium);
 
 /*! @function setLinkStatus
     @abstract Report the link status and the active medium.
@@ -1349,16 +1349,6 @@ protected:
     OSMetaClassDeclareReservedUnused( IONetworkController, 30);
     OSMetaClassDeclareReservedUnused( IONetworkController, 31);
 };
-
-inline const IONetworkMedium * IONetworkController::getCurrentMedium() const
-{
-    return getSelectedMedium();
-}
-
-inline bool IONetworkController::setCurrentMedium(const IONetworkMedium * medium)
-{
-    return setSelectedMedium(medium);
-}
 
 #endif /* defined(KERNEL) && defined(__cplusplus) */
 

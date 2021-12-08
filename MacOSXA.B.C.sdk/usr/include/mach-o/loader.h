@@ -32,20 +32,20 @@
  * <mach/machine.h> is needed here for the cpu_type_t and cpu_subtype_t types
  * and contains the constants for the possible values of these types.
  */
-#import <mach/machine.h>
+#include <mach/machine.h>
 
 /*
  * <mach/vm_prot.h> is needed here for the vm_prot_t type and contains the 
  * constants that are or'ed together for the possible values of this type.
  */
-#import <mach/vm_prot.h>
+#include <mach/vm_prot.h>
 
 /*
  * <machine/thread_status.h> is expected to define the flavors of the thread
  * states and the structures of those flavors for each machine.
  */
-#import <mach/machine/thread_status.h>
-#import <architecture/byte_order.h>
+#include <mach/machine/thread_status.h>
+#include <architecture/byte_order.h>
 
 /*
  * The mach header appears at the very beginning of the object file.
@@ -92,13 +92,15 @@ struct mach_header {
 #define	MH_FVMLIB	0x3		/* fixed VM shared library file */
 #define	MH_CORE		0x4		/* core file */
 #define	MH_PRELOAD	0x5		/* preloaded executable file */
-#define	MH_DYLIB	0x6		/* dynamicly bound shared library file*/
+#define	MH_DYLIB	0x6		/* dynamically bound shared library */
 #define	MH_DYLINKER	0x7		/* dynamic link editor */
-#define	MH_BUNDLE	0x8		/* dynamicly bound bundle file */
+#define	MH_BUNDLE	0x8		/* dynamically bound bundle file */
+#define	MH_DYLIB_STUB	0x9		/* shared library stub for static */
+					/*  linking only, no section contents */
 
 /* Constants for the flags field of the mach_header */
 #define	MH_NOUNDEFS	0x1		/* the object file has no undefined
-					   references, can be executed */
+					   references */
 #define	MH_INCRLINK	0x2		/* the object file is the output of an
 					   incremental link against a base file
 					   and can't be link edited again */
@@ -114,7 +116,8 @@ struct mach_header {
 					   read-write segments split */
 #define MH_LAZY_INIT	0x40		/* the shared library init routine is
 					   to be run lazily via catching memory
-					   faults to its writeable segments */
+					   faults to its writeable segments
+					   (obsolete) */
 #define MH_TWOLEVEL	0x80		/* the image is using two-level name
 					   space bindings */
 #define MH_FORCE_FLAT	0x100		/* the executable is forcing all images
@@ -122,7 +125,10 @@ struct mach_header {
 #define MH_NOMULTIDEFS	0x200		/* this umbrella guarantees no multiple
 					   defintions of symbols in its
 					   sub-images so the two-level namespace
-					   hints can alwasys be used. */
+					   hints can always be used. */
+#define MH_NOFIXPREBINDING 0x400	/* do not have dyld notify the
+					   prebinding agent about this
+					   executable */
 /*
  * The load commands directly follow the mach_header.  The total size of all
  * of the commands is given by the sizeofcmds field in the mach_header.  All
@@ -133,7 +139,7 @@ struct mach_header {
  * is a part of the load command (i.e. section structures, strings, etc.).  To
  * advance to the next load command the cmdsize can be added to the offset or
  * pointer of the current load command.  The cmdsize MUST be a multiple of
- * sizeof(long) (this is forever the maximum alignment of any load commands).
+ * 4 bytes (this is forever the maximum alignment of any load commands).
  * The padded bytes must be zero.  All tables in the object file must also
  * follow these rules so the file can be memory mapped.  Otherwise the pointers
  * to these tables will not work well or at all on some machines.  With all
@@ -167,11 +173,11 @@ struct load_command {
 #define LC_FVMFILE	0x9	/* fixed VM file inclusion (internal use) */
 #define LC_PREPAGE      0xa     /* prepage command (internal use) */
 #define	LC_DYSYMTAB	0xb	/* dynamic link-edit symbol table info */
-#define	LC_LOAD_DYLIB	0xc	/* load a dynamicly linked shared library */
-#define	LC_ID_DYLIB	0xd	/* dynamicly linked shared lib identification */
+#define	LC_LOAD_DYLIB	0xc	/* load a dynamically linked shared library */
+#define	LC_ID_DYLIB	0xd	/* dynamically linked shared lib ident */
 #define LC_LOAD_DYLINKER 0xe	/* load a dynamic linker */
 #define LC_ID_DYLINKER	0xf	/* dynamic linker identification */
-#define	LC_PREBOUND_DYLIB 0x10	/* modules prebound for a dynamicly */
+#define	LC_PREBOUND_DYLIB 0x10	/* modules prebound for a dynamically */
 				/*  linked shared library */
 #define	LC_ROUTINES	0x11	/* image routines */
 #define	LC_SUB_FRAMEWORK 0x12	/* sub framework */
@@ -179,6 +185,12 @@ struct load_command {
 #define	LC_SUB_CLIENT	0x14	/* sub client */
 #define	LC_SUB_LIBRARY  0x15	/* sub library */
 #define	LC_TWOLEVEL_HINTS 0x16	/* two-level namespace lookup hints */
+#define	LC_PREBIND_CKSUM  0x17	/* prebind checksum */
+/*
+ * load a dynamically linked shared library that is allowed to be missing
+ * (all symbols are weak imported).
+ */
+#define	LC_LOAD_WEAK_DYLIB (0x18 | LC_REQ_DYLD)
 
 /*
  * A variable length string in a load command is represented by an lc_str
@@ -186,7 +198,7 @@ struct load_command {
  * the offset is from the start of the load command structure.  The size
  * of the string is reflected in the cmdsize field of the load command.
  * Once again any padded bytes to bring the cmdsize field to a multiple
- * of sizeof(long) must be zero.
+ * of 4 bytes must be zero.
  */
 union lc_str {
 	unsigned long	offset;	/* offset to the string */
@@ -322,6 +334,9 @@ struct section {
 						   symbols that are not to be
 						   in a ranlib table of
 						   contents */
+#define S_ATTR_STRIP_STATIC_SYMS 0x20000000	/* ok to strip static symbols
+						   in this section in files
+						   with the MH_DYLDLINK flag */
 #define SECTION_ATTRIBUTES_SYS	 0x00ffff00	/* system setable attributes */
 #define S_ATTR_SOME_INSTRUCTIONS 0x00000400	/* section contains some
 						   machine instructions */
@@ -428,13 +443,14 @@ struct dylib {
 };
 
 /*
- * A dynamicly linked shared library (filetype == MH_DYLIB in the mach header)
+ * A dynamically linked shared library (filetype == MH_DYLIB in the mach header)
  * contains a dylib_command (cmd == LC_ID_DYLIB) to identify the library.
- * An object that uses a dynamicly linked shared library also contains a
- * dylib_command (cmd == LC_LOAD_DYLIB) for each library it uses.
+ * An object that uses a dynamically linked shared library also contains a
+ * dylib_command (cmd == LC_LOAD_DYLIB or cmd == LC_LOAD_WEAK_DYLIB) for each
+ * library it uses.
  */
 struct dylib_command {
-	unsigned long	cmd;		/* LC_ID_DYLIB or LC_LOAD_DYLIB */
+	unsigned long	cmd;		/* LC_ID_DYLIB, LC_LOAD_{,WEAK_}DYLIB */
 	unsigned long	cmdsize;	/* includes pathname string */
 	struct dylib	dylib;		/* the library identification */
 };
@@ -550,7 +566,7 @@ struct dylinker_command {
  * flavors.  The constants for the flavors, counts and state data structure
  * definitions are expected to be in the header file <machine/thread_status.h>.
  * These machine specific data structures sizes must be multiples of
- * sizeof(long).  The cmdsize reflects the total size of the thread_command
+ * 4 bytes  The cmdsize reflects the total size of the thread_command
  * and all of the sizes of the constants for the flavors, counts and state
  * data structures.
  *
@@ -607,7 +623,7 @@ struct symtab_command {
 
 /*
  * This is the second set of the symbolic information which is used to support
- * the data structures for the dynamicly link editor.
+ * the data structures for the dynamically link editor.
  *
  * The original set of symbolic information in the symtab_command which contains
  * the symbol and string tables must also be present when this load command is
@@ -615,7 +631,9 @@ struct symtab_command {
  * into three groups of symbols:
  *	local symbols (static and debugging symbols) - grouped by module
  *	defined external symbols - grouped by module (sorted by name if not lib)
- *	undefined external symbols (sorted by name if MH_BINDATLOAD is not set)
+ *	undefined external symbols (sorted by name if MH_BINDATLOAD is not set,
+ *	     			    and in order the were seen by the static
+ *				    linker if MH_BINDATLOAD is set)
  * In this load command there are offsets and counts to each of the three groups
  * of symbols.
  *
@@ -626,7 +644,7 @@ struct symtab_command {
  *	reference symbol table
  *	indirect symbol table
  * The first three tables above (the table of contents, module table and
- * reference symbol table) are only present if the file is a dynamicly linked
+ * reference symbol table) are only present if the file is a dynamically linked
  * shared library.  For executable and object modules, which are files
  * containing only one module, the information that would be in these three
  * tables is determined as follows:
@@ -635,7 +653,7 @@ struct symtab_command {
  *		       file is part of the module.
  *	reference symbol table - is the defined and undefined external symbols
  *
- * For dynamicly linked shared library files this load command also contains
+ * For dynamically linked shared library files this load command also contains
  * offsets and sizes to the pool of relocation entries for all sections
  * separated into two groups:
  *	external relocation entries
@@ -660,7 +678,7 @@ struct dysymtab_command {
      *
      * The last two groups are used by the dynamic binding process to do the
      * binding (indirectly through the module table and the reference symbol
-     * table when this is a dynamicly linked shared library file).
+     * table when this is a dynamically linked shared library file).
      */
     unsigned long ilocalsym;	/* index to local symbols */
     unsigned long nlocalsym;	/* number of local symbols */
@@ -675,7 +693,7 @@ struct dysymtab_command {
      * For the for the dynamic binding process to find which module a symbol
      * is defined in the table of contents is used (analogous to the ranlib
      * structure in an archive) which maps defined external symbols to modules
-     * they are defined in.  This exists only in a dynamicly linked shared
+     * they are defined in.  This exists only in a dynamically linked shared
      * library file.  For executable and object modules the defined external
      * symbols are sorted by name and is use as the table of contents.
      */
@@ -687,7 +705,7 @@ struct dysymtab_command {
      * table must reflect the modules that the file was created from.  This is
      * done by having a module table that has indexes and counts into the merged
      * tables for each module.  The module structure that these two entries
-     * refer to is described below.  This exists only in a dynamicly linked
+     * refer to is described below.  This exists only in a dynamically linked
      * shared library file.  For executable and object modules the file only
      * contains one module so everything in the file belongs to the module.
      */
@@ -699,7 +717,7 @@ struct dysymtab_command {
      * indicates the external references (defined and undefined) each module
      * makes.  For each module there is an offset and a count into the
      * reference symbol table for the symbols that the module references.
-     * This exists only in a dynamicly linked shared library file.  For
+     * This exists only in a dynamically linked shared library file.  For
      * executable and object modules the defined external symbols and the
      * undefined external symbols indicates the external references.
      */
@@ -852,11 +870,27 @@ struct twolevel_hint {
 };
 
 /*
+ * The prebind_cksum_command contains the value of the original check sum for
+ * prebound files or zero.  When a prebound file is first created or modified
+ * for other than updating its prebinding information the value of the check sum
+ * is set to zero.  When the file has it prebinding re-done and if the value of
+ * the check sum is zero the original check sum is calculated and stored in
+ * cksum field of this load command in the output file.  If when the prebinding
+ * is re-done and the cksum field is non-zero it is left unchanged from the
+ * input file.
+ */
+struct prebind_cksum_command {
+    unsigned long cmd;		/* LC_PREBIND_CKSUM */
+    unsigned long cmdsize;	/* sizeof(struct prebind_cksum_command) */
+    unsigned long cksum;	/* the check sum or zero */
+};
+
+/*
  * The symseg_command contains the offset and size of the GNU style
  * symbol table information as described in the header file <symseg.h>.
  * The symbol roots of the symbol segments must also be aligned properly
  * in the file.  So the requirement of keeping the offsets aligned to a
- * multiple of a sizeof(long) translates to the length field of the symbol
+ * multiple of a 4 bytes translates to the length field of the symbol
  * roots also being a multiple of a long.  Also the padding must again be
  * zeroed. (THIS IS OBSOLETE and no longer supported).
  */
@@ -870,7 +904,7 @@ struct symseg_command {
 /*
  * The ident_command contains a free format string table following the
  * ident_command structure.  The strings are null terminated and the size of
- * the command is padded out with zero bytes to a multiple of sizeof(long).
+ * the command is padded out with zero bytes to a multiple of 4 bytes/
  * (THIS IS OBSOLETE and no longer supported).
  */
 struct ident_command {
@@ -891,4 +925,4 @@ struct fvmfile_command {
 	unsigned long	header_addr;	/* files virtual address */
 };
 
-#endif _MACHO_LOADER_H_
+#endif /* _MACHO_LOADER_H_ */

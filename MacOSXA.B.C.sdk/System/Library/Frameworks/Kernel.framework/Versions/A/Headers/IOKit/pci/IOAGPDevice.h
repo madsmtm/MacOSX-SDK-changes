@@ -67,7 +67,28 @@ enum {
 
 #define kIOAGPBusFlagsKey	"IOAGPFlags"
 enum {
-    kIOAGPGartIdleInvalidate	= 0x00000001
+    // the AGP target must be idle before invalidating its gart tlb
+    kIOAGPGartIdleInvalidate	= 0x00000001,
+
+    // the AGP target cannot handle operations that cross page boundaries
+    kIOAGPDisablePageSpans	= 0x00000002,
+
+    // the AGP target cannot handle master -> target AGP writes
+    kIOAGPDisableAGPWrites	= 0x00000004,
+
+    // the AGP target cannot handle target -> master PCI reads
+    kIOAGPDisablePCIReads	= 0x00000008,
+
+    // the AGP target cannot handle master -> target PCI writes
+    kIOAGPDisablePCIWrites	= 0x00000010,
+
+    // the AGP target cannot handle all unaligned transactions 
+    kIOAGPDisableUnaligned	= 0x00000020,
+
+    kIOAGPDisableFeature6	= 0x00000040,
+    kIOAGPDisableFeature7	= 0x00000080,
+    kIOAGPDisableFeature8	= 0x00000100,
+    kIOAGPDisableFeature9	= 0x00000200
 };
 
 // masterState

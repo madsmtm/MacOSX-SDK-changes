@@ -63,6 +63,7 @@
 #define EXC_PPC_PRIVINST	3    /* priviledged instruction */
 #define EXC_PPC_PRIVREG		4    /* priviledged register */
 #define EXC_PPC_TRACE		5    /* trace/single-step */
+#define EXC_PPC_PERFMON     6    /* performance monitor */ 
 
 /*
  *	EXC_BAD_ACCESS
@@ -95,6 +96,7 @@
 
 /*
  *	EXC_SOFTWARE
+ * 	Note: 0x10000-0x10003 in use for unix signal 
  */
 #define EXC_PPC_TRAP		1		/* Program trap */
 #define EXC_PPC_MIGRATE		0x10100		/* Time to bolt */

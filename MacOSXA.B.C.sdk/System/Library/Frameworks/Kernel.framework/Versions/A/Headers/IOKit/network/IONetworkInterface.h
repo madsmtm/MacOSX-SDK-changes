@@ -233,13 +233,18 @@ private:
     BPF_FUNC                 _outputFilterFunc;
     OSObject *               _outTarget;
     IOOutputAction           _outAction;
-	UInt32                   _clientVar[4];
+    UInt32                   _clientVar[4];
     OSDictionary *           _dataDict;
     struct mbuf *            _inputQHead;
     struct mbuf *            _inputQTail;
     UInt32                   _inputQCount;
 
-    struct ExpansionData { };
+    struct ExpansionData {
+        thread_call_t   powerChangeThreadCall;
+        IOSimpleLock *  powerChangeNoticeLock;
+        queue_head_t    powerChangeNoticeList;
+    };
+
     /*! @var reserved
         Reserved for future use.  (Internal use only)  */
     ExpansionData *          _reserved;
@@ -256,19 +261,12 @@ private:
     SInt32 syncSIOCSIFMTU(IONetworkController * ctlr, struct ifreq * ifr);
 
     static int  performGatedCommand(void *, void *, void *, void *, void *);
-    static int  ioctl_shim(struct ifnet * ifp, u_long cmd, caddr_t data);
+    static int  ioctl_shim(struct ifnet * ifp, u_long cmd, void * data);
     static int  set_bpf_tap_shim(struct ifnet * ifp, int mode, BPF_FUNC func);
     static int  free_shim(struct ifnet * ifp);
     static int  output_shim(struct ifnet * ifp, struct mbuf *m);
     static void null_shim(struct ifnet * ifp);
-
-    static IOReturn sControllerWillChangePowerState( IONetworkInterface *,
-                                                     void *, void *,
-                                                     void *, void *);
-
-    static IOReturn sControllerDidChangePowerState( IONetworkInterface *,
-                                                    void *, void *,
-                                                    void *, void *);
+    static void powerChangeHandler(void *, void *, void *, void *, void *);
 
 public:
 
@@ -328,8 +326,8 @@ public:
     @param score Pointer to the current driver's probe score, not used.
     @result Returns true for a positive match, false otherwise. */
 
-    virtual bool matchPropertyTable( OSDictionary *	table,
-                                     SInt32       *	score );
+    virtual bool matchPropertyTable( OSDictionary * table,
+                                     SInt32       * score );
 
 /*! @function getController
     @abstract Return the provider, an IONetworkController object, that
@@ -554,11 +552,8 @@ public:
     virtual IOReturn setProperties( OSObject * properties );
 
     // FIXME - Compatibility methods (to be removed)
-    inline IONetworkData * getParameter(const char * aKey) const
-    { return getNetworkData(aKey); }
-
-    inline bool setExtendedFlags(UInt32 flags, UInt32 clear = 0)
-    { return true; }
+    IONetworkData * getParameter(const char * aKey) const;
+	bool setExtendedFlags(UInt32 flags, UInt32 clear = 0);
 
 protected:
 
@@ -923,9 +918,51 @@ protected:
                                UInt32                stateNumber,
                                IOService *           policyMaker);
 
+public:
+    /* Override IOService::willTerminate() */
+
+    virtual bool willTerminate( IOService *  provider,
+                                IOOptionBits options );
+
+    /* Override IOService::serializeProperties() */
+
+    virtual bool serializeProperties( OSSerialize * s ) const;
+
+/*! @function attachToDataLinkLayer
+    @abstract Attach the network interface to the data link layer.
+    @discussion This function is called by the family to attach the network
+    interface managed by an IONetworkInterface to the data link layer. This
+    call occurs after the interface initialization and setup, including the
+    assignment of an interface unit number. Prior to the data link attach,
+    services provided by an IONetworkInterface will be inaccessible to BSD
+    networking, though the object can be found in the I/O Kit registry.
+    Subclasses can extend this function to perform additional work that is
+    specific to a type of interface.
+    @param options Options for the attach call. None are currently defined.
+    @param parameter Parameter for the attach call. Not currently used.
+    @result kIOReturnSuccess is returned on success. */
+
+    virtual IOReturn attachToDataLinkLayer( IOOptionBits options,
+                                            void *       parameter );
+
+    OSMetaClassDeclareReservedUsed(IONetworkInterface, 0);
+
+/*! @function detachFromDataLinkLayer
+    @abstract Detach the network interface from the data link layer.
+    @discussion This function is called by the family to detach the network
+    interface managed by an IONetworkInterface from the data link layer.
+    This call is made when the interface is terminated, before the last close.
+    Subclasses can extend this function to perform additional work that is
+    specific to a type of interface.
+    @param options Options for the detach call. None are currently defined.
+    @param parameter Parameter for the detach call. Not currently used. */
+
+    virtual void detachFromDataLinkLayer( IOOptionBits options,
+                                          void *       parameter );
+
+    OSMetaClassDeclareReservedUsed(IONetworkInterface, 1);
+
     // Virtual function padding
-    OSMetaClassDeclareReservedUnused( IONetworkInterface,  0);
-    OSMetaClassDeclareReservedUnused( IONetworkInterface,  1);
     OSMetaClassDeclareReservedUnused( IONetworkInterface,  2);
     OSMetaClassDeclareReservedUnused( IONetworkInterface,  3);
     OSMetaClassDeclareReservedUnused( IONetworkInterface,  4);

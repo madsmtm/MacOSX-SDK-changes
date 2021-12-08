@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2001 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2001-2002 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -20,7 +20,7 @@
  * @APPLE_LICENSE_HEADER_END@
  */
 /*
- * Copyright (c) 2001 Apple Computer, Inc.  All rights reserved.
+ * Copyright (c) 2001-2002 Apple Computer, Inc.  All rights reserved.
  *
  * HISTORY
  *
@@ -31,8 +31,9 @@
 #define _IOKIT_IOUSBWORKLOOP_H
 
 #include <IOKit/IOWorkLoop.h>
+
 class IOUSBWorkLoop : public IOWorkLoop
-{
+{    
     OSDeclareDefaultStructors(IOUSBWorkLoop)
     
 protected:
@@ -52,8 +53,8 @@ public:
     // Wake workloop up (closes gate if successful)
     virtual IOReturn wake(void *token);
     
-    inline void CloseGate(void) { closeGate(); }
-    inline void OpenGate(void)  { openGate(); }
+    void CloseGate(void);
+    void OpenGate(void);
 };
 
 #endif /* ! _IOKIT_IOUSBWORKLOOP_H */

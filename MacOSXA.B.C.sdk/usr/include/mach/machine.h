@@ -54,10 +54,8 @@
 #ifndef	_MACH_MACHINE_H_
 #define _MACH_MACHINE_H_
 
-#ifdef  MACH_KERNEL_PRIVATE
-#include <cpus.h> 
-#endif  /* MACH_KERNEL_PRIVATE */
- 
+#include <sys/appleapiopts.h>
+
 #include <mach/machine/vm_types.h>
 #include <mach/boolean.h>
 
@@ -90,18 +88,6 @@ typedef integer_t	cpu_subtype_t;
 #define CPU_STATE_SYSTEM	1
 #define CPU_STATE_IDLE		2
 #define CPU_STATE_NICE		3
-
-struct machine_slot {
-/*boolean_t*/integer_t	is_cpu;		/* is there a cpu in this slot? */
-	cpu_type_t	cpu_type;	/* type of cpu */
-	cpu_subtype_t	cpu_subtype;	/* subtype of cpu */
-/*boolean_t*/integer_t	running;	/* is cpu running */
-	integer_t	cpu_ticks[CPU_STATE_MAX];
-	integer_t	clock_freq;	/* clock interrupt frequency */
-};
-
-typedef struct machine_slot	*machine_slot_t;
-typedef struct machine_slot	machine_slot_data_t;	/* bogus */
 
 
 /*
@@ -278,5 +264,6 @@ typedef struct machine_slot	machine_slot_data_t;	/* bogus */
 #define CPU_SUBTYPE_POWERPC_Max		((cpu_subtype_t) 10)
 #define CPU_SUBTYPE_POWERPC_SCVger	((cpu_subtype_t) 11)
 #endif
+#define CPU_SUBTYPE_POWERPC_970		((cpu_subtype_t) 100)
 
 #endif	/* _MACH_MACHINE_H_ */

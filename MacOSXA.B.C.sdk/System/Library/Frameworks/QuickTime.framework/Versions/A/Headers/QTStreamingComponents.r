@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-142~1
+     Version:    QuickTime-174.20~22
  
-     Copyright:  © 1990-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -17,8 +17,8 @@
 #ifndef __QTSTREAMINGCOMPONENTS_R__
 #define __QTSTREAMINGCOMPONENTS_R__
 
-#ifndef __CONDITIONALMACROS_R__
-#include <CarbonCore/ConditionalMacros.r>
+#ifndef __CORESERVICES_R__
+#include <CoreServices/CoreServices.r>
 #endif
 
 #define kQTSSourcerType 				'srcr'
@@ -28,6 +28,7 @@
 
 #define kRTPPayloadSpeedTag 			'sped'				/*  0-255, 255 is fastest */
 #define kRTPPayloadLossRecoveryTag 		'loss'				/*  0-255, 0 can't handle any loss, 128 can handle 50% packet loss */
+#define kRTPPayloadConformanceTag 		'conf'				/*  more than one of these can be present */
 
 #define kRTPPayloadTypeStaticFlag 		0x00000001
 #define kRTPPayloadTypeDynamicFlag 		0x00000002

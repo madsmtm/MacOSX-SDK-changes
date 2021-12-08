@@ -26,6 +26,11 @@
 #ifndef	_MACH_PPC_THREAD_STATUS_H_
 #define _MACH_PPC_THREAD_STATUS_H_
 
+#include <sys/appleapiopts.h>
+
+#ifdef MACH_KERNEL_PRIVATE
+#include <ppc/savearea.h>
+#endif
 /*
  * ppc_thread_state is the structure that is exported to user threads for 
  * use in status/mutate calls.  This structure should never change.
@@ -36,6 +41,8 @@
 #define PPC_FLOAT_STATE         2
 #define PPC_EXCEPTION_STATE		3
 #define PPC_VECTOR_STATE		4
+#define PPC_THREAD_STATE64		5
+#define PPC_EXCEPTION_STATE64	6
 #define THREAD_STATE_NONE		7
 	       
 /*
@@ -48,8 +55,10 @@
 #define VALID_THREAD_STATE_FLAVOR(x)       \
         ((x == PPC_THREAD_STATE)        || \
          (x == PPC_FLOAT_STATE)         || \
-	 (x == PPC_EXCEPTION_STATE)     || \
+	 (x == PPC_EXCEPTION_STATE)     	|| \
          (x == PPC_VECTOR_STATE)        || \
+         (x == PPC_THREAD_STATE64)      || \
+         (x == PPC_EXCEPTION_STATE64)   || \
          (x == THREAD_STATE_NONE))
 
 typedef struct ppc_thread_state {
@@ -97,6 +106,52 @@ typedef struct ppc_thread_state {
 	unsigned int vrsave;	/* Vector Save Register */
 } ppc_thread_state_t;
 
+#pragma pack(4)							/* Make sure the structure stays as we defined it */
+typedef struct ppc_thread_state64 {
+	unsigned long long srr0;	/* Instruction address register (PC) */
+	unsigned long long srr1;	/* Machine state register (supervisor) */
+	unsigned long long r0;
+	unsigned long long r1;
+	unsigned long long r2;
+	unsigned long long r3;
+	unsigned long long r4;
+	unsigned long long r5;
+	unsigned long long r6;
+	unsigned long long r7;
+	unsigned long long r8;
+	unsigned long long r9;
+	unsigned long long r10;
+	unsigned long long r11;
+	unsigned long long r12;
+	unsigned long long r13;
+	unsigned long long r14;
+	unsigned long long r15;
+	unsigned long long r16;
+	unsigned long long r17;
+	unsigned long long r18;
+	unsigned long long r19;
+	unsigned long long r20;
+	unsigned long long r21;
+	unsigned long long r22;
+	unsigned long long r23;
+	unsigned long long r24;
+	unsigned long long r25;
+	unsigned long long r26;
+	unsigned long long r27;
+	unsigned long long r28;
+	unsigned long long r29;
+	unsigned long long r30;
+	unsigned long long r31;
+
+	unsigned int cr;			/* Condition register */
+	unsigned long long xer;		/* User's integer exception register */
+	unsigned long long lr;		/* Link register */
+	unsigned long long ctr;		/* Count register */
+
+	unsigned int vrsave;		/* Vector Save Register */
+} ppc_thread_state64_t;
+#pragma pack()
+
 /* This structure should be double-word aligned for performance */
 
 typedef struct ppc_float_state {
@@ -117,61 +172,15 @@ typedef struct ppc_vector_state {
 /*
  * saved state structure
  *
- * This structure corresponds to the state of the user registers as saved
- * on the stack upon kernel entry (saved in pcb). On interrupts and exceptions
- * we save all registers. On system calls we only save the registers not
- * saved by the caller.
+ * This structure corresponds to the saved state. 
  *
  */
 
-typedef struct ppc_saved_state {
-	unsigned int srr0;      /* Instruction address register (PC) */
-	unsigned int srr1;	/* Machine state register (supervisor) */
-	unsigned int r0;
-	unsigned int r1;
-	unsigned int r2;
-	unsigned int r3;
-	unsigned int r4;
-	unsigned int r5;
-	unsigned int r6;
-	unsigned int r7;
-	unsigned int r8;
-	unsigned int r9;
-	unsigned int r10;
-	unsigned int r11;
-	unsigned int r12;
-	unsigned int r13;
-	unsigned int r14;
-	unsigned int r15;
-	unsigned int r16;
-	unsigned int r17;
-	unsigned int r18;
-	unsigned int r19;
-	unsigned int r20;
-	unsigned int r21;
-	unsigned int r22;
-	unsigned int r23;
-	unsigned int r24;
-	unsigned int r25;
-	unsigned int r26;
-	unsigned int r27;
-	unsigned int r28;
-	unsigned int r29;
-	unsigned int r30;
-	unsigned int r31;
-
-	unsigned int cr;        /* Condition register */
-	unsigned int xer;		/* User's integer exception register */
-	unsigned int lr;		/* Link register */
-	unsigned int ctr;		/* Count register */
-	unsigned int mq;		/* MQ register (601 only) */
-	unsigned int vrsave;	/* Vector Register Save */
-
-/*	These are extra.  Remove them from the count */
-
-	unsigned int sr_copyin; /* SR_COPYIN is used for remapping */
-	unsigned int pad2[7];	/* struct alignment */
-} ppc_saved_state_t;
+#if defined(__APPLE_API_PRIVATE) && defined(MACH_KERNEL_PRIVATE)
+typedef struct savearea ppc_saved_state_t;
+#else
+typedef struct ppc_thread_state ppc_saved_state_t;
+#endif /* __APPLE_API_PRIVATE && MACH_KERNEL_PRIVATE */
 
 /*
  * ppc_exception_state
@@ -187,13 +196,23 @@ typedef struct ppc_saved_state {
  */
 
 typedef struct ppc_exception_state {
-	unsigned long dar;	/* Fault registers for coredump */
+	unsigned long dar;			/* Fault registers for coredump */
 	unsigned long dsisr;
-	unsigned long exception;/* number of powerpc exception taken */
-	unsigned long pad0;	/* align to 16 bytes */
+	unsigned long exception;	/* number of powerpc exception taken */
+	unsigned long pad0;			/* align to 16 bytes */
 
-	unsigned long pad1[4];	/* space in PCB "just in case" */
+	unsigned long pad1[4];		/* space in PCB "just in case" */
 } ppc_exception_state_t;
+
+#pragma pack(4)					/* Make sure the structure stays as we defined it */
+typedef struct ppc_exception_state64 {
+	unsigned long long dar;		/* Fault registers for coredump */
+	unsigned long dsisr;
+	unsigned long exception;	/* number of powerpc exception taken */
+
+	unsigned long pad1[4];		/* space in PCB "just in case" */
+} ppc_exception_state64_t;
+#pragma pack()
 
 /*
  * Save State Flags
@@ -202,8 +221,14 @@ typedef struct ppc_exception_state {
 #define PPC_THREAD_STATE_COUNT \
    (sizeof(struct ppc_thread_state) / sizeof(int))
 
+#define PPC_THREAD_STATE64_COUNT \
+   (sizeof(struct ppc_thread_state64) / sizeof(int))
+
 #define PPC_EXCEPTION_STATE_COUNT \
    (sizeof(struct ppc_exception_state) / sizeof(int))
+
+#define PPC_EXCEPTION_STATE64_COUNT \
+   (sizeof(struct ppc_exception_state64) / sizeof(int))
 
 #define PPC_FLOAT_STATE_COUNT \
    (sizeof(struct ppc_float_state) / sizeof(int))

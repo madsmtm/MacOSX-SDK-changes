@@ -64,6 +64,9 @@
 
 #define kIOAudioDeviceLocalizedBundleKey	"IOAudioDeviceLocalizedBundle"
 
+#define kIOAudioDeviceTransportTypeKey		"IOAudioDeviceTransportType"
+
+#define kIOAudioDeviceConfigurationAppKey	"IOAudioDeviceConfigurationApplication"
 
 
 /*****
@@ -104,6 +107,27 @@
 
 #define kIOAudioEngineDescriptionKey				"IOAudioEngineDescription"
 
+/*!
+ * @defined kIOAudioEngineFullChannelNamesKey
+ * @abstract The key in the IORegistry for the IOAudioEngine's dictionary of fully constructed names for each channel keyed by the device channel
+ * @discussion 
+ */
+#define	kIOAudioEngineFullChannelNamesKey			"IOAudioEngineChannelNames"
+
+/*!
+ * @defined kIOAudioEngineFullChannelNamesKey
+ * @abstract The key in the IORegistry for the IOAudioEngine's dictionary of category names for each channel keyed by the device channel
+ * @discussion 
+ */
+#define	kIOAudioEngineFullChannelCategoryNamesKey	"IOAudioEngineChannelCategoryNames"
+
+/*!
+ * @defined kIOAudioEngineFullChannelNamesKey
+ * @abstract The key in the IORegistry for the IOAudioEngine's dictionary of number names for each channel keyed by the device channel
+ * @discussion 
+ */
+#define	kIOAudioEngineFullChannelNumberNamesKey		"IOAudioEngineChannelNumberNames"
+
 /*****
  *
  * IOAudioStream defines
@@ -134,6 +158,10 @@
 
 #define kIOAudioStreamNumericRepresentationKey	"IOAudioStreamNumericRepresentation"
 
+#define kIOAudioStreamFormatFlagsKey			"IOAudioStreamFormatFlags"
+#define kIOAudioStreamFramesPerPacketKey		"IOAudioStreamFramesPerPacket"
+#define kIOAudioStreamBytesPerPacketKey			"IOAudioStreamBytesPerPacket"
+
 
 #define kIOAudioStreamBitDepthKey				"IOAudioStreamBitDepth"
 #define kIOAudioStreamBitWidthKey				"IOAudioStreamBitWidth"
@@ -148,6 +176,8 @@
 #define kIOAudioStreamMaximumSampleRateKey		"IOAudioStreamMaximumSampleRate"
 
 #define kIOAudioStreamDriverTagKey				"IOAudioStreamDriverTag"
+
+#define kIOAudioStreamTerminalTypeKey			"IOAudioStreamTerminalType"
 
 /*****
  *
@@ -209,7 +239,7 @@
  */
 #define kIOAudioControlChannelIDKey		"IOAudioControlChannelID"
 
-#define kIOAudioControlChannelNumberKey	"IOAudioControlChannelNumber"
+#define kIOAudioControlChannelNumberKey			"IOAudioControlChannelNumber"
 
 #define kIOAudioControlCoreAudioPropertyIDKey	"IOAudioControlCoreAudioPropertyID"
 /*!
@@ -277,6 +307,14 @@
  * @discussion The value returned by this key is a 32-bit integer representing the current value of the IOAudioControl.
  */
 #define kIOAudioControlValueKey				"IOAudioControlValue"
+
+/*!
+ * @defined kIOAudioControlValueIsReadOnlyKey
+ * @abstract The key in the IORegistry for the IOAudioControl value-is-read-only attribute.
+ * @discussion The value returned by this key is a 32-bit integer but the value doesn't have any direct meaning.
+ *  Instead, the presence of this key indicates that the value for the control is read-only
+ */
+#define kIOAudioControlValueIsReadOnlyKey	"IOAudioControlValueIsReadOnly"
 
 /*!
  * @defined kIOAudioLevelControlMinValueKey

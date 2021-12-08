@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2001 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2002 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -94,6 +94,9 @@ enum {
 	kUSBStringDesc		= 3,
 	kUSBInterfaceDesc	= 4,
 	kUSBEndpointDesc	= 5,
+        kUSBDeviceQualifierDesc = 6,
+        kUSBOtherSpeedConfDesc 	= 7,
+        kUSBInterfacePowerDesc	= 8,
 	kUSBHIDDesc		= 0x21,
 	kUSBReportDesc		= 0x22,
 	kUSBPhysicalDesc	= 0x23,
@@ -119,7 +122,9 @@ enum {
 
 
 enum {
-	kUSBRel10		= 0x0100
+	kUSBRel10		= 0x0100,
+	kUSBRel11		= 0x0110,
+	kUSBRel20		= 0x0200
 };
 
 
@@ -147,8 +152,10 @@ enum {
 
 
 enum {
-    kHIDKeyboardInterfaceProtocol = 1,
-    kHIDMouseInterfaceProtocol	= 2
+    kHIDNoInterfaceProtocol		= 0,
+    kHIDKeyboardInterfaceProtocol 	= 1,
+    kHIDMouseInterfaceProtocol		= 2,
+    kUSBVendorSpecificProtocol		= 0xff
 };
 
 
@@ -170,6 +177,7 @@ enum {
     kUSBMassStorageClass        = 8,
     kUSBHubClass                = 9,
     kUSBDataClass               = 10,
+    kUSBApplicationSpecificClass = 0xFE,
     kUSBVendorSpecificClass     = 0xFF
 };
 
@@ -177,7 +185,32 @@ enum {
 
 enum {
     kUSBCompositeSubClass       = 0,
-    kUSBHubSubClass             = 0
+    kUSBHubSubClass             = 0,
+    kUSBDFUSubClass 		= 0x01,
+    kUSBIrDABridgeSubClass 	= 0x02,
+    kUSBMassStorageRBCSubClass 	= 0x01,
+    kUSBMassStorageATAPISubClass 	= 0x02,
+    kUSBMassStorageQIC157SubClass 	= 0x03,
+    kUSBMassStorageUFISubClass 		= 0x04,
+    kUSBMassStorageSFF8070iSubClass 	= 0x05,
+    kUSBMassStorageSCSISubClass 	= 0x06,
+    kUSBHIDBootInterfaceSubClass 	= 0x01,
+    kUSBCommDirectLineSubClass	= 0x01,
+    kUSBCommAbstractSubClass	= 0x02,
+    kUSBCommTelephoneSubClass	= 0x03,
+    kUSBCommMultiChannelSubClass	= 0x04,
+    kUSBCommCAPISubClass		= 0x05,
+    kUSBCommEthernetNetworkingSubClass	= 0x06,
+    kUSBATMNetworkingSubClass	= 0x07
+};
+
+/* DFU Class Attributes */
+
+enum {
+    kUSBDFUAttributesMask 		= 0x07,
+    kUSBDFUCanDownloadBit 		= 0,
+    kUSBDFUCanUploadBit 		= 1,
+    kUSBDFUManifestationTolerantBit 	= 2
 };
 
 // USB property names taken from the field names in various descriptors

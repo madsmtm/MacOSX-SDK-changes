@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2001 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2002 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -52,13 +52,18 @@ enum {
 };
 
 enum {
-	kHubPortConnection		= 1,
-	kHubPortEnabled			= 2,
-	kHubPortSuspend			= 4,
-	kHubPortOverCurrent		= 8,
-	kHubPortBeingReset		= 16,
+	kHubPortConnection		= 0x0001,
+	kHubPortEnabled			= 0x0002,
+	kHubPortSuspend			= 0x0004,
+	kHubPortOverCurrent		= 0x0008,
+	kHubPortBeingReset		= 0x0010,
 	kHubPortPower			= 0x0100,
-	kHubPortLowSpeed		= 0x0200
+	kHubPortLowSpeed		= 0x0200,
+	kHubPortHighSpeed		= 0x0400,
+	kHubPortTestMode		= 0x0800,
+	kHubPortIndicator		= 0x1000,
+	// these are the bits which cause the hub port state machine to keep moving
+	kHubPortStateChangeMask		= kHubPortConnection | kHubPortEnabled | kHubPortSuspend | kHubPortOverCurrent | kHubPortBeingReset
 };
 
 
@@ -115,7 +120,7 @@ SetPortFeature   0010 0011B                Feature Port    Zero   None
     kSetHubFeature
         = EncodeRequest(kUSBRqSetFeature,    kUSBOut, kUSBClass, kUSBDevice),
     kSetPortFeature
-        = EncodeRequest(kUSBRqSetFeature,    kUSBOut, kUSBClass, kUSBOther),
+        = EncodeRequest(kUSBRqSetFeature,    kUSBOut, kUSBClass, kUSBOther)
 };
 
 

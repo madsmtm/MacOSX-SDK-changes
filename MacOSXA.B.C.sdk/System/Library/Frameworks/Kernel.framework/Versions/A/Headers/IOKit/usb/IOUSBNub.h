@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2001 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2002 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -31,39 +31,11 @@
 class IOUSBController;
 class IOUSBPipe;
 
-/*!
-    @class IOUSBNub
-    @abstract abstract base class for IOUSBDevice and IOUSBInterface
-    @discussion This class provides functionality that is useful for both
-    a device driver (which would attach to an IOUSBDevice) and an interface driver
-    (which would attach to an IOUSBInterface).
-*/
-
 class IOUSBNub : public IOService
 {
     OSDeclareDefaultStructors(IOUSBNub)
 
 public:
-    /*!
-    	@function findNextDescriptor
-        @abstract find next descriptor in configuration list of given type
-	(kUSBAnyDesc matches any type).
-        @discussion call this function with a pointer to a descriptor in a descriptor list,
-	for example the descriptor list returned by IOUSBDevice::getFullConfigurationDescriptor().
-        Returns NULL if no more descriptors match descType.
-        @param cur current descriptor in list
-        @param descType descriptor type to return (kUSBAnyDesc to match any type)
-	@result Pointer to the next matching descriptor, or NULL if no more match.
-    */
-    // static const IOUSBDescriptorHeader *FindNextDescriptor(const void *cur, UInt8 descType);
-
-    /*!
-        @function USBCompareProperty
-        Checks to see if a key exists in the property table AND in the dictionary and if
-        they are equal.  It differs from from the IOService::compareProperty in that it
-        does NOT return true if the property does not exist.
-        @result true if it exists and it matches otherwise, it returns false.
-    */
     virtual bool USBCompareProperty(OSDictionary   * matching,
                                     const char     * key );
     

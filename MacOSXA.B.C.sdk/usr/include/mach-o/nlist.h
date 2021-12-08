@@ -91,7 +91,7 @@ struct nlist {
  */
 
 /*
- * The n_type field really contains three fields:
+ * The n_type field really contains four fields:
  *	unsigned char N_STAB:3,
  *		      N_PEXT:1,
  *		      N_TYPE:3,
@@ -198,31 +198,52 @@ struct nlist {
  * undefined references from module defined in another use the same nlist struct
  * an in that case SELF_LIBRARY_ORDINAL is used as the library ordinal.  For
  * defined symbols in all images they also must have the library ordinal set to
- * SELF_LIBRARY_ORDINAL.  The EXECUTABLE_ORDINAL is refers to the executable
+ * SELF_LIBRARY_ORDINAL.  The EXECUTABLE_ORDINAL refers to the executable
  * image for references from plugins that refer to the executable that loads
  * them.
+ * 
+ * The DYNAMIC_LOOKUP_ORDINAL is for undefined symbols in a two-level namespace
+ * image that are looked up by the dynamic linker with flat namespace semantics.
+ * This ordinal was added as a feature in Mac OS X 10.3 by reducing the
+ * value of MAX_LIBRARY_ORDINAL by one.  So it is legal for existing binaries
+ * or binaries built with older tools to have 0xfe (254) dynamic libraries.  In
+ * this case the ordinal value 0xfe (254) must be treated as a library ordinal
+ * for compatibility. 
  */
 #define GET_LIBRARY_ORDINAL(n_desc) (((n_desc) >> 8) & 0xff)
 #define SET_LIBRARY_ORDINAL(n_desc,ordinal) \
 	(n_desc) = (((n_desc) & 0x00ff) | (((ordinal) & 0xff) << 8))
 #define SELF_LIBRARY_ORDINAL 0x0
-#define MAX_LIBRARY_ORDINAL 0xfe
+#define MAX_LIBRARY_ORDINAL 0xfd
+#define DYNAMIC_LOOKUP_ORDINAL 0xfe
 #define EXECUTABLE_ORDINAL 0xff
 
 /*
- * The non-reference type bits and the non-library ordinal bits of the n_desc
- * field for global symbols are reserved for the dynamic link editor.  All of
- * these bits must start out zero in the object file.  The N_DESC_DISCARDED
- * bit never appears in an object file but is used in very rare cases by the
- * dynamic link editor.
+ * The N_DESC_DISCARDED bit of the n_desc field never appears in an object file
+ * but is used in very rare cases by the dynamic link editor.
  */
 #define N_DESC_DISCARDED 0x0020	/* symbol is discarded */
+
+/*
+ * The N_WEAK_REF bit of the n_desc field indicates to the dynamic linker that
+ * the undefined symbol is allowed to be missing and is to have the address of
+ * zero when missing.
+ */
+#define N_WEAK_REF	0x0040 /* symbol is weak referenced */
+
+/*
+ * The N_WEAK_DEF bit of the n_desc field indicates to the static and dynamic
+ * linkers that the symbol definition is weak, allowing a non-weak symbol to
+ * also be used which causes the weak definition to be discared.  Currently this
+ * is only supported for symbols in coalesed sections.
+ */
+#define N_WEAK_DEF	0x0080 /* coalesed symbol is a weak definition */
 
 #ifndef __STRICT_BSD__
 /*
  * The function nlist(3) from the C library.
  */
 extern int nlist (const char *filename, struct nlist *list);
-#endif __STRICT_BSD__
+#endif /* __STRICT_BSD__ */
 
-#endif _MACHO_LIST_H_
+#endif /* _MACHO_LIST_H_ */

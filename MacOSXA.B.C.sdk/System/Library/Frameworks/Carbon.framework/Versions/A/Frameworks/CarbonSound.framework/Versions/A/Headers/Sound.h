@@ -3,9 +3,9 @@
  
      Contains:   Sound Manager Interfaces.
  
-     Version:    CarbonSound-65~5
+     Version:    CarbonSound-80.6.2~8
  
-     Copyright:  © 1986-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1986-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -16,16 +16,8 @@
 #ifndef __SOUND__
 #define __SOUND__
 
-#ifndef __MACTYPES__
-#include <CarbonCore/MacTypes.h>
-#endif
-
-#ifndef __COMPONENTS__
-#include <CarbonCore/Components.h>
-#endif
-
-#ifndef __MIXEDMODE__
-#include <CarbonCore/MixedMode.h>
+#ifndef __CORESERVICES__
+#include <CoreServices/CoreServices.h>
 #endif
 
 #ifndef __DIALOGS__
@@ -34,6 +26,7 @@
 
 
 
+#include <AvailabilityMacros.h>
 
 #if PRAGMA_ONCE
 #pragma once
@@ -43,13 +36,7 @@
 extern "C" {
 #endif
 
-#if PRAGMA_STRUCT_ALIGN
-    #pragma options align=mac68k
-#elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(push, 2)
-#elif PRAGMA_STRUCT_PACK
-    #pragma pack(2)
-#endif
+#pragma options align=mac68k
 
 /*
                         * * *  N O T E  * * *
@@ -99,7 +86,8 @@ extern "C" {
 #define twelfthRootTwo 1.05946309435
 
 enum {
-  soundListRsrc                 = 'snd ' /*Resource type used by Sound Manager*/
+  soundListRsrc                 = 'snd ', /*Resource type used by Sound Manager*/
+  kSoundCodecInfoResourceType   = 'snfo' /*Resource type holding codec information (optional public component resource)*/
 };
 
 enum {
@@ -307,15 +295,19 @@ enum {
   siAVDisplayBehavior           = 'avdb',
   siChannelAvailable            = 'chav', /*number of channels available*/
   siCompressionAvailable        = 'cmav', /*compression types available*/
-  siCompressionChannels         = 'cpct', /*compressor's number of channels*/
   siCompressionFactor           = 'cmfa', /*current compression factor*/
   siCompressionHeader           = 'cmhd', /*return compression header*/
   siCompressionNames            = 'cnam', /*compression type names available*/
   siCompressionParams           = 'evaw', /*compression parameters*/
-  siCompressionSampleRate       = 'cprt', /*compressor's sample rate*/
+  siCompressionSampleRate       = 'cprt', /* SetInfo only: compressor's sample rate*/
+  siCompressionChannels         = 'cpct', /* SetInfo only: compressor's number of channels*/
+  siCompressionOutputSampleRate = 'cort', /* GetInfo only: only implemented by compressors that have differing in and out rates */
+  siCompressionInputRateList    = 'crtl', /* GetInfo only: only implemented by compressors that only take certain input rates */
   siCompressionType             = 'comp', /*current compression type*/
+  siCompressionConfiguration    = 'ccfg', /*compression extensions*/
   siContinuous                  = 'cont', /*continous recording*/
   siDecompressionParams         = 'wave', /*decompression parameters*/
+  siDecompressionConfiguration  = 'dcfg', /*decompression extensions*/
   siDeviceBufferInfo            = 'dbin', /*size of interrupt buffer*/
   siDeviceConnected             = 'dcon', /*input device connection status*/
   siDeviceIcon                  = 'icon', /*input device icon*/
@@ -386,7 +378,12 @@ enum {
   siSupportedExtendedFlags      = 'exfl', /*which flags are supported in Extended sound data structures*/
   siRateConverterRollOffSlope   = 'rcdb', /*the roll-off slope for the rate converter's filter, in whole dB as a long this value is a long whose range is from 20 (worst quality/fastest performance) to 90 (best quality/slowest performance)*/
   siOutputLatency               = 'olte', /*latency of sound output component*/
-  siHALAudioDeviceID            = 'hlid' /*audio device id*/
+  siHALAudioDeviceID            = 'hlid', /*audio device id*/
+  siHALAudioDeviceUniqueID      = 'huid', /*audio device unique id*/
+  siClientAcceptsVBR            = 'cvbr', /*client handles VBR*/
+  siSourceIsExhausted           = 'srcx', /*the ultimate source of data has run out (keep asking, but when you get nothing, that's it)*/
+  siMediaContextID              = 'uuid', /*media context id -- UUID */
+  siCompressionMaxPacketSize    = 'cmxp' /*maximum compressed packet size for current configuration -- unsigned long */
 };
 
 enum {
@@ -447,6 +444,7 @@ enum {
   kUNIXsdevSubType              = 'un1x', /*UNIX base sdev*/
   kUSBSubType                   = 'usb ', /*USB device*/
   kBlueBoxSubType               = 'bsnd', /*Blue Box sound component*/
+  kHALCustomComponentSubType    = 'halx', /*Registered by the HAL output component ('hal!') for each HAL output device*/
   kSoundCompressor              = 'scom',
   kSoundDecompressor            = 'sdec',
   kAudioComponentType           = 'adio', /*Audio components and sub-types*/
@@ -521,6 +519,15 @@ enum {
   kVMAwareness                  = (1L << 21), /* component will hold its memory*/
   kHighQuality                  = (1L << 22), /*  performance description*/
   kNonRealTime                  = (1L << 23)
+};
+
+/*'snfo' Resource Feature Flags*/
+enum {
+  kSoundCodecInfoFixedCompression = (1L << 0), /* has fixed compression format*/
+  kSoundCodecInfoVariableCompression = (1L << 1), /* has variable compression format*/
+  kSoundCodecInfoHasRestrictedInputRates = (1L << 2), /* compressor has restricted set of input sample rates*/
+  kSoundCodecInfoCanChangeOutputRate = (1L << 3), /* compressor may output a different sample rate than it receives*/
+  kSoundCodecInfoRequiresExternalFraming = (1L << 4) /* format requires external framing information during decode/encode*/
 };
 
 /*SoundComponentPlaySourceBuffer action flags*/
@@ -620,7 +627,17 @@ enum {
 /* flags for extendedFlags fields of ExtendedSoundComponentData, ExtendedSoundParamBlock, and ExtendedScheduledSoundHeader*/
 enum {
   kExtendedSoundSampleCountNotValid = 1L << 0, /* set if sampleCount of SoundComponentData isn't meaningful; use buffer size instead*/
-  kExtendedSoundBufferSizeValid = 1L << 1 /* set if bufferSize field is valid*/
+  kExtendedSoundBufferSizeValid = 1L << 1, /* set if bufferSize field is valid*/
+  kExtendedSoundFrameSizesValid = 1L << 2, /* set if frameSizesArray is valid (will be nil if all sizes are common and kExtendedSoundCommonFrameSizeValid is set*/
+  kExtendedSoundCommonFrameSizeValid = 1L << 3, /* set if all audio frames have the same size and the commonFrameSize field is valid*/
+  kExtendedSoundExtensionsValid = 1L << 4, /* set if pointer to extensions array is valid*/
+  kExtendedSoundBufferFlagsValid = 1L << 5 /* set if buffer flags field is valid*/
+};
+
+/* flags passed in bufferFlags/bufferFlagsMask extended fields if kExtendedSoundBufferFlagsValid extended flag is set*/
+enum {
+  kExtendedSoundBufferIsDiscontinuous = 1L << 0, /* buffer is discontinuous with previous buffer*/
+  kExtendedSoundBufferIsFirstBuffer = 1L << 1 /* buffer is first buffer*/
 };
 
 /*
@@ -663,7 +680,7 @@ struct SndChannel {
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SndCallBackUPP
-NewSndCallBackUPP(SndCallBackProcPtr userRoutine);
+NewSndCallBackUPP(SndCallBackProcPtr userRoutine)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSndCallBackUPP()
@@ -674,7 +691,7 @@ NewSndCallBackUPP(SndCallBackProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSndCallBackUPP(SndCallBackUPP userUPP);
+DisposeSndCallBackUPP(SndCallBackUPP userUPP)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSndCallBackUPP()
@@ -688,7 +705,7 @@ extern void
 InvokeSndCallBackUPP(
   SndChannelPtr   chan,
   SndCommand *    cmd,
-  SndCallBackUPP  userUPP);
+  SndCallBackUPP  userUPP)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*MACE structures*/
 struct StateBlock {
@@ -829,6 +846,13 @@ struct ExtendedScheduledSoundHeader {
   long                recordSize;
   long                extendedFlags;
   long                bufferSize;
+  long                frameCount;             /* number of audio frames*/
+  long *              frameSizesArray;        /* pointer to array of longs with frame sizes in bytes*/
+  long                commonFrameSize;        /* size of each frame if common*/
+  void *              extensionsPtr;          /*pointer to set of classic atoms (size,type,data,...)*/
+  long                extensionsSize;         /*size of extensions data (extensionsPtr)*/
+  unsigned long       bufferFlags;            /*set or cleared flags*/
+  unsigned long       bufferFlagsMask;        /*which flags are valid*/
 };
 typedef struct ExtendedScheduledSoundHeader ExtendedScheduledSoundHeader;
 typedef ExtendedScheduledSoundHeader *  ExtendedScheduledSoundHeaderPtr;
@@ -947,6 +971,13 @@ struct ExtendedSoundComponentData {
   long                recordSize;             /*size of this record in bytes*/
   long                extendedFlags;          /*flags for extended record*/
   long                bufferSize;             /*size of buffer in bytes*/
+  long                frameCount;             /*number of audio frames*/
+  long *              frameSizesArray;        /*pointer to array of longs with frame sizes in bytes*/
+  long                commonFrameSize;        /*size of each frame if common*/
+  void *              extensionsPtr;          /*pointer to set of classic atoms (size,type,data,...)*/
+  long                extensionsSize;         /*size of extensions data (extensionsPtr)*/
+  unsigned long       bufferFlags;            /*set or cleared flags*/
+  unsigned long       bufferFlagsMask;        /*which flags are valid*/
 };
 typedef struct ExtendedSoundComponentData ExtendedSoundComponentData;
 typedef ExtendedSoundComponentData *    ExtendedSoundComponentDataPtr;
@@ -973,6 +1004,13 @@ struct ExtendedSoundParamBlock {
   short               reserved;
   long                extendedFlags;          /*flags*/
   long                bufferSize;             /*size of buffer in bytes*/
+  long                frameCount;             /*number of audio frames*/
+  long *              frameSizesArray;        /*pointer to array of longs with frame sizes in bytes*/
+  long                commonFrameSize;        /*size of each frame if common*/
+  void *              extensionsPtr;          /*pointer to set of classic atoms (size,type,data,...)*/
+  long                extensionsSize;         /*size of extensions data (extensionsPtr)*/
+  unsigned long       bufferFlags;            /*set or cleared flags*/
+  unsigned long       bufferFlagsMask;        /*which flags are valid*/
 };
 typedef struct ExtendedSoundParamBlock  ExtendedSoundParamBlock;
 typedef ExtendedSoundParamBlock *       ExtendedSoundParamBlockPtr;
@@ -1092,7 +1130,7 @@ struct SPB {
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SoundParamUPP
-NewSoundParamUPP(SoundParamProcPtr userRoutine);
+NewSoundParamUPP(SoundParamProcPtr userRoutine)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSoundConverterFillBufferDataUPP()
@@ -1103,7 +1141,7 @@ NewSoundParamUPP(SoundParamProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SoundConverterFillBufferDataUPP
-NewSoundConverterFillBufferDataUPP(SoundConverterFillBufferDataProcPtr userRoutine);
+NewSoundConverterFillBufferDataUPP(SoundConverterFillBufferDataProcPtr userRoutine) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSIInterruptUPP()
@@ -1114,7 +1152,7 @@ NewSoundConverterFillBufferDataUPP(SoundConverterFillBufferDataProcPtr userRouti
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SIInterruptUPP
-NewSIInterruptUPP(SIInterruptProcPtr userRoutine);
+NewSIInterruptUPP(SIInterruptProcPtr userRoutine)             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  NewSICompletionUPP()
@@ -1125,7 +1163,7 @@ NewSIInterruptUPP(SIInterruptProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern SICompletionUPP
-NewSICompletionUPP(SICompletionProcPtr userRoutine);
+NewSICompletionUPP(SICompletionProcPtr userRoutine)           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSoundParamUPP()
@@ -1136,7 +1174,7 @@ NewSICompletionUPP(SICompletionProcPtr userRoutine);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSoundParamUPP(SoundParamUPP userUPP);
+DisposeSoundParamUPP(SoundParamUPP userUPP)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSoundConverterFillBufferDataUPP()
@@ -1147,7 +1185,7 @@ DisposeSoundParamUPP(SoundParamUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSoundConverterFillBufferDataUPP(SoundConverterFillBufferDataUPP userUPP);
+DisposeSoundConverterFillBufferDataUPP(SoundConverterFillBufferDataUPP userUPP) AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSIInterruptUPP()
@@ -1158,7 +1196,7 @@ DisposeSoundConverterFillBufferDataUPP(SoundConverterFillBufferDataUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSIInterruptUPP(SIInterruptUPP userUPP);
+DisposeSIInterruptUPP(SIInterruptUPP userUPP)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  DisposeSICompletionUPP()
@@ -1169,7 +1207,7 @@ DisposeSIInterruptUPP(SIInterruptUPP userUPP);
  *    Non-Carbon CFM:   available as macro/inline
  */
 extern void
-DisposeSICompletionUPP(SICompletionUPP userUPP);
+DisposeSICompletionUPP(SICompletionUPP userUPP)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSoundParamUPP()
@@ -1182,7 +1220,7 @@ DisposeSICompletionUPP(SICompletionUPP userUPP);
 extern Boolean
 InvokeSoundParamUPP(
   SoundParamBlockPtr *  pb,
-  SoundParamUPP         userUPP);
+  SoundParamUPP         userUPP)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSoundConverterFillBufferDataUPP()
@@ -1196,7 +1234,7 @@ extern Boolean
 InvokeSoundConverterFillBufferDataUPP(
   SoundComponentDataPtr *          data,
   void *                           refCon,
-  SoundConverterFillBufferDataUPP  userUPP);
+  SoundConverterFillBufferDataUPP  userUPP)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSIInterruptUPP()
@@ -1212,7 +1250,7 @@ InvokeSIInterruptUPP(
   Ptr             dataBuffer,
   short           peakAmplitude,
   long            sampleSize,
-  SIInterruptUPP  userUPP);
+  SIInterruptUPP  userUPP)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 /*
  *  InvokeSICompletionUPP()
@@ -1225,7 +1263,7 @@ InvokeSIInterruptUPP(
 extern void
 InvokeSICompletionUPP(
   SPBPtr           inParamPtr,
-  SICompletionUPP  userUPP);
+  SICompletionUPP  userUPP)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 typedef CALLBACK_API( void , FilePlayCompletionProcPtr )(SndChannelPtr chan);
 typedef STACK_UPP_TYPE(FilePlayCompletionProcPtr)               FilePlayCompletionUPP;
@@ -1273,7 +1311,7 @@ typedef STACK_UPP_TYPE(FilePlayCompletionProcPtr)               FilePlayCompleti
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern void 
-SysBeep(short duration);
+SysBeep(short duration)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1288,7 +1326,7 @@ extern OSErr
 SndDoCommand(
   SndChannelPtr       chan,
   const SndCommand *  cmd,
-  Boolean             noWait);
+  Boolean             noWait)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1302,7 +1340,7 @@ SndDoCommand(
 extern OSErr 
 SndDoImmediate(
   SndChannelPtr       chan,
-  const SndCommand *  cmd);
+  const SndCommand *  cmd)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1318,7 +1356,7 @@ SndNewChannel(
   SndChannelPtr *  chan,
   short            synth,
   long             init,
-  SndCallBackUPP   userRoutine);
+  SndCallBackUPP   userRoutine)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1332,7 +1370,7 @@ SndNewChannel(
 extern OSErr 
 SndDisposeChannel(
   SndChannelPtr   chan,
-  Boolean         quietNow);
+  Boolean         quietNow)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1347,7 +1385,7 @@ extern OSErr
 SndPlay(
   SndChannelPtr   chan,
   SndListHandle   sndHandle,
-  Boolean         async);
+  Boolean         async)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 #if OLDROUTINENAMES
@@ -1383,7 +1421,7 @@ SndPlay(
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern NumVersion 
-SndSoundManagerVersion(void);
+SndSoundManagerVersion(void)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1428,7 +1466,7 @@ extern OSErr
 SndChannelStatus(
   SndChannelPtr   chan,
   short           theLength,
-  SCStatusPtr     theStatus);
+  SCStatusPtr     theStatus)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1442,7 +1480,7 @@ SndChannelStatus(
 extern OSErr 
 SndManagerStatus(
   short         theLength,
-  SMStatusPtr   theStatus);
+  SMStatusPtr   theStatus)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1454,7 +1492,7 @@ SndManagerStatus(
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern void 
-SndGetSysBeepState(short * sysBeepState);
+SndGetSysBeepState(short * sysBeepState)                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1466,7 +1504,7 @@ SndGetSysBeepState(short * sysBeepState);
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-SndSetSysBeepState(short sysBeepState);
+SndSetSysBeepState(short sysBeepState)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1540,7 +1578,7 @@ SndSetSysBeepState(short sysBeepState);
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-GetSysBeepVolume(long * level);
+GetSysBeepVolume(long * level)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1552,7 +1590,7 @@ GetSysBeepVolume(long * level);
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-SetSysBeepVolume(long level);
+SetSysBeepVolume(long level)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1564,7 +1602,7 @@ SetSysBeepVolume(long level);
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-GetDefaultOutputVolume(long * level);
+GetDefaultOutputVolume(long * level)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1576,7 +1614,7 @@ GetDefaultOutputVolume(long * level);
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-SetDefaultOutputVolume(long level);
+SetDefaultOutputVolume(long level)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1590,7 +1628,7 @@ SetDefaultOutputVolume(long level);
 extern OSErr 
 GetSoundHeaderOffset(
   SndListHandle   sndHandle,
-  long *          offset);
+  long *          offset)                                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1622,7 +1660,7 @@ GetCompressionInfo(
   OSType               format,
   short                numChannels,
   short                sampleSize,
-  CompressionInfoPtr   cp);
+  CompressionInfoPtr   cp)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1637,7 +1675,7 @@ extern OSErr
 SetSoundPreference(
   OSType   theType,
   Str255   name,
-  Handle   settings);
+  Handle   settings)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1652,7 +1690,7 @@ extern OSErr
 GetSoundPreference(
   OSType   theType,
   Str255   name,
-  Handle   settings);
+  Handle   settings)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1667,7 +1705,7 @@ extern OSErr
 OpenMixerSoundComponent(
   SoundComponentDataPtr   outputDescription,
   long                    outputFlags,
-  ComponentInstance *     mixerComponent);
+  ComponentInstance *     mixerComponent)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1679,7 +1717,7 @@ OpenMixerSoundComponent(
  *    Non-Carbon CFM:   in SoundLib 3.0 and later
  */
 extern OSErr 
-CloseMixerSoundComponent(ComponentInstance ci);
+CloseMixerSoundComponent(ComponentInstance ci)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Sound Manager 3.1 and later calls, uses _SoundDispatch */
@@ -1695,7 +1733,7 @@ extern OSErr
 SndGetInfo(
   SndChannelPtr   chan,
   OSType          selector,
-  void *          infoPtr);
+  void *          infoPtr)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1710,7 +1748,7 @@ extern OSErr
 SndSetInfo(
   SndChannelPtr   chan,
   OSType          selector,
-  const void *    infoPtr);
+  const void *    infoPtr)                                    AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1725,7 +1763,7 @@ extern OSErr
 GetSoundOutputInfo(
   Component   outputDevice,
   OSType      selector,
-  void *      infoPtr);
+  void *      infoPtr)                                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1740,7 +1778,7 @@ extern OSErr
 SetSoundOutputInfo(
   Component     outputDevice,
   OSType        selector,
-  const void *  infoPtr);
+  const void *  infoPtr)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Sound Manager 3.2 and later calls, uses _SoundDispatch */
@@ -1755,7 +1793,7 @@ SetSoundOutputInfo(
 extern OSErr 
 GetCompressionName(
   OSType   compressionType,
-  Str255   compressionName);
+  Str255   compressionName)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1770,7 +1808,7 @@ extern OSErr
 SoundConverterOpen(
   const SoundComponentData *  inputFormat,
   const SoundComponentData *  outputFormat,
-  SoundConverter *            sc);
+  SoundConverter *            sc)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1782,7 +1820,7 @@ SoundConverterOpen(
  *    Non-Carbon CFM:   in SoundLib 3.2 and later
  */
 extern OSErr 
-SoundConverterClose(SoundConverter sc);
+SoundConverterClose(SoundConverter sc)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1799,7 +1837,7 @@ SoundConverterGetBufferSizes(
   unsigned long    inputBytesTarget,
   unsigned long *  inputFrames,
   unsigned long *  inputBytes,
-  unsigned long *  outputBytes);
+  unsigned long *  outputBytes)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1811,7 +1849,7 @@ SoundConverterGetBufferSizes(
  *    Non-Carbon CFM:   in SoundLib 3.2 and later
  */
 extern OSErr 
-SoundConverterBeginConversion(SoundConverter sc);
+SoundConverterBeginConversion(SoundConverter sc)              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1829,7 +1867,7 @@ SoundConverterConvertBuffer(
   unsigned long    inputFrames,
   void *           outputPtr,
   unsigned long *  outputFrames,
-  unsigned long *  outputBytes);
+  unsigned long *  outputBytes)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1845,7 +1883,7 @@ SoundConverterEndConversion(
   SoundConverter   sc,
   void *           outputPtr,
   unsigned long *  outputFrames,
-  unsigned long *  outputBytes);
+  unsigned long *  outputBytes)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Sound Manager 3.3 and later calls, uses _SoundDispatch */
@@ -1861,7 +1899,7 @@ extern OSErr
 SoundConverterGetInfo(
   SoundConverter   sc,
   OSType           selector,
-  void *           infoPtr);
+  void *           infoPtr)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1876,7 +1914,7 @@ extern OSErr
 SoundConverterSetInfo(
   SoundConverter   sc,
   OSType           selector,
-  void *           infoPtr);
+  void *           infoPtr)                                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Sound Manager 3.6 and later calls, uses _SoundDispatch */
@@ -1897,7 +1935,7 @@ SoundConverterFillBuffer(
   unsigned long                     outputBufferByteSize,
   unsigned long *                   bytesWritten,
   unsigned long *                   framesWritten,
-  unsigned long *                   outputFlags);
+  unsigned long *                   outputFlags)              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1911,7 +1949,7 @@ SoundConverterFillBuffer(
 extern OSErr 
 SoundManagerGetInfo(
   OSType   selector,
-  void *   infoPtr);
+  void *   infoPtr)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1925,7 +1963,7 @@ SoundManagerGetInfo(
 extern OSErr 
 SoundManagerSetInfo(
   OSType        selector,
-  const void *  infoPtr);
+  const void *  infoPtr)                                      AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1944,7 +1982,7 @@ SoundManagerSetInfo(
 extern ComponentResult 
 SoundComponentInitOutputDevice(
   ComponentInstance   ti,
-  long                actions);
+  long                actions)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1959,7 +1997,7 @@ extern ComponentResult
 SoundComponentSetSource(
   ComponentInstance   ti,
   SoundSource         sourceID,
-  ComponentInstance   source);
+  ComponentInstance   source)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1974,7 +2012,7 @@ extern ComponentResult
 SoundComponentGetSource(
   ComponentInstance    ti,
   SoundSource          sourceID,
-  ComponentInstance *  source);
+  ComponentInstance *  source)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -1988,7 +2026,7 @@ SoundComponentGetSource(
 extern ComponentResult 
 SoundComponentGetSourceData(
   ComponentInstance        ti,
-  SoundComponentDataPtr *  sourceData);
+  SoundComponentDataPtr *  sourceData)                        AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2003,7 +2041,7 @@ extern ComponentResult
 SoundComponentSetOutput(
   ComponentInstance        ti,
   SoundComponentDataPtr    requested,
-  SoundComponentDataPtr *  actual);
+  SoundComponentDataPtr *  actual)                            AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* junction methods for the mixer, must be called at non-interrupt level*/
@@ -2018,7 +2056,7 @@ SoundComponentSetOutput(
 extern ComponentResult 
 SoundComponentAddSource(
   ComponentInstance   ti,
-  SoundSource *       sourceID);
+  SoundSource *       sourceID)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2032,7 +2070,7 @@ SoundComponentAddSource(
 extern ComponentResult 
 SoundComponentRemoveSource(
   ComponentInstance   ti,
-  SoundSource         sourceID);
+  SoundSource         sourceID)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* info methods*/
@@ -2049,7 +2087,7 @@ SoundComponentGetInfo(
   ComponentInstance   ti,
   SoundSource         sourceID,
   OSType              selector,
-  void *              infoPtr);
+  void *              infoPtr)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2065,7 +2103,7 @@ SoundComponentSetInfo(
   ComponentInstance   ti,
   SoundSource         sourceID,
   OSType              selector,
-  void *              infoPtr);
+  void *              infoPtr)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* control methods*/
@@ -2081,7 +2119,7 @@ extern ComponentResult
 SoundComponentStartSource(
   ComponentInstance   ti,
   short               count,
-  SoundSource *       sources);
+  SoundSource *       sources)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2096,7 +2134,7 @@ extern ComponentResult
 SoundComponentStopSource(
   ComponentInstance   ti,
   short               count,
-  SoundSource *       sources);
+  SoundSource *       sources)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2111,7 +2149,7 @@ extern ComponentResult
 SoundComponentPauseSource(
   ComponentInstance   ti,
   short               count,
-  SoundSource *       sources);
+  SoundSource *       sources)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2127,7 +2165,7 @@ SoundComponentPlaySourceBuffer(
   ComponentInstance    ti,
   SoundSource          sourceID,
   SoundParamBlockPtr   pb,
-  long                 actions);
+  long                 actions)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2297,7 +2335,7 @@ enum {
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern NumVersion 
-SPBVersion(void);
+SPBVersion(void)                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2313,7 +2351,7 @@ SndRecord(
   ModalFilterUPP   filterProc,
   Point            corner,
   OSType           quality,
-  SndListHandle *  sndHandle);
+  SndListHandle *  sndHandle)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2337,7 +2375,7 @@ SndRecord(
 extern OSErr 
 SPBSignInDevice(
   short              deviceRefNum,
-  ConstStr255Param   deviceName);
+  ConstStr255Param   deviceName)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2349,7 +2387,7 @@ SPBSignInDevice(
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-SPBSignOutDevice(short deviceRefNum);
+SPBSignOutDevice(short deviceRefNum)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2364,7 +2402,7 @@ extern OSErr
 SPBGetIndexedDevice(
   short     count,
   Str255    deviceName,
-  Handle *  deviceIconHandle);
+  Handle *  deviceIconHandle)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2379,7 +2417,7 @@ extern OSErr
 SPBOpenDevice(
   ConstStr255Param   deviceName,
   short              permission,
-  long *             inRefNum);
+  long *             inRefNum)                                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2391,7 +2429,7 @@ SPBOpenDevice(
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-SPBCloseDevice(long inRefNum);
+SPBCloseDevice(long inRefNum)                                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2405,7 +2443,7 @@ SPBCloseDevice(long inRefNum);
 extern OSErr 
 SPBRecord(
   SPBPtr    inParamPtr,
-  Boolean   asynchFlag);
+  Boolean   asynchFlag)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2427,7 +2465,7 @@ SPBRecord(
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-SPBPauseRecording(long inRefNum);
+SPBPauseRecording(long inRefNum)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2439,7 +2477,7 @@ SPBPauseRecording(long inRefNum);
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-SPBResumeRecording(long inRefNum);
+SPBResumeRecording(long inRefNum)                             AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2451,7 +2489,7 @@ SPBResumeRecording(long inRefNum);
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
 extern OSErr 
-SPBStopRecording(long inRefNum);
+SPBStopRecording(long inRefNum)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2470,7 +2508,7 @@ SPBGetRecordingStatus(
   unsigned long *  totalSamplesToRecord,
   unsigned long *  numberOfSamplesRecorded,
   unsigned long *  totalMsecsToRecord,
-  unsigned long *  numberOfMsecsRecorded);
+  unsigned long *  numberOfMsecsRecorded)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2485,7 +2523,7 @@ extern OSErr
 SPBGetDeviceInfo(
   long     inRefNum,
   OSType   infoType,
-  void *   infoData);
+  void *   infoData)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2500,7 +2538,7 @@ extern OSErr
 SPBSetDeviceInfo(
   long     inRefNum,
   OSType   infoType,
-  void *   infoData);
+  void *   infoData)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2514,7 +2552,7 @@ SPBSetDeviceInfo(
 extern OSErr 
 SPBMillisecondsToBytes(
   long    inRefNum,
-  long *  milliseconds);
+  long *  milliseconds)                                       AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2528,7 +2566,7 @@ SPBMillisecondsToBytes(
 extern OSErr 
 SPBBytesToMilliseconds(
   long    inRefNum,
-  long *  byteCount);
+  long *  byteCount)                                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2548,7 +2586,7 @@ SetupSndHeader(
   OSType          compressionType,
   short           baseNote,
   unsigned long   numBytes,
-  short *         headerLen);
+  short *         headerLen)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2567,7 +2605,7 @@ SetupAIFFHeader(
   short           sampleSize,
   OSType          compressionType,
   unsigned long   numBytes,
-  unsigned long   numFrames);
+  unsigned long   numFrames)                                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /* Sound Input Manager 1.1 and later calls, uses _SoundDispatch */
@@ -2584,7 +2622,7 @@ ParseAIFFHeader(
   short                 fRefNum,
   SoundComponentData *  sndInfo,
   unsigned long *       numFrames,
-  unsigned long *       dataOffset);
+  unsigned long *       dataOffset)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2600,7 +2638,7 @@ ParseSndHeader(
   SndListHandle         sndHandle,
   SoundComponentData *  sndInfo,
   unsigned long *       numFrames,
-  unsigned long *       dataOffset);
+  unsigned long *       dataOffset)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2638,7 +2676,7 @@ struct SndInputCmpParam {
 extern ComponentResult 
 SndInputReadAsync(
   ComponentInstance     self,
-  SndInputCmpParamPtr   SICParmPtr);
+  SndInputCmpParamPtr   SICParmPtr)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2652,7 +2690,7 @@ SndInputReadAsync(
 extern ComponentResult 
 SndInputReadSync(
   ComponentInstance     self,
-  SndInputCmpParamPtr   SICParmPtr);
+  SndInputCmpParamPtr   SICParmPtr)                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2664,7 +2702,7 @@ SndInputReadSync(
  *    Non-Carbon CFM:   not available
  */
 extern ComponentResult 
-SndInputPauseRecording(ComponentInstance self);
+SndInputPauseRecording(ComponentInstance self)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2676,7 +2714,7 @@ SndInputPauseRecording(ComponentInstance self);
  *    Non-Carbon CFM:   not available
  */
 extern ComponentResult 
-SndInputResumeRecording(ComponentInstance self);
+SndInputResumeRecording(ComponentInstance self)               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2688,7 +2726,7 @@ SndInputResumeRecording(ComponentInstance self);
  *    Non-Carbon CFM:   not available
  */
 extern ComponentResult 
-SndInputStopRecording(ComponentInstance self);
+SndInputStopRecording(ComponentInstance self)                 AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2704,7 +2742,7 @@ SndInputGetStatus(
   ComponentInstance   self,
   short *             recordingStatus,
   unsigned long *     totalSamplesToRecord,
-  unsigned long *     numberOfSamplesRecorded);
+  unsigned long *     numberOfSamplesRecorded)                AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2719,7 +2757,7 @@ extern ComponentResult
 SndInputGetDeviceInfo(
   ComponentInstance   self,
   OSType              infoType,
-  void *              infoData);
+  void *              infoData)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2734,7 +2772,7 @@ extern ComponentResult
 SndInputSetDeviceInfo(
   ComponentInstance   self,
   OSType              infoType,
-  void *              infoData);
+  void *              infoData)                               AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
@@ -2746,7 +2784,7 @@ SndInputSetDeviceInfo(
  *    Non-Carbon CFM:   not available
  */
 extern ComponentResult 
-SndInputInitHardware(ComponentInstance self);
+SndInputInitHardware(ComponentInstance self)                  AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 
@@ -2766,13 +2804,7 @@ enum {
 
 
 
-#if PRAGMA_STRUCT_ALIGN
-    #pragma options align=reset
-#elif PRAGMA_STRUCT_PACKPUSH
-    #pragma pack(pop)
-#elif PRAGMA_STRUCT_PACK
-    #pragma pack()
-#endif
+#pragma options align=reset
 
 #ifdef __cplusplus
 }

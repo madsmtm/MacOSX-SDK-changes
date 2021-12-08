@@ -3,9 +3,9 @@
  
      Contains:   Sound Manager Interfaces.
  
-     Version:    CarbonSound-65~5
+     Version:    CarbonSound-80.6.2~8
  
-     Copyright:  © 1986-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1986-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -17,8 +17,8 @@
 #ifndef __SOUND_R__
 #define __SOUND_R__
 
-#ifndef __CONDITIONALMACROS_R__
-#include <CarbonCore/ConditionalMacros.r>
+#ifndef __CORESERVICES_R__
+#include <CoreServices/CoreServices.r>
 #endif
 
 #define kInvalidSource 					0xFFFFFFFF			/* this source may be returned from GetInfo if no other source is the monitored source */
@@ -67,6 +67,7 @@
 #define kUNIXsdevSubType 				'un1x'				/* UNIX base sdev */
 #define kUSBSubType 					'usb '				/* USB device */
 #define kBlueBoxSubType 				'bsnd'				/* Blue Box sound component */
+#define kHALCustomComponentSubType 		'halx'				/* Registered by the HAL output component ('hal!') for each HAL output device */
 #define kSoundCompressor 				'scom'
 #define kSoundDecompressor 				'sdec'
 #define kAudioComponentType 			'adio'				/* Audio components and sub-types */
@@ -121,6 +122,12 @@
 #define kVMAwareness 					0x00200000			/*  component will hold its memory */
 #define kHighQuality 					0x00400000			/*   performance description */
 #define kNonRealTime 					0x00800000
+
+#define kSoundCodecInfoFixedCompression  0x00000001			/*  has fixed compression format */
+#define kSoundCodecInfoVariableCompression  0x00000002		/*  has variable compression format */
+#define kSoundCodecInfoHasRestrictedInputRates  0x00000004	/*  compressor has restricted set of input sample rates */
+#define kSoundCodecInfoCanChangeOutputRate  0x00000008		/*  compressor may output a different sample rate than it receives */
+#define kSoundCodecInfoRequiresExternalFraming  0x00000010	/*  format requires external framing information during decode/encode */
 
 
 /*----------------------------snd  ¥ Sound----------------------------------------------*/
@@ -237,6 +244,13 @@ type 'snd ' {
             hex string [$$Long(SampleCnt[$$ArrayIndex(DataTables)])];
         };
 };
+
+/*----------------------------snfo ¥ Sound Codec Info   --------------------------------*/
+type 'snfo' {
+    longint = 0;
+    longint;    // feature flags
+};
+
 
 #endif /* __SOUND_R__ */
 

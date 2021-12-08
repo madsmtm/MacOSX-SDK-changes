@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Image Compression Interfaces.
  
-     Version:    QuickTime-142~1
+     Version:    QuickTime-174.20~22
  
-     Copyright:  © 1990-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -17,8 +17,8 @@
 #ifndef __IMAGECOMPRESSION_R__
 #define __IMAGECOMPRESSION_R__
 
-#ifndef __CONDITIONALMACROS_R__
-#include <CarbonCore/ConditionalMacros.r>
+#ifndef __CORESERVICES_R__
+#include <CoreServices/CoreServices.r>
 #endif
 
 #define codecInfoDoes1 					0x00000001			/*  codec can work with 1-bit pixels  */
@@ -88,6 +88,10 @@
 
 #define compressorComponentType 		'imco'				/*  the type for "Components" which compress images  */
 #define decompressorComponentType 		'imdc'				/*  the type for "Components" which decompress images  */
+
+#ifndef __QTUUID__
+#define __QTUUID__ 1
+#endif  /* !defined(__QTUUID__) */
 
 #define graphicsImporterUsesImageDecompressor  0x00800000
 #define kGraphicsExportGroup 			'expo'

@@ -30,6 +30,25 @@
  * Revision History
  *
  * $Log: IOATATypes.h,v $
+ * Revision 1.10  2003/03/14 23:57:11  barras
+ *
+ * Bug #: 3187923
+ * Submitted by:
+ * Reviewed by:
+ *
+ * Revision 1.9  2002/11/09 03:46:39  barras
+ *
+ * Bug #: 3083512, 3090979
+ *
+ * Submitted by:
+ * Reviewed by:
+ *
+ * Revision 1.8  2002/05/24 23:59:46  barras
+ *
+ * Bug #: 2931508 and 2876150
+ * Submitted by:
+ * Reviewed by:
+ *
  * Revision 1.7  2002/02/27 02:30:33  barras
  *
  * Bug #: 2869416
@@ -100,6 +119,10 @@
 #define kATAInternalSocketString "internal"
 #define kATAMediaBaySocketString "media-bay"
 #define kATAPCCardSocketString "pccard"
+#define kATAInternalSATAString "serial-ata"
+#define kATASATABayString "sata-bay"
+#define kATAInternalSATA2 "serial-ata-2"
+#define kATASATA2BayString "sata-2-bay"
 #define kATAUnkownSocketString "unknown"
 
 
@@ -122,7 +145,11 @@ enum ataSocketType{
 	kUnknownSocket	= 0,
 	kInternalATASocket,
 	kMediaBaySocket	,
-	kPCCardSocket
+	kPCCardSocket,
+	kInternalSATA,
+	kSATABay,
+	kInternalSATA2,
+	kSATA2Bay
 
 } ;
 
@@ -261,6 +288,7 @@ enum ataFlags{
 	bATAFlagByteSwap			= 14,							/* bit number of byte swap flag*/
 	bATAFlagIORead				= 13,							/* bit number of I/O read flag*/
 	bATAFlagIOWrite				= 12,							/* bit number of I/O write flag*/
+	bATAFlagTFAccessResult 		= 8,							/* bit number of get register results on command completion.*/
 	bATAFlagUseDMA				= 7,							/* bit number of use DMA flag*/
 	bATAFlagProtocolATAPI		= 5,							/* bit number of ATAPI protocol*/
 	bATAFlagImmediate			= 1,							/* bit number of immediate flag */
@@ -274,6 +302,7 @@ enum ataFlags{
 	mATAFlagByteSwap			= 1 << bATAFlagByteSwap,		/* Swap data bytes (read - after; write - before)*/
 	mATAFlagIORead				= 1 << bATAFlagIORead,			/* Read (in) operation*/
 	mATAFlagIOWrite				= 1 << bATAFlagIOWrite,			/* Write (out) operation*/
+	mATAFlagTFAccessResult		= 1 << bATAFlagTFAccessResult,  /* get contents of TaskFile registers indicated in TFMask on command completion, even if no error*/
 	mATAFlagUseDMA				= 1 << bATAFlagUseDMA,
 	mATAFlagProtocolATAPI		= 1 << bATAFlagProtocolATAPI,	/* ATAPI protocol indicator*/
 	mATAFlagImmediate			= 1 << bATAFlagImmediate,		/* Put command at head of queue */

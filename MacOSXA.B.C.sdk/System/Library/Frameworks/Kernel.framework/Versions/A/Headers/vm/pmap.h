@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2002 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -61,6 +61,10 @@
 #ifndef	_VM_PMAP_H_
 #define _VM_PMAP_H_
 
+#include <sys/appleapiopts.h>
+
+#ifdef __APPLE_API_PRIVATE
+
 #include <mach/kern_return.h>
 #include <mach/vm_param.h>
 #include <mach/vm_types.h>
@@ -80,7 +84,21 @@
  *	many address spaces.
  */
 
-#ifndef MACH_KERNEL_PRIVATE
+/* Copy between a physical page and a virtual address */
+extern kern_return_t 	copypv(
+				addr64_t source, 
+				addr64_t sink, 
+				unsigned int size, 
+				int which);	
+#define cppvPsnk 	1
+#define cppvPsrc 	2
+#define cppvFsnk 	4
+#define cppvFsrc 	8
+#define cppvNoModSnk   16
+#define cppvNoRefSrc   32
+#define cppvKmap   	64	/* User the kernel's vm_map */
+
+#if !defined(MACH_KERNEL_PRIVATE)
 
 typedef void *pmap_t;
 
@@ -134,7 +152,7 @@ extern void		pmap_init(void);	/* Initialization,
  *	However, for best performance pmap_free_pages should be accurate.
  */
 
-extern boolean_t	pmap_next_page(vm_offset_t *paddr);
+extern boolean_t	pmap_next_page(ppnum_t *pnum);
 						/* During VM initialization,
 						 * return the next unused
 						 * physical page.
@@ -161,13 +179,14 @@ extern void		pmap_switch(pmap_t);
 extern void		pmap_enter(	/* Enter a mapping */
 				pmap_t		pmap,
 				vm_offset_t	v,
-				vm_offset_t	pa,
+				ppnum_t		pn,
 				vm_prot_t	prot,
+				unsigned int	flags,
 				boolean_t	wired);
 
 extern void		pmap_remove_some_phys(
 				pmap_t		pmap,
-				vm_offset_t	pa);
+				ppnum_t		pn);
 
 
 /*
@@ -175,36 +194,36 @@ extern void		pmap_remove_some_phys(
  */
 
 extern void		pmap_page_protect(	/* Restrict access to page. */
-				vm_offset_t	phys,
+				ppnum_t	phys,
 				vm_prot_t	prot);
 
 extern void		(pmap_zero_page)(
-				vm_offset_t	phys);
+				ppnum_t		pn);
 
 extern void		(pmap_zero_part_page)(
-				vm_offset_t	p,
+				ppnum_t		pn,
 				vm_offset_t     offset,
 				vm_size_t       len);
 
 extern void		(pmap_copy_page)(
-				vm_offset_t	src,
-				vm_offset_t	dest);
+				ppnum_t		src,
+				ppnum_t		dest);
 
 extern void		(pmap_copy_part_page)(
-				vm_offset_t	src,
+				ppnum_t		src,
 				vm_offset_t	src_offset,
-				vm_offset_t	dst,
+				ppnum_t		dst,
 				vm_offset_t	dst_offset,
 				vm_size_t	len);
 
 extern void		(pmap_copy_part_lpage)(
 				vm_offset_t	src,
-				vm_offset_t	dst,
+				ppnum_t		dst,
 				vm_offset_t	dst_offset,
 				vm_size_t	len);
 
 extern void		(pmap_copy_part_rpage)(
-				vm_offset_t	src,
+				ppnum_t		src,
 				vm_offset_t	src_offset,
 				vm_offset_t	dst,
 				vm_size_t	len);
@@ -213,7 +232,7 @@ extern void		(pmap_copy_part_rpage)(
  * debug/assertions. pmap_verify_free returns true iff
  * the given physical page is mapped into no pmap.
  */
-extern boolean_t	pmap_verify_free(vm_offset_t paddr);
+extern boolean_t	pmap_verify_free(ppnum_t pn);
 
 /*
  *	Statistics routines
@@ -259,6 +278,14 @@ extern kern_return_t	(pmap_attribute)(	/* Get/Set special memory
 				vm_machine_attribute_t  attribute,
 				vm_machine_attribute_val_t* value);
 
+extern kern_return_t	(pmap_attribute_cache_sync)(  /* Flush appropriate 
+						       * cache based on
+						       * page number sent */
+				ppnum_t		pn, 
+				vm_size_t	size, 
+				vm_machine_attribute_t attribute, 
+				vm_machine_attribute_val_t* value);
+
 /*
  * Routines defined as macros.
  */
@@ -296,17 +323,49 @@ extern kern_return_t	(pmap_attribute)(	/* Get/Set special memory
 /*
  *	Macro to be used in place of pmap_enter()
  */
-#define PMAP_ENTER(pmap, virtual_address, page, protection, wired) \
+#define PMAP_ENTER(pmap, virtual_address, page, protection, flags, wired) \
 		MACRO_BEGIN					\
 		pmap_enter(					\
 			(pmap),					\
 			(virtual_address),			\
-			(page)->phys_addr,			\
+			(page)->phys_page,			\
 			(protection) & ~(page)->page_lock,	\
+			flags,					\
 			(wired)					\
 		 );						\
 		MACRO_END
 #endif	/* !PMAP_ENTER */
+
+/*
+ *	Routines to manage reference/modify bits based on
+ *	physical addresses, simulating them if not provided
+ *	by the hardware.
+ */
+				/* Clear reference bit */
+extern void		pmap_clear_reference(ppnum_t	 pn);
+				/* Return reference bit */
+extern boolean_t	(pmap_is_referenced)(ppnum_t	 pn);
+				/* Set modify bit */
+extern void             pmap_set_modify(ppnum_t	 pn);
+				/* Clear modify bit */
+extern void		pmap_clear_modify(ppnum_t pn);
+				/* Return modify bit */
+extern boolean_t	pmap_is_modified(ppnum_t pn);
+
+/*
+ *	Routines that operate on ranges of virtual addresses.
+ */
+extern void		pmap_protect(	/* Change protections. */
+				pmap_t		map,
+				vm_offset_t	s,
+				vm_offset_t	e,
+				vm_prot_t	prot);
+
+extern void		(pmap_pageable)(
+				pmap_t		pmap,
+				vm_offset_t	start,
+				vm_offset_t	end,
+				boolean_t	pageable);
 
 #endif /* MACH_KERNEL_PRIVATE */
 
@@ -321,41 +380,15 @@ extern kern_return_t	(pmap_attribute)(	/* Get/Set special memory
 extern pmap_t	kernel_pmap;			/* The kernel's map */
 #define		pmap_kernel()	(kernel_pmap)
 
-/*
- *	Routines to manage reference/modify bits based on
- *	physical addresses, simulating them if not provided
- *	by the hardware.
- */
-				/* Clear reference bit */
-extern void		pmap_clear_reference(vm_offset_t paddr);
-				/* Return reference bit */
-extern boolean_t	(pmap_is_referenced)(vm_offset_t paddr);
-				/* Set modify bit */
-extern void             pmap_set_modify(vm_offset_t paddr);
-				/* Clear modify bit */
-extern void		pmap_clear_modify(vm_offset_t paddr);
-				/* Return modify bit */
-extern boolean_t	pmap_is_modified(vm_offset_t paddr);
+/* machine independent WIMG bits */
 
-/*
- *	Routines that operate on ranges of virtual addresses.
- */
-extern void		pmap_remove(	/* Remove mappings. */
-				pmap_t		map,
-				vm_offset_t	s,
-				vm_offset_t	e);
+#define VM_MEM_GUARDED 		0x1
+#define VM_MEM_COHERENT		0x2
+#define VM_MEM_NOT_CACHEABLE	0x4
+#define VM_MEM_WRITE_THROUGH	0x8
 
-extern void		pmap_protect(	/* Change protections. */
-				pmap_t		map,
-				vm_offset_t	s,
-				vm_offset_t	e,
-				vm_prot_t	prot);
-
-extern void		(pmap_pageable)(
-				pmap_t		pmap,
-				vm_offset_t	start,
-				vm_offset_t	end,
-				boolean_t	pageable);
+#define VM_WIMG_MASK		0xFF
+#define VM_WIMG_USE_DEFAULT	0x80000000
 
 extern void		pmap_modify_pages(	/* Set modify bit for pages */
 				pmap_t		map,
@@ -369,4 +402,13 @@ extern void		pmap_change_wiring(	/* Specify pageability */
 				pmap_t		pmap,
 				vm_offset_t	va,
 				boolean_t	wired);
+
+extern void		pmap_remove(	/* Remove mappings. */
+				pmap_t		map,
+				addr64_t	s,
+				addr64_t	e);
+
+
+#endif  /* __APPLE_API_PRIVATE */
+
 #endif	/* _VM_PMAP_H_ */

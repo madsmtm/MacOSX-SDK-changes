@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime-142~1
+     Version:    QuickTime-174.20~22
  
-     Copyright:  © 1990-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -22,7 +22,7 @@
 
 		#define IMAGECODEC_BASENAME()	Fred
 		#define IMAGECODEC_GLOBALS()	FredGlobalsHandle
-		#include <ImageCodec.k.h>
+		#include <QuickTime/ImageCodec.k.h>
 
 	To specify that your component implementation does not use globals, do not #define IMAGECODEC_GLOBALS
 */
@@ -119,6 +119,22 @@
 
 	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(GetDecompressLatency) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA TimeRecord * latency);
 
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(MergeFloatingImageOntoWindow) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA UInt32  flags);
+
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(RemoveFloatingImage) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA UInt32  flags);
+
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(GetDITLForSize) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA Handle * ditl, Point * requestedSize);
+
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(DITLInstall) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA DialogRef  d, short  itemOffset);
+
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(DITLEvent) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA DialogRef  d, short  itemOffset, const EventRecord * theEvent, short * itemHit, Boolean * handled);
+
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(DITLItem) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA DialogRef  d, short  itemOffset, short  itemNum);
+
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(DITLRemove) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA DialogRef  d, short  itemOffset);
+
+	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(DITLValidateInput) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA Boolean * ok);
+
 	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(Preflight) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA CodecDecompressParams * params);
 
 	EXTERN_API( ComponentResult  ) ADD_IMAGECODEC_BASENAME(Initialize) (IMAGECODEC_GLOBALS() ADD_IMAGECODEC_COMMA ImageSubCodecDecompressCapabilities * cap);
@@ -183,6 +199,14 @@
 		uppImageCodecRequestGammaLevelProcInfo = 0x00003FF0,
 		uppImageCodecGetSourceDataGammaLevelProcInfo = 0x000003F0,
 		uppImageCodecGetDecompressLatencyProcInfo = 0x000003F0,
+		uppImageCodecMergeFloatingImageOntoWindowProcInfo = 0x000003F0,
+		uppImageCodecRemoveFloatingImageProcInfo = 0x000003F0,
+		uppImageCodecGetDITLForSizeProcInfo = 0x00000FF0,
+		uppImageCodecDITLInstallProcInfo = 0x00000BF0,
+		uppImageCodecDITLEventProcInfo = 0x0003FBF0,
+		uppImageCodecDITLItemProcInfo = 0x00002BF0,
+		uppImageCodecDITLRemoveProcInfo = 0x00000BF0,
+		uppImageCodecDITLValidateInputProcInfo = 0x000003F0,
 		uppImageCodecPreflightProcInfo = 0x000003F0,
 		uppImageCodecInitializeProcInfo = 0x000003F0,
 		uppImageCodecBeginBandProcInfo = 0x00003FF0,
@@ -202,7 +226,7 @@
 
 		#define QTPHOTO_BASENAME()	Fred
 		#define QTPHOTO_GLOBALS()	FredGlobalsHandle
-		#include <ImageCodec.k.h>
+		#include <QuickTime/ImageCodec.k.h>
 
 	To specify that your component implementation does not use globals, do not #define QTPHOTO_GLOBALS
 */
@@ -241,7 +265,7 @@
 
 		#define IMAGECODEC_BASENAME()	Fred
 		#define IMAGECODEC_GLOBALS()	FredGlobalsHandle
-		#include <ImageCodec.k.h>
+		#include <QuickTime/ImageCodec.k.h>
 
 	To specify that your component implementation does not use globals, do not #define IMAGECODEC_GLOBALS
 */
@@ -295,7 +319,7 @@
 
 		#define CURVE_BASENAME()	Fred
 		#define CURVE_GLOBALS()	FredGlobalsHandle
-		#include <ImageCodec.k.h>
+		#include <QuickTime/ImageCodec.k.h>
 
 	To specify that your component implementation does not use globals, do not #define CURVE_GLOBALS
 */

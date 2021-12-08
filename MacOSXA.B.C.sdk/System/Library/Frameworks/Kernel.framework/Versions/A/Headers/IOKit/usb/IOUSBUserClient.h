@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2001 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2002 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -41,6 +41,8 @@ enum {
     kUSBDeviceUserClientAbortPipeZero,
     // new with 1.8.7
     kUSBDeviceUserClientReEnumerateDevice,
+    // new with 1.9.7
+    kUSBDeviceUserClientGetMicroFrameNumber,
     kNumUSBDeviceMethods
     };
 
@@ -72,6 +74,16 @@ enum {
     kUSBInterfaceUserClientControlRequestIn,
     kUSBInterfaceUserClientControlRequestOutOOL,
     kUSBInterfaceUserClientControlRequestInOOL,
+    // new with 1.9.0
+    kUSBInterfaceUserClientSetPipePolicy,
+    kUSBInterfaceUserClientGetBandwidthAvailable,
+    kUSBInterfaceUserClientGetEndpointProperties,
+    // new with 1.9.2
+    kUSBInterfaceUserClientLowLatencyPrepareBuffer,
+    kUSBInterfaceUserClientLowLatencyReleaseBuffer,
+    // new with 1.9.7
+    kUSBInterfaceUserClientGetMicroFrameNumber,
+    kUSBInterfaceUserClientGetFrameListTime,
     kNumUSBInterfaceMethods
     };
 
@@ -84,6 +96,9 @@ enum {
     kUSBInterfaceUserClientAsyncWritePipe,
     kUSBInterfaceUserClientReadIsochPipe,
     kUSBInterfaceUserClientWriteIsochPipe,
+    // new with 1.9.2
+    kUSBInterfaceUserClientLowLatencyReadIsochPipe,
+    kUSBInterfaceUserClientLowLatencyWriteIsochPipe,
     kNumUSBInterfaceAsyncMethods
     };
 

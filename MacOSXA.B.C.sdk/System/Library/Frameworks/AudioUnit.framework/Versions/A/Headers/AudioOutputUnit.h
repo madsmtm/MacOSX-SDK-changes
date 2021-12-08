@@ -6,7 +6,7 @@
      Version:    Technology: System 9, X
                  Release:    Mac OS X
  
-     Copyright:  (c) 2000 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 2000-2002 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -14,12 +14,12 @@
                      http://developer.apple.com/bugreporter/
  
 */
-/*.#endif forMasterInterfaces*/
-/*.#ifndef forMergedInterfaces*/
+/*·#endif forMasterInterfaces*/
+/*·#ifndef forMergedInterfaces*/
 #ifndef __AUDIOOUTPUTUNIT__
 #define __AUDIOOUTPUTUNIT__
 
-#include <AudioUnit/AudioUnit.h>
+#include <AudioUnit/AUComponent.h>
 
 
 
@@ -44,7 +44,7 @@ extern "C" {
     #pragma pack(2)
 #endif
 
-/*.#endif forMergedInterfaces*/
+/*·#endif forMergedInterfaces*/
 
 /*
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -70,7 +70,7 @@ AudioOutputUnitStop(AudioUnit ci)                             FIVEWORDINLINE(0x2
 
 
 
-/*.#ifndef forMergedInterfaces*/
+/*·#ifndef forMergedInterfaces*/
 
 /* UPP call backs */
 
@@ -80,7 +80,7 @@ enum {
     kAudioOutputUnitStopSelect                 = 0x0202
 };
 
-/*.#endif forMergedInterfaces*/
+/*·#endif forMergedInterfaces*/
 
 #if PRAGMA_STRUCT_ALIGN
     #pragma options align=reset

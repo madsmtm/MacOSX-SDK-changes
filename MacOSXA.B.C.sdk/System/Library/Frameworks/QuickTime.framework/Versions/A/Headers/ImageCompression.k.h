@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Image Compression Interfaces.
  
-     Version:    QuickTime-142~1
+     Version:    QuickTime-174.20~22
  
-     Copyright:  © 1990-2001 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2002 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -17,12 +17,16 @@
 #define __IMAGECOMPRESSION_K__
 
 #include <QuickTime/ImageCompression.h>
+#ifndef __QTUUID__
+#define __QTUUID__ 1
+#endif  /* !defined(__QTUUID__) */
+
 /*
 	Example usage:
 
 		#define GRAPHICSIMPORT_BASENAME()	Fred
 		#define GRAPHICSIMPORT_GLOBALS()	FredGlobalsHandle
-		#include <ImageCompression.k.h>
+		#include <QuickTime/ImageCompression.k.h>
 
 	To specify that your component implementation does not use globals, do not #define GRAPHICSIMPORT_GLOBALS
 */
@@ -155,6 +159,8 @@
 
 	EXTERN_API( ComponentResult  ) ADD_GRAPHICSIMPORT_BASENAME(GetBaseDataOffsetAndSize64) (GRAPHICSIMPORT_GLOBALS() ADD_GRAPHICSIMPORT_COMMA wide * offset, wide * size);
 
+	EXTERN_API( ComponentResult  ) ADD_GRAPHICSIMPORT_BASENAME(SetImageIndexToThumbnail) (GRAPHICSIMPORT_GLOBALS());
+
 
 	/* MixedMode ProcInfo constants for component calls */
 	enum {
@@ -216,7 +222,8 @@
 		uppGraphicsImportGetDestRectProcInfo = 0x000003F0,
 		uppGraphicsImportSetFlagsProcInfo = 0x000003F0,
 		uppGraphicsImportGetFlagsProcInfo = 0x000003F0,
-		uppGraphicsImportGetBaseDataOffsetAndSize64ProcInfo = 0x00000FF0
+		uppGraphicsImportGetBaseDataOffsetAndSize64ProcInfo = 0x00000FF0,
+		uppGraphicsImportSetImageIndexToThumbnailProcInfo = 0x000000F0
 	};
 
 #endif	/* GRAPHICSIMPORT_BASENAME */
@@ -226,7 +233,7 @@
 
 		#define GRAPHICSEXPORT_BASENAME()	Fred
 		#define GRAPHICSEXPORT_GLOBALS()	FredGlobalsHandle
-		#include <ImageCompression.k.h>
+		#include <QuickTime/ImageCompression.k.h>
 
 	To specify that your component implementation does not use globals, do not #define GRAPHICSEXPORT_GLOBALS
 */
@@ -481,7 +488,7 @@
 
 		#define IMAGETRANSCODER_BASENAME()	Fred
 		#define IMAGETRANSCODER_GLOBALS()	FredGlobalsHandle
-		#include <ImageCompression.k.h>
+		#include <QuickTime/ImageCompression.k.h>
 
 	To specify that your component implementation does not use globals, do not #define IMAGETRANSCODER_GLOBALS
 */

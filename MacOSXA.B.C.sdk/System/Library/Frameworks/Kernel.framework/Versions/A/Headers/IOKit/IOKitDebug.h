@@ -51,11 +51,7 @@ private:
 			UInt32 value, const char * name );
 };
 
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#endif	__cplusplus
 
 enum {
 // loggage
@@ -69,17 +65,23 @@ enum {
     kIOLogPower 	= 0x00000080ULL,
     kIOLogMapping 	= 0x00000100ULL,
     kIOLogCatalogue 	= 0x00000200ULL,
+    kIOLogTracePower 	= 0x00000400ULL,
 
     kIOLogServiceTree 	= 0x00001000ULL,
     kIOLogDTree 	= 0x00002000ULL,
     kIOLogMemory 	= 0x00004000ULL,
 
 // debug aids - change behaviour
-    kIONoFreeObjects 	= 0x00100000ULL
+    kIONoFreeObjects 	= 0x00100000ULL,
+    kIOLogSynchronous   = 0x00200000ULL,	// IOLog completes synchrounsly
 };
 
 extern SInt64	gIOKitDebug;
 extern char 	iokit_version[];
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 struct IORegistryPlane;
 extern void	IOPrintPlane( const struct IORegistryPlane * plane );

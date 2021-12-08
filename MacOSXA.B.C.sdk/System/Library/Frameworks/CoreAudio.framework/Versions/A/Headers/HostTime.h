@@ -6,7 +6,7 @@
      Version:    Technology: Mac OS X
                  Release:    Mac OS X
 
-     Copyright:  (c) 1985-2001 by Apple Computer, Inc., all rights reserved.
+     Copyright:  (c) 1985-2003 by Apple Computer, Inc., all rights reserved.
 
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -22,6 +22,10 @@
 //=============================================================================
 
 #include <CoreAudio/CoreAudioTypes.h>
+
+#if PRAGMA_ENUM_ALWAYSINT
+	#pragma enumsalwaysint off
+#endif
 
 #if defined(__cplusplus)
 extern "C"
@@ -74,6 +78,10 @@ extern UInt64	AudioConvertNanosToHostTime(UInt64 inNanos);
 
 #if defined(__cplusplus)
 }
+#endif
+
+#if PRAGMA_ENUM_ALWAYSINT
+	#pragma enumsalwaysint reset
 #endif
 
 #endif

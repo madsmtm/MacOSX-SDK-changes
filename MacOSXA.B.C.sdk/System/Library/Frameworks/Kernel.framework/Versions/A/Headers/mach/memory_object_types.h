@@ -68,11 +68,14 @@
 #include <mach/vm_types.h>
 #include <mach/machine/vm_types.h>
 
+#include <sys/appleapiopts.h>
+
 #define VM_64_BIT_DATA_OBJECTS
 
 typedef unsigned long long	memory_object_offset_t;
 typedef unsigned long long	memory_object_size_t;
 
+#ifdef __APPLE_API_EVOLVING
 /*
  * Temporary until real EMMI version gets re-implemented
  */
@@ -179,12 +182,13 @@ typedef int	 memory_object_flavor_t;
 typedef int      memory_object_info_data_t[MEMORY_OBJECT_INFO_MAX];
 
 
-#define OLD_MEMORY_OBJECT_BEHAVIOR_INFO 	10	
 #define MEMORY_OBJECT_PERFORMANCE_INFO	11
-#define OLD_MEMORY_OBJECT_ATTRIBUTE_INFO	12
 #define MEMORY_OBJECT_ATTRIBUTE_INFO	14
 #define MEMORY_OBJECT_BEHAVIOR_INFO 	15	
 
+#ifdef  __APPLE_API_UNSTABLE
+#define OLD_MEMORY_OBJECT_BEHAVIOR_INFO 	10	
+#define OLD_MEMORY_OBJECT_ATTRIBUTE_INFO	12
 
 struct old_memory_object_behave_info {
 	memory_object_copy_strategy_t	copy_strategy;	
@@ -192,15 +196,26 @@ struct old_memory_object_behave_info {
 	boolean_t			invalidate;
 };
 
-struct memory_object_perf_info {
-	vm_size_t			cluster_size;
-	boolean_t			may_cache;
-};
-
 struct old_memory_object_attr_info {			/* old attr list */
         boolean_t       		object_ready;
         boolean_t       		may_cache;
         memory_object_copy_strategy_t 	copy_strategy;
+};
+
+typedef struct old_memory_object_behave_info *old_memory_object_behave_info_t;
+typedef struct old_memory_object_behave_info old_memory_object_behave_info_data_t;
+typedef struct old_memory_object_attr_info *old_memory_object_attr_info_t;
+typedef struct old_memory_object_attr_info old_memory_object_attr_info_data_t;
+
+#define OLD_MEMORY_OBJECT_BEHAVE_INFO_COUNT   	\
+                (sizeof(old_memory_object_behave_info_data_t)/sizeof(int))
+#define OLD_MEMORY_OBJECT_ATTR_INFO_COUNT		\
+		(sizeof(old_memory_object_attr_info_data_t)/sizeof(int))
+#endif  /* __APPLE_API_UNSTABLE */
+
+struct memory_object_perf_info {
+	vm_size_t			cluster_size;
+	boolean_t			may_cache;
 };
 
 struct memory_object_attr_info {
@@ -218,8 +233,6 @@ struct memory_object_behave_info {
 	boolean_t			advisory_pageout;
 };
 
-typedef struct old_memory_object_behave_info *old_memory_object_behave_info_t;
-typedef struct old_memory_object_behave_info old_memory_object_behave_info_data_t;
 
 typedef struct memory_object_behave_info *memory_object_behave_info_t;
 typedef struct memory_object_behave_info memory_object_behave_info_data_t;
@@ -227,20 +240,13 @@ typedef struct memory_object_behave_info memory_object_behave_info_data_t;
 typedef struct memory_object_perf_info 	*memory_object_perf_info_t;
 typedef struct memory_object_perf_info	memory_object_perf_info_data_t;
 
-typedef struct old_memory_object_attr_info *old_memory_object_attr_info_t;
-typedef struct old_memory_object_attr_info old_memory_object_attr_info_data_t;
-
 typedef struct memory_object_attr_info	*memory_object_attr_info_t;
 typedef struct memory_object_attr_info	memory_object_attr_info_data_t;
 
-#define OLD_MEMORY_OBJECT_BEHAVE_INFO_COUNT   	\
-                (sizeof(old_memory_object_behave_info_data_t)/sizeof(int))
 #define MEMORY_OBJECT_BEHAVE_INFO_COUNT   	\
                 (sizeof(memory_object_behave_info_data_t)/sizeof(int))
 #define MEMORY_OBJECT_PERF_INFO_COUNT		\
 		(sizeof(memory_object_perf_info_data_t)/sizeof(int))
-#define OLD_MEMORY_OBJECT_ATTR_INFO_COUNT		\
-		(sizeof(old_memory_object_attr_info_data_t)/sizeof(int))
 #define MEMORY_OBJECT_ATTR_INFO_COUNT		\
 		(sizeof(memory_object_attr_info_data_t)/sizeof(int))
 
@@ -281,8 +287,28 @@ typedef struct upl_page_info	upl_page_info_t;
 typedef upl_page_info_t		*upl_page_info_array_t;
 typedef upl_page_info_array_t	upl_page_list_ptr_t;
 
+/* named entry processor mapping options */
+/* enumerated */
+#define MAP_MEM_NOOP		0
+#define MAP_MEM_COPYBACK	1
+#define MAP_MEM_IO		2
+#define MAP_MEM_WTHRU		3
+#define MAP_MEM_WCOMB		4	/* Write combining mode */
+					/* aka store gather     */
+
+#define GET_MAP_MEM(flags)	\
+	((((unsigned int)(flags)) >> 24) & 0xFF)
+
+#define SET_MAP_MEM(caching, flags)	\
+	((flags) = ((((unsigned int)(caching)) << 24) \
+			& 0xFF000000) | ((flags) & 0xFFFFFF));
+
+/* leave room for vm_prot bits */
+#define MAP_MEM_ONLY		0x10000	/* change processor caching  */
+#define MAP_MEM_NAMED_CREATE	0x20000 /* create extant object      */
 
 /* upl invocation flags */
+/* top nibble is used by super upl */
 
 #define UPL_FLAGS_NONE		0x0
 #define UPL_COPYOUT_FROM	0x1
@@ -293,6 +319,12 @@ typedef upl_page_info_array_t	upl_page_list_ptr_t;
 #define UPL_RET_ONLY_DIRTY	0x20
 #define UPL_SET_INTERNAL	0x40
 #define	UPL_QUERY_OBJECT_TYPE	0x80
+#define UPL_RET_ONLY_ABSENT	0x100  /* used only for COPY_FROM = FALSE */
+#define UPL_FILE_IO             0x200
+#define UPL_SET_LITE		0x400
+#define UPL_SET_INTERRUPTIBLE	0x800
+#define UPL_SET_IO_WIRE		0x1000
+#define UPL_FOR_PAGEOUT		0x2000
 
 /* upl abort error flags */
 #define UPL_ABORT_RESTART	0x1
@@ -372,6 +404,7 @@ typedef upl_page_info_array_t	upl_page_list_ptr_t;
 #define UPL_POP_CLR		0x80000000
 
 
+
 #ifdef KERNEL_PRIVATE
 
 extern void memory_object_reference(memory_object_t object);
@@ -409,6 +442,62 @@ extern void	   	upl_set_dirty(upl_t   upl);
 
 extern void		upl_clear_dirty(upl_t   upl);
 
-#endif /* KERNEL_PRIVATE */
+
+/* 
+ * The following interface definitions should be generated automatically 
+ * through Mig definitions or whatever follows the MIG tool as part of the
+ * component API.  Until this is up and running however this explicit 
+ * description will do.
+ */
+
+#include <mach/message.h>
+
+/*  supply a map and a range, a upl will be returned. */
+extern int kernel_vm_map_get_upl(
+	vm_map_t		map,
+	vm_address_t		offset,
+	vm_size_t		*upl_size,
+	upl_t			*upl,
+	upl_page_info_array_t	page_list,
+	unsigned int		*count,
+	int			*flags,
+	int             	force_data_sync);
+
+extern int kernel_upl_map(
+	vm_map_t        map,
+	upl_t           upl,
+	vm_offset_t     *dst_addr);
+
+extern int kernel_upl_unmap(
+	vm_map_t        map,
+	upl_t           upl);
+
+extern int     kernel_upl_commit(
+	upl_t                   upl,
+	upl_page_info_t         *pl,
+	mach_msg_type_number_t	 count);
+
+extern int kernel_upl_commit_range(
+	upl_t                   upl,
+	vm_offset_t             offset,
+	vm_size_t		size,
+	int			flags,
+	upl_page_info_array_t	pl,
+	mach_msg_type_number_t	count);
+
+extern int kernel_upl_abort(
+	upl_t                   upl,
+	int                     abort_type);
+
+extern int kernel_upl_abort_range(
+	upl_t                   upl,
+	vm_offset_t             offset,
+	vm_size_t               size,
+	int                     abort_flags);
+
+
+#endif  /* KERNEL_PRIVATE */
+
+#endif  /* __APPLE_API_EVOLVING */
 
 #endif	/* _MACH_MEMORY_OBJECT_TYPES_H_ */
