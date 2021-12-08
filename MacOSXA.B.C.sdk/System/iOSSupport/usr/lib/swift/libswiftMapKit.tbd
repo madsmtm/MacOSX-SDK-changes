@@ -3,16 +3,16 @@ tbd-version:     4
 targets:         [ x86_64-maccatalyst, arm64-maccatalyst, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-maccatalyst
-    value:           9249C8EE-D9A6-333F-9DD0-C5F2CE77040B
+    value:           3A9CAB5A-2367-355D-968B-3F2FABB85598
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-maccatalyst
-    value:           00051F2F-42AC-347F-AD3B-0F90396ABAD0
+    value:           7BC49C5E-4031-3356-8383-59C2EE7FDB93
 install-name:    '/System/iOSSupport/usr/lib/swift/libswiftMapKit.dylib'
-current-version: 2
+current-version: 3
 swift-abi-version: 7
 exports:
-  - targets:         [ arm64e-maccatalyst, x86_64-maccatalyst, arm64-maccatalyst ]
+  - targets:         [ x86_64-maccatalyst, arm64e-maccatalyst, arm64-maccatalyst ]
     symbols:         [ '_$sSo12MKMultiPointC6MapKitE9locations2atSay12CoreGraphics7CGFloatVG10Foundation8IndexSetV_tF', 
                        '_$sSo16MKCoordinateSpana6MapKitE19_bridgeToObjectiveCSo7NSValueCyF', 
                        '_$sSo16MKCoordinateSpana6MapKitE26_forceBridgeFromObjectiveC_6resultySo7NSValueC_ABSgztFZ', 

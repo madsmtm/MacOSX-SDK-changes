@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           F4F1E701-30F9-3D48-81C5-D82DD410C625
+    value:           54956F49-DB27-3C4C-9EA3-21EAC1040C34
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           C3545965-8044-31E3-81E9-D1E9643A6BCA
+    value:           5415EA23-EE1B-3B5F-8353-5FEB53A1D62E
 install-name:    '/System/Library/PrivateFrameworks/SiriObservation.framework/Versions/A/SiriObservation'
 current-version: 0
 compatibility-version: 0
@@ -25,7 +25,7 @@ exports:
                        _SiriObservationVersionString ]
     objc-classes:    [ SOAlarm, SOAlarmsPublisher, SOAlarmsSnapshot, SOClockAlarmManager, 
                        SOClockAlarmObserver, SOClockTimerManager, SOClockTimerObserver, 
-                       SOPublisherCache, SOTimer, SOTimersPublisher, SOTimersSnapshot, 
-                       _SOAlarmMutation, _SOAlarmsSnapshotMutation, _SOTimerMutation, 
-                       _SOTimersSnapshotMutation ]
+                       SOMediaNowPlayingObserver, SOPublisherCache, SOTimer, SOTimersPublisher, 
+                       SOTimersSnapshot, _SOAlarmMutation, _SOAlarmsSnapshotMutation, 
+                       _SOTimerMutation, _SOTimersSnapshotMutation ]
 ...

@@ -4,21 +4,21 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           A07B4E32-F6F3-3FD2-B368-3EC1D63237AB
+    value:           FE7EDC9F-960E-3046-863C-A33EB5977A4E
   - target:          x86_64-maccatalyst
-    value:           A07B4E32-F6F3-3FD2-B368-3EC1D63237AB
+    value:           FE7EDC9F-960E-3046-863C-A33EB5977A4E
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           B66860C1-1361-3998-AD25-126B15E999B4
+    value:           F8453316-2B36-397D-B095-EFA980501FAE
   - target:          arm64e-maccatalyst
-    value:           B66860C1-1361-3998-AD25-126B15E999B4
+    value:           F8453316-2B36-397D-B095-EFA980501FAE
 install-name:    '/usr/lib/libsystemstats.dylib'
-current-version: 469.100.1
+current-version: 481
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _SystemStatsLogCoreDuetEventsAggregate, _SystemStatsReportDiscretionaryBudgetForDuet, 
                        _SystemStatsReportTotalDiscretionaryEnergyCoreDuet, __systemstats_boot, 

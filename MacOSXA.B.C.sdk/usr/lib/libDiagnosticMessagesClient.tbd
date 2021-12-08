@@ -4,21 +4,21 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           04F0E364-262E-3826-B0AF-1076FBAF304A
+    value:           7110C17D-7C61-34E6-B985-442A7DDCD981
   - target:          x86_64-maccatalyst
-    value:           04F0E364-262E-3826-B0AF-1076FBAF304A
+    value:           7110C17D-7C61-34E6-B985-442A7DDCD981
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           CAE960CC-75A9-301E-ADA4-7998CAEF48B7
+    value:           1EB732E3-0A77-3BC5-BD4B-948B67DA2A24
   - target:          arm64e-maccatalyst
-    value:           CAE960CC-75A9-301E-ADA4-7998CAEF48B7
+    value:           1EB732E3-0A77-3BC5-BD4B-948B67DA2A24
 install-name:    '/usr/lib/libDiagnosticMessagesClient.dylib'
 current-version: 112
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _msgtracer_domain_free, _msgtracer_domain_new, _msgtracer_log, 
                        _msgtracer_log_with_keys, _msgtracer_log_with_keys_skip_nulls, 

@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           CD95EB61-DD65-31FA-B20F-43CAC449964B
+    value:           31C30093-A9BF-3010-9DF9-A845A6F1112A
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           FB6C625C-0B1C-3787-9D68-FB50D9C479AC
+    value:           4E22EE3E-4AF9-359D-861C-C60AFD76A777
 install-name:    '/System/Library/PrivateFrameworks/GeoKit.framework/Versions/A/GeoKit'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

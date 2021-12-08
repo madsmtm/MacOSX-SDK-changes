@@ -3,14 +3,14 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           E679ACAE-EA21-3BC8-B77F-08E28BBFC16E
+    value:           82E69192-168D-30C1-91DD-2764804F5E62
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           B7F23B3F-D6A9-34D7-8A01-40A3C6D10D7C
+    value:           615D92E4-0696-3791-8C19-CFC8466F9FD4
 install-name:    '/System/Library/PrivateFrameworks/AppleCVA.framework/Versions/A/AppleCVA'
-current-version: 201.16
-compatibility-version: 201.16
+current-version: 202.0.10
+compatibility-version: 202
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _CVAFaceKitCopySemantics, _CVAFaceKitCreate, _CVAFaceKitGetAPIVersion, 
@@ -85,14 +85,16 @@ exports:
                        _kCVAFaceTracking_DebugInfo, _kCVAFaceTracking_DebugInitialBoundingBox, 
                        _kCVAFaceTracking_DebugLandmarks, _kCVAFaceTracking_DebugRGBCrop, 
                        _kCVAFaceTracking_DebugRecognitionFrameworkVersion, _kCVAFaceTracking_Depth, 
-                       _kCVAFaceTracking_DepthMetaData, _kCVAFaceTracking_DepthUnit, 
-                       _kCVAFaceTracking_DetectedFaceAngleInfoRoll, _kCVAFaceTracking_DetectedFaceFaceID, 
-                       _kCVAFaceTracking_DetectedFaceRect, _kCVAFaceTracking_DetectedFacesArray, 
-                       _kCVAFaceTracking_Deterministic, _kCVAFaceTracking_DisparityInvalidValue, 
-                       _kCVAFaceTracking_DisparityNormalizationMultiplier, _kCVAFaceTracking_DisparityNormalizationOffset, 
-                       _kCVAFaceTracking_ExposureTime, _kCVAFaceTracking_Extrinsics, 
-                       _kCVAFaceTracking_FaceID, _kCVAFaceTracking_FailureType, _kCVAFaceTracking_FittingEnabled, 
-                       _kCVAFaceTracking_ForceCPU, _kCVAFaceTracking_Geometry, _kCVAFaceTracking_GeometryLandmarks, 
+                       _kCVAFaceTracking_DepthMetaData, _kCVAFaceTracking_DepthSource, 
+                       _kCVAFaceTracking_DepthSource_Pearl, _kCVAFaceTracking_DepthSource_SMPRaw, 
+                       _kCVAFaceTracking_DepthUnit, _kCVAFaceTracking_DetectedFaceAngleInfoRoll, 
+                       _kCVAFaceTracking_DetectedFaceFaceID, _kCVAFaceTracking_DetectedFaceRect, 
+                       _kCVAFaceTracking_DetectedFacesArray, _kCVAFaceTracking_Deterministic, 
+                       _kCVAFaceTracking_DisparityInvalidValue, _kCVAFaceTracking_DisparityNormalizationMultiplier, 
+                       _kCVAFaceTracking_DisparityNormalizationOffset, _kCVAFaceTracking_ExposureTime, 
+                       _kCVAFaceTracking_Extrinsics, _kCVAFaceTracking_FaceID, _kCVAFaceTracking_FailureType, 
+                       _kCVAFaceTracking_FittingEnabled, _kCVAFaceTracking_ForceCPU, 
+                       _kCVAFaceTracking_Geometry, _kCVAFaceTracking_GeometryLandmarks, 
                        _kCVAFaceTracking_GeometryLeftEye, _kCVAFaceTracking_GeometryRightEye, 
                        _kCVAFaceTracking_GeometryVertices, _kCVAFaceTracking_HoleFilledMesh, 
                        _kCVAFaceTracking_ISPProcessingSession, _kCVAFaceTracking_Identity, 

@@ -4,20 +4,20 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           B6CB4430-35B5-3DD1-BA02-666426F87971
+    value:           047F8361-0A74-3753-BA4F-991447B4C7D6
   - target:          x86_64-maccatalyst
-    value:           B6CB4430-35B5-3DD1-BA02-666426F87971
+    value:           047F8361-0A74-3753-BA4F-991447B4C7D6
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           AE00C5BF-2E58-3B13-92B0-4C3C02F33397
+    value:           002C7E5D-60B6-30F2-9C7B-54F85CC3C104
   - target:          arm64e-maccatalyst
-    value:           AE00C5BF-2E58-3B13-92B0-4C3C02F33397
+    value:           002C7E5D-60B6-30F2-9C7B-54F85CC3C104
 install-name:    '/System/Library/Frameworks/DiskArbitration.framework/Versions/A/DiskArbitration'
 exports:
-  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _DAApprovalSessionCreate, _DAApprovalSessionGetTypeID, _DAApprovalSessionScheduleWithRunLoop, 
                        _DAApprovalSessionUnscheduleFromRunLoop, _DADiskClaim, _DADiskCopyDescription, 

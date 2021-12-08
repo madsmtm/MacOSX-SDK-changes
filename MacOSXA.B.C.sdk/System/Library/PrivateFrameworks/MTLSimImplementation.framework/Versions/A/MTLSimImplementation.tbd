@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           AA09D16F-ECB6-3DAF-BB54-6BA3239F49F6
+    value:           2F1E04C3-C97E-3484-B4C4-626A6E6F8169
   - target:          x86_64-maccatalyst
-    value:           AA09D16F-ECB6-3DAF-BB54-6BA3239F49F6
+    value:           2F1E04C3-C97E-3484-B4C4-626A6E6F8169
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           0A783F96-5A4D-3C44-A8D7-E9435D416266
+    value:           40CBCD3B-E151-3D08-8E7F-1041406CC354
   - target:          arm64e-maccatalyst
-    value:           0A783F96-5A4D-3C44-A8D7-E9435D416266
+    value:           40CBCD3B-E151-3D08-8E7F-1041406CC354
 install-name:    '/System/Library/PrivateFrameworks/MTLSimImplementation.framework/Versions/A/MTLSimImplementation'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 

@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           BCC167B7-B772-3C7F-BBD7-EA427048332B
+    value:           18D4F50C-F5F9-3480-9632-85BD24507845
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           9C38660E-2A31-3DBF-8B18-C4E6B9F2A908
+    value:           AF2A05F1-637A-3276-8AEA-3A5C81A59F77
 install-name:    '/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE/libperl.dylib'
 current-version: 5.18.4
 compatibility-version: 5.18

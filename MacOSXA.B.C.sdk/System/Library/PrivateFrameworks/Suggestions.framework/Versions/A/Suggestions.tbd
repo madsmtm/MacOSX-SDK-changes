@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           9B2DC6C9-DC57-345B-A24C-635066B904A0
+    value:           84919F30-E9E9-3E8E-AB48-10BCE76945AF
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           B3085F9C-FA21-3139-86B0-50F2FE48710B
+    value:           EBF93C2B-9082-3893-9A11-2E4A2AB4B98A
 install-name:    '/System/Library/PrivateFrameworks/Suggestions.framework/Versions/A/Suggestions'
-current-version: 326
+current-version: 328
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _GetQueryStringAndAttributesFromInput, _SGTAddressBookAccessAllowed, 

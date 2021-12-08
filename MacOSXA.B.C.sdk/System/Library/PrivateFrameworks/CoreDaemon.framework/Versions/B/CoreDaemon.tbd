@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           4C6BCE34-097A-32F1-BE86-4885A16E859B
+    value:           59002EF9-4D98-313D-A566-438BDD9619DA
   - target:          x86_64-maccatalyst
-    value:           4C6BCE34-097A-32F1-BE86-4885A16E859B
+    value:           59002EF9-4D98-313D-A566-438BDD9619DA
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           91BF1D91-5406-38AC-8022-AACB82DD4AB1
+    value:           BFADB502-CC64-3A46-8ABE-4B1F67DD9ADB
   - target:          arm64e-maccatalyst
-    value:           91BF1D91-5406-38AC-8022-AACB82DD4AB1
+    value:           BFADB502-CC64-3A46-8ABE-4B1F67DD9ADB
 install-name:    '/System/Library/PrivateFrameworks/CoreDaemon.framework/Versions/B/CoreDaemon'
 current-version: 3
 compatibility-version: 3

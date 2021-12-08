@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           04B974A2-93FC-333A-8FF3-51B0226B1686
+    value:           5961C7D7-7160-38FD-87A6-7E79C72238BB
   - target:          x86_64-maccatalyst
-    value:           04B974A2-93FC-333A-8FF3-51B0226B1686
+    value:           5961C7D7-7160-38FD-87A6-7E79C72238BB
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           3BDE0BCA-8A2D-3E54-A0F9-2A3BEE5F838E
+    value:           F0A80437-1F26-3C8D-BF3F-4591E1BF34D7
   - target:          arm64e-maccatalyst
-    value:           3BDE0BCA-8A2D-3E54-A0F9-2A3BEE5F838E
+    value:           F0A80437-1F26-3C8D-BF3F-4591E1BF34D7
 install-name:    '/System/Library/Frameworks/GSS.framework/Versions/A/GSS'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 

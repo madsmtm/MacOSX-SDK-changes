@@ -4,16 +4,16 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           5C964742-753B-32BA-8A9D-0D3808DDBC36
+    value:           80DE4B34-BA11-31FC-AB7E-A785C579BFB3
   - target:          x86_64-maccatalyst
-    value:           5C964742-753B-32BA-8A9D-0D3808DDBC36
+    value:           80DE4B34-BA11-31FC-AB7E-A785C579BFB3
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           EEB0D04F-0381-3950-A8A0-E4B3901BE12C
+    value:           1160C3AA-15C7-3FB2-BE96-13708C63E1D8
   - target:          arm64e-maccatalyst
-    value:           EEB0D04F-0381-3950-A8A0-E4B3901BE12C
+    value:           1160C3AA-15C7-3FB2-BE96-13708C63E1D8
 install-name:    '/usr/lib/libgmalloc.dylib'
 ...

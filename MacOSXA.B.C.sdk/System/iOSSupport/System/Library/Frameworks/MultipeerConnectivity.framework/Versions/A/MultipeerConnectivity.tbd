@@ -3,15 +3,15 @@ tbd-version:     4
 targets:         [ x86_64-maccatalyst, arm64-maccatalyst, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-maccatalyst
-    value:           E2C92F6C-934B-3BA2-9799-900BCE2E37F3
+    value:           7EF07F32-2346-345D-8544-FC6F625E9611
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-maccatalyst
-    value:           BB92E33F-AB03-3F3F-9650-72B270D7419A
+    value:           563CC90F-CCBD-3915-AA7C-D277C1B1BD97
 install-name:    '/System/iOSSupport/System/Library/Frameworks/MultipeerConnectivity.framework/Versions/A/MultipeerConnectivity'
-current-version: 172
+current-version: 173.1
 exports:
-  - targets:         [ arm64e-maccatalyst, x86_64-maccatalyst, arm64-maccatalyst ]
+  - targets:         [ x86_64-maccatalyst, arm64e-maccatalyst, arm64-maccatalyst ]
     symbols:         [ _MCErrorDomain, _kMCSessionMaximumNumberOfPeers, _kMCSessionMinimumNumberOfPeers ]
     objc-classes:    [ MCAdvertiserAssistant, MCBrowserViewController, MCNearbyServiceAdvertiser, 
                        MCNearbyServiceBrowser, MCPeerID, MCSession ]

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  The size of a sync anchor should not exceed a combined 500 bytes.
  */
+FILEPROVIDER_API_AVAILABILITY_V2_V3
 typedef NSData *NSFileProviderSyncAnchor NS_TYPED_EXTENSIBLE_ENUM;
 
 /**
@@ -28,6 +29,7 @@ typedef NSData *NSFileProviderSyncAnchor NS_TYPED_EXTENSIBLE_ENUM;
 
  The size of a page should not exceed 500 bytes.
  */
+FILEPROVIDER_API_AVAILABILITY_V2_V3
 typedef NSData *NSFileProviderPage NS_TYPED_EXTENSIBLE_ENUM;
 
 FOUNDATION_EXPORT FILEPROVIDER_API_AVAILABILITY_V2_V3
@@ -35,6 +37,7 @@ NSFileProviderPage const NSFileProviderInitialPageSortedByDate;
 FOUNDATION_EXPORT FILEPROVIDER_API_AVAILABILITY_V2_V3
 NSFileProviderPage const NSFileProviderInitialPageSortedByName;
 
+FILEPROVIDER_API_AVAILABILITY_V2_V3
 @protocol NSFileProviderEnumerationObserver <NSObject>
 
 - (void)didEnumerateItems:(NSArray <id<NSFileProviderItem>> *)updatedItems;
@@ -61,12 +64,13 @@ NSFileProviderPage const NSFileProviderInitialPageSortedByName;
  materialization of the folder by the system, ...). Each case has its own performance profile.
 
  By taking into account the suggested size, the enumeration will guarantee the best user experience possible. The
- system does not enforce the size of the page.
+ system enforces a maximum of 100 times the suggested size.
  */
 @property (nonatomic, readonly) NSInteger suggestedPageSize FILEPROVIDER_API_AVAILABILITY_V3;
 
 @end
 
+FILEPROVIDER_API_AVAILABILITY_V2_V3
 @protocol NSFileProviderChangeObserver <NSObject>
 
 /**
@@ -80,10 +84,9 @@ NSFileProviderPage const NSFileProviderInitialPageSortedByName;
 - (void)didDeleteItemsWithIdentifiers:(NSArray <NSFileProviderItemIdentifier> *)deletedItemIdentifiers;
 
 /**
- Call the following method every so often while sending changes, particularly
- while enumerating changes to NSFileProviderWorkingSetContainerItemIdentifier.
- If the device reboots during an enumeration, it would later resume starting
- at the latest known sync anchor.
+ This method is used to complete a batch of changes. Follow the advice
+ in -[NSFileProviderChangeObserver suggestedBatchSize] to determine when to
+ call this method.
 
  It is expected that the sync anchor passed here be different than the sync
  anchor that the enumeration started at, unless the client was already up to
@@ -119,14 +122,18 @@ NSFileProviderPage const NSFileProviderInitialPageSortedByName;
  it split the list of changes into several batches. If the enumerator does not have suggestedBatchSize ready to
  enumerator, the enumerator should finish immediately and not wait for more incoming changes to enumerate.
 
- By taking into account the suggested size, the enumeration will guarantee the best user experience possible. The
- system does not enforce the size of the batch.
+ By taking into account the suggested size, the enumeration will guarantee the best user experience possible. Large
+ batches can cause performance issues. And when the device reboots, enumerations will resume from the latest
+ known sync anchor. Telling the system about the latest sync anchor more frequently will reduce the number
+ of re-enumerations on system reboot.
+
+ The system enforces a maximum of 100 times the suggested size.
  */
 @property (nonatomic, readonly) NSInteger suggestedBatchSize FILEPROVIDER_API_AVAILABILITY_V3;
 
 @end
 
-
+FILEPROVIDER_API_AVAILABILITY_V2_V3
 @protocol NSFileProviderEnumerator <NSObject>
 
 - (void)invalidate;
@@ -185,15 +192,13 @@ NSFileProviderPage const NSFileProviderInitialPageSortedByName;
  - continue enumerating pages, each time from the page returned in the previous
    enumeration, until finishEnumeratingUpToPage: is called with nextPage set to
    nil
- - enumerate changes starting from the sync anchor returned in (1)
- - continue enumerating changes, each time from the sync anchor returned in the
-   previous enumeration, until finishEnumeratingChangesUpToSyncAnchor: is called
-   with moreComing:NO
-
- This method will be called again if you signal that there are more changes with
- -[NSFileProviderManager signalEnumeratorForContainerItemIdentifier:
- completionHandler:] and again, the system will enumerate changes until
- finishEnumeratingChangesUpToSyncAnchor: is called with moreComing:NO.
+ - enumerate changes starting from the sync anchor returned in (1), until
+   finishEnumeratingChangesUpToSyncAnchor: is called with the latest sync anchor.
+   If moreComing is YES, continue enumerating changes, using the latest sync anchor returned.
+   If moreComing is NO, stop enumerating.
+ - When the extension calls -[NSFileProviderManager signalEnumeratorForContainerItemIdentifier:
+   completionHandler:] to signal more changes, the system will again enumerate changes,
+   starting at the latest known sync anchor from finishEnumeratingChangesUpToSyncAnchor.
 
  NOTE that the change-based observation methods are marked optional for historical
  reasons, but are really required. System performance will be severely degraded if
@@ -204,6 +209,7 @@ NSFileProviderPage const NSFileProviderInitialPageSortedByName;
 
 @end
 
+FILEPROVIDER_API_AVAILABILITY_V2
 @interface NSFileProviderExtension (NSFileProviderEnumeration)
 
 /**

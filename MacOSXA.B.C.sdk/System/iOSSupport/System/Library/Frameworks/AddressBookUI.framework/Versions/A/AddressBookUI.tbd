@@ -3,15 +3,15 @@ tbd-version:     4
 targets:         [ x86_64-maccatalyst, arm64-maccatalyst, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-maccatalyst
-    value:           40C4D891-1C64-3875-8358-EEF10A05DB45
+    value:           71F745DC-C1DF-3AE8-B914-7A5F2AE209C8
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-maccatalyst
-    value:           DA80F671-AB05-374C-815F-F84C23212F20
+    value:           73DA7341-966C-31E2-A37F-FD07B27B2F21
 install-name:    '/System/iOSSupport/System/Library/Frameworks/AddressBookUI.framework/Versions/A/AddressBookUI'
 current-version: 33
 exports:
-  - targets:         [ arm64e-maccatalyst, x86_64-maccatalyst, arm64-maccatalyst ]
+  - targets:         [ x86_64-maccatalyst, arm64e-maccatalyst, arm64-maccatalyst ]
     symbols:         [ _ABCreateStringWithAddressDictionary, _ABPersonBirthdayProperty, 
                        _ABPersonDatesProperty, _ABPersonDepartmentNameProperty, _ABPersonEmailAddressesProperty, 
                        _ABPersonFamilyNameProperty, _ABPersonGivenNameProperty, _ABPersonInstantMessageAddressesProperty, 

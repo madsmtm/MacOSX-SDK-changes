@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2020 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2021 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -69,6 +69,9 @@
 #ifndef _NETINET_IP_VAR_H_
 #define _NETINET_IP_VAR_H_
 #include <sys/appleapiopts.h>
+
+#include <netinet/in.h>
+#include <sys/types.h>
 
 /*
  * Overlay for ip header used by other protocols (tcp, udp).

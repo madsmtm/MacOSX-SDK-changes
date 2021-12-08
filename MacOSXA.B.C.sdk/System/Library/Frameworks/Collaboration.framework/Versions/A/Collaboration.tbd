@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           3DA6B760-3DFF-3A8F-923B-E5738D901D4C
+    value:           455D99EF-7BC3-311A-9246-2BDA91BC982D
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           3F9A5F9E-DBA6-334A-AF07-F552838C5528
+    value:           AB2B0D16-2D39-338E-BA2F-4453E54390BF
 install-name:    '/System/Library/Frameworks/Collaboration.framework/Versions/A/Collaboration'
 current-version: 84
 exports:

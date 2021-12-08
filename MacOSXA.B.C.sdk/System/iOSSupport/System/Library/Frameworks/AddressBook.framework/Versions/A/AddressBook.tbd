@@ -3,14 +3,14 @@ tbd-version:     4
 targets:         [ x86_64-maccatalyst, arm64-maccatalyst, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-maccatalyst
-    value:           63DB13FA-0CD8-301C-B468-B65E174B45B1
+    value:           CB34FD3D-A4C2-3004-B144-D031919E9201
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-maccatalyst
-    value:           5CCC61C7-6A75-3954-8505-88900D6E486C
+    value:           463B116E-9D88-3D61-85C4-B59B5332F5E7
 install-name:    '/System/iOSSupport/System/Library/Frameworks/AddressBook.framework/Versions/A/AddressBook'
 exports:
-  - targets:         [ arm64e-maccatalyst, x86_64-maccatalyst, arm64-maccatalyst ]
+  - targets:         [ x86_64-maccatalyst, arm64e-maccatalyst, arm64-maccatalyst ]
     symbols:         [ _ABAddressBookAddRecord, _ABAddressBookCopyArrayOfAllGroups, 
                        _ABAddressBookCopyArrayOfAllGroupsInSource, _ABAddressBookCopyArrayOfAllPeople, 
                        _ABAddressBookCopyArrayOfAllPeopleInSource, _ABAddressBookCopyArrayOfAllPeopleInSourceWithSortOrdering, 

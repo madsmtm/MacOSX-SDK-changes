@@ -3,14 +3,14 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           BAED824A-DA2C-3314-B074-5D8341527FE6
+    value:           23A66DF1-A94A-3D8D-9CDF-4F00E7D45740
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           EF675A55-678D-3866-A56B-13EBED444888
+    value:           9039ABF4-3DFD-331D-A043-8743B9CEFCEE
 install-name:    '/usr/lib/libUniversalAccess.dylib'
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ __AXVisualSupportAgentEnterZoomResizeMode, __AXVisualSupportAgentRefreshState, 
                        __UniversalAccessAXVisualSupportAgentStart, __UniversalAccessAssistiveControlIsRunning, 
                        __UniversalAccessAssistiveControlStart, __UniversalAccessAssistiveControlStop, 

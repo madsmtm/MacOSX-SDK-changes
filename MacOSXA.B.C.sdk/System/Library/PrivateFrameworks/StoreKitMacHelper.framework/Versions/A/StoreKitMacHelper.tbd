@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           378F656A-A7AC-3D0E-B4B4-65F5AE41548F
+    value:           82B46337-F6B8-37D6-B1E8-8E548488F55C
   - target:          x86_64-maccatalyst
-    value:           378F656A-A7AC-3D0E-B4B4-65F5AE41548F
+    value:           82B46337-F6B8-37D6-B1E8-8E548488F55C
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           5E2FDB6E-35C2-3D63-B28A-14F644702BC3
+    value:           5BA83016-8824-3690-A06D-43468511BF1E
   - target:          arm64e-maccatalyst
-    value:           5E2FDB6E-35C2-3D63-B28A-14F644702BC3
+    value:           5BA83016-8824-3690-A06D-43468511BF1E
 install-name:    '/System/Library/PrivateFrameworks/StoreKitMacHelper.framework/Versions/A/StoreKitMacHelper'
 allowable-clients:
   - targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
@@ -23,5 +23,5 @@ allowable-clients:
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
                        arm64-macos, arm64-maccatalyst ]
-    symbols:         [ _StoreProductPageNewHelper ]
+    symbols:         [ _SKRemoteEngagementCatalystHelper, _StoreProductPageNewHelper ]
 ...

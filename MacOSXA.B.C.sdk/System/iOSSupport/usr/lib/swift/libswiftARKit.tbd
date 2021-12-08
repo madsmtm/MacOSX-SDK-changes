@@ -3,16 +3,16 @@ tbd-version:     4
 targets:         [ x86_64-maccatalyst, arm64-maccatalyst, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-maccatalyst
-    value:           17BC5F91-CFBC-3719-AE9B-E061881752D3
+    value:           EE2061F4-7E88-383A-B063-4CDCEDC845EA
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-maccatalyst
-    value:           95B73998-46D5-3D70-B467-2AFFB5342D17
+    value:           0C02A863-E7CC-36D6-92AE-866B5137988D
 install-name:    '/System/iOSSupport/usr/lib/swift/libswiftARKit.dylib'
-current-version: 321.14.1
+current-version: 364.21
 swift-abi-version: 7
 exports:
-  - targets:         [ arm64e-maccatalyst, x86_64-maccatalyst, arm64-maccatalyst ]
+  - targets:         [ x86_64-maccatalyst, arm64e-maccatalyst, arm64-maccatalyst ]
     symbols:         [ '_$sSo11ARGeoAnchorC5ARKitE10coordinate8altitudeABSo22CLLocationCoordinate2DV_SdSgtcfC', 
                        '_$sSo11ARGeoAnchorC5ARKitE10coordinate8altitudeABSo22CLLocationCoordinate2DV_SdSgtcfc', 
                        '_$sSo11ARGeoAnchorC5ARKitE4name10coordinate8altitudeABSS_So22CLLocationCoordinate2DVSdSgtcfC', 

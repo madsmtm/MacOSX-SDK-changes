@@ -3,18 +3,18 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           36446EAF-E2F5-38BD-849A-D489DC7700A8
+    value:           B93B6A30-0B53-3834-87E8-AB39E50B7FCE
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           CAE4D559-BEF7-37AE-B08C-0FBB6BFA9473
+    value:           4FF5F789-FA55-3B93-816F-2F21BB55AA30
 install-name:    '/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/Ink.framework/Versions/A/Ink'
 current-version: 227
 parent-umbrella:
   - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
     umbrella:        Carbon
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _InkAddStrokeToCurrentPhrase, _InkIsPhraseInProgress, _InkSetApplicationRecognitionMode, 
                        _InkSetApplicationWritingMode, _InkSetDrawingMode, _InkSetPhraseTerminationMode, 
                        _InkStrokeGetPointCount, _InkStrokeGetPoints, _InkStrokeGetTypeID, 

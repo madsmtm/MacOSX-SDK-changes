@@ -4,19 +4,19 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           C967CEB4-4701-3AAB-A552-E03688CC78FC
+    value:           A1926D0F-C52E-3A1F-865A-2FEAABE08E0D
   - target:          x86_64-maccatalyst
-    value:           C967CEB4-4701-3AAB-A552-E03688CC78FC
+    value:           A1926D0F-C52E-3A1F-865A-2FEAABE08E0D
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           B90C5F65-EFBA-3E11-B137-27513F1B8E62
+    value:           BE0EB5EF-4C96-3EE6-85EA-B7543722C982
   - target:          arm64e-maccatalyst
-    value:           B90C5F65-EFBA-3E11-B137-27513F1B8E62
+    value:           BE0EB5EF-4C96-3EE6-85EA-B7543722C982
 install-name:    '/System/Library/Frameworks/LocalAuthentication.framework/Versions/A/LocalAuthentication'
-current-version: 827.100.23
+current-version: 984.30.2
 exports:
   - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]

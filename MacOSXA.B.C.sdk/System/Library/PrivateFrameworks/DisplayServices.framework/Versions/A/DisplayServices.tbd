@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           1845A86C-07CB-3EA7-995C-BEFA326C2325
+    value:           BAD56A17-D7CE-324A-9842-F6B61FE1FEFF
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           D8BE3924-3BD0-3840-BC32-0DE16D8AE341
+    value:           AC8B6F1B-F041-33EC-B828-D30C5FF72C12
 install-name:    '/System/Library/PrivateFrameworks/DisplayServices.framework/Versions/A/DisplayServices'
 reexported-libraries:
   - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]

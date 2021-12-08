@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           0FFBD95E-6517-3909-9863-0B2EF4E3A9C9
+    value:           71FA96FF-9481-364E-A3F4-0C637694E16A
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           755481E7-F3F7-3EDE-99F0-D04D75B9E4A6
+    value:           D6B1C547-B8B0-3EB7-964C-28795DA138D4
 install-name:    '/System/Library/Frameworks/PhotosUI.framework/Versions/A/PhotosUI'
-current-version: 340.0.220
+current-version: 401.3.110
 exports:
   - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
     symbols:         [ _PHObjectReferenceCookieType, _PHProjectCategoryBook, _PHProjectCategoryCalendar, 

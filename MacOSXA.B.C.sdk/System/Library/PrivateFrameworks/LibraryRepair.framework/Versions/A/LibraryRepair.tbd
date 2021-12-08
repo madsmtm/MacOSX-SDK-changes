@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           D45A6BC5-107D-306F-AB7A-F86B889BEB50
+    value:           136709FF-DFA2-30DF-83E3-0474EC35BB0A
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           21252145-C742-38CD-B820-BFBAC7281942
+    value:           B5AEE8A6-FACC-3112-8B12-1FB3D7525F53
 install-name:    '/System/Library/PrivateFrameworks/LibraryRepair.framework/Versions/A/LibraryRepair'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

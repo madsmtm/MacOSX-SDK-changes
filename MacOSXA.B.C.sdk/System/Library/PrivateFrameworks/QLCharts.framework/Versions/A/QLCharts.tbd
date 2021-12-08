@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           BB3F95A3-A59D-3D44-B656-DEB9BEB3371F
+    value:           C2D766FF-2B5A-32FA-9AA6-A9F8A55B5322
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           D701BEA4-3B9F-3008-8E6E-43A3E5C73DA6
+    value:           CE3DA196-6ADD-3DF1-B3F6-F959B32F4225
 install-name:    '/System/Library/PrivateFrameworks/QLCharts.framework/Versions/A/QLCharts'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

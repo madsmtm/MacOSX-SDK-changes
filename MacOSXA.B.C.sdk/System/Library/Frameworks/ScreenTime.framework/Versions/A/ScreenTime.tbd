@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           2F501607-968B-3198-8524-5F5ADB4A6F3E
+    value:           6935DE4B-F818-3F2E-A7E7-414C333742BB
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           BB12A0B7-CCED-3ADF-BBBF-7E3F57943FA0
+    value:           9842A72A-0802-3B2C-919F-3C132B101365
 install-name:    '/System/Library/Frameworks/ScreenTime.framework/Versions/A/ScreenTime'
-current-version: 497.4.6
+current-version: 500.0.27
 exports:
   - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
     symbols:         [ _STMachServiceNameScreenTime ]

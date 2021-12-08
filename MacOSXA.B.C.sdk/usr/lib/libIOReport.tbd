@@ -4,20 +4,20 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           40887C81-C6AF-32EA-8A31-311D7796DBFA
+    value:           074CE935-669E-37BF-B91F-5AC9A3B231E7
   - target:          x86_64-maccatalyst
-    value:           40887C81-C6AF-32EA-8A31-311D7796DBFA
+    value:           074CE935-669E-37BF-B91F-5AC9A3B231E7
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           524B06D5-0BF5-328F-9CF8-BBE5F43484BD
+    value:           85512268-038D-3005-9084-08B80441833A
   - target:          arm64e-maccatalyst
-    value:           524B06D5-0BF5-328F-9CF8-BBE5F43484BD
+    value:           85512268-038D-3005-9084-08B80441833A
 install-name:    '/usr/lib/libIOReport.dylib'
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _IOReportAddChannelDescription, _IOReportArrayGetValueAtIndex, 
                        _IOReportChannelCopyDescription, _IOReportChannelGetCategories, 
@@ -42,5 +42,6 @@ exports:
                        _IOReportStateGetCount, _IOReportStateGetCurrent, _IOReportStateGetDutyCycle, 
                        _IOReportStateGetIDForIndex, _IOReportStateGetInTransitions, 
                        _IOReportStateGetIndexForID, _IOReportStateGetNameForIndex, 
-                       _IOReportStateGetResidency, _IOReportWriteStringUTF8 ]
+                       _IOReportStateGetResidency, _IOReportUpdateSamples, _IOReportUpdateSamplesRaw, 
+                       _IOReportWriteStringUTF8 ]
 ...

@@ -3,14 +3,14 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           B8753765-0426-32EB-9AD2-0249C8E36919
+    value:           B4155D52-3C98-39E9-881F-16052525E828
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           99248CA8-4C17-31F3-9B7E-C8BBD9FB06BB
+    value:           4EE3CC37-530C-3718-BDD2-1192A2BFFDD4
 install-name:    '/usr/lib/libnfrestore.dylib'
 exports:
-  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
+  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
     symbols:         [ _NfJcopUpdateFileClose, _NfJcopUpdateFileGetPlan, _NfJcopUpdateFileGetRequiredMemoryForPlan, 
                        _NfJcopUpdateFileGetSequenceForPlan, _NfJcopUpdateFileLogDescription, 
                        _NfJcopUpdateFileOpenWithData, _NfJcopUpdateFileOpenWithFilePath, 

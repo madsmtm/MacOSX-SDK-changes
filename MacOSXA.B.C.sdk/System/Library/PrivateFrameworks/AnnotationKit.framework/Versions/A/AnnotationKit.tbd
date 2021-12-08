@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           042223F0-C4D7-345D-8F42-3ED8F0C5118C
+    value:           90F291E6-436D-3DA9-81D0-913B08F25DDD
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           ECA04061-D659-34F4-A2CB-FFC76699E20A
+    value:           7FC79F2D-D2DB-3273-BF3C-59A93C71539B
 install-name:    '/System/Library/PrivateFrameworks/AnnotationKit.framework/Versions/A/AnnotationKit'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

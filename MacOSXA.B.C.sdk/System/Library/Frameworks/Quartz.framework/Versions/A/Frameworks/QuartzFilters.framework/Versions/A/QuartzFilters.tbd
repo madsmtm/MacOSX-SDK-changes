@@ -3,14 +3,14 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           AEF6332F-F4AA-3F94-A1D7-670DFF25952B
+    value:           34C5290C-BA62-3C08-ADF0-DA6DCE985AC6
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           D75D0015-349D-341C-806E-9702D99DEA45
+    value:           54D39C64-BA6C-38F2-AECC-7C51CF1951E2
 install-name:    '/System/Library/Frameworks/Quartz.framework/Versions/A/Frameworks/QuartzFilters.framework/Versions/A/QuartzFilters'
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _QuartzFilterApplyToContext, _QuartzFilterCopyContextDict, 
                        _QuartzFilterCreateHostMatchingFilter, _QuartzFilterCreateImageCoverter, 
                        _QuartzFilterCreateWithOutputIntents, _QuartzFilterCreateWithURL, 

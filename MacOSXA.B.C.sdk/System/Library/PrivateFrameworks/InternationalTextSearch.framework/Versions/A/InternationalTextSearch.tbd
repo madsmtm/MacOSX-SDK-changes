@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           450F3A9E-BB93-3B67-9BFF-A68C0A08544E
+    value:           8BE59034-44DD-30F9-9C23-A302A67CFAD0
   - target:          x86_64-maccatalyst
-    value:           450F3A9E-BB93-3B67-9BFF-A68C0A08544E
+    value:           8BE59034-44DD-30F9-9C23-A302A67CFAD0
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           E796983D-D396-313B-975B-9C483E470477
+    value:           D26EBA08-FC5E-3B47-A964-219E4A021C47
   - target:          arm64e-maccatalyst
-    value:           E796983D-D396-313B-975B-9C483E470477
+    value:           D26EBA08-FC5E-3B47-A964-219E4A021C47
 install-name:    '/System/Library/PrivateFrameworks/InternationalTextSearch.framework/Versions/A/InternationalTextSearch'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 

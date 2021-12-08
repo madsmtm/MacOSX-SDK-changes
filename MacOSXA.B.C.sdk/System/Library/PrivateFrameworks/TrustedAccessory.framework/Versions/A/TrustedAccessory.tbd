@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           0145DE0C-AA6C-30B1-AD13-AADC1BD0DF42
+    value:           EC95C5A2-8455-335A-890D-A1BD14321F87
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           0D0358BF-CA84-31E8-AF39-9FBB79AC18D4
+    value:           66384E66-1B22-3250-8885-DFA8979A3065
 install-name:    '/System/Library/PrivateFrameworks/TrustedAccessory.framework/Versions/A/TrustedAccessory'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

@@ -4,19 +4,19 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           AF41D884-70D2-393B-8DB7-C023C4105D0A
+    value:           04E4EA91-39EC-3ADD-BFD1-D411947AA6A0
   - target:          x86_64-maccatalyst
-    value:           AF41D884-70D2-393B-8DB7-C023C4105D0A
+    value:           04E4EA91-39EC-3ADD-BFD1-D411947AA6A0
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           31701956-355F-3BA9-BEF1-35EBE7953A02
+    value:           3FB80D46-BFD9-3FCA-A92B-48A249028DED
   - target:          arm64e-maccatalyst
-    value:           31701956-355F-3BA9-BEF1-35EBE7953A02
+    value:           3FB80D46-BFD9-3FCA-A92B-48A249028DED
 install-name:    '/System/Library/PrivateFrameworks/MetadataUtilities.framework/Versions/A/MetadataUtilities'
-current-version: 2150.16
+current-version: 2179.2
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
                        arm64-macos, arm64-maccatalyst ]

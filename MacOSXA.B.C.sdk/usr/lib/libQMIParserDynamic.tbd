@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           215DE7EC-CB8F-3312-BE30-13A1848DA3F6
+    value:           CF911193-E550-343B-A511-372302C07BA2
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           17FE80FC-7C3B-359A-B859-4D26693CD65F
+    value:           7D738B4F-C595-3A86-8143-CE9DDDE8D6DB
 install-name:    '/usr/lib/libQMIParserDynamic.dylib'
 exports:
   - targets:         [ x86_64-macos ]

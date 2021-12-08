@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           93AA91B9-862E-37D9-9E5E-76DFC2FBE3FE
+    value:           3B630240-091F-3F5C-BFB4-82F6BB9DF87D
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           21A36DCB-5823-3A2E-BA4B-CCC04EF876E8
+    value:           33EAFF8C-634E-3986-BD34-8A10B68B134D
 install-name:    '/System/Library/PrivateFrameworks/PIP.framework/Versions/A/PIP'
-current-version: 109
+current-version: 110
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     objc-classes:    [ PIPViewController ]

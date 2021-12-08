@@ -4,28 +4,28 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, x86_64h-macos, x86_64h-macc
                    arm64-macos, arm64-maccatalyst, arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           F756C8BA-ED88-38AC-8F23-D2483A76C12B
+    value:           6BF110EB-7497-385A-BC63-58EBA13D50CA
   - target:          x86_64-maccatalyst
-    value:           F756C8BA-ED88-38AC-8F23-D2483A76C12B
+    value:           6BF110EB-7497-385A-BC63-58EBA13D50CA
   - target:          x86_64h-macos
-    value:           58C38B26-088B-3E3D-BCD9-F79AF7D858C1
+    value:           99390A56-F7CA-3968-8196-1B01EF00ECFF
   - target:          x86_64h-maccatalyst
-    value:           58C38B26-088B-3E3D-BCD9-F79AF7D858C1
+    value:           99390A56-F7CA-3968-8196-1B01EF00ECFF
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           C8725C92-6A88-3D89-B475-9459BF2D30E7
+    value:           E550D958-F4EF-365B-9C22-ECBFE2D02A75
   - target:          arm64e-maccatalyst
-    value:           C8725C92-6A88-3D89-B475-9459BF2D30E7
+    value:           E550D958-F4EF-365B-9C22-ECBFE2D02A75
 install-name:    '/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libSparseBLAS.dylib'
 allowable-clients:
   - targets:         [ x86_64-macos, x86_64-maccatalyst, x86_64h-macos, x86_64h-maccatalyst, 
                        arm64-macos, arm64-maccatalyst, arm64e-macos, arm64e-maccatalyst ]
     clients:         [ Sparse, vecLib ]
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64h-macos, x86_64-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64h-macos, x86_64-maccatalyst, 
                        x86_64h-maccatalyst, arm64e-maccatalyst, arm64-macos, arm64-maccatalyst ]
     symbols:         [ _sparse_commit, _sparse_elementwise_norm_double, _sparse_elementwise_norm_float, 
                        _sparse_extract_block_double, _sparse_extract_block_float, 

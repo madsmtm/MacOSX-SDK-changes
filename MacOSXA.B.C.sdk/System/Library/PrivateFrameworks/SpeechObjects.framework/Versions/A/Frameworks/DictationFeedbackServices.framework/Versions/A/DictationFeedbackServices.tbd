@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           BE7B8B49-5915-3474-BB5E-C607BE1DC6A9
+    value:           A80A87D3-8175-321D-A1B7-BBA13A389293
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           174A5940-D39D-3D2B-B79A-A12BC12CD854
+    value:           825EB607-72DA-3FE0-95F1-242167C1E5E3
 install-name:    '/System/Library/PrivateFrameworks/SpeechObjects.framework/Versions/A/Frameworks/DictationFeedbackServices.framework/Versions/A/DictationFeedbackServices'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

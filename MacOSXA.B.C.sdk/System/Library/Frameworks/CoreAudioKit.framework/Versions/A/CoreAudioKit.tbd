@@ -3,14 +3,14 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           BE384153-1A87-3BB1-8D9E-743E827878A7
+    value:           2E71447B-6894-3557-AA56-633BD6256553
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           7C467F7D-615A-3A08-9FA2-37E9985F8D65
+    value:           C84B3A6A-F184-3175-BF82-4BA2E6D48BA4
 install-name:    '/System/Library/Frameworks/CoreAudioKit.framework/Versions/A/CoreAudioKit'
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _kEQViewGraphSizeChangedNotification, _kEQViewParameterChangedNotification, 
                        _kFilterControlSelectedNotification, _kGraphViewBeginGestureNotification, 
                        _kGraphViewEndGestureNotification, _kTooltipTextBeganEditingNotification, 

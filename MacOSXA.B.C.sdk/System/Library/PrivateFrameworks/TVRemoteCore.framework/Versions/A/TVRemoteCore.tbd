@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           A9ED8DDF-EAA0-38F0-90A9-6465CA73DA4B
+    value:           93674EF4-126C-3D07-BBE1-AADBCC25CA6F
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           DF79F4F0-F553-3964-BF9E-E613D76BB06F
+    value:           5E2F1E8B-E57E-3A22-81FD-30DAA71F83E9
 install-name:    '/System/Library/PrivateFrameworks/TVRemoteCore.framework/Versions/A/TVRemoteCore'
-current-version: 135.40.15
+current-version: 190.0.12
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _NSStringFromRMSMessageType, _NSStringFromRMSResponseCode, 
@@ -17,7 +17,7 @@ exports:
                        _TVRCButtonTypeDescription, _TVRCConnectionInvalidatedNotification, 
                        _TVRCDeviceConnectionTypeDescription, _TVRCDeviceModelTypeAirplaySetTopBox, 
                        _TVRCDeviceModelTypeAirplayStick, _TVRCDeviceModelTypeAirplayTelevision, 
-                       _TVRCErrorDomain, _TVRCErrorMediaRemotePairingLockoutDelayKey, 
+                       _TVRCDeviceNameKey, _TVRCErrorDomain, _TVRCErrorMediaRemotePairingLockoutDelayKey, 
                        _TVRCFetchLaunchableApplicationsEvent, _TVRCFetchUserAccountsEvent, 
                        _TVRCMakeError, _TVRCMatchPointServiceAddedNotification, _TVRCMatchPointServiceNameChangedNotification, 
                        _TVRCMatchPointServiceRemovedNotification, _TVRCMediaRemoteIDKey, 
@@ -40,7 +40,8 @@ exports:
                        _TVRMSVolumeDidUpdateMessageReadFrom, _TVRMSWifiAvailabilityDidChangeMessageReadFrom, 
                        _TVRemoteCoreVersionNumber, _TVRemoteCoreVersionString, __TVRCButtonLongPressBeginActionKey, 
                        __TVRCButtonLongPressEndActionKey, __TVRCGeneralLog, __TVRCHomeKitLog, 
-                       __TVRCMDMLog, __TVRCMRTelevisionWrapperAssociatedObject, __TVRCMediaRemoteConnectionLog, 
+                       __TVRCMDMLog, __TVRCMRTelevisionWrapperAssociatedObject, __TVRCMediaEventsManagerLog, 
+                       __TVRCMediaRemoteConnectionLog, __TVRCMediaRemoteEndpointManagerLog, 
                        __TVRCMediaRemoteKeyboardLog, __TVRCRMSLog, __TVRCRapportLog, 
                        __TVRCRemoteTextInputLog, __TVRCSendVirtualTouchEvent, _kTVRAppleTVModelString, 
                        _kTVRCReconnectionWindow ]
@@ -77,8 +78,8 @@ exports:
                        _TVRCMediaRemoteEventTranslator, _TVRCMediaRemoteKeyboardAdapter, 
                        _TVRCMediaRemoteKeyboardImplManager, _TVRCMediaRemoteLegacyKeyboardImpl, 
                        _TVRCMediaRemoteRemoteTextInputKeyboardImpl, _TVRCPreferredDeviceManager, 
-                       _TVRCRPCompanionLinkClientWrapper, _TVRCRPCompanionLinkClientWrapper_UnpairedBLE, 
-                       _TVRCRapportDeviceImpl, _TVRCRapportDeviceQuery, _TVRCRapportDeviceRecord, 
+                       _TVRCRPCompanionLinkClientWrapper, _TVRCRapportDeviceImpl, 
+                       _TVRCRapportDeviceManager, _TVRCRapportDeviceQuery, _TVRCRapportDeviceRecord, 
                        _TVRCRapportMediaEventsManager, _TVRCRapportRemoteTextInputKeyboardImpl, 
                        _TVRCWeakObjectWrapper, _TVRCXPCClient, _TVRCXPCProtocolManager, 
                        _TVRDeviceAggregate, _TVRXDevice, _TVRXDeviceAuthenticationChallenge, 

@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           8CBD5F5B-8FD5-39F6-8D2C-609C7E839E11
+    value:           77FAD29B-4807-38AC-9F14-5ABD80AA3C4F
   - target:          x86_64-maccatalyst
-    value:           8CBD5F5B-8FD5-39F6-8D2C-609C7E839E11
+    value:           77FAD29B-4807-38AC-9F14-5ABD80AA3C4F
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           5EF07EAA-CD62-3FF9-9414-200CDA787ABE
+    value:           6E00AFC7-105E-371D-A2CA-4B85E3AF13E3
   - target:          arm64e-maccatalyst
-    value:           5EF07EAA-CD62-3FF9-9414-200CDA787ABE
+    value:           6E00AFC7-105E-371D-A2CA-4B85E3AF13E3
 install-name:    '/System/Library/PrivateFrameworks/SiriCore.framework/Versions/A/SiriCore'
 current-version: 0
 compatibility-version: 0
@@ -34,7 +34,6 @@ exports:
                        _SiriCoreSQLiteQueryCreateRangeExpression, _SiriCoreSiriConnectionErrorDomain, 
                        _SiriCoreSiriConnectionHTTPErrorStatusCodeKey, _SiriCoreSiriConnectionHTTPRedirectValueKey, 
                        _SiriCoreSiriConnectionShouldSkipIDSOnNextAttemptKey, _SiriCoreSiriConnectionShouldSkipTuscanyOnNextAttemptKey, 
-                       _SiriCoreTrialAllocationUpdate, _SiriCoreTrialAllocationsStringGet, 
                        _SiriCoreUUIDStringCreate, _SiriCoreUserAgentStringCreate, 
                        __COUNT_QUERY, __DB_SCHEMA0, __DB_SCHEMA1, __DB_SCHEMA2, __DB_SCHEMA3, 
                        __DB_SCHEMA4, __DB_SCHEMA5, __DB_SCHEMA6, __DB_SCHEMA7, __DB_VERS, 
@@ -47,12 +46,13 @@ exports:
                        SiriCoreLinkRecommendationInfo, SiriCoreNWConnection, SiriCoreNWContext, 
                        SiriCoreNetworkActivity, SiriCoreNetworkActivityTracing, SiriCoreNetworkManager, 
                        SiriCoreNetworkQualityReport, SiriCoreNetworkSessionProvider, 
-                       SiriCorePingInfo, SiriCoreSQLiteColumnConstraint, SiriCoreSQLiteColumnDescription, 
-                       SiriCoreSQLiteDatabase, SiriCoreSQLiteIndexDescription, SiriCoreSQLiteQuery, 
-                       SiriCoreSQLiteQueryCriterion, SiriCoreSQLiteQueryOrder, SiriCoreSQLiteQueryRange, 
-                       SiriCoreSQLiteQueryResult, SiriCoreSQLiteStatement, SiriCoreSQLiteTableConstraint, 
-                       SiriCoreSQLiteTableDescription, SiriCoreSiriBackgroundConnection, 
-                       SiriCoreSiriConnection, SiriCoreSiriConnectionInfo, SiriCoreSiriDaemonLaunchContext, 
+                       SiriCoreNetworkingAnalytics, SiriCorePingInfo, SiriCoreSQLiteColumnConstraint, 
+                       SiriCoreSQLiteColumnDescription, SiriCoreSQLiteDatabase, SiriCoreSQLiteIndexDescription, 
+                       SiriCoreSQLiteQuery, SiriCoreSQLiteQueryCriterion, SiriCoreSQLiteQueryOrder, 
+                       SiriCoreSQLiteQueryRange, SiriCoreSQLiteQueryResult, SiriCoreSQLiteStatement, 
+                       SiriCoreSQLiteTableConstraint, SiriCoreSQLiteTableDescription, 
+                       SiriCoreSiriBackgroundConnection, SiriCoreSiriConnection, 
+                       SiriCoreSiriConnectionInfo, SiriCoreSiriDaemonLaunchContext, 
                        SiriCoreSpeechPacket, SiriCoreSymptomsReporter, SiriCoreSyncDatabase, 
                        SiriCoreSyncRecord, SiriCoreWLANDelegate, SiriCoreWiFiManagerClient, 
                        SiriCoreZlibDataCompressor, SiriCoreZlibDataDecompressor, 

@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           B14BC194-5C91-3118-BE1A-4CF054C6EEBB
+    value:           8BB28976-9239-3926-96F4-8C0ACBC99CD6
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           A4E0D815-7CB0-3751-83AC-DCC60A878AD1
+    value:           85F60EA3-E99B-36E3-BEC5-70D46CE8D6A2
 install-name:    '/System/Library/PrivateFrameworks/StoreJavaScript.framework/Versions/A/StoreJavaScript'
 current-version: 379
 exports:

@@ -4,21 +4,22 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           93E85C26-35EF-3A83-80B0-D22B62FC8B03
+    value:           B193BB13-68D0-38A2-8139-3D5BCAAD4466
   - target:          x86_64-maccatalyst
-    value:           93E85C26-35EF-3A83-80B0-D22B62FC8B03
+    value:           B193BB13-68D0-38A2-8139-3D5BCAAD4466
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           F094F41D-E589-3CCE-8D0B-F5DDF2E73C6B
+    value:           555A9ADD-38E6-3EB2-8E15-DFE24E13D2A0
   - target:          arm64e-maccatalyst
-    value:           F094F41D-E589-3CCE-8D0B-F5DDF2E73C6B
+    value:           555A9ADD-38E6-3EB2-8E15-DFE24E13D2A0
 install-name:    '/System/Library/Frameworks/AutomaticAssessmentConfiguration.framework/Versions/A/AutomaticAssessmentConfiguration'
 exports:
   - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _AEAssessmentErrorDomain ]
-    objc-classes:    [ AEAssessmentConfiguration, AEAssessmentSession ]
+    objc-classes:    [ AEAssessmentApplication, AEAssessmentConfiguration, AEAssessmentParticipantConfiguration, 
+                       AEAssessmentSession ]
 ...

@@ -4,25 +4,27 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           6259386D-AA07-3A27-A521-A896E1D678C3
+    value:           58627353-9B42-3DED-81FA-D0ABB8ADA728
   - target:          x86_64-maccatalyst
-    value:           6259386D-AA07-3A27-A521-A896E1D678C3
+    value:           58627353-9B42-3DED-81FA-D0ABB8ADA728
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           029437B8-B891-3B89-A32A-FBC3EB9498D1
+    value:           24E9C951-246B-30B7-9F19-1365B2165129
   - target:          arm64e-maccatalyst
-    value:           029437B8-B891-3B89-A32A-FBC3EB9498D1
+    value:           24E9C951-246B-30B7-9F19-1365B2165129
 install-name:    '/System/Library/PrivateFrameworks/AdPlatformsCommon.framework/Versions/A/AdPlatformsCommon'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _APDefaultsBundleID, _APDiagnosticsSubmissionAllowed, _APLogForCategory, 
                        _APSimulateCrash, _APSimulateCrashNoKillProcess, _AdPlatformsCommonVersionNumber, 
-                       _AdPlatformsCommonVersionString, _kAPAnalyticsAdEventTypeNavigationAttemptBlockedDueToAccidentalTapForMRAIDActionType, 
-                       _kAPAutomationLoggingEnabled, _kAPMetricAreNetworkDatesKey, 
+                       _AdPlatformsCommonVersionString, _kAPAccountChangedNotification, 
+                       _kAPAdLibBundleID, _kAPAnalyticsAdEventTypeNavigationAttemptBlockedDueToAccidentalTapForMRAIDActionType, 
+                       _kAPAutomationLoggingEnabled, _kAPDisplayServerQE1Base, _kAPDisplayServerQE2Base, 
+                       _kAPDisplayServerQE3Base, _kAPDisplayServerQE4Base, _kAPMetricAreNetworkDatesKey, 
                        _kAPMetricBundleIdentifierKey, _kAPMetricClientIdentifierKey, 
                        _kAPMetricClientInfoKey, _kAPMetricClientSourceKey, _kAPMetricContentIdentifierKey, 
                        _kAPMetricContextIdentifierKey, _kAPMetricDeviceIdentifierKey, 
@@ -49,7 +51,10 @@ exports:
                        APMescalSigningRequestor, APMetric, APMetricDaemonDelivery, 
                        APMetricNotificationRegistrar, APOrderedMutableDictionary, 
                        APPCControllerRequester, APRepresentationData, APSupportedSecureEncodedClass, 
-                       APTapAction, APUnfairLock, APUnfairRecursiveLock, APXPCActionRequester, 
-                       APXPCConnection, APXPCListenerManager, APXPCRemoteConnection, 
-                       MetricsModuleCommon ]
+                       APSystemInternal, APTapAction, APUnfairLock, APUnfairRecursiveLock, 
+                       APXPCActionRequester, APXPCConnection, APXPCListenerManager, 
+                       APXPCRemoteConnection, MetricsModuleCommon, PCNativeAsset, 
+                       PCNativeAssetInfo, PCNativeBorderStyle, PCNativeButton, PCNativeButtonStyle, 
+                       PCNativeColor, PCNativeElement, PCNativePrimitiveColor, PCNativeRepresentation, 
+                       PCNativeShadowStyle, PCNativeStyle ]
 ...

@@ -4,30 +4,33 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           8E33297E-B851-34B3-B76F-7111962CE7A1
+    value:           853DBC03-AB98-3C64-8506-FFEA5ED163E1
   - target:          x86_64-maccatalyst
-    value:           8E33297E-B851-34B3-B76F-7111962CE7A1
+    value:           853DBC03-AB98-3C64-8506-FFEA5ED163E1
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           9DB966EB-F8E6-3D22-94B6-123CB760800E
+    value:           92B1894A-2642-317F-B97E-6AD6E01EFD03
   - target:          arm64e-maccatalyst
-    value:           9DB966EB-F8E6-3D22-94B6-123CB760800E
+    value:           92B1894A-2642-317F-B97E-6AD6E01EFD03
 install-name:    '/System/Library/PrivateFrameworks/MediaConversionService.framework/Versions/A/MediaConversionService'
-current-version: 340.0.220
+current-version: 401.3.110
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _MediaConversionServiceVersionNumber, _MediaConversionServiceVersionString, 
-                       _PAMediaConversionNameForErrorCode, _PAMediaConversionNameForJobPriority, 
-                       _PAMediaConversionNameForJobStatus, _PAMediaConversionNameForValueType, 
-                       _PAMediaConversionOptionNameToValueTypeMapping, _PAMediaConversionResourceRoleMainResource, 
-                       _PAMediaConversionResourceRoleMainResourceSpatialOverCapture, 
+                       _PAMediaConversionJobPriorityIsOptional, _PAMediaConversionNameForErrorCode, 
+                       _PAMediaConversionNameForJobPriority, _PAMediaConversionNameForJobStatus, 
+                       _PAMediaConversionNameForValueType, _PAMediaConversionOptionNameToValueTypeMapping, 
+                       _PAMediaConversionResourceRoleMainResource, _PAMediaConversionResourceRoleMainResourceSpatialOverCapture, 
                        _PAMediaConversionResourceRoleVideoComplement, _PAMediaConversionResourceRoleVideoComplementSpatialOverCapture, 
-                       _PAMediaConversionServiceAdjustmentDataKey, _PAMediaConversionServiceAdjustmentFinalizationDispositionKey, 
+                       _PAMediaConversionServiceAdjustmentCropKey, _PAMediaConversionServiceAdjustmentDataKey, 
+                       _PAMediaConversionServiceAdjustmentFinalizationDispositionKey, 
                        _PAMediaConversionServiceAdjustmentFormatIdentifierKey, _PAMediaConversionServiceAdjustmentFormatVersionKey, 
+                       _PAMediaConversionServiceAdjustmentOrientationKey, _PAMediaConversionServiceBlastDoorSourcePropertiesKey, 
+                       _PAMediaConversionServiceBlastDoorVideoComplementSourcePropertiesKey, 
                        _PAMediaConversionServiceBookmarkKey, _PAMediaConversionServiceConversionDequeueAndStartProcessingDateKey, 
                        _PAMediaConversionServiceConversionEndDateKey, _PAMediaConversionServiceConversionPerfCheckDataKey, 
                        _PAMediaConversionServiceConversionStartDateKey, _PAMediaConversionServiceDeduplicatedAgainstOriginalRequestIdentifierKey, 
@@ -48,7 +51,8 @@ exports:
                        _PAMediaConversionServiceOptionAVMetadataTitleKey, _PAMediaConversionServiceOptionAdjustmentFinalizationBehaviorKey, 
                        _PAMediaConversionServiceOptionAdjustmentFinalizationCandidacyKey, 
                        _PAMediaConversionServiceOptionAdjustmentInformationKey, _PAMediaConversionServiceOptionApplyOrientationTransformKey, 
-                       _PAMediaConversionServiceOptionBoundingBoxKey, _PAMediaConversionServiceOptionColorSpaceKey, 
+                       _PAMediaConversionServiceOptionBlastDoorMediaIsImageKey, _PAMediaConversionServiceOptionBoundingBoxKey, 
+                       _PAMediaConversionServiceOptionColorSpaceKey, _PAMediaConversionServiceOptionCropAdjustmentInformationKey, 
                        _PAMediaConversionServiceOptionEnableOutputCorruptionDetectionHeuristicsKey, 
                        _PAMediaConversionServiceOptionExportPresetNameKey, _PAMediaConversionServiceOptionFormatConversionOnlyKey, 
                        _PAMediaConversionServiceOptionIsGIFExportConversionKey, _PAMediaConversionServiceOptionIsPassthroughConversionKey, 
@@ -60,6 +64,7 @@ exports:
                        _PAMediaConversionServiceOptionPowerEfficiencyMinimumDurationKey, 
                        _PAMediaConversionServiceOptionProgressUpdateTimeIntervalKey, 
                        _PAMediaConversionServiceOptionRasterizationDPIKey, _PAMediaConversionServiceOptionRequestReasonKey, 
+                       _PAMediaConversionServiceOptionRequiresBlastDoorAccessKey, 
                        _PAMediaConversionServiceOptionRotationAngleDegreesKey, _PAMediaConversionServiceOptionScaleFactorKey, 
                        _PAMediaConversionServiceOptionTargetFileSizeKey, _PAMediaConversionServiceOptionTimeScaleMultiplierKey, 
                        _PAMediaConversionServiceOptionTimeScaleRangeKey, _PAMediaConversionServiceOptionTrimRangeKey, 

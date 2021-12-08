@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           093CF6F4-DF5C-33F0-AA5A-B308F00F5895
+    value:           ADE05D86-8D68-39DA-A91E-4C8048E1B6C5
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           D65E1606-784B-35D0-86AB-4B0D26D940CD
+    value:           7F215848-BD90-3C4E-B27B-96AAF6C0AA03
 install-name:    '/usr/lib/libpam.1.dylib'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

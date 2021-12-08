@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           4635B607-428D-36EF-B865-B49AA03B4728
+    value:           2E00AAB7-5777-325F-A26B-DDE2FA74459C
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           71D0903D-38EC-3283-B8D0-236A96116A8C
+    value:           C7A99689-11DE-30CD-8AAA-8A1D07AF7F9D
 install-name:    '/System/Library/PrivateFrameworks/CSCSupport.framework/Versions/A/CSCSupport'
 current-version: 0
 compatibility-version: 0

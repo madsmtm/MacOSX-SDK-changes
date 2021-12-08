@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           F7EE5B8C-9809-391A-BDA2-5EADED37B5B5
+    value:           0CAB5817-1D8D-31C4-BD46-8E9511CA7546
   - target:          x86_64-maccatalyst
-    value:           F7EE5B8C-9809-391A-BDA2-5EADED37B5B5
+    value:           0CAB5817-1D8D-31C4-BD46-8E9511CA7546
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           49D9B1E0-E58D-3B0A-9DBF-4F03D77888B0
+    value:           2078C86E-483D-3FE2-A07D-0E7F0EEBDDB7
   - target:          arm64e-maccatalyst
-    value:           49D9B1E0-E58D-3B0A-9DBF-4F03D77888B0
+    value:           2078C86E-483D-3FE2-A07D-0E7F0EEBDDB7
 install-name:    '/System/Library/PrivateFrameworks/FaceCore.framework/Versions/A/FaceCore'
 current-version: 4.3.2
 exports:

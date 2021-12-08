@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           D88069E6-24BA-3EA9-A816-13876C371FD3
+    value:           0624464B-11FB-32FD-BEF0-78F2AE3C8946
   - target:          x86_64-maccatalyst
-    value:           D88069E6-24BA-3EA9-A816-13876C371FD3
+    value:           0624464B-11FB-32FD-BEF0-78F2AE3C8946
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           BC5C4C5E-E9C9-3CD3-95D8-461D68B027BD
+    value:           01FC9623-B7E1-3E50-84A7-29C0699914E1
   - target:          arm64e-maccatalyst
-    value:           BC5C4C5E-E9C9-3CD3-95D8-461D68B027BD
+    value:           01FC9623-B7E1-3E50-84A7-29C0699914E1
 install-name:    '/System/Library/PrivateFrameworks/FontServices.framework/libType1Scaler.dylib'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 

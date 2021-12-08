@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           CFF0F9FA-EC49-3CD3-A048-9BC72CFA9271
+    value:           03746B80-2845-3D98-9935-6F1E7BC9559F
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           41187853-7E15-30FD-8123-9E9E4162B232
+    value:           510E8B3E-579C-3968-98EE-40CBB1DFDD78
 install-name:    '/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/3802/Libraries/libGPUCompiler.dylib'
 current-version: 802.6
 exports:

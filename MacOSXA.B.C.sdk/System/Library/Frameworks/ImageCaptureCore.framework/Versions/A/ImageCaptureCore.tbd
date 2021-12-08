@@ -4,20 +4,20 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           594AAAFB-8171-3A3B-9536-9648D14A05E2
+    value:           CE544887-E4F1-3EA9-BEC8-EACEA8BDAD2A
   - target:          x86_64-maccatalyst
-    value:           594AAAFB-8171-3A3B-9536-9648D14A05E2
+    value:           CE544887-E4F1-3EA9-BEC8-EACEA8BDAD2A
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           AB9875A3-3C58-3B55-81C0-04B2954D7B3F
+    value:           3A58FD6C-A09F-3C4B-B114-DEBF455F4B26
   - target:          arm64e-maccatalyst
-    value:           AB9875A3-3C58-3B55-81C0-04B2954D7B3F
+    value:           3A58FD6C-A09F-3C4B-B114-DEBF455F4B26
 install-name:    '/System/Library/Frameworks/ImageCaptureCore.framework/Versions/A/ImageCaptureCore'
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _ICADevicesFrameworkPath, _ICAuthorizationStatusAuthorized, 
                        _ICAuthorizationStatusDenied, _ICAuthorizationStatusNotDetermined, 

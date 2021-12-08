@@ -4,19 +4,19 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           F47B626C-0372-388A-8BBA-1A485C8F0D25
+    value:           87932DD6-312E-361E-8C74-E5B27151FCD1
   - target:          x86_64-maccatalyst
-    value:           F47B626C-0372-388A-8BBA-1A485C8F0D25
+    value:           87932DD6-312E-361E-8C74-E5B27151FCD1
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           95599CEF-2008-38A3-AD7E-F37F17A5847D
+    value:           301EE09B-7F00-352F-8958-2ECB3ACCEF7E
   - target:          arm64e-maccatalyst
-    value:           95599CEF-2008-38A3-AD7E-F37F17A5847D
+    value:           301EE09B-7F00-352F-8958-2ECB3ACCEF7E
 install-name:    '/System/Library/CoreServices/Encodings/libArabicConverter.dylib'
-current-version: 90
+current-version: 100
 exports:
   - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]

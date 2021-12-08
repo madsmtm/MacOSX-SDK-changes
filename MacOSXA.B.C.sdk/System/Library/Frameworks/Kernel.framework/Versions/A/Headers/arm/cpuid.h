@@ -39,6 +39,7 @@
 #include <stdint.h>
 #include <mach/boolean.h>
 #include <machine/machine_cpuid.h>
+#include <machine/machine_routines.h>
 
 typedef struct {
 	uint32_t arm_rev : 4,  /* 00:03 revision number */
@@ -176,6 +177,24 @@ typedef union {
 #define CPU_PART_FIRESTORM_TONGA    0x23
 
 
+/* H13J e-Core */
+#define CPU_PART_ICESTORM_JADE_CHOP    0x24
+#define CPU_PART_ICESTORM_JADE_DIE     0x28
+
+/* H13J p-Core */
+#define CPU_PART_FIRESTORM_JADE_CHOP   0x25
+#define CPU_PART_FIRESTORM_JADE_DIE    0x29
+
+
+
+/* H14 e-Core */
+#define CPU_PART_BLIZZARD           0x30
+
+/* H14 p-Core */
+#define CPU_PART_AVALANCHE          0x31
+
+
+
 
 
 /* Cache type identification */
@@ -258,6 +277,7 @@ extern arm_debug_info_t *arm_debug_info(void);
 
 extern void do_cacheid(void);
 extern cache_info_t *cache_info(void);
+extern cache_info_t *cache_info_type(cluster_type_t cluster_type);
 
 extern void do_mvfpid(void);
 extern arm_mvfp_info_t *arm_mvfp_info(void);

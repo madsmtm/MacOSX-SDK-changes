@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           39B5676B-D3B2-39E3-BC51-187F6D9137A3
+    value:           C6D66408-55B2-3C46-B51B-009100E04EB7
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           0EC4440D-889F-34F5-A1B2-3D282DFBC853
+    value:           3332BD8A-3393-36BE-8241-6D2D1063EFF3
 install-name:    '/usr/lib/libiodbc.2.dylib'
 current-version: 4.18
 compatibility-version: 4

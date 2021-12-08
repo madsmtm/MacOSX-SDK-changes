@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           7DC1A2C8-B4FB-3C9B-9E76-EFF6550E2BDD
+    value:           88AFEB91-D0E5-308C-A64F-A2AD79F583CE
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           D8D05B2E-2ECD-37EB-BBED-4BB6E63450C2
+    value:           123CB922-3C96-3BD9-B223-CFF7CA8292CC
 install-name:    '/System/Library/PrivateFrameworks/IMTranscoderAgent.framework/Versions/A/IMTranscoderAgent'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

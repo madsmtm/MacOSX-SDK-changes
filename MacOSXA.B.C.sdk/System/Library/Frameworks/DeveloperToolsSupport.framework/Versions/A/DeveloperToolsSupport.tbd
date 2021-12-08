@@ -4,22 +4,22 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           13C3E9D5-07A8-3E9D-8F03-FF620CF850E7
+    value:           ED591E07-E421-316E-B9F3-86C097D077D8
   - target:          x86_64-maccatalyst
-    value:           13C3E9D5-07A8-3E9D-8F03-FF620CF850E7
+    value:           ED591E07-E421-316E-B9F3-86C097D077D8
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           73C674C1-A1E8-3989-B2DC-75415A70844D
+    value:           52F2FCCD-EB53-3345-9BD5-F145DA19CACA
   - target:          arm64e-maccatalyst
-    value:           73C674C1-A1E8-3989-B2DC-75415A70844D
+    value:           52F2FCCD-EB53-3345-9BD5-F145DA19CACA
 install-name:    '/System/Library/Frameworks/DeveloperToolsSupport.framework/Versions/A/DeveloperToolsSupport'
-current-version: 10
+current-version: 12
 swift-abi-version: 7
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ '_$s12ModifierBase21DeveloperToolsSupport22LibraryContentProviderPTl', 
                        '_$s21DeveloperToolsSupport11LibraryItemV8CategoryV5otherAEvgZ', 
                        '_$s21DeveloperToolsSupport11LibraryItemV8CategoryV6effectAEvgZ', 

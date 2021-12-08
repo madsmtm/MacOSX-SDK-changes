@@ -3,16 +3,17 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           01366A42-5979-3A62-8152-3A14B5512827
+    value:           98FAA531-D900-3703-8DE7-38DDC8EBEAAB
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           D8C0F74F-87ED-34E2-8856-47EECA41445E
+    value:           7BC53F58-6D39-334B-9DD1-A623D7BAC05B
 install-name:    '/System/Library/PrivateFrameworks/CoreRecognition.framework/Versions/A/CoreRecognition'
 current-version: 157
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
-    symbols:         [ _CRAdaptiveThresholdImage, _CRCameraReaderErrorDomain, _CRCodeRedeemerErrorDomain, 
+    symbols:         [ _CRAdaptiveThresholdImage, _CRCameraReaderErrorDomain, _CRCameraReaderIDCardCapturePathAutomatic, 
+                       _CRCameraReaderIDCardCapturePathFallback, _CRCodeRedeemerErrorDomain, 
                        _CRCodeRedeemerInfoStatsKey, _CRInsightsCardImageCutBufferKey, 
                        _CRInsightsCardImageCutEmbossedBufferKey, _CRInsightsCardImageFixedCutLandscape, 
                        _CRInsightsCardImageFreeformLandscape, _CRInsightsCardImageFreeformLandscapeInverted, 

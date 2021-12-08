@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           19106DFB-75CF-3160-B7E5-D529D18D2F28
+    value:           71BCCEAC-2848-3448-948F-6180AEBAB877
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           52B7FA95-369B-32B7-8923-537D81300857
+    value:           343FDD13-553F-3B5C-897A-D267C5E33DF3
 install-name:    '/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/SpeechSynthesis.framework/Versions/A/SpeechSynthesis'
 parent-umbrella:
   - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
@@ -16,7 +16,8 @@ exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _CancelSpokenNotification, _CancelSpokenNotificationForProcess, 
                        _CancelTalkingAlert, _ContinueSpeech, _CopyAvailableIntervals, 
-                       _CopyAvailablePhrases, _CopyIdentifierStringForVoiceSpec, 
+                       _CopyAvailablePhrases, _CopyIdentifierStringForPreferredVoiceInListWithLocale, 
+                       _CopyIdentifierStringForPreferredVoiceWithLocale, _CopyIdentifierStringForVoiceSpec, 
                        _CopyPhonemesFromText, _CopySpeechProperty, _CopySpeechSynthesisVoicesForMode, 
                        _CopyTimeAnnouncementsPreferences, _CountVoices, _CreateSpeechLanguageLocale, 
                        _DisposeSpeechChannel, _GetIdentifierStringForPreferredVoiceInListWithLocale, 
@@ -165,7 +166,7 @@ exports:
                        __ZN19SpeechChannelHandle20CopyVoiceDescriptionEPK9VoiceSpecP16VoiceDescription, 
                        __ZN19SpeechChannelHandle22OutputToFileDescriptorEPKv, __ZN19SpeechChannelHandle32CopyIdentifierStringForVoiceSpecEPK9VoiceSpec, 
                        __ZN19SpeechChannelHandle32MakeVoiceSpecForIdentifierStringEPK10__CFStringP9VoiceSpec, 
-                       __ZN19SpeechChannelHandle36GetIdentifierStringForPreferredVoiceEPK9__CFArrayPK10__CFLocale, 
+                       __ZN19SpeechChannelHandle37CopyIdentifierStringForPreferredVoiceEPK9__CFArrayPK10__CFLocale, 
                        __ZN19SpeechChannelHandle8ShutdownEv, __ZN19SpeechChannelHandle9SetRefConEPv, 
                        __ZN19SpeechChannelHandleC1Ev, __ZN19SpeechChannelHandleC2Ev, 
                        __ZN19SpeechChannelHandleD1Ev, __ZN19SpeechChannelHandleD2Ev, 

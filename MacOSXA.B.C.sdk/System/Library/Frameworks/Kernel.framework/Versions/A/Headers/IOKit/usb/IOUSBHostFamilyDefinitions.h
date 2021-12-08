@@ -160,7 +160,7 @@ enum tIOUSBHostPortStatus
 #pragma mark Entitlements
 #define kIOUSBTransportDextEntitlement                          "com.apple.developer.driverkit.transport.usb"
 #define kIOUSBHostVMEntitlement                                 "com.apple.vm.device-access"
-#define kIOUSBHostControllerInterfaceEntitlement                "com.apple.usb.hostcontrollerinterface"
+#define kIOUSBHostControllerInterfaceEntitlement                "com.apple.developer.usb.host-controller-interface"
 
 #pragma mark Registry property names
 
@@ -267,6 +267,7 @@ enum tIOUSBHostPortStatus
 #define kUSBHostHubPropertyStartupDelay                         "kUSBHubStartupDelay"                   // OSNumber ms delay before creating downstream ports
 #define kUSBHostHubPropertyPortSequenceDelay                    "kUSBHubPortSequenceDelay"              // OSNumber ms delay between port creation
 #define kUSBHostHubPropertyHubPowerSupplyType                   "kUSBHubPowerSupplyType"                // OSNumber for tPowerSupply hub is, 2 for bus-powered, 1 for self
+#define kUSBHostHubPropertyGlobalSuspendSupported               "UsbHubGlobalSuspendSupported"          // OSBoolean false to attempt selective suspend (legacy behavior)
 
 #define kUSBHostControllerPropertyIsochronousRequiresContiguous "kUSBIsochronousRequiresContiguous"
 #define kUSBHostControllerPropertySleepSupported                "kUSBSleepSupported"
@@ -284,7 +285,7 @@ enum tIOUSBHostPortStatus
 #define kUSBHostControllerPropertyDisableWakeSources            "UsbHostControllerDisableWakeSources"   // OSBoolean true to disable connect/disconnect/overcurrent wake sources
 #define kUSBHostControllerPropertyPersistFullSpeedIsochronous   "UsbHostControllerPersistFullSpeedIsochronous"  // OSBoolean true to reduce commands related to full-speed isochronous endpoints
 #define kUSBHostControllerPropertyDeferRegisterService          "UsbHostControllerDeferRegisterService" // OSBoolean true to defer registerService call by base class during start
-#define kUSBHostControllerPropertyStreamPolicy                  "UsbHostControllerStreamPolicy"         // OSNumber containing AppleUSBHostController::tStreamPolicy
+#define kUSBHostControllerPropertyStreamPolicy                  "UsbHostControllerStreamPolicy"         // OSNumber containing tUSBStreamPolicy
 #define kUSBHostControllerPropertyTierLimit                     "UsbHostControllerTierLimit"            // OSNumber containing the number of tiers supported by this controller (See USB 2.0 § 4.1.1)
 
 #define kIOUSBHostDeviceClassName                               "IOUSBHostDevice"

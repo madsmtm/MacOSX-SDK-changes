@@ -3,20 +3,20 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           407DB60D-D5B6-36D2-A8FE-AEE8F6C8F558
+    value:           0851380D-DEC9-33A0-9287-8C49821CE948
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           85D0292B-7E9A-33B1-A22B-F06EA2D83136
+    value:           3F3C5BB5-5BF9-3685-974F-D0F06C9F6DD5
 install-name:    '/System/Library/Frameworks/JavaRuntimeSupport.framework/Versions/A/JavaRuntimeSupport'
-current-version: 78
+current-version: 79
 exports:
   - targets:         [ x86_64-macos ]
     symbols:         [ _JRSCopyCanonicalLanguageForPrimaryLanguage, _JRSCopyOSJavaSupportVersion, 
                        _JRSCopyOSName, _JRSCopyOSVersion, _JRSCopyPrimaryLanguage, 
                        _JRSSetDefaultLocalization ]
     objc-classes:    [ JRSSecurity ]
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ '$ld$previous$/System/Library/Frameworks/JavaVM.framework/Versions/A/Frameworks/JavaRuntimeSupport.framework/Versions/A/JavaRuntimeSupport$$1$10.0$10.16$$', 
                        _JRSAccessibilityUnregisterUniqueIdForUIElement, _JRSFontAlignStyleForFractionalMeasurement, 
                        _JRSFontAlignStyleForIntegerMeasurement, _JRSFontCreateFallbackFontForCharacters, 

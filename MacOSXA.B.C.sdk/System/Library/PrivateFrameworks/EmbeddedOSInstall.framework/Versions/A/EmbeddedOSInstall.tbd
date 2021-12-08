@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           ACB2E8D3-D936-32BA-88A5-3AC141724A19
+    value:           4E73A0FE-BD14-3FD6-88D4-D140B923800E
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           44E330DE-8BF6-3114-AA95-AED15485E7E1
+    value:           E782596D-68CE-3013-B6C9-595029D1B012
 install-name:    '/System/Library/PrivateFrameworks/EmbeddedOSInstall.framework/Versions/A/EmbeddedOSInstall'
 exports:
   - targets:         [ x86_64-macos ]

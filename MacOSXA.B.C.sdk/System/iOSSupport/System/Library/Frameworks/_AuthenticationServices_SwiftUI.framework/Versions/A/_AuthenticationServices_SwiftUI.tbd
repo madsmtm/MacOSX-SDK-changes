@@ -3,16 +3,16 @@ tbd-version:     4
 targets:         [ x86_64-maccatalyst, arm64-maccatalyst, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-maccatalyst
-    value:           33A0C065-3E35-3351-A7EA-0BCDC69FEC85
+    value:           E79803A2-44FB-3ABC-8F36-74652B41F1C3
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-maccatalyst
-    value:           4D613CEE-6C41-3F89-A03D-5CF834B9311A
+    value:           76F7CEFB-7BE3-3EAB-812C-4DE41D383FAF
 install-name:    '/System/iOSSupport/System/Library/Frameworks/_AuthenticationServices_SwiftUI.framework/Versions/A/_AuthenticationServices_SwiftUI'
-current-version: 611.1.21
+current-version: 612.1.29
 swift-abi-version: 7
 exports:
-  - targets:         [ arm64e-maccatalyst, x86_64-maccatalyst, arm64-maccatalyst ]
+  - targets:         [ x86_64-maccatalyst, arm64e-maccatalyst, arm64-maccatalyst ]
     symbols:         [ '_$s31_AuthenticationServices_SwiftUI21SignInWithAppleButtonV0cD04ViewAAMc', 
                        '_$s31_AuthenticationServices_SwiftUI21SignInWithAppleButtonV4bodyQrvg', 
                        '_$s31_AuthenticationServices_SwiftUI21SignInWithAppleButtonV4bodyQrvpMV', 

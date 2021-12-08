@@ -1,24 +1,20 @@
 --- !tapi-tbd
 tbd-version:     4
-targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
-                   arm64e-macos, arm64e-maccatalyst ]
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           53DA07F7-0FE4-3FF2-9D31-6A27905E1588
+    value:           54E7CEDD-927F-3E75-95EE-316806F0A439
   - target:          x86_64-maccatalyst
-    value:           53DA07F7-0FE4-3FF2-9D31-6A27905E1588
+    value:           54E7CEDD-927F-3E75-95EE-316806F0A439
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
-  - target:          arm64-maccatalyst
-    value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           5E92B2D7-201A-3C06-8BC3-839E06E68FAF
+    value:           B388FE42-A83A-31FD-9482-E26D03B081FD
   - target:          arm64e-maccatalyst
-    value:           5E92B2D7-201A-3C06-8BC3-839E06E68FAF
+    value:           B388FE42-A83A-31FD-9482-E26D03B081FD
 install-name:    '/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libCVMSPluginSupport.dylib'
 exports:
-  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
-                       arm64-macos, arm64-maccatalyst ]
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64-macos ]
     symbols:         [ _cvmAddModularFunctionToCache, _cvmBuildModularFunctionDeferred, 
                        _cvmBuildModularFunctionSync, _cvmCancelFunctionPointerArrayWrite, 
                        _cvmCreateCVMObject, _cvmCreateHashMachine, _cvmCreateModularFunction, 

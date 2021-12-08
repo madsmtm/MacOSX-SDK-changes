@@ -4,21 +4,21 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           11629AC3-024A-3972-AAD8-A875AEAEBB30
+    value:           DAA78C43-8E75-34FA-9DA6-7755C25B82D2
   - target:          x86_64-maccatalyst
-    value:           11629AC3-024A-3972-AAD8-A875AEAEBB30
+    value:           DAA78C43-8E75-34FA-9DA6-7755C25B82D2
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           1CD60AD4-965C-3DEC-A3B9-9306993C0AB2
+    value:           A51DF613-DD32-3DDB-8953-A90ED0D18959
   - target:          arm64e-maccatalyst
-    value:           1CD60AD4-965C-3DEC-A3B9-9306993C0AB2
+    value:           A51DF613-DD32-3DDB-8953-A90ED0D18959
 install-name:    '/usr/lib/libapple_nghttp2.dylib'
-current-version: 1.41
+current-version: 1.42
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _nghttp2_check_authority, _nghttp2_check_header_name, _nghttp2_check_header_value, 
                        _nghttp2_hd_deflate_bound, _nghttp2_hd_deflate_change_table_size, 

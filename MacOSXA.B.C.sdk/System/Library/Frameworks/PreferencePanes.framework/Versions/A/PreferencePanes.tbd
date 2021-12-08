@@ -3,14 +3,14 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           19F4EB76-E02E-3650-898B-BA126EE1E211
+    value:           23FA687D-FD0C-306B-8408-45A95CB94EE3
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           2EED19AF-3CFA-3918-B6D2-5BBDD6CF4E52
+    value:           0A97D6C9-6392-3B4B-80C2-936F4D8C406F
 install-name:    '/System/Library/Frameworks/PreferencePanes.framework/Versions/A/PreferencePanes'
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _LegacyPreferencePaneMain, _NSPrefPaneHelpMenuAnchorKey, _NSPrefPaneHelpMenuInfoPListKey, 
                        _NSPrefPaneHelpMenuTitleKey, _NSPrefPaneSupportsAutoLayout, 
                        _NSPreferencePaneCancelUnselectNotification, _NSPreferencePaneDidCrashNotification, 
@@ -53,14 +53,14 @@ exports:
                        NSPrefPaneBundle._hardwareTestTool, NSPrefPaneBundle._icon, 
                        NSPrefPaneBundle._iconLabel, NSPrefPaneBundle._iconName, NSPrefPaneBundle._iconNameUsesAssetCatalog, 
                        NSPrefPaneBundle._identifier, NSPrefPaneBundle._ioServiceAttributesToMatch, 
-                       NSPrefPaneBundle._ioServiceToMatch, NSPrefPaneBundle._isDisabledOnServer, 
-                       NSPrefPaneBundle._largeIcon, NSPrefPaneBundle._localizations, 
-                       NSPrefPaneBundle._localizedIconLabels, NSPrefPaneBundle._localizedNames, 
-                       NSPrefPaneBundle._longName, NSPrefPaneBundle._nameIconVariant, 
-                       NSPrefPaneBundle._overrideVisible, NSPrefPaneBundle._path, 
-                       NSPrefPaneBundle._prefPaneObject, NSPrefPaneBundle._remoteViewClass, 
-                       NSPrefPaneBundle._searchAnchors, NSPrefPaneBundle._searchGroupsPath, 
-                       NSPrefPaneBundle._shortName, NSPrefPaneBundle._shortVersion, 
+                       NSPrefPaneBundle._ioServiceToMatch, NSPrefPaneBundle._largeIcon, 
+                       NSPrefPaneBundle._localizations, NSPrefPaneBundle._localizedIconLabels, 
+                       NSPrefPaneBundle._localizedNames, NSPrefPaneBundle._longName, 
+                       NSPrefPaneBundle._nameIconVariant, NSPrefPaneBundle._overrideVisible, 
+                       NSPrefPaneBundle._path, NSPrefPaneBundle._prefPaneObject, 
+                       NSPrefPaneBundle._remoteViewClass, NSPrefPaneBundle._searchAnchors, 
+                       NSPrefPaneBundle._searchGroupsPath, NSPrefPaneBundle._shortName, 
+                       NSPrefPaneBundle._shortVersion, NSPrefPaneBundle._urlSchemes, 
                        NSPrefPaneBundle._visible, NSPrefPaneSearchCenter.mDebug, 
                        NSPrefPaneSearchCenter.mIndexRef, NSPrefPaneSearchCenter.mSKLock, 
                        NSPrefPaneSearchCenter.mValidated, NSPrefPanesCenter._ioIterator, 

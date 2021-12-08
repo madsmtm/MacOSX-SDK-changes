@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           DAB709E7-0A5E-3982-9D71-49CCD0245756
+    value:           8ED1B938-6287-3D04-878B-8C915ABB7A0E
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           D24CBA58-79AD-34C4-88FD-B2AF1E6EC8AE
+    value:           B5115442-8285-3D46-A52E-344E9B692E7C
 install-name:    '/System/Library/PrivateFrameworks/MediaControlSender.framework/Versions/A/MediaControlSender'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
@@ -24,8 +24,8 @@ exports:
                        _AirPlaySettings_GetCString, _AirPlaySettings_GetDouble, _AirPlaySettings_GetInt64, 
                        _AirPlaySettings_RemoveValue, _AirPlaySettings_SetCString, 
                        _AirPlaySettings_SetDouble, _AirPlaySettings_SetInt64, _AirPlaySettings_SetNumber, 
-                       _AirPlaySettings_SetValue, _AirPlaySettings_Synchronize, _HasAirPlayScreenHardwareEncoder, 
-                       _IsAirPlayScreenSupported, _MediaControlClient_Cancel, _MediaControlClient_CopyPlaybackInfo, 
+                       _AirPlaySettings_SetValue, _AirPlaySettings_Synchronize, _IsAirPlayScreenSupported, 
+                       _MediaControlClient_Cancel, _MediaControlClient_CopyPlaybackInfo, 
                        _MediaControlClient_CopyProperty, _MediaControlClient_Create, 
                        _MediaControlClient_DoAction, _MediaControlClient_DoAuthorize, 
                        _MediaControlClient_DoInsertPlaylistItem, _MediaControlClient_DoPlayLocal, 

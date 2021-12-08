@@ -3,12 +3,15 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           9896B7E9-36B0-3D10-B3E7-BE1ACB7DB5F3
+    value:           D957CA27-2F85-3D4A-87E8-9C71A643AE0A
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           C84D0D81-8072-38AE-BFF4-9774606F6DDF
+    value:           7F010126-ECEA-3092-A946-2F04F503EBB7
 install-name:    '/System/Library/Frameworks/AVKit.framework/Versions/A/AVKit'
+reexported-libraries:
+  - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+    libraries:       [ '/System/Library/PrivateFrameworks/AVKitCore.framework/Versions/A/AVKitCore' ]
 exports:
   - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
     symbols:         [ _AVAddAudibleMediaSelectionOptionsToMenu, _AVAddLegibleMediaSelectionOptionsToMenu, 
@@ -18,20 +21,49 @@ exports:
                        _AVPictureInPictureControllerDidStopNotification, _AVPictureInPictureControllerPlaybackStateDidChangeNotification, 
                        _AVPictureInPictureControllerPlaybackStateIsPlayingKey, _AVPictureInPictureControllerWillStartNotification, 
                        _AVPictureInPictureControllerWillStopNotification, _AVRectIsValid, 
-                       _AVStringFromMargin, _defaultRate, _doubleSpeedRate, _halfSpeedRate, 
-                       _oneAndAHalfSpeedRate, _oneAndAQuarterSpeedRate ]
-    objc-classes:    [ AVAssetIdentifier, AVAudioLevelIndicatorView, AVAudioView, 
-                       AVCaptureView, AVChapter, AVControlsContainerViewController, 
-                       AVControlsViewController, AVFunctionBarCaptureInputSourceItem, 
-                       AVFunctionBarMediaSelectionOption, AVFunctionBarPlaybackControlsProvider, 
-                       AVFunctionBarRecordingControlsProvider, AVFunctionBarScrubber, 
-                       AVKeyValueChange, AVMutableValueTiming, AVObservationController, 
-                       AVOutputDeviceMenuController, AVPictureInPictureController, 
-                       AVPlaybackRate, AVPlayerController, AVPlayerControllerTimeResolver, 
-                       AVPlayerControlsViewController, AVPlayerView, AVRoutePickerView, 
-                       AVShareController, AVStatusOverlayView, AVThumbnail, AVTimecode, 
-                       AVTimecodeController, AVTouchBarCaptureInputSourceItem, AVTouchBarMediaSelectionOption, 
-                       AVTouchBarPlaybackControlsProvider, AVTouchBarRecordingControlsProvider, 
-                       AVTouchBarScrubber, AVTrimControlsViewController, AVTrimView, 
-                       AVValueTiming, AVVolumeControlSlider, AVVolumeControlView ]
+                       _AVStringFromMargin ]
+    objc-classes:    [ AVAudioLevelIndicatorView, AVAudioView, AVCaptureView, AVControlsContainerViewController, 
+                       AVControlsPresentationContext, AVControlsViewController, AVDesktopGestureController, 
+                       AVFunctionBarCaptureInputSourceItem, AVFunctionBarMediaSelectionOption, 
+                       AVFunctionBarPlaybackControlsProvider, AVFunctionBarRecordingControlsProvider, 
+                       AVFunctionBarScrubber, AVOutputDeviceMenuController, AVPictureInPictureController, 
+                       AVPictureInPictureControllerContentSource, AVPlayerControlsViewController, 
+                       AVPlayerView, AVRoutePickerView, AVShareController, AVStatusOverlayView, 
+                       AVTouchBarCaptureInputSourceItem, AVTouchBarPlaybackControlsProvider, 
+                       AVTouchBarRecordingControlsProvider, AVTouchBarScrubber, AVTrimControlsViewController, 
+                       AVTrimView, AVVolumeControlSlider, AVVolumeControlView ]
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+install-name:    '/System/Library/PrivateFrameworks/AVKitCore.framework/Versions/A/AVKitCore'
+allowable-clients:
+  - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+    clients:         [ AVKit, AVKitMacHelper, OutputDeviceMenuService, RoutePickerViewService ]
+exports:
+  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+    symbols:         [ _AVMediaSelectionAutoOption, _AVMediaSelectionOffOption, _AVMicaPackageFilterNamePlusL, 
+                       _AVMicaPackageNameRoutePickerCircularGlyph, _AVMicaPackageNameRoutePickerSquareGlyph, 
+                       _AVMicaPackageNameVolumeGlyph, _AVPlayerControllerContentDimensionsChangedNotification, 
+                       _AVPlayerControllerCurrentTimeJumpedNotification, _AVPlayerControllerDidBeginScanningNotification, 
+                       _AVPlayerControllerDidEndScanningNotification, _AVPlayerControllerDidSeekChapterChapterKey, 
+                       _AVPlayerControllerDidSeekChapterNotification, _AVPlayerControllerPIPActivitySessionIdentifierDidChangeNotification, 
+                       _AVPlayerControllerPlaybackDidEndNotification, _AVPlayerControllerScanningDirectionKey, 
+                       _AVPlayerControllerSelectedMediaOptionDidChangeNotification, 
+                       _AVRoutePickerGlyphStateNameActive, _AVRoutePickerGlyphStateNameInactive, 
+                       _AVVolumeGlyphStateNameHigh, _AVVolumeGlyphStateNameLow, _AVVolumeGlyphStateNameMax, 
+                       _AVVolumeGlyphStateNameMedium, _AVVolumeGlyphStateNameMuted, 
+                       _AVVolumeGlyphStateNameVolumeZero, _AVWaveformDefaultNotificationInterval, 
+                       _AVWaveformDefaultResolution, _AVWaveformFinishedLoadingNotification, 
+                       _AVWaveformSamplesDidBecomeAvailableNotification, __AVDebugLog, 
+                       __AVLog, __AVMethodProem ]
+    objc-classes:    [ AVAssetIdentifier, AVChapter, AVKeyValueChange, AVMicaPackage, 
+                       AVMutableValueTiming, AVObservationController, AVPlaybackRate, 
+                       AVPlaybackRateCollection, AVPlayerController, AVPlayerControllerTimeResolver, 
+                       AVRouteDetectorCoordinator, AVThumbnail, AVThumbnailCache, 
+                       AVThumbnailGenerator, AVTimecode, AVTimecodeController, AVTimer, 
+                       AVTouchBarMediaSelectionOption, AVTrackIdentifier, AVValueTiming, 
+                       AVWaveform, AVWaveformController ]
 ...

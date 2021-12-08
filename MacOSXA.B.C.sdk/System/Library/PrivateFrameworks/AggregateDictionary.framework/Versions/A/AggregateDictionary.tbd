@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           652D4FC1-1335-3E5C-86F4-A92D2413AF81
+    value:           2B60C21A-F6AB-3870-B126-C82B009ACE01
   - target:          x86_64-maccatalyst
-    value:           652D4FC1-1335-3E5C-86F4-A92D2413AF81
+    value:           2B60C21A-F6AB-3870-B126-C82B009ACE01
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           D4588867-75A6-356C-B7C1-DE2104FB88C0
+    value:           84692500-310C-3A1F-ADB0-D843769D6E9F
   - target:          arm64e-maccatalyst
-    value:           D4588867-75A6-356C-B7C1-DE2104FB88C0
+    value:           84692500-310C-3A1F-ADB0-D843769D6E9F
 install-name:    '/System/Library/PrivateFrameworks/AggregateDictionary.framework/Versions/A/AggregateDictionary'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 

@@ -4,19 +4,19 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           D9EEF10D-80AC-37E6-8ABB-EE1DE2F64DDD
+    value:           D57D9786-C0A8-3260-97F9-34C4B6C0678A
   - target:          x86_64-maccatalyst
-    value:           D9EEF10D-80AC-37E6-8ABB-EE1DE2F64DDD
+    value:           D57D9786-C0A8-3260-97F9-34C4B6C0678A
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           22B9A890-B4B8-3589-BFA3-ACFD008D8429
+    value:           C6AB2BC5-B90E-318F-92B8-2A3F4109FD99
   - target:          arm64e-maccatalyst
-    value:           22B9A890-B4B8-3589-BFA3-ACFD008D8429
+    value:           C6AB2BC5-B90E-318F-92B8-2A3F4109FD99
 install-name:    '/System/Library/CoreServices/Encodings/libVietnameseConverter.dylib'
-current-version: 90
+current-version: 100
 exports:
   - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]

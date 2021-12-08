@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           FD13EF0C-A5A1-3C5F-B598-B8676E63BB48
+    value:           DF3F1E9D-24B1-3F34-B01A-414777A4A745
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           EA87C388-6CCC-3FA1-9A67-16B87E69088F
+    value:           8CBA659A-34D5-3794-82B3-465BCD66531D
 install-name:    '/System/Library/PrivateFrameworks/Slideshows.framework/Versions/A/Frameworks/OpusKit.framework/Versions/A/OpusKit'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

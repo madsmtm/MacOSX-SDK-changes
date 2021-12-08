@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           B8AE04E7-BF50-3A93-8456-07A11ED10C63
+    value:           94AAE9EE-5C2A-30B8-A3A8-E0B144DE9B97
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           6EE4AED7-5241-3B50-9843-BAD904389270
+    value:           AB70AD8B-B8E0-3814-8476-0978C1EA8D18
 install-name:    '/System/Library/PrivateFrameworks/CDDataAccess.framework/Versions/A/CDDataAccess'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

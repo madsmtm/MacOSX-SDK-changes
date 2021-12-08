@@ -15,13 +15,14 @@ VZ_EXPORT NSErrorDomain const VZErrorDomain API_AVAILABLE(macos(11.0));
     Error type returned by the Virtualization framework.
     The NSError domain is VZErrorDomain, the code is one of the VZErrorCode constants.
 
-    The virtualization framework can also reports errors from other domains when the error originates from a lower level component.
+    The virtualization framework can also report errors from other domains when the error originates from a lower level component.
 
- @constant VZErrorInternal							Internal error such as the virtual machine unexpectely stopping.
+ @constant VZErrorInternal							Internal error such as the virtual machine unexpectedly stopping.
  @constant VZErrorInvalidVirtualMachineConfiguration		Invalid machine configuration.
  @constant VZErrorInvalidVirtualMachineState				API used with a machine in the wrong state (e.g. interacting with a machine before it is running).
  @constant VZErrorInvalidVirtualMachineStateTransition		Invalid change of state (e.g. pausing a virtual machine that is not started).
  @constant VZErrorInvalidDiskImage					Unrecognized disk image format or invalid disk image.
+ @constant VZErrorVirtualMachineLimitExceeded			The running virtual machine limit was exceeded.
 */
 typedef NS_ERROR_ENUM(VZErrorDomain, VZErrorCode) {
     VZErrorInternal NS_SWIFT_NAME(internalError) = 1,
@@ -29,4 +30,5 @@ typedef NS_ERROR_ENUM(VZErrorDomain, VZErrorCode) {
     VZErrorInvalidVirtualMachineState = 3,
     VZErrorInvalidVirtualMachineStateTransition = 4,
     VZErrorInvalidDiskImage = 5,
+    VZErrorVirtualMachineLimitExceeded API_AVAILABLE(macos(12.0)) = 6,
 };

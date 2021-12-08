@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           524ABA4A-C4FC-3E28-A4D9-377994D248EE
+    value:           E19A5131-FF6D-3D09-B377-B7D74C74A7ED
   - target:          x86_64-maccatalyst
-    value:           524ABA4A-C4FC-3E28-A4D9-377994D248EE
+    value:           E19A5131-FF6D-3D09-B377-B7D74C74A7ED
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           6C2A9F31-68F4-37E0-8BAB-50A11383C32E
+    value:           213C915D-1589-3648-BE9A-0A46EEEC9B2A
   - target:          arm64e-maccatalyst
-    value:           6C2A9F31-68F4-37E0-8BAB-50A11383C32E
+    value:           213C915D-1589-3648-BE9A-0A46EEEC9B2A
 install-name:    '/System/Library/PrivateFrameworks/FMCoreLite.framework/Versions/A/FMCoreLite'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
@@ -26,6 +26,6 @@ exports:
     objc-classes:    [ FMAlert, FMCancelationToken, FMConcurrentMutableArray, FMConcurrentMutableDictionary, 
                        FMDataArchiver, FMFuture, FMInternalFileContainer, FMPair, 
                        FMPreferencesUtil, FMPromise, FMQueue, FMReadWriteLock, FMScheduler, 
-                       FMSharedFileContainer, FMSynchronizer, FMValueThrottler, FMXPCServiceDescription, 
-                       FMXPCSession, FMXPCTimer, _FMLazyFuture ]
+                       FMSharedFileContainer, FMSynchronizer, FMValueThrottler, FMWeakForwardingContainer, 
+                       FMXPCServiceDescription, FMXPCSession, FMXPCTimer, _FMLazyFuture ]
 ...

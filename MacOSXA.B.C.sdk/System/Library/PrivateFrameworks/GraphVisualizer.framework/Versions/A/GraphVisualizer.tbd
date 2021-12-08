@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           9D341EA0-A478-3F9F-AC34-80D854DA3B64
+    value:           DA2B3B56-1180-377B-B8AA-1560646B0DF4
   - target:          x86_64-maccatalyst
-    value:           9D341EA0-A478-3F9F-AC34-80D854DA3B64
+    value:           DA2B3B56-1180-377B-B8AA-1560646B0DF4
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           A9AD792A-2E37-3FC9-A270-1AAF28DCC1F0
+    value:           4EFB0C89-914C-3CDE-B577-09FCD0F13401
   - target:          arm64e-maccatalyst
-    value:           A9AD792A-2E37-3FC9-A270-1AAF28DCC1F0
+    value:           4EFB0C89-914C-3CDE-B577-09FCD0F13401
 install-name:    '/System/Library/PrivateFrameworks/GraphVisualizer.framework/Versions/A/GraphVisualizer'
 current-version: 0
 compatibility-version: 0

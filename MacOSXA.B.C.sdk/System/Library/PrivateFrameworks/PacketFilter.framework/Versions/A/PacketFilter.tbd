@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           730C8FF5-B0CA-3E49-85E9-3BF421216296
+    value:           55D6D654-7BE6-32DC-8738-4190C3FAE08E
   - target:          x86_64-maccatalyst
-    value:           730C8FF5-B0CA-3E49-85E9-3BF421216296
+    value:           55D6D654-7BE6-32DC-8738-4190C3FAE08E
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           EEBA3BA0-C4BF-3FCD-B27E-0F711866913E
+    value:           D4495D1C-32D5-3DB7-9769-DC5E86C4B2F7
   - target:          arm64e-maccatalyst
-    value:           EEBA3BA0-C4BF-3FCD-B27E-0F711866913E
+    value:           D4495D1C-32D5-3DB7-9769-DC5E86C4B2F7
 install-name:    '/System/Library/PrivateFrameworks/PacketFilter.framework/Versions/A/PacketFilter'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
@@ -49,5 +49,6 @@ exports:
                        _kPFSubReturnICMPCode, _kPFSubReturnTTL, _kPFSubReturnType, 
                        _kPFSubScrubFlags, _kPFSubScrubMaxMSS, _kPFSubScrubMinTTL, 
                        _kPFSubTag, _kPFSubTagged, _kPFSubUserName, _kPFSubUserOperator, 
-                       _kPFTagDict, _kPFTo, _kPFUnknown, _kPFUser, _kPFVPN ]
+                       _kPFTagDict, _kPFThreadBR, _kPFThreadBR_nat64, _kPFTo, _kPFUnknown, 
+                       _kPFUser, _kPFVPN ]
 ...

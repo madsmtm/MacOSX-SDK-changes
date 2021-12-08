@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           01C30E15-D0D3-3C60-ADCD-6645EE728649
+    value:           A1BDAC15-0CBD-34C1-9062-F216847870FD
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           64A4C47A-BC7F-3C49-8ACF-D95B12EB5A63
+    value:           0CAC6072-49F0-3C8A-B2C7-E70ABF66C7DD
 install-name:    '/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/QD.framework/Versions/A/QD'
 parent-umbrella:
   - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
@@ -402,17 +402,17 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           A949815B-B138-3D25-B38A-37EE958A317F
+    value:           F04921AB-73D9-3E0E-973F-83EE84F09C4B
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           E5B9E749-D07E-36CB-998F-529572C308A3
+    value:           7B9808EE-00FD-3F04-8035-E6F784C95611
 install-name:    '/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATSUI.framework/Versions/A/ATSUI'
 parent-umbrella:
   - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
     umbrella:        ApplicationServices
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _ATSApplyMorph, _ATSClearGlyphVector, _ATSGrowGlyphVector, 
                        _ATSInitializeGlyphVector, _ATSUBatchBreakLines, _ATSUBreakLine, 
                        _ATSUClearAttributes, _ATSUClearFontFeatures, _ATSUClearFontVariations, 

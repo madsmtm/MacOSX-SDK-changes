@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           E05E247C-9492-31E8-AED7-781C5F71EBAE
+    value:           3D7C0621-F58A-3C4F-B5BA-4B8522507186
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           9EE06F81-7F27-35FD-A019-F718DD42F04C
+    value:           2C5F8A3F-8FAF-3027-8233-45D80132FF6B
 install-name:    '/System/Library/PrivateFrameworks/BiometricKitUI.framework/Versions/A/BiometricKitUI'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
@@ -22,5 +22,5 @@ exports:
                        BKUIMagicKeyboardEnrollmentPrepUIController, BKUISetupAssistantFingerprintEnrollClientController, 
                        BKUISystemPrefsPairingView, BKUITouchIDArrowView, BKUIUtils, 
                        BiometricKitUI, BiometricKitUIEnrollViewController, BuddySecureIntentClientView, 
-                       SettingsSecureIntentClientView ]
+                       SettingsSecureIntentClientView, _BKUIImageView ]
 ...

@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           070358E8-6343-309E-9665-3DD49576689F
+    value:           BB9033FB-9799-3BDB-A0EE-0AB79CEB00D2
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           7A94B9C2-713C-3E0C-BA13-4633DDF5369F
+    value:           E0CCC192-5CFC-3955-AB4F-BD83E1E9C7DD
 install-name:    '/System/Library/PrivateFrameworks/SoftwareUpdateCoreSupport.framework/Versions/A/SoftwareUpdateCoreSupport'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
@@ -20,31 +20,39 @@ exports:
                        _kSUCoreConfigProjectSoftwareUpdateController, _kSUCoreConfigProjectSoftwareUpdateCore, 
                        _kSUCoreConfigProjectSoftwareUpdateMacController, _kSUCoreConfigProjectSoftwareUpdateServices, 
                        _kSUCoreContextInvalidKeybag, _kSUCoreContextUpdateCancelled, 
-                       _kSUCoreControllerApplyingUpdate, _kSUCoreControllerAssetURL, 
+                       _kSUCoreControllerAlternateAudienceTypeKey, _kSUCoreControllerAlternatePreferredTypeKey, 
+                       _kSUCoreControllerAlternateRampEnabledKey, _kSUCoreControllerAlternateTargetOsVersionKey, 
+                       _kSUCoreControllerAlternateUpdateTypeKey, _kSUCoreControllerApplyingUpdate, 
+                       _kSUCoreControllerAssetURL, _kSUCoreControllerAudienceTypeKey, 
                        _kSUCoreControllerControllerStatusKey, _kSUCoreControllerControllerVersionKey, 
-                       _kSUCoreControllerDownloadNotReady, _kSUCoreControllerEventOTAAbandoned, 
-                       _kSUCoreControllerEventOTAAutoTriggered, _kSUCoreControllerEventOTAAvailable, 
-                       _kSUCoreControllerEventOTADownloaded, _kSUCoreControllerEventOTAInstalling, 
-                       _kSUCoreControllerEventOTAPersisted, _kSUCoreControllerEventOTAPostponed, 
-                       _kSUCoreControllerEventOTAReady, _kSUCoreControllerEventOTAScheduled, 
-                       _kSUCoreControllerEventOTASucceeded, _kSUCoreControllerFull, 
-                       _kSUCoreControllerIncremental, _kSUCoreControllerInstallTonightKey, 
-                       _kSUCoreControllerNoActivation, _kSUCoreControllerNoNetwork, 
-                       _kSUCoreControllerOperationExpired, _kSUCoreControllerPackagePath, 
-                       _kSUCoreControllerPersistDurationKey, _kSUCoreControllerResumingUpdate, 
+                       _kSUCoreControllerDelayPeriodKey, _kSUCoreControllerDownloadNotReady, 
+                       _kSUCoreControllerEventOTAAbandoned, _kSUCoreControllerEventOTAAutoTriggered, 
+                       _kSUCoreControllerEventOTAAvailable, _kSUCoreControllerEventOTADownloaded, 
+                       _kSUCoreControllerEventOTAInstalling, _kSUCoreControllerEventOTAPersisted, 
+                       _kSUCoreControllerEventOTAPostponed, _kSUCoreControllerEventOTAReady, 
+                       _kSUCoreControllerEventOTAScheduled, _kSUCoreControllerEventOTASucceeded, 
+                       _kSUCoreControllerFull, _kSUCoreControllerIncremental, _kSUCoreControllerInstallTonightKey, 
+                       _kSUCoreControllerMDMAudiencePathKey, _kSUCoreControllerNoActivation, 
+                       _kSUCoreControllerNoNetwork, _kSUCoreControllerOperationExpired, 
+                       _kSUCoreControllerPackagePath, _kSUCoreControllerPersistDurationKey, 
+                       _kSUCoreControllerPreferredTypeKey, _kSUCoreControllerRampEnabledKey, 
+                       _kSUCoreControllerRequestedPMVKey, _kSUCoreControllerResumingUpdate, 
+                       _kSUCoreControllerScanIntervalKey, _kSUCoreControllerSupervisedKey, 
                        _kSUCoreControllerTargetOsVersionKey, _kSUCoreControllerUpdateTypeKey, 
                        _kSUCoreControllerUpdatingClass, _kSUCoreControllerVerifyingUpdate, 
                        _kSUCoreControllerWaitingForUnlock, _kSUCoreControllerWatchInstallTypeKey, 
                        _kSUCoreDiagDumpDefaultSubDirectory, _kSUCoreDiagDumpToFilenameDefault, 
-                       _kSUCoreDiagPointActivityKey, _kSUCoreDiagPointCodeKey, _kSUCoreDiagPointErrorDescKey, 
-                       _kSUCoreDiagPointLocationKey, _kSUCoreDiagPointNextKey, _kSUCoreDiagPointParamKey, 
-                       _kSUCoreDiagPointPreviousKey, _kSUCoreDiagPointReasonKey, 
-                       _kSUCoreDiagPointTrackTypeKey, _kSUCoreDiagStatsAnomalyCountKey, 
-                       _kSUCoreDiagStatsBeginCountKey, _kSUCoreDiagStatsEndFailCountKey, 
-                       _kSUCoreDiagStatsEndSuccessCountKey, _kSUCoreDiagStatsErrorCountKey, 
-                       _kSUCoreDiagStatsFailureCountKey, _kSUCoreDiagStatsFaultCountKey, 
-                       _kSUCoreDomainDefault, _kSUCoreDomainInstanceShared, _kSUCoreErrorDomain, 
-                       _kSUCoreEventBatteryIsChargingKey, _kSUCoreEventBatteryLevelKey, 
+                       _kSUCoreDiagPointActivityKey, _kSUCoreDiagPointCheckedCodeKey, 
+                       _kSUCoreDiagPointCheckedDomainKey, _kSUCoreDiagPointCheckedIndicationsKey, 
+                       _kSUCoreDiagPointCheckedLayerKey, _kSUCoreDiagPointCodeKey, 
+                       _kSUCoreDiagPointErrorDescKey, _kSUCoreDiagPointLocationKey, 
+                       _kSUCoreDiagPointNextKey, _kSUCoreDiagPointParamKey, _kSUCoreDiagPointPreviousKey, 
+                       _kSUCoreDiagPointReasonKey, _kSUCoreDiagPointTrackTypeKey, 
+                       _kSUCoreDiagStatsAnomalyCountKey, _kSUCoreDiagStatsBeginCountKey, 
+                       _kSUCoreDiagStatsEndFailCountKey, _kSUCoreDiagStatsEndSuccessCountKey, 
+                       _kSUCoreDiagStatsErrorCountKey, _kSUCoreDiagStatsFailureCountKey, 
+                       _kSUCoreDiagStatsFaultCountKey, _kSUCoreDomainDefault, _kSUCoreDomainInstanceShared, 
+                       _kSUCoreErrorDomain, _kSUCoreEventBatteryIsChargingKey, _kSUCoreEventBatteryLevelKey, 
                        _kSUCoreEventContextKey, _kSUCoreEventCurrentOSTypeKey, _kSUCoreEventCurrentOSTypeUser, 
                        _kSUCoreEventCurrentOSVersionKey, _kSUCoreEventDataFsCapacityKey, 
                        _kSUCoreEventDataFsFreeKey, _kSUCoreEventDefaultEventName, 

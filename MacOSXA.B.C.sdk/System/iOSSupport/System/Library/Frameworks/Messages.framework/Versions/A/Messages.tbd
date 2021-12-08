@@ -3,14 +3,14 @@ tbd-version:     4
 targets:         [ x86_64-maccatalyst, arm64-maccatalyst, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-maccatalyst
-    value:           8E30DA89-8DBB-3CDE-9431-2B2523A04B21
+    value:           DFC33F04-D0AC-3B99-BE43-975FD55070A0
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-maccatalyst
-    value:           A9905DEB-E1D2-301D-AFD0-A1DE80A0616E
+    value:           2C1E5B90-952A-340B-894E-6AF268A04A8F
 install-name:    '/System/iOSSupport/System/Library/Frameworks/Messages.framework/Versions/A/Messages'
 exports:
-  - targets:         [ arm64e-maccatalyst, x86_64-maccatalyst, arm64-maccatalyst ]
+  - targets:         [ x86_64-maccatalyst, arm64e-maccatalyst, arm64-maccatalyst ]
     symbols:         [ _MSMessagesErrorDomain, _MSStickersErrorDomain, _MSStickersErrorStickerInfoKey, 
                        __MSExtensionContextIsPrimary, __MSExtensionItemConversationStateKey, 
                        __MSExtensionItemHostViewBoundsKey, __MSExtensionItemWantsLiveViewKey, 

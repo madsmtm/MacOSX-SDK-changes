@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           DA1B52A7-3DE6-3991-BB09-2E326D680145
+    value:           5790B48D-EBED-3A6D-BAC1-D35B94A397D6
   - target:          x86_64-maccatalyst
-    value:           DA1B52A7-3DE6-3991-BB09-2E326D680145
+    value:           5790B48D-EBED-3A6D-BAC1-D35B94A397D6
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           234EF3EA-B97B-3FC8-A256-4DBE1A7F3CF2
+    value:           35A1BCC0-3394-362C-B045-34B23CBEE310
   - target:          arm64e-maccatalyst
-    value:           234EF3EA-B97B-3FC8-A256-4DBE1A7F3CF2
+    value:           35A1BCC0-3394-362C-B045-34B23CBEE310
 install-name:    '/System/Library/Frameworks/CallKit.framework/Versions/A/CallKit'
 exports:
   - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
@@ -37,18 +37,20 @@ exports:
                        CXCallDirectoryStoreExtension, CXCallDirectoryStoreIdentificationEntry, 
                        CXCallDirectoryStoreMigrationResult, CXCallDirectoryStoreMigrator, 
                        CXCallFailureContext, CXCallObserver, CXCallSource, CXCallSourceManager, 
-                       CXCallUpdate, CXEndCallAction, CXExtensionCallSource, CXExtensionProvider, 
-                       CXHandle, CXHandoffContext, CXInProcessCallSource, CXInProcessProvider, 
-                       CXJoinCallAction, CXLabeledHandle, CXNetworkExtensionMessageController, 
+                       CXCallUpdate, CXEnableVideoCallAction, CXEndCallAction, CXExtensionCallSource, 
+                       CXExtensionProvider, CXHandle, CXHandoffContext, CXInProcessCallSource, 
+                       CXInProcessProvider, CXJoinCallAction, CXJoinCallActivity, 
+                       CXJoinCallActivitySession, CXLabeledHandle, CXNetworkExtensionMessageController, 
                        CXNetworkExtensionMessageControllerHost, CXNotificationServiceExtensionVoIPXPCClient, 
                        CXNotificationServiceExtensionVoIPXPCHost, CXPlayDTMFCallAction, 
                        CXProvider, CXProviderConfiguration, CXProviderExtensionContext, 
                        CXProviderExtensionHostContext, CXProviderExtensionVendorContext, 
                        CXPullCallAction, CXRemoveVoicemailAction, CXSandboxExtendedURL, 
-                       CXSendMMIOrUSSDCodeAction, CXSenderIdentity, CXSetGroupCallAction, 
-                       CXSetHeldCallAction, CXSetMutedCallAction, CXSetPlayedVoicemailAction, 
-                       CXSetRelayingCallAction, CXSetSendingVideoCallAction, CXSetTTYTypeCallAction, 
-                       CXSetTrashedVoicemailAction, CXSetVideoPresentationSizeCallAction, 
+                       CXScreenShareAttributes, CXSendMMIOrUSSDCodeAction, CXSenderIdentity, 
+                       CXSetGroupCallAction, CXSetHeldCallAction, CXSetMutedCallAction, 
+                       CXSetPlayedVoicemailAction, CXSetRelayingCallAction, CXSetScreenShareAttributesCallAction, 
+                       CXSetSendingVideoCallAction, CXSetSharingScreenCallAction, 
+                       CXSetTTYTypeCallAction, CXSetTrashedVoicemailAction, CXSetVideoPresentationSizeCallAction, 
                        CXSetVideoPresentationStateCallAction, CXStartCallAction, 
                        CXTransaction, CXTransactionGroup, CXTransactionManager, CXVoicemail, 
                        CXVoicemailAction, CXVoicemailController, CXVoicemailControllerHost, 

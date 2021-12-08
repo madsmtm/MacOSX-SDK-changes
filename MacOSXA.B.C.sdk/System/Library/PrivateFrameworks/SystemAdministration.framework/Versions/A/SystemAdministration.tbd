@@ -3,23 +3,25 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           F5681A66-34F0-3ADD-9E98-5FD765CD8177
+    value:           7485F287-0AC9-3B14-B021-39A646EBE7E2
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           681BE0F5-E116-3AEA-A6BA-E3B93AD02218
+    value:           74CCD8B3-CBB6-3946-BC03-9E14F637E2D7
 install-name:    '/System/Library/PrivateFrameworks/SystemAdministration.framework/Versions/A/SystemAdministration'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _NetworkTimeStartedNotification, _NetworkTimeStoppedNotification, 
-                       _SafeCFBundleGetFunctionPointerForName, _XMLStringFromObject, 
-                       _canOpenAccountsPreferencePane, _collectionFromXMLString, 
+                       _SafeCFBundleGetFunctionPointerForName, _SecRequiresGracePeriod, 
+                       _XMLStringFromObject, _canOpenAccountsPreferencePane, _collectionFromXMLString, 
                        _copyKeyboardType, _coreTimeFrameworkBundle, _createAuthorizationFromExternalForm, 
-                       _debugLoggingEnabled, _directorySizeAtPath, _freeSpaceAtPath, 
-                       _getPIDForProcess, _isBootVolumeHCSFDE, _isInternalBuild, 
-                       _isSIPDisabled, _kADMSecureTokenAuthorizingUserNameKey, _kADMSecureTokenAuthorizingUserPasswordKey, 
-                       _kADMSecureTokenEnableKey, _kADMSecureTokenUserPasswordKey, 
-                       _kickMCXDForUID, _loadAppKit, _setSafariLockedSync, _writeKeyboardType ]
+                       _debugLoggingEnabled, _directorySizeAtPath, _fingerPrintsEnrolledForUser, 
+                       _freeSpaceAtPath, _getPIDForProcess, _isApplePayEnabled, _isBootVolumeHCSFDE, 
+                       _isComputerUnlockEnabled, _isInternalBuild, _isSIPDisabled, 
+                       _isStorePurchaseEnabled, _kADMSecureTokenAuthorizingUserNameKey, 
+                       _kADMSecureTokenAuthorizingUserPasswordKey, _kADMSecureTokenEnableKey, 
+                       _kADMSecureTokenUserPasswordKey, _kickMCXDForUID, _loadAppKit, 
+                       _setSafariLockedSync, _writeKeyboardType ]
     objc-classes:    [ ADMARDConfig, ADMAccountPasswordPolicy, ADMCredential, ADMDSNode, 
                        ADMDSRecord, ADMDynamicDNSConfig, ADMGroup, ADMGuestUserConfig, 
                        ADMHostConfig, ADMInternetServices, ADMLocalUser, ADMLoginPrefs, 

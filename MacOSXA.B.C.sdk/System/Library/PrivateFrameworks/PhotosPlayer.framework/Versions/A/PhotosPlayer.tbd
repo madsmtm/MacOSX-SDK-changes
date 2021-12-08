@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           82BB1995-B5B4-3F0B-91E4-6902AE4DB04D
+    value:           01F53085-A869-3A9D-8AEE-531408D8B4EC
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           B8F07B6F-9EA9-3B4C-893D-3A2AC8F3AAA8
+    value:           1D99CD9E-EF7E-3E67-8451-CC0E0633CCE2
 install-name:    '/System/Library/PrivateFrameworks/PhotosPlayer.framework/Versions/A/PhotosPlayer'
-current-version: 340.0.220
+current-version: 401.3.110
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _ISCircularEaseOut, _ISCubicEaseOut, _ISQuadraticEaseOut, 

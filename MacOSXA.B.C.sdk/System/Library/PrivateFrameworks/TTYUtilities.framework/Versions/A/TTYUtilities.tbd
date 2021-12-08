@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           2A120505-B31F-34F3-AA6B-BF2599466966
+    value:           3A7E6A3B-62FD-36C5-B3E2-46591D038FC0
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           71CA7558-5EF7-3DD6-9FC8-5B15B71614DB
+    value:           53631772-9ED2-330E-A69B-2999BE2D2BAE
 install-name:    '/System/Library/PrivateFrameworks/TTYUtilities.framework/Versions/A/TTYUtilities'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

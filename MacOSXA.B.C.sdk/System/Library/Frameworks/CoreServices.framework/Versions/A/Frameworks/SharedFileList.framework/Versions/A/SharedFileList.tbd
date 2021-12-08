@@ -4,19 +4,19 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           D8521DF0-1AA2-3157-AE32-7C88AB78C803
+    value:           CDE97B98-5C70-3120-BA12-1A0408C41F09
   - target:          x86_64-maccatalyst
-    value:           D8521DF0-1AA2-3157-AE32-7C88AB78C803
+    value:           CDE97B98-5C70-3120-BA12-1A0408C41F09
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           2A184E5F-21E6-3CDF-A08E-DE721305B1DD
+    value:           A30F9F46-7FF0-3404-9585-F54117864BAB
   - target:          arm64e-maccatalyst
-    value:           2A184E5F-21E6-3CDF-A08E-DE721305B1DD
+    value:           A30F9F46-7FF0-3404-9585-F54117864BAB
 install-name:    '/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/SharedFileList.framework/Versions/A/SharedFileList'
-current-version: 144
+current-version: 155
 parent-umbrella:
   - targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
                        arm64e-macos, arm64e-maccatalyst ]
@@ -26,13 +26,13 @@ allowable-clients:
                        arm64e-macos, arm64e-maccatalyst ]
     clients:         [ Foundation ]
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _SFLListChangeNotification, _SFLListLaunchNotification, _SFLServiceName, 
                        _kSFLDefaultsDomain ]
     objc-classes:    [ SFLBookmark, SFLDefaults, SFLItem, SFLManager, SFLResolveResult, 
                        _SFLItem, _SFLList ]
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _LSSharedFileListAddObserver, _LSSharedFileListAddObserverOnQueue, 
                        _LSSharedFileListCopyProperty, _LSSharedFileListCopySnapshot, 
                        _LSSharedFileListCreate, _LSSharedFileListGetSeedValue, _LSSharedFileListGetTypeID, 

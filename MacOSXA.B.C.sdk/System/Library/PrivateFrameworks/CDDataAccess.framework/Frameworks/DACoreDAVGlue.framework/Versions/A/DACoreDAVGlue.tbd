@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           C4F3D70F-EFCF-3388-85F7-8E2EA38684BB
+    value:           4C6A48A8-F483-3B28-B1DB-60B32B175FC7
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           49A18C7A-0BC2-3561-B3E3-504C8E445D1F
+    value:           F674E1EF-A4A8-3FE8-92E2-A30FF080889C
 install-name:    '/System/Library/PrivateFrameworks/CDDataAccess.framework/Frameworks/DACoreDAVGlue.framework/Versions/A/DACoreDAVGlue'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

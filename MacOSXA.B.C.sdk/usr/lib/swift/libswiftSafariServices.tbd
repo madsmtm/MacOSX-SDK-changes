@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           46D2AF81-4712-39BD-935A-2AC966E8CAFC
+    value:           905278A8-88D3-3586-99D4-4A195860ADCA
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           6FB6B71E-E8C4-3F3F-9606-15162A06EC3A
+    value:           8662157D-CD8E-3CAD-8C8C-6D104A6110EC
 install-name:    '/usr/lib/swift/libswiftSafariServices.dylib'
 current-version: 2
 swift-abi-version: 7

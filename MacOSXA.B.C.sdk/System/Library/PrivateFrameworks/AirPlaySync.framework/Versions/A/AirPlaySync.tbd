@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           2352B826-CAD5-3C5A-9435-ADC485D5FD0F
+    value:           9A70408E-FDAE-368F-BCA0-2C1EBC133E3C
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           96466D25-FDE4-3B14-971A-CBBA8EC7EB6F
+    value:           8F837341-3C38-3C7A-920D-5F212ED75F28
 install-name:    '/System/Library/PrivateFrameworks/AirPlaySync.framework/Versions/A/AirPlaySync'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

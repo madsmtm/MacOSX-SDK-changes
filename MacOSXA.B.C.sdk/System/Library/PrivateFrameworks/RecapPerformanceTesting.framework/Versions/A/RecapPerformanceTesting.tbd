@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           F8E9FC15-DD7F-3937-8DFE-AEEA55223435
+    value:           BDBA3C74-1169-313C-AF93-A35C2587B889
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           CD376F96-4D0D-3DFA-97E0-4FFC6A283CEF
+    value:           65AFE38F-26A6-3755-B666-0AFA8C29D4BD
 install-name:    '/System/Library/PrivateFrameworks/RecapPerformanceTesting.framework/Versions/A/RecapPerformanceTesting'
 current-version: 17
 exports:
@@ -23,7 +23,7 @@ exports:
                        __RPTScrollDirectionFromUIScrollDirection, __UIScrollDirectionFromRPTScrollDirection ]
     objc-classes:    [ RPTActivationTestParameters, RPTCoordinateSpaceConverter, 
                        RPTDirectionalSwipeTestParameters, RPTDockGestureInteraction, 
-                       RPTDragInteraction, RPTGroupScrollTestParameters, RPTInteractionOptions, 
-                       RPTPagingScrollTestParameters, RPTResizeInteraction, RPTResizeTestParameters, 
-                       RPTScrollViewTestParameters, RPTTestRunner ]
+                       RPTDragInteraction, RPTDragTestParameters, RPTGroupScrollTestParameters, 
+                       RPTInteractionOptions, RPTPagingScrollTestParameters, RPTResizeInteraction, 
+                       RPTResizeTestParameters, RPTScrollViewTestParameters, RPTTestRunner ]
 ...

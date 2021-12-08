@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           686768D5-5C29-3491-BDE0-A0FFEBEB6361
+    value:           87474AC1-9BDF-3626-809B-85FC4903A8DC
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           26787C80-1929-321D-B6F3-AE88EA2A03AB
+    value:           C1E89E38-B223-387C-B6E1-6B5A8EF0DB39
 install-name:    '/usr/lib/libXplugin.1.dylib'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

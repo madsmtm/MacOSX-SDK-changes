@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           63F562BD-6D6C-3772-B98A-62E196055839
+    value:           3DFD8C47-859E-33B9-828F-D146593C9EFB
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           46100200-445E-3D70-BBDF-15E4AA0D1C30
+    value:           76326F64-F625-3118-9CE1-F31AC6B24CCF
 install-name:    '/System/Library/PrivateFrameworks/ShareServicesCore.framework/Versions/A/ShareServicesCore'
-current-version: 340.0.220
+current-version: 401.3.110
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _SBLDontAllowRAWForSharingService, _SBLFileURLFromFileURLs, 

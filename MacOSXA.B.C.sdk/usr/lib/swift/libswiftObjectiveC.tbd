@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           C376C97B-D808-3436-A9AE-1F19D0A46318
+    value:           8CBCAE96-A9CE-37F2-B7E0-35A6394B3943
   - target:          x86_64-maccatalyst
-    value:           C376C97B-D808-3436-A9AE-1F19D0A46318
+    value:           8CBCAE96-A9CE-37F2-B7E0-35A6394B3943
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           93A1E057-60D2-3ED7-ACA3-04FD3BCBC319
+    value:           8FFE6D0A-1066-3419-992D-A4A813781CCF
   - target:          arm64e-maccatalyst
-    value:           93A1E057-60D2-3ED7-ACA3-04FD3BCBC319
+    value:           8FFE6D0A-1066-3419-992D-A4A813781CCF
 install-name:    '/usr/lib/swift/libswiftObjectiveC.dylib'
 current-version: 3
 swift-abi-version: 7
@@ -22,7 +22,7 @@ exports:
   - targets:         [ x86_64-macos ]
     symbols:         [ '_$s10ObjectiveC8ObjCBoolV6_values4Int8VvM', '_$s10ObjectiveC8ObjCBoolV6_values4Int8Vvg', 
                        '_$s10ObjectiveC8ObjCBoolV6_values4Int8VvpMV', '_$s10ObjectiveC8ObjCBoolV6_values4Int8Vvs' ]
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ '$ld$install_name$os10.10$@rpath/libswiftObjectiveC.dylib', 
                        '$ld$install_name$os10.11$@rpath/libswiftObjectiveC.dylib', 
@@ -30,7 +30,7 @@ exports:
                        '$ld$install_name$os10.13$@rpath/libswiftObjectiveC.dylib', 
                        '$ld$install_name$os10.14$@rpath/libswiftObjectiveC.dylib', 
                        '$ld$install_name$os10.9$@rpath/libswiftObjectiveC.dylib' ]
-  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ '_$s10ObjectiveC15autoreleasepool8invokingxxyKXE_tKlF', '_$s10ObjectiveC22_convertBoolToObjCBoolyAA0eF0VSbF', 
                        '_$s10ObjectiveC22_convertObjCBoolToBoolySbAA0cD0VF', '_$s10ObjectiveC2NOAA8ObjCBoolVvg', 
                        '_$s10ObjectiveC3YESAA8ObjCBoolVvg', '_$s10ObjectiveC6NSZoneVMa', 

@@ -4,22 +4,22 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           B3F9E655-AB90-3375-8262-EC76550929D2
+    value:           B4F7D928-E1FE-36C9-9316-7D5FB03BD88E
   - target:          x86_64-maccatalyst
-    value:           B3F9E655-AB90-3375-8262-EC76550929D2
+    value:           B4F7D928-E1FE-36C9-9316-7D5FB03BD88E
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           99E8394A-E178-369D-9B94-D558AA317656
+    value:           B0B7F676-8046-311B-9CAD-0D0B3F6471C3
   - target:          arm64e-maccatalyst
-    value:           99E8394A-E178-369D-9B94-D558AA317656
+    value:           B0B7F676-8046-311B-9CAD-0D0B3F6471C3
 install-name:    '/usr/lib/libxml2.2.dylib'
 current-version: 10.9
 compatibility-version: 10
 exports:
-  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+  - targets:         [ x86_64-macos, arm64e-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
                        arm64-macos, arm64-maccatalyst ]
     symbols:         [ _UTF8ToHtml, _UTF8Toisolat1, ___docbDefaultSAXHandler, ___htmlDefaultSAXHandler, 
                        ___oldXMLWDcompatibility, ___xmlBufferAllocScheme, ___xmlDefaultBufferSize, 

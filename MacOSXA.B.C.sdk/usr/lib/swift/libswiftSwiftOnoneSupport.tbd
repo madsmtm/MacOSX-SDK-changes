@@ -4,19 +4,19 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           67BF41FC-D3D6-3A7E-9442-34C8832A2CF7
+    value:           9F328A40-BF0E-3A7B-A42A-6E305331A1A0
   - target:          x86_64-maccatalyst
-    value:           67BF41FC-D3D6-3A7E-9442-34C8832A2CF7
+    value:           9F328A40-BF0E-3A7B-A42A-6E305331A1A0
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           836D98D6-7AED-335F-9611-234540AD7E5E
+    value:           438F0F6C-9FED-3F99-B88B-FD52556473D3
   - target:          arm64e-maccatalyst
-    value:           836D98D6-7AED-335F-9611-234540AD7E5E
+    value:           438F0F6C-9FED-3F99-B88B-FD52556473D3
 install-name:    '/usr/lib/swift/libswiftSwiftOnoneSupport.dylib'
-current-version: 1205.0.24
+current-version: 1300.0.29
 swift-abi-version: 7
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 

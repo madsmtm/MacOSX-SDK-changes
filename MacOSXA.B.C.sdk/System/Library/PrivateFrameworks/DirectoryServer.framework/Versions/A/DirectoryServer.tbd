@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           D2570B7F-7D60-3B72-A901-48B4E4A96C2A
+    value:           D6581416-813E-35FD-8D9E-DC6DDE94B253
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           FF3D8BB0-33A1-393C-943F-7B37631DB014
+    value:           44EC0234-61F6-3A1B-A3DE-C759B2E8BBD8
 install-name:    '/System/Library/PrivateFrameworks/DirectoryServer.framework/Versions/A/DirectoryServer'
 reexported-libraries:
   - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
@@ -25,11 +25,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           1960C20D-F639-3445-936C-E72CD1DFFFDD
+    value:           1435105A-29C5-3C83-8AA6-F6457264092E
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           375B2383-233D-3F26-8AF4-BCB96EB1BD1F
+    value:           EFEBE3AA-A240-3C7C-A2F6-2E944E6DA992
 install-name:    '/System/Library/PrivateFrameworks/DirectoryServer.framework/Frameworks/CFDirectoryServer.framework/Versions/A/CFDirectoryServer'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

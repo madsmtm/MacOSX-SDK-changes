@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           AE6A0A4D-329B-3830-9A36-CF1A9DE21367
+    value:           EA600CC5-49A1-3D8B-94D5-E70993C50C72
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           2519AB42-65E2-339A-AD2C-CC154E76C832
+    value:           67C8BA7F-7D2A-3B59-88C6-ED0B4DC6FD02
 install-name:    '/usr/lib/libSMC.dylib'
-current-version: 20
+current-version: 21
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _AccumSetupSettingsCPU, _AccumSetupSettingsGPU, _AccumSetupSettingsHP, 

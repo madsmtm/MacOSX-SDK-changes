@@ -3,13 +3,13 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           E0DD4E22-808E-3876-BA38-AD3D2BD2D59A
+    value:           8DF74666-CED0-3F19-A5AA-AE29F692274A
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           ED986D48-F5EF-3067-B431-49A3FED9A14D
+    value:           45AE5946-E40C-35F2-BB50-71CCD4607C2D
 install-name:    '/System/Library/PrivateFrameworks/CoreThemeDefinition.framework/Versions/A/CoreThemeDefinition'
-current-version: 491.1
+current-version: 519
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _AbortDistillKey, _CSIDataKey, _CoreThemeArtworkFormatCAAR, 

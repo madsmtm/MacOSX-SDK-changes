@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           CDE4BF1E-806C-30DC-9090-EB709F2B0AA1
+    value:           F93CFA07-93EE-3E67-AD03-0195105723C5
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           21351A66-AE9F-34A6-B629-18B9339997F2
+    value:           D81D8C4E-C450-3CE7-B5AE-DB8F2DB73ADD
 install-name:    '/System/Library/PrivateFrameworks/MetricKitCore.framework/Versions/A/MetricKitCore'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

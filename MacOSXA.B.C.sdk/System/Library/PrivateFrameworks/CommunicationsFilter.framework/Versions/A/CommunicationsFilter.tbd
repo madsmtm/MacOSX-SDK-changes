@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           F6BC4BE4-59CF-3F2C-914D-E2A28D283A2B
+    value:           44DFC48B-3220-3CAC-A660-D34C552AA05E
   - target:          x86_64-maccatalyst
-    value:           F6BC4BE4-59CF-3F2C-914D-E2A28D283A2B
+    value:           44DFC48B-3220-3CAC-A660-D34C552AA05E
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           F7D8F6B6-FD4E-3B12-8A93-F7307CDC2D5C
+    value:           7915B2A7-3E94-30A5-BCDD-8ABDF67B204A
   - target:          arm64e-maccatalyst
-    value:           F7D8F6B6-FD4E-3B12-8A93-F7307CDC2D5C
+    value:           7915B2A7-3E94-30A5-BCDD-8ABDF67B204A
 install-name:    '/System/Library/PrivateFrameworks/CommunicationsFilter.framework/Versions/A/CommunicationsFilter'
 current-version: 800
 exports:

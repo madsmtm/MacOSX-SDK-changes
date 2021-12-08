@@ -4,19 +4,19 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           3B7F54FE-B5F8-303B-9489-13B178247286
+    value:           12FEC61F-E60D-319D-8EE6-F0036F931596
   - target:          x86_64-maccatalyst
-    value:           3B7F54FE-B5F8-303B-9489-13B178247286
+    value:           12FEC61F-E60D-319D-8EE6-F0036F931596
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           173539E6-D2F3-3528-9EEA-FED920B65A8C
+    value:           559AEBE9-D3E3-3DC9-A44B-068BCC8A0EDB
   - target:          arm64e-maccatalyst
-    value:           173539E6-D2F3-3528-9EEA-FED920B65A8C
+    value:           559AEBE9-D3E3-3DC9-A44B-068BCC8A0EDB
 install-name:    '/System/Library/PrivateFrameworks/Symbolication.framework/Versions/A/Symbolication'
-current-version: 64544.66.1
+current-version: 64550.83.1
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
                        arm64-macos, arm64-maccatalyst ]
@@ -35,7 +35,8 @@ exports:
                        _VMUScanningMaskForOwningReferences, _VMUSortIndexForLibraryPath, 
                        _VMUUnionRange, _VMUVMRegionShareModeName, _VMUWithRootNodeMarkingMap, 
                        _VMUmallocMetadataLabel, _VMUmappedFileLabel, _VMUobjcAdditionalDataLabel, 
-                       _VMUunusedSharedLibLabelPrefix, __VMUEnumerateMarkedObjects, 
+                       _VMUunusedSharedLibDataLabel, _VMUunusedSharedLibLabelPrefix, 
+                       _VMUunusedSharedLibTextLabel, __VMUEnumerateMarkedObjects, 
                        _kVMUAutoreleasePoolBoundaryClassName, _kVMUAutoreleasePoolThreadSpecificDataKeyString, 
                        _kVMUPrintArchivingTiming, _kVMURootRetainCycle, _kVMUThreadSpecificDataKeyString, 
                        _pidFromHint, _psName, _task_enumerate_malloc_blocks, _task_find_leaks, 
@@ -49,20 +50,20 @@ exports:
                        _vmu_remove_stack_from_backtrace_uniquing_table, _vmu_stack_frames_for_uniqued_stack ]
     objc-classes:    [ VMUArchitecture, VMUBacktrace, VMUCallTreeNode, VMUCallTreeRoot, 
                        VMUCallTreeRootWithBacktrace, VMUClassInfo, VMUClassInfoMap, 
-                       VMUDebugTimer, VMUDepthGraph, VMUDepthGraphEnumerator, VMUDirectedGraph, 
-                       VMUDominatedByGraphEnumerator, VMUDominatesGraphEnumerator, 
+                       VMUClassPatternMatcher, VMUDebugTimer, VMUDepthGraph, VMUDepthGraphEnumerator, 
+                       VMUDirectedGraph, VMUDominatedByGraphEnumerator, VMUDominatesGraphEnumerator, 
                        VMUDominatorGraph, VMUFieldInfo, VMUFlattenGraphEnumerator, 
                        VMUGraphEnumerator, VMUGraphStackLogReader, VMUGroupBy, VMUGroupByNode, 
                        VMUGroupType, VMUInverseDepthGraphEnumerator, VMULeakDetector, 
                        VMUMutableClassInfo, VMUMutableFieldInfo, VMUNodeGroup, VMUNodeToStringMap, 
                        VMUNonOverlappingRangeArray, VMUObjectGraph, VMUObjectIdentifier, 
                        VMUOptionParser, VMUProcInfo, VMUProcList, VMUProcessDescription, 
-                       VMUProcessObjectGraph, VMURangeArray, VMURangeToStringMap, 
+                       VMUProcessObjectGraph, VMUProgressBar, VMURangeArray, VMURangeToStringMap, 
                        VMUReverseGraphEnumerator, VMUSampler, VMUScanOverlay, VMUSourceInfo, 
                        VMUStackLogConsolidator, VMUStackLogReaderBase, VMUSwiftRuntimeInfo, 
-                       VMUSymbol, VMUSymbolOwnerCache, VMUSymbolicator, VMUTaskMemoryCache, 
-                       VMUTaskMemoryScanner, VMUTaskStackLogReader, VMUTaskThreadStates, 
-                       VMUVMRegion, VMUVMRegionIdentifier, VMUVMRegionRangeInfo, 
+                       VMUSymbol, VMUSymbolOwnerCache, VMUSymbolStore, VMUSymbolicator, 
+                       VMUTaskMemoryCache, VMUTaskMemoryScanner, VMUTaskStackLogReader, 
+                       VMUTaskThreadStates, VMUVMRegion, VMUVMRegionIdentifier, VMUVMRegionRangeInfo, 
                        VMUVMRegionTracker ]
     objc-ivars:      [ VMUBacktrace._callstack, VMUBacktrace._flavor, VMUCallTreeNode._address, 
                        VMUCallTreeNode._children, VMUCallTreeNode._count, VMUCallTreeNode._name, 
@@ -75,9 +76,9 @@ exports:
                        VMUSourceInfo._path, VMUStackLogReaderBase._addressToSymbolicationMap, 
                        VMUStackLogReaderBase._binaryImagePathToIdentifierMap, VMUStackLogReaderBase._coldestFrameIsNotThreadId, 
                        VMUStackLogReaderBase._excludedFrames, VMUStackLogReaderBase._regionTracker, 
-                       VMUStackLogReaderBase._task, VMUStackLogReaderBase._usesLiteMode, 
-                       VMUSwiftRuntimeInfo._nativeWeakReferenceMarkerMask, VMUSwiftRuntimeInfo._nativeWeakReferenceMarkerValue, 
-                       VMUSwiftRuntimeInfo._nativeWeakReferencePointerIsSideTable, 
+                       VMUStackLogReaderBase._symbolicator, VMUStackLogReaderBase._task, 
+                       VMUStackLogReaderBase._usesLiteMode, VMUSwiftRuntimeInfo._nativeWeakReferenceMarkerMask, 
+                       VMUSwiftRuntimeInfo._nativeWeakReferenceMarkerValue, VMUSwiftRuntimeInfo._nativeWeakReferencePointerIsSideTable, 
                        VMUSwiftRuntimeInfo._nativeWeakReferencePointerMask, VMUSwiftRuntimeInfo._refcountIsSideTableMarkerMask, 
                        VMUSwiftRuntimeInfo._refcountIsSideTableMarkerValue, VMUSwiftRuntimeInfo._runtimeHasStableABI, 
                        VMUSwiftRuntimeInfo._sideTableLayout, VMUSwiftRuntimeInfo._sideTablePointerLeftShift, 

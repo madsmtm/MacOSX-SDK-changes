@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           BDCBF46A-E8E0-3EA0-953C-01A1EF83B435
+    value:           113B094B-CB43-34CF-91DF-0B3D22BB5168
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           0282BD7F-2E6A-31B8-83AC-DDC939E22CED
+    value:           A5E04D02-15E2-3700-99D6-E877B85B9CCD
 install-name:    '/System/Library/PrivateFrameworks/Slideshows.framework/Versions/A/Frameworks/OpusFoundation.framework/Versions/A/OpusFoundation'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
@@ -49,12 +49,9 @@ exports:
     objc-classes:    [ OFAudioCaptureManager, OFAudioRecorder, OFCLGeocoderOperation, 
                        OFEmitterView, OFError, OFHTTPDownloadOperation, OFHTTPOperation, 
                        OFHTTPRequestOperation, OFHTTPUploadOperation, OFImageCache, 
-                       OFKeychainGenericAccount, OFKeychainInternetAccount, OFLRUCache, 
-                       OFLayoutStep, OFLinearGradientView, OFLocationCache, OFLogger, 
-                       OFMediaMetadataCache, OFMediaMetadataDatabaseCache, OFMediaMetadataDatabaseCacheEntry, 
-                       OFMetadataCache, OFMetadataFileCache, OFMetadataMemoryCache, 
-                       OFNSButton, OFNSImage, OFNSImageView, OFNSOperation, OFNSOperationQueue, 
-                       OFNSTextField, OFNSTextFieldCell, OFNSURLValueTransformer, 
+                       OFLRUCache, OFLayoutStep, OFLinearGradientView, OFLocationCache, 
+                       OFLogger, OFNSButton, OFNSImage, OFNSImageView, OFNSOperation, 
+                       OFNSOperationQueue, OFNSTextField, OFNSTextFieldCell, OFNSURLValueTransformer, 
                        OFNSView, OFNSViewController, OFPageViewController, OFPropertyAnimation, 
                        OFPropertyAnimationLayer, OFReachability, OFRescaler, OFRescalerItem, 
                        OFTextConversion, OFViewProxy, _OFPageViewControllerContentView, 

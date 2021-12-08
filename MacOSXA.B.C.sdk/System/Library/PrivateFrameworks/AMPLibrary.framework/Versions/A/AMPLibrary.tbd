@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           C5B239E9-41F8-3C57-B18A-F9B7AC44147D
+    value:           961E1BD3-D305-32AA-8E31-EA5E013B3134
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           67FC2E38-F559-3E82-9DF7-FA6AE7EC4194
+    value:           9C3C5263-4CBC-393D-9DED-CC46AE94D8EA
 install-name:    '/System/Library/PrivateFrameworks/AMPLibrary.framework/Versions/A/AMPLibrary'
 current-version: 0
 compatibility-version: 0

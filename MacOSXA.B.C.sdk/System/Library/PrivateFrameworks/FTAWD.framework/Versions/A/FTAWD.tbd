@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           94041E44-2577-3D9F-9505-7026C4B829B2
+    value:           034EBFB6-B90D-3C4C-80C0-12A3EEBA44FE
   - target:          x86_64-maccatalyst
-    value:           94041E44-2577-3D9F-9505-7026C4B829B2
+    value:           034EBFB6-B90D-3C4C-80C0-12A3EEBA44FE
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           8737677F-719A-34A7-B7A7-60A5343745FF
+    value:           303F1F59-F161-37BA-9324-469C78A2366F
   - target:          arm64e-maccatalyst
-    value:           8737677F-719A-34A7-B7A7-60A5343745FF
+    value:           303F1F59-F161-37BA-9324-469C78A2366F
 install-name:    '/System/Library/PrivateFrameworks/FTAWD.framework/Versions/A/FTAWD'
 current-version: 800
 exports:

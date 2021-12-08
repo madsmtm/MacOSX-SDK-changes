@@ -3,11 +3,11 @@ tbd-version:     4
 targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
 uuids:
   - target:          x86_64-macos
-    value:           15CF94C7-97EF-377C-B164-A10FDB2DDED2
+    value:           36866506-F50B-3A66-BADD-BD34CFB4675F
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           174FB621-9AA7-33D3-BC84-0EC7653F6BA8
+    value:           436FFAE1-793A-3A8B-AAD6-474130AE414D
 install-name:    '/System/Library/PrivateFrameworks/SPSupport.framework/Versions/A/SPSupport'
 exports:
   - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]

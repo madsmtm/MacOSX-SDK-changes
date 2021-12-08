@@ -4,17 +4,17 @@ targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatal
                    arm64e-macos, arm64e-maccatalyst ]
 uuids:
   - target:          x86_64-macos
-    value:           953D67C6-00EF-3646-9840-5FDB2DD54CC8
+    value:           AF9E9238-C958-3C76-B673-88E72F8DEC4A
   - target:          x86_64-maccatalyst
-    value:           953D67C6-00EF-3646-9840-5FDB2DD54CC8
+    value:           AF9E9238-C958-3C76-B673-88E72F8DEC4A
   - target:          arm64-macos
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64-maccatalyst
     value:           00000000-0000-0000-0000-000000000000
   - target:          arm64e-macos
-    value:           383710D9-B1AA-38C0-BC1D-7FB1E2CA2FB6
+    value:           36C324ED-B291-39FA-8F7E-36C23863B597
   - target:          arm64e-maccatalyst
-    value:           383710D9-B1AA-38C0-BC1D-7FB1E2CA2FB6
+    value:           36C324ED-B291-39FA-8F7E-36C23863B597
 install-name:    '/System/Library/PrivateFrameworks/CoreDuetContext.framework/Versions/A/CoreDuetContext'
 exports:
   - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
@@ -42,8 +42,8 @@ exports:
                        _CDContextualKeyPathMO, _CDContextualLocationRegistrationMonitor, 
                        _CDContextualPredicate, _CDCoreDataContextPersisting, _CDDevice, 
                        _CDInMemoryContext, _CDInMemoryUserContext, _CDMDCSContextualPredicate, 
-                       _CDNetworkContext, _CDPolicyBasedPersisting, _CDSharedMemoryContextPersisting, 
-                       _CDSystemTimeCallbackScheduler, _CDUserContextQueries, _CDUserContextServerClient, 
-                       _CDUserContextService, _CDXPCCodecs, _CDXPCEventPublisher, 
-                       _CDXPCEventSubscriber ]
+                       _CDNetworkContext, _CDPolicyBasedPersisting, _CDPredicateValidator, 
+                       _CDSharedMemoryContextPersisting, _CDSystemTimeCallbackScheduler, 
+                       _CDUserContextQueries, _CDUserContextServerClient, _CDUserContextService, 
+                       _CDXPCCodecs, _CDXPCEventPublisher, _CDXPCEventSubscriber ]
 ...
