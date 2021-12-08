@@ -3,9 +3,9 @@
  
      Contains:   International Resource definitions.
  
-     Version:    CarbonCore-557~1
+     Version:    CarbonCore-650.1~1
  
-     Copyright:  © 1983-2003 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1983-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:

@@ -122,6 +122,6 @@
 	((partition) << B_PARTITIONSHIFT) | B_DEVMAGIC)
 
 #endif /* __APPLE_API_OBSOLETE */
-#include <machine/reboot.h>
+
 
 #endif	/* _SYS_REBOOT_H_ */

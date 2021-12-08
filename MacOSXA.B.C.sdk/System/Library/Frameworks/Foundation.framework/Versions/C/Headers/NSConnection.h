@@ -1,5 +1,5 @@
 /*	NSConnection.h
-	Copyright (c) 1989-2003, Apple, Inc. All rights reserved.
+	Copyright (c) 1989-2005, Apple, Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -12,31 +12,31 @@
     @private
     id		receivePort;
     id		sendPort;
+    NSTimeInterval requestLimit;
+    NSTimeInterval replyLimit;
     id          delegate;
-    unsigned    isValid:1;
-    unsigned	isDead:1;
-    unsigned	isQueueing:1;
-    unsigned	authGen:1;
-    unsigned	authCheck:1;
-    unsigned	encryptFlag:1;
-    unsigned	decryptFlag:1;
-    unsigned    doRequest:1;
-    unsigned	isMulti:1;
-    unsigned	filler:7;
-    unsigned	refCount:16;
-    void        *localProxies;
-    void        *remoteProxies;
+    id		statistics;
+    unsigned char isDead;
+    unsigned char isValid;
+    unsigned char busy;
+    unsigned char authGen:1;
+    unsigned char authCheck:1;
+    unsigned char encryptFlag:1;
+    unsigned char decryptFlag:1;
+    unsigned char doRequest:1;
+    unsigned char isQueueing:1;
+    unsigned char isMulti:1;
+    unsigned char invalidateRP:1;
+    id          localProxies;
+    id          remoteProxies;
     id          runLoops;
-    NSTimeInterval	requestLimit;
-    NSTimeInterval	replyLimit;
     id		requestModes;
     id          rootObject;
     void *	registerInfo;
-    id		statistics;
-    void	*replMode;
-    void	*classInfoImported;
-    NSMutableData	*releasedProxies;
-    void	*reserved;
+    id		replMode;
+    id          classInfoImported;
+    id		releasedProxies;
+    void *	reserved;
 }
 
 - (NSDictionary *)statistics;

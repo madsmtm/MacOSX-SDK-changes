@@ -23,12 +23,12 @@
 					for begining the burn. 
 					
 					The burn is begun and a progress panel is displayed on screen 
-					by calling @link //apple_ref/occ/instm/DRBurnProgressPanel/beginProgressSheetForBurn%58layout%58modalForWindow%58 beginProgressSheetForBurn:layout:modalForWindow: @/link
+					by calling @link //apple_ref/occ/instm/DRBurnProgressPanel/beginProgressSheetForBurn:layout:modalForWindow: beginProgressSheetForBurn:layout:modalForWindow: @/link
 					if a sheet interface is desired, or 
-					@link //apple_ref/occ/instm/DRBurnProgressPanel/beginProgressPanelForBurn%58layout%58 beginProgressPanelForBurn:layout: @/link for a non-modal panel.
+					@link //apple_ref/occ/instm/DRBurnProgressPanel/beginProgressPanelForBurn:layout: beginProgressPanelForBurn:layout: @/link for a non-modal panel.
 
 					A @link //apple_ref/occ/cl/DRBurnProgressPanel DRBurnProgressPanel @/link sends a 
-					@link //apple_ref/occ/instm/NSObject(DRBurnProgressPanelDelegateMethods)/burnProgressPanel%58burnDidFinish%58 burnProgressPanel:burnDidFinish: @/link message to it's delegate 
+					@link //apple_ref/occ/instm/NSObject(DRBurnProgressPanelDelegateMethods)/burnProgressPanel:burnDidFinish: burnProgressPanel:burnDidFinish: @/link message to it's delegate 
 					when the burn completes. This method allows the delegate 
 					to take over end-of-burn handling from the burn progress 
 					panel to customize error dialogs or user notification.
@@ -69,12 +69,12 @@ AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 					for begining the burn. 
 					
 					The burn is begun and a progress panel is displayed on screen 
-					by calling @link //apple_ref/occ/instm/DRBurnProgressPanel/beginProgressSheetForBurn%58layout%58modalForWindow%58 beginProgressSheetForBurn:layout:modalForWindow: @/link
+					by calling @link //apple_ref/occ/instm/DRBurnProgressPanel/beginProgressSheetForBurn:layout:modalForWindow: beginProgressSheetForBurn:layout:modalForWindow: @/link
 					if a sheet interface is desired, or 
-					@link //apple_ref/occ/instm/DRBurnProgressPanel/beginProgressPanelForBurn%58layout%58 beginProgressPanelForBurn:layout: @/link for a non-modal panel.
+					@link //apple_ref/occ/instm/DRBurnProgressPanel/beginProgressPanelForBurn:layout: beginProgressPanelForBurn:layout: @/link for a non-modal panel.
 
 					A DRBurnProgressPanel sends a 
-					@link //apple_ref/occ/instm/NSObject(DRBurnProgressPanelDelegateMethods)/burnProgressPanel%58burnDidFinish%58 burnProgressPanel:burnDidFinish: @/link message to it's delegate 
+					@link //apple_ref/occ/instm/NSObject(DRBurnProgressPanelDelegateMethods)/burnProgressPanel:burnDidFinish: burnProgressPanel:burnDidFinish: @/link message to it's delegate 
 					when the burn completes. This method allows the delegate 
 					to take over end-of-burn handling from the burn progress 
 					panel to customize error dialogs or user notification.

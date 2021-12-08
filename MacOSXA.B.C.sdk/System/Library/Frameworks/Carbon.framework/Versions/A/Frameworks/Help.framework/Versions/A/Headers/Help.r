@@ -3,9 +3,9 @@
  
      Contains:   Master include for Help private framework
  
-     Version:    Help-27~1003
+     Version:    Help-32~14
  
-     Copyright:  © 1999-2003 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1999-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:

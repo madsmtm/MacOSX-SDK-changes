@@ -36,8 +36,8 @@
 				is removed, registed observers will receive a @link DRDeviceDisappearedNotification DRDeviceDisappearedNotification @/link.
 				
 				It's also possible to obtain a device instance from its IORegistry path 
-				(@link //apple_ref/occ/clm/DRDevice/deviceForIORegistryEntryPath%58 deviceForIORegistryEntryPath: @/link) 
-				or the BSD /dev node name (@link //apple_ref/occ/clm/DRDevice/deviceForBSDName%58 deviceForBSDName: @/link).
+				(@link //apple_ref/occ/clm/DRDevice/deviceForIORegistryEntryPath: deviceForIORegistryEntryPath: @/link) 
+				or the BSD /dev node name (@link //apple_ref/occ/clm/DRDevice/deviceForBSDName: deviceForBSDName: @/link).
 				If you have a reference to a device instance, you can determine if the physical device
 				is still valid and connected by sending the @link //apple_ref/occ/instm/DRDevice/isValid isValid @/link method to the instance.
 				
@@ -92,8 +92,8 @@
 				is removed, registed observers will receive a @link DRDeviceDisappearedNotification DRDeviceDisappearedNotification @/link.
 				
 				It's also possible to obtain a device instance from its IORegistry path 
-				(@link //apple_ref/occ/clm/DRDevice/deviceForIORegistryEntryPath%58 deviceForIORegistryEntryPath: @/link) 
-				or the BSD /dev node name (@link //apple_ref/occ/clm/DRDevice/deviceForBSDName%58 deviceForBSDName: @/link).
+				(@link //apple_ref/occ/clm/DRDevice/deviceForIORegistryEntryPath: deviceForIORegistryEntryPath: @/link) 
+				or the BSD /dev node name (@link //apple_ref/occ/clm/DRDevice/deviceForBSDName: deviceForBSDName: @/link).
 				If you have a reference to a device instance, you can determine if the physical device
 				is still valid and connected by sending the @link //apple_ref/occ/instm/DRDevice/isValid isValid @/link method to the instance.
 				
@@ -723,11 +723,25 @@ extern NSString* const DRDeviceCanWriteDVDRAMKey				AVAILABLE_MAC_OS_X_VERSION_1
 extern NSString* const DRDeviceCanWriteDVDPlusRKey				AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 /*!
+	@const		DRDeviceCanWriteDVDPlusRDoubleLayerKey
+	@discussion	One of the keys in the @link DRDeviceWriteCapabilitiesKey DRDeviceWriteCapabilitiesKey @/link dictionary.
+				NSNumber indicating whether the device can write to DVD+R media.
+*/
+extern NSString* const DRDeviceCanWriteDVDPlusRDoubleLayerKey	AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
 	@const		DRDeviceCanWriteDVDPlusRWKey
 	@discussion	One of the keys in the @link DRDeviceWriteCapabilitiesKey DRDeviceWriteCapabilitiesKey @/link dictionary.
 				NSNumber indicating whether the device can write to DVD+RW media.
 */
 extern NSString* const DRDeviceCanWriteDVDPlusRWKey				AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*!
+	@const		DRDeviceCanWriteCDTextKey
+	@discussion	One of the keys in the @link DRDeviceWriteCapabilitiesKey DRDeviceWriteCapabilitiesKey @/link dictionary.
+				NSNumber indicating whether the device can write CD-Text information to media.
+*/
+extern NSString* const DRDeviceCanWriteCDTextKey				AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 /*!
 	@const		DRDeviceCanWriteIndexPointsKey
@@ -744,7 +758,7 @@ extern NSString* const DRDeviceCanWriteIndexPointsKey			AVAILABLE_MAC_OS_X_VERSI
 extern NSString* const DRDeviceCanWriteISRCKey					AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 /*!
-	@const		DRDeviceCanWriteCDTAOKey
+	@const		DRDeviceCanWriteCDRawKey
 	@discussion	One of the keys in the @link DRDeviceWriteCapabilitiesKey DRDeviceWriteCapabilitiesKey @/link dictionary.
 				NSNumber indicating whether the device supports a TAO (track-at-once)
 				burn strategy for CD.
@@ -988,6 +1002,14 @@ extern NSString* const DRDeviceMediaBlocksFreeKey				AVAILABLE_MAC_OS_X_VERSION_
 extern NSString* const DRDeviceMediaBlocksUsedKey				AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 /*!
+	@const		DRDeviceMediaDoubleLayerL0DataZoneBlocksKey
+	@discussion	One of the keys in the @link DRDeviceMediaInfoKey DRDeviceMediaInfoKey @/link dictionary.
+				NSNumber containing the amount of space available (in blocks) on layer 0 of a double layer
+				piece of media.
+*/
+extern NSString* const DRDeviceMediaDoubleLayerL0DataZoneBlocksKey		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
 	@const		DRDeviceMediaTrackCountKey
 	@discussion	One of the keys in the @link DRDeviceMediaInfoKey DRDeviceMediaInfoKey @/link dictionary.
 				NSNumber containing the number of tracks present on the media.
@@ -1095,6 +1117,13 @@ extern NSString* const DRDeviceMediaTypeDVDRW					AVAILABLE_MAC_OS_X_VERSION_10_
 				Media is a DVD+R.
 */
 extern NSString* const DRDeviceMediaTypeDVDPlusR				AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*!
+	@const		DRDeviceMediaTypeDVDPlusRDoubleLayer
+	@discussion	One of the possible values of the @link DRDeviceMediaTypeKey DRDeviceMediaTypeKey @/link.
+				Media is a DVD+R Double Layer.
+*/
+extern NSString* const DRDeviceMediaTypeDVDPlusRDoubleLayer		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 /*!
 	@const		DRDeviceMediaTypeDVDPlusRW

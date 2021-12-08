@@ -207,12 +207,10 @@ typedef unsigned long long      uintmax_t;
    (-WCHAR_MAX-1) if wchar_t is a signed type.  Unfortunately,
    it turns out that -fshort-wchar changes the signedness of
    the type. */
-#ifndef WCHAR_MIN
-#  if WCHAR_MAX == 0xffff
-#    define WCHAR_MIN       0
-#  else
-#    define WCHAR_MIN       (-WCHAR_MAX-1)
-#  endif
+#if WCHAR_MAX == 0xffff
+#  define WCHAR_MIN       0
+#else
+#  define WCHAR_MIN       (-WCHAR_MAX-1)
 #endif
 
 #define WINT_MIN	  INT32_MIN
@@ -231,12 +229,12 @@ typedef unsigned long long      uintmax_t;
 /* 7.18.4 Macros for integer constants */
 #define INT8_C(v)    (v)
 #define INT16_C(v)   (v)
-#define INT32_C(v)   (v)
+#define INT32_C(v)   (v ## L)
 #define INT64_C(v)   (v ## LL)
 
 #define UINT8_C(v)   (v ## U)
 #define UINT16_C(v)  (v ## U)
-#define UINT32_C(v)  (v ## U)
+#define UINT32_C(v)  (v ## UL)
 #define UINT64_C(v)  (v ## ULL)
 
 #define INTMAX_C(v)  (v ## LL)

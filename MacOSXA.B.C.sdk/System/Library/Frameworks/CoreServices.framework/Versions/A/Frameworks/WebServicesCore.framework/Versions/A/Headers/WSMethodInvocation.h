@@ -3,9 +3,9 @@
  
      Contains:   WebServicesCore Method Invocation API
  
-     Version:    WebServices-16~1
+     Version:    WebServices-25~37
  
-     Copyright:  © 2002-2003 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 2002-2005 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:

@@ -41,11 +41,9 @@
 	IBOutlet NSMatrix*		_completionActions;
 	IBOutlet NSButton*		_testBurn;
 	IBOutlet NSButton*		_verifyBurn;
-	id						_state;
-	float					_delta;
 	IBOutlet NSButton*		_eraseDisc;
-	void*					_unused;
-	void*					_auxStorage;
+	void*					_reservedBurnSetupPanel[4];
+	void*					_bsp_privateStorage;
 }
 
 /* ----------------------------------------------------------------------------- */
@@ -64,7 +62,7 @@
 /*!
 	@method		setDefaultButtonTitle:
 	@abstract	Sets the title for the receiver's default button to title.
-	@discussion	Normally, the default button is "Burn".
+	@discussion	Normally, the default button is “Burn”.
 */
 - (void) setDefaultButtonTitle:(NSString*)title;
 
@@ -106,7 +104,7 @@
 				when the user clicks the OK button.
 				
 				Do not invoke this method within a modal session ( @link //apple_ref/occ/instm/DRSetupPanel/runSetupPanel runSetupPanel @/link or
-				@link //apple_ref/occ/instm/DRSetupPanel/beginSetupSheetForWindow%58modalDelegate%58didEndSelector%58contextInfo%58 beginSetupSheetForWindow:modalDelegate:didEndSelector:contextInfo: @/link )
+				@link //apple_ref/occ/instm/DRSetupPanel/beginSetupSheetForWindow:modalDelegate:didEndSelector:contextInfo: beginSetupSheetForWindow:modalDelegate:didEndSelector:contextInfo: @/link )
 				because the burn object information is only updated just before the
 				modal session ends.
    @result  	A new DRBurn object.
@@ -156,7 +154,7 @@
 
 /*!
 	@const		DRBurnSetupPanelDefaultButtonDefaultTitle
-	@discussion	Passing this to @link //apple_ref/occ/instm/DRBurnSetupPanel/setDefaultButtonTitle%58 setDefaultButtonTitle: @/link causes the panel to redisplay the 
+	@discussion	Passing this to @link //apple_ref/occ/instm/DRBurnSetupPanel/setDefaultButtonTitle: setDefaultButtonTitle: @/link causes the panel to redisplay the 
 				default button title.
 */ 
 extern NSString* const DRBurnSetupPanelDefaultButtonDefaultTitle AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;

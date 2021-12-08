@@ -3,9 +3,9 @@
  
      Contains:   FPCE Floating-Point Definitions and Declarations.
  
-     Version:    CarbonCore-557~1
+     Version:    CarbonCore-650.1~1
  
-     Copyright:  © 1987-2003 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1987-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -1321,11 +1321,9 @@ extern relop  relation(double_t x, double_t y)                                  
 *   dec2l       Similar to dec2num except a long is returned.                   *
 *                                                                               *
 ********************************************************************************/
-#if TARGET_CPU_PPC
+#if TARGET_CPU_PPC || TARGET_CPU_X86
     #define SIGDIGLEN      36  
 #elif TARGET_CPU_68K
-    #define SIGDIGLEN      20
-#elif TARGET_CPU_X86
     #define SIGDIGLEN      20
 #endif
 #define      DECSTROUTLEN   80               /* max length for dec2str output */

@@ -3,9 +3,9 @@
  
      Contains:   Master include for CoreServices (non-UI toolbox)
  
-     Version:    CoreServices-16~158
+     Version:    CoreServices-17~690
  
-     Copyright:  © 1999-2003 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1999-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -16,9 +16,6 @@
 #ifndef __CORESERVICES__
 #define __CORESERVICES__
 
-#if __i386__ || __x86_64__
-    #error Building for Intel is not supported in 10.3.9 SDK
-#endif
 
 #ifndef __CARBONCORE__
 #include <CarbonCore/CarbonCore.h>
@@ -44,6 +41,7 @@
 #include <SearchKit/SearchKit.h>
 #endif
 
+#include <Metadata/Metadata.h>
 
 #endif /* __CORESERVICES__ */
 

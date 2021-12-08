@@ -25,27 +25,38 @@
 /*
  *
  *	$Log: USB.h,v $
- *	Revision 1.44.8.3  2005/01/11 23:29:22  rhoads
- *	commit the Tiger EHCI driver to the update
+ *	Revision 1.53  2004/12/20 18:16:01  rhoads
+ *	change the name of some constants for the new split isoch stuff
  *	
- *	Revision 1.44.8.2  2004/10/25 15:38:06  nano
- *	Call close with gate held if indicated by property.
+ *	Revision 1.52.14.1  2004/11/18 15:50:08  rhoads
+ *	checking in new split algorithms for safe keeping
  *	
- *	Revision 1.44.8.1.28.1  2004/10/20 15:27:38  nano
- *	Potential submissions to Sandbox -- create their own branch
+ *	Revision 1.52  2004/09/24 22:36:13  nano
+ *	Add kUSBProductIDMask for new matching criteria
  *	
- *	Bug #:
- *	<rdar://problem/3826068> USB devices on a P30 attached to Q88 do not function after restart
- *	<rdar://problem/3779852> Q16B EVT Build run in fail Checkconfig Bluetooth *2
- *	<rdar://problem/3816739>IOUSBFamily needs to support polling interval for High Speed devices
- *	<rdar://problem/3816743> Low latency for hi-speed API do not fill frTimeStamp.hi and low in completion.
- *	<rdar://problem/3816749> Low latency for hi-speed API incorrectly treats buffer striding across mem-page
+ *	Revision 1.51  2004/09/24 20:02:42  nano
+ *	<rdar://problem/3613639> Increase USB isoc bandwidth limit on FS bus to 1162 bytes
  *	
- *	Submitted by:
- *	Reviewed by:
+ *	Revision 1.50  2004/05/17 21:52:50  nano
+ *	Add timeStamp and useTimeStamp to our commands.
  *	
- *	Revision 1.44.8.1  2003/12/21 22:38:01  nano
- *	Add couple of defines to munge packet size and to key  the loading of the interface drivers with the gate held.
+ *	Revision 1.49.6.1  2004/05/17 15:57:27  nano
+ *	API Changes for Tiger
+ *	
+ *	Revision 1.49  2004/04/22 04:09:48  nano
+ *	Integrate fixes for rdar://3630366 -- Bluetooth extra reset time workaround
+ *	
+ *	Revision 1.48  2004/03/03 22:01:23  nano
+ *	Merge branch
+ *	
+ *	Revision 1.47.8.1  2004/03/01 17:06:29  nano
+ *	New error code to return when we get a synchronous call while on the workloop thread (kIOUSBSyncRequestOnWLThread).
+ *	
+ *	Revision 1.47  2004/02/03 22:09:49  nano
+ *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
+ *	
+ *	Revision 1.46  2003/12/09 01:12:30  rhoads
+ *	add new macro for munging high bandwidth high speed packet sizes
  *	
  *	Revision 1.45.16.3  2003/12/04 20:39:25  rhoads
  *	bug fix to the mungeMaxPacketSize macro
@@ -55,6 +66,12 @@
  *	
  *	Revision 1.45.16.1  2003/11/20 19:52:34  barryt
  *	Munge high-speed, high-bandwidth endpoint sizes to be correct.
+ *	
+ *	Revision 1.45.2.2  2004/04/28 17:26:09  nano
+ *	Remove $ ID $ so that we don't get conflicts on merge
+ *	
+ *	Revision 1.45.2.1  2003/11/04 22:27:37  nano
+ *	Work in progress to add time stamping to interrupt handler
  *	
  *	Revision 1.45  2003/10/14 22:06:18  nano
  *	Ådded kCallInterfaceOpenWithGate.
@@ -255,15 +272,9 @@ enum {
 
 /*!
 @defined kCallInterfaceOpenWithGate
- @discussion If the USB Device Nub has this property, drivers for any of its interfaces will have their handleOpen method called while holding the workloop gate.
+ @discussion If the USB Device has this property, drivers for any of its interfaces will have their handleOpen method called while holding the workloop gate.
  */
 #define kCallInterfaceOpenWithGate	"kCallInterfaceOpenWithGate"
-
-/*!
-@defined kCallInterfaceCloseWithGate
- @discussion If the USB Device Nub has this property, drivers for any of its interfaces will have their handleclose method called while holding the workloop gate.
- */
-#define kCallInterfaceCloseWithGate	"kCallInterfaceCloseWithGate"
 
 // TYPES
 
@@ -302,18 +313,18 @@ struct IOUSBLowLatencyIsocFrame {
 typedef struct IOUSBLowLatencyIsocFrame IOUSBLowLatencyIsocFrame;
 
 /*!
-    @typedef IOUSBCompletionAction
-    @discussion Function called when USB I/O completes.
-    @param target The target specified in the IOUSBCompletion struct.
-    @param parameter The parameter specified in the IOUSBCompletion struct.
-    @param status Completion status.
-    @param bufferSizeRemaining Bytes left to be transferred.
-*/
+@typedef IOUSBCompletionAction
+ @discussion Function called when USB I/O completes.
+ @param target The target specified in the IOUSBCompletion struct.
+ @param parameter The parameter specified in the IOUSBCompletion struct.
+ @param status Completion status.
+ @param bufferSizeRemaining Bytes left to be transferred.
+ */
 typedef void (*IOUSBCompletionAction)(
-                void *			target,
-                void *			parameter,
-                IOReturn		status,
-                UInt32			bufferSizeRemaining);
+                                      void *			target,
+                                      void *			parameter,
+                                      IOReturn		status,
+                                      UInt32			bufferSizeRemaining);
 
 /*!
 @typedef IOUSBCompletionActionWithTimeStamp
@@ -360,12 +371,12 @@ typedef void (*IOUSBLowLatencyIsocCompletionAction)(
                 IOUSBLowLatencyIsocFrame	*pFrames);
 
 /*!
-    @typedef IOUSBCompletion
-    @discussion Struct specifying action to perform when a USB I/O completes.
-    @param target The target to pass to the action function.
-    @param action The function to call.
-    @param parameter The parameter to pass to the action function.
-*/
+@typedef IOUSBCompletion
+ @discussion Struct specifying action to perform when a USB I/O completes.
+ @param target The target to pass to the action function.
+ @param action The function to call.
+ @param parameter The parameter to pass to the action function.
+ */
 typedef struct IOUSBCompletion {
     void * 			target;
     IOUSBCompletionAction	action;
@@ -1033,6 +1044,7 @@ enum {
 #define kUSBDevicePropertyBusPowerAvailable     "Bus Power Available"
 #define kUSBDevicePropertyAddress               "USB Address"
 #define kUSBDevicePropertyLocationID            "locationID"
+#define kUSBProductIDMask			"idProductMask"
 
 /*!
 @enum USBReEnumerateOptions

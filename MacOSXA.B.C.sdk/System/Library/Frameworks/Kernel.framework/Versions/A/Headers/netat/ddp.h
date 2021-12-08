@@ -32,6 +32,8 @@
 #define _NETAT_DDP_H_
 #include <sys/appleapiopts.h>
 
+#ifdef __APPLE_API_OBSOLETE
+
 /* Header and data sizes */
 
 #define  DDP_HDR_SIZE                 5  /* DDP (short) header size */
@@ -74,10 +76,8 @@ typedef struct {
         char       data[DDP_DATA_SIZE];
 } at_ddp_t;
 
-
 #define	DDPLEN_ASSIGN(ddp, len)		ddp->length = len
 #define	DDPLEN_VALUE(ddp)		ddp->length
-
 
 /* DDP module statistics and configuration */
 
@@ -102,6 +102,7 @@ typedef struct at_ddp_stats {
 	u_int	xmit_dropped_nobuf;
 } at_ddp_stats_t;
 
+
 /* DDP streams module ioctls */
 
 #define	AT_MID_DDP	203
@@ -124,66 +125,5 @@ typedef struct at_ddp_stats {
 #define DDP_IOC_SET_PROTO	((AT_MID_DDP<<8) | 13)
 #endif
 
-#ifdef KERNEL
-#ifdef __APPLE_API_PRIVATE
-
-#define DDP_MIN_NETWORK		0x0001
-#define	DDP_MAX_NETWORK		0xfffe
-#define	DDP_STARTUP_LOW		0xff00
-#define	DDP_STARTUP_HIGH	DDP_MAX_NETWORK
-
-typedef	struct {
-	void **inputQ;
-	int  *pidM;
-	char  **socketM;
-	char  *dbgBits;
-} proto_reg_t;
-
-/* *** note: this counts on the src address always being that of the
-       home port 
-   *** */
-#define FROM_US(ddp)	((NET_VALUE(ddp->src_net) ==\
-	ifID_home->ifThisNode.s_net) && \
-	ifID_home->ifThisNode.s_node == ddp->src_node)
-
-#define RT_LOOKUP_OKAY(ifID, ddp) \
-     ((ROUTING_MODE && ifID->ifRoutingState==PORT_ONLINE) || \
-      (MULTIHOME_MODE && FROM_US(ddp)))
-
-#ifdef NOT_YET
-/* from sys_glue.c */
-int ddp_adjmsg(gbuf_t *m, int len);
-gbuf_t *ddp_growmsg(gbuf_t  *mp, int len);
-	     
-/* from ddp.c */
-int ddp_add_if(at_ifaddr_t *ifID);
-int ddp_rem_if(at_ifaddr_t *ifID);
-int ddp_bind_socket(ddp_socket_t *socketp);
-int ddp_close_socket(ddp_socket_t *socketp);
-int ddp_output(gbuf_t **mp, at_socket src_socket, int src_addr_included);
-void ddp_input(gbuf_t   *mp, at_ifaddr_t *ifID);
-int ddp_router_output(
-     gbuf_t  *mp,
-     at_ifaddr_t *ifID,
-     int addr_type,
-     at_net_al router_net,
-     at_node router_node,
-     etalk_addr_t *enet_addr);
-
-/* from ddp_proto.c */
-int ddp_close(gref_t *gref);
-void ddp_putmsg(gref_t *gref, gbuf_t *mp);
-gbuf_t *ddp_compress_msg(gbuf_t *mp);
-void ddp_stop(gbuf_t *mioc, gref_t *gref);
-	     
-/* in ddp_lap.c */
-void ddp_bit_reverse(unsigned char *);
-
-#endif /* NOT_YET */
-
-/* in ddp_lap.c */
-int ddp_shutdown(int);
-
-#endif /* __APPLE_API_PRIVATE */
-#endif /* KERNEL */
+#endif /* __APPLE_API_OBSOLETE */
 #endif /* _NETAT_DDP_H_ */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -75,9 +75,11 @@ __BEGIN_DECLS
 #define DBG_DRIVERS		6
 #define DBG_TRACE               7
 #define DBG_DLIL	        8
+#define DBG_SECURITY		9
 #define DBG_MISC		20
 #define DBG_DYLD                31
 #define DBG_QT                  32
+#define DBG_APPS                33
 #define DBG_MIG			255
 
 /* **** The Kernel Debug Sub Classes for Mach (DBG_MACH) **** */
@@ -96,6 +98,7 @@ __BEGIN_DECLS
 #define	DBG_MACH_VM		0x30	/* Virtual Memory */
 #define	DBG_MACH_SCHED		0x40	/* Scheduler */
 #define	DBG_MACH_MSGID_INVALID	0x50	/* Messages - invalid */
+#define DBG_MACH_LOCKS		0x60	/* new lock APIs */
 
 /* Codes for Scheduler (DBG_MACH_SCHED) */     
 #define MACH_SCHED              0x0     /* Scheduler */
@@ -211,8 +214,10 @@ __BEGIN_DECLS
 #define TRACEDBG_CODE(SubClass,code) KDBG_CODE(DBG_TRACE, SubClass, code)
 #define MISCDBG_CODE(SubClass,code) KDBG_CODE(DBG_MISC, SubClass, code)
 #define DLILDBG_CODE(SubClass,code) KDBG_CODE(DBG_DLIL, SubClass, code)
+#define SECURITYDBG_CODE(SubClass,code) KDBG_CODE(DBG_SECURITY, SubClass, code)
 #define DYLDDBG_CODE(SubClass,code) KDBG_CODE(DBG_DYLD, SubClass, code)
 #define QTDBG_CODE(SubClass,code) KDBG_CODE(DBG_QT, SubClass, code)
+#define APPSDBG_CODE(SubClass,code) KDBG_CODE(DBG_APPS, SubClass, code)
 
 /*   Usage:
 * kernel_debug((KDBG_CODE(DBG_NETWORK, DNET_PROTOCOL, 51) | DBG_FUNC_START), 
@@ -262,6 +267,13 @@ extern void kernel_debug(unsigned int debugid, unsigned int arg1, unsigned int a
 
 extern void kernel_debug1(unsigned int debugid, unsigned int arg1, unsigned int arg2, unsigned int arg3,  unsigned int arg4, unsigned int arg5);
 
+/*
+ * LP64todo - for some reason these are problematic
+ */
+extern void kdbg_trace_data(struct proc *proc, long *arg_pid);
+
+extern void kdbg_trace_string(struct proc *proc, long *arg1, long *arg2, long *arg3, long *arg4);
+
 #if	KDEBUG
 
 #define KERNEL_DEBUG(x,a,b,c,d,e)	\
@@ -276,128 +288,19 @@ do {					\
         kernel_debug1(x,a,b,c,d,e);	\
 } while(0)
 
+#define __kdebug_only
+
 #else
 
 #define KERNEL_DEBUG(x,a,b,c,d,e)
 #define KERNEL_DEBUG1(x,a,b,c,d,e)
 
+#define __kdebug_only __unused
 #endif
 
 #endif /* __APPLE_API_UNSTABLE */
 __END_DECLS
 
 
-#ifdef KERNEL_PRIVATE
-#ifdef __APPLE_API_PRIVATE
-/*
- * private kernel_debug definitions
- */
-
-typedef struct {
-uint64_t	timestamp;
-unsigned int	arg1;
-unsigned int	arg2;
-unsigned int	arg3;
-unsigned int	arg4;
-unsigned int	arg5;       /* will hold current thread */
-unsigned int	debugid;
-} kd_buf;
-
-#define KDBG_THREAD_MASK 0x7fffffff
-#define KDBG_CPU_MASK    0x80000000
-
-/* Debug Flags */
-#define	KDBG_INIT	0x1
-#define	KDBG_NOWRAP	0x2
-#define	KDBG_FREERUN	0x4
-#define	KDBG_WRAPPED	0x8
-#define	KDBG_USERFLAGS	(KDBG_FREERUN|KDBG_NOWRAP|KDBG_INIT)
-#define KDBG_PIDCHECK   0x10
-#define KDBG_MAPINIT    0x20
-#define KDBG_PIDEXCLUDE 0x40
-
-typedef struct {
-	unsigned int	type;
-	unsigned int	value1;
-	unsigned int	value2;
-	unsigned int	value3;
-	unsigned int	value4;
-	
-} kd_regtype;
-
-typedef struct
-{
-    int nkdbufs;
-    int nolog;
-    int flags;
-    int nkdthreads;
-    int bufid;
-} kbufinfo_t;
-
-typedef struct
-{
-  unsigned int thread;
-  int          valid;
-  char         command[20];
-} kd_threadmap;
-
-#define	KDBG_CLASSTYPE		0x10000
-#define	KDBG_SUBCLSTYPE		0x20000
-#define	KDBG_RANGETYPE		0x40000
-#define	KDBG_TYPENONE		0x80000
-#define KDBG_CKTYPES		0xF0000
-
-#define	KDBG_RANGECHECK	0x100000
-#define	KDBG_VALCHECK	0x200000        /* Check up to 4 individual values */
-
-#define	KDBG_BUFINIT	0x80000000
-
-/* Control operations */
-#define	KDBG_EFLAGS	1
-#define	KDBG_DFLAGS	2
-#define KDBG_ENABLE	3
-#define KDBG_SETNUMBUF	4
-#define KDBG_GETNUMBUF	5
-#define KDBG_SETUP	6
-#define KDBG_REMOVE	7
-#define	KDBG_SETREGCODE	8
-#define	KDBG_GETREGCODE	9
-#define	KDBG_READTRACE	10
-#define KDBG_PIDTR      11
-#define KDBG_THRMAP     12
-#define KDBG_PIDEX      14
-#define KDBG_SETRTCDEC  15
-#define KDBG_KDGETENTROPY 16
-
-/* Minimum value allowed when setting decrementer ticks */
-#define KDBG_MINRTCDEC  2500
-
-
-/* PCSAMPLES control operations */
-#define PCSAMPLE_DISABLE   1
-#define PCSAMPLE_SETNUMBUF 2
-#define PCSAMPLE_GETNUMBUF 3
-#define PCSAMPLE_SETUP	   4
-#define PCSAMPLE_REMOVE	   5
-#define	PCSAMPLE_READBUF   6
-#define	PCSAMPLE_SETREG    7
-#define PCSAMPLE_COMM      8
-
-#define MAX_PCSAMPLES    1000000     /* Maximum number of pc's in a single buffer */
-
-
-extern unsigned int pcsample_enable;
-
-typedef struct
-{
-    int npcbufs;
-    int bufsize;
-    int enable;
-    unsigned long pcsample_beg;
-    unsigned long pcsample_end;
-} pcinfo_t;
-
-#endif /* __APPLE_API_PRIVATE */
-#endif /* KERNEL_PRIVATE */
 
 #endif /* !BSD_SYS_KDEBUG_H */

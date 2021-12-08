@@ -24,9 +24,16 @@
 #ifndef __OPEN_SOURCE__
 /*
  *
- *	$Id: USBHub.h,v 1.12 2003/08/20 19:41:41 nano Exp $
- *
  *	$Log: USBHub.h,v $
+ *	Revision 1.14  2004/02/03 22:09:49  nano
+ *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
+ *	
+ *	Revision 1.13  2004/02/03 21:33:19  nano
+ *	<rdar://problem/3504033>: USB: (new feature) need a UserClient for AppleUSBHub to put HS hubs into test mode
+ *	
+ *	Revision 1.12.66.1  2003/12/17 23:42:10  rhoads
+ *	more hub user client changes
+ *	
  *	Revision 1.12  2003/08/20 19:41:41  nano
  *	
  *	Bug #:
@@ -83,7 +90,8 @@ enum {
     kUSBHubPortEnableChangeFeature      = 17,
     kUSBHubPortSuspendChangeFeature     = 18,
     kUSBHubPortOverCurrentChangeFeature = 19,
-    kUSBHubPortResetChangeFeature       = 20
+    kUSBHubPortResetChangeFeature       = 20,
+    kUSBHubPortTestFeature		= 21
 };
 
     /*!

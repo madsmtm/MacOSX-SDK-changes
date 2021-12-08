@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2005 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -26,6 +26,7 @@
 
 
 #include <sys/appleapiopts.h>
+#include <sys/cdefs.h>
 
 /* Kernel Events Protocol */ 
 #define SYSPROTO_EVENT 		1	/* kernel events protocol */
@@ -44,17 +45,6 @@ struct sockaddr_sys
 };
 
 
-#ifdef KERNEL
-#ifdef __APPLE_API_PRIVATE
-
-extern struct domain systemdomain;
-
-/* built in system domain protocols init function */
-int kern_event_init();
-int kern_control_init();
-
-#endif /* __APPLE_API_PRIVATE */
-#endif /* KERNEL */
 
 #endif /* _SYSTEM_DOMAIN_H_ */
 

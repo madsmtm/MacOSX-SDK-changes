@@ -49,6 +49,7 @@
 #define KG_BAD_SEQ                               (39756043L)
 #define KG_EMPTY_CCACHE                          (39756044L)
 #define KG_NO_CTYPES                             (39756045L)
+#define KG_LUCID_VERSION                         (39756046L)
 #define ERROR_TABLE_BASE_k5g                     (39756032L)
 
 /*
@@ -80,7 +81,7 @@
  * Determine platform-dependent configuration.
  */
 
-#if defined(macintosh) || (defined(__MACH__) && defined(__APPLE__))
+#if defined(__MACH__) && defined(__APPLE__)
 #	include <TargetConditionals.h>
 #	if TARGET_RT_MAC_CFM
 #		error "Use KfM 4.0 SDK headers for CFM compilation."
@@ -92,9 +93,6 @@ extern "C" {
 #endif /* __cplusplus */
 
 #if TARGET_OS_MAC
-#	if defined(__MWERKS__)
-#		pragma import on
-#	endif
 #	pragma options align=mac68k
 #endif
 
@@ -131,7 +129,7 @@ extern "C" {
 #endif	/* HAVE_XOM_H */
 
 /*
- * $Id: gssapi.hin,v 1.19 2003/03/06 20:26:32 lxs Exp $
+ * $Id: gssapi.hin,v 1.20 2004/06/22 18:14:08 raeburn Exp $
  */
 
 /*
@@ -833,9 +831,6 @@ OM_uint32 KRB5_CALLCONV gss_canonicalize_name
 	);
 
 #if TARGET_OS_MAC
-#  if defined(__MWERKS__)
-#    pragma import reset
-#  endif
 #  pragma options align=reset
 #endif
 

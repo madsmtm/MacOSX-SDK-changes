@@ -87,7 +87,7 @@ typedef void (*FWAStreamNotificationProc)( unsigned long isochStreamRef, void*  
 
 
 // update this with the version of the driver in xxxx.xxxx
-const unsigned long kFWADeviceStatusCurrentVersion = 0x00010900;
+const unsigned long kFWADeviceStatusCurrentVersion = 0x00011000;
 
 typedef struct FWADeviceStatus
 {
@@ -306,7 +306,17 @@ enum
 	kGetClockSourceOutParamCount 					= 2,
 	
 	kSetClockSourceInParamCount 					= 2,
-	kSetClockSourceOutParamCount 					= 0
+	kSetClockSourceOutParamCount 					= 0,
+	
+	kSetAutoLoadInParamCount 						= 1,
+	kSetAutoLoadOutParamCount 						= 0,	
+
+	kGetPropertyInParamCount 						= 2,
+	kGetPropertyOutParamCount 						= 0,	
+	
+	kSetPropertyInParamCount 						= 2,
+	kSetPropertyOutParamCount 						= 0	
+	
 };
 
 // Index into our API
@@ -386,6 +396,11 @@ enum
 	kFWACreateFWAudioMIDIPlug,
 	kFWADisposeFWAudioMIDIPlug,
 
+// V6   -----------------------
+
+	kFWASetAutoLoad,
+	kFWAGetProperty,
+	kFWASetProperty,
 
 //  -----------------------
 	

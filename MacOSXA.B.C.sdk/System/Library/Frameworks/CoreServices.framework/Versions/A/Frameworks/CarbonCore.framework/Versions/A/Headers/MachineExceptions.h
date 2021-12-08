@@ -3,9 +3,9 @@
  
      Contains:   Processor Exception Handling Interfaces.
  
-     Version:    CarbonCore-557~1
+     Version:    CarbonCore-650.1~1
  
-     Copyright:  ï¿½ 1993-2003 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1993-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -41,11 +41,21 @@ extern "C" {
 /* Some basic declarations used throughout the kernel */
 typedef struct OpaqueAreaID*            AreaID;
 /* Machine Dependent types for PowerPC: */
+
+/* Because a number of sources do a #define CR 13 and this file contains a struct member named CR,
+ * an obscure compilation error gets spit out.  Rename the field to CRRegister.  To build old code
+ * which has the name CR in it, either update the code to use CRRegister or do a
+ * #define __MACHINEEXCEPTIONS_USE_OLD_CR_FIELD_NAME__ 1
+ * before #including <CoreServices/CoreServices.h> */
+#if __MACHINEEXCEPTIONS_USE_OLD_CR_FIELD_NAME__
+#define CRRegister   CR
+#endif
+
 struct MachineInformationPowerPC {
   UnsignedWide        CTR;
   UnsignedWide        LR;
   UnsignedWide        PC;
-  unsigned long       CR;
+  unsigned long       CRRegister;             /*    changed from CR since some folks had a #define CR  13 in their source code*/
   unsigned long       XER;
   unsigned long       MSR;
   unsigned long       MQ;
@@ -97,7 +107,7 @@ struct FPUInformationPowerPC {
 };
 typedef struct FPUInformationPowerPC    FPUInformationPowerPC;
 union Vector128 {
-#ifdef __APPLE_ALTIVEC__
+#ifdef __VEC__
  vector unsigned int         v;
 #endif
   unsigned long       l[4];

@@ -1,14 +1,10 @@
 /*
 	File:		QTKit.h
 
-	Copyright:	(c)2004-2005 by Apple Computer, Inc., all rights reserved.
+	Copyright:	(c)2004 by Apple Computer, Inc., all rights reserved.
 
 */
 
-#import <AvailabilityMacros.h>
-#ifndef AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER
-	#define AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER		WEAK_IMPORT_ATTRIBUTE
-#endif
 
 #import <QTKit/QTKitDefines.h>
 #import <QTKit/QTDataReference.h>

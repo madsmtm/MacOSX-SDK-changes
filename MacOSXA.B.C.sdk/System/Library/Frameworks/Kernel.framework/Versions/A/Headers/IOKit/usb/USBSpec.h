@@ -25,11 +25,18 @@
 #ifndef __OPEN_SOURCE__
 /*
  *
- *	$Id: USBSpec.h,v 1.15.36.1 2003/12/22 03:36:46 nano Exp $
- *
  *	$Log: USBSpec.h,v $
- *	Revision 1.15.36.1  2003/12/22 03:36:46  nano
- *	Add some new classes and rearranged some of the others
+ *	Revision 1.19  2004/08/30 12:42:56  nano
+ *	Fixed typos in Tiger only enum
+ *	
+ *	Revision 1.18  2004/03/03 22:01:37  nano
+ *	Merge branch -- new endpoint descriptor constants
+ *	
+ *	Revision 1.17.6.1  2004/02/23 23:50:54  nano
+ *	Add some constants for endpoint descriptor decoding.
+ *	
+ *	Revision 1.17  2004/02/03 22:09:49  nano
+ *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
  *	
  *	Revision 1.16  2003/10/01 21:11:00  nano
  *	Cleared up the device/interface class and subclass definitions.
@@ -397,6 +404,22 @@ enum {
     kUSBDFUManifestationTolerantBit     = 2
 };
 
+/*!
+@enum Endpoint Descriptor bits
+ @discussion Bit definitions for endpoint descriptor fields
+ */
+enum {
+    kUSBbEndpointAddressMask				= 0x0f,
+    kUSBbEndpointDirectionBit				= 7,
+    kUSBbEndpointDirectionMask				= ( 1 << kUSBbEndpointDirectionBit ),
+    kUSBEndpointDirectionOut				= 0x00,
+    kUSBEndpointDirectionIn				= 0x80,
+    kUSBEndpointbmAttributesTransferTypeMask		= 0x03,
+    kUSBEndpointbmAttributesSynchronizationTypeMask	= 0x0c,
+    kUSBEndpointbmAttributesSynchronizationTypeShift	= 2,
+    kUSBEndpointbmAttributesUsageTypeMask		= 0x30,
+    kUSBEndpointbmAttributesUsageTypeShift		= 4
+};
 
     /*!
     @enum Property Names

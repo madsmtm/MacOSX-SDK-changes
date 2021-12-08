@@ -3,9 +3,9 @@
  
      Contains:   Gestalt Interfaces.
  
-     Version:    CarbonCore-557~1
+     Version:    CarbonCore-650.1~1
  
-     Copyright:  © 1988-2003 by Apple Computer, Inc.  All rights reserved
+     Copyright:  © 1988-2005 by Apple Computer, Inc.  All rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -56,6 +56,7 @@
 #define gestaltAliasMgrSupportsExtendedCalls  5
 #define gestaltAliasMgrSupportsFSCalls 	6					/*  true if Alias Mgr supports HFS+ Calls  */
 #define gestaltAliasMgrPrefersPath 		7					/*  True if the Alias Mgr prioritizes the path over file id during resolution by default  */
+#define gestaltAliasMgrRequiresAccessors  8					/*  Set if Alias Manager requires accessors for size and usertype  */
 
 #define gestaltAppearanceAttr 			'appr'
 #define gestaltAppearanceExists 		0
@@ -82,6 +83,7 @@
 #define gestaltMacOSCompatibilityBoxless  2					/*  True if we're Boxless (screen shared with Carbon/Cocoa)  */
 
 #define gestaltBusClkSpeed 				'bclk'				/*  main I/O bus clock speed in hertz  */
+#define gestaltBusClkSpeedMHz 			'bclm'				/*  main I/O bus clock speed in megahertz ( an unsigned long )  */
 #define gestaltCloseViewAttr 			'BSDa'				/*  CloseView attributes  */
 #define gestaltCloseViewEnabled 		0					/*  Closeview enabled (dynamic bit - returns current state)  */
 #define gestaltCloseViewDisplayMgrFriendly  1				/*  Closeview compatible with Display Manager (FUTURE)  */
@@ -155,7 +157,8 @@
 #define gestaltCPUApollo 				0x0111				/*  Apollo , Altivec, G4 7455  */
 #define gestaltCPUG47447 				0x0112
 #define gestaltCPU750FX 				0x0120				/*  Sahara,G3 like thing  */
-#define gestaltCPU970 					0x0139
+#define gestaltCPU970 					0x0139				/*  G5  */
+#define gestaltCPU970FX 				0x013C				/*  another G5  */
 
 															/*  x86 CPUs all start with 'i' in the high nybble  */
 #define gestaltCPU486 					'i486'
@@ -170,6 +173,7 @@
 #define gestaltCRMToolRsrcCalls 		2					/*  has CRMGetToolResource/ReleaseToolResource  */
 
 #define gestaltControlStripVersion 		'csvr'				/*  Control Strip version (was 'sdvr')  */
+#define gestaltCountOfCPUs 				'cpus'				/*  the number of CPUs on the computer, Mac OS X 10.4 and later  */
 #define gestaltCTBVersion 				'ctbv'				/*  CommToolbox version  */
 #define gestaltDBAccessMgrAttr 			'dbac'				/*  Database Access Mgr attributes  */
 #define gestaltDBAccessMgrPresent 		0					/*  True if Database Access Mgr present  */
@@ -305,6 +309,7 @@
 #define gestaltFSUsesPOSIXPathsForConversion  14			/*  The path interchange routines operate on POSIX paths instead of HFS paths  */
 #define gestaltFSSupportsExclusiveLocks  15					/*  File system uses POSIX O_EXLOCK for opens  */
 #define gestaltFSSupportsHardLinkDetection  16				/*  File system returns if an item is a hard link  */
+#define gestaltFSAllowsConcurrentAsyncIO  17				/*  File Manager supports concurrent async reads and writes  */
 
 #define gestaltAdminFeaturesFlagsAttr 	'fred'				/*  a set of admin flags, mostly useful internally.  */
 #define gestaltFinderUsesSpecialOpenFoldersFile  0			/*  the Finder uses a special file to store the list of open folders  */
@@ -357,7 +362,8 @@
 #define gestaltKeyboardType 			'kbd '				/*  keyboard type  */
 #define gestaltMacKbd 					1
 #define gestaltMacAndPad 				2
-#define gestaltMacPlusKbd 				3
+#define gestaltMacPlusKbd 				3					/*  OBSOLETE: This pre-ADB keyboard is not supported by any Mac OS X hardware and this value now means gestaltUnknownThirdPartyKbd  */
+#define gestaltUnknownThirdPartyKbd 	3					/*  Unknown 3rd party keyboard.  */
 #define gestaltExtADBKbd 				4
 #define gestaltStdADBKbd 				5
 #define gestaltPrtblADBKbd 				6
@@ -379,6 +385,12 @@
 #define gestaltPwrBkSubDomKbd 			28					/*  PowerBook Subnote Domestic Keyboard with function keys w/  inverted T   */
 #define gestaltPwrBkSubISOKbd 			29					/*  PowerBook Subnote International Keyboard with function keys w/  inverted T      */
 #define gestaltPwrBkSubJISKbd 			30					/*  PowerBook Subnote Japanese Keyboard with function keys w/ inverted T     */
+#define gestaltPortableUSBANSIKbd 		37					/*  Powerbook USB-based internal keyboard, ANSI layout  */
+#define gestaltPortableUSBISOKbd 		38					/*  Powerbook USB-based internal keyboard, ISO layout  */
+#define gestaltPortableUSBJISKbd 		39					/*  Powerbook USB-based internal keyboard, JIS layout  */
+#define gestaltThirdPartyANSIKbd 		40					/*  Third party keyboard, ANSI layout.  Returned in Mac OS X Tiger and later.  */
+#define gestaltThirdPartyISOKbd 		41					/*  Third party keyboard, ISO layout. Returned in Mac OS X Tiger and later.  */
+#define gestaltThirdPartyJISKbd 		42					/*  Third party keyboard, JIS layout. Returned in Mac OS X Tiger and later.  */
 #define gestaltPwrBkEKDomKbd 			195					/*  (0xC3) PowerBook Domestic Keyboard with Embedded Keypad, function keys & inverted T     */
 #define gestaltPwrBkEKISOKbd 			196					/*  (0xC4) PowerBook International Keyboard with Embedded Keypad, function keys & inverted T    */
 #define gestaltPwrBkEKJISKbd 			197					/*  (0xC5) PowerBook Japanese Keyboard with Embedded Keypad, function keys & inverted T       */
@@ -603,6 +615,9 @@
 #define gestalt68040MMU 				4					/*  68040 built-in MMU  */
 #define gestaltEMMU1 					5					/*  Emulated MMU type 1   */
 
+															/*     On Mac OS X, the user visible machine name may something like "PowerMac3,4", which is */
+															/*     a unique string for each signifigant Macintosh computer which Apple creates, but is */
+															/*     not terribly useful as a user visible string. */
 #define gestaltUserVisibleMachineName 	'mnam'				/*  Coerce response into a StringPtr to get a user visible machine name  */
 #define gestaltMPCallableAPIsAttr 		'mpsc'				/*  Bitmap of toolbox/OS managers that can be called from MPLibrary MPTasks  */
 #define gestaltMPFileManager 			0					/*  True if File Manager calls can be made from MPTasks  */
@@ -1001,8 +1016,9 @@
 #define gestaltALMHasSFLocation 		1
 #define gestaltTSMgrVersion 			'tsmv'				/*  Text Services Mgr version, if present  */
 #define gestaltTSMgr15 					0x0150
-#define gestaltTSMgr20 					0x0200
-#define gestaltTSMgr22 					0x0220
+#define gestaltTSMgr20 					0x0200				/*  Version 2.0 as of MacOSX 10.0  */
+#define gestaltTSMgr22 					0x0220				/*  Version 2.2 as of MacOSX 10.3  */
+#define gestaltTSMgr23 					0x0230				/*  Version 2.3 as of MacOSX 10.4  */
 
 #define gestaltTSMgrAttr 				'tsma'				/*  Text Services Mgr attributes, if present  */
 #define gestaltTSMDisplayMgrAwareBit 	0					/*  TSM knows about display manager  */

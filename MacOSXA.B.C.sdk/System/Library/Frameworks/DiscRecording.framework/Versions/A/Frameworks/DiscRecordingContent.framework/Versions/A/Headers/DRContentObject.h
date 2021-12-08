@@ -89,6 +89,8 @@ typedef UInt32 DRFilesystemMask;
 					The mask specifying the ISO-9660 file system. 
 	@constant	kDRFilesystemMaskJoliet
 					The mask specifying the Joliet file system, an extension to the ISO-9660 file system.
+	@constant	kDRFilesystemMaskUDF
+					The mask specifying the UDF file system.
 	@constant	kDRFilesystemMaskHFSPlus
 					The mask specifying the HFS+ file system.
 	@constant	kDRFilesystemMaskDefault
@@ -97,6 +99,7 @@ typedef UInt32 DRFilesystemMask;
 enum {
 	kDRFilesystemMaskISO9660			= (1<<0),
 	kDRFilesystemMaskJoliet				= (1<<1),
+	kDRFilesystemMaskUDF				= (1<<2),
 	kDRFilesystemMaskHFSPlus			= (1<<3),
 	kDRFilesystemMaskDefault			= 0xFFFFFFFF
 };

@@ -24,9 +24,28 @@
 #ifndef __OPEN_SOURCE__
 /*
  *
- *	$Id: IOUSBCommand.h,v 1.12 2003/08/20 19:41:40 nano Exp $
- *
  *	$Log: IOUSBCommand.h,v $
+ *	Revision 1.15  2004/05/17 21:52:50  nano
+ *	Add timeStamp and useTimeStamp to our commands.
+ *	
+ *	Revision 1.14.16.1  2004/05/17 15:57:27  nano
+ *	API Changes for Tiger
+ *	
+ *	Revision 1.14  2004/02/03 22:09:49  nano
+ *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
+ *	
+ *	Revision 1.13.2.2  2004/04/28 17:26:09  nano
+ *	Remove $ ID $ so that we don't get conflicts on merge
+ *	
+ *	Revision 1.13.2.1  2003/11/04 22:27:37  nano
+ *	Work in progress to add time stamping to interrupt handler
+ *	
+ *	Revision 1.13  2003/10/14 22:05:06  nano
+ *	Add a GetStatus() method.
+ *	
+ *	Revision 1.12.40.1  2003/09/25 19:58:21  nano
+ *	Add GetStatus to isoc command
+ *	
  *	Revision 1.12  2003/08/20 19:41:40  nano
  *	
  *	Bug #:
@@ -104,6 +123,8 @@ protected:
 	IOMemoryDescriptor	*_bufferMemoryDescriptor;
 	bool			_multiTransferTransaction;
 	bool			_finalTransferInTransaction;
+        bool			_useTimeStamp;
+        AbsoluteTime		_timeStamp;
     };
     ExpansionData * 		_expansionData;
     
@@ -142,6 +163,8 @@ public:
     void			SetBufferMemoryDescriptor(IOMemoryDescriptor *bufferMemoryDescriptor);
     void			SetMultiTransferTransaction(bool);
     void			SetFinalTransferInTransaction(bool);
+    void			SetUseTimeStamp(bool);
+    void			SetTimeStamp(AbsoluteTime timeStamp);
     usbCommand 			GetSelector(void);
     IOUSBDeviceRequestPtr 	GetRequest(void);
     USBDeviceAddress 		GetAddress(void);
@@ -166,6 +189,8 @@ public:
     IOMemoryDescriptor *	GetBufferMemoryDescriptor(void);
     bool			GetMultiTransferTransaction(void);
     bool			GetFinalTransferInTransaction(void);
+    bool			GetUseTimeStamp(void);
+    AbsoluteTime		GetTimeStamp(void);
 };
 
 
@@ -185,8 +210,11 @@ protected:
     IOUSBIsocFrame *		_frameList;
     IOReturn			_status;
     
-    struct ExpansionData { 
-    UInt32			_updateFrequency;
+    struct ExpansionData
+    {
+        UInt32			_updateFrequency;
+        bool			_useTimeStamp;
+        AbsoluteTime		_timeStamp;
     };
     ExpansionData * 		_expansionData;
 
@@ -210,6 +238,8 @@ public:
     void 		SetFrameList(IOUSBIsocFrame *fl) 	{_frameList = fl;}
     void 		SetStatus(IOReturn stat) 		{_status = stat;}
     void		SetUpdateFrequency( UInt32 fr) 		{ _expansionData->_updateFrequency = fr;}
+    void		SetUseTimeStamp(bool useIt)             { _expansionData->_useTimeStamp= useIt;}
+    void		SetTimeStamp(AbsoluteTime timeStamp)	{ _expansionData->_timeStamp= timeStamp;}
     
     usbCommand 		GetSelector(void) 	{return _selector;}
     USBDeviceAddress 	GetAddress(void) 	{return _address;}
@@ -220,7 +250,10 @@ public:
     UInt64 		GetStartFrame(void) 	{return _startFrame;}
     UInt32 		GetNumFrames(void) 	{return _numFrames;}
     IOUSBIsocFrame* 	GetFrameList(void) 	{return _frameList;}
-    UInt32		GetUpdateFrequency(void){return _expansionData->_updateFrequency; };
+    UInt32		GetUpdateFrequency(void){return _expansionData->_updateFrequency;}
+    IOReturn		GetStatus(void)		{return _status;}
+    bool                GetUseTimeStamp(void)	{return _expansionData->_useTimeStamp;}
+    AbsoluteTime	GetTimeStamp(void)	{return _expansionData->_timeStamp;}
 };
 
 

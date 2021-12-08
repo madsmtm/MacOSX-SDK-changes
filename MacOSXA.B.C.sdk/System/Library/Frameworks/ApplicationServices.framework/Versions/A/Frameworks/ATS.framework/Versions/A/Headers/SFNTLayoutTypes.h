@@ -3,9 +3,9 @@
  
      Contains:   SFNT file layout structures and constants.
  
-     Version:    ATS-135.7~1
+     Version:    ATS-178.1~3
  
-     Copyright:  © 1994-2003 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1994-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -442,8 +442,10 @@ enum {
  *    Selectors for feature type kRubyKanaType
  */
 enum {
-  kNoRubyKanaSelector           = 0,
-  kRubyKanaSelector             = 1
+  kNoRubyKanaSelector           = 0,    /* deprecated - use kRubyKanaOffSelector instead */
+  kRubyKanaSelector             = 1,    /* deprecated - use kRubyKanaOnSelector instead */
+  kRubyKanaOnSelector           = 2,
+  kRubyKanaOffSelector          = 3
 };
 
 
@@ -490,8 +492,10 @@ enum {
  *    Selectors for feature type kItalicCJKRomanType
  */
 enum {
-  kNoCJKItalicRomanSelector     = 0,
-  kCJKItalicRomanSelector       = 1
+  kNoCJKItalicRomanSelector     = 0,    /* deprecated - use kCJKItalicRomanOffSelector instead */
+  kCJKItalicRomanSelector       = 1,    /* deprecated - use kCJKItalicRomanOnSelector instead */
+  kCJKItalicRomanOnSelector     = 2,
+  kCJKItalicRomanOffSelector    = 3
 };
 
 

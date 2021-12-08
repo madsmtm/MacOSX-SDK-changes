@@ -3,9 +3,9 @@
  
      Contains:   Basic Algebraic Operations for AltiVec
  
-     Version:    vecLib-153.2~2
+     Version:    vecLib-176~4
  
-     Copyright:  © 1999-2003 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1999-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -16,10 +16,7 @@
 #ifndef __VBASICOPS__
 #define __VBASICOPS__
 
-#ifndef __CORESERVICES__
-#include <CoreServices/CoreServices.h>
-#endif
-
+#include <CoreServices/../Frameworks/CarbonCore.framework/Headers/MacTypes.h>
 /*
 #ifndef __VECLIBTYPES__
 #include <vecLib/vecLibTypes.h>
@@ -38,7 +35,7 @@
 extern "C" {
 #endif
 
-#if defined(__ppc__) || defined(__i386__)
+#if defined(__ppc__) || defined(__ppc64__) || defined(__i386__)
 #if defined(__VEC__) || defined(__SSE__)
 /*                                                                                  
   This section is a collection of algebraic functions that uses the AltiVec       
@@ -961,7 +958,7 @@ vR128Rotate(
 
 #endif  /* defined(__VEC__) || defined(__SSE__) */
 
-#endif  /* defined(__ppc__) || defined(__i386__) */
+#endif  /* defined(__ppc__) || defined(__ppc64__) || defined(__i386__) */
 
 
 #ifdef __cplusplus

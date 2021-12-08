@@ -23,37 +23,7 @@
 #ifndef __OPEN_SOURCE__
 /*
  *
- *
  *	$Log: IOUSBControllerV2.h,v $
- *	Revision 1.12.36.1  2004/10/25 15:37:38  nano
- *	HS Isoch fixes to PantherUpdate.
- *	
- *	Revision 1.12.100.1  2004/10/20 15:27:38  nano
- *	Potential submissions to Sandbox -- create their own branch
- *	
- *	Bug #:
- *	<rdar://problem/3826068> USB devices on a P30 attached to Q88 do not function after restart
- *	<rdar://problem/3779852> Q16B EVT Build run in fail Checkconfig Bluetooth *2
- *	<rdar://problem/3816739>IOUSBFamily needs to support polling interval for High Speed devices
- *	<rdar://problem/3816743> Low latency for hi-speed API do not fill frTimeStamp.hi and low in completion.
- *	<rdar://problem/3816749> Low latency for hi-speed API incorrectly treats buffer striding across mem-page
- *	
- *	Submitted by:
- *	Reviewed by:
- *	
- *	Revision 1.14.42.1  2004/09/21 18:08:29  rhoads
- *	checking preliminary stuff in for safe keeping
- *	
- *	Revision 1.14.50.1  2004/10/08 17:13:39  nano
- *	Branch for fixes for:
- *	Bug #:
- *	3791223: IOUSBFamily needs to support polling interval for High Speed devices
- *	3809181: Low latency for hi-speed API do not fill frTimeStamp.hi and low in completion.
- *	3809184: Low latency for hi-speed API incorrectly treats buffer striding across mem-page
- *	
- *	Submitted by:
- *	Reviewed by:
- *	
  *	Revision 1.15  2004/09/23 02:19:50  rhoads
  *	changes for hisgh speed isoch
  *	
@@ -150,17 +120,6 @@ protected:
 
     virtual bool 		init( OSDictionary *  propTable );
 
-    /*!
-	@function openPipe
-        Open a pipe to the specified device endpoint
-        @param address Address of the device on the USB bus
-        @param speed of the device: kUSBDeviceSpeedLow, kUSBDeviceSpeedFull or kUSBDeviceSpeedHigh
-        @param endpoint description of endpoint to connect to
-    */
-    virtual IOReturn 		OpenPipe(   USBDeviceAddress 	address, 
-                                            UInt8 		speed,
-                                            Endpoint *		endpoint );
-    
     static IOReturn  DoCreateEP(OSObject *owner,
                            void *arg0, void *arg1,
                            void *arg2, void *arg3);
@@ -173,7 +132,18 @@ protected:
 
 public:
 
-/*!
+        /*!
+        @function openPipe
+         Open a pipe to the specified device endpoint
+         @param address Address of the device on the USB bus
+         @param speed of the device: kUSBDeviceSpeedLow, kUSBDeviceSpeedFull or kUSBDeviceSpeedHigh
+         @param endpoint description of endpoint to connect to
+         */
+        virtual IOReturn 		OpenPipe(   USBDeviceAddress 	address,
+                                       UInt8 		speed,
+                                       Endpoint *		endpoint );
+
+    /*!
     @function CreateDevice
     @abstract Create a new device as IOUSBController, making a note of the
                 high speed hub device ID and port number the full/low speed
@@ -311,7 +281,6 @@ public:
     OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  6);
     virtual void ClearTT(USBDeviceAddress addr, UInt8 endpt, Boolean IN);
 
-    
     OSMetaClassDeclareReservedUsed(IOUSBControllerV2,  7);
     /*!
         @function Read

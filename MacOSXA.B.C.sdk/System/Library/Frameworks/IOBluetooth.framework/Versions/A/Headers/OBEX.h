@@ -62,7 +62,11 @@ enum OBEXErrorCodes
 	kOBEXUnsupportedError				= -21852,		// We don't currently handle whatever you are trying to do.
 	kOBEXInternalError					= -21853,		// A problem has occurred in our internal code.
 	kOBEXBadArgumentError				= -21854,		// A bad argument was passed to an OBEX function.
-
+	kOBEXTimeoutError					= -21855,		// timeout error
+	kOBEXBadRequestError				= -21856,		// bad request error
+	kOBEXCancelledError					= -21857,
+	
+	
 	kOBEXSessionBusyError				= -21875,		// Session is busy with a command already.
 	kOBEXSessionNotConnectedError		= -21876,		// Session does not have an open connection.
 	kOBEXSessionBadRequestError			= -21877,		// Whatever you are trying to do is invalid (trying to send more data than the max packet size supports, e.g.).

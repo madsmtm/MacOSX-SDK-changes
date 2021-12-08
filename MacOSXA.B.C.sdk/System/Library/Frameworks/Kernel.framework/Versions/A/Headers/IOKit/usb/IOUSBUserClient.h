@@ -23,11 +23,12 @@
 #ifndef __OPEN_SOURCE__
 /*
  *
- *	$Id: IOUSBUserClient.h,v 1.20.36.1 2004/03/16 22:30:23 nano Exp $
- *
  *	$Log: IOUSBUserClient.h,v $
- *	Revision 1.20.36.1  2004/03/16 22:30:23  nano
- *	Integrate PR-3006499 to fix rdar://3560337 for Lavender
+ *	Revision 1.22  2004/02/03 22:09:52  nano
+ *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
+ *	
+ *	Revision 1.21  2003/10/14 21:04:01  nano
+ *	Fix for:  3006499 USB: "Rampant" use of unsynchronized getPropertyTable():  we now use setProperty (which is synchronized).
  *	
  *	Revision 1.20.42.1  2003/09/26 22:03:27  nano
  *	Use synchroized setProperty() when merging dictionaries

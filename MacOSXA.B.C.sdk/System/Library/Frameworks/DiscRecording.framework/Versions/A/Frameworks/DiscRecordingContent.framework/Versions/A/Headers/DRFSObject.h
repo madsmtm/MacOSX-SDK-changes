@@ -84,7 +84,7 @@
 				The initial base name for a real object is the name of the corresponding object
 				on disk.  The initial base name for a virtual object is specified when the object
 				is created.  The base names for both real and virtual objects may be modified using the
-				@link //apple_ref/occ/instm/DRFSObject/setBaseName%58 setBaseName: @/link</b> method.
+				@link //apple_ref/occ/instm/DRFSObject/setBaseName: setBaseName: @/link</b> method.
 				
 				Inside a particular filesytem, if the base name cannot be used as-is (if, for example, it contains illegal
 				characters, exceeds the length requirements, or otherwise doesn't meet the required format)
@@ -104,10 +104,10 @@
 				
 				There are two APIs available for getting the specific name from an object:
 				
-				* @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem%58 specificNameForFilesystem: @/link returns the unmodified specific name, which would be used if there were
+				* @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem: specificNameForFilesystem: @/link returns the unmodified specific name, which would be used if there were
 				no conflicts.  
 				
-				* @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link returns a modified specific name, mangled if necessary,
+				* @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link returns a modified specific name, mangled if necessary,
 				which is guaranteed to be unique amongst its siblings in the filesystem.  
 				
 				The filesystem keys are detailed in <b>Filesystem data accessors</b>.  Most of the keys are 
@@ -118,18 +118,18 @@
 				you want the level 1 or level 2 name with DRISO9660LevelOne or DRISO9660LevelTwo.
 				
 				If the object's
-				name does not conflict with any of its siblings, @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link will return the same
-				value as @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem%58 specificNameForFilesystem: @/link.  The converse is not necessarily true -- one object may get
+				name does not conflict with any of its siblings, @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link will return the same
+				value as @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem: specificNameForFilesystem: @/link.  The converse is not necessarily true -- one object may get
 				the actual specific name, and other files with name collisions will be mangled.
 				
-				@link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link will check each of the object's siblings in the hierarchy and mangle to
-				resolve any filename conflicts, so it can be a much more expensive call than @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem%58 specificNameForFilesystem: @/link,
+				@link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link will check each of the object's siblings in the hierarchy and mangle to
+				resolve any filename conflicts, so it can be a much more expensive call than @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem: specificNameForFilesystem: @/link,
 				taking at worst O(N^2) time where N is the number of siblings.  However, actual performance
 				tends to be much better, closer to O(N), particularly when there are only a few collisions.
-				@link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link has the advantage of allowing you to see (and to show the user) the exact
+				@link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link has the advantage of allowing you to see (and to show the user) the exact
 				names which would be generated on the disc if the burn were started immediately.
 				
-				Both @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem%58 specificNameForFilesystem: @/link and @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link will cache information when possible, so
+				Both @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem: specificNameForFilesystem: @/link and @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link will cache information when possible, so
 				that names are only generated and mangled when necessary.  Adding or removing children
 				from a folder, or changing the base or specific name on an object, may cause
 				the cached names of the object's children or siblings to be recomputed.
@@ -148,8 +148,8 @@
 				The properties for @link DRAllFilesystems DRAllFilesystems @/link are treated as the base value, and then the
 				properties in the specific filesystem dictionary are treated as overrides.
 				
-				When obtaining properties with @link //apple_ref/occ/instm/DRFSObject/propertyForKey%58inFilesystem%58mergeWithOtherFilesystems%58 propertyForKey:inFilesystem:mergeWithOtherFilesystems: @/link or
-				@link //apple_ref/occ/instm/DRFSObject/propertiesForFilesystem%58mergeWithOtherFilesystems%58 propertiesForFilesystem:mergeWithOtherFilesystems: @/link, you can specify whether you want to
+				When obtaining properties with @link //apple_ref/occ/instm/DRFSObject/propertyForKey:inFilesystem:mergeWithOtherFilesystems: propertyForKey:inFilesystem:mergeWithOtherFilesystems: @/link or
+				@link //apple_ref/occ/instm/DRFSObject/propertiesForFilesystem:mergeWithOtherFilesystems: propertiesForFilesystem:mergeWithOtherFilesystems: @/link, you can specify whether you want to
 				automatically coalesce the properties between the specified filesystem dictionary and
 				the "all filesystems" dictionary.  This is useful if you want to obtain the effective
 				value of the property, because it will return the value from the "all filesystems"
@@ -238,7 +238,7 @@
 				
 				This is expected behavior.  At present, the only way to create a perfect symlink which
 				is guaranteed to have a correct path on <b>all</b> filesystems is to create a virtual symlink
-				using @link //apple_ref/occ/clm/DRFSObject/symLinkPointingTo%58inFilesystem%58 symLinkPointingTo:inFilesystem: @/link.  
+				using @link //apple_ref/occ/clm/DRFSObject/symLinkPointingTo:inFilesystem: symLinkPointingTo:inFilesystem: @/link.  
 */
 @class DRFolder;
 
@@ -257,11 +257,13 @@ typedef UInt32 DRFilesystemInclusionMask;
 	@discussion Mask constants for determing the presence of a DRFSObject in a specific filesystem 
 	@constant DRFilesystemInclusionMaskISO9660	Indicates the object should be included in the ISO9660 filesytem
 	@constant DRFilesystemInclusionMaskJoliet	Indicates the object should be included in the Joliet filesytem
+	@constant DRFilesystemInclusionMaskUDF	Indicates the object should be included in the UDF filesytem
 	@constant DRFilesystemInclusionMaskHFSPlus	Indicates the object should be included in the HFS+ filesytem
 */
 enum {
 	DRFilesystemInclusionMaskISO9660			= (1<<0),
 	DRFilesystemInclusionMaskJoliet				= (1<<1),
+	DRFilesystemInclusionMaskUDF				= (1<<2),
 	DRFilesystemInclusionMaskHFSPlus			= (1<<3)
 };
 
@@ -331,7 +333,7 @@ enum {
 				The initial base name for a real object is the name of the corresponding object
 				on disk.  The initial base name for a virtual object is specified when the object
 				is created.  The base names for both real and virtual objects may be modified using the
-				@link //apple_ref/occ/instm/DRFSObject/setBaseName%58 setBaseName: @/link method.
+				@link //apple_ref/occ/instm/DRFSObject/setBaseName: setBaseName: @/link method.
 				
 				Inside a particular filesytem, if the base name cannot be used as-is (if, for example, it contains illegal
 				characters, exceeds the length requirements, or otherwise doesn't meet the required format)
@@ -351,10 +353,10 @@ enum {
 				
 				There are two APIs available for getting the specific name from an object:
 				
-				* @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem%58 specificNameForFilesystem: @/link returns the unmodified specific name, which would be used if there were
+				* @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem: specificNameForFilesystem: @/link returns the unmodified specific name, which would be used if there were
 				no conflicts.  
 				
-				* @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link returns a modified specific name, mangled if necessary,
+				* @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link returns a modified specific name, mangled if necessary,
 				which is guaranteed to be unique amongst its siblings in the filesystem.  
 				
 				The filesystem keys are detailed in <b>Filesystem data accessors</b>.  Most of the keys are 
@@ -365,18 +367,18 @@ enum {
 				you want the level 1 or level 2 name with DRISO9660LevelOne or DRISO9660LevelTwo.
 				
 				If the object's
-				name does not conflict with any of its siblings, @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link will return the same
-				value as @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem%58 specificNameForFilesystem: @/link.  The converse is not necessarily true -- one object may get
+				name does not conflict with any of its siblings, @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link will return the same
+				value as @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem: specificNameForFilesystem: @/link.  The converse is not necessarily true -- one object may get
 				the actual specific name, and other files with name collisions will be mangled.
 				
-				@link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link will check each of the object's siblings in the hierarchy and mangle to
-				resolve any filename conflicts, so it can be a much more expensive call than @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem%58 specificNameForFilesystem: @/link,
+				@link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link will check each of the object's siblings in the hierarchy and mangle to
+				resolve any filename conflicts, so it can be a much more expensive call than @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem: specificNameForFilesystem: @/link,
 				taking at worst O(N^2) time where N is the number of siblings.  However, actual performance
 				tends to be much better, closer to O(N), particularly when there are only a few collisions.
-				@link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link has the advantage of allowing you to see (and to show the user) the exact
+				@link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link has the advantage of allowing you to see (and to show the user) the exact
 				names which would be generated on the disc if the burn were started immediately.
 				
-				Both @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem%58 specificNameForFilesystem: @/link and @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem%58 mangledNameForFilesystem: @/link will cache information when possible, so
+				Both @link //apple_ref/occ/instm/DRFSObject/specificNameForFilesystem: specificNameForFilesystem: @/link and @link //apple_ref/occ/instm/DRFSObject/mangledNameForFilesystem: mangledNameForFilesystem: @/link will cache information when possible, so
 				that names are only generated and mangled when necessary.  Adding or removing children
 				from a folder, or changing the base or specific name on an object, may cause
 				the cached names of the object's children or siblings to be recomputed.
@@ -395,8 +397,8 @@ enum {
 				The properties for @link DRAllFilesystems DRAllFilesystems @/link are treated as the base value, and then the
 				properties in the specific filesystem dictionary are treated as overrides.
 				
-				When obtaining properties with @link //apple_ref/occ/instm/DRFSObject/propertyForKey%58inFilesystem%58mergeWithOtherFilesystems%58 propertyForKey:inFilesystem:mergeWithOtherFilesystems: @/link or
-				@link //apple_ref/occ/instm/DRFSObject/propertiesForFilesystem%58mergeWithOtherFilesystems%58 propertiesForFilesystem:mergeWithOtherFilesystems: @/link, you can specify whether you want to
+				When obtaining properties with @link //apple_ref/occ/instm/DRFSObject/propertyForKey:inFilesystem:mergeWithOtherFilesystems: propertyForKey:inFilesystem:mergeWithOtherFilesystems: @/link or
+				@link //apple_ref/occ/instm/DRFSObject/propertiesForFilesystem:mergeWithOtherFilesystems: propertiesForFilesystem:mergeWithOtherFilesystems: @/link, you can specify whether you want to
 				automatically coalesce the properties between the specified filesystem dictionary and
 				the "all filesystems" dictionary.  This is useful if you want to obtain the effective
 				value of the property, because it will return the value from the "all filesystems"
@@ -485,7 +487,7 @@ enum {
 				
 				This is expected behavior.  At present, the only way to create a perfect symlink which
 				is guaranteed to have a correct path on <b>all</b> filesystems is to create a virtual symlink
-				using @link //apple_ref/occ/clm/DRFSObject/symLinkPointingTo%58inFilesystem%58 symLinkPointingTo:inFilesystem: @/link.  
+				using @link //apple_ref/occ/clm/DRFSObject/symLinkPointingTo:inFilesystem: symLinkPointingTo:inFilesystem: @/link.  
 */
 @interface DRFSObject : NSObject 
 { 
@@ -681,7 +683,7 @@ enum {
 	@method		explicitFilesystemMask
 	@abstract	Returns the explicit filesystem mask set for the reciever.
 	@discussion	The explicit mask is one that has been explicitly set by a client 
-				through the @link //apple_ref/occ/instm/DRFSObject/setExplicitFilesystemMask%58 setExplicitFilesystemMask: @/link method.
+				through the @link //apple_ref/occ/instm/DRFSObject/setExplicitFilesystemMask: setExplicitFilesystemMask: @/link method.
 	@result		A filesystem mask
 */
 - (DRFilesystemInclusionMask) explicitFilesystemMask;
@@ -734,7 +736,7 @@ extern NSString* const DRISO9660			AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 	@discussion	The key for accessing the ISO-9660 level 1 name for the file.
 				This key is used to refer specifically to the name generated for ISO-9660 if
 				the ISO level is set to 1.  When used for a property, it is equivalent
-				in use to the DRISO9660 key and acts as a synonym for that key.
+				in use to the @link DRISO9660 DRISO9660 @/link key and acts as a synonym for that key.
 				
 				ISO9660 level 1 names are in the form typically known as 8.3 - eight
 				characters of name and three characters of extension (if it's a file;
@@ -748,7 +750,7 @@ extern NSString* const DRISO9660LevelOne	AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LAT
 	@discussion	The key for accessing the ISO-9660 level 2 name for the file.
 				This key is used to refer specifically to the name generated for ISO-9660 if
 				the ISO level is set to 2.  When used for a property, it is equivalent
-				in use to the DRISO9660 key and acts as a synonym for that key.
+				in use to the @link DRISO9660 DRISO9660 @/link key and acts as a synonym for that key.
 	
 				ISO9660 level 2 names can be 32 chars long, are limited to a subset
 				of the 7-bit ASCII chars (capital letters, numbers, space, punctuation),
@@ -771,6 +773,11 @@ extern NSString* const DRJoliet				AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 */
 extern NSString* const DRHFSPlus			AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
+/*!
+	@const		DRUDF
+	@discussion	The key for accessing the UDF name/properties for the file.
+*/
+extern NSString* const DRUDF				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
 
@@ -862,7 +869,7 @@ extern NSString* const DRPosixGID						AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER
 				This value is used by the MacOS to help when converting
 				the natively UTF-16 filename into an 8-bit-per-character representation (such
 				as MacRoman, Shift-JIS, or UTF8).  If not set, default behavior is to call
-				CFStringGetMostCompatibleMacStringEncoding(CFStringGetSmallestEncoding()).
+				@link //apple_ref/c/func/CFStringGetMostCompatibleMacStringEncoding CFStringGetMostCompatibleMacStringEncoding @/link(@link //apple_ref/c/func/CFStringGetSmallestEncoding CFStringGetSmallestEncoding @/link()).
 */
 extern NSString* const DRHFSPlusTextEncodingHint		AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
@@ -872,7 +879,7 @@ extern NSString* const DRHFSPlusTextEncodingHint		AVAILABLE_MAC_OS_X_VERSION_10_
 				Currently, this value if set is only a suggestion.
 				The burn engine will attempt to use this node ID, but may use another value
 				if it needs to resolve conflicts.  Default behavior is to allocate node IDs
-				incrementally from kHFSFirstUserCatalogNodeID.
+				incrementally from @link //apple_ref/c/econst/kHFSFirstUserCatalogNodeID kHFSFirstUserCatalogNodeID @/link.
 */
 extern NSString* const DRHFSPlusCatalogNodeID			AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
@@ -923,3 +930,116 @@ extern NSString* const DRMacFinderFlags					AVAILABLE_MAC_OS_X_VERSION_10_2_AND_
 	@discussion	NSNumber containing the item's extended Finder flags (MacOS only).
 */
 extern NSString* const DRMacExtendedFinderFlags			AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+
+/*!
+	@const		DRUDFWriteVersion
+	@discussion	Optional key. This property key defines the version for the UDF
+				structures written to disk. Values are definde in UDF Version types.
+*/
+extern NSString* const DRUDFWriteVersion				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/* ------------------------------------ */
+/* UDF Version types */
+/*!
+	@const		DRUDFVersion102
+	@discussion	This value is used in @link DRUDFWriteVersion DRUDFWriteVersion @/link.
+*/
+extern NSString* const DRUDFVersion102					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFVersion150
+	@discussion	This value is used in @link DRUDFWriteVersion DRUDFWriteVersion @/link.
+*/
+extern NSString* const DRUDFVersion150					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*!
+	@const		DRUDFPrimaryVolumeDescriptorNumber
+	@discussion	Optional key. NSNumber containing the primary volume sequence number.
+				See the UDF specs for details.
+*/
+extern NSString* const DRUDFPrimaryVolumeDescriptorNumber	AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFVolumeSequenceNumber
+	@discussion	Optional key. NSNumber containing the volume sequence number.
+				See the UDF specs for details.
+*/
+extern NSString* const DRUDFVolumeSequenceNumber			AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFMaxVolumeSequenceNumber
+	@discussion	Optional key. NSNumber containing the maximum volume sequence number.
+				See the UDF specs for details.
+*/
+extern NSString* const DRUDFMaxVolumeSequenceNumber			AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFInterchangeLevel
+	@discussion	Optional key. NSNumber containing the volume interchange level.
+				See the UDF specs for details.
+*/
+extern NSString* const DRUDFInterchangeLevel				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFMaxInterchangeLevel
+	@discussion	Optional key. NSNumber containing the maximum volume interchange level number.
+				See the UDF specs for details.
+*/
+extern NSString* const DRUDFMaxInterchangeLevel				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFApplicationIdentifierSuffix
+	@discussion	Optional key. NSData object of up to 8 bytes in length, for application use.
+				The presence of this key requires the @link //apple_ref/occ/data/DRApplicationIdentifier DRApplicationIdentifier @/link key.
+*/
+extern NSString* const DRUDFApplicationIdentifierSuffix		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFVolumeSetIdentifier
+	@discussion	Optional key. The Volume Set Identifier for the UDF volume set. If this key
+				is not present, @link //apple_ref/occ/data/DRVolumeSet DRVolumeSet @/link will be used if present.
+				The Volume Set Identifier is composed of the Volume Set Timestamp, the 
+				Implementation Use, and a the string contained in this property.
+*/
+extern NSString* const DRUDFVolumeSetIdentifier				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFVolumeSetTimestamp
+	@discussion	Optional key. An NSDate object for the volume set timestamp.
+				See the UDF specs for details.
+*/
+extern NSString* const DRUDFVolumeSetTimestamp				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFVolumeSetImplementationUse
+	@discussion	Optional key. An NSData object (8 bytes in length) for implementation use data.
+				See the UDF specs for details.
+*/
+extern NSString * const DRUDFVolumeSetImplementationUse		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFRealTimeFile
+	@discussion	NSNumber indicating whether the file is a UDF Real-Time file.
+*/
+extern NSString* const DRUDFRealTimeFile					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
+	@const		DRUDFExtendedFilePermissions
+	@abstract	NSNumber indicating the extended UDF file permissions of this file.
+	@discussion	Bit 0: Change attributes for others (low order bit)
+				Bit 1: Delete permissions for others
+				Bit 2: Change attributes for group
+				Bit 3: Delete permissions for group
+				Bit 4: Change attributes for owner
+				Bit 5: Delete permissions for owner
+				Bit 6 & 7: Reserved
+				If this key is not present, @link DRPosixFileMode DRPosixFileMode @/link will be used with the above bits
+				being set to the corresponding write bit for owner, group, and others.
+				If @link DRPosixFileMode DRPosixFileMode @/link is not present, the file mode from the file on disc will
+				be used, again using the write bit for these permissions.
+*/
+extern NSString* const DRUDFExtendedFilePermissions			AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+

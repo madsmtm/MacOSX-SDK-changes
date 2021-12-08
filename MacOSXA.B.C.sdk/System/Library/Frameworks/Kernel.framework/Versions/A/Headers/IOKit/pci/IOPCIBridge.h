@@ -36,6 +36,10 @@
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/*!
+    @class IOPCIBridge
+    @abstract   Base class for all PCI bridge drivers.
+*/
 
 class IOPCIBridge : public IOService
 {
@@ -60,14 +64,15 @@ protected:
 
 /*! @struct ExpansionData
     @discussion This structure will be used to expand the capablilties of the IOPCIBridge in the future.
-    */    
+*/    
     struct ExpansionData
     {
         IORangeAllocator * cardBusMemoryRanges;
     };
 
 /*! @var reserved
-    Reserved for future use.  (Internal use only)  */
+    Reserved for future use.  (Internal use only)  
+*/
     ExpansionData *reserved;
 
 protected:
@@ -178,14 +183,16 @@ public:
 					IOOptionBits options );
 
 protected:
+    OSMetaClassDeclareReservedUsed(IOPCIBridge, 0);
     virtual bool addBridgePrefetchableMemoryRange( IOPhysicalAddress start,
                                                    IOPhysicalLength length,
                                                    bool host );
 
-    OSMetaClassDeclareReservedUsed(IOPCIBridge, 0);
+    OSMetaClassDeclareReservedUsed(IOPCIBridge, 1);
+    virtual UInt32 extendedFindPCICapability( IOPCIAddressSpace space,
+					      UInt32 capabilityID, IOByteCount * offset = 0 );
 
     // Unused Padding
-    OSMetaClassDeclareReservedUnused(IOPCIBridge,  1);
     OSMetaClassDeclareReservedUnused(IOPCIBridge,  2);
     OSMetaClassDeclareReservedUnused(IOPCIBridge,  3);
     OSMetaClassDeclareReservedUnused(IOPCIBridge,  4);
@@ -221,6 +228,10 @@ protected:
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #define kIOPCIBridgeRegs (32)
+/*!
+    @class IOPCI2PCIBridge
+    @abstract Base class for all PCI-to-PCI bridge drivers.
+*/
 
 class IOPCI2PCIBridge : public IOPCIBridge
 {

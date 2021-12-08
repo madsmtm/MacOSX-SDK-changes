@@ -69,6 +69,8 @@ extern "C" {
 #define GL_ARB_vertex_buffer_object         1
 #define GL_ARB_point_sprite                 1
 #define GL_ARB_texture_non_power_of_two     1
+#define GL_ARB_texture_rectangle            1
+#define GL_ARB_draw_buffers                 1
 #define GL_EXT_clip_volume_hint             1
 #define GL_EXT_rescale_normal               1
 #define GL_EXT_blend_color                  1
@@ -145,7 +147,7 @@ typedef char GLcharARB;
 typedef void *GLhandleARB;
 #endif
 
-#if GL_ARB_vertex_buffer_object || 1
+#if GL_ARB_vertex_buffer_object
 typedef long GLintptrARB;
 typedef long GLsizeiptrARB;
 #endif
@@ -585,6 +587,32 @@ typedef long GLsizeiptrARB;
 #define GL_COORD_REPLACE_ARB                               0x8862
 #endif
 
+#if GL_ARB_texture_rectangle
+#define GL_TEXTURE_RECTANGLE_ARB          0x84F5
+#define GL_TEXTURE_BINDING_RECTANGLE_ARB  0x84F6
+#define GL_PROXY_TEXTURE_RECTANGLE_ARB    0x84F7
+#define GL_MAX_RECTANGLE_TEXTURE_SIZE_ARB 0x84F8
+#endif
+
+#if GL_ARB_draw_buffers
+#define GL_MAX_DRAW_BUFFERS_ARB           0x8824
+#define GL_DRAW_BUFFER0_ARB               0x8825
+#define GL_DRAW_BUFFER1_ARB               0x8826
+#define GL_DRAW_BUFFER2_ARB               0x8827
+#define GL_DRAW_BUFFER3_ARB               0x8828
+#define GL_DRAW_BUFFER4_ARB               0x8829
+#define GL_DRAW_BUFFER5_ARB               0x882A
+#define GL_DRAW_BUFFER6_ARB               0x882B
+#define GL_DRAW_BUFFER7_ARB               0x882C
+#define GL_DRAW_BUFFER8_ARB               0x882D
+#define GL_DRAW_BUFFER9_ARB               0x882E
+#define GL_DRAW_BUFFER10_ARB              0x882F
+#define GL_DRAW_BUFFER11_ARB              0x8830
+#define GL_DRAW_BUFFER12_ARB              0x8831
+#define GL_DRAW_BUFFER13_ARB              0x8832
+#define GL_DRAW_BUFFER14_ARB              0x8833
+#define GL_DRAW_BUFFER15_ARB              0x8834
+#endif
 
 #if GL_EXT_abgr
 #define GL_ABGR_EXT                       0x8000
@@ -2921,6 +2949,14 @@ extern void glGetBufferPointervARB(GLenum target, GLenum pname, GLvoid **params)
 #endif /* GL_GLEXT_FUNCTION_POINTERS */
 #endif
 
+#if GL_ARB_draw_buffers
+#ifdef GL_GLEXT_FUNCTION_POINTERS
+typedef void (* glDrawBuffersARBProcPtr) (GLsizei n, const GLenum *bufs);
+#else
+#endif /* GL_GLEXT_FUNCTION_POINTERS */
+extern void glDrawBuffersARB(GLsizei n, const GLenum *bufs);
+#endif
+
 
 #if GL_EXT_blend_color
 #ifdef GL_GLEXT_FUNCTION_POINTERS
@@ -3544,10 +3580,14 @@ extern void glFinishObjectAPPLE(GLenum object, GLuint name);
 typedef void (* glElementPointerAPPLEProcPtr) (GLenum type, const GLvoid *pointer);
 typedef void (* glDrawElementArrayAPPLEProcPtr) (GLenum mode, GLint first, GLsizei count);
 typedef void (* glDrawRangeElementArrayAPPLEProcPtr) (GLenum mode, GLuint start, GLuint end, GLint first, GLsizei count);
+typedef void (* glMultiDrawElementArrayAPPLEProcPtr) (GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+typedef void (* glMultiDrawRangeElementArrayAPPLEProcPtr) (GLenum mode, GLuint start, GLuint end, const GLint *first, const GLsizei *count, GLsizei primcount);
 #else
 extern void glElementPointerAPPLE(GLenum type, const GLvoid *pointer);
 extern void glDrawElementArrayAPPLE(GLenum mode, GLint first, GLsizei count);
 extern void glDrawRangeElementArrayAPPLE(GLenum mode, GLuint start, GLuint end, GLint first, GLsizei count);
+extern void glMultiDrawElementArrayAPPLE(GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+extern void glMultiDrawRangeElementArrayAPPLE(GLenum mode, GLuint start, GLuint end, const GLint *first, const GLsizei *count, GLsizei primcount);
 #endif /* GL_GLEXT_FUNCTION_POINTERS */
 #endif
 

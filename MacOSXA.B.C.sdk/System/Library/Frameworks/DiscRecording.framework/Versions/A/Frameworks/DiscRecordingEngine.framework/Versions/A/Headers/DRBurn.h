@@ -274,7 +274,7 @@
    	@discussion		After data is written to disc, the data can be verified. The verification
    					process will read the data on the disc back into memory and compare it to the 
    					data originally used to write to disc. The type of verification is determined
-   					by a track property on a track-by-track basis. See the {@link //apple_ref/occ/cl/DRTrack DRTrack}
+   					by a track property on a track-by-track basis. See the @link //apple_ref/occ/cl/DRTrack DRTrack @/link
    					documentation for more information on verification types.
     @result  		A BOOL indicating if the disc will be verified.
 */
@@ -371,7 +371,7 @@ extern NSString* const DRBurnUnderrunProtectionKey	AVAILABLE_MAC_OS_X_VERSION_10
 	@discussion		The burn property whose value is a BOOL indicating if the burn will run 
 					as a test burn.
 
-					When this is set and the burn object is sent @link writeLayout%58 writeLayout: @/link,
+					When this is set and the burn object is sent @link writeLayout: writeLayout: @/link,
 					the entire burn process proceeds as if data would be 
 					written to the disc, but the laser is not turned on to full power, so
 					the physical disc is not modified.
@@ -417,6 +417,25 @@ extern NSString* const DRBurnFailureActionKey		AVAILABLE_MAC_OS_X_VERSION_10_3_A
 extern NSString* const DRMediaCatalogNumberKey		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 /*!
+	@const		DRBurnDoubleLayerL0DataZoneBlocksKey
+	@discussion	The burn property key whose value is an NSNumber containing the number of blocks desired
+				for the layer 0 data zone on a double layer writable disc.
+				
+				The size of the layer 0 data zone dictates where the transition point is from layer 0 to
+				layer 1. If this key is present, the data zone size will be set prior to the start of the
+				burn using the value for this key. If it is not present, the default layer 0 data zone will 
+				be used (half the available blocks on an empty disc).
+				
+				The transition point can be specified two ways. If the value specified in this key is
+				greater than 1.0, then it will designate an absolute block number for the transition point. In
+				this case, the block number should be a multiple of 16 and at least 40000h per specification. If
+				the value is less than 1.0, it will specify the percentage of the burn that should reside on
+				layer 0. A typical value is 0.5, designating half the burn for each layer. A value of 0.0 or 1.0
+				will not change the layer 0 transition point.
+*/				
+extern NSString* const DRBurnDoubleLayerL0DataZoneBlocksKey		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+/*!
 	@const			DRBurnStrategyKey
 	@discussion		The burn property whose value is an NSString, or NSArray or NSStrings,
 					indicating the burn strategy or strategies that are suggested.  If this
@@ -453,6 +472,22 @@ extern NSString* const DRBurnStrategyKey			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_L
 					that will provide an equivalent disc.
 */
 extern NSString* const DRBurnStrategyIsRequiredKey	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+
+/*!
+	@const			DRCDTextKey
+	@discussion		This key points to a @link //apple_ref/occ/cl/DRCDTextBlock DRCDTextBlock @/link, or array of @link //apple_ref/occ/cl/DRCDTextBlock DRCDTextBlocks @/link,
+					containing the CD-Text information for the disc.  If this key
+					is not present, the burn will not write CD-Text.
+				
+					Before using this key, you should to make sure that the device
+					supports CD-Text by checking the value of @link //apple_ref/occ/data/DRDeviceCanWriteCDTextKey DRDeviceCanWriteCDTextKey @/link
+					in the device's write capabilities dictionary.
+				
+					If this value is set to <i>YES</i>, and the device does
+					not support writing CD-Text, the burn will fail with
+					@link //apple_ref/c/econst/kDRDeviceCantWriteCDTextErr kDRDeviceCantWriteCDTextErr @/link.  
+*/
+extern NSString* const DRCDTextKey					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 /* --------------------------------------- */
 /* Completion actions */

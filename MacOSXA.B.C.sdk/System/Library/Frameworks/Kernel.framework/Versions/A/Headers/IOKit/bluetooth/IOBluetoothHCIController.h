@@ -378,12 +378,21 @@ public:
 												UInt32						inDataSize,
 												UInt32						inSequenceNumber );
 	
+	// The following is only a "ghost" call and exists only to make the compiler happy, its implementation 
+	// does not do anything.
 	static	IOReturn	ProcessSCODataAction( IOBluetoothHCIController *	hciController,
 												UInt8 *						incomingDataPtr,
 												UInt32						inDataSize,
 												UInt32						inMissingData,
 												UInt32						inTimestampHi,
 												UInt32						inTimestampLo,
+												Boolean						inCopyData );
+												
+	static	IOReturn	ProcessSCODataActionAT( IOBluetoothHCIController *	hciController,
+												UInt8 *						incomingDataPtr,
+												UInt32						inDataSize,
+												UInt32						inMissingData,
+												AbsoluteTime*				inTimestamp,
 												Boolean						inCopyData );
 
 	// Data processing helpers.
@@ -973,6 +982,10 @@ protected:
 		UInt8				*mSCOPacketBuffer;
 		UInt16				mNumBufferedSCOBytes;
 		AbsoluteTime		mBufferedSCOPacketTimestamp;
+		
+		// Repository for the packets when logging at boot
+		OSArray				*mRepositoryForBoot;
+		UInt16				mMaxNumberOfBootPackets;
 	} ExpansionData;
 
 	ExpansionData*		mExpansionData;
@@ -994,6 +1007,8 @@ protected:
 #define mSCOPacketBuffer					IOBluetoothHCIController::mExpansionData->mSCOPacketBuffer
 #define mNumBufferedSCOBytes				IOBluetoothHCIController::mExpansionData->mNumBufferedSCOBytes
 #define mBufferedSCOPacketTimestamp				IOBluetoothHCIController::mExpansionData->mBufferedSCOPacketTimestamp
+#define mRepositoryForBoot				IOBluetoothHCIController::mExpansionData->mRepositoryForBoot
+#define mMaxNumberOfBootPackets				IOBluetoothHCIController::mExpansionData->mMaxNumberOfBootPackets
 
 	enum {
 		kIOBluetoothHCIControllerSleepFlagInquiryScanWasEnabled	= 0x01

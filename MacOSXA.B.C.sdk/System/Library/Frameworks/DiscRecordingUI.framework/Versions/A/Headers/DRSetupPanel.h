@@ -39,14 +39,9 @@
 	IBOutlet NSButton*		_eject;
 	IBOutlet NSTextField*	_userMessage;
 	IBOutlet NSImageView*	_icon;
-	
-	id						_owner;
-	DRDevice*				_device;
-
-	int						_reservation;
-	id						_controller;
-	id						_setupDelegate;
-	SEL						_didEndSelector;
+	IBOutlet id				_deviceChooser;
+	void*					_sp_privateStorage;
+	void*					_reservedSetupPanel[2];
 }
 
 /* ----------------------------------------------------------------------------- */
@@ -66,7 +61,7 @@
 /*!
 	@method		runSetupPanel
 	@abstract	Displays the receiver and begins its event loop.
-	@discussion	Invokes NSApplication's @link //apple_ref/occ/instm/NSApplication/runModalForWindow%58 runModalForWindow: @/link method with self as the argument.
+	@discussion	Invokes NSApplication's @link //apple_ref/occ/instm/NSApplication/runModalForWindow: runModalForWindow: @/link method with self as the argument.
 	@result		Returns @link //apple_ref/c/econst/NSOKButton NSOKButton @/link (if the user clicks the default button) or
 				@link //apple_ref/c/econst/NSCancelButton NSCancelButton @/link (if the user clicks the Cancel button).
 */

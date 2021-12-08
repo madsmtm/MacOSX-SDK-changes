@@ -3,9 +3,9 @@
  
      Contains:   AltiVec DSP Interfaces
  
-     Version:    vecLib-153.2~2
+     Version:    vecLib-176~4
  
-     Copyright:  © 2000-2003 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 2000-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -16,9 +16,8 @@
 #ifndef __VDSP__
 #define __VDSP__
 
-#ifndef __CORESERVICES__
-#include <CoreServices/CoreServices.h>
-#endif
+#include <CoreServices/../Frameworks/CarbonCore.framework/Headers/MacTypes.h>
+#include "vDSP_translate.h"
 
 
 #include <AvailabilityMacros.h>
@@ -75,6 +74,10 @@ enum {
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 
+
+
+
+
 /*
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
     Functions create_fftsetup and destroy_fftsetup.
@@ -85,7 +88,7 @@ enum {
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  create_fftsetup()
+ *  vDSP_create_fftsetup()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -93,13 +96,13 @@ enum {
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern FFTSetup 
-create_fftsetup(
+vDSP_create_fftsetup(
   UInt32     log2n,
   FFTRadix   radix)                                           AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
- *  destroy_fftsetup()
+ *  vDSP_destroy_fftsetup()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -107,11 +110,11 @@ create_fftsetup(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-destroy_fftsetup(FFTSetup setup)                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+vDSP_destroy_fftsetup(FFTSetup setup)                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
- *  create_fftsetupD()
+ *  vDSP_create_fftsetupD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -119,13 +122,13 @@ destroy_fftsetup(FFTSetup setup)                              AVAILABLE_MAC_OS_X
  *    Non-Carbon CFM:   not available
  */
 extern FFTSetupD 
-create_fftsetupD(
+vDSP_create_fftsetupD(
   UInt32     log2n,
   FFTRadix   radix)                                           AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 /*
- *  destroy_fftsetupD()
+ *  vDSP_destroy_fftsetupD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -133,7 +136,7 @@ create_fftsetupD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-destroy_fftsetupD(FFTSetupD setup)                            AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+vDSP_destroy_fftsetupD(FFTSetupD setup)                       AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
 
 
 
@@ -153,7 +156,7 @@ destroy_fftsetupD(FFTSetupD setup)                            AVAILABLE_MAC_OS_X
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  ctoz()
+ *  vDSP_ctoz()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -161,7 +164,7 @@ destroy_fftsetupD(FFTSetupD setup)                            AVAILABLE_MAC_OS_X
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-ctoz(
+vDSP_ctoz(
   const DSPComplex   C[],
   SInt32             strideC,
   DSPSplitComplex *  Z,
@@ -170,7 +173,7 @@ ctoz(
 
 
 /*
- *  ztoc()
+ *  vDSP_ztoc()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -178,7 +181,7 @@ ctoz(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-ztoc(
+vDSP_ztoc(
   const DSPSplitComplex *  Z,
   SInt32                   strideZ,
   DSPComplex               C[],
@@ -187,7 +190,7 @@ ztoc(
 
 
 /*
- *  ctozD()
+ *  vDSP_ctozD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -195,7 +198,7 @@ ztoc(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-ctozD(
+vDSP_ctozD(
   const DSPDoubleComplex   C[],
   SInt32                   strideC,
   DSPDoubleSplitComplex *  Z,
@@ -204,7 +207,7 @@ ctozD(
 
 
 /*
- *  ztocD()
+ *  vDSP_ztocD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -212,7 +215,7 @@ ctozD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-ztocD(
+vDSP_ztocD(
   const DSPDoubleSplitComplex *  Z,
   SInt32                         strideZ,
   DSPDoubleComplex               C[],
@@ -242,7 +245,7 @@ ztocD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  fft_zip()
+ *  vDSP_fft_zip()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -250,7 +253,7 @@ ztocD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft_zip(
+vDSP_fft_zip(
   FFTSetup           setup,
   DSPSplitComplex *  ioData,
   SInt32             stride,
@@ -259,7 +262,7 @@ fft_zip(
 
 
 /*
- *  fft_zipt()
+ *  vDSP_fft_zipt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -267,7 +270,7 @@ fft_zip(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft_zipt(
+vDSP_fft_zipt(
   FFTSetup           setup,
   DSPSplitComplex *  ioData,
   SInt32             stride,
@@ -277,7 +280,7 @@ fft_zipt(
 
 
 /*
- *  fft_zipD()
+ *  vDSP_fft_zipD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -285,7 +288,7 @@ fft_zipt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft_zipD(
+vDSP_fft_zipD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   stride,
@@ -294,7 +297,7 @@ fft_zipD(
 
 
 /*
- *  fft_ziptD()
+ *  vDSP_fft_ziptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -302,7 +305,7 @@ fft_zipD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft_ziptD(
+vDSP_fft_ziptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   stride,
@@ -336,7 +339,7 @@ fft_ziptD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  fft_zop()
+ *  vDSP_fft_zop()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -344,7 +347,7 @@ fft_ziptD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft_zop(
+vDSP_fft_zop(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -355,7 +358,7 @@ fft_zop(
 
 
 /*
- *  fft_zopt()
+ *  vDSP_fft_zopt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -363,7 +366,7 @@ fft_zop(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft_zopt(
+vDSP_fft_zopt(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -375,7 +378,7 @@ fft_zopt(
 
 
 /*
- *  fft_zopD()
+ *  vDSP_fft_zopD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -383,7 +386,7 @@ fft_zopt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft_zopD(
+vDSP_fft_zopD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -394,7 +397,7 @@ fft_zopD(
 
 
 /*
- *  fft_zoptD()
+ *  vDSP_fft_zoptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -402,7 +405,7 @@ fft_zopD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft_zoptD(
+vDSP_fft_zoptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -434,7 +437,7 @@ fft_zoptD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  fft_zrip()
+ *  vDSP_fft_zrip()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -442,7 +445,7 @@ fft_zoptD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft_zrip(
+vDSP_fft_zrip(
   FFTSetup           setup,
   DSPSplitComplex *  ioData,
   SInt32             stride,
@@ -451,7 +454,7 @@ fft_zrip(
 
 
 /*
- *  fft_zript()
+ *  vDSP_fft_zript()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -459,7 +462,7 @@ fft_zrip(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft_zript(
+vDSP_fft_zript(
   FFTSetup           setup,
   DSPSplitComplex *  ioData,
   SInt32             stride,
@@ -469,7 +472,7 @@ fft_zript(
 
 
 /*
- *  fft_zripD()
+ *  vDSP_fft_zripD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -477,7 +480,7 @@ fft_zript(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft_zripD(
+vDSP_fft_zripD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   stride,
@@ -486,7 +489,7 @@ fft_zripD(
 
 
 /*
- *  fft_zriptD()
+ *  vDSP_fft_zriptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -494,7 +497,7 @@ fft_zripD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft_zriptD(
+vDSP_fft_zriptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   stride,
@@ -526,7 +529,7 @@ fft_zriptD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  fft_zrop()
+ *  vDSP_fft_zrop()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -534,7 +537,7 @@ fft_zriptD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft_zrop(
+vDSP_fft_zrop(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -545,7 +548,7 @@ fft_zrop(
 
 
 /*
- *  fft_zropt()
+ *  vDSP_fft_zropt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -553,7 +556,7 @@ fft_zrop(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft_zropt(
+vDSP_fft_zropt(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -565,7 +568,7 @@ fft_zropt(
 
 
 /*
- *  fft_zropD()
+ *  vDSP_fft_zropD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -573,7 +576,7 @@ fft_zropt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft_zropD(
+vDSP_fft_zropD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -584,7 +587,7 @@ fft_zropD(
 
 
 /*
- *  fft_zroptD()
+ *  vDSP_fft_zroptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -592,7 +595,7 @@ fft_zropD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft_zroptD(
+vDSP_fft_zroptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -627,7 +630,7 @@ fft_zroptD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  fft2d_zip()
+ *  vDSP_fft2d_zip()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -635,7 +638,7 @@ fft_zroptD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft2d_zip(
+vDSP_fft2d_zip(
   FFTSetup           setup,
   DSPSplitComplex *  ioData,
   SInt32             strideInRow,
@@ -646,7 +649,7 @@ fft2d_zip(
 
 
 /*
- *  fft2d_zipt()
+ *  vDSP_fft2d_zipt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -654,7 +657,7 @@ fft2d_zip(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft2d_zipt(
+vDSP_fft2d_zipt(
   FFTSetup           setup,
   DSPSplitComplex *  ioData,
   SInt32             strideInRow,
@@ -666,7 +669,7 @@ fft2d_zipt(
 
 
 /*
- *  fft2d_zipD()
+ *  vDSP_fft2d_zipD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -674,7 +677,7 @@ fft2d_zipt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft2d_zipD(
+vDSP_fft2d_zipD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   strideInRow,
@@ -685,7 +688,7 @@ fft2d_zipD(
 
 
 /*
- *  fft2d_ziptD()
+ *  vDSP_fft2d_ziptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -693,7 +696,7 @@ fft2d_zipD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft2d_ziptD(
+vDSP_fft2d_ziptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   strideInRow,
@@ -732,7 +735,7 @@ fft2d_ziptD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  fft2d_zop()
+ *  vDSP_fft2d_zop()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -740,7 +743,7 @@ fft2d_ziptD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft2d_zop(
+vDSP_fft2d_zop(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStrideInRow,
@@ -754,7 +757,7 @@ fft2d_zop(
 
 
 /*
- *  fft2d_zopt()
+ *  vDSP_fft2d_zopt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -762,7 +765,7 @@ fft2d_zop(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft2d_zopt(
+vDSP_fft2d_zopt(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStrideInRow,
@@ -777,7 +780,7 @@ fft2d_zopt(
 
 
 /*
- *  fft2d_zopD()
+ *  vDSP_fft2d_zopD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -785,7 +788,7 @@ fft2d_zopt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft2d_zopD(
+vDSP_fft2d_zopD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStrideInRow,
@@ -799,7 +802,7 @@ fft2d_zopD(
 
 
 /*
- *  fft2d_zoptD()
+ *  vDSP_fft2d_zoptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -807,7 +810,7 @@ fft2d_zopD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft2d_zoptD(
+vDSP_fft2d_zoptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStrideInRow,
@@ -845,7 +848,7 @@ fft2d_zoptD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  fft2d_zrip()
+ *  vDSP_fft2d_zrip()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -853,7 +856,7 @@ fft2d_zoptD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft2d_zrip(
+vDSP_fft2d_zrip(
   FFTSetup           setup,
   DSPSplitComplex *  ioData,
   SInt32             strideInRow,
@@ -864,7 +867,7 @@ fft2d_zrip(
 
 
 /*
- *  fft2d_zript()
+ *  vDSP_fft2d_zript()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -872,7 +875,7 @@ fft2d_zrip(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft2d_zript(
+vDSP_fft2d_zript(
   FFTSetup           setup,
   DSPSplitComplex *  ioData,
   SInt32             strideInRow,
@@ -884,7 +887,7 @@ fft2d_zript(
 
 
 /*
- *  fft2d_zripD()
+ *  vDSP_fft2d_zripD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -892,7 +895,7 @@ fft2d_zript(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft2d_zripD(
+vDSP_fft2d_zripD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   strideInRow,
@@ -903,7 +906,7 @@ fft2d_zripD(
 
 
 /*
- *  fft2d_zriptD()
+ *  vDSP_fft2d_zriptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -911,7 +914,7 @@ fft2d_zripD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft2d_zriptD(
+vDSP_fft2d_zriptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   strideInRow,
@@ -949,7 +952,7 @@ fft2d_zriptD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  fft2d_zrop()
+ *  vDSP_fft2d_zrop()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -957,7 +960,7 @@ fft2d_zriptD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft2d_zrop(
+vDSP_fft2d_zrop(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStrideInRow,
@@ -971,7 +974,7 @@ fft2d_zrop(
 
 
 /*
- *  fft2d_zropt()
+ *  vDSP_fft2d_zropt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -979,7 +982,7 @@ fft2d_zrop(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-fft2d_zropt(
+vDSP_fft2d_zropt(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStrideInRow,
@@ -994,7 +997,7 @@ fft2d_zropt(
 
 
 /*
- *  fft2d_zropD()
+ *  vDSP_fft2d_zropD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1002,7 +1005,7 @@ fft2d_zropt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft2d_zropD(
+vDSP_fft2d_zropD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   Kr,
@@ -1016,7 +1019,7 @@ fft2d_zropD(
 
 
 /*
- *  fft2d_zroptD()
+ *  vDSP_fft2d_zroptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1024,7 +1027,7 @@ fft2d_zropD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft2d_zroptD(
+vDSP_fft2d_zroptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   Kr,
@@ -1059,7 +1062,7 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 */
 /*
- *  fftm_zip()
+ *  vDSP_fftm_zip()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1067,7 +1070,7 @@ ________________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zip(
+vDSP_fftm_zip(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1078,7 +1081,7 @@ fftm_zip(
 
 
 /*
- *  fftm_zipt()
+ *  vDSP_fftm_zipt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1086,7 +1089,7 @@ fftm_zip(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zipt(
+vDSP_fftm_zipt(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1098,7 +1101,7 @@ fftm_zipt(
 
 
 /*
- *  fftm_zipD()
+ *  vDSP_fftm_zipD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1106,7 +1109,7 @@ fftm_zipt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zipD(
+vDSP_fftm_zipD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -1117,7 +1120,7 @@ fftm_zipD(
 
 
 /*
- *  fftm_ziptD()
+ *  vDSP_fftm_ziptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1125,7 +1128,7 @@ fftm_zipD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_ziptD(
+vDSP_fftm_ziptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -1160,7 +1163,7 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 */
 /*
- *  fftm_zop()
+ *  vDSP_fftm_zop()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1168,7 +1171,7 @@ ________________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zop(
+vDSP_fftm_zop(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1182,7 +1185,7 @@ fftm_zop(
 
 
 /*
- *  fftm_zopt()
+ *  vDSP_fftm_zopt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1190,7 +1193,7 @@ fftm_zop(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zopt(
+vDSP_fftm_zopt(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1205,7 +1208,7 @@ fftm_zopt(
 
 
 /*
- *  fftm_zopD()
+ *  vDSP_fftm_zopD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1213,7 +1216,7 @@ fftm_zopt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zopD(
+vDSP_fftm_zopD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -1227,7 +1230,7 @@ fftm_zopD(
 
 
 /*
- *  fftm_zoptD()
+ *  vDSP_fftm_zoptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1235,7 +1238,7 @@ fftm_zopD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zoptD(
+vDSP_fftm_zoptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -1269,7 +1272,7 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 */
 /*
- *  fftm_zrip()
+ *  vDSP_fftm_zrip()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1277,7 +1280,7 @@ ________________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zrip(
+vDSP_fftm_zrip(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1288,7 +1291,7 @@ fftm_zrip(
 
 
 /*
- *  fftm_zript()
+ *  vDSP_fftm_zript()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1296,7 +1299,7 @@ fftm_zrip(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zript(
+vDSP_fftm_zript(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1308,7 +1311,7 @@ fftm_zript(
 
 
 /*
- *  fftm_zripD()
+ *  vDSP_fftm_zripD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1316,7 +1319,7 @@ fftm_zript(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zripD(
+vDSP_fftm_zripD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -1327,7 +1330,7 @@ fftm_zripD(
 
 
 /*
- *  fftm_zriptD()
+ *  vDSP_fftm_zriptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1335,7 +1338,7 @@ fftm_zripD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zriptD(
+vDSP_fftm_zriptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -1370,7 +1373,7 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 */
 /*
- *  fftm_zrop()
+ *  vDSP_fftm_zrop()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1378,7 +1381,7 @@ ________________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zrop(
+vDSP_fftm_zrop(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1392,7 +1395,7 @@ fftm_zrop(
 
 
 /*
- *  fftm_zropt()
+ *  vDSP_fftm_zropt()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1400,7 +1403,7 @@ fftm_zrop(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zropt(
+vDSP_fftm_zropt(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1415,7 +1418,7 @@ fftm_zropt(
 
 
 /*
- *  fftm_zropD()
+ *  vDSP_fftm_zropD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1423,7 +1426,7 @@ fftm_zropt(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zropD(
+vDSP_fftm_zropD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -1437,7 +1440,7 @@ fftm_zropD(
 
 
 /*
- *  fftm_zroptD()
+ *  vDSP_fftm_zroptD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1445,7 +1448,7 @@ fftm_zropD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fftm_zroptD(
+vDSP_fftm_zroptD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
@@ -1480,7 +1483,7 @@ ________________________________________________________________________________
 ________________________________________________________________________________
 */
 /*
- *  fft3_zop()
+ *  vDSP_fft3_zop()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1488,7 +1491,7 @@ ________________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft3_zop(
+vDSP_fft3_zop(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1499,7 +1502,7 @@ fft3_zop(
 
 
 /*
- *  fft5_zop()
+ *  vDSP_fft5_zop()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1507,7 +1510,7 @@ fft3_zop(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft5_zop(
+vDSP_fft5_zop(
   FFTSetup           setup,
   DSPSplitComplex *  signal,
   SInt32             signalStride,
@@ -1518,7 +1521,7 @@ fft5_zop(
 
 
 /*
- *  fft3_zopD()
+ *  vDSP_fft3_zopD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1526,7 +1529,7 @@ fft5_zop(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft3_zopD(
+vDSP_fft3_zopD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   K,
@@ -1537,7 +1540,7 @@ fft3_zopD(
 
 
 /*
- *  fft5_zopD()
+ *  vDSP_fft5_zopD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1545,7 +1548,7 @@ fft3_zopD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-fft5_zopD(
+vDSP_fft5_zopD(
   FFTSetupD                setup,
   DSPDoubleSplitComplex *  ioData,
   SInt32                   K,
@@ -1576,7 +1579,7 @@ fft5_zopD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  conv()
+ *  vDSP_conv()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -1584,7 +1587,7 @@ fft5_zopD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-conv(
+vDSP_conv(
   const float   signal[],
   SInt32        signalStride,
   const float   filter[],
@@ -1596,7 +1599,7 @@ conv(
 
 
 /*
- *  convD()
+ *  vDSP_convD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1604,7 +1607,7 @@ conv(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-convD(
+vDSP_convD(
   const double   signal[],
   SInt32         signalStride,
   const double   filter[],
@@ -1634,7 +1637,7 @@ _______________________________________________________________________________
 _______________________________________________________________________________
 */
 /*
- *  f3x3()
+ *  vDSP_f3x3()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1642,7 +1645,7 @@ _______________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-f3x3(
+vDSP_f3x3(
   float *  signal,
   SInt32   rowStride,
   SInt32   colStride,
@@ -1651,7 +1654,7 @@ f3x3(
 
 
 /*
- *  f3x3D()
+ *  vDSP_f3x3D()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1659,7 +1662,7 @@ f3x3(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-f3x3D(
+vDSP_f3x3D(
   double *  signal,
   SInt32    rowStride,
   SInt32    colStride,
@@ -1668,7 +1671,7 @@ f3x3D(
 
 
 /*
- *  f5x5()
+ *  vDSP_f5x5()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1676,7 +1679,7 @@ f3x3D(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-f5x5(
+vDSP_f5x5(
   float *  signal,
   SInt32   rowStride,
   SInt32   colStride,
@@ -1685,7 +1688,7 @@ f5x5(
 
 
 /*
- *  f5x5D()
+ *  vDSP_f5x5D()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1693,7 +1696,7 @@ f5x5(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-f5x5D(
+vDSP_f5x5D(
   double *  signal,
   SInt32    rowStride,
   SInt32    colStride,
@@ -1702,7 +1705,7 @@ f5x5D(
 
 
 /*
- *  imgfir()
+ *  vDSP_imgfir()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1710,7 +1713,7 @@ f5x5D(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-imgfir(
+vDSP_imgfir(
   float *  signal,
   SInt32   numRow,
   SInt32   numCol,
@@ -1721,7 +1724,7 @@ imgfir(
 
 
 /*
- *  imgfirD()
+ *  vDSP_imgfirD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1729,7 +1732,7 @@ imgfir(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-imgfirD(
+vDSP_imgfirD(
   double *  signal,
   SInt32    numRow,
   SInt32    numCol,
@@ -1757,7 +1760,7 @@ _______________________________________________________________________________
 _______________________________________________________________________________
 */
 /*
- *  mtrans()
+ *  vDSP_mtrans()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1765,7 +1768,7 @@ _______________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-mtrans(
+vDSP_mtrans(
   float *  a,
   SInt32   aStride,
   float *  c,
@@ -1775,7 +1778,7 @@ mtrans(
 
 
 /*
- *  mtransD()
+ *  vDSP_mtransD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1783,7 +1786,7 @@ mtrans(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-mtransD(
+vDSP_mtransD(
   double *  a,
   SInt32    aStride,
   double *  c,
@@ -1810,7 +1813,7 @@ _______________________________________________________________________________
 _______________________________________________________________________________
 */
 /*
- *  mmul()
+ *  vDSP_mmul()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1818,7 +1821,7 @@ _______________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-mmul(
+vDSP_mmul(
   float *  a,
   SInt32   aStride,
   float *  b,
@@ -1831,7 +1834,7 @@ mmul(
 
 
 /*
- *  mmulD()
+ *  vDSP_mmulD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1839,7 +1842,7 @@ mmul(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-mmulD(
+vDSP_mmulD(
   double *  a,
   SInt32    aStride,
   double *  b,
@@ -1870,7 +1873,7 @@ _______________________________________________________________________________
 _______________________________________________________________________________
 */
 /*
- *  zmma()
+ *  vDSP_zmma()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1878,7 +1881,7 @@ _______________________________________________________________________________
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zmma(
+vDSP_zmma(
   DSPSplitComplex *  a,
   SInt32             i,
   DSPSplitComplex *  b,
@@ -1893,7 +1896,7 @@ zmma(
 
 
 /*
- *  zmmaD()
+ *  vDSP_zmmaD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1901,7 +1904,7 @@ zmma(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zmmaD(
+vDSP_zmmaD(
   DSPDoubleSplitComplex *  a,
   SInt32                   i,
   DSPDoubleSplitComplex *  b,
@@ -1916,7 +1919,7 @@ zmmaD(
 
 
 /*
- *  zmms()
+ *  vDSP_zmms()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1924,7 +1927,7 @@ zmmaD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zmms(
+vDSP_zmms(
   DSPSplitComplex *  a,
   SInt32             i,
   DSPSplitComplex *  b,
@@ -1939,7 +1942,7 @@ zmms(
 
 
 /*
- *  zmmsD()
+ *  vDSP_zmmsD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1947,7 +1950,7 @@ zmms(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zmmsD(
+vDSP_zmmsD(
   DSPDoubleSplitComplex *  a,
   SInt32                   i,
   DSPDoubleSplitComplex *  b,
@@ -1962,7 +1965,7 @@ zmmsD(
 
 
 /*
- *  zmsm()
+ *  vDSP_zmsm()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1970,7 +1973,7 @@ zmmsD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zmsm(
+vDSP_zmsm(
   DSPSplitComplex *  a,
   SInt32             i,
   DSPSplitComplex *  b,
@@ -1985,7 +1988,7 @@ zmsm(
 
 
 /*
- *  zmsmD()
+ *  vDSP_zmsmD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -1993,7 +1996,7 @@ zmsm(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zmsmD(
+vDSP_zmsmD(
   DSPDoubleSplitComplex *  a,
   SInt32                   i,
   DSPDoubleSplitComplex *  b,
@@ -2008,7 +2011,7 @@ zmsmD(
 
 
 /*
- *  zmmul()
+ *  vDSP_zmmul()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2016,7 +2019,7 @@ zmsmD(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zmmul(
+vDSP_zmmul(
   DSPSplitComplex *  a,
   SInt32             i,
   DSPSplitComplex *  b,
@@ -2029,7 +2032,7 @@ zmmul(
 
 
 /*
- *  zmmulD()
+ *  vDSP_zmmulD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2037,7 +2040,7 @@ zmmul(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zmmulD(
+vDSP_zmmulD(
   DSPDoubleSplitComplex *  a,
   SInt32                   i,
   DSPDoubleSplitComplex *  b,
@@ -2068,7 +2071,7 @@ zmmulD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  vadd()
+ *  vDSP_vadd()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2076,7 +2079,7 @@ zmmulD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-vadd(
+vDSP_vadd(
   const float   input1[],
   SInt32        stride1,
   const float   input2[],
@@ -2087,7 +2090,7 @@ vadd(
 
 
 /*
- *  vaddD()
+ *  vDSP_vaddD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2095,7 +2098,7 @@ vadd(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-vaddD(
+vDSP_vaddD(
   const double   input1[],
   SInt32         stride1,
   const double   input2[],
@@ -2124,7 +2127,7 @@ vaddD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  vsub()
+ *  vDSP_vsub()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2132,7 +2135,7 @@ vaddD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-vsub(
+vDSP_vsub(
   const float   input1[],
   SInt32        stride1,
   const float   input2[],
@@ -2143,7 +2146,7 @@ vsub(
 
 
 /*
- *  vsubD()
+ *  vDSP_vsubD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2151,7 +2154,7 @@ vsub(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-vsubD(
+vDSP_vsubD(
   const double   input1[],
   SInt32         stride1,
   const double   input2[],
@@ -2180,7 +2183,7 @@ vsubD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  vmul()
+ *  vDSP_vmul()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2188,7 +2191,7 @@ vsubD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-vmul(
+vDSP_vmul(
   const float   input1[],
   SInt32        stride1,
   const float   input2[],
@@ -2199,7 +2202,7 @@ vmul(
 
 
 /*
- *  vmulD()
+ *  vDSP_vmulD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2207,7 +2210,7 @@ vmul(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-vmulD(
+vDSP_vmulD(
   const double   input1[],
   SInt32         stride1,
   const double   input2[],
@@ -2235,7 +2238,7 @@ vmulD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  vsmul()
+ *  vDSP_vsmul()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2243,7 +2246,7 @@ vmulD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-vsmul(
+vDSP_vsmul(
   const float    input1[],
   SInt32         stride1,
   const float *  input2,
@@ -2253,7 +2256,7 @@ vsmul(
 
 
 /*
- *  vsmulD()
+ *  vDSP_vsmulD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2261,7 +2264,7 @@ vsmul(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-vsmulD(
+vDSP_vsmulD(
   const double    input1[],
   SInt32          stride1,
   const double *  input2,
@@ -2289,7 +2292,7 @@ vsmulD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  vsq()
+ *  vDSP_vsq()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2297,7 +2300,7 @@ vsmulD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-vsq(
+vDSP_vsq(
   const float   input[],
   SInt32        strideInput,
   float         result[],
@@ -2306,7 +2309,7 @@ vsq(
 
 
 /*
- *  vsqD()
+ *  vDSP_vsqD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2314,7 +2317,7 @@ vsq(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-vsqD(
+vDSP_vsqD(
   const double   input[],
   SInt32         strideInput,
   double         result[],
@@ -2341,7 +2344,7 @@ vsqD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  vssq()
+ *  vDSP_vssq()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2349,7 +2352,7 @@ vsqD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-vssq(
+vDSP_vssq(
   const float   input[],
   SInt32        strideInput,
   float         result[],
@@ -2358,7 +2361,7 @@ vssq(
 
 
 /*
- *  vssqD()
+ *  vDSP_vssqD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2366,7 +2369,7 @@ vssq(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-vssqD(
+vDSP_vssqD(
   const double   input[],
   SInt32         strideInput,
   double         result[],
@@ -2392,7 +2395,7 @@ vssqD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  dotpr()
+ *  vDSP_dotpr()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2400,7 +2403,7 @@ vssqD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-dotpr(
+vDSP_dotpr(
   const float   input1[],
   SInt32        stride1,
   const float   input2[],
@@ -2410,7 +2413,7 @@ dotpr(
 
 
 /*
- *  dotprD()
+ *  vDSP_dotprD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2418,7 +2421,7 @@ dotpr(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-dotprD(
+vDSP_dotprD(
   const double   input1[],
   SInt32         stride1,
   const double   input2[],
@@ -2447,7 +2450,7 @@ dotprD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  vam()
+ *  vDSP_vam()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2455,7 +2458,7 @@ dotprD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-vam(
+vDSP_vam(
   const float   input1[],
   SInt32        stride1,
   const float   input2[],
@@ -2468,7 +2471,7 @@ vam(
 
 
 /*
- *  vamD()
+ *  vDSP_vamD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2476,7 +2479,7 @@ vam(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-vamD(
+vDSP_vamD(
   const double   input1[],
   SInt32         stride1,
   const double   input2[],
@@ -2509,7 +2512,7 @@ vamD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zconv()
+ *  vDSP_zconv()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2517,7 +2520,7 @@ vamD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zconv(
+vDSP_zconv(
   DSPSplitComplex *  signal,
   SInt32             signalStride,
   DSPSplitComplex *  filter,
@@ -2529,7 +2532,7 @@ zconv(
 
 
 /*
- *  zconvD()
+ *  vDSP_zconvD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2537,7 +2540,7 @@ zconv(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zconvD(
+vDSP_zconvD(
   DSPDoubleSplitComplex *  signal,
   SInt32                   signalStride,
   DSPDoubleSplitComplex *  filter,
@@ -2568,7 +2571,7 @@ zconvD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zvadd()
+ *  vDSP_zvadd()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2576,7 +2579,7 @@ zconvD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zvadd(
+vDSP_zvadd(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   DSPSplitComplex *  input2,
@@ -2587,7 +2590,7 @@ zvadd(
 
 
 /*
- *  zvaddD()
+ *  vDSP_zvaddD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2595,7 +2598,7 @@ zvadd(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zvaddD(
+vDSP_zvaddD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   DSPDoubleSplitComplex *  input2,
@@ -2625,7 +2628,7 @@ zvaddD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zvsub()
+ *  vDSP_zvsub()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2633,7 +2636,7 @@ zvaddD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zvsub(
+vDSP_zvsub(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   DSPSplitComplex *  input2,
@@ -2644,7 +2647,7 @@ zvsub(
 
 
 /*
- *  zvsubD()
+ *  vDSP_zvsubD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2652,7 +2655,7 @@ zvsub(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zvsubD(
+vDSP_zvsubD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   DSPDoubleSplitComplex *  input2,
@@ -2682,7 +2685,7 @@ zvsubD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zvmul()
+ *  vDSP_zvmul()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2690,7 +2693,7 @@ zvsubD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zvmul(
+vDSP_zvmul(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   DSPSplitComplex *  input2,
@@ -2702,7 +2705,7 @@ zvmul(
 
 
 /*
- *  zvmulD()
+ *  vDSP_zvmulD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2710,7 +2713,7 @@ zvmul(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zvmulD(
+vDSP_zvmulD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   DSPDoubleSplitComplex *  input2,
@@ -2740,7 +2743,7 @@ zvmulD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zdotpr()
+ *  vDSP_zdotpr()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2748,7 +2751,7 @@ zvmulD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zdotpr(
+vDSP_zdotpr(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   DSPSplitComplex *  input2,
@@ -2758,7 +2761,7 @@ zdotpr(
 
 
 /*
- *  zdotprD()
+ *  vDSP_zdotprD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2766,7 +2769,7 @@ zdotpr(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zdotprD(
+vDSP_zdotprD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   DSPDoubleSplitComplex *  input2,
@@ -2794,7 +2797,7 @@ zdotprD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zidotpr()
+ *  vDSP_zidotpr()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2802,7 +2805,7 @@ zdotprD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zidotpr(
+vDSP_zidotpr(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   DSPSplitComplex *  input2,
@@ -2812,7 +2815,7 @@ zidotpr(
 
 
 /*
- *  zidotprD()
+ *  vDSP_zidotprD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2820,7 +2823,7 @@ zidotpr(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zidotprD(
+vDSP_zidotprD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   DSPDoubleSplitComplex *  input2,
@@ -2848,7 +2851,7 @@ zidotprD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zrdotpr()
+ *  vDSP_zrdotpr()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2856,7 +2859,7 @@ zidotprD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zrdotpr(
+vDSP_zrdotpr(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   const float        input2[],
@@ -2866,7 +2869,7 @@ zrdotpr(
 
 
 /*
- *  zrdotprD()
+ *  vDSP_zrdotprD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2874,7 +2877,7 @@ zrdotpr(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zrdotprD(
+vDSP_zrdotprD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   const double             input2[],
@@ -2905,7 +2908,7 @@ zrdotprD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zvcma()
+ *  vDSP_zvcma()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2913,7 +2916,7 @@ zrdotprD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zvcma(
+vDSP_zvcma(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   DSPSplitComplex *  input2,
@@ -2926,7 +2929,7 @@ zvcma(
 
 
 /*
- *  zvcmaD()
+ *  vDSP_zvcmaD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2934,7 +2937,7 @@ zvcma(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zvcmaD(
+vDSP_zvcmaD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   DSPDoubleSplitComplex *  input2,
@@ -2966,7 +2969,7 @@ zvcmaD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zrvadd()
+ *  vDSP_zrvadd()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -2974,7 +2977,7 @@ zvcmaD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zrvadd(
+vDSP_zrvadd(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   const float        input2[],
@@ -2985,7 +2988,7 @@ zrvadd(
 
 
 /*
- *  zrvaddD()
+ *  vDSP_zrvaddD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -2993,7 +2996,7 @@ zrvadd(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zrvaddD(
+vDSP_zrvaddD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   const double             input2[],
@@ -3023,7 +3026,7 @@ zrvaddD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zrvsub()
+ *  vDSP_zrvsub()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -3031,7 +3034,7 @@ zrvaddD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zrvsub(
+vDSP_zrvsub(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   const float        input2[],
@@ -3042,7 +3045,7 @@ zrvsub(
 
 
 /*
- *  zrvsubD()
+ *  vDSP_zrvsubD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -3050,7 +3053,7 @@ zrvsub(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zrvsubD(
+vDSP_zrvsubD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   const double             input2[],
@@ -3080,7 +3083,7 @@ zrvsubD(
 ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ
 */
 /*
- *  zrvmul()
+ *  vDSP_zrvmul()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in vecLib.framework
@@ -3088,7 +3091,7 @@ zrvsubD(
  *    Non-Carbon CFM:   in vecLib 1.0 and later
  */
 extern void 
-zrvmul(
+vDSP_zrvmul(
   DSPSplitComplex *  input1,
   SInt32             stride1,
   const float        input2[],
@@ -3099,7 +3102,7 @@ zrvmul(
 
 
 /*
- *  zrvmulD()
+ *  vDSP_zrvmulD()
  *  
  *  Availability:
  *    Mac OS X:         in version 10.2 and later in vecLib.framework
@@ -3107,7 +3110,7 @@ zrvmul(
  *    Non-Carbon CFM:   not available
  */
 extern void 
-zrvmulD(
+vDSP_zrvmulD(
   DSPDoubleSplitComplex *  input1,
   SInt32                   stride1,
   const double             input2[],
@@ -3115,6 +3118,4937 @@ zrvmulD(
   DSPDoubleSplitComplex *  result,
   SInt32                   strideResult,
   UInt32                   size)                              AVAILABLE_MAC_OS_X_VERSION_10_2_AND_LATER;
+
+
+
+
+/*Vector Double Precision to Single Precision Convert*/
+/*
+ *  vDSP_vdpsp()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vdpsp(
+  double *       A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to Double Precision Convert*/
+/*
+ *  vDSP_vspdp()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vspdp(
+  float *        A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Integer Absolute Value*/
+/*
+ *  vDSP_vabsi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vabsi(
+  int *          A,
+  int            I,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Equivalence, 32-bit Logical*/
+/*
+ *  vDSP_veqvi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_veqvi(
+  unsigned int *  A,
+  int             I,
+  unsigned int *  B,
+  int             J,
+  unsigned int *  C,
+  int             K,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Integer Divide*/
+/*
+ *  vDSP_vdivi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vdivi(
+  int *          A,
+  int            I,
+  int *          B,
+  int            J,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Integer Fill*/
+/*
+ *  vDSP_vfilli()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfilli(
+  int *          A,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Integer Scalar Add*/
+/*
+ *  vDSP_vsaddi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsaddi(
+  int *          A,
+  int            I,
+  int *          B,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Integer Scalar Divide*/
+/*
+ *  vDSP_vsdivi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsdivi(
+  int *          A,
+  int            I,
+  int *          B,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*
+  ////////////////////////////////////////
+                                        // 
+    New Single Precision Functions      //
+                                        //
+  ////////////////////////////////////////
+*/
+
+/*Accumulating Autospectrum*/
+/*
+ *  vDSP_zaspec()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zaspec(
+  DSPSplitComplex *  A,
+  float *            C,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Create Blackman Window*/
+/*
+ *  vDSP_blkman_window()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_blkman_window(
+  float *        C,
+  unsigned int   N,
+  int            FLAG)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Coherence Function*/
+/*
+ *  vDSP_zcoher()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zcoher(
+  float *            A,
+  float *            B,
+  DSPSplitComplex *  C,
+  float *            D,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex/Real Down Sample with Anti-aliasing*/
+/*
+ *  vDSP_zrdesamp()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zrdesamp(
+  DSPSplitComplex *  A,
+  int                I,
+  float *            B,
+  DSPSplitComplex *  C,
+  int                N,
+  int                M)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Divide by Real Vector*/
+/*
+ *  vDSP_zrvdiv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zrvdiv(
+  DSPSplitComplex *  A,
+  int                I,
+  float *            B,
+  int                J,
+  DSPSplitComplex *  C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Transfer Function*/
+/*
+ *  vDSP_ztrans()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_ztrans(
+  float *            A,
+  DSPSplitComplex *  B,
+  DSPSplitComplex *  C,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Divide by Complex Vector*/
+/*
+ *  vDSP_zvdiv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvdiv(
+  DSPSplitComplex *  A,
+  int                I,
+  DSPSplitComplex *  B,
+  int                J,
+  DSPSplitComplex *  C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Number Accumulating Cross-Spectrum*/
+/*
+ *  vDSP_zcspec()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zcspec(
+  DSPSplitComplex *  A,
+  DSPSplitComplex *  B,
+  DSPSplitComplex *  C,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Absolute Value*/
+/*
+ *  vDSP_zvabs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvabs(
+  DSPSplitComplex *  A,
+  int                I,
+  float *            C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Conjugate and Multiply*/
+/*
+ *  vDSP_zvcmul()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvcmul(
+  DSPSplitComplex *  A,
+  int                I,
+  DSPSplitComplex *  B,
+  int                J,
+  DSPSplitComplex *  C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Conjugate */
+/*
+ *  vDSP_zvconj()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvconj(
+  DSPSplitComplex *  A,
+  int                I,
+  DSPSplitComplex *  C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Scalar Multiply*/
+/*
+ *  vDSP_zvzsml()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvzsml(
+  DSPSplitComplex *  A,
+  int                I,
+  DSPSplitComplex *  B,
+  DSPSplitComplex *  C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Fill */
+/*
+ *  vDSP_zvfill()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvfill(
+  DSPSplitComplex *  A,
+  DSPSplitComplex *  C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Magnitudes Squared*/
+/*
+ *  vDSP_zvmags()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvmags(
+  DSPSplitComplex *  A,
+  int                I,
+  float *            C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Magnitudes Square and Add*/
+/*
+ *  vDSP_zvmgsa()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvmgsa(
+  DSPSplitComplex *  A,
+  int                I,
+  float *            B,
+  int                J,
+  float *            C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Move*/
+/*
+ *  vDSP_zvmov()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvmov(
+  DSPSplitComplex *  A,
+  int                I,
+  DSPSplitComplex *  C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Negate*/
+/*
+ *  vDSP_zvneg()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvneg(
+  DSPSplitComplex *  A,
+  int                I,
+  DSPSplitComplex *  C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Phase*/
+/*
+ *  vDSP_zvphas()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvphas(
+  DSPSplitComplex *  A,
+  int                I,
+  float *            C,
+  int                K,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Scalar Multiply Add*/
+/*
+ *  vDSP_zvsma()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvsma(
+  DSPSplitComplex *  A,
+  int                I,
+  DSPSplitComplex *  B,
+  DSPSplitComplex *  C,
+  int                K,
+  DSPSplitComplex *  D,
+  int                L,
+  unsigned int       N)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Difference Equation, 2 Poles, 2 Zeros*/
+/*
+ *  vDSP_deq22()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_deq22(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Convolution with Decimation*/
+/*
+ *  vDSP_desamp()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_desamp(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  unsigned int   N,
+  unsigned int   M)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Create Hamming Window*/
+/*
+ *  vDSP_hamm_window()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_hamm_window(
+  float *        C,
+  unsigned int   N,
+  int            FLAG)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Create Hanning Window*/
+/*
+ *  vDSP_hann_window()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_hann_window(
+  float *        C,
+  unsigned int   N,
+  int            FLAG)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Magnitude*/
+/*
+ *  vDSP_maxmgv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_maxmgv(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Magnitude with Index*/
+/*
+ *  vDSP_maxmgvi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_maxmgvi(
+  float *        A,
+  int            I,
+  float *        C,
+  int *          IC,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Value*/
+/*
+ *  vDSP_maxv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_maxv(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Value with Index*/
+/*
+ *  vDSP_maxvi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_maxvi(
+  float *        A,
+  int            I,
+  float *        C,
+  int *          IC,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mean Magnitude*/
+/*
+ *  vDSP_meamgv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_meamgv(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mean Value*/
+/*
+ *  vDSP_meanv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_meanv(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mean Square Value*/
+/*
+ *  vDSP_measqv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_measqv(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Magnitude*/
+/*
+ *  vDSP_minmgv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_minmgv(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Magnitude with Index*/
+/*
+ *  vDSP_minmgvi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_minmgvi(
+  float *        A,
+  int            I,
+  float *        C,
+  int *          IC,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Value*/
+/*
+ *  vDSP_minv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_minv(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Value with Index*/
+/*
+ *  vDSP_minvi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_minvi(
+  float *        A,
+  int            I,
+  float *        C,
+  int *          IC,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Out-Of-Place Real Matrix Move*/
+/*
+ *  vDSP_mmov()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_mmov(
+  float *        A,
+  float *        C,
+  unsigned int   NC,
+  unsigned int   NR,
+  unsigned int   TCA,
+  unsigned int   TCC)                                         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mean of Signed Squares*/
+/*
+ *  vDSP_mvessq()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_mvessq(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Find Zero Crossing*/
+/*
+ *  vDSP_nzcros()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_nzcros(
+  float *         A,
+  int             I,
+  unsigned int    B,
+  int *           C,
+  unsigned int *  D,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Retangular to Polar*/
+/*
+ *  vDSP_polar()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_polar(
+  float *        A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Polar to Rectangular*/
+/*
+ *  vDSP_rect()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_rect(
+  float *        A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Root-Mean-Square*/
+/*
+ *  vDSP_rmsqv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_rmsqv(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Scalar Vector Divide*/
+/*
+ *  vDSP_svdiv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_svdiv(
+  float *        A,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sum*/
+/*
+ *  vDSP_sve()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_sve(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sum of Magnitude*/
+/*
+ *  vDSP_svemg()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_svemg(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sum of Square*/
+/*
+ *  vDSP_svesq()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_svesq(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sum of Signed Square*/
+/*
+ *  vDSP_svs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_svs(
+  float *        A,
+  int            I,
+  float *        C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Add, Add, and Multiply*/
+/*
+ *  vDSP_vaam()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vaam(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  float *        E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Absolute Value*/
+/*
+ *  vDSP_vabs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vabs(
+  float *        A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Add, Subtract, and Multiply*/
+/*
+ *  vDSP_vasbm()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vasbm(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  float *        E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Add and Scalar Multiply*/
+/*
+ *  vDSP_vasm()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vasm(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Linear Average*/
+/*
+ *  vDSP_vavlin()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vavlin(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Clip and Count*/
+/*
+ *  vDSP_vclipc()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vclipc(
+  float *         A,
+  int             I,
+  float *         B,
+  float *         C,
+  float *         D,
+  int             L,
+  unsigned int    N,
+  unsigned int *  NLOW,
+  unsigned int *  NHI)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Clip*/
+/*
+ *  vDSP_vclip()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vclip(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Clear*/
+/*
+ *  vDSP_vclr()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vclr(
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Compress*/
+/*
+ *  vDSP_vcmprs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vcmprs(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Convert to Decibels, Power, or Amplitude*/
+/*
+ *  vDSP_vdbcon()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vdbcon(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N,
+  unsigned int   F)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Distance*/
+/*
+ *  vDSP_vdist()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vdist(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Divide*/
+/*
+ *  vDSP_vdiv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vdiv(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Envelope*/
+/*
+ *  vDSP_venvlp()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_venvlp(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Fill*/
+/*
+ *  vDSP_vfill()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfill(
+  float *        A,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 8-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfix8()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfix8(
+  float *        A,
+  int            I,
+  char *         C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 16-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfix16()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfix16(
+  float *        A,
+  int            I,
+  short *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 32-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfix32()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfix32(
+  float *        A,
+  int            I,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 8-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixr8()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixr8(
+  float *        A,
+  int            I,
+  char *         C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 16-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixr16()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixr16(
+  float *        A,
+  int            I,
+  short *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 32-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixr32()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixr32(
+  float *        A,
+  int            I,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 8-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfixu8()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixu8(
+  float *          A,
+  int              I,
+  unsigned char *  C,
+  int              K,
+  unsigned int     N)                                         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 16-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfixu16()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixu16(
+  float *           A,
+  int               I,
+  unsigned short *  C,
+  int               K,
+  unsigned int      N)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 32-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfixu32()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixu32(
+  float *         A,
+  int             I,
+  unsigned int *  C,
+  int             K,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 8-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixru8()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixru8(
+  float *          A,
+  int              I,
+  unsigned char *  C,
+  int              K,
+  unsigned int     N)                                         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 16-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixru16()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixru16(
+  float *           A,
+  int               I,
+  unsigned short *  C,
+  int               K,
+  unsigned int      N)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Single Precision to 32-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixru32()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixru32(
+  float *         A,
+  int             I,
+  unsigned int *  C,
+  int             K,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 8-bit Integer to Single Precision Convert*/
+/*
+ *  vDSP_vflt8()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vflt8(
+  char *         A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 16-bit Integer to Single Precision Convert*/
+/*
+ *  vDSP_vflt16()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vflt16(
+  short *        A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 32-bit Integer to Single Precision Convert*/
+/*
+ *  vDSP_vflt32()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vflt32(
+  int *          A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 8-bit Unsigned Integer to Single Precision Convert*/
+/*
+ *  vDSP_vfltu8()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfltu8(
+  unsigned char *  A,
+  int              I,
+  float *          C,
+  int              K,
+  unsigned int     N)                                         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 16-bit Unsigned Integer to Single Precision Convert*/
+/*
+ *  vDSP_vfltu16()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfltu16(
+  unsigned short *  A,
+  int               I,
+  float *           C,
+  int               K,
+  unsigned int      N)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 32-bit Unisgned Integer to Single Precision Convert*/
+/*
+ *  vDSP_vfltu32()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfltu32(
+  unsigned int *  A,
+  int             I,
+  float *         C,
+  int             K,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Truncate to Fraction*/
+/*
+ *  vDSP_vfrac()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfrac(
+  float *        A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Gather*/
+/*
+ *  vDSP_vgathr()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vgathr(
+  float *        A,
+  int *          B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Gather, Absolute Pointers*/
+/*
+ *  vDSP_vgathra()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vgathra(
+  float **       A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Tapered Ramp*/
+/*
+ *  vDSP_vgen()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vgen(
+  float *        A,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Generate by Extrapolation and Interpolation*/
+/*
+ *  vDSP_vgenp()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vgenp(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N,
+  unsigned int   M)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Inverted Clip*/
+/*
+ *  vDSP_viclip()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_viclip(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Index  */
+/*
+ *  vDSP_vindex()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vindex(
+  float *        A,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Interpolation*/
+/*
+ *  vDSP_vintb()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vintb(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Test Limit*/
+/*
+ *  vDSP_vlim()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vlim(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Linear Interpolation */
+/*
+ *  vDSP_vlint()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vlint(
+  float *        A,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N,
+  unsigned int   M)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mulitply and Add*/
+/*
+ *  vDSP_vma()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vma(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maxima*/
+/*
+ *  vDSP_vmax()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmax(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Magnitude */
+/*
+ *  vDSP_vmaxmg()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmaxmg(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minima*/
+/*
+ *  vDSP_vmin()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmin(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Magnitude*/
+/*
+ *  vDSP_vminmg()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vminmg(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Multiply, Multiply, and Add*/
+/*
+ *  vDSP_vmma()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmma(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  float *        E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Multiply, Multiply, and Subtract*/
+/*
+ *  vDSP_vmmsb()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmmsb(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  float *        E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Multiply and Scalar Add*/
+/*
+ *  vDSP_vmsa()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmsa(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Multiply and Subtract*/
+/*
+ *  vDSP_vmsb()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmsb(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Negative Absolute Value */
+/*
+ *  vDSP_vnabs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vnabs(
+  float *        A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector negate*/
+/*
+ *  vDSP_vneg()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vneg(
+  float *        A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Polynomial*/
+/*
+ *  vDSP_vpoly()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vpoly(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N,
+  unsigned int   P)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Pythagoras */
+/*
+ *  vDSP_vpythg()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vpythg(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  float *        E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Quadratic Interpolation*/
+/*
+ *  vDSP_vqint()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vqint(
+  float *        A,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N,
+  unsigned int   M)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Build Ramped Vector*/
+/*
+ *  vDSP_vramp()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vramp(
+  float *        A,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Running Sum Integration*/
+/*
+ *  vDSP_vrsum()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vrsum(
+  float *        A,
+  int            I,
+  float *        S,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Reverse Order In-Place*/
+/*
+ *  vDSP_vrvrs()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vrvrs(
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Add*/
+/*
+ *  vDSP_vsadd()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsadd(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Subtract and Multiply*/
+/*
+ *  vDSP_vsbm()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsbm(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Subtract, Subtract, and Multiply*/
+/*
+ *  vDSP_vsbsbm()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsbsbm(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  float *        E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Subtract and Scalar Multiply*/
+/*
+ *  vDSP_vsbsm()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsbsm(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Divdie*/
+/*
+ *  vDSP_vsdiv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsdiv(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Simpson Integration*/
+/*
+ *  vDSP_vsimps()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsimps(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Multiply and Vector Add*/
+/*
+ *  vDSP_vsma()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsma(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Multiply and Scalar Add */
+/*
+ *  vDSP_vsmsa()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsmsa(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Multiply and Vector Subtract */
+/*
+ *  vDSP_vsmsb()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsmsb(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector In-Place Sort */
+/*
+ *  vDSP_vsort()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsort(
+  float *        C,
+  unsigned int   N,
+  int            OFLAG)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Integer In-Place Sort*/
+/*
+ *  vDSP_vsorti()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsorti(
+  float *        C,
+  int *          IC,
+  int *          List_addr,
+  unsigned int   N,
+  int            OFLAG)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Swap */
+/*
+ *  vDSP_vswap()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vswap(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sliding Window Sum */
+/*
+ *  vDSP_vswsum()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vswsum(
+  float *        A,
+  int            I,
+  float *        C,
+  int            K,
+  unsigned int   N,
+  unsigned int   P)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Interpolation, Table Lookup*/
+/*
+ *  vDSP_vtabi()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vtabi(
+  float *        A,
+  int            I,
+  float *        S1,
+  float *        S2,
+  float *        C,
+  unsigned int   M,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Threshold*/
+/*
+ *  vDSP_vthr()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vthr(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Threshold with Zero Fill*/
+/*
+ *  vDSP_vthres()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vthres(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Threshold with Signed Constant*/
+/*
+ *  vDSP_vthrsc()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vthrsc(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  float *        D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Tapered Merge of Two Vectors*/
+/*
+ *  vDSP_vtmerg()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vtmerg(
+  float *        A,
+  int            I,
+  float *        B,
+  int            J,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Trapezoidal Integration*/
+/*
+ *  vDSP_vtrapz()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vtrapz(
+  float *        A,
+  int            I,
+  float *        B,
+  float *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Wiener Levinson*/
+/*
+ *  vDSP_wiener()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_wiener(
+  int      L,
+  float *  A,
+  float *  C,
+  float *  F,
+  float *  P,
+  int      IFLG,
+  int *    IERR)                                              AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+
+
+/*
+  ////////////////////////////////////////
+                                        // 
+    New Double Precision Functions      //
+                                        //
+  ////////////////////////////////////////
+*/
+
+/*Autocorrelation*/
+/*
+ *  vDSP_acorD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_acorD(
+  double *  A,
+  double *  C,
+  int       N,
+  int       M)                                                AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*
+ *  vDSP_acorfD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_acorfD(
+  double *  A,
+  double *  C,
+  int       N,
+  int       M)                                                AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*
+ *  vDSP_acortD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_acortD(
+  double *  A,
+  double *  C,
+  int       N,
+  int       M)                                                AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Accumulating Autospectrum*/
+/*
+ *  vDSP_zaspecD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zaspecD(
+  DSPDoubleSplitComplex *  A,
+  double *                 C,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Create Blackman Window*/
+/*
+ *  vDSP_blkman_windowD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_blkman_windowD(
+  double *       C,
+  unsigned int   N,
+  int            FLAG)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Coherence Function*/
+/*
+ *  vDSP_zcoherD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zcoherD(
+  double *                 A,
+  double *                 B,
+  DSPDoubleSplitComplex *  C,
+  double *                 D,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex/Real Down Sample with Anti-aliasing*/
+/*
+ *  vDSP_zrdesampD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zrdesampD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  double *                 B,
+  DSPDoubleSplitComplex *  C,
+  int                      N,
+  int                      M)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Divide by Real Vector*/
+/*
+ *  vDSP_zrvdivD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zrvdivD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  double *                 B,
+  int                      J,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Divide by Complex Vector*/
+/*
+ *  vDSP_zvdivD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvdivD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  DSPDoubleSplitComplex *  B,
+  int                      J,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Number Accumulating Cross-Spectrum*/
+/*
+ *  vDSP_zcspecD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zcspecD(
+  DSPDoubleSplitComplex *  A,
+  DSPDoubleSplitComplex *  B,
+  DSPDoubleSplitComplex *  C,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Transfer Function*/
+/*
+ *  vDSP_ztransD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_ztransD(
+  double *                 A,
+  DSPDoubleSplitComplex *  B,
+  DSPDoubleSplitComplex *  C,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Absolute Value*/
+/*
+ *  vDSP_zvabsD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvabsD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  double *                 C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Conjugate and Multiply*/
+/*
+ *  vDSP_zvcmulD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvcmulD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  DSPDoubleSplitComplex *  B,
+  int                      J,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Conjugate */
+/*
+ *  vDSP_zvconjD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvconjD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Scalar Multiply*/
+/*
+ *  vDSP_zvzsmlD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvzsmlD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  DSPDoubleSplitComplex *  B,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Fill */
+/*
+ *  vDSP_zvfillD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvfillD(
+  DSPDoubleSplitComplex *  A,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Magnitudes Squared*/
+/*
+ *  vDSP_zvmagsD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvmagsD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  double *                 C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Magnitudes Square and Add*/
+/*
+ *  vDSP_zvmgsaD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvmgsaD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  double *                 B,
+  int                      J,
+  double *                 C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Move*/
+/*
+ *  vDSP_zvmovD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvmovD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Negate*/
+/*
+ *  vDSP_zvnegD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvnegD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Phase*/
+/*
+ *  vDSP_zvphasD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvphasD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  double *                 C,
+  int                      K,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Complex Vector Scalar Multiply Add*/
+/*
+ *  vDSP_zvsmaD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_zvsmaD(
+  DSPDoubleSplitComplex *  A,
+  int                      I,
+  DSPDoubleSplitComplex *  B,
+  DSPDoubleSplitComplex *  C,
+  int                      K,
+  DSPDoubleSplitComplex *  D,
+  int                      L,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Difference Equation, 2 Poles, 2 Zeros*/
+/*
+ *  vDSP_deq22D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_deq22D(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Convolution with Decimation*/
+/*
+ *  vDSP_desampD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_desampD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  unsigned int   N,
+  unsigned int   M)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Create Hamming Window*/
+/*
+ *  vDSP_hamm_windowD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_hamm_windowD(
+  double *       C,
+  unsigned int   N,
+  int            FLAG)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Create Hanning Window*/
+/*
+ *  vDSP_hann_windowD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_hann_windowD(
+  double *       C,
+  unsigned int   N,
+  int            FLAG)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Magnitude*/
+/*
+ *  vDSP_maxmgvD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_maxmgvD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Magnitude with Index*/
+/*
+ *  vDSP_maxmgviD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_maxmgviD(
+  double *       A,
+  int            I,
+  double *       C,
+  int *          IC,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Value*/
+/*
+ *  vDSP_maxvD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_maxvD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Value with Index*/
+/*
+ *  vDSP_maxviD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_maxviD(
+  double *       A,
+  int            I,
+  double *       C,
+  int *          IC,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mean Magnitude*/
+/*
+ *  vDSP_meamgvD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_meamgvD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mean Value*/
+/*
+ *  vDSP_meanvD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_meanvD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mean Square Value*/
+/*
+ *  vDSP_measqvD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_measqvD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Magnitude*/
+/*
+ *  vDSP_minmgvD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_minmgvD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Magnitude with Index*/
+/*
+ *  vDSP_minmgviD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_minmgviD(
+  double *       A,
+  int            I,
+  double *       C,
+  int *          IC,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Value*/
+/*
+ *  vDSP_minvD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_minvD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Value with Index*/
+/*
+ *  vDSP_minviD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_minviD(
+  double *       A,
+  int            I,
+  double *       C,
+  int *          IC,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Out-Of-Place Real Matrix Move*/
+/*
+ *  vDSP_mmovD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_mmovD(
+  double *       A,
+  double *       C,
+  unsigned int   NC,
+  unsigned int   NR,
+  unsigned int   TCA,
+  unsigned int   TCC)                                         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mean of Signed Squares*/
+/*
+ *  vDSP_mvessqD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_mvessqD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Find Zero Crossing*/
+/*
+ *  vDSP_nzcrosD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_nzcrosD(
+  double *        A,
+  int             I,
+  unsigned int    B,
+  int *           C,
+  unsigned int *  D,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Retangular to Polar*/
+/*
+ *  vDSP_polarD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_polarD(
+  double *       A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Polar to Rectangular*/
+/*
+ *  vDSP_rectD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_rectD(
+  double *       A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Root-Mean-Square*/
+/*
+ *  vDSP_rmsqvD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_rmsqvD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Scalar Vector Divide*/
+/*
+ *  vDSP_svdivD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_svdivD(
+  double *       A,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sum*/
+/*
+ *  vDSP_sveD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_sveD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sum of Magnitude*/
+/*
+ *  vDSP_svemgD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_svemgD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sum of Square*/
+/*
+ *  vDSP_svesqD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_svesqD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sum of Signed Square*/
+/*
+ *  vDSP_svsD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_svsD(
+  double *       A,
+  int            I,
+  double *       C,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Transfer Function*/
+/*
+ *  vDSP_ztransD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_ztransD(
+  double *                 A,
+  DSPDoubleSplitComplex *  B,
+  DSPDoubleSplitComplex *  C,
+  unsigned int             N)                                 AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Add, Add, and Multiply*/
+/*
+ *  vDSP_vaamD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vaamD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  double *       E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Absolute Value*/
+/*
+ *  vDSP_vabsD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vabsD(
+  double *       A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Add, Subtract, and Multiply*/
+/*
+ *  vDSP_vasbmD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vasbmD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  double *       E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Add and Scalar Multiply*/
+/*
+ *  vDSP_vasmD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vasmD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Linear Average*/
+/*
+ *  vDSP_vavlinD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vavlinD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Clip and Count*/
+/*
+ *  vDSP_vclipcD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vclipcD(
+  double *        A,
+  int             I,
+  double *        B,
+  double *        C,
+  double *        D,
+  int             L,
+  unsigned int    N,
+  unsigned int *  NLOW,
+  unsigned int *  NHI)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Clip*/
+/*
+ *  vDSP_vclipD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vclipD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Clear*/
+/*
+ *  vDSP_vclrD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vclrD(
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Compress*/
+/*
+ *  vDSP_vcmprsD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vcmprsD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Convert to Decibels, Power, or Amplitude*/
+/*
+ *  vDSP_vdbconD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vdbconD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N,
+  unsigned int   F)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Distance*/
+/*
+ *  vDSP_vdistD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vdistD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Divide*/
+/*
+ *  vDSP_vdivD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vdivD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Envelope*/
+/*
+ *  vDSP_venvlpD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_venvlpD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Fill*/
+/*
+ *  vDSP_vfillD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfillD(
+  double *       A,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 8-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfix8D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfix8D(
+  double *       A,
+  int            I,
+  char *         C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 16-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfix16D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfix16D(
+  double *       A,
+  int            I,
+  short *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 32-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfix32D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfix32D(
+  double *       A,
+  int            I,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 8-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixr8D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixr8D(
+  double *       A,
+  int            I,
+  char *         C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 16-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixr16D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixr16D(
+  double *       A,
+  int            I,
+  short *        C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 32-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixr32D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixr32D(
+  double *       A,
+  int            I,
+  int *          C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 8-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfixu8D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixu8D(
+  double *         A,
+  int              I,
+  unsigned char *  C,
+  int              K,
+  unsigned int     N)                                         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 16-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfixu16D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixu16D(
+  double *          A,
+  int               I,
+  unsigned short *  C,
+  int               K,
+  unsigned int      N)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 32-bit Integer Convert with Round towards Zero*/
+/*
+ *  vDSP_vfixu32D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixu32D(
+  double *        A,
+  int             I,
+  unsigned int *  C,
+  int             K,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 8-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixru8D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixru8D(
+  double *         A,
+  int              I,
+  unsigned char *  C,
+  int              K,
+  unsigned int     N)                                         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 16-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixru16D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixru16D(
+  double *          A,
+  int               I,
+  unsigned short *  C,
+  int               K,
+  unsigned int      N)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Double Precision to 32-bit Integer Convert with Round to Nearest*/
+/*
+ *  vDSP_vfixru32D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfixru32D(
+  double *        A,
+  int             I,
+  unsigned int *  C,
+  int             K,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 8-bit Integer to Double Precision Convert*/
+/*
+ *  vDSP_vflt8D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vflt8D(
+  char *         A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 16-bit Integer to Double Precision Convert*/
+/*
+ *  vDSP_vflt16D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vflt16D(
+  short *        A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 32-bit Integer to Double Precision Convert*/
+/*
+ *  vDSP_vflt32D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vflt32D(
+  int *          A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 8-bit Unsigned Integer to Double Precision Convert*/
+/*
+ *  vDSP_vfltu8D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfltu8D(
+  unsigned char *  A,
+  int              I,
+  double *         C,
+  int              K,
+  unsigned int     N)                                         AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 16-bit Unsigned Integer to Double Precision Convert*/
+/*
+ *  vDSP_vfltu16D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfltu16D(
+  unsigned short *  A,
+  int               I,
+  double *          C,
+  int               K,
+  unsigned int      N)                                        AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector 32-bit Unisgned Integer to Double Precision Convert*/
+/*
+ *  vDSP_vfltu32D()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfltu32D(
+  unsigned int *  A,
+  int             I,
+  double *        C,
+  int             K,
+  unsigned int    N)                                          AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Truncate to Fraction*/
+/*
+ *  vDSP_vfracD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vfracD(
+  double *       A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Gather*/
+/*
+ *  vDSP_vgathrD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vgathrD(
+  double *       A,
+  int *          B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Gather, Absolute Pointers*/
+/*
+ *  vDSP_vgathraD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vgathraD(
+  double **      A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Tapered Ramp*/
+/*
+ *  vDSP_vgenD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vgenD(
+  double *       A,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Generate by Extrapolation and Interpolation*/
+/*
+ *  vDSP_vgenpD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vgenpD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N,
+  unsigned int   M)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Inverted Clip*/
+/*
+ *  vDSP_viclipD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_viclipD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Index  */
+/*
+ *  vDSP_vindexD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vindexD(
+  double *       A,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Interpolation*/
+/*
+ *  vDSP_vintbD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vintbD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Test Limit*/
+/*
+ *  vDSP_vlimD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vlimD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Linear Interpolation */
+/*
+ *  vDSP_vlintD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vlintD(
+  double *       A,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N,
+  unsigned int   M)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Mulitply and Add*/
+/*
+ *  vDSP_vmaD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmaD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maxima*/
+/*
+ *  vDSP_vmaxD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmaxD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Maximum Magnitude */
+/*
+ *  vDSP_vmaxmgD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmaxmgD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minima*/
+/*
+ *  vDSP_vminD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vminD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Minimum Magnitude*/
+/*
+ *  vDSP_vminmgD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vminmgD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Multiply, Multiply, and Add*/
+/*
+ *  vDSP_vmmaD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmmaD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  double *       E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Multiply, Multiply, and Subtract*/
+/*
+ *  vDSP_vmmsbD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmmsbD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  double *       E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Multiply and Scalar Add*/
+/*
+ *  vDSP_vmsaD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmsaD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Multiply and Subtract*/
+/*
+ *  vDSP_vmsbD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vmsbD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Negative Absolute Value */
+/*
+ *  vDSP_vnabsD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vnabsD(
+  double *       A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector negate*/
+/*
+ *  vDSP_vnegD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vnegD(
+  double *       A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Polynomial*/
+/*
+ *  vDSP_vpolyD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vpolyD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N,
+  unsigned int   P)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Pythagoras */
+/*
+ *  vDSP_vpythgD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vpythgD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  double *       E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Quadratic Interpolation*/
+/*
+ *  vDSP_vqintD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vqintD(
+  double *       A,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N,
+  unsigned int   M)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Build Ramped Vector*/
+/*
+ *  vDSP_vrampD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vrampD(
+  double *       A,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Running Sum Integration*/
+/*
+ *  vDSP_vrsumD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vrsumD(
+  double *       A,
+  int            I,
+  double *       S,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Reverse Order In-Place*/
+/*
+ *  vDSP_vrvrsD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vrvrsD(
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Add*/
+/*
+ *  vDSP_vsaddD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsaddD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Subtract and Multiply*/
+/*
+ *  vDSP_vsbmD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsbmD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Subtract, Subtract, and Multiply*/
+/*
+ *  vDSP_vsbsbmD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsbsbmD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  double *       E,
+  int            M,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Subtract and Scalar Multiply*/
+/*
+ *  vDSP_vsbsmD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsbsmD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Divdie*/
+/*
+ *  vDSP_vsdivD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsdivD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Simpson Integration*/
+/*
+ *  vDSP_vsimpsD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsimpsD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Multiply and Vector Add*/
+/*
+ *  vDSP_vsmaD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsmaD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Multiply and Scalar Add */
+/*
+ *  vDSP_vsmsaD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsmsaD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Scalar Multiply and Vector Subtract */
+/*
+ *  vDSP_vsmsbD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsmsbD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector In-Place Sort */
+/*
+ *  vDSP_vsortD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsortD(
+  double *       C,
+  unsigned int   N,
+  int            OFLAG)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Integer In-Place Sort*/
+/*
+ *  vDSP_vsortiD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vsortiD(
+  double *       C,
+  int *          IC,
+  int *          List_addr,
+  unsigned int   N,
+  int            OFLAG)                                       AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Swap */
+/*
+ *  vDSP_vswapD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vswapD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Sliding Window Sum */
+/*
+ *  vDSP_vswsumD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vswsumD(
+  double *       A,
+  int            I,
+  double *       C,
+  int            K,
+  unsigned int   N,
+  unsigned int   P)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Interpolation, Table Lookup*/
+/*
+ *  vDSP_vtabiD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vtabiD(
+  double *       A,
+  int            I,
+  double *       S1,
+  double *       S2,
+  double *       C,
+  unsigned int   M,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Threshold*/
+/*
+ *  vDSP_vthrD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vthrD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Threshold with Zero Fill*/
+/*
+ *  vDSP_vthresD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vthresD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Threshold with Signed Constant*/
+/*
+ *  vDSP_vthrscD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vthrscD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  double *       D,
+  int            L,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Tapered Merge of Two Vectors*/
+/*
+ *  vDSP_vtmergD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vtmergD(
+  double *       A,
+  int            I,
+  double *       B,
+  int            J,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Vector Trapezoidal Integration*/
+/*
+ *  vDSP_vtrapzD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_vtrapzD(
+  double *       A,
+  int            I,
+  double *       B,
+  double *       C,
+  int            K,
+  unsigned int   N)                                           AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
+
+
+/*Wiener Levinson*/
+/*
+ *  vDSP_wienerD()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in vecLib.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern void 
+vDSP_wienerD(
+  int       L,
+  double *  A,
+  double *  C,
+  double *  F,
+  double *  P,
+  int       IFLG,
+  int *     IERR)                                             AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
 

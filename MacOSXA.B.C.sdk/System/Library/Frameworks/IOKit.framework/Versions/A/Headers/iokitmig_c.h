@@ -26,7 +26,7 @@ typedef function_table_entry 	*function_table_t;
 #endif /* AUTOTEST */
 
 #ifndef	iokit_MSG_COUNT
-#define	iokit_MSG_COUNT	60
+#define	iokit_MSG_COUNT	62
 #endif	/* iokit_MSG_COUNT */
 
 #include <mach/std_types.h>
@@ -875,6 +875,32 @@ kern_return_t io_service_add_notification_ool
 	mach_port_t *notification
 );
 
+/* Routine io_object_get_superclass */
+#ifdef	mig_external
+mig_external
+#else
+extern
+#endif	/* mig_external */
+kern_return_t io_object_get_superclass
+(
+	mach_port_t master_port,
+	io_name_t obj_name,
+	io_name_t class_name
+);
+
+/* Routine io_object_get_bundle_identifier */
+#ifdef	mig_external
+mig_external
+#else
+extern
+#endif	/* mig_external */
+kern_return_t io_object_get_bundle_identifier
+(
+	mach_port_t master_port,
+	io_name_t obj_name,
+	io_name_t class_name
+);
+
 __END_DECLS
 
 /********************** Caution **************************/
@@ -892,10 +918,20 @@ __END_DECLS
 
 #ifndef __Request__iokit_subsystem__defined
 #define __Request__iokit_subsystem__defined
+
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_object_get_class_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -903,15 +939,33 @@ __END_DECLS
 		mach_msg_type_number_t classNameCnt;
 		char className[128];
 	} __Request__io_object_conforms_to_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_iterator_next_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_iterator_reset_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -919,7 +973,13 @@ __END_DECLS
 		mach_msg_type_number_t matchingCnt;
 		char matching[512];
 	} __Request__io_service_get_matching_services_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -927,7 +987,13 @@ __END_DECLS
 		mach_msg_type_number_t property_nameCnt;
 		char property_name[128];
 	} __Request__io_registry_entry_get_property_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -936,15 +1002,33 @@ __END_DECLS
 		char plane[128];
 		int options;
 	} __Request__io_registry_create_iterator_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_registry_iterator_enter_entry_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_registry_iterator_exit_entry_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -952,15 +1036,33 @@ __END_DECLS
 		mach_msg_type_number_t pathCnt;
 		char path[512];
 	} __Request__io_registry_entry_from_path_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_registry_entry_get_name_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_registry_entry_get_properties_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -969,7 +1071,13 @@ __END_DECLS
 		char property_name[128];
 		mach_msg_type_number_t dataCnt;
 	} __Request__io_registry_entry_get_property_bytes_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -977,7 +1085,13 @@ __END_DECLS
 		mach_msg_type_number_t planeCnt;
 		char plane[128];
 	} __Request__io_registry_entry_get_child_iterator_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -985,7 +1099,13 @@ __END_DECLS
 		mach_msg_type_number_t planeCnt;
 		char plane[128];
 	} __Request__io_registry_entry_get_parent_iterator_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -995,15 +1115,33 @@ __END_DECLS
 		NDR_record_t NDR;
 		int connect_type;
 	} __Request__io_service_open_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_service_close_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_connect_get_service_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1014,7 +1152,13 @@ __END_DECLS
 		int notification_type;
 		int reference;
 	} __Request__io_connect_set_notification_port_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1027,7 +1171,13 @@ __END_DECLS
 		vm_size_t size;
 		int flags;
 	} __Request__io_connect_map_memory_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1035,7 +1185,13 @@ __END_DECLS
 		mach_msg_port_descriptor_t connect_to;
 		/* end of the kernel processed data */
 	} __Request__io_connect_add_client_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1045,7 +1201,13 @@ __END_DECLS
 		NDR_record_t NDR;
 		mach_msg_type_number_t propertiesCnt;
 	} __Request__io_connect_set_properties_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1054,7 +1216,13 @@ __END_DECLS
 		int input[16];
 		mach_msg_type_number_t outputCnt;
 	} __Request__io_connect_method_scalarI_scalarO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1063,7 +1231,13 @@ __END_DECLS
 		int input[16];
 		mach_msg_type_number_t outputCnt;
 	} __Request__io_connect_method_scalarI_structureO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1073,7 +1247,13 @@ __END_DECLS
 		mach_msg_type_number_t inputStructCnt;
 		char inputStruct[4096];
 	} __Request__io_connect_method_scalarI_structureI_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1082,7 +1262,13 @@ __END_DECLS
 		char input[4096];
 		mach_msg_type_number_t outputCnt;
 	} __Request__io_connect_method_structureI_structureO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1090,11 +1276,23 @@ __END_DECLS
 		mach_msg_type_number_t planeCnt;
 		char plane[128];
 	} __Request__io_registry_entry_get_path_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_registry_get_root_entry_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1104,7 +1302,13 @@ __END_DECLS
 		NDR_record_t NDR;
 		mach_msg_type_number_t propertiesCnt;
 	} __Request__io_registry_entry_set_properties_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1112,21 +1316,45 @@ __END_DECLS
 		mach_msg_type_number_t planeCnt;
 		char plane[128];
 	} __Request__io_registry_entry_in_plane_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_object_get_retain_count_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_service_get_busy_state_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		mach_timespec_t wait_time;
 	} __Request__io_service_wait_quiet_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1135,11 +1363,23 @@ __END_DECLS
 		char plane[128];
 		int options;
 	} __Request__io_registry_entry_create_iterator_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_iterator_is_valid_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1148,7 +1388,13 @@ __END_DECLS
 		mach_msg_type_number_t inputCnt;
 		char input[4096];
 	} __Request__io_make_matching_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1159,7 +1405,13 @@ __END_DECLS
 		int flag;
 		mach_msg_type_number_t inDataCnt;
 	} __Request__io_catalog_send_data_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1168,17 +1420,35 @@ __END_DECLS
 		mach_msg_type_number_t nameCnt;
 		char name[128];
 	} __Request__io_catalog_terminate_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		int flag;
 	} __Request__io_catalog_get_data_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_catalog_get_gen_count_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1186,19 +1456,37 @@ __END_DECLS
 		mach_msg_type_number_t nameCnt;
 		char name[128];
 	} __Request__io_catalog_module_loaded_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		int flag;
 	} __Request__io_catalog_reset_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		int options;
 	} __Request__io_service_request_probe_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1206,7 +1494,13 @@ __END_DECLS
 		mach_msg_type_number_t planeCnt;
 		char plane[128];
 	} __Request__io_registry_entry_get_name_in_plane_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1214,7 +1508,13 @@ __END_DECLS
 		mach_msg_type_number_t matchingCnt;
 		char matching[512];
 	} __Request__io_service_match_property_table_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1229,7 +1529,13 @@ __END_DECLS
 		int input[16];
 		mach_msg_type_number_t outputCnt;
 	} __Request__io_async_method_scalarI_scalarO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1244,7 +1550,13 @@ __END_DECLS
 		int input[16];
 		mach_msg_type_number_t outputCnt;
 	} __Request__io_async_method_scalarI_structureO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1260,7 +1572,13 @@ __END_DECLS
 		mach_msg_type_number_t inputStructCnt;
 		char inputStruct[4096];
 	} __Request__io_async_method_scalarI_structureI_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1275,7 +1593,13 @@ __END_DECLS
 		char input[4096];
 		mach_msg_type_number_t outputCnt;
 	} __Request__io_async_method_structureI_structureO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1292,7 +1616,13 @@ __END_DECLS
 		mach_msg_type_number_t referenceCnt;
 		natural_t reference[8];
 	} __Request__io_service_add_notification_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1306,20 +1636,38 @@ __END_DECLS
 		mach_msg_type_number_t referenceCnt;
 		natural_t reference[8];
 	} __Request__io_service_add_interest_notification_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		natural_t notify_ref;
 		natural_t response;
 	} __Request__io_service_acknowledge_notification_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		natural_t notification_type;
 	} __Request__io_connect_get_notification_semaphore_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1330,7 +1678,13 @@ __END_DECLS
 		int memory_type;
 		vm_address_t address;
 	} __Request__io_connect_unmap_memory_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1338,7 +1692,13 @@ __END_DECLS
 		mach_msg_type_number_t planeCnt;
 		char plane[128];
 	} __Request__io_registry_entry_get_location_in_plane_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1350,11 +1710,23 @@ __END_DECLS
 		char property_name[128];
 		int options;
 	} __Request__io_registry_entry_get_property_recursively_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 	} __Request__io_service_get_state_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1364,7 +1736,13 @@ __END_DECLS
 		NDR_record_t NDR;
 		mach_msg_type_number_t matchingCnt;
 	} __Request__io_service_get_matching_services_ool_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1374,7 +1752,13 @@ __END_DECLS
 		NDR_record_t NDR;
 		mach_msg_type_number_t matchingCnt;
 	} __Request__io_service_match_property_table_ool_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1390,7 +1774,37 @@ __END_DECLS
 		mach_msg_type_number_t referenceCnt;
 		natural_t reference[8];
 	} __Request__io_service_add_notification_ool_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
+	typedef struct {
+		mach_msg_header_t Head;
+		NDR_record_t NDR;
+		mach_msg_type_number_t obj_nameOffset; /* MiG doesn't use it */
+		mach_msg_type_number_t obj_nameCnt;
+		char obj_name[128];
+	} __Request__io_object_get_superclass_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
+
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
+	typedef struct {
+		mach_msg_header_t Head;
+		NDR_record_t NDR;
+		mach_msg_type_number_t obj_nameOffset; /* MiG doesn't use it */
+		mach_msg_type_number_t obj_nameCnt;
+		char obj_name[128];
+	} __Request__io_object_get_bundle_identifier_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 #endif /* !__Request__iokit_subsystem__defined */
 
 /* union of all requests */
@@ -1458,12 +1872,18 @@ union __RequestUnion__iokit_subsystem {
 	__Request__io_service_get_matching_services_ool_t Request_io_service_get_matching_services_ool;
 	__Request__io_service_match_property_table_ool_t Request_io_service_match_property_table_ool;
 	__Request__io_service_add_notification_ool_t Request_io_service_add_notification_ool;
+	__Request__io_object_get_superclass_t Request_io_object_get_superclass;
+	__Request__io_object_get_bundle_identifier_t Request_io_object_get_bundle_identifier;
 };
 #endif /* !__RequestUnion__iokit_subsystem__defined */
 /* typedefs for all replies */
 
 #ifndef __Reply__iokit_subsystem__defined
 #define __Reply__iokit_subsystem__defined
+
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1472,14 +1892,26 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t classNameCnt;
 		char className[128];
 	} __Reply__io_object_get_class_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		boolean_t conforms;
 	} __Reply__io_object_conforms_to_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1487,13 +1919,25 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t object;
 		/* end of the kernel processed data */
 	} __Reply__io_iterator_next_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_iterator_reset_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1501,7 +1945,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t existing;
 		/* end of the kernel processed data */
 	} __Reply__io_service_get_matching_services_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1511,7 +1961,13 @@ union __RequestUnion__iokit_subsystem {
 		NDR_record_t NDR;
 		mach_msg_type_number_t propertiesCnt;
 	} __Reply__io_registry_entry_get_property_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1519,19 +1975,37 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t iterator;
 		/* end of the kernel processed data */
 	} __Reply__io_registry_create_iterator_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_registry_iterator_enter_entry_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_registry_iterator_exit_entry_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1539,7 +2013,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t registry_entry;
 		/* end of the kernel processed data */
 	} __Reply__io_registry_entry_from_path_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1548,7 +2028,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t nameCnt;
 		char name[128];
 	} __Reply__io_registry_entry_get_name_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1558,7 +2044,13 @@ union __RequestUnion__iokit_subsystem {
 		NDR_record_t NDR;
 		mach_msg_type_number_t propertiesCnt;
 	} __Reply__io_registry_entry_get_properties_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1566,7 +2058,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t dataCnt;
 		char data[4096];
 	} __Reply__io_registry_entry_get_property_bytes_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1574,7 +2072,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t iterator;
 		/* end of the kernel processed data */
 	} __Reply__io_registry_entry_get_child_iterator_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1582,7 +2086,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t iterator;
 		/* end of the kernel processed data */
 	} __Reply__io_registry_entry_get_parent_iterator_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1590,13 +2100,25 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t connection;
 		/* end of the kernel processed data */
 	} __Reply__io_service_open_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_service_close_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1604,13 +2126,25 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t service;
 		/* end of the kernel processed data */
 	} __Reply__io_connect_get_service_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_connect_set_notification_port_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1618,20 +2152,38 @@ union __RequestUnion__iokit_subsystem {
 		vm_address_t address;
 		vm_size_t size;
 	} __Reply__io_connect_map_memory_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_connect_add_client_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		natural_t result;
 	} __Reply__io_connect_set_properties_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1639,7 +2191,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t outputCnt;
 		int output[16];
 	} __Reply__io_connect_method_scalarI_scalarO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1647,13 +2205,25 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t outputCnt;
 		char output[4096];
 	} __Reply__io_connect_method_scalarI_structureO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_connect_method_scalarI_structureI_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1661,7 +2231,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t outputCnt;
 		char output[4096];
 	} __Reply__io_connect_method_structureI_structureO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1670,7 +2246,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t pathCnt;
 		char path[512];
 	} __Reply__io_registry_entry_get_path_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1678,41 +2260,77 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t root;
 		/* end of the kernel processed data */
 	} __Reply__io_registry_get_root_entry_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		natural_t result;
 	} __Reply__io_registry_entry_set_properties_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		boolean_t inPlane;
 	} __Reply__io_registry_entry_in_plane_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		int retainCount;
 	} __Reply__io_object_get_retain_count_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		int busyState;
 	} __Reply__io_service_get_busy_state_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_service_wait_quiet_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1720,14 +2338,26 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t iterator;
 		/* end of the kernel processed data */
 	} __Reply__io_registry_entry_create_iterator_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		boolean_t is_valid;
 	} __Reply__io_iterator_is_valid_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1736,20 +2366,38 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t matchingCnt;
 		char matching[512];
 	} __Reply__io_make_matching_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		natural_t result;
 	} __Reply__io_catalog_send_data_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_catalog_terminate_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1759,32 +2407,62 @@ union __RequestUnion__iokit_subsystem {
 		NDR_record_t NDR;
 		mach_msg_type_number_t outDataCnt;
 	} __Reply__io_catalog_get_data_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		int genCount;
 	} __Reply__io_catalog_get_gen_count_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_catalog_module_loaded_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_catalog_reset_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_service_request_probe_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1793,14 +2471,26 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t nameCnt;
 		char name[128];
 	} __Reply__io_registry_entry_get_name_in_plane_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		boolean_t matches;
 	} __Reply__io_service_match_property_table_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1808,7 +2498,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t outputCnt;
 		int output[16];
 	} __Reply__io_async_method_scalarI_scalarO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1816,13 +2512,25 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t outputCnt;
 		char output[4096];
 	} __Reply__io_async_method_scalarI_structureO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_async_method_scalarI_structureI_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1830,7 +2538,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t outputCnt;
 		char output[4096];
 	} __Reply__io_async_method_structureI_structureO_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1838,7 +2552,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t notification;
 		/* end of the kernel processed data */
 	} __Reply__io_service_add_notification_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1846,13 +2566,25 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t notification;
 		/* end of the kernel processed data */
 	} __Reply__io_service_add_interest_notification_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_service_acknowledge_notification_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1860,13 +2592,25 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_port_descriptor_t semaphore;
 		/* end of the kernel processed data */
 	} __Reply__io_connect_get_notification_semaphore_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 	} __Reply__io_connect_unmap_memory_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1875,7 +2619,13 @@ union __RequestUnion__iokit_subsystem {
 		mach_msg_type_number_t locationCnt;
 		char location[128];
 	} __Reply__io_registry_entry_get_location_in_plane_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1885,14 +2635,26 @@ union __RequestUnion__iokit_subsystem {
 		NDR_record_t NDR;
 		mach_msg_type_number_t propertiesCnt;
 	} __Reply__io_registry_entry_get_property_recursively_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		uint64_t state;
 	} __Reply__io_service_get_state_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1902,7 +2664,13 @@ union __RequestUnion__iokit_subsystem {
 		NDR_record_t NDR;
 		natural_t result;
 	} __Reply__io_service_get_matching_services_ool_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		NDR_record_t NDR;
@@ -1910,7 +2678,13 @@ union __RequestUnion__iokit_subsystem {
 		natural_t result;
 		boolean_t matches;
 	} __Reply__io_service_match_property_table_ool_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
 	typedef struct {
 		mach_msg_header_t Head;
 		/* start of the kernel processed data */
@@ -1920,7 +2694,39 @@ union __RequestUnion__iokit_subsystem {
 		NDR_record_t NDR;
 		natural_t result;
 	} __Reply__io_service_add_notification_ool_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
+	typedef struct {
+		mach_msg_header_t Head;
+		NDR_record_t NDR;
+		kern_return_t RetCode;
+		mach_msg_type_number_t class_nameOffset; /* MiG doesn't use it */
+		mach_msg_type_number_t class_nameCnt;
+		char class_name[128];
+	} __Reply__io_object_get_superclass_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
+
+#ifdef  __MigPackStructs
+#pragma pack(4)
+#endif
+	typedef struct {
+		mach_msg_header_t Head;
+		NDR_record_t NDR;
+		kern_return_t RetCode;
+		mach_msg_type_number_t class_nameOffset; /* MiG doesn't use it */
+		mach_msg_type_number_t class_nameCnt;
+		char class_name[128];
+	} __Reply__io_object_get_bundle_identifier_t;
+#ifdef  __MigPackStructs
+#pragma pack()
+#endif
 #endif /* !__Reply__iokit_subsystem__defined */
 
 /* union of all replies */
@@ -1988,6 +2794,8 @@ union __ReplyUnion__iokit_subsystem {
 	__Reply__io_service_get_matching_services_ool_t Reply_io_service_get_matching_services_ool;
 	__Reply__io_service_match_property_table_ool_t Reply_io_service_match_property_table_ool;
 	__Reply__io_service_add_notification_ool_t Reply_io_service_add_notification_ool;
+	__Reply__io_object_get_superclass_t Reply_io_object_get_superclass;
+	__Reply__io_object_get_bundle_identifier_t Reply_io_object_get_bundle_identifier;
 };
 #endif /* !__RequestUnion__iokit_subsystem__defined */
 
@@ -2052,7 +2860,9 @@ union __ReplyUnion__iokit_subsystem {
     { "io_service_get_state", 2856 },\
     { "io_service_get_matching_services_ool", 2857 },\
     { "io_service_match_property_table_ool", 2858 },\
-    { "io_service_add_notification_ool", 2859 }
+    { "io_service_add_notification_ool", 2859 },\
+    { "io_object_get_superclass", 2860 },\
+    { "io_object_get_bundle_identifier", 2861 }
 #endif
 
 #ifdef __AfterMigUserHeader

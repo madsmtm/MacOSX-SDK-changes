@@ -23,14 +23,39 @@
 #ifndef __OPEN_SOURCE__
 /*
  *
- *	$Id: IOUSBDevice.h,v 1.39.8.1 2004/04/07 22:45:22 nano Exp $
- *
  *	$Log: IOUSBDevice.h,v $
- *	Revision 1.39.8.1  2004/04/07 22:45:22  nano
- *	Fix rdar://3612850 Bluetooth module randomly disappears
+ *	Revision 1.44  2004/08/23 20:00:47  nano
+ *	Merge fix for rdar://3769499 (UTF16-UTF8 conversion)
+ *	
+ *	Revision 1.43.20.1  2004/08/20 16:32:09  nano
+ *	Make string descriptor deal with unicode characters that are > 127, so we create correct UTF-8 strings
+ *	
+ *	Revision 1.43  2004/05/21 16:57:47  nano
+ *	Merged branches
+ *	
+ *	Revision 1.42.2.1  2004/05/20 22:35:33  nano
+ *	Change headers back to using IOUSBController instead of IOUSBControllerV2.
+ *	
+ *	Revision 1.42  2004/05/17 21:52:50  nano
+ *	Add timeStamp and useTimeStamp to our commands.
+ *	
+ *	Revision 1.41.6.1  2004/05/17 15:57:27  nano
+ *	API Changes for Tiger
+ *	
+ *	Revision 1.41  2004/04/22 04:09:47  nano
+ *	Integrate fixes for rdar://3630366 -- Bluetooth extra reset time workaround
+ *	
+ *	Revision 1.40  2004/02/03 22:09:49  nano
+ *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
  *	
  *	Revision 1.39.44.1  2004/04/06 18:11:23  nano
  *	Add _addExtraResetTime field
+ *	
+ *	Revision 1.39.18.2  2004/04/28 17:26:09  nano
+ *	Remove $ ID $ so that we don't get conflicts on merge
+ *	
+ *	Revision 1.39.18.1  2003/11/04 22:27:37  nano
+ *	Work in progress to add time stamping to interrupt handler
  *	
  *	Revision 1.39  2003/09/10 19:07:17  nano
  *	Merge in branches to fix #3406994 (make SuspendDevice synchronous)
@@ -80,6 +105,7 @@
 
 
 class IOUSBController;
+class IOUSBControllerV2;
 class IOUSBInterface;
 /*!
     @class IOUSBDevice
@@ -91,6 +117,7 @@ class IOUSBInterface;
 class IOUSBDevice : public IOUSBNub
 {
     friend class IOUSBController;
+    friend class IOUSBControllerV2;
     friend class IOUSBInterface;
     friend class IOUSBPipe;
    
@@ -448,6 +475,10 @@ private:
 
     static void 	DisplayUserNotificationForDeviceEntry (OSObject *owner, IOTimerEventSource *sender);
     void		DisplayUserNotificationForDevice( );
+    
+    UInt32              SimpleUnicodeToUTF8(UInt16 uChar, UInt8 utf8Bytes[4]);
+    void                SwapUniWords (UInt16  **unicodeString, UInt32 uniSize);
+
 };
 
 #endif /* _IOKIT_IOUSBDEVICE_H */

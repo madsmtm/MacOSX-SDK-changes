@@ -49,7 +49,7 @@ QTKIT_EXTERN NSString *QTMovieViewFillColorBinding					AVAILABLE_MAC_OS_X_VERSIO
 - (NSRect)movieControllerBounds;
 
     // setters
-- (void)setMovie:(QTMovie*)movie;
+- (void)setMovie:(id)movie;
 - (void)setControllerVisible:(BOOL)controllerVisible;
 - (void)setPreservesAspectRatio:(BOOL)preservesAspectRatio;
 - (void)setFillColor:(NSColor *)fillColor;

@@ -1,7 +1,7 @@
 /*
 	File:		QTMovie.h
 
-	Copyright:	(c)2004-2005 by Apple Computer, Inc., all rights reserved.
+	Copyright:	(c)2004 by Apple Computer, Inc., all rights reserved.
 
 */
 
@@ -37,7 +37,6 @@ QTKIT_EXTERN NSString *QTMovieChapterListDidChangeNotification		AVAILABLE_MAC_OS
 QTKIT_EXTERN NSString *QTMovieEnterFullScreenRequestNotification	AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // full screen playback requested			-					-
 QTKIT_EXTERN NSString *QTMovieExitFullScreenRequestNotification		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // normal windowed playback requested		-					-
 QTKIT_EXTERN NSString *QTMovieCloseWindowRequestNotification		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // window close requested					-					-
-QTKIT_EXTERN NSString *QTMovieApertureModeDidChangeNotification     AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;  // change in visual aperture mode           -                   -
 
     // notification parameters
 QTKIT_EXTERN NSString *QTMovieMessageNotificationParameter			AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
@@ -72,7 +71,6 @@ QTKIT_EXTERN NSString *QTMovieAskUnresolvedDataRefsAttribute		AVAILABLE_MAC_OS_X
 QTKIT_EXTERN NSString *QTMovieOpenAsyncOKAttribute					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSNumber (BOOL)
 
 // movie attributes
-QTKIT_EXTERN NSString *QTMovieApertureModeAttribute					AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;  // NSString
 QTKIT_EXTERN NSString *QTMovieActiveSegmentAttribute				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSValue (QTTimeRange)
 QTKIT_EXTERN NSString *QTMovieAutoAlternatesAttribute				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSNumber (BOOL)
 QTKIT_EXTERN NSString *QTMovieCopyrightAttribute					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSString
@@ -86,7 +84,6 @@ QTKIT_EXTERN NSString *QTMovieDontInteractWithUserAttribute			AVAILABLE_MAC_OS_X
 QTKIT_EXTERN NSString *QTMovieDurationAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSValue (QTTime)
 QTKIT_EXTERN NSString *QTMovieEditableAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSNumber (BOOL)
 QTKIT_EXTERN NSString *QTMovieFileNameAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSString
-QTKIT_EXTERN NSString *QTMovieHasApertureModeDimensionsAttribute	AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;  // NSNumber (BOOL)
 QTKIT_EXTERN NSString *QTMovieHasAudioAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSNumber (BOOL)
 QTKIT_EXTERN NSString *QTMovieHasDurationAttribute					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSNumber (BOOL)
 QTKIT_EXTERN NSString *QTMovieHasVideoAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSNumber (BOOL)
@@ -114,13 +111,6 @@ QTKIT_EXTERN NSString *QTMovieTimeScaleAttribute					AVAILABLE_MAC_OS_X_VERSION_
 QTKIT_EXTERN NSString *QTMovieURLAttribute							AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSURL
 QTKIT_EXTERN NSString *QTMovieVolumeAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSNumber (float)
 QTKIT_EXTERN NSString *QTMovieRateChangesPreservePitchAttribute		AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;  // NSNumber (BOOL)
-
-	// aperture modes
-QTKIT_EXTERN NSString *QTMovieApertureModeClassic					AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-QTKIT_EXTERN NSString *QTMovieApertureModeClean						AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-QTKIT_EXTERN NSString *QTMovieApertureModeProduction				AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-QTKIT_EXTERN NSString *QTMovieApertureModeEncodedPixels				AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-
 	// exceptions
 QTKIT_EXTERN NSString *QTMovieUneditableException					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
@@ -178,7 +168,7 @@ typedef enum {
     BOOL            _keepInactive;
     BOOL            _newEqualizer;
     BOOL            _draggable;
-	long			_reserved4;
+    Media           _equalizerMedia;
 	NSDate			*_lastCheckDate;
 	NSDictionary	*_pendingAttributes;
 	SInt16			_resourceID;
@@ -321,11 +311,3 @@ typedef enum {
 - (MovieController)quickTimeMovieController;
 
 @end
-
-@interface QTMovie (QTMovieVisualSupport)
-
-- (void)generateApertureModeDimensions;
-- (void)removeApertureModeDimensions;
-
-@end
-

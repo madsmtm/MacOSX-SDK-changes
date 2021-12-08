@@ -3,9 +3,9 @@
  
      Contains:   Fixed Math Interfaces.
  
-     Version:    CarbonCore-557~1
+     Version:    CarbonCore-650.1~1
  
-     Copyright:  © 1985-2003 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1985-2005 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -51,10 +51,11 @@ extern "C" {
 #define FloatToFract(a)     ((Fract)((float)(a) * fract1))
 #define ColorToFract(a)     (((Fract) (a) << 14) + ((Fract)(a) + 2 >> 2))
 #define FractToColor(a)     ((gxColorValue) ((a) - ((a) >> 16) + 8191 >> 14))
-#ifndef ff  /* ff is already defined on some platforms */
-#define ff(a)              IntToFixed(a)
-#define fl(a)              FloatToFixed(a)
-#endif
+/* These macros were removed because of developer complaints of variable name collision. */
+//#ifndef ff    /* ff is already defined on some platforms */
+//#define ff(a)            IntToFixed(a)
+//#define fl(a)            FloatToFixed(a)
+//#endif
 /*
     FixRatio, FixMul, and FixRound were previously in ToolUtils.h
 */
@@ -436,6 +437,21 @@ extern wide *
 WideBitShift(
   wide *  src,
   long    shift)                                              AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
+
+
+/*
+ *  UnsignedFixedMulDiv()
+ *  
+ *  Availability:
+ *    Mac OS X:         in version 10.4 and later in CoreServices.framework
+ *    CarbonLib:        not available
+ *    Non-Carbon CFM:   not available
+ */
+extern UnsignedFixed 
+UnsignedFixedMulDiv(
+  UnsignedFixed   value,
+  UnsignedFixed   multiplier,
+  UnsignedFixed   divisor)                                    AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 
 #endif  /* TARGET_CPU_PPC */

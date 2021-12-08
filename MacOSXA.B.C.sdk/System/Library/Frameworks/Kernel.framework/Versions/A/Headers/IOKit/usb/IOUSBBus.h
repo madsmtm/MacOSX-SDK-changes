@@ -24,9 +24,10 @@
 #ifndef __OPEN_SOURCE__
 /*
  *
- *	$Id: IOUSBBus.h,v 1.5 2003/08/20 19:41:40 nano Exp $
- *
  *	$Log: IOUSBBus.h,v $
+ *	Revision 1.6  2004/02/03 22:09:49  nano
+ *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
+ *	
  *	Revision 1.5  2003/08/20 19:41:40  nano
  *	
  *	Bug #:

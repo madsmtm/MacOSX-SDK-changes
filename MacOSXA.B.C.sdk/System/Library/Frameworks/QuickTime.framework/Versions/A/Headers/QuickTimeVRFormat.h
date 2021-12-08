@@ -3,9 +3,9 @@
  
      Contains:   QuickTime VR interfaces
  
-     Version:    QuickTime 7.1.2
+     Version:    QuickTime_6
  
-     Copyright:  © 1997-2006 by Apple Computer, Inc., all rights reserved.
+     Copyright:  © 1997-2005 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -36,7 +36,7 @@
 #pragma once
 #endif
 
-#pragma pack(push, 2)
+#pragma options align=mac68k
 
 
 /* File Format Version numbers */
@@ -497,7 +497,7 @@ typedef QTVRObjectSampleAtom            VRObjectSampleAtom;
 
 
 
-#pragma pack(pop)
+#pragma options align=reset
 
 
 #endif /* __QUICKTIMEVRFORMAT__ */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -23,17 +23,6 @@
  * Copyright (c) 1992 NeXT Computer, Inc.
  *
  * Byte ordering conversion.
- *
- * HISTORY
- *
- * 20 October 1992 ? at NeXT
- *	Added #ifdef wrapper to prevent multiple inclusions of this file.
- *
- * 8 October 1992 ? at NeXT
- *	Converted to NXxxx versions.  Condensed history.
- *
- * 18 May 1992 ? at NeXT
- *	Created.
  */
 
 #ifndef	_ARCHITECTURE_BYTE_ORDER_H_
@@ -42,7 +31,7 @@
 typedef unsigned long NXSwappedFloat;
 typedef unsigned long long NXSwappedDouble;
 
-#if defined (__ppc__)
+#if defined (__ppc__) || defined(__ppc64__)
 #include "architecture/ppc/byte_order.h"
 #elif defined (__i386__)
 #include "architecture/i386/byte_order.h"
@@ -116,27 +105,6 @@ NXSwapBigLongLongToHost(
     return (x);
 }
 
-#ifndef KERNEL
-
-static __inline__
-double
-NXSwapBigDoubleToHost(
-    NXSwappedDouble	x
-)
-{
-    return NXConvertSwappedDoubleToHost(x);
-}
-
-static __inline__
-float
-NXSwapBigFloatToHost(
-    NXSwappedFloat	x
-)
-{
-    return NXConvertSwappedFloatToHost(x);
-}
-
-#endif /* KERNEL */
 
 static __inline__
 unsigned short
@@ -174,27 +142,6 @@ NXSwapHostLongLongToBig(
     return (x);
 }
 
-#ifndef KERNEL
-
-static __inline__
-NXSwappedDouble
-NXSwapHostDoubleToBig(
-    double		x
-)
-{
-    return NXConvertHostDoubleToSwapped(x);
-}
-
-static __inline__
-NXSwappedFloat
-NXSwapHostFloatToBig(
-    float		x
-)
-{
-    return NXConvertHostFloatToSwapped(x);
-}
-
-#endif /* KERNEL */
 
 static __inline__
 unsigned short
@@ -232,27 +179,6 @@ NXSwapLittleLongLongToHost(
     return (NXSwapLongLong(x));
 }
 
-#ifndef KERNEL
-
-static __inline__
-double
-NXSwapLittleDoubleToHost(
-    NXSwappedDouble	x
-)
-{
-    return NXConvertSwappedDoubleToHost(NXSwapDouble(x));
-}
-
-static __inline__
-float
-NXSwapLittleFloatToHost(
-    NXSwappedFloat	x
-)
-{
-    return NXConvertSwappedFloatToHost(NXSwapFloat(x));
-}
-
-#endif /* KERNEL */
 
 static __inline__
 unsigned short
@@ -290,27 +216,6 @@ NXSwapHostLongLongToLittle(
     return (NXSwapLongLong(x));
 }
 
-#ifndef KERNEL
-
-static __inline__
-NXSwappedDouble
-NXSwapHostDoubleToLittle(
-    double		x
-)
-{
-    return NXSwapDouble(NXConvertHostDoubleToSwapped(x));
-}
-
-static __inline__
-NXSwappedFloat
-NXSwapHostFloatToLittle(
-    float		x
-)
-{
-    return NXSwapFloat(NXConvertHostFloatToSwapped(x));
-}
-
-#endif /* KERNEL */
 #endif /*__BIG_ENDIAN__ */
 
 #if	__LITTLE_ENDIAN__

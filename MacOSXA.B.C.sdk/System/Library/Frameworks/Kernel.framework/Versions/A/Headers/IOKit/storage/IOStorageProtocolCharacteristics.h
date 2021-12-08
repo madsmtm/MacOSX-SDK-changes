@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2001 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1998-2005 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -25,9 +25,9 @@
 #define _IOKIT_IO_STORAGE_PROTOCOL_CHARACTERISTICS_H_
 
 
-//
-//	Protocol Characteristics - Characteristics defined for protocols.
-//
+/*
+ *	Protocol Characteristics - Characteristics defined for protocols.
+ */
 
 
 /*!
@@ -479,7 +479,7 @@ Example:
 @/textblock
 </pre>
 */
-#define kIOPropertyFibreChannelCableDescriptionKey				"Fibre Channel Cabling Type"
+#define kIOPropertyFibreChannelCableDescriptionKey		"Fibre Channel Cabling Type"
 
 
 /*!
@@ -559,9 +559,9 @@ Example:
 #define kIOPropertySCSIProtocolMultiInitKey			"Multiple Initiators"
 
 
-//
-//	Values - Values for the characteristics defined above.
-//
+/*
+ *	Values - Values for the characteristics defined above.
+ */
 
 
 /*!

@@ -244,7 +244,7 @@ enum
 					hierarchy is completely in place and can be queried if needed. 
 									
 					After this call, the burn's content is locked down, and you should be
-					able to respond to the @link //apple_ref/occ/intfm/DRFileDataProduction/calculateSizeOfFile%58fork%58estimating%58 calculateSizeOfFile:fork:estimating: @/link messages with exact values.
+					able to respond to the @link //apple_ref/occ/intfm/DRFileDataProduction/calculateSizeOfFile:fork:estimating: calculateSizeOfFile:fork:estimating: @/link messages with exact values.
    	@param 			file	The file object.
     @result  		<i>YES</i> if the burn should proceed.
 */

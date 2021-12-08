@@ -672,6 +672,20 @@ typedef struct __GLIFunctionDispatchRec
 	void (*get_buffer_parameteriv) (GLIContext ctx, GLenum target, GLenum pname, GLint *params);
 	void (*get_buffer_pointerv) (GLIContext ctx, GLenum target, GLenum pname, GLvoid **params);
 	void (*depth_bounds_EXT) (GLIContext ctx, GLclampd zmin, GLclampd zmax);
+	void (*draw_buffers_ARB) (GLIContext ctx, GLsizei n, const GLenum *bufs);
+	
+	GLboolean (*is_shader) (GLIContext ctx, GLuint shader);
+	GLboolean (*is_program) (GLIContext ctx, GLuint program);
+	void (*get_shaderiv) (GLIContext ctx, GLuint shader, GLenum pname, GLint *params);
+	void (*get_programiv) (GLIContext ctx, GLuint program, GLenum pname, GLint *params);
+	void (*get_shader_info_log) (GLIContext ctx, GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+	void (*get_program_info_log) (GLIContext ctx, GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+
+	void (*stencil_func_separate) (GLIContext ctx, GLenum face, GLenum func, GLint ref, GLuint mask);
+	void (*stencil_mask_separate) (GLIContext ctx, GLenum face, GLuint mask);
+	
+	void (*multi_draw_element_array_APPLE)(GLIContext ctx, GLenum mode, const GLint *first, const GLsizei *count, GLsizei primcount);
+	void (*multi_draw_range_element_array_APPLE)(GLIContext ctx, GLenum mode, GLuint start, GLuint end, const GLint *first, const GLsizei *count, GLsizei primcount);
 } GLIFunctionDispatch;
 
 #ifdef __cplusplus

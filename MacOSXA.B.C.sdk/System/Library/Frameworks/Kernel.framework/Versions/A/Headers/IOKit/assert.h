@@ -27,11 +27,9 @@
 extern "C" {
 #endif
 
-#ifdef KERNEL
 #if IOASSERT
 #undef MACH_ASSERT
 #define MACH_ASSERT	1
-#endif
 #endif
 #include <kern/assert.h>
 

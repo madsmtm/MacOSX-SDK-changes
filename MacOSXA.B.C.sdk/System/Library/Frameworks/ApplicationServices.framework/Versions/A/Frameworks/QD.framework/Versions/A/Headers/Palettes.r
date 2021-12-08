@@ -3,9 +3,9 @@
  
      Contains:   Palette Manager Interfaces.
  
-     Version:    Quickdraw-150.7~2
+     Version:    Quickdraw-185~4
  
-     Copyright:  © 1987-2003 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1987-2005 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:

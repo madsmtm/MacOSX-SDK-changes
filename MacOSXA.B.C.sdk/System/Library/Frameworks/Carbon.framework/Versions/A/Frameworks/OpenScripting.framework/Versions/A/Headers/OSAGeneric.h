@@ -3,9 +3,9 @@
  
      Contains:   AppleScript Generic Component Interfaces.
  
-     Version:    OSA-63~8
+     Version:    OSA-86~14
  
-     Copyright:  © 1992-2003 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1992-2005 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:

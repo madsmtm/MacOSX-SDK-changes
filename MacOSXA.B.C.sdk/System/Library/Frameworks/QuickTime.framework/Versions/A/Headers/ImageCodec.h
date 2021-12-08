@@ -3,9 +3,9 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime 7.1.2
+     Version:    QuickTime_6
  
-     Copyright:  © 1990-2006 by Apple Computer, Inc., all rights reserved
+     Copyright:  © 1990-2005 by Apple Computer, Inc., all rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -41,7 +41,7 @@
 extern "C" {
 #endif
 
-#pragma pack(push, 2)
+#pragma options align=mac68k
 
 /*
    The following GX types were previously in GXTypes.h, but that header
@@ -449,24 +449,6 @@ InvokeImageCodecDrawBandCompleteUPP(
   UInt32                         drawBandCompleteFlags,
   ImageCodecDrawBandCompleteUPP  userUPP)                     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
-#if __MACH__
-  #ifdef __cplusplus
-    inline ImageCodecTimeTriggerUPP                             NewImageCodecTimeTriggerUPP(ImageCodecTimeTriggerProcPtr userRoutine) { return userRoutine; }
-    inline ImageCodecDrawBandCompleteUPP                        NewImageCodecDrawBandCompleteUPP(ImageCodecDrawBandCompleteProcPtr userRoutine) { return userRoutine; }
-    inline void                                                 DisposeImageCodecTimeTriggerUPP(ImageCodecTimeTriggerUPP) { }
-    inline void                                                 DisposeImageCodecDrawBandCompleteUPP(ImageCodecDrawBandCompleteUPP) { }
-    inline void                                                 InvokeImageCodecTimeTriggerUPP(void * refcon, ImageCodecTimeTriggerUPP userUPP) { (*userUPP)(refcon); }
-    inline void                                                 InvokeImageCodecDrawBandCompleteUPP(void * refcon, ComponentResult drawBandResult, UInt32 drawBandCompleteFlags, ImageCodecDrawBandCompleteUPP userUPP) { (*userUPP)(refcon, drawBandResult, drawBandCompleteFlags); }
-  #else
-    #define NewImageCodecTimeTriggerUPP(userRoutine)            ((ImageCodecTimeTriggerUPP)userRoutine)
-    #define NewImageCodecDrawBandCompleteUPP(userRoutine)       ((ImageCodecDrawBandCompleteUPP)userRoutine)
-    #define DisposeImageCodecTimeTriggerUPP(userUPP)
-    #define DisposeImageCodecDrawBandCompleteUPP(userUPP)
-    #define InvokeImageCodecTimeTriggerUPP(refcon, userUPP)     (*userUPP)(refcon)
-    #define InvokeImageCodecDrawBandCompleteUPP(refcon, drawBandResult, drawBandCompleteFlags, userUPP) (*userUPP)(refcon, drawBandResult, drawBandCompleteFlags)
-  #endif
-#endif
-
 struct ImageSubCodecDecompressCapabilities {
   long                recordSize;             /* sizeof(ImageSubCodecDecompressCapabilities)*/
   long                decompressRecordSize;   /* size of your codec's decompress record*/
@@ -493,11 +475,6 @@ struct ImageSubCodecDecompressCapabilities {
   Boolean             subCodecSupportsScheduledBackwardsPlaybackWithDifferenceFrames;
   Boolean             subCodecNeedsHelpReportingNonDisplayableFrames;
   Boolean             baseCodecShouldCallDecodeBandForAllFrames;
-
-  UInt8               pad5[2];
-  Boolean             subCodecSupportsDrawInDecodeOrder; /* indicates that it's okay for the subcodec to get a single DrawBand call for each frame in decode order even when frames need reordering.  (This will only happen when other circumstances allow it.)*/
-  Boolean             subCodecSupportsDecodeSmoothing; /* Frame-reordering subcodecs should set this to indicate that they can safely decode a non-droppable frame before drawing the previous non-droppable frame.  This enables smoother playback in GWorlds.*/
-  UInt8               pad6[4];
 };
 typedef struct ImageSubCodecDecompressCapabilities ImageSubCodecDecompressCapabilities;
 enum {
@@ -525,8 +502,6 @@ struct ImageSubCodecDecompressRecord {
 
                                               /* The following fields only exist for QuickTime 7.0 and greater */
   void *              reserved1;
-  long                reserved2;
-  long                reserved3;
 };
 typedef struct ImageSubCodecDecompressRecord ImageSubCodecDecompressRecord;
 /*
@@ -1160,18 +1135,6 @@ InvokeImageCodecMPDrawBandUPP(
   void *                           refcon,
   ImageSubCodecDecompressRecord *  drp,
   ImageCodecMPDrawBandUPP          userUPP)                   AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
-
-#if __MACH__
-  #ifdef __cplusplus
-    inline ImageCodecMPDrawBandUPP                              NewImageCodecMPDrawBandUPP(ImageCodecMPDrawBandProcPtr userRoutine) { return userRoutine; }
-    inline void                                                 DisposeImageCodecMPDrawBandUPP(ImageCodecMPDrawBandUPP) { }
-    inline ComponentResult                                      InvokeImageCodecMPDrawBandUPP(void * refcon, ImageSubCodecDecompressRecord * drp, ImageCodecMPDrawBandUPP userUPP) { return (*userUPP)(refcon, drp); }
-  #else
-    #define NewImageCodecMPDrawBandUPP(userRoutine)             ((ImageCodecMPDrawBandUPP)userRoutine)
-    #define DisposeImageCodecMPDrawBandUPP(userUPP)
-    #define InvokeImageCodecMPDrawBandUPP(refcon, drp, userUPP) (*userUPP)(refcon, drp)
-  #endif
-#endif
 
 /*  codec selectors 0-127 are reserved by Apple */
 /*  codec selectors 128-191 are subtype specific */
@@ -3521,7 +3484,7 @@ enum {
 };
 /* UPP call backs */
 
-#pragma pack(pop)
+#pragma options align=reset
 
 #ifdef __cplusplus
 }

@@ -3,9 +3,9 @@
  
      Contains:   Digital Hub AppleEvents
  
-     Version:    OSA-63~8
+     Version:    OSA-86~14
  
-     Copyright:  © 2002-2003 by Apple Computer, Inc.  All rights reserved
+     Copyright:  © 2002-2005 by Apple Computer, Inc.  All rights reserved
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:

@@ -85,26 +85,4 @@
 /* Macro to increment a CC: skip 0 which has a special meaning */
 #define CC_INC(c)	(++(c) == 0 ? ++(c) : (c))
 
-#ifdef __APPLE_API_PRIVATE
-/*
- * Macros to initialize tcp sequence numbers for
- * send and receive from initial send and receive
- * sequence numbers.
- */
-#define	tcp_rcvseqinit(tp) \
-	(tp)->rcv_adv = (tp)->rcv_nxt = (tp)->irs + 1
-
-#define	tcp_sendseqinit(tp) \
-	(tp)->snd_una = (tp)->snd_nxt = (tp)->snd_max = (tp)->snd_up = \
-	    (tp)->iss
-
-#define TCP_PAWS_IDLE	(24 * 24 * 60 * 60 * PR_SLOWHZ)
-					/* timestamp wrap-around time */
-#endif /* __APPLE_API_PRIVATE */
-
-#ifdef KERNEL
-#ifdef __APPLE_API_PRIVATE
-extern tcp_cc	tcp_ccgen;		/* global connection count */
-#endif /* __APPLE_API_PRIVATE */
-#endif /* KERNEL */
 #endif /* _NETINET_TCP_SEQ_H_ */

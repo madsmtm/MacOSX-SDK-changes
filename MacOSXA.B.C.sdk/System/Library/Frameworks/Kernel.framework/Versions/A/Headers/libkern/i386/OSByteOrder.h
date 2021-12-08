@@ -26,13 +26,7 @@
 #include <stdint.h>
 
 #if !defined(OS_INLINE)
-# if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 #        define OS_INLINE static inline
-# elif defined(__MWERKS__) || defined(__cplusplus)
-#        define OS_INLINE static inline
-# else
-#        define OS_INLINE static __inline__
-# endif
 #endif
 
 /* Generic byte swapping functions. */

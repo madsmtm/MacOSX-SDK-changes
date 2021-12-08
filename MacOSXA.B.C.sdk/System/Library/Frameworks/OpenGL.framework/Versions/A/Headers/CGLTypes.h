@@ -98,8 +98,8 @@ typedef enum _CGLContextEnable {
 	kCGLCESwapLimit        = 203,	/* Enable or disable the swap async limit        */
 	kCGLCERasterization    = 221,	/* Enable or disable all rasterization           */
 	kCGLCEStateValidation  = 301,	/* Validate state for multi-screen functionality */
-	kCGLCESurfaceBackingSize = 305,	/* Enable or disable surface backing size override */
-	kCGLCEDisplayListOptimization = 307	/* Ability to turn off display list optimizer  */
+	kCGLCESurfaceBackingSize = 305, /* Enable or disable surface backing size override */
+	kCGLCEDisplayListOptimization = 307  /* Ability to turn off display list optimizer */
 } CGLContextEnable;
 
 /*
@@ -123,7 +123,9 @@ typedef enum _CGLContextParameter {
 /*  AGL_CLIP_REGION          254   */
 /*  AGL_FS_CAPTURE_SINGLE    255   */
 	kCGLCPSurfaceBackingSize = 304,  	/* 2 params.   Width/height of surface backing size     */
-	kCGLCPSurfaceSurfaceVolatile = 306	/* 1 params.   Surface volatile state					*/
+/* AGL_SURFACE_VOLATILE		 306	*/
+	kCGLCPSurfaceSurfaceVolatile = 306,	/* 1 params.   Surface volatile state					*/
+	kCGLCPReclaimResources		 = 308	/* 0 params.  */
 } CGLContextParameter;
 
 /*
@@ -133,7 +135,8 @@ typedef enum _CGLGlobalOption {
 	kCGLGOFormatCacheSize  = 501,	/* Set the size of the pixel format cache        */
 	kCGLGOClearFormatCache = 502,	/* Reset the pixel format cache if true          */
 	kCGLGORetainRenderers  = 503,	/* Whether to retain loaded renderers in memory  */
-	kCGLGOResetLibrary     = 504,	/* Do a soft reset of the CGL library if true    */
+	kCGLGOResetLibrary     = 504,	/* *** DEPRECATED in MacOS X 10.4 ***            */
+	                             	/* Do a soft reset of the CGL library if true    */
 	kCGLGOUseErrorHandler  = 505 	/* Call the Core Graphics handler on CGL errors  */
 } CGLGlobalOption;
 

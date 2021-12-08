@@ -29,7 +29,7 @@
 	@abstract	NSFormatter subclass
 	@discussion Instances of DRMSFFormatter format the textual representation of cells that contain 
 				MSF objects and convert textual representations of msf values into MSF objects.
-				DRMSFFormatters are typically instantiated in IB using the DiscReording Interface builder palette.
+				DRMSFFormatters are typically instantiated in IB using the DiscRecording Interface builder palette.
 */
 @interface DRMSFFormatter : NSFormatter
 {

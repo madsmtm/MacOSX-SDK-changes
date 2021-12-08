@@ -218,7 +218,7 @@
 #define HAVE_GAI_STRERROR 1
 
 /* Define if you have the gcvt function.  */
-/* #undef HAVE_GCVT */
+#define HAVE_GCVT 1
 
 /* Define if you have the getcwd function.  */
 #define HAVE_GETCWD 1
@@ -467,7 +467,7 @@
 #define HAVE_SIGHOLD 1
 
 /* Define if you have the sigset function.  */
-/* #undef HAVE_SIGSET */
+#define HAVE_SIGSET 1
 
 /* Define if you have the sigthreadmask function.  */
 /* #undef HAVE_SIGTHREADMASK */
@@ -491,7 +491,7 @@
 #define HAVE_STATFS 1
 
 /* Define if you have the statvfs function.  */
-/* #undef HAVE_STATVFS */
+#define HAVE_STATVFS 1
 
 /* Define if you have the std_syslog function.  */
 /* #undef HAVE_STD_SYSLOG */
@@ -752,7 +752,7 @@
 /* #undef HAVE_SYS_STATFS_H */
 
 /* Define if you have the <sys/statvfs.h> header file.  */
-/* #undef HAVE_SYS_STATVFS_H */
+#define HAVE_SYS_STATVFS_H 1
 
 /* Define if you have the <sys/sysexits.h> header file.  */
 /* #undef HAVE_SYS_SYSEXITS_H */
@@ -833,7 +833,7 @@
 /* #undef HAVE_LIBSQLCLI */
 
 /* Enabling BIND8 compatibility for Panther */
-#define BIND_8_COMPAT 1
+/* #undef BIND_8_COMPAT */
 
 /* Whether you have AOLserver */
 /* #undef HAVE_AOLSERVER */
@@ -2496,10 +2496,10 @@
 /* #undef PTHREADS */
 
 /* PHP build date */
-#define PHP_BUILD_DATE "2005-02-09"
+#define PHP_BUILD_DATE "2005-03-13"
 
 /* uname -a output */
-#define PHP_UNAME "Darwin b19.apple.com 7.0 Darwin Kernel Version 7.5.0: Thu Jan 20 02:52:58 PST 2005; root:xnu/xnu-517.99.9.obj~1/RELEASE_PPC Power Macintosh powerpc"
+#define PHP_UNAME "Darwin holycow.apple.com 8.0 Darwin Kernel Version 7.5.0: Thu Mar 3 18:48:46 PST 2005; root:xnu/xnu-517.99.13.obj~1/RELEASE_PPC Power Macintosh powerpc"
 
 /* uname output */
 #define PHP_OS "Darwin"

@@ -23,11 +23,36 @@
 #ifndef __OPEN_SOURCE__
 /*
  *
- *	$Id: IOUSBController.h,v 1.36.36.1 2004/07/28 03:46:49 nano Exp $
- *
  *	$Log: IOUSBController.h,v $
- *	Revision 1.36.36.1  2004/07/28 03:46:49  nano
- *	Bring TOT EHCI driver into PantherUpdate for Strider
+ *	Revision 1.40  2004/08/23 20:00:47  nano
+ *	Merge fix for rdar://3769499 (UTF16-UTF8 conversion)
+ *	
+ *	Revision 1.39.16.1  2004/08/16 17:16:10  nano
+ *	Make new branch with all the rdar:3760284
+ *	
+ *	Revision 1.39.14.1  2004/08/16 15:47:26  nano
+ *	Define errata for NEC OHCI wraparound bug
+ *	
+ *	Revision 1.39  2004/05/17 21:52:50  nano
+ *	Add timeStamp and useTimeStamp to our commands.
+ *	
+ *	Revision 1.38.6.1  2004/05/17 15:57:27  nano
+ *	API Changes for Tiger
+ *	
+ *	Revision 1.38  2004/03/16 18:05:40  rhoads
+ *	added an errata for the Agere EHCI host controller
+ *	
+ *	Revision 1.37  2004/02/03 22:09:49  nano
+ *	Fix <rdar://problem/3548194>: Remove $ Id $ from source files to prevent conflicts
+ *	
+ *	Revision 1.36.48.3  2004/04/28 17:26:09  nano
+ *	Remove $ ID $ so that we don't get conflicts on merge
+ *	
+ *	Revision 1.36.48.2  2003/11/05 21:12:00  nano
+ *	More work on timestamping transactions
+ *	
+ *	Revision 1.36.48.1  2003/11/04 22:27:37  nano
+ *	Work in progress to add time stamping to interrupt handler
  *	
  *	Revision 1.36  2003/08/20 19:41:40  nano
  *	
@@ -87,7 +112,8 @@ enum
     kErrataLucentSuspendResume		= (1 << 5),		// Don't allow port suspend at the root hub
     kErrataNeedsWatchdogTimer		= (1 << 6),		// Use Watchdog timer to reset confused controllers
     kErrataNeedsPortPowerOff		= (1 << 7),		// Power off the ports and back on again to clear weird status.
-    kErrataAgereEHCIAsyncSched		= (1 << 8)		// needs workaround for Async Sched bug
+    kErrataAgereEHCIAsyncSched		= (1 << 8),		// needs workaround for Async Sched bug
+    kErrataNECOHCIIsochWraparound	= (1 << 9)		// needs workaround for NEC isoch buffer wraparound problem
 };
 
 enum
@@ -331,11 +357,20 @@ protected:
     // Invokes the specified completion action of the request.  If
     // the completion action is unspecified, no action is taken.
     void 			Complete(
-                                            IOUSBCompletion	completion,
-                                            IOReturn		status,
-                                            UInt32		actualByteCount = 0 );
+                     IOUSBCompletion	completion,
+                     IOReturn		status,
+                     UInt32		actualByteCount = 0 );
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    // Invokes the specified completion action of the request.  If
+    // the completion action is unspecified, no action is taken.
+    void	CompleteWithTimeStamp (
+                                IOUSBCompletionWithTimeStamp		completion,
+                                IOReturn				status,
+                                UInt32					actualByteCount,
+                                AbsoluteTime				timeStamp);
 
+    
 
     //
     // UIM methods
@@ -1079,7 +1114,9 @@ public:
                                                         UInt32			updateFrequency);
 
 
-    OSMetaClassDeclareReservedUnused(IOUSBController,  17);
+    OSMetaClassDeclareReservedUsed(IOUSBController,  17);
+    virtual IOReturn 		CheckForDisjointDescriptor(IOUSBCommand *command, UInt16 maxPacketSize);
+    
     OSMetaClassDeclareReservedUnused(IOUSBController,  18);
     OSMetaClassDeclareReservedUnused(IOUSBController,  19);
     
