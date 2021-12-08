@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 20735CAA-0B99-3280-BAFA-0470293CF6F1', 'x86_64: 71FFCDFF-4AAF-394C-8452-92F301FB1A46' ]
+uuids:           [ 'i386: 1A3DC7B8-7C92-3D73-BF82-D60E64BC3DF0', 'x86_64: 66682AF6-C2D5-374C-901F-25A3E72814DC' ]
 platform:        macosx
 install-name:    /usr/lib/libxslt.1.dylib
 current-version: 3.26

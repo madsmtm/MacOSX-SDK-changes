@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)messageReceivedWithName:(NSString *)messageName fromPage:(SFSafariPage *)page userInfo:(nullable NSDictionary<NSString *, id> *)userInfo;
 
 /// This is called when the extension's containing app dispatches a message to the app extension.
-- (void)messageReceivedFromContainingAppWithName:(NSString *)messageName userInfo:(nullable NSDictionary<NSString *, id> *)userInfo;
+- (void)messageReceivedFromContainingAppWithName:(NSString *)messageName userInfo:(nullable NSDictionary<NSString *, id> *)userInfo SF_AVAILABLE_MAC_SAFARI(10_1);
 
 /// This is called when the extension's toolbar item is clicked.
 - (void)toolbarItemClickedInWindow:(SFSafariWindow *)window;
@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)contextMenuItemSelectedWithCommand:(NSString *)command inPage:(SFSafariPage *)page userInfo:(nullable NSDictionary<NSString *, id> *)userInfo;
 
 /// This is called before context menu is shown, and provides a way to validate individual context menu items.
-- (void)validateContextMenuItemWithCommand:(NSString *)command inPage:(SFSafariPage *)page userInfo:(nullable NSDictionary<NSString *, id> *)userInfo validationHandler:(void (^)(BOOL shouldHide, NSString * _Nullable text))validationHandler;
+- (void)validateContextMenuItemWithCommand:(NSString *)command inPage:(SFSafariPage *)page userInfo:(nullable NSDictionary<NSString *, id> *)userInfo validationHandler:(void (^)(BOOL shouldHide, NSString * _Nullable text))validationHandler SF_AVAILABLE_MAC_SAFARI(10_1);
 
 /// This is called when the extension's popover is about to be opened.
 - (void)popoverWillShowInWindow:(SFSafariWindow *)window;

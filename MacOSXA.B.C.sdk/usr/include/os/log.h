@@ -33,7 +33,14 @@ typedef struct os_log_s *os_log_t;
  * @discussion
  * Use this to disable a specific log message.
  */
-#define OS_LOG_DISABLED NULL
+#if OS_LOG_TARGET_HAS_10_13_FEATURES
+#define OS_LOG_DISABLED OS_OBJECT_GLOBAL_OBJECT(os_log_t, _os_log_disabled)
+API_AVAILABLE(macosx(10.13), ios(11.0), watchos(4.0), tvos(11.0))
+OS_EXPORT
+struct os_log_s _os_log_disabled;
+#else
+#define OS_LOG_DISABLED ((os_log_t _Nonnull)NULL)
+#endif
 
 /*!
  * @const OS_LOG_DEFAULT
@@ -90,8 +97,7 @@ OS_ENUM(os_log_type, uint8_t,
  * Creates a log object to be used with other log related functions.  The
  * log object serves two purposes:  (1) tag related messages by subsystem
  * and category name for easy filtering, and (2) control logging system
- * behavior for messages. The log object may be NULL if logging is disabled
- * on the system.
+ * behavior for messages.
  *
  * @param subsystem
  * The identifier of the given subsystem should be in reverse DNS form
@@ -118,16 +124,16 @@ os_log_create(const char *subsystem, const char *category);
  * @function os_log_info_enabled
  *
  * @abstract
- * Returns if additional information is enabled,
+ * Returns if additional information is enabled
  *
  * @discussion
- * Returns if additional information is enabled,
+ * Returns if additional information is enabled
  *
  * @param log
  * Pass OS_LOG_DEFAULT or a log object previously created with os_log_create.
  *
  * @result
- * Returns ‘true’ if debug log messages are enabled.
+ * Returns ‘true’ if info log messages are enabled.
  */
 #define os_log_info_enabled(log) os_log_type_enabled(log, OS_LOG_TYPE_INFO)
 
@@ -288,6 +294,9 @@ os_log_create(const char *subsystem, const char *category);
  * all content exceeding the limit will be truncated before written to disk.
  * Live streams will continue to show the full content.
  *
+ * Note, in a debugger, it is possible to set a breakpoint on _os_log_error_impl
+ * to break on any error being emitted.
+ *
  * @param log
  * Pass OS_LOG_DEFAULT or a log object previously created with os_log_create.
  *
@@ -296,8 +305,19 @@ os_log_create(const char *subsystem, const char *category);
  * line is decoded.  This string must be a constant string, not dynamically
  * generated.  Supports all standard printf types and %@ (objects).
  */
+#if OS_LOG_TARGET_HAS_10_13_FEATURES
+#define os_log_error(log, format, ...) __extension__({ \
+    os_log_t _log_tmp = (log); \
+    os_log_type_t _type_tmp = OS_LOG_TYPE_ERROR; \
+    if (os_log_type_enabled(_log_tmp, _type_tmp)) { \
+        OS_LOG_CALL_WITH_FORMAT(_os_log_error_impl, \
+                (&__dso_handle, _log_tmp, _type_tmp), format, ##__VA_ARGS__); \
+    } \
+})
+#else
 #define os_log_error(log, format, ...) \
         os_log_with_type(log, OS_LOG_TYPE_ERROR, format, ##__VA_ARGS__)
+#endif // OS_LOG_TARGET_HAS_10_13_FEATURES
 
 /*!
  * @function os_log_fault
@@ -320,6 +340,9 @@ os_log_create(const char *subsystem, const char *category);
  * all content exceeding the limit will be truncated before written to disk.
  * Live streams will continue to show the full content.
  *
+ * Note, in a debugger, it is possible to set a breakpoint on _os_log_fault_impl
+ * to break on any fault being emitted.
+ *
  * @param log
  * Pass OS_LOG_DEFAULT or a log object previously created with os_log_create.
  *
@@ -328,8 +351,19 @@ os_log_create(const char *subsystem, const char *category);
  * line is decoded.  This string must be a constant string, not dynamically
  * generated.  Supports all standard printf types and %@ (objects).
  */
+#if OS_LOG_TARGET_HAS_10_13_FEATURES
+#define os_log_fault(log, format, ...) __extension__({ \
+    os_log_t _log_tmp = (log); \
+    os_log_type_t _type_tmp = OS_LOG_TYPE_FAULT; \
+    if (os_log_type_enabled(_log_tmp, _type_tmp)) { \
+        OS_LOG_CALL_WITH_FORMAT(_os_log_fault_impl, \
+                (&__dso_handle, _log_tmp, _type_tmp), format, ##__VA_ARGS__); \
+    } \
+})
+#else
 #define os_log_fault(log, format, ...) \
         os_log_with_type(log, OS_LOG_TYPE_FAULT, format, ##__VA_ARGS__)
+#endif // OS_LOG_TARGET_HAS_10_13_FEATURES
 
 /*!
  * @function os_log_type_enabled
@@ -350,7 +384,7 @@ os_log_create(const char *subsystem, const char *category);
  * Will return a boolean.
  */
 API_AVAILABLE(macos(10.12), ios(10.0), watchos(3.0), tvos(10.0))
-OS_EXPORT OS_NOTHROW OS_WARN_RESULT
+OS_EXPORT OS_NOTHROW OS_WARN_RESULT OS_PURE
 bool
 os_log_type_enabled(os_log_t oslog, os_log_type_t type);
 
@@ -364,6 +398,30 @@ API_AVAILABLE(macos(10.12), ios(10.0), watchos(3.0), tvos(10.0))
 OS_EXPORT OS_NOTHROW OS_NOT_TAIL_CALLED
 void
 _os_log_impl(void *dso, os_log_t log, os_log_type_t type,
+        const char *format, uint8_t *buf, uint32_t size);
+
+/*!
+ * @function _os_log_error_impl
+ *
+ * @abstract
+ * Internal function that is taken for any error emitted in the system.
+ */
+API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
+OS_EXPORT OS_NOTHROW OS_NOT_TAIL_CALLED
+void
+_os_log_error_impl(void *dso, os_log_t log, os_log_type_t type,
+        const char *format, uint8_t *buf, uint32_t size);
+
+/*!
+ * @function _os_log_impl
+ *
+ * @abstract
+ * Internal function that is taken for any fault emitted in the system.
+ */
+API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0), watchos(4.0))
+OS_EXPORT OS_NOTHROW OS_NOT_TAIL_CALLED
+void
+_os_log_fault_impl(void *dso, os_log_t log, os_log_type_t type,
         const char *format, uint8_t *buf, uint32_t size);
 
 /*
@@ -409,36 +467,12 @@ _os_log_sensitive_deprecated(void) { }
     _os_log_sensitive_deprecated();                                     \
 })
 
-#define OS_LOG_RELEASE OS_OBJECT_GLOBAL_OBJECT(os_log_t, _os_log_release)
-API_DEPRECATED("use os_log(OS_LOG_DEFAULT, ...)",
-        macos(10.11,10.11), ios(9.0,9.0), watchos(2.0,2.0), tvos(9.0,9.0))
-OS_EXPORT
-struct os_log_s _os_log_release;
-
-#define OS_LOG_DEBUG OS_OBJECT_GLOBAL_OBJECT(os_log_t, _os_log_debug)
-API_DEPRECATED("use os_log_debug(OS_LOG_DEFAULT, ...)",
-        macos(10.11,10.11), ios(9.0,9.0), watchos(2.0,2.0), tvos(9.0,9.0))
-OS_EXPORT
-struct os_log_s _os_log_debug;
-
-#define OS_LOG_ERROR OS_OBJECT_GLOBAL_OBJECT(os_log_t, _os_log_error)
-API_DEPRECATED("use os_log_error(OS_LOG_DEFAULT, ...)",
-        macos(10.11,10.11), ios(9.0,9.0), watchos(2.0,2.0), tvos(9.0,9.0))
-OS_EXPORT
-struct os_log_s _os_log_error;
-
-#define OS_LOG_FAULT OS_OBJECT_GLOBAL_OBJECT(os_log_t, _os_log_fault)
-API_DEPRECATED("use os_log_fault(OS_LOG_DEFAULT, ...)",
-        macos(10.11,10.11), ios(9.0,9.0), watchos(2.0,2.0), tvos(9.0,9.0))
-OS_EXPORT
-struct os_log_s _os_log_fault;
-
 #if !OS_LOG_TARGET_HAS_10_12_FEATURES
 #undef os_log_with_type
 #define os_log_with_type(log, type, format, ...) __extension__({ \
     _Pragma("clang diagnostic push") \
     _Pragma("clang diagnostic error \"-Wformat\"") \
-    _Pragma("clang diagnostic ignored \"-Wdeprecated-declarations\"") \
+    _Static_assert(__builtin_constant_p(format), "format argument must be a string constant"); \
     _os_log_internal(&__dso_handle, log, type, format, ##__VA_ARGS__); \
     _Pragma("clang diagnostic pop") \
 })

@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: B76C2BBE-D71D-3EB3-BFEF-59E83C5E1227', 'x86_64: C2E6BA3D-81FF-39C3-B4BF-DBB9A17DE078' ]
+uuids:           [ 'i386: 2213F4E3-CC47-3CE7-892D-DB6AA9075F99', 'x86_64: DC582C3A-38B1-3122-8817-4A37B45F5038' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AppContainer.framework/Versions/A/AppContainer
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _ASBAtomicFileHandle._backingHandle, _ASBAtomicFileHandle._destFilePath, 

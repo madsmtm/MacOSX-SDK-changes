@@ -1,23 +1,30 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 8FD5A968-1EF1-3D89-A1E8-5DFD7738B4FE', 'x86_64: 4FC56163-48F1-38E9-A6F4-74993E79D139' ]
+uuids:           [ 'i386: 4E2FEC15-E4EB-334F-B8DF-DCE100825D1A', 'x86_64: A44C7B60-CA5B-3B63-B4DF-7F8D5DD46B4A' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/SecurityFoundation.framework/Versions/A/SecurityFoundation
-current-version: 55132.50.7
-objc-constraint: none
+current-version: 55185.1.1
 exports:         
   - archs:           [ i386, x86_64 ]
+    re-exports:      [ /System/Library/Frameworks/Security.framework/Versions/A/Security ]
     symbols:         [ '$ld$hide$os10.3$.objc_class_name_SFCertificateData', '$ld$hide$os10.4$.objc_class_name_SFCertificateData', 
                        '$ld$hide$os10.5$.objc_class_name_SFCertificateData', '$ld$hide$os10.5$_OBJC_CLASS_$_SFCertificateData', 
                        '$ld$hide$os10.6$.objc_class_name_SFCertificateData', '$ld$hide$os10.6$_OBJC_CLASS_$_SFCertificateData', 
                        _SFCertificateAuthorityInputParmKeyDestinationKeychain, _SFCertificateAuthorityInputParmKeySignerKeychain, 
-                       _SFDefaultCertificateAuthority, _SFDefaultCertificateAuthorityFullPath, 
-                       _SFPWACStringInDictionary, _SFPWAContextCreate, _SFPWAContextCreateWithDefaults, 
-                       _SFPWAContextLoadDictionaries, _SFPWAContextRelease, _SFPWAPasswordEvaluator, 
-                       _SFPWAPasswordSuggest, _SFPWAPolicyCopyDefault, _SFPWAPolicyCopyFromFile, 
-                       _SFPWAPolicyLanguages, _SFPWAPolicyParse, _SFPWARandomWord, 
-                       _SFPWAStringInDictionary, _SecFileVaultChangeMasterPasswordPassword, 
-                       _SecFileVaultCompact, _SecFileVaultCreate, _SecFileVaultCreateUsingCertificate, 
+                       _SFCryptoServicesErrorDecryptionFailed, _SFCryptoServicesErrorDigest, 
+                       _SFCryptoServicesErrorDomain, _SFCryptoServicesErrorEncryptionFailed, 
+                       _SFCryptoServicesErrorIVGeneratorExhausted, _SFCryptoServicesErrorInvalidAuthenticationCodeLength, 
+                       _SFCryptoServicesErrorInvalidIVLengthRequested, _SFCryptoServicesErrorNoInitializationVector, 
+                       _SFCryptoServicesErrorUnsupportedDigest, _SFDefaultCertificateAuthority, 
+                       _SFDefaultCertificateAuthorityFullPath, _SFKeychainErrorDomain, 
+                       _SFKeychainErrorInvalidKeyData, _SFKeychainErrorKeyType, _SFKeychainErrorRNGFailure, 
+                       _SFKeychainErrorUnknownKeyType, _SFPWACStringInDictionary, 
+                       _SFPWAContextCreate, _SFPWAContextCreateWithDefaults, _SFPWAContextLoadDictionaries, 
+                       _SFPWAContextRelease, _SFPWAPasswordEvaluator, _SFPWAPasswordSuggest, 
+                       _SFPWAPolicyCopyDefault, _SFPWAPolicyCopyFromFile, _SFPWAPolicyLanguages, 
+                       _SFPWAPolicyParse, _SFPWARandomWord, _SFPWAStringInDictionary, 
+                       _SecFileVaultChangeMasterPasswordPassword, _SecFileVaultCompact, 
+                       _SecFileVaultCreate, _SecFileVaultCreateUsingCertificate, 
                        _SecFileVaultMakeMasterPassword, _SecFileVaultMasterMount, 
                        _SecFileVaultMasterPasswordEnabled, _SecFileVaultMasterPasswordValidates, 
                        _SecFileVaultMount, _SecFileVaultRecover, _SecFileVaultResize, 
@@ -34,5 +41,16 @@ exports:
                        _CAKeyUsageExtension, _CASubjectAltNameExtension, _SFAuthorization, 
                        _SFCSR, _SFCertAuthorityInvitation, _SFCertAuthorityInvitationSigner, 
                        _SFCertificateAuthority, _SFCertificateAuthorityClient, _SFCertificateData, 
-                       _SFMachPort, _SFSyncManager, _SecFoundationModVector ]
+                       _SFMachPort, _SFSyncManager, _SecFoundationModVector, __SFAESKey, 
+                       __SFAESKeySpecifier, __SFAccessPolicy, __SFAsymmetricKeySpecifier, 
+                       __SFAuthenticatedCiphertext, __SFAuthenticatedEncryptionOperation, 
+                       __SFCiphertext, __SFECDHKeySource, __SFECDHOperation, __SFECKeyPair, 
+                       __SFECKeySpecifier, __SFECPublicKey, __SFEC_X962SigningOperation, 
+                       __SFIESCiphertext, __SFIESOperation, __SFIdentity, __SFKey, 
+                       __SFKeyPair, __SFKeySpecifier, __SFKeychainFetchResult, __SFKeychainIdentityFetchResult, 
+                       __SFKeychainKeyFetchResult, __SFKeychainManager, __SFMD5DigestOperation, 
+                       __SFPublicKey, __SFRSAKeySpecifier, __SFSHA1DigestOperation, 
+                       __SFSHA224DigestOperation, __SFSHA256DigestOperation, __SFSHA384DigestOperation, 
+                       __SFSHA512DigestOperation, __SFSignedData, __SFSymmetricKey, 
+                       __SFSymmetricKeySpecifier, __SFTripleDESKeySpecifier ]
 ...

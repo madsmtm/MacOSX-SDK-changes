@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 58499769-9C95-3E3B-8C98-BC08372532C4', 'x86_64: 6C0435B1-83DD-3254-B0D3-3B86C6CE606A' ]
+uuids:           [ 'i386: 5AC8A175-06FF-39B8-98A9-9AD32B1D4AC5', 'x86_64: B8A517F6-B872-3A71-B096-709A0CC6656F' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Shortcut.framework/Versions/A/Shortcut
 current-version: 98
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _SCTAXChildAccessor.mAttribute, _SCTAXChildAccessor.mOccurance, 

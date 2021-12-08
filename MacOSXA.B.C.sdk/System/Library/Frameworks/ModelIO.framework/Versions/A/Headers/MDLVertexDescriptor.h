@@ -176,11 +176,11 @@ MDL_EXPORT
 /*!
  @property stride
  @abstract stride in bytes of each vertex element in the buffer. 
-           - If you store multiple attributes interleaved in the vertex
-             buffer, the stride will be the sum of sizes of each attribute (and any padding).
-           - If you store multiple attributes non-interleaved (back to back),
-             the stride will be the size of an attribute (and all attributes are
-             required to have the same size).
+ @discussion - If you store multiple attributes interleaved in the vertex
+               buffer, the stride will be the sum of sizes of each attribute (and any padding).
+             - If you store multiple attributes non-interleaved (back to back),
+               the stride will be the size of an attribute (and all attributes are
+               required to have the same size).
  */
 @property (nonatomic, readwrite) NSUInteger stride;
 @end

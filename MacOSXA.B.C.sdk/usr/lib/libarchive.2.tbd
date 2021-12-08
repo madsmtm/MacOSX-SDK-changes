@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 26FD0CF5-9AFA-356B-B893-589342EBA59B', 'x86_64: B4F507BC-B24E-3BE7-B658-94D798E2CD81' ]
+uuids:           [ 'i386: D55C5F86-251D-3C33-A617-0C623D4F512E', 'x86_64: 8FC28DD8-E315-3C3E-95FE-D1D2CBE49888' ]
 platform:        macosx
 install-name:    /usr/lib/libarchive.2.dylib
 current-version: 9.2

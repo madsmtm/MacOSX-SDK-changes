@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 07256ED1-AF86-3542-935E-41A2A3065B70', 'x86_64: F48F1B7B-BEB4-32EE-8C5D-0370096F3864' ]
+uuids:           [ 'i386: 3E73B1C8-216F-3E94-83AE-59559365D2DD', 'x86_64: 5E1796FA-4041-3187-B5C2-8E6B03D1D72A' ]
 platform:        macosx
 install-name:    /usr/lib/libexpat.1.dylib
 current-version: 8
@@ -36,5 +36,5 @@ exports:
                        _XmlInitEncoding, _XmlInitEncodingNS, _XmlInitUnknownEncoding, 
                        _XmlInitUnknownEncodingNS, _XmlParseXmlDecl, _XmlParseXmlDeclNS, 
                        _XmlPrologStateInit, _XmlPrologStateInitExternalEntity, _XmlSizeOfUnknownEncoding, 
-                       _XmlUtf16Encode, _XmlUtf8Encode ]
+                       _XmlUtf16Encode, _XmlUtf8Encode, _align_limit_to_full_utf8_characters ]
 ...

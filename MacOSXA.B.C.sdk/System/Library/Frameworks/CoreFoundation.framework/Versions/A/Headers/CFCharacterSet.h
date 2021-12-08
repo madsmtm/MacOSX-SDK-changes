@@ -1,5 +1,10 @@
 /*	CFCharacterSet.h
-	Copyright (c) 1999-2016, Apple Inc. All rights reserved.
+	Copyright (c) 1999-2017, Apple Inc. and the Swift project authors
+ 
+	Portions Copyright (c) 2014-2017, Apple Inc. and the Swift project authors
+	Licensed under Apache License v2.0 with Runtime Library Exception
+	See http://swift.org/LICENSE.txt for license information
+	See http://swift.org/CONTRIBUTORS.txt for the list of Swift project authors
 */
 
 /*!
@@ -68,7 +73,7 @@ typedef CF_ENUM(CFIndex, CFCharacterSetPredefinedSet) {
     kCFCharacterSetPunctuation, /* Punctuation character set (Unicode General Category P*) */
     kCFCharacterSetCapitalizedLetter = 13, /* Titlecase character set (Unicode General Category Lt) */
     kCFCharacterSetSymbol = 14, /* Symbol character set (Unicode General Category S*) */
-    kCFCharacterSetNewline CF_ENUM_AVAILABLE(10_5, 2_0) = 15, /* Newline character set (U000A ~ U000D, U0085, U2028, and U2029) */
+    kCFCharacterSetNewline API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0)) = 15, /* Newline character set (U000A ~ U000D, U0085, U2028, and U2029) */
     kCFCharacterSetIllegal = 12/* Illegal character set */
 };
 

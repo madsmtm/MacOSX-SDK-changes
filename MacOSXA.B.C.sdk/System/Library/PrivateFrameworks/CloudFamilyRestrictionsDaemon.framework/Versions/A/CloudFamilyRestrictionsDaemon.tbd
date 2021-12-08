@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 67772E78-7BA7-3B7E-B3B5-3133BAA57231' ]
+uuids:           [ 'x86_64: E999212D-0512-3D31-9CF8-6E25A39CF792' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CloudFamilyRestrictionsDaemon.framework/Versions/A/CloudFamilyRestrictionsDaemon
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CFRAllowedContactEmail, _CFRAllowedContacts, _CFRAppAccessEnabledKey, 
@@ -93,5 +92,5 @@ exports:
                        _CFRiTunesRestrictExplicitBooksKey, _CFRiTunesRestrictExplicitKey, 
                        _CFRiTunesRestrictGamesKey, _CFRiTunesRestrictMoviesKey, _CFRiTunesRestrictTVShowsKey, 
                        _CFRiTunesTVShowsLimitKey ]
-    objc-classes:    [ _CFRPushManager, _CFRRestrictionManagementService, _CFRSettingsDispatcher ]
+    objc-classes:    [ _CFRPushManager, _CFRSettingsDispatcher ]
 ...

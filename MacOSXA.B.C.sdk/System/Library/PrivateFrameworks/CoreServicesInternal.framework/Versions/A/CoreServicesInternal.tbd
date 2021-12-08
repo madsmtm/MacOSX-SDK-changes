@@ -1,9 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A00DD1F8-0733-38F9-A031-B766A6D84789', 'x86_64: 05EB7D45-DD4C-3A0F-AC63-A0C2A68E6481' ]
+uuids:           [ 'i386: C26C43BC-891C-3A34-8DDC-6C5356BB56CE', 'x86_64: CB3D74CC-1568-3E66-8015-2A3D11BCAF21' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreServicesInternal.framework/Versions/A/CoreServicesInternal
-current-version: 276.2
+current-version: 309
 objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]
@@ -27,16 +27,15 @@ exports:
                        __FSURLResourceIsReachable, __FSURLSetPermanentResourcePropertyForKey, 
                        __FSURLSetResourcePropertiesForKeys, __FSURLSetResourcePropertyForKey, 
                        __FSVolumeIdentifierGetVolumeRefNum, __FileCacheClearPropertyValueForKey, 
-                       __FileCacheCreateShallowCopy, __FileCacheGetBinding, __FileCacheGetFlags, 
+                       __FileCacheCreateShallowCopy, __FileCacheGetFinderInfo, __FileCacheGetFlags, 
                        __FileCacheGetName, __FileCacheGetPropertyValueForKey, __FileCacheGetTypeID, 
-                       __FileCacheSetBinding, __FileCacheSetFlags, __FileCacheSetPropertyValueForKey, 
-                       __FileURLCreateDisplayPathComponentsArray, __RegisterFilePropertyProvider, 
-                       __RegisterFilePropertyWithOptions, __URLAttachSecurityScopeToFileURL, 
-                       __URLCopySecurityScopeFromFileURL, __URLCreateByResolvingAliasFile, 
-                       __URLEnumeratorCreateForDirectoryURL, __URLEnumeratorCreateForMountedVolumes, 
-                       __URLEnumeratorGetDescendentLevel, __URLEnumeratorGetNextURL, 
-                       __URLEnumeratorGetSourceDidChange, __URLEnumeratorGetTypeID, 
-                       __URLEnumeratorGetURLsBulk, __URLEnumeratorSkipDescendents, 
+                       __FileCacheSetPropertyValueForKey, __FileURLCreateDisplayPathComponentsArray, 
+                       __RegisterFilePropertyProvider, __RegisterFilePropertyWithOptions, 
+                       __URLAttachSecurityScopeToFileURL, __URLCopySecurityScopeFromFileURL, 
+                       __URLCreateByResolvingAliasFile, __URLEnumeratorCreateForDirectoryURL, 
+                       __URLEnumeratorCreateForMountedVolumes, __URLEnumeratorGetDescendentLevel, 
+                       __URLEnumeratorGetNextURL, __URLEnumeratorGetSourceDidChange, 
+                       __URLEnumeratorGetTypeID, __URLEnumeratorGetURLsBulk, __URLEnumeratorSkipDescendents, 
                        __URLReplaceObject, _kCFURLBookmarkOriginalPathKey, _kCFURLBookmarkOriginalRelativePathComponentsArrayKey, 
                        _kCFURLBookmarkOriginalRelativePathKey, _kCFURLBookmarkOriginalVolumeCreationDateKey, 
                        _kCFURLBookmarkOriginalVolumeNameKey ]

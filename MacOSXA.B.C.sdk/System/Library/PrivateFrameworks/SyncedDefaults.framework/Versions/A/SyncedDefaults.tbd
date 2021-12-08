@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 5A993378-A7C1-3FBC-922F-27E586E89EE4', 'x86_64: 11A7912C-E1C2-3DED-9434-AC7A13F96925' ]
+uuids:           [ 'i386: BE61A62C-390D-3119-8647-BF8B1DD79889', 'x86_64: C610A382-6ACC-312A-A8E2-9B74AF0B750B' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SyncedDefaults.framework/Versions/A/SyncedDefaults
-objc-constraint: none
 exports:         
   - archs:           [ i386 ]
     objc-classes:    [ _SYDClient, _SYDJournal ]

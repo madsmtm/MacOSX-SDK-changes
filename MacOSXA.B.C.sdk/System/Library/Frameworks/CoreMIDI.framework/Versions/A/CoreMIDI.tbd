@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: CE948963-3D58-3AAB-BB7D-74B57672DFF5', 'x86_64: 5E2D1F53-B466-312E-AEA7-117B68C9A7F0' ]
+uuids:           [ 'i386: 545850CB-096A-37E3-8FDB-0640B5D222E6', 'x86_64: 4974A85C-528E-3905-8DD7-A8958DC77218' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/CoreMIDI.framework/Versions/A/CoreMIDI
 current-version: 69
-objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]
     symbols:         [ _MIDIClientCreate, _MIDIClientCreateWithBlock, _MIDIClientDispose, 
@@ -21,29 +20,30 @@ exports:
                        _MIDIEntityAddOrRemoveEndpoints, _MIDIEntityGetDestination, 
                        _MIDIEntityGetDevice, _MIDIEntityGetNumberOfDestinations, 
                        _MIDIEntityGetNumberOfSources, _MIDIEntityGetSource, _MIDIExternalDeviceCreate, 
-                       _MIDIFlushOutput, _MIDIGetDestination, _MIDIGetDevice, _MIDIGetDriverDeviceList, 
-                       _MIDIGetDriverIORunLoop, _MIDIGetExternalDevice, _MIDIGetNumberOfDestinations, 
-                       _MIDIGetNumberOfDevices, _MIDIGetNumberOfExternalDevices, 
-                       _MIDIGetNumberOfSources, _MIDIGetSerialPortDrivers, _MIDIGetSerialPortOwner, 
-                       _MIDIGetSource, _MIDIInputPortCreate, _MIDIInputPortCreateWithBlock, 
-                       _MIDIObjectFindByUniqueID, _MIDIObjectGetDataProperty, _MIDIObjectGetDictionaryProperty, 
+                       _MIDIFlushOutput, _MIDIGet32BitOnlyDrivers, _MIDIGetDestination, 
+                       _MIDIGetDevice, _MIDIGetDriverDeviceList, _MIDIGetDriverIORunLoop, 
+                       _MIDIGetExternalDevice, _MIDIGetNumberOfDestinations, _MIDIGetNumberOfDevices, 
+                       _MIDIGetNumberOfExternalDevices, _MIDIGetNumberOfSources, 
+                       _MIDIGetSerialPortDrivers, _MIDIGetSerialPortOwner, _MIDIGetSource, 
+                       _MIDIInputPortCreate, _MIDIInputPortCreateWithBlock, _MIDIObjectFindByUniqueID, 
+                       _MIDIObjectGetDataProperty, _MIDIObjectGetDictionaryProperty, 
                        _MIDIObjectGetIntegerProperty, _MIDIObjectGetProperties, _MIDIObjectGetStringProperty, 
                        _MIDIObjectRemoveProperty, _MIDIObjectSetDataProperty, _MIDIObjectSetDictionaryProperty, 
                        _MIDIObjectSetIntegerProperty, _MIDIObjectSetStringProperty, 
                        _MIDIOutputPortCreate, _MIDIPacketListAdd, _MIDIPacketListInit, 
                        _MIDIPortConnectSource, _MIDIPortDisconnectSource, _MIDIPortDispose, 
-                       _MIDIReceived, _MIDIRestart, _MIDISend, _MIDISendSysex, _MIDIServerRun, 
-                       _MIDISetNotificationRunLoop, _MIDISetSerialPortOwner, _MIDISetupAddDevice, 
-                       _MIDISetupAddExternalDevice, _MIDISetupCreate, _MIDISetupDispose, 
-                       _MIDISetupFromData, _MIDISetupGetCurrent, _MIDISetupInstall, 
-                       _MIDISetupRemoveDevice, _MIDISetupRemoveExternalDevice, _MIDISetupToData, 
-                       _MIDISourceCreate, _MIDIThruConnectionCreate, _MIDIThruConnectionDispose, 
-                       _MIDIThruConnectionFind, _MIDIThruConnectionGetParams, _MIDIThruConnectionParamsInitialize, 
-                       _MIDIThruConnectionSetParams, _MIDITimerTaskCreate, _MIDITimerTaskDispose, 
-                       _MIDITimerTaskSetNextWakeTime, _kMIDIDriverPropertyUsesSerial, 
-                       _kMIDIPropertyAdvanceScheduleTimeMuSec, _kMIDIPropertyCanRoute, 
-                       _kMIDIPropertyConnectionUniqueID, _kMIDIPropertyDeviceID, 
-                       _kMIDIPropertyDisplayName, _kMIDIPropertyDriverDeviceEditorApp, 
+                       _MIDIReceived, _MIDIRestart, _MIDISend, _MIDISendSysex, _MIDIServerIs32Bit, 
+                       _MIDIServerRun, _MIDISetNotificationRunLoop, _MIDISetSerialPortOwner, 
+                       _MIDISetupAddDevice, _MIDISetupAddExternalDevice, _MIDISetupCreate, 
+                       _MIDISetupDispose, _MIDISetupFromData, _MIDISetupGetCurrent, 
+                       _MIDISetupInstall, _MIDISetupRemoveDevice, _MIDISetupRemoveExternalDevice, 
+                       _MIDISetupToData, _MIDISourceCreate, _MIDIThruConnectionCreate, 
+                       _MIDIThruConnectionDispose, _MIDIThruConnectionFind, _MIDIThruConnectionGetParams, 
+                       _MIDIThruConnectionParamsInitialize, _MIDIThruConnectionSetParams, 
+                       _MIDITimerTaskCreate, _MIDITimerTaskDispose, _MIDITimerTaskSetNextWakeTime, 
+                       _kMIDIDriverPropertyUsesSerial, _kMIDIPropertyAdvanceScheduleTimeMuSec, 
+                       _kMIDIPropertyCanRoute, _kMIDIPropertyConnectionUniqueID, 
+                       _kMIDIPropertyDeviceID, _kMIDIPropertyDisplayName, _kMIDIPropertyDriverDeviceEditorApp, 
                        _kMIDIPropertyDriverOwner, _kMIDIPropertyDriverVersion, _kMIDIPropertyFactoryPatchNameFile, 
                        _kMIDIPropertyImage, _kMIDIPropertyIsBroadcast, _kMIDIPropertyIsDrumMachine, 
                        _kMIDIPropertyIsEffectUnit, _kMIDIPropertyIsEmbeddedEntity, 

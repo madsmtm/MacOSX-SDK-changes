@@ -26,6 +26,7 @@
 #import <MediaPlayer/MPPlayableContentManagerContext.h>
 #import <MediaPlayer/MPVolumeSettings.h>
 #import <MediaPlayer/MPVolumeView.h>
+#import <MediaPlayer/NSUserActivity+MediaPlayerAdditions.h>
 #endif
 
 #import <MediaPlayer/AVFoundation+MPNowPlayingInfoLanguageOptionAdditions.h>

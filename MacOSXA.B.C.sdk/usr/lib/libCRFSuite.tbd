@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 5BAC9EFA-7D2F-3D27-B9CE-A4B2D67C2D61', 'x86_64: F78B7F5F-0B4F-35C6-AA2F-84EE9CB22137' ]
+uuids:           [ 'i386: 7F584902-74F1-3362-935D-95F5E735F5E7', 'x86_64: AB2DA745-F22C-30CF-81D4-35DD716463B8' ]
 platform:        macosx
 install-name:    /usr/lib/libCRFSuite.dylib
 objc-constraint: none
@@ -41,9 +41,19 @@ exports:
                        _crfsuite_tagger_viterbi, _crfsuite_trainer_addref, _crfsuite_trainer_create, 
                        _crfsuite_trainer_get_params, _crfsuite_trainer_release, _crfsuite_trainer_set_message_callback, 
                        _crfsuite_trainer_train, _crfsuite_trainer_train_model_to_file_pointer, 
-                       _my_crf_create_instance_from_file, _svm_check_parameter, _svm_check_probability_model, 
-                       _svm_destroy_param, _svm_free_and_destroy_model, _svm_free_model_content, 
-                       _svm_get_labels, _svm_get_nr_class, _svm_get_svm_type, _svm_load_model, 
-                       _svm_predict, _svm_predict_probability, _svm_predict_values, 
-                       _svm_save_model, _svm_train ]
+                       _maxent_add_training_sample, _maxent_classify, _maxent_get_class_id, 
+                       _maxent_get_class_label, _maxent_load_from_file, _maxent_load_with_bytes, 
+                       _maxent_model_create, _maxent_model_release, _maxent_model_retain, 
+                       _maxent_mutable_model_release, _maxent_num_classes, _maxent_sample_add_feature, 
+                       _maxent_sample_add_feature_with_value, _maxent_sample_clear, 
+                       _maxent_sample_create, _maxent_sample_description, _maxent_sample_get_label, 
+                       _maxent_sample_release, _maxent_sample_set_label, _maxent_save_to_file, 
+                       _maxent_save_to_file_with_threshold, _maxent_set_heldout, 
+                       _maxent_train, _maxent_use_SGD, _maxent_use_default_SGD, _maxent_use_l1_regularizer, 
+                       _maxent_use_l2_regularizer, _my_crf_create_instance_from_file, 
+                       _svm_check_parameter, _svm_check_probability_model, _svm_destroy_param, 
+                       _svm_free_and_destroy_model, _svm_free_model_content, _svm_get_labels, 
+                       _svm_get_nr_class, _svm_get_svm_type, _svm_load_model, _svm_predict, 
+                       _svm_predict_probability, _svm_predict_values, _svm_save_model, 
+                       _svm_train ]
 ...

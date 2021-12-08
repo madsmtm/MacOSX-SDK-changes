@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: D8090B0A-1BD8-3E65-B1D9-BD0D657C51C9', 'x86_64: 101D0FA2-B574-3FB6-A363-4195DB93CD94' ]
+uuids:           [ 'i386: 61180335-BB17-315B-9FA8-3B5BB4F12394', 'x86_64: 2AADC297-B9D5-3BDB-BCB6-7FD21343203B' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/VCXMPP.framework/Versions/A/Frameworks/XMPPToolkit.framework/Versions/A/XMPPToolkit
-objc-constraint: none
 exports:         
   - archs:           [ i386 ]
     objc-classes:    [ _NSXMPPInternal_DiscoInvalidator, _NSXMPPInternal_HandlerWithTimeout, 

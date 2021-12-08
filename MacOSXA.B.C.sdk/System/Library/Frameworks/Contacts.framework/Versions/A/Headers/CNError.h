@@ -30,6 +30,12 @@ typedef NS_ENUM(NSInteger, CNErrorCode)
     CNErrorCodePredicateInvalid = 400,
     
     CNErrorCodePolicyViolation = 500,
+    
+    CNErrorCodeClientIdentifierInvalid = 600,
+    CNErrorCodeClientIdentifierDoesNotExist = 601,
+    
+    CNErrorCodeVCardMalformed NS_ENUM_AVAILABLE(10_13, 11_0) = 700,
+    
 }  NS_ENUM_AVAILABLE(10_11, 9_0);
 
 /*! When available an array of one or more CNContact, CNGroup or CNContainer objects for which the error code applies. */

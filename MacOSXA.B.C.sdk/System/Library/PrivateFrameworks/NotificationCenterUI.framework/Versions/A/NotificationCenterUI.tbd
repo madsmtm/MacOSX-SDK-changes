@@ -1,18 +1,17 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 71CED81D-5A81-3D4D-A393-BCDF5D6E914E' ]
+uuids:           [ 'x86_64: AB8848A1-8966-3F59-82C5-CCACF2D5E9F3' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/NotificationCenterUI.framework/Versions/A/NotificationCenterUI
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _NCActiveDisplayID, _NCConsoleConnected, _NCDuration, _NCDurationCurrent, 
                        _NCFontWithName, _NCHSetDefaultSharedAnimationParameters, 
-                       _NCInitValueTransformers, _NCIsSystemRTL, _NCLogView, _NCLogViewAutolayout, 
-                       _NCMainDisplayNSScreen, _NCMainThreadImageCache, _NCMaterialControlColor, 
-                       _NCMaterialGetMediumLightAppearance, _NCMaterialMakeCardLayers, 
-                       _NCMaterialRegisterReducedTransparencyDelegate, _NCMaterialUnRegisterReducedTransparencyDelegate, 
-                       _NCNSScreenFromCGDisplayID, _NCPerformWithAnimation, _NCPerformWithAnimationWithDuration, 
+                       _NCInitValueTransformers, _NCIsSystemRTL, _NCMainDisplayNSScreen, 
+                       _NCMainThreadImageCache, _NCMaterialControlColor, _NCMaterialGetMediumLightAppearance, 
+                       _NCMaterialMakeCardLayers, _NCMaterialRegisterReducedTransparencyDelegate, 
+                       _NCMaterialUnRegisterReducedTransparencyDelegate, _NCNSScreenFromCGDisplayID, 
+                       _NCPerformWithAnimation, _NCPerformWithAnimationWithDuration, 
                        _NCPerformWithAnimationWithDurationAndCompletion, _NCPerformWithoutAnimation, 
                        _NCRandomInteger, _NCScaleFactorForDisplay, _NCSnippetCreate, 
                        _NCSnippetDestroy, _NotificationCenterUIVersionNumber, _NotificationCenterUIVersionString, 
@@ -21,8 +20,9 @@ exports:
                        _kNCAllowsSwipeKey, _kNCCAControllerAliveNotification, _kNCIgnoresDNDKey, 
                        _kNCPresentApplicationIdentifierOption, _kNCPresentDontAnimateOption, 
                        _kNCPresentOrderKey, _kNCRoundedWindowShadowWidth, _kNCServiceControllerListenerName, 
-                       _kNCSnippetConfigurationImagePathKey, _kNCSnippetConfigurationRevealKey, 
-                       _kNCSnippetConfigurationTitleKey, _printView ]
+                       _kNCShowOnLockScreenKey, _kNCSnippetConfigurationImagePathKey, 
+                       _kNCSnippetConfigurationRevealKey, _kNCSnippetConfigurationTitleKey, 
+                       _printView ]
     objc-classes:    [ _NCCardViewController, _NCCustomAlert, _NCCustomAlertBackgroundView, 
                        _NCJSONTransformer, _NCMachSendRight, _NCMaterialLayer, _NCRemoteViewServiceContainerView, 
                        _NCRoundedWindowContentView, _NCSelectionMaterialLayer, _NCServiceController, 

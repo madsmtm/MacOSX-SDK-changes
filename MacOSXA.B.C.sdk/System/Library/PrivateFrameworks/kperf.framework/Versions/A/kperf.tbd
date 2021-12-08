@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 76286C80-7885-37AB-858C-424433E38297', 'x86_64: 7B842456-22D1-3F56-8786-164C1E863A4C' ]
+uuids:           [ 'i386: 77690100-82F7-3474-A211-E6778EC62EC1', 'x86_64: 55D1CB99-9479-35FD-B4DC-880B2F5002BB' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/kperf.framework/Versions/A/kperf
 objc-constraint: none
@@ -26,7 +26,7 @@ exports:
                        _kperf_buffer_returnbuf, _kperf_buffer_set_config, _kperf_buffer_set_debug, 
                        _kperf_buffer_set_debug_log, _kperf_buffer_setchunk, _kperf_buffer_wait, 
                        _kperf_debug, _kperf_kdbg_callstacks_get, _kperf_kdbg_callstacks_set, 
-                       _kperf_kdbg_cswitch_set, _kperf_kdbg_switch_get, _kperf_kdebug_action_get, 
+                       _kperf_kdbg_cswitch_get, _kperf_kdbg_cswitch_set, _kperf_kdebug_action_get, 
                        _kperf_kdebug_action_set, _kperf_kdebug_filter_add_class, 
                        _kperf_kdebug_filter_add_class_fn, _kperf_kdebug_filter_add_class_subclass, 
                        _kperf_kdebug_filter_add_class_subclass_fn, _kperf_kdebug_filter_add_debugid, 

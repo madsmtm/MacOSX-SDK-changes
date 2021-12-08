@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: DAC8C83B-7EC8-3A88-A725-E13DD905BF4F' ]
+uuids:           [ 'x86_64: E300EAA6-9980-3FB0-AF60-4BE6C2DDECA0' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/GameController.framework/Versions/A/GameController
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ADClientAddValueForScalarKey, _GCCommonGetPreferencesBooleanValue, 

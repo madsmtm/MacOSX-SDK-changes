@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 5360083D-A282-340D-9D38-78CE4353DE1E', 'x86_64: 69547C64-E811-326F-BBED-490C6361BDCB' ]
+uuids:           [ 'i386: 4B664A7E-EC05-34AD-ACC6-C879B69DBA7C', 'x86_64: 0316128D-3B47-3052-995D-97B4FE5491DC' ]
 platform:        macosx
 install-name:    /usr/lib/libxar.1.dylib
 current-version: 1.3

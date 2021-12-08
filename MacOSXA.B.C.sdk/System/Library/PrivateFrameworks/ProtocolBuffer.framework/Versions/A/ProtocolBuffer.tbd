@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A539075B-4C7D-3CEA-A017-0695A929920B', 'x86_64: 478687E1-1EAA-363B-81F2-5C56303915E8' ]
+uuids:           [ 'i386: BBB59E09-0B06-3262-9C81-C126DF34667C', 'x86_64: D047A3FE-C7A8-3CAA-9891-6232BA88C247' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ProtocolBuffer.framework/Versions/A/ProtocolBuffer
-current-version: 249.1
-objc-constraint: none
+current-version: 259
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _PBDataReader._bytes, _PBDataReader._data, _PBDataReader._error, 
@@ -81,8 +80,8 @@ exports:
                        _parseInt ]
     objc-classes:    [ _PBCodable, _PBDataReader, _PBDataWriter, _PBMessageStreamReader, 
                        _PBMessageStreamWriter, _PBMutableData, _PBRequest, _PBRequester, 
-                       _PBStreamReader, _PBStreamWriter, _PBTextReader, _PBTextWriter, 
-                       _PBUnknownFields, __PBProperty ]
+                       _PBSessionRequester, _PBStreamReader, _PBStreamWriter, _PBTextReader, 
+                       _PBTextWriter, _PBUnknownFields, __PBProperty ]
     weak-def-symbols: [ __ZTINSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 
                         __ZTINSt3__118basic_stringstreamIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 
                         __ZTSNSt3__115basic_stringbufIcNS_11char_traitsIcEENS_9allocatorIcEEEE, 

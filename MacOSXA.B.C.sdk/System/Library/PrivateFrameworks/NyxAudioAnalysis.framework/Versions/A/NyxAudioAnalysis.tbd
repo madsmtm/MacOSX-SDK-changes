@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 38A2946D-6380-362E-A58F-3E58BE8D50EB', 'x86_64: 2F0CFB3D-41E5-317D-87F5-930982E44373' ]
+uuids:           [ 'i386: 198D57C2-EA0B-3099-9A9A-2D0611527992', 'x86_64: 1742A3ED-CC1E-3E68-8419-51F05DA87B59' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/NyxAudioAnalysis.framework/Versions/A/NyxAudioAnalysis
 objc-constraint: none

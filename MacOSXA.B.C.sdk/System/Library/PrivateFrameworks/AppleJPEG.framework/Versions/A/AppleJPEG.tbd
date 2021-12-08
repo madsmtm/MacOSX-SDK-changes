@@ -1,19 +1,17 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: BA15D3C3-FB23-3DF3-B025-7CD8ED30F788', 'x86_64: B9E9570D-04A4-34E4-B756-D200043B25B8' ]
+uuids:           [ 'i386: A79335BD-B17F-3340-B5AD-2230B83878C0', 'x86_64: DCAB2588-8879-3A64-87EA-EAA770BA1ADB' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AppleJPEG.framework/Versions/A/AppleJPEG
 objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]
-    symbols:         [ _AJCreateResizedJPEGFromData, _AJCreateResizedJPEGFromURL, 
-                       _AJReducerCloseSource, _AJReducerCreate, _AJReducerDestinationBytesWritten, 
+    symbols:         [ _AJReducerCloseSource, _AJReducerCreate, _AJReducerDestinationBytesWritten, 
                        _AJReducerGetAPIVersionNumber, _AJReducerIsDataPacked, _AJReducerIsFilePacked, 
                        _AJReducerIsSourcePacked, _AJReducerOpenSourceData, _AJReducerOpenSourceURL, 
                        _AJReducerOpenSourceURLWithOptions, _AJReducerPackToData, 
                        _AJReducerPackToURL, _AJReducerRelease, _AJReducerSourceUnpackedFileSize, 
-                       _AJReducerUnpackToData, _AJReducerUnpackToURL, _AJWriteResizedJPEGFromData, 
-                       _AJWriteResizedJPEGFromURL, _applejpeg_bitmap_rotate_inplace, 
+                       _AJReducerUnpackToData, _AJReducerUnpackToURL, _applejpeg_bitmap_rotate_inplace, 
                        _applejpeg_bitmap_rotate_to_dst, _applejpeg_decode_build_index, 
                        _applejpeg_decode_build_index_table, _applejpeg_decode_clear_options, 
                        _applejpeg_decode_clone_session, _applejpeg_decode_create, 
@@ -54,6 +52,5 @@ exports:
                        _applejpeg_resize_plugin_set_preferred_format, _kAJReducerCompressionMethodAdaptiveArithmetic, 
                        _kAJReducerCompressionMethodKey, _kAJReducerCompressionMethodSemistaticArithmetic, 
                        _kAJReducerDoNotOverwriteOutputFileKey, _kAJReducerSimulateReadFailAfterXBytesKey, 
-                       _kAJReducerSimulateWriteFailAfterXBytesKey, _kAJResizeAspectRatioFill, 
-                       _kAJResizeAspectRatioFit, _kAJResizeAspectRatioIgnore, _kAJResizeAspectRatioKey ]
+                       _kAJReducerSimulateWriteFailAfterXBytesKey ]
 ...

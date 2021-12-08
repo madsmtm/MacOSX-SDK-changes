@@ -3,7 +3,7 @@
 
 	Framework:  AVFoundation
  
-	Copyright 2010-2016 Apple Inc. All rights reserved.
+	Copyright 2010-2017 Apple Inc. All rights reserved.
 
 */
 
@@ -11,6 +11,8 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVAsynchronousKeyValueLoading.h>
 #import <AVFoundation/AVContentKeySession.h>
+#import <AVFoundation/AVMediaFormat.h>
+#import <AVFoundation/AVMetadataFormat.h>
 
 #import <CoreGraphics/CGAffineTransform.h>
 
@@ -177,7 +179,7 @@ typedef NS_OPTIONS(NSUInteger, AVAssetReferenceRestrictions) {
   @result		An NSArray of AVAssetTracks; may be empty if no tracks of the specified media type are available.
   @discussion	Becomes callable without blocking when the key @"tracks" has been loaded
 */
-- (NSArray<AVAssetTrack *> *)tracksWithMediaType:(NSString *)mediaType;
+- (NSArray<AVAssetTrack *> *)tracksWithMediaType:(AVMediaType)mediaType;
 
 /*!
   @method		tracksWithMediaCharacteristic:
@@ -187,7 +189,7 @@ typedef NS_OPTIONS(NSUInteger, AVAssetReferenceRestrictions) {
   @result		An NSArray of AVAssetTracks; may be empty if no tracks with the specified characteristic are available.
   @discussion	Becomes callable without blocking when the key @"tracks" has been loaded
 */
-- (NSArray<AVAssetTrack *> *)tracksWithMediaCharacteristic:(NSString *)mediaCharacteristic;
+- (NSArray<AVAssetTrack *> *)tracksWithMediaCharacteristic:(AVMediaCharacteristic)mediaCharacteristic;
 
 /*!
  @property trackGroups
@@ -224,7 +226,7 @@ typedef NS_OPTIONS(NSUInteger, AVAssetReferenceRestrictions) {
 
 /* Provides an NSArray of NSStrings, each representing a metadata format that's available to the asset (e.g. ID3, iTunes metadata, etc.). Metadata formats are defined in AVMetadataFormat.h.
 */
-@property (nonatomic, readonly) NSArray<NSString *> *availableMetadataFormats;
+@property (nonatomic, readonly) NSArray<AVMetadataFormat> *availableMetadataFormats;
 
 /*!
   @method		metadataForFormat:
@@ -234,7 +236,7 @@ typedef NS_OPTIONS(NSUInteger, AVAssetReferenceRestrictions) {
   @result		An NSArray containing AVMetadataItems; may be empty if there is no metadata of the specified format.
   @discussion	Becomes callable without blocking when the key @"availableMetadataFormats" has been loaded
 */
-- (NSArray<AVMetadataItem *> *)metadataForFormat:(NSString *)format;
+- (NSArray<AVMetadataItem *> *)metadataForFormat:(AVMetadataFormat)format;
 
 @end
 
@@ -263,7 +265,7 @@ typedef NS_OPTIONS(NSUInteger, AVAssetReferenceRestrictions) {
  
 	Further filtering of the metadata items in AVTimedMetadataGroups according to language can be accomplished using +[AVMetadataItem metadataItemsFromArray:filteredAndSortedAccordingToPreferredLanguages:]; filtering of the metadata items according to locale can be accomplished using +[AVMetadataItem metadataItemsFromArray:withLocale:].
 */
-- (NSArray<AVTimedMetadataGroup *> *)chapterMetadataGroupsWithTitleLocale:(NSLocale *)locale containingItemsWithCommonKeys:(nullable NSArray<NSString *> *)commonKeys NS_AVAILABLE(10_7, 4_3);
+- (NSArray<AVTimedMetadataGroup *> *)chapterMetadataGroupsWithTitleLocale:(NSLocale *)locale containingItemsWithCommonKeys:(nullable NSArray<AVMetadataKey> *)commonKeys NS_AVAILABLE(10_7, 4_3);
 
 /*!
  @method		chapterMetadataGroupsBestMatchingPreferredLanguages:
@@ -293,7 +295,7 @@ typedef NS_OPTIONS(NSUInteger, AVAssetReferenceRestrictions) {
 
 /* Provides an NSArray of NSStrings, each NSString indicating a media characteristic for which a media selection option is available.
 */
-@property (nonatomic, readonly) NSArray<NSString *> *availableMediaCharacteristicsWithMediaSelectionOptions NS_AVAILABLE(10_8, 5_0);
+@property (nonatomic, readonly) NSArray<AVMediaCharacteristic> *availableMediaCharacteristicsWithMediaSelectionOptions NS_AVAILABLE(10_8, 5_0);
 
 /*!
   @method		mediaSelectionGroupForMediaCharacteristic:
@@ -312,13 +314,21 @@ typedef NS_OPTIONS(NSUInteger, AVAssetReferenceRestrictions) {
 	
 	Filtering of the options in the returned AVMediaSelectionGroup according to playability, locale, and additional media characteristics can be accomplished using the category AVMediaSelectionOptionFiltering defined on AVMediaSelectionGroup.
 */
-- (nullable AVMediaSelectionGroup *)mediaSelectionGroupForMediaCharacteristic:(NSString *)mediaCharacteristic NS_AVAILABLE(10_8, 5_0);
+- (nullable AVMediaSelectionGroup *)mediaSelectionGroupForMediaCharacteristic:(AVMediaCharacteristic)mediaCharacteristic NS_AVAILABLE(10_8, 5_0);
 
 /*!
   @property		preferredMediaSelection
   @abstract		Provides an instance of AVMediaSelection with default selections for each of the receiver's media selection groups.
 */
 @property (nonatomic, readonly) AVMediaSelection *preferredMediaSelection NS_AVAILABLE(10_11, 9_0);
+
+/*!
+  @property		allMediaSelections
+  @abstract		Provides an array of all permutations of AVMediaSelection for this asset.
+  @discussion
+	Becomes callable without blocking when the key @"availableMediaCharacteristicsWithMediaSelectionOptions" has been loaded.
+*/
+@property (nonatomic, readonly) NSArray <AVMediaSelection *> *allMediaSelections NS_AVAILABLE(10_13, 11_0);
 
 @end
 
@@ -364,7 +374,10 @@ typedef NS_OPTIONS(NSUInteger, AVAssetReferenceRestrictions) {
 
 @interface AVAsset (AVAssetUsability)
 
-/* indicates whether an AVPlayerItem can be initialized with the receiver or with its URL
+/*!
+ @property		playable
+ @abstract		Indicates whether an AVPlayer can play the contents of the asset in a manner that meets user expectations.
+ @discussion	A client can attempt playback when playable is NO, this however may lead to a substandard playback experience.
 */
 @property (nonatomic, readonly, getter=isPlayable) BOOL playable NS_AVAILABLE(10_7, 4_3);
 
@@ -477,7 +490,7 @@ AV_INIT_UNAVAILABLE
   @abstract		Provides the file types the AVURLAsset class understands.
   @result		An NSArray of UTIs identifying the file types the AVURLAsset class understands.
 */
-+ (NSArray<NSString *> *)audiovisualTypes NS_AVAILABLE(10_7, 5_0);
++ (NSArray<AVFileType> *)audiovisualTypes NS_AVAILABLE(10_7, 5_0);
 
 /*!
   @method		audiovisualMIMETypes
@@ -632,7 +645,7 @@ NS_CLASS_AVAILABLE_MAC(10_11)
 @interface AVFragmentedAsset : AVURLAsset <AVFragmentMinding>
 {
 @private
-	AVFragmentedAssetInternal	*_fragmentedAsset;
+	AVFragmentedAssetInternal	*_fragmentedAsset __attribute__((unused));
 }
 
 /*!
@@ -675,7 +688,7 @@ NS_CLASS_AVAILABLE_MAC(10_11)
   @result		An NSArray of AVFragmentedAssetTracks; may be empty if no tracks of the specified media type are available.
   @discussion	Becomes callable without blocking when the key @"tracks" has been loaded
 */
-- (NSArray<AVFragmentedAssetTrack *> *)tracksWithMediaType:(NSString *)mediaType;
+- (NSArray<AVFragmentedAssetTrack *> *)tracksWithMediaType:(AVMediaType)mediaType;
 
 /*!
   @method		tracksWithMediaCharacteristic:
@@ -685,7 +698,7 @@ NS_CLASS_AVAILABLE_MAC(10_11)
   @result		An NSArray of AVFragmentedAssetTracks; may be empty if no tracks with the specified characteristic are available.
   @discussion	Becomes callable without blocking when the key @"tracks" has been loaded
 */
-- (NSArray<AVFragmentedAssetTrack *> *)tracksWithMediaCharacteristic:(NSString *)mediaCharacteristic;
+- (NSArray<AVFragmentedAssetTrack *> *)tracksWithMediaCharacteristic:(AVMediaCharacteristic)mediaCharacteristic;
 
 @end
 
@@ -751,7 +764,7 @@ NS_CLASS_AVAILABLE_MAC(10_11)
 	@property 		mayRequireContentKeysForMediaDataProcessing
 	@abstract		Allows AVURLAsset to be added as a content key recipient to an AVContentKeySession.
 */
-@property (nonatomic, readonly) BOOL mayRequireContentKeysForMediaDataProcessing API_AVAILABLE(macosx(10.12.4), ios(10.3), tvos(10.2));
+@property (nonatomic, readonly) BOOL mayRequireContentKeysForMediaDataProcessing API_AVAILABLE(macos(10.12.4), ios(10.3), tvos(10.2), watchos(3.3));
 
 @end
 

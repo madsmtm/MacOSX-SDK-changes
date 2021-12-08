@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 13572C6D-EE92-300F-82E0-3BE66E53209C' ]
+uuids:           [ 'x86_64: C90DF37D-1FE1-3B9F-B632-4B7F7ED1E6D5' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreCDPInternal.framework/Versions/A/CoreCDPInternal
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AWDCoreCDPPiggyBackReadFrom, _AWDCoreCDPStateMachineCircleJoinReadFrom, 
@@ -24,22 +23,26 @@ exports:
                        _AWDCoreCDPStateMachineEnableCDP, _AWDCoreCDPStateMachineLockAssertion, 
                        _AWDCoreCDPStateMachineRecovery, _AWDCoreCDPStateMachineRepairCircleAuth, 
                        _AWDCoreCDPStateMachineRepairHSA2Auth, _AWDMetricReporter, 
-                       _CDPAuthenticationHelper, _CDPDAccount, _CDPDBackupErrorProviderImpl, 
+                       _CDPAuthenticationHelper, _CDPDAccount, _CDPDAccountRecoveryValidator, 
+                       _CDPDAuthObserver, _CDPDAuthProxyImpl, _CDPDBackupErrorProviderImpl, 
                        _CDPDBackupFMIPResultsParser, _CDPDBackupIDMSErrorProvider, 
                        _CDPDBackupIDMSResultsParser, _CDPDBackupInfoRecoveryFlowController, 
-                       _CDPDCircleController, _CDPDCircleProxyImpl, _CDPDCircleStateObserver, 
-                       _CDPDClientHandler, _CDPDDeviceSecretValidator, _CDPDFollowUpController, 
-                       _CDPDFollowUpFactory, _CDPDKeychainSync, _CDPDLocalDevice, 
-                       _CDPDLocalDeviceSecretHandler, _CDPDLocalSecretController, 
+                       _CDPDCircleController, _CDPDCircleJoinResult, _CDPDCircleProxyImpl, 
+                       _CDPDCircleStateObserver, _CDPDClientHandler, _CDPDDeviceSecretValidator, 
+                       _CDPDFollowUpController, _CDPDFollowUpFactory, _CDPDKeychainSync, 
+                       _CDPDLocalDevice, _CDPDLocalDeviceSecretHandler, _CDPDLocalSecretController, 
                        _CDPDLocalSecretFollowUpProviderImpl, _CDPDLockAssertion, 
-                       _CDPDNetworkObserver, _CDPDNetworkObserverClient, _CDPDPCSController, 
-                       _CDPDPiggybackController, _CDPDProtectedCloudStorageProxyImpl, 
-                       _CDPDRecoveryFlowContext, _CDPDRecoveryFlowController, _CDPDRecoveryKeyController, 
-                       _CDPDRecoveryKeyValidatorImpl, _CDPDRecoveryOption, _CDPDRecoveryValidatedJoinFlowController, 
+                       _CDPDManateeStateController, _CDPDNetworkObserver, _CDPDNetworkObserverClient, 
+                       _CDPDPCSController, _CDPDProtectedCloudStorageProxyImpl, _CDPDRecoveryFlowContext, 
+                       _CDPDRecoveryFlowController, _CDPDRecoveryKeyController, _CDPDRecoveryKeyValidatorImpl, 
+                       _CDPDRecoveryOption, _CDPDRecoveryValidatedJoinFlowController, 
                        _CDPDRemoteDeviceSecretValidator, _CDPDRemoteSecretValidationResult, 
                        _CDPDSecureBackupConfiguration, _CDPDSecureBackupContext, 
-                       _CDPDSecureBackupController, _CDPDSecureBackupProxyImpl, _CDPDStateMachine, 
-                       _CDPDTelemetryController, _CDPDXPCListener ]
+                       _CDPDSecureBackupController, _CDPDSecureBackupProxyImpl, _CDPDSecureChannelContext, 
+                       _CDPDSecureChannelController, _CDPDStateMachine, _CDPDTelemetryController, 
+                       _CDPDXPCEventObserver, _CDPDXPCListener, _CDPPiggybackingChannel, 
+                       _CDPPiggybackingPayloadProvider, _CDPStateHandlerResult, _CDPTTSUChannel, 
+                       _CDPTTSUPayloadProvider ]
     objc-ivars:      [ _AWDCoreCDPPiggyBack._errorCode, _AWDCoreCDPPiggyBack._errorDomain, 
                        _AWDCoreCDPPiggyBack._has, _AWDCoreCDPPiggyBack._success, 
                        _AWDCoreCDPPiggyBack._timestamp, _AWDCoreCDPStateMachineCircleJoin._circleStatus, 

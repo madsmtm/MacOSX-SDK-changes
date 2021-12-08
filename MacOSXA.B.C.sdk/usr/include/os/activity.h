@@ -14,13 +14,15 @@ OS_ASSUME_NONNULL_BEGIN
 #pragma mark - types and globals
 
 #if OS_LOG_TARGET_HAS_10_12_FEATURES
+#ifndef OS_ACTIVITY_OBJECT_API
 #define OS_ACTIVITY_OBJECT_API 1
+#endif // OS_ACTIVITY_OBJECT_API
 #else
 #if OS_ACTIVITY_OBJECT_API
 #error Please change your minimum OS requirements because OS_ACTIVITY_OBJECT_API is not available
 #endif // OS_ACTIVITY_OBJECT_API
 #define OS_ACTIVITY_OBJECT_API 0
-#endif
+#endif // OS_LOG_TARGET_HAS_10_12_FEATURES
 
 /*!
  * @enum os_activity_flag_t
@@ -77,7 +79,7 @@ typedef struct os_activity_s *os_activity_t;
 #define OS_ACTIVITY_NONE OS_OBJECT_GLOBAL_OBJECT(os_activity_t, _os_activity_none)
 API_AVAILABLE(macos(10.12), ios(10.0), watchos(3.0), tvos(10.0))
 OS_EXPORT
-const struct os_activity_s _os_activity_none;
+struct os_activity_s _os_activity_none;
 
 /*!
  * @const OS_ACTIVITY_CURRENT
@@ -89,7 +91,7 @@ const struct os_activity_s _os_activity_none;
 #define OS_ACTIVITY_CURRENT OS_OBJECT_GLOBAL_OBJECT(os_activity_t, _os_activity_current)
 API_AVAILABLE(macos(10.12), ios(10.0), watchos(3.0), tvos(10.0))
 OS_EXPORT
-const struct os_activity_s _os_activity_current;
+struct os_activity_s _os_activity_current;
 
 #else // !OS_ACTIVITY_OBJECT_API
 

@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 01C8A0BE-FF1E-3000-AF50-2D9D44C8FAAB', 'x86_64: 684BD1EA-8268-331C-A5A9-080EB375C658' ]
+uuids:           [ 'i386: BACA23B0-AF15-3B7F-8933-15DDEE48318B', 'x86_64: AC026FB9-78F8-31F9-BB80-619D5378DB70' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SpeechRecognitionCore.framework/Versions/A/SpeechRecognitionCore
 objc-constraint: none

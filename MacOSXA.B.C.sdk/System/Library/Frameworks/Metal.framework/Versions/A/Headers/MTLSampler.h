@@ -57,17 +57,16 @@ typedef NS_ENUM(NSUInteger, MTLSamplerMipFilter) {
  
  @constant MTLSamplerAddressModeClampToZero
  ClampToZero returns transparent zero (0,0,0,0) for images with an alpha channel, and returns opaque zero (0,0,0,1) for images without an alpha channel.
- */
+ 
+ @constant MTLSamplerAddressModeClampToBorderColor
+ Clamp to border color returns the value specified by the borderColor variable of the MTLSamplerDesc.
+*/
 typedef NS_ENUM(NSUInteger, MTLSamplerAddressMode) {
     MTLSamplerAddressModeClampToEdge = 0,
     MTLSamplerAddressModeMirrorClampToEdge NS_AVAILABLE_MAC(10_11) = 1,
     MTLSamplerAddressModeRepeat = 2,
     MTLSamplerAddressModeMirrorRepeat = 3,
     MTLSamplerAddressModeClampToZero = 4,
-    /*!
-     @constant MTLSamplerAddressModeClampToBorderColor
-     Clamp to border color returns the value specified by the borderColor variable of the MTLSamplerDesc.
-     */
     MTLSamplerAddressModeClampToBorderColor NS_AVAILABLE_MAC(10_12) = 5,
 } NS_ENUM_AVAILABLE(10_11, 8_0);
 
@@ -88,7 +87,7 @@ typedef NS_ENUM(NSUInteger, MTLSamplerBorderColor) {
     MTLSamplerBorderColorTransparentBlack = 0,  // {0,0,0,0}
     MTLSamplerBorderColorOpaqueBlack = 1,       // {0,0,0,1}
     MTLSamplerBorderColorOpaqueWhite = 2,       // {1,1,1,1}
-};
+} NS_AVAILABLE_MAC(10_12);
 
 /*!
  @class MTLSamplerDescriptor
@@ -182,6 +181,12 @@ NS_CLASS_AVAILABLE(10_11, 8_0)
  @abstract Set the comparison function used when sampling shadow maps. The default value is MTLCompareFunctionNever.
  */
 @property (nonatomic) MTLCompareFunction compareFunction NS_AVAILABLE(10_11, 9_0);
+
+/*!
+ @property supportArgumentBuffers
+ @abstract true if the sampler can be used inside an argument buffer
+*/
+@property (nonatomic) BOOL supportArgumentBuffers NS_AVAILABLE(10_13, 11_0);
 
 /*!
  @property label

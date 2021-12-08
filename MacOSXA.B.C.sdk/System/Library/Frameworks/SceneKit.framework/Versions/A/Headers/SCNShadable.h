@@ -1,7 +1,7 @@
 //
 //  SCNShadable.h
 //
-//  Copyright (c) 2013-2016 Apple Inc. All rights reserved.
+//  Copyright (c) 2013-2017 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, SCNBufferFrequency) {
     SCNBufferFrequencyPerFrame    = 0,
     SCNBufferFrequencyPerNode     = 1,
     SCNBufferFrequencyPerShadable = 2 // SCNMaterial or SCNGeometry
-} API_AVAILABLE(macosx(10.11), ios(9.0));
+} API_AVAILABLE(macos(10.11), ios(9.0));
 
 @protocol SCNBufferStream <NSObject>
 - (void)writeBytes:(void *)bytes length:(NSUInteger)length;
@@ -80,7 +80,7 @@ typedef void (^SCNBindingBlock)(unsigned int programID, unsigned int location, S
  @param block The block to call to bind the specified symbol.
  @discussion This method can only be used with OpenGL and OpenGLES based programs.
  */
-- (void)handleBindingOfSymbol:(NSString *)symbol usingBlock:(nullable SCNBindingBlock)block API_AVAILABLE(macosx(10.9)) __WATCHOS_PROHIBITED;
+- (void)handleBindingOfSymbol:(NSString *)symbol usingBlock:(nullable SCNBindingBlock)block API_AVAILABLE(macos(10.9)) __WATCHOS_PROHIBITED;
 
 /*!
  @method handleUnbindingOfSymbol:usingBlock:
@@ -89,7 +89,7 @@ typedef void (^SCNBindingBlock)(unsigned int programID, unsigned int location, S
  @param block The block to call to unbind the specified symbol.
  @discussion This method can only be used with OpenGL and OpenGLES based programs.
  */
-- (void)handleUnbindingOfSymbol:(NSString *)symbol usingBlock:(nullable SCNBindingBlock)block API_AVAILABLE(macosx(10.9)) __WATCHOS_PROHIBITED;
+- (void)handleUnbindingOfSymbol:(NSString *)symbol usingBlock:(nullable SCNBindingBlock)block API_AVAILABLE(macos(10.9)) __WATCHOS_PROHIBITED;
 
 /*!
  @property shaderModifiers
@@ -98,15 +98,25 @@ typedef void (^SCNBindingBlock)(unsigned int programID, unsigned int location, S
  
  The structure of a shader modifier is:
  
- | // Custom uniforms declarations of the form:
- | // for GLSL: [uniform type uniformName [= defaultValue]]
+ | // Custom GLSL uniforms declarations are of the form: [uniform type uniformName [= defaultValue]]
  | uniform float myGrayAmount = 3.0;
  |
- | //for Metal a pragma is required and arguments have the form [type name]
+ | // Custom Metal uniforms declarations require a #pragma and are of the form: [type name]
  | #pragma arguments
  | float myGrayAmount;
  |
- | // Optional global function definitions (for Metal: references to arguments from global functions are not supported).
+ | // In Metal, you can also transfer varying values from the vertex shader (geometry modifier) to the fragment shader (surface/fragment modifier)
+ | // In one (or both) of the modifier, declare the varying values
+ | #pragma varyings
+ | half3 myVec;
+ |
+ | // Output varying values in the geometry modifier
+ | out.myVec = _geometry.normal.xyz * 0.5h + 0.5h;
+ |
+ | // And use them in the fragment modifier
+ | _output.color.rgb = saturate(in.myVec);
+ |
+ | // Optional global function definitions (for Metal: references to uniforms in global functions are not supported).
  | float mySin(float t) {
  |    return sin(t);
  | }
@@ -115,7 +125,7 @@ typedef void (^SCNBindingBlock)(unsigned int programID, unsigned int location, S
  | [#pragma body]
  |
  | // the shader modifier code snippet itself
- | vec3 myColor = vec3(myGrayAmount);
+ | float3 myColor = myGrayAmount;
  | _output.color.rgb += myColor;
  
  The `#pragma body` directive
@@ -131,22 +141,27 @@ typedef void (^SCNBindingBlock)(unsigned int programID, unsigned int location, S
  
  The SCNGeometry and SCNMaterial classes are key-value coding compliant classes, which means that you can set values for arbitrary keys. Even if the key `myAmplitude` is not a declared property of the class, you can still set a value for it.
  Declaring a `myAmplitude` uniform in the shader modifier makes SceneKit observe the reveiver's `myAmplitude` key. Any change to that key will make SceneKit bind the uniform with the new value.
+ Common scalar types wrapped by NSValue are supported.
+ Metal Only: 
+ - MTLBuffer are also supported as values (introduced in macOS 10.13, iOS 11.0 and tvOS 11.0)
+ - Complex data types (struct) declared in the Metal shader are supported.
+    - You can set them as a whole using NSData.
+    - Or you can set individual struct members using the member name as key and a value compatible with the member type.
  
  Custom uniforms can be animated using explicit animations.
  
- The following GLSL types (and Objective-C counterparts) can be used to declare (and bind) custom uniforms:
- Example: uniform float myAmplitude = 0.5;
+ The following GLSL and Metal Shading Language types (and Objective-C counterparts) can be used to declare (and bind) custom uniforms:
  
- GLSL types    | Objective-C types
- --------------------------------------
- int           | NSNumber, NSInteger, int
- float         | NSNumber, CGFloat, float, double
- vec2          | CGPoint
- vec3          | SCNVector3
- vec4          | SCNVector4
- mat4, mat44   | SCNMatrix4
- sampler2D     | SCNMaterialProperty
- samplerCube   | SCNMaterialProperty (with a cube map)
+ GLSL          | Metal Shading Language | Objective-C
+ --------------┼------------------------┼------------------
+ int           | int                    | NSNumber, NSInteger, int
+ float         | float                  | NSNumber, CGFloat, float, double
+ vec2          | float2                 | CGPoint
+ vec3          | float3                 | SCNVector3
+ vec4          | float4                 | SCNVector4
+ mat4, mat44   | float4x4               | SCNMatrix4
+ sampler2D     |                        | SCNMaterialProperty
+ samplerCube   |                        | SCNMaterialProperty (with a cube map)
  
  The following prefixes are reserved by SceneKit and should not be used in custom names:
  u_
@@ -154,23 +169,29 @@ typedef void (^SCNBindingBlock)(unsigned int programID, unsigned int location, S
  v_
  
  SceneKit declares the following built-in uniforms:
- float u_time;                               // The current time, in seconds
- vec2  u_inverseResolution;                  // 1./screen size (available since iOS 9 and macOS 10.11)
- -------------------------------------------------------------------------------------
- mat4  u_modelTransform                      // See SCNModelTransform
- mat4  u_viewTransform                       // See SCNViewTransform
- mat4  u_projectionTransform                 // See SCNProjectionTransform
- mat4  u_normalTransform                     // See SCNNormalTransform
- mat4  u_modelViewTransform                  // See SCNModelViewTransform
- mat4  u_modelViewProjectionTransform        // See SCNModelViewProjectionTransform
- -------------------------------------------------------------------------------------
- mat4  u_inverseModelTransform               // The inverse matrix of u_modelTransform
- mat4  u_inverseViewTransform                // The inverse matrix of u_viewTransform
- mat4  u_inverseProjectionTransform          // The inverse matrix of u_projectionTransform
- mat4  u_inverseModelViewTransform           // The inverse matrix of u_modelViewTransform
- mat4  u_inverseModelViewProjectionTransform // The inverse matrix of u_modelViewProjectionTransform
- -------------------------------------------------------------------------------------
- mat2x3 u_boundingBox;                       // The bounding box of the current geometry, in model space, u_boundingBox[0].xyz and u_boundingBox[1].xyz being respectively the minimum and maximum corner of the box.
+ 
+ GLSL                                        | Metal Shading Language                                |
+ --------------------------------------------┼-------------------------------------------------------┤
+ float u_time                                | float    scn_frame.time                               | The current time, in seconds
+ vec2  u_inverseResolution                   | float2   scn_frame.inverseResolution                  | 1.0 / screen size
+ --------------------------------------------┼-------------------------------------------------------┤
+ mat4  u_viewTransform                       | float4x4 scn_frame.viewTransform                      | See SCNViewTransform
+ mat4  u_inverseViewTransform                | float4x4 scn_frame.inverseViewTransform               |
+ mat4  u_projectionTransform                 | float4x4 scn_frame.projectionTransform                | See SCNProjectionTransform
+ mat4  u_inverseProjectionTransform          | float4x4 scn_frame.inverseProjectionTransform         |
+ --------------------------------------------┼-------------------------------------------------------┤
+ mat4  u_normalTransform                     | float4x4 scn_node.normalTransform                     | See SCNNormalTransform
+ mat4  u_modelTransform                      | float4x4 scn_node.modelTransform                      | See SCNModelTransform
+ mat4  u_inverseModelTransform               | float4x4 scn_node.inverseModelTransform               |
+ mat4  u_modelViewTransform                  | float4x4 scn_node.modelViewTransform                  | See SCNModelViewTransform
+ mat4  u_inverseModelViewTransform           | float4x4 scn_node.inverseModelViewTransform           |
+ mat4  u_modelViewProjectionTransform        | float4x4 scn_node.modelViewProjectionTransform        | See SCNModelViewProjectionTransform
+ mat4  u_inverseModelViewProjectionTransform | float4x4 scn_node.inverseModelViewProjectionTransform |
+ --------------------------------------------┼-------------------------------------------------------┤
+ mat2x3 u_boundingBox;                       | float2x3 scn_node.boundingBox                         | The bounding box of the current geometry, in model space, u_boundingBox[0].xyz and u_boundingBox[1].xyz being respectively the minimum and maximum corner of the box.
+ 
+ When writing shaders using the Metal Shading Language a complete description of the type of the scn_frame variable (SCNSceneBuffer) can be found in the <SceneKit/scn_metal> header file.
+ The type of the scn_node variable is generated at compile time and there's no corresponding header file in the framework.
  
  Shader modifiers can be used to tweak SceneKit rendering by adding custom code at the following entry points:
  1. vertex
@@ -179,9 +200,9 @@ typedef void (^SCNBindingBlock)(unsigned int programID, unsigned int location, S
  4. fragment
  See below for a detailed explanation of these entry points and the context they provide.
  
- Shader modifiers can be written in GLSL or Metal. Metal shaders won't run on iOS 8 and macOS 10.10 or below.
+ Shader modifiers can be written in GLSL or Metal. Metal shaders won't run on iOS 8 and macOS 10.10 or earlier.
  */
-@property(nonatomic, copy, nullable) NSDictionary<SCNShaderModifierEntryPoint, NSString *> *shaderModifiers API_AVAILABLE(macosx(10.9));
+@property(nonatomic, copy, nullable) NSDictionary<SCNShaderModifierEntryPoint, NSString *> *shaderModifiers API_AVAILABLE(macos(10.9));
 
 @end
 
@@ -221,33 +242,33 @@ __WATCHOS_PROHIBITED
  @property tessellationControlShader
  @abstract Determines the receiver's tessellation control shader. Tessellation shaders require OpenGL Core Profile.
  */
-@property(nonatomic, copy, nullable) NSString *tessellationControlShader API_AVAILABLE(macosx(10.10)) API_UNAVAILABLE(ios, tvos, watchos);
+@property(nonatomic, copy, nullable) NSString *tessellationControlShader API_AVAILABLE(macos(10.10)) API_UNAVAILABLE(ios, tvos, watchos);
 
 /*!
  @property tessellationEvaluationShader
  @abstract Determines the receiver's tessellation evaluation shader. Tessellation shaders require OpenGL Core Profile.
  */
-@property(nonatomic, copy, nullable) NSString *tessellationEvaluationShader API_AVAILABLE(macosx(10.10)) API_UNAVAILABLE(ios, tvos, watchos);
+@property(nonatomic, copy, nullable) NSString *tessellationEvaluationShader API_AVAILABLE(macos(10.10)) API_UNAVAILABLE(ios, tvos, watchos);
 
 /*!
  @property geometryShader
  @abstract Determines the receiver's geometry shader. Geometry shaders require OpenGL Core Profile.
  */
-@property(nonatomic, copy, nullable) NSString *geometryShader API_AVAILABLE(macosx(10.10)) API_UNAVAILABLE(ios, tvos, watchos);
+@property(nonatomic, copy, nullable) NSString *geometryShader API_AVAILABLE(macos(10.10)) API_UNAVAILABLE(ios, tvos, watchos);
 
 /*!
  @property vertexFunctionName
  @abstract Determines the receiver's vertex function name.
  @discussion The name of the vertex function (for Metal programs).
  */
-@property(nonatomic, copy, nullable) NSString *vertexFunctionName API_AVAILABLE(macosx(10.11), ios(9.0));
+@property(nonatomic, copy, nullable) NSString *vertexFunctionName API_AVAILABLE(macos(10.11), ios(9.0));
 
 /*!
  @property fragmentFunctionName
  @abstract Determines the receiver's fragment function name.
  @discussion The name of the fragment function (for Metal programs).
  */
-@property(nonatomic, copy, nullable) NSString *fragmentFunctionName API_AVAILABLE(macosx(10.11), ios(9.0));
+@property(nonatomic, copy, nullable) NSString *fragmentFunctionName API_AVAILABLE(macos(10.11), ios(9.0));
 
 /*!
  @method handleBindingOfBufferNamed:frequency:usingBlock:
@@ -257,14 +278,14 @@ __WATCHOS_PROHIBITED
  @param block The block that binds the buffer.
  @discussion This method can only be used with Metal based programs.
  */
-- (void)handleBindingOfBufferNamed:(NSString *)name frequency:(SCNBufferFrequency)frequency usingBlock:(SCNBufferBindingBlock)block API_AVAILABLE(macosx(10.11), ios(9.0));
+- (void)handleBindingOfBufferNamed:(NSString *)name frequency:(SCNBufferFrequency)frequency usingBlock:(SCNBufferBindingBlock)block API_AVAILABLE(macos(10.11), ios(9.0));
 
 
 /*!
  @property opaque
  @abstract Determines the receiver's fragment are opaque or not. Defaults to YES.
  */
-@property(nonatomic, getter=isOpaque) BOOL opaque API_AVAILABLE(macosx(10.10));
+@property(nonatomic, getter=isOpaque) BOOL opaque API_AVAILABLE(macos(10.10));
 
 /*!
  @method setSemantic:forSymbol:options:
@@ -290,11 +311,11 @@ __WATCHOS_PROHIBITED
 @property(nonatomic, assign, nullable) id <SCNProgramDelegate> delegate;
 
 /*!
- @method library
+ @property library
  @abstract Specifies the metal library to use to locate the function names specified above. 
  @discussion If set to nil the default library is used. Defaults to nil.
  */
-@property(nonatomic, retain, nullable) id <MTLLibrary> library API_AVAILABLE(macosx(10.11), ios(9.0));
+@property(nonatomic, retain, nullable) id <MTLLibrary> library API_AVAILABLE(macos(10.11), ios(9.0));
 
 @end
 
@@ -315,7 +336,7 @@ __WATCHOS_PROHIBITED
  @param programID The program object.
  @param renderer The renderer that is currently rendering the scene.
  */
-- (BOOL)program:(SCNProgram *)program bindValueForSymbol:(NSString *)symbol atLocation:(unsigned int)location programID:(unsigned int)programID renderer:(SCNRenderer *)renderer API_DEPRECATED("Use -[SCNShadable handleBindingOfSymbol:usingBlock:] instead", macosx(10.8, 10.10)) API_UNAVAILABLE(ios, watchos, tvos);
+- (BOOL)program:(SCNProgram *)program bindValueForSymbol:(NSString *)symbol atLocation:(unsigned int)location programID:(unsigned int)programID renderer:(SCNRenderer *)renderer API_DEPRECATED("Use -[SCNShadable handleBindingOfSymbol:usingBlock:] instead", macos(10.8, 10.10)) API_UNAVAILABLE(ios, tvos, watchos);
 
 /*!
  @method program:withID:bindValueForSymbol:atLocation:renderer:
@@ -326,7 +347,7 @@ __WATCHOS_PROHIBITED
  @param programID The program object.
  @param renderer The renderer that is currently rendering the scene.
  */
-- (void)program:(SCNProgram *)program unbindValueForSymbol:(NSString *)symbol atLocation:(unsigned int)location programID:(unsigned int)programID renderer:(SCNRenderer *)renderer API_DEPRECATED("Use -[SCNShadable handleUnbindingOfSymbol:usingBlock:] instead", macosx(10.8, 10.10)) API_UNAVAILABLE(ios, watchos, tvos);
+- (void)program:(SCNProgram *)program unbindValueForSymbol:(NSString *)symbol atLocation:(unsigned int)location programID:(unsigned int)programID renderer:(SCNRenderer *)renderer API_DEPRECATED("Use -[SCNShadable handleUnbindingOfSymbol:usingBlock:] instead", macos(10.8, 10.10)) API_UNAVAILABLE(ios, tvos, watchos);
 
 /*!
  @method handleError
@@ -343,7 +364,7 @@ __WATCHOS_PROHIBITED
  @param program The queried program.
  @discussion This is deprecated. Use SCNProgram's opaque property instead.
  */
-- (BOOL)programIsOpaque:(SCNProgram *)program API_DEPRECATED("Use SCNProgram.opaque instead", macosx(10.8, 10.10)) API_UNAVAILABLE(ios, watchos, tvos);
+- (BOOL)programIsOpaque:(SCNProgram *)program API_DEPRECATED("Use SCNProgram.opaque instead", macos(10.8, 10.10)) API_UNAVAILABLE(ios, tvos, watchos);
 
 @end
 
@@ -360,11 +381,11 @@ __WATCHOS_PROHIBITED
  Structures available from this entry point:
  
  | struct SCNShaderGeometry {
- |    vec4 position;
- |    vec3 normal;
- |    vec4 tangent;
- |    vec4 color;
- |    vec2 texcoords[kSCNTexcoordCount];
+ |    float4 position;
+ |    float3 normal;
+ |    float4 tangent;
+ |    float4 color;
+ |    float2 texcoords[kSCNTexcoordCount];
  | } _geometry;
  |
  | Access: ReadWrite
@@ -378,44 +399,57 @@ __WATCHOS_PROHIBITED
  
  Example: Simple sinusoidal deformation
  
- uniform float Amplitude = 0.1
- _geometry.position.xyz += _geometry.normal * (Amplitude*_geometry.position.y*_geometry.position.x) * sin(u_time);
+     GLSL
+     | uniform Amplitude = 0.1;
+     |
+     | _geometry.position.xyz += _geometry.normal * (Amplitude * _geometry.position.y * _geometry.position.x) * sin(u_time);
+ 
+     Metal Shading Language
+     | #pragma arguments
+     | float Amplitude;
+     |
+     | _geometry.position.xyz += _geometry.normal * (Amplitude * _geometry.position.y * _geometry.position.x) * sin(u_time);
+ 
  */
-FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointGeometry API_AVAILABLE(macosx(10.9));
+FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointGeometry API_AVAILABLE(macos(10.9));
 
 /*!
  @constant SCNShaderModifierEntryPointSurface
  @abstract This is the entry point to alter the surface representation of the material, before the lighting has taken place.
- @discussion
  
  Structures available from this entry point:
  
  | struct SCNShaderSurface {
- |    vec3 view;                // Direction from the point on the surface toward the camera (V)
- |    vec3 position;            // Position of the fragment
- |    vec3 normal;              // Normal of the fragment (N)
- |    vec3 geometryNormal;      // Geometric normal of the fragment (normal map is ignored)
- |    vec3 tangent;             // Tangent of the fragment
- |    vec3 bitangent;           // Bitangent of the fragment
- |    vec4 ambient;             // Ambient property of the fragment
- |    vec2 ambientTexcoord;     // Ambient texture coordinates
- |    vec4 diffuse;             // Diffuse property of the fragment. Alpha contains the opacity.
- |    vec2 diffuseTexcoord;     // Diffuse texture coordinates
- |    vec4 specular;            // Specular property of the fragment
- |    vec2 specularTexcoord;    // Specular texture coordinates
- |    vec4 emission;            // Emission property of the fragment
- |    vec2 emissionTexcoord;    // Emission texture coordinates
- |    vec4 multiply;            // Multiply property of the fragment
- |    vec2 multiplyTexcoord;    // Multiply texture coordinates
- |    vec4 transparent;         // Transparent property of the fragment
- |    vec2 transparentTexcoord; // Transparent texture coordinates
- |    vec4 reflective;          // Reflective property of the fragment
- |    float metalness;          // Metalness property of the fragment
- |    vec2 metalnessTexcoord;   // Metalness texture coordinates
- |    float roughness;          // Roughness property of the fragment
- |    vec2 roughnessTexcoord;   // Metalness texture coordinates
- |    float shininess;          // Shininess property of the fragment
- |    float fresnel;            // Fresnel property of the fragment
+ |    float3 view;                     // Direction from the point on the surface toward the camera (V)
+ |    float3 position;                 // Position of the fragment
+ |    float3 normal;                   // Normal of the fragment (N)
+ |    float3 geometryNormal;           // Geometric normal of the fragment (normal map is ignored)
+ |    float3 tangent;                  // Tangent of the fragment
+ |    float3 bitangent;                // Bitangent of the fragment
+ |    float4 ambient;                  // Ambient property of the fragment
+ |    float2 ambientTexcoord;          // Ambient texture coordinates
+ |    float4 diffuse;                  // Diffuse property of the fragment. Alpha contains the opacity.
+ |    float2 diffuseTexcoord;          // Diffuse texture coordinates
+ |    float4 specular;                 // Specular property of the fragment
+ |    float2 specularTexcoord;         // Specular texture coordinates
+ |    float4 emission;                 // Emission property of the fragment
+ |    float2 emissionTexcoord;         // Emission texture coordinates
+ |    float4 multiply;                 // Multiply property of the fragment
+ |    float2 multiplyTexcoord;         // Multiply texture coordinates
+ |    float4 transparent;              // Transparent property of the fragment
+ |    float2 transparentTexcoord;      // Transparent texture coordinates
+ |    float4 reflective;               // Reflective property of the fragment
+ |    float  metalness;                // Metalness property of the fragment
+ |    float2 metalnessTexcoord;        // Metalness texture coordinates
+ |    float  roughness;                // Roughness property of the fragment
+ |    float2 roughnessTexcoord;        // Roughness texture coordinates
+ |    float4 selfIllumination;         // Self Illumination property of the fragment. Available since macOS 10.13, iOS 11, tvOS 11 and watchOS 4. Available as `emission` in previous versions.
+ |    float2 selfIlluminationTexcoord; // Self Illumination texture coordinates. Available since macOS 10.13, iOS 11, tvOS 11 and watchOS 4. Available as `emissionTexcoord` in previous versions.
+ |    float4 ambientOcclusion;         // Ambient Occlusion property of the fragment. Available macOS 10.13, iOS 11, tvOS 11 and watchOS 4. Available in `mutliply` in previous versions.
+ |    float2 ambientOcclusionTexcoord; // Ambient Occlusion texture coordinates. Available since macOS 10.13, iOS 11, tvOS 11 and watchOS 4. Available in `mutliplyTexcoord` in previous versions.
+ |    float  shininess;                // Shininess property of the fragment
+ |    float  fresnel;                  // Fresnel property of the fragment
+ |    float  ambientOcclusion;         // Ambient occlusion term of the fragment
  | } _surface;
  |
  | Access: ReadWrite
@@ -428,23 +462,38 @@ FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointG
  
  Example: Procedural black and white stripes
  
- uniform float Scale = 12.0;
- uniform float Width = 0.25;
- uniform float Blend = 0.3;
- vec2 position = fract(_surface.diffuseTexcoord * Scale);
- float f1 = clamp(position.y / Blend, 0.0, 1.0);
- float f2 = clamp((position.y - Width) / Blend, 0.0, 1.0);
- f1 = f1 * (1.0 - f2);
- f1 = f1 * f1 * 2.0 * (3. * 2. * f1);
- _surface.diffuse = mix(vec4(1.0), vec4(0.0), f1);
+     GLSL
+     | uniform float Scale = 12.0;
+     | uniform float Width = 0.25;
+     | uniform float Blend = 0.3;
+     |
+     | vec2 position = fract(_surface.diffuseTexcoord * Scale);
+     | float f1 = clamp(position.y / Blend, 0.0, 1.0);
+     | float f2 = clamp((position.y - Width) / Blend, 0.0, 1.0);
+     | f1 = f1 * (1.0 - f2);
+     | f1 = f1 * f1 * 2.0 * (3. * 2. * f1);
+     | _surface.diffuse = mix(vec4(1.0), vec4(0.0), f1);
+ 
+     Metal Shading Language
+     | #pragma arguments
+     | float Scale;
+     | float Width;
+     | float Blend;
+     |
+     | float2 position = fract(_surface.diffuseTexcoord * Scale);
+     | float f1 = clamp(position.y / Blend, 0.0, 1.0);
+     | float f2 = clamp((position.y - Width) / Blend, 0.0, 1.0);
+     | f1 = f1 * (1.0 - f2);
+     | f1 = f1 * f1 * 2.0 * (3. * 2. * f1);
+     | _surface.diffuse = mix(float4(1.0), float4(0.0), f1);
+ 
  */
-FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointSurface API_AVAILABLE(macosx(10.9));
+FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointSurface API_AVAILABLE(macos(10.9));
 
 /*!
  @constant SCNShaderModifierEntryPointLightingModel
  @abstract This is the entry point to provide custom lighting equation. The fragment will be called for each active light
  of the scene and will need to accumulate lighting contribution for the vertex or the fragment in the _lightingContribution structure, using the light structure given.
- @discussion
  
  Structures available from the this entry point:
  
@@ -454,17 +503,17 @@ FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointS
  | Stages: Vertex shader and fragment shader
  
  | struct SCNShaderLightingContribution {
- |    vec3 ambient;
- |    vec3 diffuse;
- |    vec3 specular;
+ |    float3 ambient;
+ |    float3 diffuse;
+ |    float3 specular;
  | } _lightingContribution;
  |
  | Access: ReadWrite
  | Stages: Vertex shader and fragment shader
  
  | struct SCNShaderLight {
- |    vec4 intensity;
- |    vec3 direction; // Direction from the point on the surface toward the light (L)
+ |    float4 intensity;
+ |    float3 direction; // Direction from the point on the surface toward the light (L)
  | } _light;
  |
  | Access: ReadOnly
@@ -472,14 +521,27 @@ FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointS
  
  Example: wrap diffuse lighting
  
- uniform float WrapFactor = 0.5;
- float dotProduct = (WrapFactor + max(0.0, dot(_surface.normal,_light.direction))) / (1 + WrapFactor);
- _lightingContribution.diffuse += (dotProduct * _light.intensity.rgb);
- vec3 halfVector = normalize(_light.direction + _surface.view);
- dotProduct = max(0.0, pow(max(0.0, dot(_surface.normal, halfVector)), _surface.shininess));
- _lightingContribution.specular += (dotProduct * _light.intensity.rgb);
+     GLSL
+     | uniform float WrapFactor = 0.5;
+     |
+     | float dotProduct = (WrapFactor + max(0.0, dot(_surface.normal,_light.direction))) / (1 + WrapFactor);
+     | _lightingContribution.diffuse += (dotProduct * _light.intensity.rgb);
+     | vec3 halfVector = normalize(_light.direction + _surface.view);
+     | dotProduct = max(0.0, pow(max(0.0, dot(_surface.normal, halfVector)), _surface.shininess));
+     | _lightingContribution.specular += (dotProduct * _light.intensity.rgb);
+ 
+     Metal Shading Language
+     | #pragma arguments
+     | float WrapFactor;
+     |
+     | float dotProduct = (WrapFactor + max(0.0, dot(_surface.normal,_light.direction))) / (1 + WrapFactor);
+     | _lightingContribution.diffuse += (dotProduct * _light.intensity.rgb);
+     | float3 halfVector = normalize(_light.direction + _surface.view);
+     | dotProduct = max(0.0, pow(max(0.0, dot(_surface.normal, halfVector)), _surface.shininess));
+     | _lightingContribution.specular += (dotProduct * _light.intensity.rgb);
+ 
  */
-FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointLightingModel API_AVAILABLE(macosx(10.9));
+FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointLightingModel API_AVAILABLE(macos(10.9));
 
 /*!
  @constant SCNShaderModifierEntryPointFragment
@@ -494,7 +556,7 @@ FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointL
  | Stages: Fragment shader only
  
  | struct SCNShaderOutput {
- |    vec4 color;
+ |    float4 color;
  | } _output;
  |
  | Access: ReadWrite
@@ -502,8 +564,13 @@ FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointL
  
  Example: inverse final color
  
- _output.color.rgb = vec3(1.0) - _output.color.rgb;
+     GLSL
+     | _output.color.rgb = vec3(1.0) - _output.color.rgb;
+ 
+     Metal Shading Language
+     | _output.color.rgb = 1.0 - _output.color.rgb;
+ 
  */
-FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointFragment API_AVAILABLE(macosx(10.9));
+FOUNDATION_EXTERN SCNShaderModifierEntryPoint const SCNShaderModifierEntryPointFragment API_AVAILABLE(macos(10.9));
 
 NS_ASSUME_NONNULL_END

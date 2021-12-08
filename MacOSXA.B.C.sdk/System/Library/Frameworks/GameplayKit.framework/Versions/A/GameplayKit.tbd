@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 4E500F56-468B-37AA-B9A1-8699E209A001' ]
+uuids:           [ 'x86_64: F3892765-9A0B-3BFA-8143-BB8D632654F4' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/GameplayKit.framework/Versions/A/GameplayKit
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _GKClosestPointsBetweenLineSegments, _GKDoesCircleIntersectLine, 
@@ -313,8 +312,8 @@ exports:
                        _GKObstacleGraph, _GKOctree, _GKOctreeNode, _GKPath, _GKPerlinNoiseSource, 
                        _GKPolygonObstacle, _GKPowerNoiseModifier, _GKQuadtree, _GKQuadtreeNode, 
                        _GKRTree, _GKRandomDistribution, _GKRandomSource, _GKRidgedNoiseSource, 
-                       _GKRotateNoiseModifier, _GKRule, _GKRuleSystem, _GKSKNodeComponent, 
-                       _GKScaleNoiseModifier, _GKScene, _GKShuffledDistribution, 
+                       _GKRotateNoiseModifier, _GKRule, _GKRuleSystem, _GKSCNNodeComponent, 
+                       _GKSKNodeComponent, _GKScaleNoiseModifier, _GKScene, _GKShuffledDistribution, 
                        _GKSphereObstacle, _GKSpheresNoiseSource, _GKState, _GKStateMachine, 
                        _GKSystemArc4RandomSource, _GKTerraceNoiseModifier, _GKTurbulenceNoiseModifier, 
                        _GKVoronoiNoiseSource, __GKBlockRule, __GKNSBoolPredicateTemplate, 

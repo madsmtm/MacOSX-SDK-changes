@@ -124,7 +124,6 @@
  *   kSCPropNetInterfaceHardware                        "Hardware"                     CFString
  *   kSCPropNetInterfaceType                            "Type"                         CFString
  *   kSCPropNetInterfaceSubType                         "SubType"                      CFString
- *   kSCPropNetInterfaceSupportsModemOnHold             "SupportsModemOnHold"          CFNumber (0 or 1)
  *
  *   --- kSCPropNetInterfaceType values ---
  *   kSCValNetInterfaceTypeEthernet                     "Ethernet"
@@ -963,7 +962,7 @@ extern const CFStringRef kSCPropNetInterfaceSubType                         __OS
   @const kSCPropNetInterfaceSupportsModemOnHold
   @discussion Value is a CFNumber (0 or 1)
  */
-extern const CFStringRef kSCPropNetInterfaceSupportsModemOnHold             __OSX_AVAILABLE_STARTING(__MAC_10_2,__IPHONE_NA);
+extern const CFStringRef kSCPropNetInterfaceSupportsModemOnHold             __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_2,__MAC_10_13,__IPHONE_NA,__IPHONE_NA);
 #define kSCPropNetInterfaceSupportsModemOnHold kSCPropNetInterfaceSupportsModemOnHold
 
 /*!

@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: BA5FD6FA-69B7-3E59-8D9D-E2FB589040D4', 'x86_64: 6DACC2C1-900B-3ADD-9537-52C8849EBDA2' ]
+uuids:           [ 'i386: F03BE4EA-4B43-3F66-A10B-DC8EE5997ACD', 'x86_64: EC53B325-A97F-3AB4-9D83-1F1ED287C5DE' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Assistant.framework/Versions/A/Assistant
 current-version: 21
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _AFAssistantAssertionHandlerForLock._handlerToRestore, _AFAssistantAssertionHandlerForLock._lock, 

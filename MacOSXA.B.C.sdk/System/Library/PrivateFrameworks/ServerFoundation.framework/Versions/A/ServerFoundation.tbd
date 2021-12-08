@@ -1,11 +1,10 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 49C8688B-C937-31F6-9D03-AA51DCA03850', 'x86_64: A415520C-620F-3473-933E-D31293BF4025' ]
+uuids:           [ 'i386: C10562EF-BC05-33E7-AD9C-F93CD3DB2029', 'x86_64: AD291CCA-3E53-314D-871D-48D3BD663FA1' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ServerFoundation.framework/Versions/A/ServerFoundation
 current-version: 2
 compatibility-version: 2
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _XSAction._actionsBeingObserved, _XSAction._beginCallbacks, 

@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 14B48679-5659-33F0-9277-F3D75D4EA89B' ]
+uuids:           [ 'x86_64: A50CF359-9402-3B04-9CCE-9EB68DFE3E09' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/EmbeddedOSInstall.framework/Versions/A/EmbeddedOSInstall
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AMAuthInstallApAddTag, _AMAuthInstallApApplyRequestRules, 
@@ -574,18 +573,19 @@ exports:
                        __ZN17IFWD_MemoryStream7SetSizeEi, __ZN17IFWD_MemoryStreamC1Ev, 
                        __ZN17IFWD_MemoryStreamC2Ev, __ZN17IFWD_MemoryStreamD1Ev, 
                        __ZN17IFWD_MemoryStreamD2Ev, __base64_ntop, __base64decode, 
-                       __base64encode, __check_all_are_optional, __check_is_optional, 
-                       __digestChunks, __legacy_AMRestoreGetDeviceMapEntryForHardware, 
-                       __locationIDToDevice, __pathIsRemote, __reachability_callback, 
-                       __writeCombinedBootImage, __writeCombinedBootImageBuf, _amai_fclose_file_func, 
-                       _amai_ferror_file_func, _amai_fill_fopen_filefunc, _amai_fopen_file_func, 
-                       _amai_fread_file_func, _amai_fseek_file_func, _amai_ftell_file_func, 
-                       _amai_fwrite_file_func, _amai_unzClose, _amai_unzCloseCurrentFile, 
-                       _amai_unzGetCurrentFileInfo, _amai_unzGetFilePos, _amai_unzGetGlobalComment, 
-                       _amai_unzGetGlobalInfo, _amai_unzGetLocalExtrafield, _amai_unzGetOffset, 
-                       _amai_unzGoToFilePos, _amai_unzGoToFirstFile, _amai_unzGoToNextFile, 
-                       _amai_unzLocateFile, _amai_unzOpen, _amai_unzOpen2, _amai_unzOpenCurrentFile, 
-                       _amai_unzOpenCurrentFile2, _amai_unzOpenCurrentFile3, _amai_unzOpenCurrentFilePassword, 
+                       __base64encode, __bsdNameForInternalEFISystemPartition, __check_all_are_optional, 
+                       __check_is_optional, __digestChunks, __legacy_AMRestoreGetDeviceMapEntryForHardware, 
+                       __locationIDToDevice, __mountPointForDevNode, __pathIsRemote, 
+                       __reachability_callback, __writeCombinedBootImage, __writeCombinedBootImageBuf, 
+                       _amai_fclose_file_func, _amai_ferror_file_func, _amai_fill_fopen_filefunc, 
+                       _amai_fopen_file_func, _amai_fread_file_func, _amai_fseek_file_func, 
+                       _amai_ftell_file_func, _amai_fwrite_file_func, _amai_unzClose, 
+                       _amai_unzCloseCurrentFile, _amai_unzGetCurrentFileInfo, _amai_unzGetFilePos, 
+                       _amai_unzGetGlobalComment, _amai_unzGetGlobalInfo, _amai_unzGetLocalExtrafield, 
+                       _amai_unzGetOffset, _amai_unzGoToFilePos, _amai_unzGoToFirstFile, 
+                       _amai_unzGoToNextFile, _amai_unzLocateFile, _amai_unzOpen, 
+                       _amai_unzOpen2, _amai_unzOpenCurrentFile, _amai_unzOpenCurrentFile2, 
+                       _amai_unzOpenCurrentFile3, _amai_unzOpenCurrentFilePassword, 
                        _amai_unzReadCurrentFile, _amai_unzSetOffset, _amai_unzStringFileNameCompare, 
                        _amai_unz_copyright, _amai_unzeof, _amai_unztell, _amai_zipClose, 
                        _amai_zipCloseFileInZip, _amai_zipCloseFileInZipRaw, _amai_zipOpen, 
@@ -861,12 +861,12 @@ exports:
                        _tss_sha1, _tss_show_verbose, _tss_stitch_img3, _tss_stitch_img3_from_file, 
                        _tss_stitch_img3_from_file_to_file, _tss_stitch_img3_to_file, 
                        _tss_strip_img3_signature, _tss_submit, _tssclient_version ]
-    objc-classes:    [ _AMSupportURLConnectionDelegate, _EOSAppleSMC, _EOSAuthenticationAgentController, 
-                       _EOSAuthenticationManager, _EOSBootDiagnostics, _EOSBootTagRestoreOperation, 
-                       _EOSBootstrapRecoveryRestoreOperation, _EOSCleanUpOperation, 
-                       _EOSDevice, _EOSDeviceHost, _EOSDeviceModeHelper, _EOSDeviceMonitor, 
-                       _EOSDeviceType, _EOSDiagnosticSummary, _EOSEFISystemPartition, 
-                       _EOSESPInstallationOperation, _EOSError, _EOSFDRManager, _EOSForceResetRestoreOperation, 
+    objc-classes:    [ _AMSupportURLConnectionDelegate, _EOSAppleSMC, _EOSBootDiagnostics, 
+                       _EOSBootTagRestoreOperation, _EOSBootstrapRecoveryRestoreOperation, 
+                       _EOSCleanUpOperation, _EOSDevice, _EOSDeviceHost, _EOSDeviceModeHelper, 
+                       _EOSDeviceMonitor, _EOSDeviceType, _EOSDiagnosticSummary, 
+                       _EOSEFISystemPartition, _EOSEFISystemPartitionLite, _EOSESPInstallationOperation, 
+                       _EOSError, _EOSFDRData, _EOSFDRManager, _EOSForceResetRestoreOperation, 
                        _EOSHealingController, _EOSLocatePreflightContainerRestoreOperation, 
                        _EOSLogBuffer, _EOSMachineSupport, _EOSMembootESPRestoreOperation, 
                        _EOSNVRAM, _EOSNetworkReachabilityCheckOperation, _EOSNetworkReachabilityController, 

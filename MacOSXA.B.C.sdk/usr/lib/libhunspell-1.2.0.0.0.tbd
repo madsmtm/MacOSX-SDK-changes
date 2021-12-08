@@ -1,8 +1,7 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 90604BA8-CF72-35D9-AA6D-B21B09B9258B', 'x86_64: CFCE168C-BF12-36F4-B3F9-317474494656' ]
+uuids:           [ 'i386: 61786AF0-8E2B-3DCB-9875-77BAEFDE5868', 'x86_64: 8A57BCA7-5D5A-3D2E-B9A4-A28A995F2CCA' ]
 platform:        macosx
-flags:           [ flat_namespace ]
 install-name:    /usr/lib/libhunspell-1.2.0.dylib
 objc-constraint: none
 exports:         
@@ -146,17 +145,4 @@ exports:
                        _iso10_tbl, _iso13_tbl, _iso14_tbl, _iso15_tbl, _iso1_tbl, 
                        _iso2_tbl, _iso3_tbl, _iso4_tbl, _iso5_tbl, _iso6_tbl, _iso7_tbl, 
                        _iso8_tbl, _iso9_tbl, _koi8r_tbl, _koi8u_tbl, _lang2enc ]
-undefineds:      
-  - archs:           [ i386 ]
-    symbols:         [ '_clock$UNIX2003', '_fopen$UNIX2003' ]
-  - archs:           [ x86_64 ]
-    symbols:         [ _clock, _fopen ]
-  - archs:           [ i386, x86_64 ]
-    symbols:         [ __DefaultRuneLocale, __Unwind_Resume, ___bzero, ___gxx_personality_v0, 
-                       ___maskrune, ___stack_chk_fail, ___stack_chk_guard, ___stderrp, 
-                       _atoi, _calloc, _fclose, _fflush, _fgets, _fprintf, _fread, 
-                       _free, _malloc, _memchr, _memcpy, _memmove, _memset, _realloc, 
-                       _sprintf, _strcat, _strchr, _strcmp, _strcpy, _strlen, _strncmp, 
-                       _strncpy, _strstr, dyld_stub_binder ]
-    weak-ref-symbols: [ __ZdlPv, __Znwm ]
 ...

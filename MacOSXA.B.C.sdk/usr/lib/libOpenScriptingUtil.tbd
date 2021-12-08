@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 04E62541-16C8-32FA-8DC5-38571B7C4E2D', 'x86_64: 90743888-C1E8-34E3-924E-1A754B2B63B9' ]
+uuids:           [ 'i386: B7CEDC30-2D17-3896-9EFC-64DB3D11DF00', 'x86_64: 203D2C39-61BB-3713-A502-2D17B04A42AC' ]
 platform:        macosx
 install-name:    /usr/lib/libOpenScriptingUtil.dylib
 objc-constraint: none

@@ -34,6 +34,8 @@
 #ifndef lib_pcap_namedb_h
 #define lib_pcap_namedb_h
 
+#include <pcap/export-defs.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

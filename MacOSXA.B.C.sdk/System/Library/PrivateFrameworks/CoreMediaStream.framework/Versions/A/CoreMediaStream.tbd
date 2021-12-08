@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 648180BF-B9A7-3985-9511-6E31C4A64B6E' ]
+uuids:           [ 'x86_64: 03C215D4-6A2A-378F-A464-33820E2340AF' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreMediaStream.framework/Versions/A/CoreMediaStream
-current-version: 509.5
-objc-constraint: none
+current-version: 510.8
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _MSASInitialize, _MSASPlatform, _MSASPlatformIsDebugLoggingEnabled, 
@@ -56,29 +55,31 @@ exports:
                        _kMSASAssetCollectionMetadataIrisGroupIdentifier, _kMSASAssetCollectionMetadataIrisStillDisplayTime, 
                        _kMSASAssetCollectionMetadataIrisVideoDuration, _kMSASAssetCollectionMetadataLocationISO6709, 
                        _kMSASAssetCollectionMetadataOriginalPaths, _kMSASAssetCollectionMetadataPendingUploadGUID, 
-                       _kMSASAssetCollectionMetadataSourceContainerIdentifier, _kMSASAssetCollectionMetadataSourceItemIdentifier, 
-                       _kMSASAssetCollectionMetadataSourceLibraryIdentifier, _kMSASAssetCollectionMetadataVideoDuration, 
-                       _kMSASAssetCollectionStateKey, _kMSASAssetCollectionsKey, 
-                       _kMSASAssetDownloaderErrorDomain, _kMSASAssetGUIDKey, _kMSASAssetTransferErrorDomain, 
-                       _kMSASAssetTransfererDidIdleNotification, _kMSASAssetTypeFlagsKey, 
-                       _kMSASAssetUploaderErrorDomain, _kMSASAssetsKey, _kMSASCancelActivitiesFn, 
-                       _kMSASCommandKey, _kMSASCommandRetryCountKey, _kMSASCommandWasRequeuedKey, 
-                       _kMSASCommentGUIDKey, _kMSASCommentKey, _kMSASCommentPositionKey, 
-                       _kMSASCommentsChangeKey, _kMSASCommentsKey, _kMSASEnabledKey, 
-                       _kMSASErrorCountKey, _kMSASErrorKey, _kMSASEventKey, _kMSASFailedAssetCollectionsAndErrorsKey, 
-                       _kMSASFailedAssetCollectionsKey, _kMSASFileTransferPushTimerDidEndNotification, 
-                       _kMSASFileTransferPushTimerDidStartNotification, _kMSASFunctionNameKey, 
-                       _kMSASInfoEventIsDueToAlbumDeletionKey, _kMSASInfoEventIsDueToAssetCollectionDeletionKey, 
-                       _kMSASInfoIsAlbumResetSyncKey, _kMSASInfoIsErrorRecoveryKey, 
-                       _kMSASInfoIsGlobalResetSyncKey, _kMSASInfoIsLocalChangeKey, 
-                       _kMSASInfoKey, _kMSASInfoNotInterestingKey, _kMSASInvitationGUIDKey, 
-                       _kMSASInvitationTokenKey, _kMSASIsInRetryStateFn, _kMSASIsUIForegroundKey, 
-                       _kMSASLastCommentIDKey, _kMSASLastViewedDateKey, _kMSASMBSchemaVersionKey, 
-                       _kMSASModelAcceptInvitationWithGUIDFn, _kMSASModelAcceptInvitationWithTokenFn, 
-                       _kMSASModelAccessControlGUIDsFn, _kMSASModelAccessControlWithGUIDFn, 
-                       _kMSASModelActivityIsThrottledByLackOfDiskSpaceFn, _kMSASModelAddAccessControlsFn, 
-                       _kMSASModelAddAlbumFn, _kMSASModelAddAssetCollectionsFn, _kMSASModelAddCommentsToAssetCollectionWithGUIDFn, 
-                       _kMSASModelAlbumGUIDsFn, _kMSASModelAlbumWithGUIDFn, _kMSASModelAssetCollectionGUIDsFn, 
+                       _kMSASAssetCollectionMetadataPlaybackStyleAutoloop, _kMSASAssetCollectionMetadataPlaybackStyleIdentifier, 
+                       _kMSASAssetCollectionMetadataPlaybackVariation, _kMSASAssetCollectionMetadataSourceContainerIdentifier, 
+                       _kMSASAssetCollectionMetadataSourceItemIdentifier, _kMSASAssetCollectionMetadataSourceLibraryIdentifier, 
+                       _kMSASAssetCollectionMetadataVideoDuration, _kMSASAssetCollectionStateKey, 
+                       _kMSASAssetCollectionsKey, _kMSASAssetDownloaderErrorDomain, 
+                       _kMSASAssetGUIDKey, _kMSASAssetTransferErrorDomain, _kMSASAssetTransfererDidIdleNotification, 
+                       _kMSASAssetTypeFlagsKey, _kMSASAssetUploaderErrorDomain, _kMSASAssetsKey, 
+                       _kMSASCancelActivitiesFn, _kMSASCommandKey, _kMSASCommandRetryCountKey, 
+                       _kMSASCommandWasRequeuedKey, _kMSASCommentGUIDKey, _kMSASCommentKey, 
+                       _kMSASCommentPositionKey, _kMSASCommentsChangeKey, _kMSASCommentsKey, 
+                       _kMSASEnabledKey, _kMSASErrorCountKey, _kMSASErrorKey, _kMSASEventKey, 
+                       _kMSASFailedAssetCollectionsAndErrorsKey, _kMSASFailedAssetCollectionsKey, 
+                       _kMSASFileTransferPushTimerDidEndNotification, _kMSASFileTransferPushTimerDidStartNotification, 
+                       _kMSASFunctionNameKey, _kMSASInfoEventIsDueToAlbumDeletionKey, 
+                       _kMSASInfoEventIsDueToAssetCollectionDeletionKey, _kMSASInfoIsAlbumResetSyncKey, 
+                       _kMSASInfoIsErrorRecoveryKey, _kMSASInfoIsGlobalResetSyncKey, 
+                       _kMSASInfoIsLocalChangeKey, _kMSASInfoKey, _kMSASInfoNotInterestingKey, 
+                       _kMSASInvitationGUIDKey, _kMSASInvitationTokenKey, _kMSASIsInRetryStateFn, 
+                       _kMSASIsUIForegroundKey, _kMSASLastCommentIDKey, _kMSASLastViewedDateKey, 
+                       _kMSASMBSchemaVersionKey, _kMSASModelAcceptInvitationWithGUIDFn, 
+                       _kMSASModelAcceptInvitationWithTokenFn, _kMSASModelAccessControlGUIDsFn, 
+                       _kMSASModelAccessControlWithGUIDFn, _kMSASModelActivityIsThrottledByLackOfDiskSpaceFn, 
+                       _kMSASModelAddAccessControlsFn, _kMSASModelAddAlbumFn, _kMSASModelAddAssetCollectionsFn, 
+                       _kMSASModelAddCommentsToAssetCollectionWithGUIDFn, _kMSASModelAlbumGUIDsFn, 
+                       _kMSASModelAlbumWithGUIDFn, _kMSASModelAssetCollectionGUIDsFn, 
                        _kMSASModelAssetCollectionWithGUIDFn, _kMSASModelAssetsInDownloadQueueCountFn, 
                        _kMSASModelCommentGUIDsFn, _kMSASModelCommentWithGUIDFn, _kMSASModelDeleteAlbumWithGUIDFn, 
                        _kMSASModelDeleteAssetCollectionWithGUIDFn, _kMSASModelDeleteAssetCollectionsWithGUIDsFn, 

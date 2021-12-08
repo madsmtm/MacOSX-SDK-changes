@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 91546191-9B99-3A1E-8953-F2E194ECAD35' ]
+uuids:           [ 'x86_64: 6A8B703D-F226-3988-967C-59D4E6A1B176' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Jet.framework/Versions/A/Jet
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _JetVersionNumber, _JetVersionString, __Z10jet_assertbP8NSString, 
@@ -21,7 +20,8 @@ exports:
                        __Z25xglPrintFramebufferStatusv, __Z27jet_debug_option_get_stringP8NSString, 
                        __Z27xglPrintVertexAttribIntegerPKcjj, __Z29jet_Metal_Device_is_supportedPU19objcproto9MTLDevice11objc_object, 
                        __Z30jet_get_info_plist_flag_is_setP8NSString, __Z38jet_texture_format_is_framebuffer_only18jet_texture_format, 
-                       __Z43jet_convert_pixel_data_rgb_565_to_rgba_8888PKvPvjj, __Z45jet_convert_pixel_data_rgba_4444_to_rgba_8888PKvPvjj, 
+                       __Z43jet_convert_pixel_data_rgb_565_to_rgba_8888PKvPvjj, __Z45jet_convert_pixel_data_bgra_8888_to_rgba_8888PKvPvjj, 
+                       __Z45jet_convert_pixel_data_rgba_4444_to_rgba_8888PKvPvjj, 
                        __Z45jet_convert_pixel_data_rgba_5551_to_rgba_8888PKvPvjj, 
                        __Z45jet_convert_pixel_data_rgba_fp32_to_rgba_fp16PKvPvjj, 
                        __Z51jet_convert_pixel_data_rgba_fp32_to_rgb32_101010_a8PKvPvS1_jj, 
@@ -56,9 +56,9 @@ exports:
                        __ZN11jet_context22execute_command_bufferEP18jet_command_buffer, 
                        __ZN11jet_context24change_dest_color_formatE18jet_texture_format, 
                        __ZN11jet_context24change_dest_depth_formatE18jet_texture_format, 
-                       __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE15matrix_float2x2, 
-                       __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE15matrix_float3x3, 
-                       __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE15matrix_float4x4, 
+                       __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE13simd_float2x2, 
+                       __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE13simd_float3x3, 
+                       __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE13simd_float4x4, 
                        __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEDv2_f, 
                        __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEDv2_i, 
                        __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEDv3_f, 
@@ -67,18 +67,18 @@ exports:
                        __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEDv4_i, 
                        __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEf, 
                        __ZN11jet_context25set_vertex_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEi, 
-                       __ZN11jet_context25set_vertex_constant_valueEj15matrix_float2x2, 
-                       __ZN11jet_context25set_vertex_constant_valueEj15matrix_float3x3, 
-                       __ZN11jet_context25set_vertex_constant_valueEj15matrix_float4x4, 
+                       __ZN11jet_context25set_vertex_constant_valueEj13simd_float2x2, 
+                       __ZN11jet_context25set_vertex_constant_valueEj13simd_float3x3, 
+                       __ZN11jet_context25set_vertex_constant_valueEj13simd_float4x4, 
                        __ZN11jet_context25set_vertex_constant_valueEjDv2_f, __ZN11jet_context25set_vertex_constant_valueEjDv2_i, 
                        __ZN11jet_context25set_vertex_constant_valueEjDv3_f, __ZN11jet_context25set_vertex_constant_valueEjDv3_i, 
                        __ZN11jet_context25set_vertex_constant_valueEjDv4_f, __ZN11jet_context25set_vertex_constant_valueEjDv4_i, 
                        __ZN11jet_context25set_vertex_constant_valueEjf, __ZN11jet_context25set_vertex_constant_valueEji, 
                        __ZN11jet_context26change_dest_stencil_formatE18jet_texture_format, 
                        __ZN11jet_context26submit_command_buffer_implEP18jet_command_buffer, 
-                       __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE15matrix_float2x2, 
-                       __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE15matrix_float3x3, 
-                       __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE15matrix_float4x4, 
+                       __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE13simd_float2x2, 
+                       __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE13simd_float3x3, 
+                       __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE13simd_float4x4, 
                        __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEDv2_f, 
                        __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEDv2_i, 
                        __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEDv3_f, 
@@ -87,9 +87,9 @@ exports:
                        __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEDv4_i, 
                        __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEf, 
                        __ZN11jet_context27set_fragment_constant_valueERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEi, 
-                       __ZN11jet_context27set_fragment_constant_valueEj15matrix_float2x2, 
-                       __ZN11jet_context27set_fragment_constant_valueEj15matrix_float3x3, 
-                       __ZN11jet_context27set_fragment_constant_valueEj15matrix_float4x4, 
+                       __ZN11jet_context27set_fragment_constant_valueEj13simd_float2x2, 
+                       __ZN11jet_context27set_fragment_constant_valueEj13simd_float3x3, 
+                       __ZN11jet_context27set_fragment_constant_valueEj13simd_float4x4, 
                        __ZN11jet_context27set_fragment_constant_valueEjDv2_f, __ZN11jet_context27set_fragment_constant_valueEjDv2_i, 
                        __ZN11jet_context27set_fragment_constant_valueEjDv3_f, __ZN11jet_context27set_fragment_constant_valueEjDv3_i, 
                        __ZN11jet_context27set_fragment_constant_valueEjDv4_f, __ZN11jet_context27set_fragment_constant_valueEjDv4_i, 

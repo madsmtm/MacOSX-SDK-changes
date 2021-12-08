@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  * 
@@ -311,7 +311,8 @@ struct vfs_attr {
 #define MNT_NOUSERXATTR	0x01000000	/* Don't allow user extended attributes */
 #define MNT_DEFWRITE	0x02000000	/* filesystem should defer writes */
 #define MNT_MULTILABEL	0x04000000	/* MAC support for individual labels */
-#define MNT_NOATIME	0x10000000	/* disable update of file access time */
+#define MNT_NOATIME		0x10000000	/* disable update of file access time */
+#define MNT_SNAPSHOT	0x40000000 /* The mount is a snapshot */
 
 /* backwards compatibility only */
 #define MNT_UNKNOWNPERMISSIONS MNT_IGNORE_OWNERSHIP
@@ -328,7 +329,7 @@ struct vfs_attr {
 			MNT_ROOTFS	| MNT_DOVOLFS	| MNT_DONTBROWSE | \
 			MNT_IGNORE_OWNERSHIP | MNT_AUTOMOUNTED | MNT_JOURNALED | \
 			MNT_NOUSERXATTR | MNT_DEFWRITE	| MNT_MULTILABEL | \
-			MNT_NOATIME | MNT_CPROTECT)
+			MNT_NOATIME | MNT_SNAPSHOT | MNT_CPROTECT)
 /*
  * External filesystem command modifier flags.
  * Unmount can use the MNT_FORCE flag.
@@ -738,19 +739,16 @@ struct fs_snapshot_mount_args {
 };
 
 #define VFSIOC_MOUNT_SNAPSHOT  _IOW('V', 1, struct fs_snapshot_mount_args)
-#define VFSCTL_MOUNT_SNAPSHOT  IOCBASECMD(VFSIOC_MOUNT_SNAPSHOT)
 
 struct fs_snapshot_revert_args {
     struct componentname *sr_cnp;
 };
 #define VFSIOC_REVERT_SNAPSHOT  _IOW('V', 2, struct fs_snapshot_revert_args)
-#define VFSCTL_REVERT_SNAPSHOT  IOCBASECMD(VFSIOC_REVERT_SNAPSHOT)
 
 struct fs_snapshot_root_args {
     struct componentname *sr_cnp;
 };  
 #define VFSIOC_ROOT_SNAPSHOT  _IOW('V', 3, struct fs_snapshot_root_args)
-#define VFSCTL_ROOT_SNAPSHOT  IOCBASECMD(VFSIOC_ROOT_SNAPSHOT)
 
 
 /*
@@ -1067,7 +1065,7 @@ void	vfs_setfsprivate(mount_t mp, void *mntdata);
   @abstract Get information about filesystem status.
   @discussion Each filesystem has a struct vfsstatfs associated with it which is updated as events occur; this function
   returns a pointer to it.  Note that the data in the structure will continue to change over time and also that it may
-  be quite stale of vfs_update_vfsstat has not been called recently.
+  be quite stale if vfs_update_vfsstat has not been called recently.
   @param mp Mount for which to get vfsstatfs pointer.
   @return Pointer to vfsstatfs.
   */
@@ -1218,6 +1216,13 @@ void	vfs_event_signal(fsid_t *fsid, u_int32_t event, intptr_t data);
   @abstract This function should not be called by kexts.
   */
 void	vfs_event_init(void); /* XXX We should not export this */
+
+/*!
+  @function vfs_set_root_unmount_cleanly
+  @abstract This function should be called by the root file system
+  when it is being mounted if the file system state is consistent.
+*/
+void vfs_set_root_unmounted_cleanly(void);
 
 __END_DECLS
 

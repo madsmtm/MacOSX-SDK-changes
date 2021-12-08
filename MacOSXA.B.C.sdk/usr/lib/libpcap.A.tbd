@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 870DAFE5-D858-30FB-B04F-35ECDD0011A3', 'x86_64: D4A7EFB6-15FE-3C9C-A47C-1CA3CB75D06C' ]
+uuids:           [ 'i386: 178094CE-BF5A-3C92-9A74-525AA907FA21', 'x86_64: D400B242-A56A-39CD-9445-740460F1A62F' ]
 platform:        macosx
 install-name:    /usr/lib/libpcap.A.dylib
 objc-constraint: none
@@ -42,10 +42,11 @@ exports:
                        _pcap_find_proc_info_by_index, _pcap_find_proc_info_uuid, 
                        _pcap_findalldevs, _pcap_findalldevs_interfaces, _pcap_fopen_offline, 
                        _pcap_fopen_offline_with_tstamp_precision, _pcap_free, _pcap_free_datalinks, 
-                       _pcap_free_if_info, _pcap_free_proc_info, _pcap_free_tstamp_types, 
-                       _pcap_freealldevs, _pcap_freecode, _pcap_get_column, _pcap_get_debug, 
-                       _pcap_get_extra, _pcap_get_in, _pcap_get_leng, _pcap_get_lineno, 
-                       _pcap_get_lval, _pcap_get_out, _pcap_get_selectable_fd, _pcap_get_text, 
+                       _pcap_free_if_info, _pcap_free_proc_info, _pcap_free_selectable_fd_list, 
+                       _pcap_free_tstamp_types, _pcap_freealldevs, _pcap_freecode, 
+                       _pcap_get_column, _pcap_get_debug, _pcap_get_extra, _pcap_get_in, 
+                       _pcap_get_leng, _pcap_get_lineno, _pcap_get_lval, _pcap_get_out, 
+                       _pcap_get_selectable_fd, _pcap_get_selectable_fd_list, _pcap_get_text, 
                        _pcap_get_tstamp_precision, _pcap_geterr, _pcap_getnonblock, 
                        _pcap_getnonblock_fd, _pcap_inject, _pcap_is_swapped, _pcap_lex, 
                        _pcap_lex_destroy, _pcap_lex_init, _pcap_lex_init_extra, _pcap_lib_version, 

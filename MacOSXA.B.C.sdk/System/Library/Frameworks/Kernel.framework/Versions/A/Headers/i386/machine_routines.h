@@ -40,6 +40,8 @@
 #include <sys/cdefs.h>
 #include <sys/appleapiopts.h>
 
+#include <stdarg.h>
+
 __BEGIN_DECLS
 
 
@@ -52,6 +54,7 @@ boolean_t ml_set_interrupts_enabled(boolean_t enable);
 
 /* Check if running at interrupt context */
 boolean_t ml_at_interrupt_context(void);
+
 
 /* Zero bytes starting at a physical address */
 void bzero_phys(

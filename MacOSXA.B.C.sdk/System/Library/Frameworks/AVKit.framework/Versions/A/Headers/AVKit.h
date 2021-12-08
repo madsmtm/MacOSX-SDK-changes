@@ -15,6 +15,7 @@
 #import <AVKit/AVError.h>
 #import <AVKit/AVPictureInPictureController.h>
 #import <AVKit/AVPlayerViewController.h>
+#import <AVKit/AVRoutePickerView.h>
 #else
 #import <AVKit/AVCaptureView.h>
 #import <AVKit/AVPlayerView.h>

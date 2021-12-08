@@ -83,7 +83,7 @@ VT_EXPORT OSStatus
 VTSessionSetProperty(
   CM_NONNULL VTSessionRef       session,
   CM_NONNULL CFStringRef        propertyKey,
-  CM_NONNULL CFTypeRef          propertyValue ) API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2));
+  CM_NULLABLE CFTypeRef         propertyValue ) API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2));
 	
 CF_IMPLICIT_BRIDGING_DISABLED
 

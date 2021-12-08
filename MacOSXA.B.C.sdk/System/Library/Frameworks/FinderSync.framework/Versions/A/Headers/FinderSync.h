@@ -1,21 +1,21 @@
 /*
     FinderSync.h
 
-    Copyright (c) 2014-2016, Apple Inc.
+    Copyright (c) 2014-2017, Apple Inc.
     All rights reserved.
 */
 
 #import <Foundation/Foundation.h>
 #import <AppKit/NSMenu.h>
 
-#if __OBJC2__
+#if defined(__OBJC2__) && __OBJC2__
 
 NS_ASSUME_NONNULL_BEGIN
 @interface FIFinderSyncController : NSExtensionContext
 
 + (instancetype)defaultController;
 
-/* For each directory present in directoryURLs, the extension can receive -beginObservingDirectoryAtURL: and -endObservingDirectoryAtURL: for that directory and for any directories inside.
+/* For each directory present in directoryURLs, the extension can receive -beginObservingDirectoryAtURL: and -endObservingDirectoryAtURL: for that directory and for any directories inside. Always set directoryURLs when the extension starts; if there are no directories to be watched, pass the empty set.
  */
 @property (copy, null_resettable) NSSet<NSURL *> *directoryURLs;
 
@@ -31,6 +31,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable NSURL *)targetedURL;
 - (nullable NSArray<NSURL *> *)selectedItemURLs;
+
+
+/* Collaboration, starting in macOS 10.13.
+*/
+- (nullable NSDate *)lastUsedDateForItemWithURL:(NSURL *)itemURL;
+- (void)setLastUsedDate:(NSDate *)lastUsedDate forItemWithURL:(NSURL *)itemURL completion:(void(^)(NSError *error))completion;
+
+- (nullable NSData *)tagDataForItemWithURL:(NSURL *)itemURL;
+- (void)setTagData:(nullable NSData *)tagData forItemWithURL:(NSURL *)itemURL completion:(void(^)(NSError *error))completion;
+
 @end
 
 
@@ -60,11 +70,20 @@ typedef NS_ENUM(NSUInteger, FIMenuKind) {
  */
 - (void)requestBadgeIdentifierForURL:(NSURL *)url;
 
-/* To provide a toolbar item, the extension must implement toolbarItemName and toolbarItemImage. When the user clicks the item, -menuForMenuKind: will be called with FIExtensionToolbarMenu.
+/* To provide a toolbar item, the extension must implement toolbarItemName and toolbarItemImage. When the user clicks the item, -menuForMenuKind: will be called with FIMenuKindToolbarItemMenu.
  */
 @property (copy, readonly) NSString *toolbarItemName;
 @property (copy, readonly) NSImage *toolbarItemImage;
 @property (copy, readonly) NSString *toolbarItemToolTip;
+
+
+/* Collaboration, starting in macOS 10.13.
+*/
+- (NSArray <NSFileProviderServiceName> *)supportedServiceNamesForItemWithURL:(NSURL *)itemURL;
+- (nullable NSXPCListenerEndpoint *)makeListenerEndpointForServiceName:(NSFileProviderServiceName)serviceName itemURL:(NSURL *)itemURL andReturnError:(NSError * _Nullable __autoreleasing *)error;
+
+- (void)valuesForAttributes:(NSArray<NSURLResourceKey> *)attributes forItemWithURL:(NSURL *)itemURL completion:(void(^)(NSDictionary<NSURLResourceKey, id> *, NSError * _Nullable))completion;
+
 @end
 
 /* The extension's NSExtensionPrincipalClass must be a subclass of FIFinderSync.

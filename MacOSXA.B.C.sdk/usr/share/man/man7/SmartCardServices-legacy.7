@@ -66,6 +66,15 @@ It is possible to turn of the new tokens by setting the global preference:
 .Pp
 .Li "sudo defaults write /Library/Preferences/com.apple.security.smartcard DisabledTokens -array com.apple.CryptoTokenKit.pivtoken"
 .Pp
+.Sh DISABLING SHEET AUTHORIZATION IN PREFERENCES
+When using tokend-based SmartCards, according to your configuration you may not be able to use SmartCards for authorization in System Preferences sheets. In such case, you 
+can disable sheets using following command:
+.Pp
+.Li defaults write com.apple.Preferences UseSheets -bool FALSE
+.Pp 
+System Preferences will then use the original dialog-based authorization.
+.Sh ENTITLEMENT
+Sandboxed PCSC clients require 'com.apple.security.smartcard=YES' entitlement. Non-sandboxed PCSC clients do not require such entitlement (in order to keep backward compatibility with macOS < 10.10).
 .Sh SEE ALSO
 .Xr SmartCardServices 7 ,
 .Xr sc_auth 8 ,

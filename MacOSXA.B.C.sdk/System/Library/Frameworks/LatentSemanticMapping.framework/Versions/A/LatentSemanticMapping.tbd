@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 32F776A7-050E-34A1-8670-628E76B520E0', 'x86_64: E68CF07A-6EFB-34E6-B103-BEBE4AD57521' ]
+uuids:           [ 'i386: 2B8EC90C-E74B-39F6-8134-9F1382968906', 'x86_64: 64C1B0E2-8EE6-35C5-9860-36775A12FCC4' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/LatentSemanticMapping.framework/Versions/A/LatentSemanticMapping
 objc-constraint: none

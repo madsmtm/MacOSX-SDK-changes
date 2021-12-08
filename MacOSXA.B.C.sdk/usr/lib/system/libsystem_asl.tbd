@@ -1,9 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 5F395C00-0DC3-3662-A91E-3E39432EED72', 'x86_64: 096E4228-3B7C-30A6-8B13-EC909A64499A' ]
+uuids:           [ 'i386: F96973B5-C36B-3037-8AEC-3BF7147D79E2', 'x86_64: 94972913-9DF0-3C78-847C-43E58919E3DA' ]
 platform:        macosx
 install-name:    /usr/lib/system/libsystem_asl.dylib
-current-version: 349.50.5
+current-version: 356.1.1
 objc-constraint: none
 parent-umbrella: System
 exports:         
@@ -14,7 +14,7 @@ exports:
                        __asl_server_create_aux_link, __asl_server_match, __asl_server_message, 
                        __asl_server_prune, __asl_server_query, __asl_server_query_2, 
                        __asl_server_query_timeout, __asl_server_register_direct_watch, 
-                       __syslog_asl_client, _asl_add_log_file, _asl_add_output, _asl_add_output_file, 
+                       _asl_add_log_file, _asl_add_output, _asl_add_output_file, 
                        _asl_append, _asl_base_msg, _asl_client_add_output_file, _asl_client_get_control, 
                        _asl_client_kvdict, _asl_client_match, _asl_client_open, _asl_client_open_from_file, 
                        _asl_client_release, _asl_client_remove_output_file, _asl_client_retain, 
@@ -76,5 +76,5 @@ exports:
                        _asl_string_retain, _asl_syslog_faciliy_name_to_num, _asl_syslog_faciliy_num_to_name, 
                        _asl_trigger_aslmanager, _asl_unset, _asl_unset_key, _asl_vlog, 
                        _aslresponse_free, _aslresponse_next, _closelog, _openlog, 
-                       _setlogmask, _syslog, _vsyslog ]
+                       _setlogmask, _syslog, '_syslog$DARWIN_EXTSN', _vsyslog ]
 ...

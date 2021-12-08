@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: CC034A4C-2CE8-34EE-A9D8-D1C7F02A4D28' ]
+uuids:           [ 'x86_64: 840CA9D5-EB4F-396D-8590-0BD1113924C4' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/Mondrian.framework/Versions/A/Mondrian
-current-version: 3150.4.120
-objc-constraint: none
+current-version: 3201.11.120
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _GridRectEdgeOppositeEdge, _MOAVAssetCreateThumbnailWithURL, 
@@ -126,8 +125,8 @@ exports:
                        _MOPhotosMomentCell, _MOPhotosMomentsLayout, _MOPhotosMomentsLayoutAccessibility, 
                        _MOPhotosMomentsLayoutInvalidationContext, _MOPhotosMomentsLayoutSectionAccessibility, 
                        _MOPhotosMomentsView, _MOPhotosScroller, _MOPhotosSupplementaryFooter, 
-                       _MOPhotosSupplementaryHeader, _MOPhotosView, _MOPhotosYearsView, 
-                       _MOSettingsPanel, _MOSettingsPanelController, _MOTextLayer, 
-                       _MOTracing, _MOUIProgressBar, __MOMediaViewLayoutPresetNamingWindowController ]
+                       _MOPhotosSupplementaryFooterInfo, _MOPhotosSupplementaryHeader, 
+                       _MOPhotosView, _MOPhotosYearsView, _MOSettingsPanel, _MOSettingsPanelController, 
+                       _MOTextLayer, _MOTracing, _MOUIProgressBar, __MOMediaViewLayoutPresetNamingWindowController ]
     objc-ivars:      [ _MOMediaItem._url, _MOMediaItem._urlHash ]
 ...

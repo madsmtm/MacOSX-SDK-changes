@@ -181,7 +181,11 @@ _os_trace_verify_printf(const char *msg, ...)
  * provide other introspection services. No assumptions are made about the
  * format or structure of the data.
  */
+#ifdef __BLOCKS__
 typedef void (^os_trace_payload_t)(os_trace_payload_object_t xdict);
+#else
+typedef void *os_trace_payload_t;
+#endif // __BLOCKS__
 
 #pragma mark - function declarations
 
@@ -286,7 +290,8 @@ typedef void (^os_trace_payload_t)(os_trace_payload_object_t xdict);
  * @result
  * Returns true if info types are enabled.
  */
-API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
+API_DEPRECATED_WITH_REPLACEMENT("os_log_info_enabled",
+        macos(10.12,10.13), ios(10.0,11.0), watchos(3.0,4.0), tvos(10.0,11.0))
 OS_EXPORT OS_NOTHROW OS_WARN_RESULT
 bool
 os_trace_info_enabled(void);
@@ -315,7 +320,8 @@ os_trace_info_enabled(void);
  * @result
  * Returns true if debug mode is enabled.
  */
-API_AVAILABLE(macosx(10.10), ios(8.0), watchos(2.0), tvos(8.0))
+API_DEPRECATED_WITH_REPLACEMENT("os_log_debug_enabled",
+        macos(10.10,10.13), ios(8.0,11.0), watchos(2.0,4.0), tvos(8.0,11.0))
 OS_EXPORT OS_NOTHROW OS_WARN_RESULT
 bool
 os_trace_debug_enabled(void);
@@ -332,7 +338,8 @@ os_trace_debug_enabled(void);
  * @result
  * Returns true if type is enabled.
  */
-API_AVAILABLE(macosx(10.10), ios(8.0), watchos(2.0), tvos(8.0))
+API_DEPRECATED_WITH_REPLACEMENT("os_log_type_enabled",
+        macos(10.10,10.13), ios(8.0,11.0), watchos(2.0,4.0), tvos(8.0,11.0))
 OS_NOTHROW OS_WARN_RESULT OS_ALWAYS_INLINE
 static inline bool
 os_trace_type_enabled(uint8_t type)
@@ -394,6 +401,7 @@ os_trace_type_enabled(uint8_t type)
 #define os_trace_fault(format, ...) \
         OS_TRACE_CALL(OS_TRACE_TYPE_FAULT, NULL, format, ##__VA_ARGS__)
 
+#ifdef __BLOCKS__
 #if __has_include(<xpc/xpc.h>)
 /*!
  * @function os_trace_with_payload
@@ -437,7 +445,8 @@ os_trace_type_enabled(uint8_t type)
 
 #else
 
-API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
+API_DEPRECATED_WITH_REPLACEMENT("os_log_info",
+        macos(10.12,10.13), ios(10.0,11.0), watchos(3.0,4.0), tvos(10.0,11.0))
 OS_EXPORT OS_NOTHROW OS_NOT_TAIL_CALLED
 void
 os_trace_info_with_payload(const char *format, ...);
@@ -457,6 +466,7 @@ os_trace_info_with_payload(const char *format, ...);
             OS_TRACE_TYPE_FAULT, format, ##__VA_ARGS__)
 
 #endif // __has_include(<xpc/xpc.h>)
+#endif // __BLOCKS__
 
 /*!
  * @function _os_trace_with_buffer
@@ -464,7 +474,8 @@ os_trace_info_with_payload(const char *format, ...);
  * @abstract
  * Internal function to support pre-encoded buffer.
  */
-API_AVAILABLE(macosx(10.10), ios(8.0), watchos(2.0), tvos(8.0))
+API_DEPRECATED("use one of the following calls instead: os_log_info, os_log_debug, os_log_error, os_log_fault",
+        macos(10.10,10.13), ios(8.0,11.0), watchos(2.0,4.0), tvos(8.0,11.0))
 OS_EXPORT OS_NOTHROW OS_NOT_TAIL_CALLED
 void
 _os_trace_with_buffer(void *dso, const char *message, uint8_t type,

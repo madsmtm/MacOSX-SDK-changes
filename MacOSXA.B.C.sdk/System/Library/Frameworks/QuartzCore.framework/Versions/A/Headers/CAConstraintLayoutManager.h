@@ -68,7 +68,7 @@ CA_CLASS_AVAILABLE (10.5)
 /** The class representing a single layout constraint. **/
 
 CA_CLASS_AVAILABLE (10.5)
-@interface CAConstraint : NSObject <NSCoding>
+@interface CAConstraint : NSObject <NSSecureCoding>
 {
 @private
   NSString *_srcId;

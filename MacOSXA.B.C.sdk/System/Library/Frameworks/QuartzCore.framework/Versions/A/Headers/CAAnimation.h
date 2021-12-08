@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 CA_CLASS_AVAILABLE (10.5, 2.0, 9.0, 2.0)
 @interface CAAnimation : NSObject
-    <NSCoding, NSCopying, CAMediaTiming, CAAction>
+    <NSSecureCoding, NSCopying, CAMediaTiming, CAAction>
 {
 @private
   void *_attr;

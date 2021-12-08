@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: BF62AB92-12CC-3071-BF63-C1A2E75C7DA4' ]
+uuids:           [ 'x86_64: BBA0FD17-179A-3078-8C06-1FBEEE4D13E1' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/Social.framework/Versions/A/Social
-current-version: 559.2
-objc-constraint: none
+current-version: 564
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CPFileBuildDirectoriesToPath, _PushNotificationDidChangeEventKey_char, 
@@ -40,21 +39,24 @@ exports:
                        _SLNotificationTypeComments, _SLNotificationTypeDirectMessages, 
                        _SLNotificationTypeFavorites, _SLNotificationTypeMentions, 
                        _SLNotificationTypeRetweets, _SLNotificationValue, _SLOutputLevelKey, 
-                       _SLServiceMain, _SLServiceTypeFacebook, _SLServiceTypeFlickr, 
-                       _SLServiceTypeLinkedIn, _SLServiceTypeSinaWeibo, _SLServiceTypeTencentWeibo, 
-                       _SLServiceTypeTudou, _SLServiceTypeTwitter, _SLServiceTypeVimeo, 
-                       _SLServiceTypeYouku, _SLSocialFrameworkBundle, _SLTencentWeiboAPIError, 
-                       _SLTencentWeiboAPIErrorAPILimitDomain, _SLTencentWeiboAPIErrorAuthorizationDomain, 
-                       _SLTencentWeiboAPIErrorAuthorizationError, _SLTencentWeiboAPIErrorCode, 
-                       _SLTencentWeiboAPIErrorCodeKey, _SLTencentWeiboAPIErrorDomain, 
-                       _SLTencentWeiboAPIErrorFakeUserDomain, _SLTencentWeiboAPIErrorInternalServerDomain, 
-                       _SLTencentWeiboAPIErrorInternalServerError, _SLTencentWeiboAPIErrorMessageKey, 
-                       _SLTencentWeiboAPIErrorParameterDomain, _SLTencentWeiboAPIErrorParameterError, 
-                       _SLTencentWeiboAPIErrorTypeKey, _SLTencentWeiboAPIErrorUserDomain, 
-                       _SLTencentWeiboAccessError, _SLTencentWeiboAccountCreationError, 
-                       _SLTencentWeiboError, _SLTencentWeiboErrorDomain, _SLTencentWeiboLoginError, 
-                       _SLTencentWeiboRevokeError, _SLTudouErrorDomain, _SLTwitterErrorDomain, 
-                       _SLUserDataDirectory, _SLUserLibraryDirectory, _SLWeiboMacContactUpdaterContactCountKey, 
+                       _SLServiceMain, _SLServiceTypeFacebook, _SLServiceTypeFacebookInternal, 
+                       _SLServiceTypeFlickr, _SLServiceTypeLinkedIn, _SLServiceTypeLinkedInInternal, 
+                       _SLServiceTypeSinaWeibo, _SLServiceTypeSinaWeiboInternal, 
+                       _SLServiceTypeTencentWeibo, _SLServiceTypeTencentWeiboInternal, 
+                       _SLServiceTypeTudou, _SLServiceTypeTwitter, _SLServiceTypeTwitterInternal, 
+                       _SLServiceTypeVimeo, _SLServiceTypeYouku, _SLSocialFrameworkBundle, 
+                       _SLTencentWeiboAPIError, _SLTencentWeiboAPIErrorAPILimitDomain, 
+                       _SLTencentWeiboAPIErrorAuthorizationDomain, _SLTencentWeiboAPIErrorAuthorizationError, 
+                       _SLTencentWeiboAPIErrorCode, _SLTencentWeiboAPIErrorCodeKey, 
+                       _SLTencentWeiboAPIErrorDomain, _SLTencentWeiboAPIErrorFakeUserDomain, 
+                       _SLTencentWeiboAPIErrorInternalServerDomain, _SLTencentWeiboAPIErrorInternalServerError, 
+                       _SLTencentWeiboAPIErrorMessageKey, _SLTencentWeiboAPIErrorParameterDomain, 
+                       _SLTencentWeiboAPIErrorParameterError, _SLTencentWeiboAPIErrorTypeKey, 
+                       _SLTencentWeiboAPIErrorUserDomain, _SLTencentWeiboAccessError, 
+                       _SLTencentWeiboAccountCreationError, _SLTencentWeiboError, 
+                       _SLTencentWeiboErrorDomain, _SLTencentWeiboLoginError, _SLTencentWeiboRevokeError, 
+                       _SLTudouErrorDomain, _SLTwitterErrorDomain, _SLUserDataDirectory, 
+                       _SLUserLibraryDirectory, _SLWeiboMacContactUpdaterContactCountKey, 
                        _SLWeiboMacContactUpdaterDidFailNotification, _SLWeiboMacContactUpdaterDidFinishUpdatingContactsNotification, 
                        _SLWeiboMacContactUpdaterDidUpdateProgressNotification, _SLWeiboMacContactUpdaterErrorCodeKey, 
                        _SLWeiboMacContactUpdaterErrorDomainKey, _SLWeiboMacContactUpdaterProgressValueKey, 

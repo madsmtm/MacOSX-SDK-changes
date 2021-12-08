@@ -1,13 +1,14 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 5956FCB6-619B-3AD3-9150-3BA0FBE45FC8' ]
+uuids:           [ 'x86_64: 78795D90-4CBF-34A5-A088-9460DFA3C7CD' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/WebInspector.framework/Versions/A/WebInspector
-current-version: 603.1.30
-objc-constraint: none
+current-version: 604.1.38
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _RWIProtocolInspectorFrontendConnectedNotification, _RWIProtocolInspectorFrontendDisconnectedNotification ]
+    symbols:         [ _RWIProtocolInspectorFrontendConnectedNotification, _RWIProtocolInspectorFrontendDisconnectedNotification, 
+                       __ZN9Inspector15objcStringArrayEOKN3WTF6RefPtrINS_14InspectorArrayEEE, 
+                       __ZN9Inspector20inspectorObjectArrayEP7NSArray, __ZN9Inspector20inspectorStringArrayEP7NSArray ]
     objc-classes:    [ _RWIApplication, _RWIChannel, _RWIDebuggable, _RWIDevice, 
                        _RWIDriver, _RWIDriverInterface, _RWIInspector, _RWIMachine, 
                        _RWIManager, _RWIProtocolCSSComputedStyleProperty, _RWIProtocolCSSDomainEventDispatcher, 
@@ -31,12 +32,12 @@ exports:
                        _RWIProtocolDebuggerScope, _RWIProtocolGenericTypesSearchMatch, 
                        _RWIProtocolInspector, _RWIProtocolJSONObject, _RWIProtocolNetworkCachedResource, 
                        _RWIProtocolNetworkDomainEventDispatcher, _RWIProtocolNetworkHeaders, 
-                       _RWIProtocolNetworkInitiator, _RWIProtocolNetworkRequest, 
-                       _RWIProtocolNetworkResourceTiming, _RWIProtocolNetworkResponse, 
-                       _RWIProtocolNetworkWebSocketFrame, _RWIProtocolNetworkWebSocketRequest, 
-                       _RWIProtocolNetworkWebSocketResponse, _RWIProtocolPageCookie, 
-                       _RWIProtocolPageDomainEventDispatcher, _RWIProtocolPageFrame, 
-                       _RWIProtocolPageFrameResource, _RWIProtocolPageFrameResourceTree, 
+                       _RWIProtocolNetworkInitiator, _RWIProtocolNetworkMetrics, 
+                       _RWIProtocolNetworkRequest, _RWIProtocolNetworkResourceTiming, 
+                       _RWIProtocolNetworkResponse, _RWIProtocolNetworkWebSocketFrame, 
+                       _RWIProtocolNetworkWebSocketRequest, _RWIProtocolNetworkWebSocketResponse, 
+                       _RWIProtocolPageCookie, _RWIProtocolPageDomainEventDispatcher, 
+                       _RWIProtocolPageFrame, _RWIProtocolPageFrameResource, _RWIProtocolPageFrameResourceTree, 
                        _RWIProtocolPageSearchResult, _RWIProtocolRuntimeBasicBlock, 
                        _RWIProtocolRuntimeCallArgument, _RWIProtocolRuntimeCollectionEntry, 
                        _RWIProtocolRuntimeEntryPreview, _RWIProtocolRuntimeErrorRange, 
@@ -46,11 +47,7 @@ exports:
                        _RWIProtocolRuntimeStructureDescription, _RWIProtocolRuntimeTypeDescription, 
                        _RWIProtocolRuntimeTypeLocation, _RWIProtocolRuntimeTypeSet, 
                        _RWIRelay, _RWIRelayDelegateMac, _RWITarget ]
-    objc-ivars:      [ _RWIApplication._active, _RWIApplication._bundleIdentifier, 
-                       _RWIApplication._debuggables, _RWIApplication._delegate, _RWIApplication._drivables, 
-                       _RWIApplication._hostApplicationIdentifier, _RWIApplication._identifier, 
-                       _RWIApplication._name, _RWIApplication._proxy, _RWIApplication._target, 
-                       _RWIChannel._callbackMap, _RWIChannel._debuggable, _RWIChannel._delegate, 
+    objc-ivars:      [ _RWIChannel._callbackMap, _RWIChannel._debuggable, _RWIChannel._delegate, 
                        _RWIChannel._manager, _RWIChannel._messageId, _RWIChannel._timelineCallback, 
                        _RWIChannel._uuid, _RWIDebuggable._application, _RWIDebuggable._channel, 
                        _RWIDebuggable._debuggerState, _RWIDebuggable._delegate, _RWIDebuggable._inspector, 

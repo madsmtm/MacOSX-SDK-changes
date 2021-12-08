@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: F036220C-685E-3D38-8209-388F61EADB0D', 'x86_64: A3C3E3B8-AAD8-3E48-BD83-A6D35F132579' ]
+uuids:           [ 'i386: B1193004-C019-3E48-BC9B-F72D5BE04DF2', 'x86_64: 1BD27577-3F2F-319C-AD10-5D724BD2C070' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/MediaUI.framework/Versions/A/MediaUI
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _MediaUIInlinePlaybackControlsViewController._playPauseButton, 

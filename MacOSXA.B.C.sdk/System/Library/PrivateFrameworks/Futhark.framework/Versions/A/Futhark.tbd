@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: BB43D5C8-E2FD-30F0-B8F1-39860C328F1B' ]
+uuids:           [ 'x86_64: E7113FF7-5DC8-3454-B3EF-9D4B160E39F6' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Futhark.framework/Versions/A/Futhark
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _FKGetBuildAPIVersion, _FKGetBuildGitHash, _FKGetBuildTimestamp, 

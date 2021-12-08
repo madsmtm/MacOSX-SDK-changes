@@ -42,6 +42,20 @@ VT_EXPORT const CFStringRef kVTVideoEncoderList_DisplayName API_AVAILABLE(macosx
 
 CM_ASSUME_NONNULL_END
 
+/*!
+	@function	VTCopySupportedPropertyDictionaryForEncoder
+	@abstract	Builds a list of supported properties and encoder ID for an encoder
+	@discussion
+		The caller must CFRelease the returned supported properties and encoder ID.
+*/
+VT_EXPORT OSStatus VTCopySupportedPropertyDictionaryForEncoder(
+		int32_t						width,
+		int32_t						height,
+		CMVideoCodecType			codecType,
+		CM_NULLABLE CFDictionaryRef	encoderSpecification,
+		CM_RETURNS_RETAINED_PARAMETER CM_NULLABLE CFStringRef		* CM_NULLABLE outEncoderID,
+		CM_RETURNS_RETAINED_PARAMETER CM_NULLABLE CFDictionaryRef	* CM_NULLABLE outSupportedProperties ) API_AVAILABLE(macosx(10.13), ios(11.0), tvos(11.0));
+	
 #pragma pack(pop)
 
 #if defined(__cplusplus)

@@ -1,5 +1,5 @@
-.\" Copyright (c) 2000-2016 Apple Inc. All rights reserved.
-.Dd June 14, 2016
+.\" Copyright (c) 2000-2017 Apple Inc. All rights reserved.
+.Dd July 27, 2017
 .Dt "leaks" 1
 .Os
 .Sh NAME
@@ -10,6 +10,7 @@
 .Ar pid | partial-executable-name | memory-graph-file
 .Op Fl nocontext
 .Op Fl nostacks
+.Op Fl nosources
 .Op Fl quiet
 .Op Fl exclude Ar symbol
 .Op Fl trace Ar address
@@ -75,6 +76,7 @@ These files can be used as input to various commands including
 .Nm heap,
 .Nm stringdups,
 .Nm vmmap,
+.Nm malloc_history,
 and the Xcode Memory Graph Debugger.
 .Pp
 .Sh OPTIONS
@@ -89,6 +91,9 @@ you, for example, file bug reports with that output included.
 .It Fl nostacks
 Do not print backtraces of leaked blocks even if the target process has the
 MallocStackLogging environment variable set.
+.It Fl nosources
+Do not print sourceFile:lineNumber in backtraces.  This can improve performance
+when examining a process with a huge number of debug symbols.
 .It Fl quiet
 Do not print process description header or binary image list.
 .It Fl exclude Ar symbol

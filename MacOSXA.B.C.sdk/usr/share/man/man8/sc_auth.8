@@ -26,6 +26,7 @@
 .Nm
 .Ar pairing_ui
 .Op Fl v
+.Op Fl f
 .Op Fl s Ar enable Ns | Ns Ar disable Ns | Ns Ar status
 .Nm
 .Ar identities
@@ -71,7 +72,7 @@ Associate a user with a public key. Because user's keychain will be modified to 
 .It Ar unpair
 Remove association with a user and keychain. If no specific hash is provided, all associations with a user are removed.
 .It Ar pairing_ui
-Enable or disable pairing dialog when card with unpaired identities is inserted
+Enable, disable and force to display pairing dialog when card with unpaired identities is inserted
 .It Ar identities
 List all identities on all SmartCards and display appropriate associations with users (for associated keys) or key names (for unassociated keys).
 .It Ar list
@@ -103,6 +104,8 @@ Specifies a public key by its name
 Specifies a public key by its hash
 .It Fl v
 Verbose mode
+.It Fl f
+Force to display pairing dialog
 .El                      \" Ends the list
 .Sh NOTES
 .Nm

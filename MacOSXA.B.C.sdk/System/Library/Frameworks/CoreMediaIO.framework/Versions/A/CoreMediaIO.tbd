@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 91CF7B4D-35DB-3E87-9004-2F67928AB2A8', 'x86_64: D7F419DD-A8CB-313C-B2B7-F7B4F592C8D8' ]
+uuids:           [ 'i386: A51DE163-E26A-3186-AB73-07B7181D8AF0', 'x86_64: F25F26B6-0DA6-3573-B8DC-4911F01519F6' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/CoreMediaIO
-objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]
     symbols:         [ _CMIODeviceProcessAVCCommand, _CMIODeviceProcessRS422Command, 
@@ -116,8 +115,13 @@ exports:
                        _kCMIOSampleBufferAttachmentKey_PulldownCadenceInfo, _kCMIOSampleBufferAttachmentKey_RepeatedBufferContents, 
                        _kCMIOSampleBufferAttachmentKey_SMPTETime, _kCMIOSampleBufferAttachmentKey_SequenceNumber, 
                        _kCMIOSampleBufferAttachmentKey_SourceAudioFormatDescription, 
+                       _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_CursorFrameRect, 
+                       _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_CursorIsVisible, 
                        _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_CursorPositionX, 
                        _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_CursorPositionY, 
+                       _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_CursorReference, 
+                       _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_CursorScale, 
+                       _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_CursorSeed, 
                        _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_KeyboardModifiers, 
                        _kCMIOSampleBufferAttachment_MouseAndKeyboardModifiersKey_MouseButtonState, 
                        _kCMIOUnitNotification_ProcessingBandwithWatermarkReached, 

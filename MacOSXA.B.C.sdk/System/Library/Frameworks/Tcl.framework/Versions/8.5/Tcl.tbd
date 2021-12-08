@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 715EBC00-C16C-3CE7-B0E3-D6352852AAD3', 'x86_64: 6E1BDB80-428A-318C-8CEF-17374E3B8084' ]
+uuids:           [ 'i386: 52C2FC7F-5020-3E3F-BEB4-78B817A09234', 'x86_64: CB2502FC-1318-3F9B-8B9A-5865A8C48C15' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/Tcl.framework/Versions/8.5/Tcl
 current-version: 8.5.9

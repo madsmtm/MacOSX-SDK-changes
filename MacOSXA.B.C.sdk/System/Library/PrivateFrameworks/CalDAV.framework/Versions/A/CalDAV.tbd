@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 6D233DC7-A6EB-3907-BA66-4DB4E2589F3C' ]
+uuids:           [ 'x86_64: 144FE212-0CD0-344E-993B-5DA2BFC5BC48' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CalDAV.framework/Versions/A/CalDAV
-current-version: 246.1
-objc-constraint: none
+current-version: 257
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CalDAVComplianceClass_AutoSchedule, _CalDAVComplianceClass_CalendarAudit, 
@@ -15,19 +14,20 @@ exports:
                        _CalDAVComplianceClass_PrincipalPropertySearch, _CalDAVComplianceClass_PrivateComments, 
                        _CalDAVComplianceClass_PrivateEvents, _CalDAVComplianceClass_Proxy, 
                        _CalDAVComplianceClass_Sharing, _CalDAVComplianceClass_SharingNoScheduling, 
-                       _CalDAVComplianceClass_SubscriptionCalendars, _CalDAVErrorDomain, 
-                       _CalDAVHTTPHeader_IfScheduleTagMatch, _CalDAVHTTPHeader_ScheduleReply, 
-                       _CalDAVHTTPHeader_ScheduleTag, _CalDAVPrincipalResultType_Group, 
-                       _CalDAVPrincipalResultType_Person, _CalDAVPrincipalResultType_Resource, 
-                       _CalDAVPrincipalResultType_Room, _CalDAVPrincipalResultType_Unknown, 
-                       _DAVHTTPSScheme, _DAVHTTPScheme, _cdAttributeSymbolicColor, 
-                       _cdCalendarComponentType, _cdCalendarContentType, _cdChecksumVersion1, 
-                       _cdChecksumVersions, _cdEventAndTodoComponentType, _cdEventComponentType, 
-                       _cdFreeBusyComponentType, _cdJournalComponentType, _cdPollComponentType, 
-                       _cdReadProxyChildSegment, _cdTodoComponentType, _cdWriteProxyChildSegment, 
-                       _cdXMLAllDayEventDefaultAlarm, _cdXMLAutoprovisioned, _cdXMLCalDAVCalendarData, 
-                       _cdXMLCalDAVMkcalendar, _cdXMLCalDAVMkcalendarResponse, _cdXMLCalDAVScheduleTag, 
-                       _cdXMLCalendarAlarm, _cdXMLCalendarAvailability, _cdXMLCalendarServerAcceptedShareeURL, 
+                       _CalDAVComplianceClass_SubscriptionCalendars, _CalDAVComplianceClass_Telephone, 
+                       _CalDAVErrorDomain, _CalDAVHTTPHeader_IfScheduleTagMatch, 
+                       _CalDAVHTTPHeader_ScheduleReply, _CalDAVHTTPHeader_ScheduleTag, 
+                       _CalDAVPrincipalResultType_Group, _CalDAVPrincipalResultType_Person, 
+                       _CalDAVPrincipalResultType_Resource, _CalDAVPrincipalResultType_Room, 
+                       _CalDAVPrincipalResultType_Unknown, _DAVHTTPSScheme, _DAVHTTPScheme, 
+                       _cdAttributeSymbolicColor, _cdCalendarComponentType, _cdCalendarContentType, 
+                       _cdChecksumVersion1, _cdChecksumVersions, _cdEventAndTodoComponentType, 
+                       _cdEventComponentType, _cdFreeBusyComponentType, _cdJournalComponentType, 
+                       _cdPollComponentType, _cdReadProxyChildSegment, _cdTodoComponentType, 
+                       _cdWriteProxyChildSegment, _cdXMLAllDayEventDefaultAlarm, 
+                       _cdXMLAutoprovisioned, _cdXMLCalDAVCalendarData, _cdXMLCalDAVMkcalendar, 
+                       _cdXMLCalDAVMkcalendarResponse, _cdXMLCalDAVScheduleTag, _cdXMLCalendarAlarm, 
+                       _cdXMLCalendarAvailability, _cdXMLCalendarServerAcceptedShareeURL, 
                        _cdXMLCalendarServerAccess, _cdXMLCalendarServerAction, _cdXMLCalendarServerAdded, 
                        _cdXMLCalendarServerAttendee, _cdXMLCalendarServerCalendarChanges, 
                        _cdXMLCalendarServerCalendarNotPublic, _cdXMLCalendarServerCalendarPublic, 
@@ -89,7 +89,8 @@ exports:
                        _CalDAVCalendarServerResourceChangeElement, _CalDAVCalendarServerResourceChangeUpdatedElement, 
                        _CalDAVCalendarServerResourceChangedItem, _CalDAVCalendarServerScheduleChangesItem, 
                        _CalDAVCalendarServerUpdateItem, _CalDAVCalendarServerUserItem, 
-                       _CalDAVCalendarSyncOperation, _CalDAVCalendarUserSearchTask, 
+                       _CalDAVCalendarSyncOperation, _CalDAVCalendarUserAddress, 
+                       _CalDAVCalendarUserAddressItemTranslator, _CalDAVCalendarUserSearchTask, 
                        _CalDAVChecksumVersionsItem, _CalDAVCompItem, _CalDAVConcreteServerVersion, 
                        _CalDAVContainer, _CalDAVContainerChecksumSyncTaskGroup, _CalDAVContainerMultiGetTask, 
                        _CalDAVContainerSyncTaskGroup, _CalDAVDeleteCalendarItemTask, 

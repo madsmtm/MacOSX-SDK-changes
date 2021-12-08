@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 33AC6BAB-F510-32C1-A0C1-0BC64781E835', 'x86_64: CD5B74B1-01ED-369E-AB11-1DA59F2C2A24' ]
+uuids:           [ 'i386: 3087529D-7931-3B40-BB0C-F0E9EEDCAC90', 'x86_64: CDBB973B-105B-3BA2-BF7F-92B9B7172C75' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SystemAdministration.framework/Versions/A/SystemAdministration
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _ADMDSNode.mDirectoryService, _ADMDSNode.mNodeName, _ADMDSNode.mNodeReference, 
@@ -18,6 +17,7 @@ exports:
                        _ADMUser.mCache, _ADMUser.mCachedName, _ADMUser.mCachedPassword, 
                        _ADMUser.mIdentityRef, _ADMUser.mIsLocal, _ADMUser.mModifiedFields, 
                        _ADMWebServerConfig._configurationDirectory, _AdminAuthenticator._syncWaitDone, 
+                       _AdminAuthenticator._wantsClearTextAuthentication, _AdminDSAuthenticator._didClearTextAuthentication, 
                        _AdminDirectoryService.mDirReference, _AdminDirectoryService.mNameOfDefaultLocalNode, 
                        _AdminDirectoryService.mNameOfSearchNode, _DOAsyncResult.mCompletionBlock, 
                        _DOAsyncResult.mContext, _DOAsyncResult.mDone, _DOAsyncResult.mResult, 
@@ -27,12 +27,14 @@ exports:
   - archs:           [ i386, x86_64 ]
     symbols:         [ _NSAdminDidAuthenticateNotification, _NSAdminDidNotAuthenticateNotification, 
                        _NetworkTimeStartedNotification, _NetworkTimeStoppedNotification, 
-                       __ntpdConfFilePath, __ntpdIdentifier, _canOpenAccountsPreferencePane, 
-                       _copyKeyboardType, _createAuthorizationFromExternalForm, _debugLoggingEnabled, 
-                       _directorySizeAtPath, _directorySizeForFSRef, _fileLogicalSizeAtFSRef, 
-                       _fileLogicalSizeAtPath, _filePhysicalSizeAtFSRef, _filePhysicalSizeAtPath, 
-                       _freeSpaceAtPath, _getPIDForProcess, _isBootVolumeHCSFDE, 
-                       _kickMCXDForUID, _ntpdProcessName, _setSafariLockedSync, _writeKeyboardType ]
+                       _SafeCFBundleGetFunctionPointerForName, __ntpdConfFilePath, 
+                       __ntpdIdentifier, _canOpenAccountsPreferencePane, _copyKeyboardType, 
+                       _coreTimeFrameworkBundle, _createAuthorizationFromExternalForm, 
+                       _debugLoggingEnabled, _directorySizeAtPath, _directorySizeForFSRef, 
+                       _fileLogicalSizeAtFSRef, _fileLogicalSizeAtPath, _filePhysicalSizeAtFSRef, 
+                       _filePhysicalSizeAtPath, _freeSpaceAtPath, _getPIDForProcess, 
+                       _isBootVolumeHCSFDE, _isInternalBuild, _kickMCXDForUID, _ntpdProcessName, 
+                       _setSafariLockedSync, _writeKeyboardType ]
     objc-classes:    [ _ADMARDConfig, _ADMDSNode, _ADMDSRecord, _ADMDynamicDNSConfig, 
                        _ADMGroup, _ADMGuestUserConfig, _ADMHostConfig, _ADMInternetServices, 
                        _ADMLoginPrefs, _ADMNetworkTimeClient, _ADMNetworkTimeServer, 

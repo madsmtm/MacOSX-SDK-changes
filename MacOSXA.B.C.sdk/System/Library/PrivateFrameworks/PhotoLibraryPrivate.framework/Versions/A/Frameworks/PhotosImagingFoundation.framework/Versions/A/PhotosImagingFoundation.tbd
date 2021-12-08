@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: FFAFEA39-DAEB-3FD3-9096-1C8457EDD854' ]
+uuids:           [ 'x86_64: 5D67139B-20D1-39EC-9AE8-A4DA2072EDE7' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PhotoLibraryPrivate.framework/Versions/A/Frameworks/PhotosImagingFoundation.framework/Versions/A/PhotosImagingFoundation
-current-version: 3150.4.120
-objc-constraint: none
+current-version: 3201.11.120
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CGAffineTransformDeterminant, _CGAffineTransformDot, _CGAffineTransformFixedPoint, 
@@ -30,30 +29,40 @@ exports:
                        _IPAClipTimeRange, _IPADestructiveVideoAdjustmentFormat, _IPADestructiveVideoAdjustmentFormatVersion, 
                        _IPAEditSourceIsForMaster, _IPAGeometryDebugNotificationName, 
                        _IPALegacyExternalAdjustmentFormat, _IPALegacyExternalAdjustmentFormatVersion, 
-                       _IPAMapNormalizedTime, _IPAMapNormalizedTimeRange, _IPANaturalTimeFromScaledTime, 
+                       _IPALivePhotoAdjustment_AutoLoop_Flavor, _IPALivePhotoAdjustment_AutoLoop_Flavor_AutoLoop, 
+                       _IPALivePhotoAdjustment_AutoLoop_Flavor_LongExposure, _IPALivePhotoAdjustment_AutoLoop_Flavor_Mirror, 
+                       _IPALivePhotoAdjustment_AutoLoop_Identifier, _IPALivePhotoAdjustment_AutoLoop_Recipe, 
+                       _IPALivePhotoAdjustment_HighResolutionFusion_Alignment, _IPALivePhotoAdjustment_HighResolutionFusion_Identifier, 
+                       _IPALivePhotoAdjustment_KeyFrame_Identifier, _IPALivePhotoAdjustment_KeyFrame_Time, 
+                       _IPALivePhotoAdjustment_Mute_Identifier, _IPAMapNormalizedTime, 
+                       _IPAMapNormalizedTimeRange, _IPANaturalTimeFromScaledTime, 
                        _IPAOrientationConcat, _IPAOrientationFromClockwiseRotation, 
                        _IPAOrientationFromClockwiseRotationAndFlip, _IPAOrientationFromTIFFOrientation, 
                        _IPAOrientationHasFlip, _IPAOrientationInverse, _IPAOrientationIsValid, 
                        _IPAOrientationMakeTransformWithSize, _IPAOrientationName, 
-                       _IPAOrientationToClockwiseRotation, _IPAOrientationTransformImagePoint, 
-                       _IPAOrientationTransformImageRect, _IPAOrientationTransformImageSize, 
-                       _IPAOrientationTransformIntegralImageSize, _IPAOrientationTransformVector, 
-                       _IPAPhotoAdjustmentAutoPendingKey, _IPAPhotoAdjustmentAutoSettingsKey, 
-                       _IPAPhotoAdjustmentCurrentAutoIdentifierKey, _IPAPhotoAdjustmentEnabledKey, 
-                       _IPAPhotoAdjustmentFormat, _IPAPhotoAdjustmentFormatVersionCurrent_OSX, 
-                       _IPAPhotoAdjustmentFormatVersionCurrent_iOS, _IPAPhotoAdjustmentFormatVersion_1_0, 
-                       _IPAPhotoAdjustmentFormatVersion_1_1, _IPAPhotoAdjustmentFormatVersion_1_2, 
+                       _IPAOrientationToCGImagePropertyOrientation, _IPAOrientationToClockwiseRotation, 
+                       _IPAOrientationTransformImagePoint, _IPAOrientationTransformImageRect, 
+                       _IPAOrientationTransformImageSize, _IPAOrientationTransformIntegralImageSize, 
+                       _IPAOrientationTransformVector, _IPAPhotoAdjustmentAutoPendingKey, 
+                       _IPAPhotoAdjustmentAutoSettingsKey, _IPAPhotoAdjustmentCurrentAutoIdentifierKey, 
+                       _IPAPhotoAdjustmentEnabledKey, _IPAPhotoAdjustmentFormat, 
+                       _IPAPhotoAdjustmentFormatVersionCurrent_OSX, _IPAPhotoAdjustmentFormatVersionCurrent_iOS, 
+                       _IPAPhotoAdjustmentFormatVersion_1_0, _IPAPhotoAdjustmentFormatVersion_1_1, 
+                       _IPAPhotoAdjustmentFormatVersion_1_2, _IPAPhotoAdjustmentFormatVersion_1_3, 
                        _IPAPhotoAdjustmentIdentifier_RawDecode, _IPAPhotoAdjustmentMaskUUIDKey, 
                        _IPAPhotoAdjustment_Crop_Identifier, _IPAPhotoAdjustment_Crop_Key_ConstraintHeight, 
                        _IPAPhotoAdjustment_Crop_Key_ConstraintWidth, _IPAPhotoAdjustment_Crop_Key_Height, 
                        _IPAPhotoAdjustment_Crop_Key_StraightenAngleRadiansCW, _IPAPhotoAdjustment_Crop_Key_Width, 
                        _IPAPhotoAdjustment_Crop_Key_XOrigin, _IPAPhotoAdjustment_Crop_Key_YOrigin, 
-                       _IPAPhotoAdjustment_Crop_Version_Current, _IPAPhotoAdjustment_Effect_Identifier, 
+                       _IPAPhotoAdjustment_Crop_Version_Current, _IPAPhotoAdjustment_DepthEffect_DepthInfo, 
+                       _IPAPhotoAdjustment_DepthEffect_Identifier, _IPAPhotoAdjustment_Effect_Identifier, 
                        _IPAPhotoAdjustment_Effect_Key_EffectName, _IPAPhotoAdjustment_Effect_Key_EffectVersion, 
                        _IPAPhotoAdjustment_Effect_Version_Current, _IPAPhotoAdjustment_Key_Statistics, 
-                       _IPAPhotoAdjustment_RedEyeBB_Identifier, _IPAPhotoAdjustment_RedEyeBB_Key_AutoRedEyeCorrections, 
-                       _IPAPhotoAdjustment_RedEyeBB_Key_RedEyeCorrections, _IPAPhotoAdjustment_RedEyeBB_Version_Current, 
-                       _IPAPhotoAdjustment_SmartBlackAndWhite_Identifier, _IPAPhotoAdjustment_SmartBlackAndWhite_Key_InputBlackAndWhite, 
+                       _IPAPhotoAdjustment_PortraitEffect_Identifier, _IPAPhotoAdjustment_PortraitEffect_PortraitEffectFilterName, 
+                       _IPAPhotoAdjustment_PortraitEffect_PortraitInfo, _IPAPhotoAdjustment_RedEyeBB_Identifier, 
+                       _IPAPhotoAdjustment_RedEyeBB_Key_AutoRedEyeCorrections, _IPAPhotoAdjustment_RedEyeBB_Key_RedEyeCorrections, 
+                       _IPAPhotoAdjustment_RedEyeBB_Version_Current, _IPAPhotoAdjustment_SmartBlackAndWhite_Identifier, 
+                       _IPAPhotoAdjustment_SmartBlackAndWhite_Key_InputBlackAndWhite, 
                        _IPAPhotoAdjustment_SmartBlackAndWhite_Key_OffsetGrain, _IPAPhotoAdjustment_SmartBlackAndWhite_Key_OffsetHue, 
                        _IPAPhotoAdjustment_SmartBlackAndWhite_Key_OffsetNeutralGamma, 
                        _IPAPhotoAdjustment_SmartBlackAndWhite_Key_OffsetStrength, 

@@ -1,5 +1,5 @@
 .\"
-.\" Copyright (c) 1998-2016 Apple Inc. All rights reserved.
+.\" Copyright (c) 1998-2017 Apple Inc. All rights reserved.
 .\"
 .\" This file contains Original Code and/or Modifications of Original Code
 .\" as defined in and that are subject to the Apple Public Source License
@@ -16,7 +16,7 @@
 .\" Please see the License for the specific language governing rights and
 .\" limitations under the License.
 .\"
-.Dd 15 December 2016
+.Dd 20 June 2017
 .Os "macOS"
 .Dt DISKUTIL 8
 .Pp
@@ -171,14 +171,17 @@ will force-unmount the volume (less kind to any open files; see also
 .Op Nm force 
 .Ar device
 .br
-Unmount all volumes on the given partition map; that is,
-an unmount is attempted on the directly-mountable volume, if any, on each of the whole disk's
-partitions. However, "virtual" volumes, such as those are implied by e.g. Core Storage
-Physical Volumes, AppleRAID Members, etc., are not handled.
+Given a disk containing a partition map, unmount all of its volumes. That is,
+unmounts are attempted for the map's partitions containing file system volumes, as well as
+for "virtual" volumes exported by storage systems which import data
+from the map's partitions.
+Storage systems supported include APFS, AppleRAID, and CoreStorage.
+.Pp
 .Sy Force
 will force-unmount the volumes (less kind to any open files; see also
 .Sy umount
 (8)).
+.Pp
 You should specify a whole disk, but all volumes of the whole disk are attempted to be unmounted even if you specify a partition.
 .\"
 .\"             -- eject --
@@ -794,7 +797,8 @@ you should never use the Container Reference as a basis to create device identif
 use the listing verbs with their plist options instead.
 .It
 Physical Store - An APFS Physical Store is a disk which is imported into (that is, which backs,
-indeed defines) an APFS Container. An APFS Container can import more than one Physical Store.
+indeed defines) an APFS Container. An APFS Container can import more than one Physical Store,
+e.g. for Fusion-style Containers.
 .Pp
 An APFS Physical Store disk is not necessarily a disk from a partition map; it could be
 e.g. an AppleRAID Set disk. Therefore, you must never assume that
@@ -867,20 +871,38 @@ sub-verbs with their descriptions and individual arguments.
 .\"
 .\"             -- APFS > list --
 .It Sy list Op Nm -plist
+.Op Ar containerReferenceDevice
 .br
-Display, as a tree, all current APFS objects in the system with any associated disks and status.
+Display APFS objects as a tree. AFPS Container(s) are shown with
+their imported Physical Store(s) and exported Volume(s).
+.Pp
+All currently-attached APFS Containers in the system are listed unless you specify a
+.Ar containerReferenceDevice ,
+which limits the output to that specific APFS Container family.
 .Pp
 If
 .Sy -plist
 is specified, then a property list will be emitted
 instead of the normal user-readable output.
 .\"
+.\"             -- APFS > convert  --
+.It Sy convert Ar device
+.Op Nm -dryrun
+.br
+Non-destructively convert an HFS volume to an APFS Container with a single
+APFS Volume. The APFS Container can then be manipulated (e.g. adding and deleting APFS Volumes) as usual.
+The source HFS volume can be located on a partition or on a CoreStorage logical volume (LV);
+in the latter case, the CoreStorage logical volume group (LVG) is dismantled.
+.Pp
+Ownership of the affected disks is required.
+.\"
 .\"             -- APFS > create  --
-.It Sy create Ar device Ar name
+.It Sy create Ar device
+.Op Ar device
+.Ar name
 .br
 Convenience verb which creates an empty APFS Container and then adds one APFS Volume with the given name.
-The APFS Volume will have default attributes such as no encryption, no quick erase capability, and
-no capacity reserve nor quota.
+The APFS Volume will have default attributes such as no encryption, no capacity reserve nor quota, etc.
 This is a combination of the
 .Sy diskutil apfs createContainer
 and
@@ -891,9 +913,24 @@ Ownership of the affected disks is required.
 .\"
 .\"             -- APFS > createContainer --
 .It Sy createContainer
+.Op Nm -main
 .Ar device
+.Op Nm -secondary
+.Op Ar device
 .br
-Create an empty APFS Container. You may then add APFS Volumes with the
+Create an empty APFS Container.
+The device(s) specified become APFS Physical Stores.
+.Pp
+If you specify more than one device, a Fusion Container is created, with the performance roles
+assigned automatically (preferred) unless you use the
+.Nm -main
+and
+.Nm -secondary
+options, in which case, the secondary disk is assumed by APFS's performance algorithms to be on "slower" hardware.
+The secondary disk is usually not solid solid state, is usually larger, and is used to store associated "auxiliary"
+data such as any Windows partition(s) for Boot Camp Assistant.
+.Pp
+You may then add APFS Volumes with the
 .Sy diskutil apfs addVolume
 verb.
 .Pp
@@ -923,15 +960,20 @@ Ownership of the affected disks is required.
 .\"
 .\"             -- APFS > resizeContainer  --
 .It Sy resizeContainer
+.Ar containerReferenceDevice
+|
 .Ar physicalStoreDevice
 .Ar size
 .Op Ar part1Format Ar part1Name Ar part1Size Ar part2Format Ar part2Name Ar part2Size Ar part3Format part3Name part3Size Ar ...
 .br
-Resize an existing APFS Container by specifying an APFS Physical Store partition
-to shrink or grow. The operation is live, non-destructive, and does not mount or unmount any APFS Volumes.
+Resize an existing APFS Container by specifying either an APFS Container Reference (preferred) or an APFS Physical Store partition,
+and a proposed new size. The operation is live, non-destructive, and does not mount or unmount any APFS Volumes.
+.Pp
+If you specify a Container Reference and that Container imports more than one Physical Store (e.g. Fusion),
+the appropriate Physical Store will be chosen automatically.
 .Pp
 Shrinks are constrained by the amount of data usage by all APFS Volumes on the APFS Container.
-Grows are constrained by the amount of partition map free space trailing the Physical Store partition.
+Grows are constrained by the amount of partition map free space trailing the targeted Physical Store partition.
 .Pp
 When shrinking, new partitions may optionally be created to fill the newly-freed space.
 To do this, specify the
@@ -947,8 +989,8 @@ You can specify a
 .Ar size
 of zero
 .Sy (0)
-to grow the APFS Physical Store to fill up
-all remaining space to the next partition or the end of the partition map.
+to grow the targeted APFS Physical Store such that
+all remaining space is filled to the next partition or the end of the partition map.
 .Pp
 Ownership of the affected disks is required.
 .\"
@@ -957,7 +999,12 @@ Ownership of the affected disks is required.
 .Ar containerReferenceDevice
 .Ar filesystem
 .Ar name
-.Op Nm -[file]encryption | -[eff]aceable
+.Op Nm -passprompt
+|
+.Op Nm -passphrase Ar passphrase
+|
+.Op Nm -stdinpassphrase
+.Op Nm -passphraseHint Ar passphraseHint
 .Op Nm -reserve Ar reserve
 .Op Nm -quota Ar quota
 .Op Nm -role Ar roles
@@ -971,7 +1018,14 @@ The
 parameter sets the permanent APFS personality for this new APFS Volume; you should specify
 .Sy APFS
 or
-.Sy Case-insensitive APFS.
+.Sy Case-sensitive APFS.
+.Pp
+The new APFS Volume will be unencrypted unless you specify one of the passphrase options, in which case the
+volume will be encrypted from the beginning of its existence (as opposed to having encryption applied later);
+the user which is added will be the "Disk User".
+The optional
+.Ar passphraseHint
+is a user-defined string that can be displayed even while an encrypted APFS Volume is locked.
 .Pp
 APFS Volumes have no fixed size; they allocate backing store on an as-needed basis.
 You can specify the
@@ -987,16 +1041,10 @@ and
 .Ar quota
 simultaneously; however, the reserve is not allowed to be larger than the quota.
 .Pp
-The
-.Sy encryption
-and
-.Sy effaceable
-options are mutually exclusive.
-.Pp
 APFS Volumes can carry certain metadata hint flags; you can supply the
 .Ar role
 parameter with any combination of one or more of the characters
-.Sy BUSRV
+.Sy BRV,
 or
 .Sy 0
 as a no-op for scripting convenience.
@@ -1021,15 +1069,30 @@ Ownership of the affected disks is required.
 .\"             -- APFS > eraseVolume --
 .It Sy eraseVolume
 .Ar volumeDevice
+.Nm -name
+.Ar newName
+.Op Nm -passprompt
+|
+.Op Nm -passphrase Ar passphrase
+|
+.Op Nm -stdinpassphrase
+.Op Nm -passphraseHint Ar passphraseHint
 .br
 Erase the contents of an existing APFS Volume; all of its data will be lost.
 Unlike
 .Sy diskutil apfs deleteVolume ,
 the APFS Volume is not removed from its APFS Container.
 .Pp
-The "new" APFS Volume will inherit format, name, size attributes, and cryptographic attributes
-from the "old" APFS Volume. If you wish to override one or more of these properties (e.g. rename the Volume),
-you should delete and (re-)add the Volume.
+The "new" APFS Volume will inherit the APFS file system type (Case-sensitive or not) but will not inherit attributes
+such as name, reserve, quota, or encryption status.
+.Pp
+The "new" APFS Volume be unencrypted, unless you supply
+passphrase options in the same manner as
+.Sy diskutil apfs addVolume
+in which
+case it will be encrypted and initially accessible by the "Disk User".
+.Pp
+If you need more control, you should delete and (re-)add the Volume instead.
 .Pp
 Ownership of the affected disks is required.
 .\"
@@ -1043,7 +1106,7 @@ Change the role metadata flag bits of an existing APFS Volume.
 The
 .Ar roles
 should be any combination of one or more of the characters
-.Sy busrvBUSRV
+.Sy brvBRV
 in much the same manner as
 .Sy diskutil
 .Sy apfs
@@ -1059,6 +1122,138 @@ can be used as a no-op for scripting convenience.
 You should not make any assumptions about the usage or legal combinations of role bits.
 .Pp
 Ownership of the affected disks is required.
+.\"
+.\"             -- APFS > unlockVolume --
+.It Sy unlockVolume | unlock
+.Ar volumeDevice
+.Op Nm -user Nm disk | Ar cryptoUserUUID
+.Op Nm -passphrase Ar passphrase
+|
+.Op Nm -stdinpassphrase
+.Op Nm -nomount | -mountpoint Ar mountpoint
+.Op Nm -verify
+.br
+Unlock and mount an encrypted and locked APFS Volume or verify a passphrase.
+.Pp
+If you do not supply
+the
+.Sy -user
+option, then all cryptographic users on that APFS Volume are searched for a match; if you supply
+.Sy disk
+then the Disk UUID (which equals the APFS Volume UUID) is assumed; if you supply
+a UUID then that specific user is assumed.
+.Pp
+You will be prompted interactively for a passphrase
+unless you specify a passphrase parameter with
+.Sy -passphrase
+or pipe your passphrase into stdin and use
+.Sy -stdinpassphrase.
+.Pp
+You can skip the explicit mounting step or specify a "custom" mountpoint with the
+.Sy -nomount
+or
+.Sy -mountpoint
+options. If you specify your own mountpoint path, it must exist and you must have write privileges on it.
+.Pp
+Specifying
+.Sy -verify
+will test passphrase correctness without affecting the locked or unlocked state.
+.Pp
+To re-lock the volume, unmount it, e.g. with
+.Sy diskutil
+.Sy unmount
+or
+.Sy diskutil
+.Sy apfs
+.Sy lockVolume.
+.Pp
+Ownership of the affected disks is required.
+.\"
+.\"             -- APFS > lockVolume --
+.It Sy lockVolume | lock
+.Ar volumeDevice
+.br
+Unmount and lock an encrypted unlocked APFS Volume. This is mostly a synonym for
+.Sy diskutil
+.Sy unmount.
+.Pp
+Ownership of the affected disks is required.
+.\"
+.\"             -- APFS > listCryptoUsers --
+.It Sy listCryptoUsers | listUsers
+.Op Nm -plist
+.Ar volumeDevice
+.br
+Show all cryptographic users (by their Cryptographic User UUID) that are associated with the given APFS Volume.
+.Pp
+If
+.Sy -plist
+is specified, then a property list will be emitted instead of the normal user-readable output.
+.\"
+.\"             -- APFS > changeCryptoUserPassphrase --
+.It Sy changePassphrase | changeCryptoUserPassphrase | passwd
+.Ar volumeDevice
+.Nm -user
+.Nm disk |
+.Ar cryptoUserUUID
+.Op Nm -oldPassphrase Ar oldPassphrase | Nm -oldStdinpassphrase
+.Op Nm -newPassphrase Ar newPassphrase | Nm -newStdinpassphrase
+.br
+Change the passphrase of the given cryptographic user associated with the given APFS Volume.
+.Pp
+The old and new passphrases are specified in the same manner as
+.Sy diskutil
+.Sy apfs
+.Sy addVolume.
+.Pp
+Ownership of the affected disks is required.
+.\"
+.\"             -- APFS > setCryptoUserPassphraseHint --
+.It Sy setPassphraseHint | setCryptoUserPassphraseHint | hint
+.Ar volumeDevice
+.Nm -user
+.Nm disk |
+.Ar cryptoUserUUID
+.Nm -hint Ar hintMessage | Nm -clear
+.br
+Set or clear an arbitrary hint string to aid recall of a passphrase for the given cryptographic user
+associated with the given APFS Volume.
+.Pp
+Ownership of the affected disks is required.
+.\"
+.\"             -- APFS > encryptVolume --
+.It Sy encryptVolume
+.Ar volumeDevice
+.Nm -user disk | Ar existingCryptoUserUUID
+.Op Nm -passphrase Ar existingOrNewPassphrase | Nm -stdinpassphrase
+.br
+Start "background" encryption of a currently-unencrypted APFS Volume.
+.Pp
+You can supply an existing cryptographic user UUID, in which case you must supply its corresponding passphrase,
+or you can supply
+.Nm disk
+(or the Disk/Volume UUID) and the corresponding passphrase of the "Disk User", provided the "Disk User" already exists.
+.Pp
+Alternatively, if no users exist yet on this APFS Volume, you can still supply
+.Nm disk
+(or the Disk/Volume UUID), and a "Disk User" will be created with a new passphrase which you supply.
+.Pp
+The passphrase, interactive or not, is specified in the same manner as
+.Sy diskutil
+.Sy apfs
+.Sy addVolume.
+.Pp
+Ownership of the affected disks is required.
+.\"
+.\"             -- APFS > decryptVolume --
+.It Sy decryptVolume
+.Ar volumeDevice
+.br
+Start "background" decryption of a currently-encrypted APFS Volume.
+No crypto credentials are required, but the APFS Volume must be unlocked.
+.Pp
+Ownership of the affected disks is required.
+.\"
 .\" List-End-APFSVerbs
 .El
 .\"
@@ -1625,7 +1820,7 @@ any file systems upon them are automatically mounted unless the
 .Sy -nomount
 option is given.
 .Pp
-To "re-lock" the volume, make it offline again by ejecting it, e.g. with
+To re-lock the volume, make it offline again by ejecting it, e.g. with
 .Sy diskutil
 .Sy eject.
 .Pp

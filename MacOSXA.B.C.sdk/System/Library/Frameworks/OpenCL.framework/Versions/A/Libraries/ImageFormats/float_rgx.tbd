@@ -1,8 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: D71D506E-3271-3ED7-BB8D-F3D7B15FBD4C', 'x86_64: 8EE900D6-5D19-3290-A981-AB8E3B04E581' ]
+uuids:           [ 'i386: F242E753-2BC1-3ECB-AA64-32C205A12998', 'x86_64: A8423C26-9133-3066-96AB-C18F2C6C4DF3' ]
 platform:        macosx
-install-name:    /System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/float_rgx.dylib
+install-name:    /System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/ImageFormats/float_rgx.dylib
 objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]

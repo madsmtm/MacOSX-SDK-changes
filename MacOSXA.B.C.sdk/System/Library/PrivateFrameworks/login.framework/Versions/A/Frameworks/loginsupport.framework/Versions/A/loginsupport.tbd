@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 8CE2E4E1-B94B-3D79-8AF3-9BB672CDCB8F', 'x86_64: F3140B97-12C3-35A7-9D3D-43DA2D13C113' ]
+uuids:           [ 'i386: 086FAE1B-87E2-324A-AE76-E6EC0B5F1517', 'x86_64: 5E2C4AA7-066D-3FDB-B0E1-4CDAF287392C' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/login.framework/Versions/A/Frameworks/loginsupport.framework/Versions/A/loginsupport
 objc-constraint: none

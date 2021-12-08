@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 94CE20AA-21D3-3AF7-BABF-BBB00AAB7800', 'x86_64: 84A141B4-A2A7-3016-AF0C-03F6C1AC3A82' ]
+uuids:           [ 'i386: 6710FB87-86FB-39A2-99BF-C857298DE64D', 'x86_64: 5CF2FEC4-E66D-312A-8C87-B3C3E8B22563' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/OpenDirectoryConfig.framework/Versions/A/OpenDirectoryConfig
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _ODCAction._actionsBeingObserved, _ODCAction._auth, _ODCAction._beginCallbacks, 

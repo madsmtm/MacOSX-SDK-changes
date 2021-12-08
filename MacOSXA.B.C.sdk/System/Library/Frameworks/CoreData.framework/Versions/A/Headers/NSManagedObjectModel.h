@@ -1,7 +1,7 @@
 /*
     NSManagedObjectModel.h
     Core Data
-    Copyright (c) 2004-2016, Apple Inc.
+    Copyright (c) 2004-2017, Apple Inc.
     All rights reserved.
 */
 
@@ -33,7 +33,8 @@ API_AVAILABLE(macosx(10.4),ios(3.0))
         unsigned int _isImmutable:1;
         unsigned int _isOptimizedForEncoding:1;
         unsigned int _hasEntityWithConstraints:1;
-        unsigned int _reservedEntityDescription:28;
+        unsigned int _skipUserInfoTombstones:1;
+        unsigned int _reservedEntityDescription:27;
     } _managedObjectModelFlags;
 #endif
 }

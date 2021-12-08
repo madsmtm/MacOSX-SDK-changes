@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: F837B5DE-915A-34D7-903B-58D0098AB21B', 'x86_64: DA478D9F-B11E-3FB6-A63E-11D3C8F6B32F' ]
+uuids:           [ 'i386: EA73C0F9-D3DE-3E07-9AEB-15ED024D0D1A', 'x86_64: D3A42530-58D1-3BD3-8E2B-B41EB88AF9D7' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ClockMenuExtraPreferences.framework/Versions/A/ClockMenuExtraPreferences
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _CLKClockExtraPreferences.is24HourForced, _CLKClockExtraPreferences.locale, 

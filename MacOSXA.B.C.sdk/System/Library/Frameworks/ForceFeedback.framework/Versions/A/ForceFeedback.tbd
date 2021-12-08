@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 11492154-36B9-31B9-A990-A34E37BF58EF', 'x86_64: 313F7E57-FA8B-3AEC-BE47-C2C7B4F6FFAB' ]
+uuids:           [ 'i386: 27F1F703-68C9-3C24-9446-F7804B538336', 'x86_64: E8D3030B-EC09-3415-A82A-5C714A929E34' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/ForceFeedback.framework/Versions/A/ForceFeedback
 current-version: 1.0.2

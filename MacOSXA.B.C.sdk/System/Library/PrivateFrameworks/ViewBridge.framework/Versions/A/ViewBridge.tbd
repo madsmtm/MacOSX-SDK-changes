@@ -1,14 +1,13 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: F4C7FF78-2E63-319F-B665-479C0C044A04', 'x86_64: 71C6F456-E63F-3465-BCC7-377D29CF817D' ]
+uuids:           [ 'i386: E4F291FE-FDA1-32E0-89F0-26BC2DEBDF96', 'x86_64: 53A2272D-E834-3A48-829B-D71E05B9E714' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ViewBridge.framework/Versions/A/ViewBridge
-objc-constraint: none
 exports:         
   - archs:           [ i386 ]
-    objc-classes:    [ _CALayerHostForRemoteView, _CalledByClient, _ClientCallsAuxiliary, 
-                       _ControlListenerDelegate, _HostAndService, _HostListenerDelegate, 
-                       _HostOrService, _ListenerDelegate, _NSCFRunLoopObserver, _NSCustomTouchBarItemForRemoteView, 
+    objc-classes:    [ _CALayerHostForRemoteView, _CalledByClient, _ControlListenerDelegate, 
+                       _HostAndService, _HostListenerDelegate, _HostOrService, _ListenerDelegate, 
+                       _NSCFRunLoopObserver, _NSChildWindowQueueElement, _NSCustomTouchBarItemForRemoteView, 
                        _NSDeferredSheet, _NSEventQueue, _NSFakeServiceResponder, 
                        _NSGroupTouchBarItemForRemoteView, _NSObtainingEndpointState, 
                        _NSPanelForServiceViewControllerForTouchBarItem, _NSRemoteViewControllerAuxiliary, 
@@ -22,8 +21,8 @@ exports:
                        _NSServiceViewControllerUnifyingProxy, _NSServiceViewControllerWindow, 
                        _NSSpaceTouchBarItemForRemoteView, _NSTouchBarForRemoteView, 
                        _NSTouchBarItemOverlayForRemoteView, _NSTouchBarItemSurprise, 
-                       _NSTouchBarItemViewForServiceViewController, _NSVBAccessoryWindow, 
-                       _NSVBAccessoryWindowBackstopResponder, _NSVBNamedFault, _NSVBObjectDeallocationCanary, 
+                       _NSVBAccessoryWindow, _NSVBAccessoryWindowBackstopResponder, 
+                       _NSVBClientCallsAuxiliaryConnection, _NSVBNamedFault, _NSVBObjectDeallocationCanary, 
                        _NSVBTestedFault, _NSVB_ProxyObject, _NSVB_QueueingProxy, 
                        _NSVB_TargetedProxy, _NSVB_View, _NSVB_ViewAnimationAttributes, 
                        _NSVB_ViewServiceBehaviorProxy, _NSVB_ViewServiceFencingControlProxy, 

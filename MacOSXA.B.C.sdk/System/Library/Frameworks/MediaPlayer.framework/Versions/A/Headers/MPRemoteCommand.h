@@ -25,11 +25,16 @@ typedef NS_ENUM(NSInteger, MPRemoteCommandHandlerStatus) {
     /// available that is required for this command. As an example, an
     /// application would return this error code if an "enable language option"
     /// command is received, but nothing is currently playing.
-    MPRemoteCommandHandlerStatusNoActionableNowPlayingItem NS_ENUM_AVAILABLE(10_12_2, 9_1) = 110,
+    MPRemoteCommandHandlerStatusNoActionableNowPlayingItem MP_API(ios(9.1), macos(10.12.2)) = 110,
+    
+    /// The command could not be executed because a device required
+    /// is not available. For instance, if headphones are required, or if a watch
+    /// app realizes that it needs the companion to fulfull a request.
+    MPRemoteCommandHandlerStatusDeviceNotFound MP_API(ios(11.0), macos(10.13)) = 120,
     
     /// The command could not be executed for another reason.
     MPRemoteCommandHandlerStatusCommandFailed = 200
-} NS_ENUM_AVAILABLE(10_12_2, 7_1);
+} MP_API(ios(7.1), macos(10.12.2));
 
 MP_API(ios(7.1), tvos(7.1), macos(10.12.2))
 @interface MPRemoteCommand : NSObject
@@ -81,7 +86,7 @@ MP_API(ios(7.1), tvos(7.1), macos(10.12.2))
 /// An optional shorter version of the localized title for this feedback
 /// command. MediaPlayer uses this property to display this command's title on
 /// remote control interfaces with little screen space.
-@property (nonatomic, copy) NSString *localizedShortTitle NS_AVAILABLE_IOS(8_0);
+@property (nonatomic, copy) NSString *localizedShortTitle MP_API(ios(8.0));
 
 @end
 
@@ -119,6 +124,7 @@ MP_API(ios(9.0), tvos(9.0), macos(10.12.2))
 MP_API(ios(8.0), tvos(8.0), macos(10.12.2))
 @interface MPChangeShuffleModeCommand : MPRemoteCommand
 
+/// The app's current shuffle type.
 @property (nonatomic, assign) MPShuffleType currentShuffleType;
 
 @end
@@ -130,6 +136,7 @@ MP_API(ios(8.0), tvos(8.0), macos(10.12.2))
 MP_API(ios(8.0), tvos(8.0), macos(10.12.2))
 @interface MPChangeRepeatModeCommand : MPRemoteCommand
 
+/// The app's current repeat mode.
 @property (nonatomic, assign) MPRepeatType currentRepeatType;
 
 @end

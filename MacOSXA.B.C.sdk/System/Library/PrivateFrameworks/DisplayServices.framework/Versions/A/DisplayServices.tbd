@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 470E2463-49F1-38D7-B3C0-18F100338B73', 'x86_64: B83618D2-8036-3CEA-8CA7-51387EE2226E' ]
+uuids:           [ 'i386: 8940F718-0E7D-3805-80F9-C971E5DC9E30', 'x86_64: FB1FBB24-7FD5-3B57-8D3C-39F953F8A9BB' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/DisplayServices.framework/Versions/A/DisplayServices
 objc-constraint: none
@@ -90,5 +90,5 @@ exports:
                        _markDeviceTerminated, _newPoint, _perceptualToPhoton, _perceptualToPhotonCIE, 
                        _perceptualToPhotonLog, _photonToPerceptual, _photonToPerceptualCIE, 
                        _photonToPerceptualLog, _registerSleepWakeNotifications, _scalePoint, 
-                       _scaleToAbstract, _scaleToDevice, _setGammaDictionary, _unregisterSleepWakeNotifications ]
+                       _scaleToAbstract, _scaleToDevice, _unregisterSleepWakeNotifications ]
 ...

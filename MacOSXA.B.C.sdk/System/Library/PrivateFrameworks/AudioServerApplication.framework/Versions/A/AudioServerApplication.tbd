@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 4977039B-FC27-3D6E-9B3E-81B3071ADBB3' ]
+uuids:           [ 'x86_64: 6571DB08-A33B-32D6-9DBA-8E739DA0C8C3' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AudioServerApplication.framework/Versions/A/AudioServerApplication
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-classes:    [ _ASAAudioDevice, _ASAAudioFormat, _ASABooleanControl, _ASABox, 

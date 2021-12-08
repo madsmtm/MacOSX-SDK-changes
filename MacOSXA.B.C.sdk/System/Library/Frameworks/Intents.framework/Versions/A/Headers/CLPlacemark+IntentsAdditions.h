@@ -2,13 +2,12 @@
 //  CLPlacemark+IntentsAdditions.h
 //  Intents
 //
-//  Copyright © 2016 Apple. All rights reserved.
+//  Copyright (c) 2016-2017 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <Contacts/CNPostalAddress.h>
 #import <CoreLocation/CLPlacemark.h>
-
-@class CNPostalAddress;
 
 NS_ASSUME_NONNULL_BEGIN
 

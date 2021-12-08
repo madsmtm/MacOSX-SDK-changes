@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 5DCE2A77-3E72-3E92-B6C9-09460E65A5DA', 'x86_64: 8F9C9041-66D5-36C9-8A4C-1658035C311D' ]
+uuids:           [ 'i386: 2A215F01-C54B-3386-A731-2C92B26B50E6', 'x86_64: 600A9BD5-3DD2-3F7C-B40E-8485026FE936' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Heimdal.framework/Versions/A/Heimdal
-objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]
     symbols:         [ _HeimCredCopyAttribute, _HeimCredCopyAttributes, _HeimCredCopyFromUUID, 
@@ -108,21 +107,21 @@ exports:
                        _hc_EVP_rc2_cbc, _hc_EVP_rc4, _hc_OpenSSL_add_all_algorithms, 
                        _hc_OpenSSL_add_all_algorithms_conf, _hc_OpenSSL_add_all_algorithms_noconf, 
                        _hc_PKCS12_key_gen, _hc_PKCS5_PBKDF2_HMAC_SHA1, _hc_UI_UTIL_read_pw_string, 
-                       _hc_UI_UTIL_read_pw_string_stdio, _heim_abort, _heim_array_append_value, 
-                       _heim_array_copy_value, _heim_array_create, _heim_array_delete_value, 
-                       _heim_array_filter, _heim_array_get_length, _heim_array_iterate, 
-                       _heim_array_iterate_f, _heim_base_once_f, _heim_data_create, 
-                       _heim_data_get_bytes, _heim_data_get_length, _heim_data_get_type_id, 
-                       _heim_dict_copy_value, _heim_dict_create, _heim_dict_delete_key, 
-                       _heim_dict_get_type_id, _heim_dict_iterate, _heim_dict_set_value, 
-                       _heim_error_append, _heim_error_copy_string, _heim_error_createv, 
-                       _heim_error_get_code, _heim_get_tid, _heim_ipc_call, _heim_ipc_free_context, 
-                       _heim_ipc_free_data, _heim_ipc_init_context, _heim_release, 
-                       _heim_retain, _heim_string_copy_utf8, _heim_string_create, 
-                       _heim_string_get_type_id, _heim_uniq_alloc, _heim_warn_blocking, 
-                       _hx509_bitstring_print, _hx509_ca_sign, _hx509_ca_sign_self, 
-                       _hx509_ca_tbs_add_crl_dp_uri, _hx509_ca_tbs_add_eku, _hx509_ca_tbs_add_san_hostname, 
-                       _hx509_ca_tbs_add_san_jid, _hx509_ca_tbs_add_san_ms_upn, _hx509_ca_tbs_add_san_otherName, 
+                       _heim_abort, _heim_array_append_value, _heim_array_copy_value, 
+                       _heim_array_create, _heim_array_delete_value, _heim_array_filter, 
+                       _heim_array_get_length, _heim_array_iterate, _heim_array_iterate_f, 
+                       _heim_base_once_f, _heim_data_create, _heim_data_get_bytes, 
+                       _heim_data_get_length, _heim_data_get_type_id, _heim_dict_copy_value, 
+                       _heim_dict_create, _heim_dict_delete_key, _heim_dict_get_type_id, 
+                       _heim_dict_iterate, _heim_dict_set_value, _heim_error_append, 
+                       _heim_error_copy_string, _heim_error_createv, _heim_error_get_code, 
+                       _heim_get_tid, _heim_ipc_call, _heim_ipc_free_context, _heim_ipc_free_data, 
+                       _heim_ipc_init_context, _heim_release, _heim_retain, _heim_string_copy_utf8, 
+                       _heim_string_create, _heim_string_get_type_id, _heim_uniq_alloc, 
+                       _heim_warn_blocking, _hx509_bitstring_print, _hx509_ca_sign, 
+                       _hx509_ca_sign_self, _hx509_ca_tbs_add_crl_dp_uri, _hx509_ca_tbs_add_eku, 
+                       _hx509_ca_tbs_add_san_hostname, _hx509_ca_tbs_add_san_jid, 
+                       _hx509_ca_tbs_add_san_ms_upn, _hx509_ca_tbs_add_san_otherName, 
                        _hx509_ca_tbs_add_san_pkinit, _hx509_ca_tbs_add_san_rfc822name, 
                        _hx509_ca_tbs_free, _hx509_ca_tbs_init, _hx509_ca_tbs_set_ca, 
                        _hx509_ca_tbs_set_domaincontroller, _hx509_ca_tbs_set_notAfter, 

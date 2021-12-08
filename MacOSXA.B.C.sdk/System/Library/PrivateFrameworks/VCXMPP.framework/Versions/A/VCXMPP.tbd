@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 94EDDC09-3660-3018-B33D-BA8AECF4DBF6', 'x86_64: 693302CE-A7CC-337B-9F20-57552EECD250' ]
+uuids:           [ 'i386: C8E18A13-0A41-3FB3-A29E-EB4EBFA19F5E', 'x86_64: 9B0E90BF-A387-327D-AD28-A1A96974EC41' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/VCXMPP.framework/Versions/A/VCXMPP
 objc-constraint: none

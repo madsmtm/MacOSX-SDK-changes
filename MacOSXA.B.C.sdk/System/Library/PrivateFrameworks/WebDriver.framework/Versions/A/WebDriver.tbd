@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 452E0CE4-D263-36A1-A7F9-DB4B27254EB6' ]
+uuids:           [ 'x86_64: 3BB3D1B3-2705-313B-84A8-69E9C2FC7622' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/WebDriver.framework/Versions/A/WebDriver
-current-version: 603.1.30
-objc-constraint: none
+current-version: 604.1.38
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _DDExtractFileNameWithoutExtension, _DDIntersectionRange, 
@@ -14,8 +13,16 @@ exports:
                        _GCDAsyncSocketSSLAllowsExpiredRoots, _GCDAsyncSocketSSLCipherSuites, 
                        _GCDAsyncSocketSSLClientSideAuthentication, _GCDAsyncSocketSSLDiffieHellmanParameters, 
                        _GCDAsyncSocketSSLProtocolVersionMax, _GCDAsyncSocketSSLProtocolVersionMin, 
-                       _GCDAsyncSocketThreadName, __Z18WDSafariDriverMainiPKPc, _extractParamValue, 
-                       _findChar ]
+                       _GCDAsyncSocketThreadName, _WDElementAttributeScriptSource, 
+                       _WDElementDisplayedScriptSource, _WDFormElementClearScriptSource, 
+                       _WDFormSubmitScriptSource, _WDHTTPContentTypeTextPlain, _WDHTTPContentTypeUTF8EncodedJSON, 
+                       _WDLoggingInitializeIfNecessary, _WDOSLogLauncher, _WDOSLogProtocol, 
+                       _WDOSLogRouting, _WDOSLogSession, _WDOSLogTestHost, _WDOSLogWebService, 
+                       _WDOSLogXPCService, _WDSafariDriverMain, _WebDriverFailureDetailsErrorKey, 
+                       __Z18baseTypeFromStringP8NSString, _authenticateWebDeveloperRightName, 
+                       _detailedMessageForResponseCode, _extractParamValue, _findChar, 
+                       _httpMethodToString, _isWebDeveloperRightName, _safariDriverAllowRightName, 
+                       _stringToHTTPMethod, _webDriverErrorDomain ]
     objc-classes:    [ _ContextBlacklistFilterLogFormatter, _ContextWhitelistFilterLogFormatter, 
                        _DDASLLogger, _DDAbstractDatabaseLogger, _DDAbstractLogger, 
                        _DDFileLogger, _DDLog, _DDLogFileFormatterDefault, _DDLogFileInfo, 
@@ -23,16 +30,22 @@ exports:
                        _DispatchQueueLogFormatter, _GCDAsyncReadPacket, _GCDAsyncSendfilePacket, 
                        _GCDAsyncSocket, _GCDAsyncSocketPreBuffer, _GCDAsyncSpecialPacket, 
                        _GCDAsyncWritePacket, _HTTPAsyncFileResponse, _HTTPAuthenticationRequest, 
-                       _HTTPConfig, _HTTPConnection, _HTTPData, _HTTPDataResponse, 
+                       _HTTPConfig, _HTTPConnection, _HTTPCookie, _HTTPData, _HTTPDataResponse, 
                        _HTTPDynamicFileResponse, _HTTPErrorResponse, _HTTPFileResponse, 
                        _HTTPMessage, _HTTPRedirectResponse, _HTTPResponseProxy, _HTTPSendFileResponse, 
-                       _HTTPServer, _HTTPUpgrade, _HTTPUpgradeResponse, _LoggingContextSet, 
-                       _MultipartFormDataParser, _MultipartMessageHeader, _MultipartMessageHeaderField, 
-                       _Route, _RouteRequest, _RouteResponse, _RoutingConnection, 
-                       _RoutingHTTPServer, _WDHTTPService, _WDProtocolAutomationBrowsingContext, 
+                       _HTTPServer, _HTTPUpgrade, _HTTPUpgradeResponse, _KeyInteraction, 
+                       _LoggingContextSet, _MultipartFormDataParser, _MultipartMessageHeader, 
+                       _MultipartMessageHeaderField, _PendingResponseData, _Route, 
+                       _RouteRequest, _RouteResponse, _RoutingConnection, _RoutingHTTPServer, 
+                       _WDDiagnosticUtilities, _WDHTTPAsyncDataResponse, _WDHTTPDriverInterface, 
+                       _WDHTTPServer, _WDHTTPService, _WDLegacyRouteHandler, _WDProtocolAutomationBrowsingContext, 
                        _WDProtocolAutomationCookie, _WDProtocolAutomationKeyboardInteraction, 
                        _WDProtocolAutomationPoint, _WDProtocolAutomationRect, _WDProtocolAutomationSize, 
-                       _WebSocket ]
+                       _WDProtocolBackendProxy, _WDProtocolCommand, _WDProtocolModel, 
+                       _WDProtocolParameter, _WDProtocolTraceFileManager, _WDProtocolTraceFormatter, 
+                       _WDProtocolType, _WDProtocolTypeConversions, _WDProtocolTypeParser, 
+                       _WDRemoteSession, _WDRemoteSessionHost, _WDRemoteSessionManager, 
+                       _WDSafariDriver, _WDSafariDriverXPCClient, _WebSocket ]
     objc-ivars:      [ _DDASLLogger.client, _DDAbstractDatabaseLogger.deleteInterval, 
                        _DDAbstractDatabaseLogger.deleteOnEverySave, _DDAbstractDatabaseLogger.deleteTimer, 
                        _DDAbstractDatabaseLogger.lastDeleteTime, _DDAbstractDatabaseLogger.maxAge, 

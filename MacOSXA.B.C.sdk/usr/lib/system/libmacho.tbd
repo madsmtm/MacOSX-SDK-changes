@@ -1,9 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 9E1BA433-73C1-3388-B2C7-87E5216A9044', 'x86_64: 17D5D855-F6C3-3B04-B680-E9BF02EF8AED' ]
+uuids:           [ 'i386: F1F0BC1D-A2D9-39F9-9A11-263F8392CB3B', 'x86_64: 756F2553-07B6-3B42-ACEA-2F0F1A5E8D0F' ]
 platform:        macosx
 install-name:    /usr/lib/system/libmacho.dylib
-current-version: 898
+current-version: 900.0.1
 objc-constraint: none
 parent-umbrella: System
 exports:         
@@ -16,12 +16,13 @@ exports:
                        _getsectdata, _getsectdatafromFramework, _getsectdatafromheader, 
                        _getsectdatafromheader_64, _getsectiondata, _getsegbyname, 
                        _getsegmentdata, _internal_NXFindBestFatArch, _slot_name, 
-                       _swap_dyld_info_command, _swap_dylib_command, _swap_dylib_module, 
-                       _swap_dylib_module_64, _swap_dylib_reference, _swap_dylib_table_of_contents, 
-                       _swap_dylinker_command, _swap_dysymtab_command, _swap_encryption_command, 
-                       _swap_encryption_command_64, _swap_entry_point_command, _swap_fat_arch, 
-                       _swap_fat_arch_64, _swap_fat_header, _swap_fvmfile_command, 
-                       _swap_fvmlib_command, _swap_hppa_fp_thread_state, _swap_hppa_frame_thread_state, 
+                       _swap_build_tool_version, _swap_build_version_command, _swap_dyld_info_command, 
+                       _swap_dylib_command, _swap_dylib_module, _swap_dylib_module_64, 
+                       _swap_dylib_reference, _swap_dylib_table_of_contents, _swap_dylinker_command, 
+                       _swap_dysymtab_command, _swap_encryption_command, _swap_encryption_command_64, 
+                       _swap_entry_point_command, _swap_fat_arch, _swap_fat_arch_64, 
+                       _swap_fat_header, _swap_fvmfile_command, _swap_fvmlib_command, 
+                       _swap_hppa_fp_thread_state, _swap_hppa_frame_thread_state, 
                        _swap_hppa_integer_thread_state, _swap_i386_exception_state, 
                        _swap_i386_float_state, _swap_i386_thread_state, _swap_i860_thread_state_regs, 
                        _swap_ident_command, _swap_indirect_symbols, _swap_linkedit_data_command, 
@@ -30,8 +31,8 @@ exports:
                        _swap_m88110_thread_state_impl_t, _swap_m88k_thread_state_grf_t, 
                        _swap_m88k_thread_state_user_t, _swap_m88k_thread_state_xrf_t, 
                        _swap_mach_header, _swap_mach_header_64, _swap_nlist, _swap_nlist_64, 
-                       _swap_ppc_exception_state_t, _swap_ppc_float_state_t, _swap_ppc_thread_state_t, 
-                       _swap_prebind_cksum_command, _swap_prebound_dylib_command, 
+                       _swap_note_command, _swap_ppc_exception_state_t, _swap_ppc_float_state_t, 
+                       _swap_ppc_thread_state_t, _swap_prebind_cksum_command, _swap_prebound_dylib_command, 
                        _swap_ranlib, _swap_ranlib_64, _swap_relocation_info, _swap_routines_command, 
                        _swap_routines_command_64, _swap_rpath_command, _swap_section, 
                        _swap_section_64, _swap_segment_command, _swap_segment_command_64, 

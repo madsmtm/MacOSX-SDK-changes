@@ -19,6 +19,9 @@
 .Ft void
 .Fn os_trace_fault "const char *format" ...
 .Sh DESCRIPTION
+This interface is deprecated and replaced by
+.Xr os_log 3 .
+.Pp
 .Nm
 and its variants use a memory-only buffer to store the provided trace message.
 Trace messages are correlated based on a new identifier assigned when an activity is created by the system, see
@@ -31,7 +34,7 @@ Trace messages should never be done in tight loops as they may overrun the buffe
 The API was designed to prevent strings from being recorded in the buffers for performance and privacy protection.
 See
 .Xr os_log 3
-for string and object support, among other features. The os_trace API set only suppports scalar types (float,double, etc.).
+for string and object support, among other features. The os_trace API set only supports scalar types (float,double, etc.).
 All unsupported types will emit UNSUP to the trace output.
 The format string length does not factor into the trace buffer memory, although there is a maximum supported length of 100 characters.
 .Pp

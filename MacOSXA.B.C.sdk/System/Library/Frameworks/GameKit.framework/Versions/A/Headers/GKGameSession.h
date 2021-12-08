@@ -5,7 +5,9 @@
 //  Copyright 2016-2017 Apple Inc. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <GameKit/GKDefines.h>
+
 @class GKCloudPlayer;
 
 typedef NS_ENUM(NSInteger, GKConnectionState) {

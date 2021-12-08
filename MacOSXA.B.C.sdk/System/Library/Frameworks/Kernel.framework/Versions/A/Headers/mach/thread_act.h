@@ -486,7 +486,7 @@ __END_DECLS
 		NDR_record_t NDR;
 		int flavor;
 		mach_msg_type_number_t new_stateCnt;
-		natural_t new_state[224];
+		natural_t new_state[614];
 	} __Request__act_set_state_t __attribute__((unused));
 #ifdef  __MigPackStructs
 #pragma pack()
@@ -513,7 +513,7 @@ __END_DECLS
 		NDR_record_t NDR;
 		thread_state_flavor_t flavor;
 		mach_msg_type_number_t new_stateCnt;
-		natural_t new_state[224];
+		natural_t new_state[614];
 	} __Request__thread_set_state_t __attribute__((unused));
 #ifdef  __MigPackStructs
 #pragma pack()
@@ -883,7 +883,7 @@ union __RequestUnion__thread_act_subsystem {
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		mach_msg_type_number_t old_stateCnt;
-		natural_t old_state[224];
+		natural_t old_state[614];
 	} __Reply__act_get_state_t __attribute__((unused));
 #ifdef  __MigPackStructs
 #pragma pack()
@@ -909,7 +909,7 @@ union __RequestUnion__thread_act_subsystem {
 		NDR_record_t NDR;
 		kern_return_t RetCode;
 		mach_msg_type_number_t old_stateCnt;
-		natural_t old_state[224];
+		natural_t old_state[614];
 	} __Reply__thread_get_state_t __attribute__((unused));
 #ifdef  __MigPackStructs
 #pragma pack()

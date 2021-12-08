@@ -2,7 +2,7 @@
 //  INStartAudioCallIntentResponse.h
 //  Intents
 //
-//  Copyright © 2016 Apple Inc. All rights reserved.
+//  Copyright (c) 2016-2017 Apple Inc. All rights reserved.
 //
 
 #import <Intents/INIntentResponse.h>
@@ -15,11 +15,13 @@ typedef NS_ENUM(NSInteger, INStartAudioCallIntentResponseCode) {
     INStartAudioCallIntentResponseCodeFailureRequiringAppLaunch,
     INStartAudioCallIntentResponseCodeFailureAppConfigurationRequired,
     INStartAudioCallIntentResponseCodeFailureCallingServiceNotAvailable,
-} API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.2));
+    INStartAudioCallIntentResponseCodeFailureContactNotSupportedByApp,
+    INStartAudioCallIntentResponseCodeFailureNoValidNumber API_AVAILABLE(ios(11.0), macosx(10.13)),
+} API_AVAILABLE(ios(10.0), watchos(3.2), macosx(10.12));
 
 NS_ASSUME_NONNULL_BEGIN
 
-API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.2))
+API_AVAILABLE(ios(10.0), watchos(3.2), macosx(10.12))
 @interface INStartAudioCallIntentResponse : INIntentResponse
 
 - (id)init NS_UNAVAILABLE;
@@ -30,6 +32,7 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.2))
 - (instancetype)initWithCode:(INStartAudioCallIntentResponseCode)code userActivity:(nullable NSUserActivity *)userActivity NS_DESIGNATED_INITIALIZER;
 
 @property (readonly, NS_NONATOMIC_IOSONLY) INStartAudioCallIntentResponseCode code;
+
 @end
 
 NS_ASSUME_NONNULL_END

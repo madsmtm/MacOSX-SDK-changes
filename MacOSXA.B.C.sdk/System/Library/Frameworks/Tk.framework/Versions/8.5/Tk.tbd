@@ -1,11 +1,10 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A0F1292E-CD1B-3144-9683-7060DD069C03', 'x86_64: 7106D3A9-B7A0-3551-8A49-4EC453C9EC10' ]
+uuids:           [ 'i386: 685D4DD3-670A-33EB-88F3-9657C167A3F1', 'x86_64: CB936412-BC2A-301D-A37D-64FB41F66500' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/Tk.framework/Versions/8.5/Tk
 current-version: 8.5.9
 compatibility-version: 8.5
-objc-constraint: none
 exports:         
   - archs:           [ i386 ]
     objc-classes:    [ _TKApplication, _TKContentView, _TKMenu, _TKWindow ]

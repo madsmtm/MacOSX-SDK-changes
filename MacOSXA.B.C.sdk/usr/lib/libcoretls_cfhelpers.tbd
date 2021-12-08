@@ -1,9 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 5030E367-A1BA-3EE7-A0AA-DF91C6DFEFAC', 'x86_64: 1A10303E-5EB0-3C7C-9165-021FCDFD934D' ]
+uuids:           [ 'i386: 8B8ABC2C-F251-3C80-9747-88C05A2CBE64', 'x86_64: D3F4B882-40C1-3CD4-927B-0E0ED6031D0B' ]
 platform:        macosx
 install-name:    /usr/lib/libcoretls_cfhelpers.dylib
-current-version: 121.50.4
+current-version: 155
 objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]

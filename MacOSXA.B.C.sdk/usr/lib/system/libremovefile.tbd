@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: CA000707-14D4-30CB-8F91-4C0C4B53B6D7', 'x86_64: 38D4CB9C-10CD-30D3-8B7B-A515EC75FE85' ]
+uuids:           [ 'i386: BEF76B44-53EA-3970-AB50-2296DC7F097F', 'x86_64: 912FA211-DD8C-3C92-8424-21B89F8B10FD' ]
 platform:        macosx
 install-name:    /usr/lib/system/libremovefile.dylib
 current-version: 45

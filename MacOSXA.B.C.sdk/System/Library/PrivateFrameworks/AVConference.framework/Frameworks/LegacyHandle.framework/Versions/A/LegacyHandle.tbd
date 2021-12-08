@@ -1,12 +1,11 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: B20B9D3A-FD26-3B87-BA8C-F5835ACF4AEC', 'x86_64: 57D158BB-72A0-3C9A-A9CF-12B95DE627FD' ]
+uuids:           [ 'i386: F6DD16EE-F09D-33E9-8D8C-12D796294C95', 'x86_64: 5A512C46-9702-37F2-AC57-4493C6CF34F4' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AVConference.framework/Frameworks/LegacyHandle.framework/Versions/A/LegacyHandle
 objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]
     symbols:         [ _CheckInHandle, _CheckOutHandle, _CloseAllHandles, _CreateHandle, 
-                       _FindHandle, _GetNumHandles, _InitAllHandles, _InitHandle, 
-                       _UninitHandle ]
+                       _FindHandle, _GetNumHandles ]
 ...

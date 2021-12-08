@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  * 
@@ -115,7 +115,7 @@ enum vtagtype	{
  */
 #define VNODE_READ	0x01
 #define VNODE_WRITE	0x02
-
+#define VNODE_BLOCKMAP_NO_TRACK 0x04 // APFS Fusion: Do not track this request
 
 
 /* flags for VNOP_ALLOCATE */
@@ -311,6 +311,55 @@ struct vnode_fsparam {
 #define VNODE_ATTR_va_private_size	(1LL<<43)	/* 80000000000 */
 
 #define VNODE_ATTR_BIT(n)	(VNODE_ATTR_ ## n)
+
+/*
+ * ALL of the attributes.
+ */
+#define	VNODE_ATTR_ALL		(VNODE_ATTR_BIT(va_rdev) |		\
+				VNODE_ATTR_BIT(va_nlink) |		\
+				VNODE_ATTR_BIT(va_total_size) |		\
+				VNODE_ATTR_BIT(va_total_alloc) |	\
+				VNODE_ATTR_BIT(va_data_size) |		\
+				VNODE_ATTR_BIT(va_data_alloc) |		\
+				VNODE_ATTR_BIT(va_iosize) |		\
+				VNODE_ATTR_BIT(va_uid) |		\
+				VNODE_ATTR_BIT(va_gid) |		\
+				VNODE_ATTR_BIT(va_mode) |		\
+				VNODE_ATTR_BIT(va_flags) |		\
+				VNODE_ATTR_BIT(va_acl) |		\
+				VNODE_ATTR_BIT(va_create_time) |	\
+				VNODE_ATTR_BIT(va_access_time) |	\
+				VNODE_ATTR_BIT(va_modify_time) |	\
+				VNODE_ATTR_BIT(va_change_time) |	\
+				VNODE_ATTR_BIT(va_backup_time) |	\
+				VNODE_ATTR_BIT(va_fileid) |		\
+				VNODE_ATTR_BIT(va_linkid) |		\
+				VNODE_ATTR_BIT(va_parentid) |		\
+				VNODE_ATTR_BIT(va_fsid) |		\
+				VNODE_ATTR_BIT(va_filerev) |		\
+				VNODE_ATTR_BIT(va_gen) |		\
+				VNODE_ATTR_BIT(va_encoding) |		\
+				VNODE_ATTR_BIT(va_type) |		\
+				VNODE_ATTR_BIT(va_name) |		\
+				VNODE_ATTR_BIT(va_uuuid) |		\
+				VNODE_ATTR_BIT(va_guuid) |		\
+				VNODE_ATTR_BIT(va_nchildren) |		\
+				VNODE_ATTR_BIT(va_dirlinkcount) |	\
+				VNODE_ATTR_BIT(va_addedtime) |		\
+				VNODE_ATTR_BIT(va_dataprotect_class) |	\
+				VNODE_ATTR_BIT(va_dataprotect_flags) |	\
+				VNODE_ATTR_BIT(va_document_id) |	\
+				VNODE_ATTR_BIT(va_devid) |		\
+				VNODE_ATTR_BIT(va_objtype) |		\
+				VNODE_ATTR_BIT(va_objtag) |		\
+				VNODE_ATTR_BIT(va_user_access) |	\
+				VNODE_ATTR_BIT(va_finderinfo) |		\
+				VNODE_ATTR_BIT(va_rsrc_length) |	\
+				VNODE_ATTR_BIT(va_rsrc_alloc) |		\
+				VNODE_ATTR_BIT(va_fsid64) |		\
+				VNODE_ATTR_BIT(va_write_gencount) |	\
+				VNODE_ATTR_BIT(va_private_size))
+
 /*
  * Read-only attributes.
  */
@@ -330,7 +379,6 @@ struct vnode_fsparam {
 				VNODE_ATTR_BIT(va_type) |		\
 				VNODE_ATTR_BIT(va_nchildren) |		\
 				VNODE_ATTR_BIT(va_dirlinkcount) |	\
-				VNODE_ATTR_BIT(va_addedtime) |		\
 				VNODE_ATTR_BIT(va_devid) |		\
 				VNODE_ATTR_BIT(va_objtype) |		\
 				VNODE_ATTR_BIT(va_objtag) |		\
@@ -502,7 +550,8 @@ extern int		vttoif_tab[];
 #define VNODE_READDIR_NAMEMAX     0x0008   /* For extended readdir, try to limit names to NAME_MAX bytes */
 
 /* VNOP_CLONEFILE flags: */
-#define VNODE_CLONEFILE_DEFAULT   0x0000
+#define VNODE_CLONEFILE_DEFAULT       0x0000
+#define VNODE_CLONEFILE_NOOWNERCOPY   0x0001 /* Don't copy ownership information */
 
 
 #define	NULLVP	((struct vnode *)NULL)
@@ -761,7 +810,6 @@ int	vnode_ischr(vnode_t vp);
  */
 int	vnode_isswap(vnode_t vp);
 
-#ifdef __APPLE_API_UNSTABLE
 /*!
  @function vnode_isnamedstream
  @abstract Determine if a vnode is a named stream.
@@ -769,7 +817,6 @@ int	vnode_isswap(vnode_t vp);
  @return Nonzero if the vnode is a named stream, 0 otherwise.
  */
 int	vnode_isnamedstream(vnode_t vp);
-#endif
 
 /*!
  @function vnode_ismountedon
@@ -1058,7 +1105,7 @@ int	vfs_context_issignal(vfs_context_t ctx, sigset_t mask);
  @function vfs_context_suser
  @abstract Determine if a vfs_context_t corresponds to the superuser.
  @param ctx Context to examine.
- @return Nonzero if context belongs to superuser, 0 otherwise.
+ @return 0 if context belongs to superuser, EPERM otherwise.
  */
 int	vfs_context_suser(vfs_context_t ctx);
 

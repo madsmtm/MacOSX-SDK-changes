@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: C0029306-BA63-318F-9C51-725DB1B74D88', 'x86_64: A9581187-8221-34CA-8D39-EB1EB36FC9C2' ]
+uuids:           [ 'i386: 15737CB1-0257-3C31-B906-87C9D64C8195', 'x86_64: 6A9166A3-B93F-3201-9B77-ED53C0119EF0' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/AppleScriptObjC.framework/Versions/A/AppleScriptObjC
-current-version: 32
-objc-constraint: none
+current-version: 33
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _BAFunctionInvocation._arg_types, _BAFunctionInvocation._arg_values, 

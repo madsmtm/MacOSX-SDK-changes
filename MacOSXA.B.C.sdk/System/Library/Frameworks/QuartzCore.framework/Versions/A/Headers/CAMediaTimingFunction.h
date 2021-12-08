@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
  * duration of one keyframe). */
 
 CA_CLASS_AVAILABLE (10.5, 2.0, 9.0, 2.0)
-@interface CAMediaTimingFunction : NSObject <NSCoding>
+@interface CAMediaTimingFunction : NSObject <NSSecureCoding>
 {
 @private
   struct CAMediaTimingFunctionPrivate *_priv;
@@ -41,7 +41,7 @@ CA_CLASS_AVAILABLE (10.5, 2.0, 9.0, 2.0)
 
 /* 'idx' is a value from 0 to 3 inclusive. */
 
-- (void)getControlPointAtIndex:(size_t)idx values:(float[2])ptr;
+- (void)getControlPointAtIndex:(size_t)idx values:(float[_Nonnull 2])ptr;
 
 @end
 

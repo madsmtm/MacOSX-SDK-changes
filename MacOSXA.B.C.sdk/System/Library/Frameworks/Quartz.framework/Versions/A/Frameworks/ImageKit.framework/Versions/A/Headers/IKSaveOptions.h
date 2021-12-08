@@ -18,6 +18,7 @@
 @end
 #endif
 
+@class NSSavePanel, NSView;
 
 /*! 
  @class IKSaveOptions

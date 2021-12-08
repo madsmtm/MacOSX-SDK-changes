@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 85ACE4EC-B4DD-33BE-81C1-97766029F95D', 'x86_64: 13B4CC92-9DFE-3C01-A519-6E32CC504662' ]
+uuids:           [ 'i386: 4F1EA821-3796-3BDC-9069-A4D20DFDF701', 'x86_64: 6608810C-9E6D-3F2F-AB0C-D90AE1B1B878' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/iLifeMediaBrowser.framework/Versions/A/iLifeMediaBrowser
-current-version: 733
-objc-constraint: none
+current-version: 751
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _ILChangeManager._groupToOperationMap, _ILChangeManager._operationQueue, 
@@ -231,14 +230,16 @@ exports:
                        _ILPhotosAlbumNameKey, _ILPhotosAlbumTypeIdentifier, _ILPhotosAlbumsGroupTypeIdentifier, 
                        _ILPhotosAllCollectionsGroupTypeIdentifier, _ILPhotosAllMomentsGroupTypeIdentifier, 
                        _ILPhotosAllPhotosAlbumTypeIdentifier, _ILPhotosAllYearsGroupTypeIdentifier, 
-                       _ILPhotosBurstGroupTypeIdentifier, _ILPhotosCollectionGroupTypeIdentifier, 
-                       _ILPhotosCommentKey, _ILPhotosDateAsTimerIntervalKey, _ILPhotosDepthEffectGroupTypeIdentifier, 
+                       _ILPhotosAnimatedGroupTypeIdentifier, _ILPhotosBurstGroupTypeIdentifier, 
+                       _ILPhotosCollectionGroupTypeIdentifier, _ILPhotosCommentKey, 
+                       _ILPhotosDateAsTimerIntervalKey, _ILPhotosDepthEffectGroupTypeIdentifier, 
                        _ILPhotosFacesAlbumTypeIdentifier, _ILPhotosFavoriteKey, _ILPhotosFavoritesGroupTypeIdentifier, 
                        _ILPhotosFolderTypeIdentifier, _ILPhotosFrontCameraGroupTypeIdentifier, 
-                       _ILPhotosHiddenKey, _ILPhotosImagePathKey, _ILPhotosKeyListKey, 
-                       _ILPhotosKeyListStringKey, _ILPhotosKeyPhotoKey, _ILPhotosKeywordsKey, 
-                       _ILPhotosLastImportGroupTypeIdentifier, _ILPhotosLatitudeKey, 
-                       _ILPhotosLongitudeKey, _ILPhotosMomentGroupTypeIdentifier, 
+                       _ILPhotosHiddenKey, _ILPhotosKeyListKey, _ILPhotosKeyListStringKey, 
+                       _ILPhotosKeyPhotoKey, _ILPhotosKeywordsKey, _ILPhotosLastImportGroupTypeIdentifier, 
+                       _ILPhotosLatitudeKey, _ILPhotosLivePhotosGroupTypeIdentifier, 
+                       _ILPhotosLongExposureGroupTypeIdentifier, _ILPhotosLongitudeKey, 
+                       _ILPhotosMediaCodecNameKey, _ILPhotosMomentGroupTypeIdentifier, 
                        _ILPhotosMyPhotoStreamTypeIdentifier, _ILPhotosOriginalPathKey, 
                        _ILPhotosPanoramasGroupTypeIdentifier, _ILPhotosParentKey, 
                        _ILPhotosPhotoCountKey, _ILPhotosPlacesAlbumTypeIdentifier, 
@@ -251,9 +252,10 @@ exports:
                        _ILPhotosSmartAlbumTypeIdentifier, _ILPhotosSpecialTypeKey, 
                        _ILPhotosThumbPathKey, _ILPhotosTimelapseGroupTypeIdentifier, 
                        _ILPhotosVideosGroupTypeIdentifier, _ILPhotosYearGroupTypeIdentifier, 
-                       _ILPluginAPIVersionKey, _ILPluginAddedMediaGroupsKey, _ILPluginAddedMediaObjectsKey, 
-                       _ILPluginDefaultLoadingStringKey, _ILPluginDefaultNoDataStringKey, 
-                       _ILPluginDeletedMediaGroupsKey, _ILPluginDeletedMediaObjectsKey, 
+                       _ILPhotsoImagePathKey, _ILPluginAPIVersionKey, _ILPluginAddedMediaGroupsKey, 
+                       _ILPluginAddedMediaObjectsKey, _ILPluginDefaultLoadingStringKey, 
+                       _ILPluginDefaultNoDataStringKey, _ILPluginDeletedMediaGroupsKey, 
+                       _ILPluginDeletedMediaObjectsKey, _ILPluginManagerEnableHeifAndHevcMediaKey, 
                        _ILPluginMediaGroupAttributesChangedKey, _ILPluginMediaGroupChildGroupsChangedKey, 
                        _ILPluginMediaGroupMediaObjectsChangedKey, _ILPluginMediaObjectAttributesChanged, 
                        _ILPluginSourceIdentifierKey, _ILPluginVersionKey, _ILRootMediaGroupKey, 

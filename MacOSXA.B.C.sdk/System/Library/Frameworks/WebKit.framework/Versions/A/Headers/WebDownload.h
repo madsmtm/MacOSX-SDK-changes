@@ -31,6 +31,7 @@
 
 #import <Foundation/NSURLDownload.h>
 
+@class NSWindow;
 @class WebDownloadInternal;
 
 /*!

@@ -1,7 +1,7 @@
 //
 //  SCNLayer.h
 //
-//  Copyright (c) 2012-2016 Apple Inc. All rights reserved.
+//  Copyright (c) 2012-2017 Apple Inc. All rights reserved.
 //
 
 #import <QuartzCore/QuartzCore.h>
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract A SCNLayer is a layer that can display a SCNScene. 
  */
 
-API_UNAVAILABLE(ios, watchos, tvos)
+API_UNAVAILABLE(ios, tvos, watchos)
 @interface SCNLayer : CAOpenGLLayer <SCNSceneRenderer, SCNTechniqueSupport>
 
 /*! 

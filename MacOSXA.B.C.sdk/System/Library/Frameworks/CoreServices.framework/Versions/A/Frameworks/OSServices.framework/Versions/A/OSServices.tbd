@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 123953EA-4DD8-38D7-8D4D-D13724614347', 'x86_64: CDDC78CA-1D94-342B-B965-B6DE6478C1D2' ]
+uuids:           [ 'i386: D1A5F88A-256C-3160-8A89-5C311C181709', 'x86_64: C7C2702B-806F-3736-8485-6CFDB158B86B' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/OSServices.framework/Versions/A/OSServices
-current-version: 775.19
-objc-constraint: none
+current-version: 822.4
 parent-umbrella: CoreServices
 exports:         
   - archs:           [ i386 ]
@@ -116,11 +115,11 @@ exports:
                        __CSIdentityUpdateLinkedIdentityProvisioning, __CSIsComputerToComputerEnabled, 
                        __CSIsCurrentUserAdmin, __CSIsMobileTimeMachineDisk, __CSIsMobileTimeMachineEnabled, 
                        __CSIsOpticalDisk, __CSIsWirelessAccessPointEnabled, __CSIsWirelessP2PEnabled, 
-                       __CSLog, __CSRemoveAppleIDAccount, __CSRemoveDotMacIdentitiesFromKeychain, 
-                       __ISAcquireImageRef, __ISAddFSRefIconToImage, __ISAddIconFamilyHandleToImage, 
-                       __ISAddIconFamilyPtrToImage, __ISAddStorageToImage, __ISAddSystemIconToImage, 
-                       __ISAddSystemUTIIconToImage, __ISCopySystemIconStorageInfo, 
-                       __ISDumpStorage, __ISEnumerateIconIndexByPresidenceWithBlock, 
+                       __CSLinkUserToAppleID, __CSLog, __CSRemoveAppleIDAccount, 
+                       __CSRemoveDotMacIdentitiesFromKeychain, __ISAcquireImageRef, 
+                       __ISAddFSRefIconToImage, __ISAddIconFamilyHandleToImage, __ISAddIconFamilyPtrToImage, 
+                       __ISAddStorageToImage, __ISAddSystemIconToImage, __ISAddSystemUTIIconToImage, 
+                       __ISCopySystemIconStorageInfo, __ISDumpStorage, __ISEnumerateIconIndexByPresidenceWithBlock, 
                        __ISEnumerateIconIndexWithJPEGFlag, __ISFlattenImageRef, __ISGetARGBDataPointer, 
                        __ISGetBackgoundImage, __ISGetCustomIconsEnabled, __ISGetEmptyIconStorage, 
                        __ISGetGlobalImageRefFromLocal, __ISGetISImageForVolume, __ISGetISImageForVolumeWithFlags, 

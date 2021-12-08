@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 770AE6AB-E412-333F-BB75-A8C4D89BB518', 'x86_64: 1B2EAF78-F6DA-38C1-A5E7-C9911C61F674' ]
+uuids:           [ 'i386: A16ACDE7-22D4-362D-98A8-023F3D61989C', 'x86_64: FF64C4CC-F262-3176-B06A-632C47CD636B' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libCoreFSCache.dylib
 objc-constraint: none

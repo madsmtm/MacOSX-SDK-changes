@@ -3,7 +3,7 @@
 	
 	Framework:  VideoToolbox
 	
-	Copyright 2007-2013 Apple Inc. All rights reserved.
+	Copyright 2007-2017 Apple Inc. All rights reserved.
 	
 	Standard Video Toolbox compression properties.
 */
@@ -234,6 +234,9 @@ VT_EXPORT const CFStringRef kVTCompressionPropertyKey_MoreFramesAfterEnd API_AVA
 		Video encoders should use standard keys where available, and follow standard patterns where not.
 */
 VT_EXPORT const CFStringRef kVTCompressionPropertyKey_ProfileLevel API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2)); // Read/write, CFString (enumeration), Optional
+	
+VT_EXPORT const CFStringRef kVTProfileLevel_HEVC_Main_AutoLevel API_AVAILABLE(macosx(10.13), ios(11.0), tvos(11.0));
+VT_EXPORT const CFStringRef kVTProfileLevel_HEVC_Main10_AutoLevel API_AVAILABLE(macosx(10.13), ios(11.0), tvos(11.0));
 
 VT_EXPORT const CFStringRef kVTProfileLevel_H264_Baseline_1_3 API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2));
 VT_EXPORT const CFStringRef kVTProfileLevel_H264_Baseline_3_0 API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2));
@@ -396,6 +399,16 @@ VT_EXPORT const CFStringRef kVTCompressionPropertyKey_ExpectedFrameRate API_AVAI
 */
 VT_EXPORT const CFStringRef kVTCompressionPropertyKey_ExpectedDuration API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2)); // Read/write, CFNumber(seconds), Optional
 
+/*!
+	@constant	kVTCompressionPropertyKey_BaseLayerFrameRate
+	@abstract
+		This property indicates the desired frame rate for the base temporal layer used in hierarchical video encoding.
+	@discussion
+		The frame rate is measured in frames per second.
+		This property is only implemented by encoders which support hierarchical frame encoding, and requests that this encoding feature be enabled.
+*/
+VT_EXPORT const CFStringRef kVTCompressionPropertyKey_BaseLayerFrameRate API_AVAILABLE(macosx(10.13), ios(11.0), tvos(11.0)); // Read/write, CFNumber, Optional
+
 
 #pragma mark Hardware acceleration
 // hardware acceleration is default behavior on iOS.  no opt-in required.
@@ -412,7 +425,7 @@ VT_EXPORT const CFStringRef kVTCompressionPropertyKey_ExpectedDuration API_AVAIL
 		This is useful for clients doing realtime encode operations to allow the VideoToolbox
 		to choose the optimal encode path.
 */
-VT_EXPORT const CFStringRef kVTVideoEncoderSpecification_EnableHardwareAcceleratedVideoEncoder API_AVAILABLE(macosx(10.9), ios(8.0)); // CFBoolean, Optional
+VT_EXPORT const CFStringRef kVTVideoEncoderSpecification_EnableHardwareAcceleratedVideoEncoder API_AVAILABLE(macosx(10.9), ios(8.0), tvos(10.2)); // CFBoolean, Optional
 
 /*!
 	@constant	kVTVideoEncoderSpecification_RequireHardwareAcceleratedVideoEncoder
@@ -431,7 +444,7 @@ VT_EXPORT const CFStringRef kVTVideoEncoderSpecification_EnableHardwareAccelerat
 			- the requested encoding format or encoding configuration is not supported
 			- the hardware encoding resources on the machine are busy
 */
-VT_EXPORT const CFStringRef kVTVideoEncoderSpecification_RequireHardwareAcceleratedVideoEncoder API_AVAILABLE(macosx(10.9), ios(8.0)); // CFBoolean, Optional
+VT_EXPORT const CFStringRef kVTVideoEncoderSpecification_RequireHardwareAcceleratedVideoEncoder API_AVAILABLE(macosx(10.9), ios(8.0), tvos(10.2)); // CFBoolean, Optional
 
 /*!
 	@constant	kVTCompressionPropertyKey_UsingHardwareAcceleratedVideoEncoder
@@ -442,7 +455,7 @@ VT_EXPORT const CFStringRef kVTVideoEncoderSpecification_RequireHardwareAccelera
 		accelerated encode using kVTVideoEncoderSpecification_EnableHardwareAcceleratedVideoEncoder
 		to see if a hardware accelerated encoder was selected.
 */
-VT_EXPORT const CFStringRef kVTCompressionPropertyKey_UsingHardwareAcceleratedVideoEncoder API_AVAILABLE(macosx(10.9), ios(8.0)); // CFBoolean, Read; assumed false by default
+VT_EXPORT const CFStringRef kVTCompressionPropertyKey_UsingHardwareAcceleratedVideoEncoder API_AVAILABLE(macosx(10.9), ios(8.0), tvos(10.2)); // CFBoolean, Read; assumed false by default
 #endif // !TARGET_OS_IPHONE
 	
 #pragma mark Per-frame configuration
@@ -586,6 +599,27 @@ VT_EXPORT const CFStringRef kVTCompressionPropertyKey_YCbCrMatrix API_AVAILABLE(
 */
 VT_EXPORT const CFStringRef kVTCompressionPropertyKey_ICCProfile API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2)); // Read/write, CFData (see kCMFormatDescriptionExtension_ICCProfile), Optional
 
+/*!
+	@constant	kVTCompressionPropertyKey_MasteringDisplayColorVolume
+	@abstract
+		The value is 24 bytes containing a big-endian structure as defined in ISO/IEC 23008-2:2015(E), D.2.28 Mastering display colour volume SEI message.
+	@discussion
+		The value will be set on the format description for output sample buffers,
+		and incorporated into the appropriate SEI NAL unit where supported by the encoder.
+*/
+VT_EXPORT const CFStringRef kVTCompressionPropertyKey_MasteringDisplayColorVolume API_AVAILABLE(macosx(10.13), ios(11.0), tvos(11.0)); // Read/write, CFData(24 bytes) (see kCMFormatDescriptionExtension_MasteringDisplayColorVolume), Optional
+
+/*!
+	@constant	kVTCompressionPropertyKey_ContentLightLevelInfo
+	@abstract
+		The value is 4 bytes containing a big-endian structure as defined in the Content Light Level Info SEI message.
+	@discussion
+		The value will be set on the format description for output sample buffers,
+		and incorporated into the appropriate SEI NAL unit where supported by the encoder.
+*/
+VT_EXPORT const CFStringRef kVTCompressionPropertyKey_ContentLightLevelInfo API_AVAILABLE(macosx(10.13), ios(11.0), tvos(11.0)); // Read/write, CFData(4 bytes) (see kCMFormatDescriptionExtension_ContentLightLevelInfo), Optional
+
+
 #pragma mark Pre-compression processing
 
 // Standard properties about processing to be performed before compression.
@@ -621,6 +655,17 @@ VT_EXPORT const CFStringRef kVTCompressionPropertyKey_PixelTransferProperties AP
 	You can create and use a VTFrameSilo object to merge sequences of compressed frames across passes during multi-pass encoding.
 */
 VT_EXPORT const CFStringRef kVTCompressionPropertyKey_MultiPassStorage API_AVAILABLE(macosx(10.10), ios(8.0), tvos(10.2)); // VTMultiPassStorage, optional, default is NULL
+
+#pragma mark Encoder information
+	
+/*!
+	@constant	kVTCompressionPropertyKey_EncoderID
+	@abstract
+		Specifies a particular video encoder by its ID string.
+	@discussion
+		Matches the value specified in kVTVideoEncoderSpecification_EncoderID, and the kVTVideoEncoderList_EncoderID value returned from VTCopyVideoEncoderList.
+*/
+VT_EXPORT const CFStringRef kVTCompressionPropertyKey_EncoderID API_AVAILABLE(macosx(10.13), ios(11.0), tvos(11.0)); // CFStringRef
 
 	
 CM_ASSUME_NONNULL_END

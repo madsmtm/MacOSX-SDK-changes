@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: CC0B841B-3390-3941-BB35-026FEA7113A4', 'x86_64: BB9C90BB-29D7-3ED0-81CE-BFFE4A1F3C66' ]
+uuids:           [ 'i386: 52CA4DBF-4C1D-3D30-8FD4-EF595C1B6C71', 'x86_64: 520FEF4A-4C60-31FA-8BA0-528294BC41ED' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PerformanceAnalysis.framework/Versions/A/PerformanceAnalysis
-current-version: 148.3
-objc-constraint: none
+current-version: 183
 exports:         
   - archs:           [ x86_64 ]
     objc-classes:    [ _PAPLDistributedNotificationHandler, _PAPerfLoggingOperationCompletionNotification, 
@@ -118,7 +117,8 @@ exports:
                        _PAPerfLoggingTimeoutIsEnabled, _PAPerfLoggingWSFrameRateIgnoringDelayString, 
                        _PAPerfLoggingWSFrameRateString, _PAPerfLoggingXPCService_MessageKey_AllDetailedLoggingIsEnabled, 
                        _PAPerfLoggingXPCService_MessageKey_DoSysLogLogging, _PAPerfLoggingXPCService_MessageKey_MessageCategory, 
-                       _PAPerfLoggingXPCService_MessageKey_OperationCategory, _PAPerfLoggingXPCService_MessageKey_OperationCategoryRegexString, 
+                       _PAPerfLoggingXPCService_MessageKey_MessageId, _PAPerfLoggingXPCService_MessageKey_OperationCategory, 
+                       _PAPerfLoggingXPCService_MessageKey_OperationCategoryRegexString, 
                        _PAPerfLoggingXPCService_MessageKey_OperationIntervalTransitionType, 
                        _PAPerfLoggingXPCService_MessageKey_OperationIntervalType, 
                        _PAPerfLoggingXPCService_MessageKey_OperationName, _PAPerfLoggingXPCService_MessageKey_OperationNameRegexString, 
@@ -130,14 +130,16 @@ exports:
                        _PAPerfLogging_ContextProcessingConfiguration_UOMs, _PAPerfLogging_ContextProcessingConfiguration_ValueRateCaps, 
                        _PAPerfLogging_ProcessedContextData_Notes, _PAPerfLogging_ProcessedContextData_Values, 
                        _PASetContextProcessingConfigurationForOperation, _PASetContextProcessingConfigurationForOperationIntervalType, 
-                       _PAXPCCancelOperation, _PAXPCGetAPDConnection, _PAXPCMarkOperationEnd, 
-                       _PAXPCMarkOperationEndAndTruncateByDurationInSec, _PAXPCMarkOperationEndAndTruncateByDurationInSecNoSysLogLogging, 
+                       _PAXPCCancelOperation, _PAXPCMarkOperationEnd, _PAXPCMarkOperationEndAndTruncateByDurationInSec, 
+                       _PAXPCMarkOperationEndAndTruncateByDurationInSecNoSysLogLogging, 
                        _PAXPCMarkOperationEndNoSysLogLogging, _PAXPCMarkOperationEvent, 
                        _PAXPCMarkOperationIntervalEnd, _PAXPCMarkOperationIntervalEndAndStart, 
                        _PAXPCMarkOperationIntervalStart, _PAXPCMarkOperationStart, 
-                       _PAXPCMarkOperationStartAndForceDetailedLogging, _PA_MachAbsTimeToNanosecondsWithTimebase, 
-                       _PA_NanosecondsToMachAbsTimeWithTimebase, _PerformanceAnalysisVersionNumber, 
-                       _PerformanceAnalysisVersionString, __PALogTimestamp, __PAPrintToMutableData, 
+                       _PAXPCMarkOperationStartAndForceDetailedLogging, _PAXPCSendMessageToAPD, 
+                       _PA_MachAbsTimeToNanosecondsWithTimebase, _PA_NanosecondsToMachAbsTimeWithTimebase, 
+                       _PerfLoggingSystemOperationNextID, _PerfLoggingXPCSignpostHandle, 
+                       _PerformanceAnalysisVersionNumber, _PerformanceAnalysisVersionString, 
+                       _ReduceToSignificantDigits, __PALogTimestamp, __PAPrintToMutableData, 
                        _formattedAddress, _formattedBytes, _formattedBytesDouble, 
                        _formattedSignedBytes, _levelFormattedString, _nameForProcInfo, 
                        _newProcessStructures, _pagesToBytes, _pagesToBytesDefault, 

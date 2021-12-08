@@ -1,15 +1,20 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 2C727719-2ACF-397C-893D-002648A0FDA7', 'x86_64: 5950A7FC-57C8-383C-A16F-ED57D2039D5B' ]
+uuids:           [ 'i386: E9EFD5E0-3CEE-397B-B333-46D35CC0D87B', 'x86_64: D2FB7143-5B0F-33F4-B508-6E1750B973C8' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PrintingPrivate.framework/Versions/A/PrintingPrivate
-current-version: 171.1
-objc-constraint: none
+current-version: 180
 exports:         
   - archs:           [ i386 ]
     symbols:         [ _PMCreateLocalizedPaperSizeCFStringPrivate, _PMCreatePaperSizeCFStringPrivate ]
   - archs:           [ x86_64 ]
-    objc-ivars:      [ _PKPrinter._dnssdName, _PKPrinter._identifier, _PKPrinter._txts, 
+    objc-ivars:      [ _PKPrinter._dnssdName, _PKPrinter._identifier, _PKPrinter._isManagedPrinter, 
+                       _PKPrinter._power, _PKPrinter._printerURL, _PKPrinter._txts, 
+                       _PKQueueCreationController._cancelButton, _PKQueueCreationController._delegate, 
+                       _PKQueueCreationController._isCancelled, _PKQueueCreationController._printer, 
+                       _PKQueueCreationController._progressIndicator, _PKQueueCreationController._progressTextField, 
+                       _PKQueueCreationController._progressView, _PKQueueCreationController._queueID, 
+                       _PKQueueCreationController._topLevelNibObjects, _PKQueueCreationController._xpc, 
                        _PMInkBarView.color, _PMInkBarView.level, _PMInkBarView.threshhold ]
   - archs:           [ i386, x86_64 ]
     symbols:         [ _CreateTemporaryFile, _HttpConnectionFromURI, _IconForPrinterAtURI, 

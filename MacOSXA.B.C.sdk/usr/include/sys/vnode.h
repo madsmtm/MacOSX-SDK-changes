@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2017 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  * 
@@ -112,7 +112,7 @@ enum vtagtype	{
  */
 #define VNODE_READ	0x01
 #define VNODE_WRITE	0x02
-
+#define VNODE_BLOCKMAP_NO_TRACK 0x04 // APFS Fusion: Do not track this request
 
 
 /* flags for VNOP_ALLOCATE */

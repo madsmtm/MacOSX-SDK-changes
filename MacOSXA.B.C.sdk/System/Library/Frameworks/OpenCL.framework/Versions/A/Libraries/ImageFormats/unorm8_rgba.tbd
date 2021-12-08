@@ -1,8 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 313AE454-8E91-3582-9448-4D867E982044', 'x86_64: 6E66A49F-CFF3-3495-8450-01EE86A955BB' ]
+uuids:           [ 'i386: 1B79760A-E2DA-3F8D-8C90-4DC4ED2CFC3A', 'x86_64: 91AA7B64-91B6-3325-BF33-B6AF47B880FC' ]
 platform:        macosx
-install-name:    /System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/unorm8_rgba.dylib
+install-name:    /System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/ImageFormats/unorm8_rgba.dylib
 objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]

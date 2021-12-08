@@ -1,9 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: B6777982-3051-3893-9CA7-5D38D8E2DDD1', 'x86_64: 36C4A21A-4766-341A-B6C1-AF74B867D41A' ]
+uuids:           [ 'i386: 82E57290-F924-321F-97A4-E158434B4A19', 'x86_64: 22359913-3FAE-3FE3-9F88-F3521169FB4E' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreSymbolication.framework/Versions/A/CoreSymbolication
-current-version: 62046
+current-version: 63075
 objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]
@@ -72,20 +72,23 @@ exports:
                        _CSSymbolOwnerIsObsolete, _CSSymbolOwnerIsPIE, _CSSymbolOwnerIsProtected, 
                        _CSSymbolOwnerIsRestricted, _CSSymbolOwnerIsSlid, _CSSymbolOwnerIsStaticLibraryArchiveEntry, 
                        _CSSymbolOwnerMakeMutableInContext, _CSSymbolOwnerNeedsResymbolication, 
-                       _CSSymbolOwnerRemoveInContext, _CSSymbolOwnerSetLoadTimestamp, 
-                       _CSSymbolOwnerSetPath, _CSSymbolOwnerSetPathForSymbolication, 
+                       _CSSymbolOwnerRemoveInContext, _CSSymbolOwnerSegmentsMatch, 
+                       _CSSymbolOwnerSetLoadTimestamp, _CSSymbolOwnerSetPath, _CSSymbolOwnerSetPathForSymbolication, 
                        _CSSymbolOwnerSetRelocationCount, _CSSymbolOwnerSetTransientUserData, 
                        _CSSymbolOwnerSetUnloadTimestamp, _CSSymbolicatorAddSymbolOwner, 
                        _CSSymbolicatorApplyMutableContextBlock, _CSSymbolicatorCopyDescriptionWithIndent, 
-                       _CSSymbolicatorCreateSignature, _CSSymbolicatorCreateWithBinaryImageList, 
-                       _CSSymbolicatorCreateWithBinaryImageListCountPidFlagsAndNotification, 
+                       _CSSymbolicatorCreateForTaskSharedCache, _CSSymbolicatorCreateForTaskSharedCacheWithFlagsAndNotification, 
+                       _CSSymbolicatorCreateSignature, _CSSymbolicatorCreateSignatureElidingSomeSymbolOwners, 
+                       _CSSymbolicatorCreateWithBinaryImageList, _CSSymbolicatorCreateWithBinaryImageListCountPidFlagsAndNotification, 
                        _CSSymbolicatorCreateWithMachKernel, _CSSymbolicatorCreateWithMachKernelFlagsAndNotification, 
                        _CSSymbolicatorCreateWithPathAndArchitecture, _CSSymbolicatorCreateWithPathArchitectureFlagsAndNotification, 
                        _CSSymbolicatorCreateWithPid, _CSSymbolicatorCreateWithPidFlagsAndNotification, 
-                       _CSSymbolicatorCreateWithSignature, _CSSymbolicatorCreateWithSignatureAndNotification, 
-                       _CSSymbolicatorCreateWithSignatureFlagsAndNotification, _CSSymbolicatorCreateWithTask, 
-                       _CSSymbolicatorCreateWithTaskFlagsAndNotification, _CSSymbolicatorCreateWithTaskPidFlagsAndNotification, 
-                       _CSSymbolicatorCreateWithURLAndArchitecture, _CSSymbolicatorCreateWithURLArchitectureFlagsAndNotification, 
+                       _CSSymbolicatorCreateWithSignature, _CSSymbolicatorCreateWithSignatureAdditionalSymbolOwnersFlagsAndNotification, 
+                       _CSSymbolicatorCreateWithSignatureAndAdditionalSymbolOwners, 
+                       _CSSymbolicatorCreateWithSignatureAndNotification, _CSSymbolicatorCreateWithSignatureFlagsAndNotification, 
+                       _CSSymbolicatorCreateWithTask, _CSSymbolicatorCreateWithTaskFlagsAndNotification, 
+                       _CSSymbolicatorCreateWithTaskPidFlagsAndNotification, _CSSymbolicatorCreateWithURLAndArchitecture, 
+                       _CSSymbolicatorCreateWithURLArchitectureFlagsAndNotification, 
                        _CSSymbolicatorFixupFrames, _CSSymbolicatorForceFullSymbolExtraction, 
                        _CSSymbolicatorForeachRegionAtTime, _CSSymbolicatorForeachRegionWithNameAtTime, 
                        _CSSymbolicatorForeachSectionAtTime, _CSSymbolicatorForeachSegmentAtTime, 
@@ -100,17 +103,18 @@ exports:
                        _CSSymbolicatorGetAOutSymbolOwner, _CSSymbolicatorGetArchitecture, 
                        _CSSymbolicatorGetFlagsForDebugMapOnlyData, _CSSymbolicatorGetFlagsForDsymOnlyData, 
                        _CSSymbolicatorGetFlagsForDwarfOnlyData, _CSSymbolicatorGetFlagsForFunctionStartsOnlyData, 
-                       _CSSymbolicatorGetFlagsForNListOnlyData, _CSSymbolicatorGetFlagsForNoSymbolOrSourceInfoData, 
-                       _CSSymbolicatorGetPid, _CSSymbolicatorGetRegionCountAtTime, 
-                       _CSSymbolicatorGetRegionWithAddressAtTime, _CSSymbolicatorGetRegionWithNameAtTime, 
-                       _CSSymbolicatorGetSectionWithAddressAtTime, _CSSymbolicatorGetSegmentWithAddressAtTime, 
-                       _CSSymbolicatorGetSharedCacheSlide, _CSSymbolicatorGetSharedCacheUUID, 
-                       _CSSymbolicatorGetSourceInfoCountAtTime, _CSSymbolicatorGetSourceInfoWithAddressAtTime, 
-                       _CSSymbolicatorGetSymbolCountAtTime, _CSSymbolicatorGetSymbolOwner, 
-                       _CSSymbolicatorGetSymbolOwnerCountAtTime, _CSSymbolicatorGetSymbolOwnerWithAddressAtTime, 
-                       _CSSymbolicatorGetSymbolOwnerWithCFUUIDBytesAtTime, _CSSymbolicatorGetSymbolOwnerWithNameAtTime, 
-                       _CSSymbolicatorGetSymbolOwnerWithUUIDAtTime, _CSSymbolicatorGetSymbolWithAddressAtTime, 
-                       _CSSymbolicatorGetSymbolWithMangledNameAtTime, _CSSymbolicatorGetSymbolWithMangledNameFromSymbolOwnerWithNameAtTime, 
+                       _CSSymbolicatorGetFlagsForNListOnlyData, _CSSymbolicatorGetFlagsForNoDataExceptFromTheCache, 
+                       _CSSymbolicatorGetFlagsForNoSymbolOrSourceInfoData, _CSSymbolicatorGetPid, 
+                       _CSSymbolicatorGetRegionCountAtTime, _CSSymbolicatorGetRegionWithAddressAtTime, 
+                       _CSSymbolicatorGetRegionWithNameAtTime, _CSSymbolicatorGetSectionWithAddressAtTime, 
+                       _CSSymbolicatorGetSegmentWithAddressAtTime, _CSSymbolicatorGetSharedCacheSlide, 
+                       _CSSymbolicatorGetSharedCacheUUID, _CSSymbolicatorGetSourceInfoCountAtTime, 
+                       _CSSymbolicatorGetSourceInfoWithAddressAtTime, _CSSymbolicatorGetSymbolCountAtTime, 
+                       _CSSymbolicatorGetSymbolOwner, _CSSymbolicatorGetSymbolOwnerCountAtTime, 
+                       _CSSymbolicatorGetSymbolOwnerWithAddressAtTime, _CSSymbolicatorGetSymbolOwnerWithCFUUIDBytesAtTime, 
+                       _CSSymbolicatorGetSymbolOwnerWithNameAtTime, _CSSymbolicatorGetSymbolOwnerWithUUIDAtTime, 
+                       _CSSymbolicatorGetSymbolWithAddressAtTime, _CSSymbolicatorGetSymbolWithMangledNameAtTime, 
+                       _CSSymbolicatorGetSymbolWithMangledNameFromSymbolOwnerWithNameAtTime, 
                        _CSSymbolicatorGetSymbolWithNameAtTime, _CSSymbolicatorGetSymbolWithNameFromSymbolOwnerWithNameAtTime, 
                        _CSSymbolicatorGetTask, _CSSymbolicatorIsKernelSymbolicator, 
                        _CSSymbolicatorIsTaskTranslated, _CSSymbolicatorIsTaskValid, 

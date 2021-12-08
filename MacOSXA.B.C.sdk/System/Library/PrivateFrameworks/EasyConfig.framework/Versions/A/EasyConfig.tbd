@@ -1,12 +1,10 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 6D4DEE07-F1B7-379B-A650-0C75D298070E', 'x86_64: 4A17C86F-2FC6-3179-B6DB-3E737700C6D3' ]
+uuids:           [ 'i386: FBF66820-443E-35AD-9191-C62BC7365050', 'x86_64: 7F46E87D-091A-3863-9D78-B3628B6FE991' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/EasyConfig.framework/Versions/A/EasyConfig
 objc-constraint: none
 exports:         
-  - archs:           [ i386 ]
-    objc-classes:    [ _AWDEasyConfigCompleted ]
   - archs:           [ x86_64 ]
     objc-ivars:      [ _EasyConfigDevice._airplayBonjourInfo, _EasyConfigDevice._airplayBrowser, 
                        _EasyConfigDevice._applyConfigFinishTime, _EasyConfigDevice._applyConfigStartTime, 
@@ -28,7 +26,8 @@ exports:
                        _EasyConfigDevice._promptForSetupCodeTime, _EasyConfigDevice._raopBonjourInfo, 
                        _EasyConfigDevice._raopBrowser, _EasyConfigDevice._scanRecord, 
                        _EasyConfigDevice._securityFinishTime, _EasyConfigDevice._securityStartTime, 
-                       _EasyConfigDevice._started, _EasyConfigDevice._state, _EasyConfigDevice._supportsHAP, 
+                       _EasyConfigDevice._skipPairSetup, _EasyConfigDevice._started, 
+                       _EasyConfigDevice._state, _EasyConfigDevice._supportsHAP, 
                        _EasyConfigDevice._supportsHAP2, _EasyConfigDevice._supportsMFi, 
                        _EasyConfigDevice._supportsTLV, _EasyConfigDevice._timeoutTimer, 
                        _EasyConfigDevice._userQueue ]

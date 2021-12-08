@@ -1,11 +1,10 @@
 --- !tapi-tbd-v2
-archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: B6CF6DA9-9DC4-35B5-8B54-E9D6393F1E71', 'x86_64: 97DB261A-EB5E-3808-AA6F-D99F31EB01ED' ]
+archs:           [ x86_64 ]
+uuids:           [ 'x86_64: 5739CDBA-06F0-3289-8B2A-E0BB7C1678D6' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Resources/libATSServer.dylib
-objc-constraint: none
 exports:         
-  - archs:           [ i386, x86_64 ]
+  - archs:           [ x86_64 ]
     symbols:         [ _ATSFontGlobalNotify, _ATSServerGenerateDB, _ATSServerIsReadyForXType, 
                        _ATSServerMain, _ATSServerShutdown, _ATSServerWorker, _CopyATSDumpFileURL ]
 ...

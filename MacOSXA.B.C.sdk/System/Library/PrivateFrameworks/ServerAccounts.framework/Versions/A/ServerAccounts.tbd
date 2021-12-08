@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: C44F9CB3-505A-3E46-ABBE-5419D1DC62A0' ]
+uuids:           [ 'x86_64: A6D16F30-1395-36C7-8D4F-29FD4C9A8C2C' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/ServerAccounts.framework/Versions/A/ServerAccounts
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _SVAccountComputerModelName, _SVAccountComputerName, _SVAccountErrorDomain, 

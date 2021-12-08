@@ -708,8 +708,12 @@ int	sendfile(int, int, off_t, off_t *, struct sf_hdtr *, int);
 
 #if !defined(_POSIX_C_SOURCE) || defined(_DARWIN_C_SOURCE)
 void	pfctlinput(int, struct sockaddr *);
+
+__API_AVAILABLE(macosx(10.11), ios(9.0), tvos(9.0), watchos(2.0))
 int connectx(int, const sa_endpoints_t *, sae_associd_t, unsigned int,
     const struct iovec *, unsigned int, size_t *, sae_connid_t *);
+
+__API_AVAILABLE(macosx(10.11), ios(9.0), tvos(9.0), watchos(2.0))
 int disconnectx(int, sae_associd_t, sae_connid_t);
 #endif	/* (!_POSIX_C_SOURCE || _DARWIN_C_SOURCE) */
 __END_DECLS

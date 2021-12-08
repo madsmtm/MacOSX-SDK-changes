@@ -47,6 +47,8 @@ typedef enum thread_snapshot_wait_flags {
 	kThreadWaitPThreadRWLockWrite   = 0x0d,
 	kThreadWaitPThreadCondVar       = 0x0e,
 	kThreadWaitParkedWorkQueue      = 0x0f,
+	kThreadWaitWorkloopSyncWait     = 0x10,
 } __attribute__((packed)) block_hint_t;
+
 
 #endif /* !_KERN_BLOCK_HINT_H_ */

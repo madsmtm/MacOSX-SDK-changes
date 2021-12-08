@@ -1,17 +1,21 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: A895E98F-3B4D-3408-A32D-3205160D5F53' ]
+uuids:           [ 'x86_64: 30D8DE8B-7673-3EC1-AD3F-B1F0DE97A45C' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/PhotoLibrary.framework/Versions/A/Frameworks/PhotosFormats.framework/Versions/A/PhotosFormats
-current-version: 3150.4.120
-objc-constraint: none
+current-version: 3201.11.120
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _PFAssetAdjustmentsBaseVersionKey, _PFAssetAdjustmentsDataBlobKey, 
-                       _PFAssetAdjustmentsFormatIdentifierKey, _PFAssetAdjustmentsFormatVersionKey, 
-                       _PFMetadataLivePhotoMinimumClientVersion, _PFMetadataLivePhotoPlaybackStyleIdentifier, 
-                       _PFMetadataLivePhotoPlaybackStyleIdentifierAutoloop, _PFMetadataLivePhotoPlaybackStyleIdentifierDefault, 
-                       _PFMetadataOriginatingSignature, _PFReadImageDisplayTimeFromVideoFileAtPath, 
+    symbols:         [ _CAMUserPreferenceCaptureEncodingBehavior, _CAMUserPreferenceSlomoConfiguration, 
+                       _CAMUserPreferenceVideoConfiguration, _PFAllPlatformsLivePhotoBundleTypeIdentifiers, 
+                       _PFAssetAdjustmentsBaseVersionKey, _PFAssetAdjustmentsDataBlobKey, 
+                       _PFAssetAdjustmentsEditorBundleIDKey, _PFAssetAdjustmentsFormatIdentifierKey, 
+                       _PFAssetAdjustmentsFormatVersionKey, _PFAssetAdjustmentsRenderTypesKey, 
+                       _PFCreateGIFFromVideoURL, _PFCurrentPlatformLivePhotoBundleTypeIdentifier, 
+                       _PFFaceFractionIntercept, _PFFaceFractionSlope, _PFIsLivePhotoBundleTypeIdentifier, 
+                       _PFMediaCapabilitiesOptionsSupportsTranscodeChoice, _PFMetadataLivePhotoMinimumClientVersion, 
+                       _PFMetadataOriginatingSignature, _PFMetadataRenderOriginatingSignature, 
+                       _PFMetadataVariationIdentifier, _PFReadImageDisplayTimeFromVideoFileAtPath, 
                        _PFReadMetadataFromVideoAVAsset, _PFReadMetadataFromVideoAtPath, 
                        _PFReadPairingIdentifierFromCGImageProperties, _PFReadPairingIdentifierFromImageAtPath, 
                        _PFReadPairingIdentifierFromVideoAtPath, _PFReadVideoDurationFromVideoFileAtPath, 
@@ -24,11 +28,18 @@ exports:
                        _PFVideoComplementFileExtension, _PFVideoComplementImagePathKey, 
                        _PFVideoComplementMetadataKey, _PFVideoComplementMetadataPairingIdentifierKey, 
                        _PFVideoComplementMetadataTimingInfoKey, _PFVideoComplementMetadataVersionKey, 
-                       _PFVideoComplementVideoPathKey, _PhotosFormatsVersionNumber, 
-                       _PhotosFormatsVersionString, ___PFVideoAVCFObjectBuilderClassInitialize ]
-    objc-classes:    [ _PFAssetAdjustments, _PFImageMetadata, _PFSlowMotionConfiguration, 
-                       _PFSlowMotionRampConfiguration, _PFSlowMotionTimeRangeMapper, 
-                       _PFSlowMotionTimeRangeMapperScaledRegion, _PFSlowMotionUtilities, 
-                       _PFVideoAVObjectBuilder, _PFVideoAdjustments, _PFVideoComplement, 
-                       _PFVideoMetadata ]
+                       _PFVideoComplementVideoPathKey, _PFVideoExportErrorDomain, 
+                       _PFVideoExportErrorStateKey, _PhotosFormatsVersionNumber, 
+                       _PhotosFormatsVersionString, ___PFVideoAVCFObjectBuilderClassInitialize, 
+                       _b, _kUTTypeLivePhotoBundle, _kUTTypeLivePhotoBundleExtension, 
+                       _kUTTypeLivePhotoBundlePrivate, _m ]
+    objc-classes:    [ _PFAssetAdjustmentFingerprintData, _PFAssetAdjustments, _PFCVML, 
+                       _PFImageMetadata, _PFMediaCapabilities, _PFMediaCapabilitiesQuery, 
+                       _PFPhotosFaceUtilities, _PFProportionalIntegralController, 
+                       _PFSinglePassVideoExportItem, _PFSinglePassVideoExportItemStatistics, 
+                       _PFSlowMotionConfiguration, _PFSlowMotionRampConfiguration, 
+                       _PFSlowMotionTimeRangeMapper, _PFSlowMotionTimeRangeMapperScaledRegion, 
+                       _PFSlowMotionUtilities, _PFVideoAVObjectBuilder, _PFVideoAdjustments, 
+                       _PFVideoComplement, _PFVideoExport, _PFVideoExportRangeCoordinator, 
+                       _PFVideoExportRangeWaitingCaller, _PFVideoMetadata ]
 ...

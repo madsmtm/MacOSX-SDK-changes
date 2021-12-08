@@ -8,7 +8,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 CA_CLASS_AVAILABLE (10.6, 5.0, 9.0, 2.0)
-@interface CAEmitterCell : NSObject <NSCoding, CAMediaTiming>
+@interface CAEmitterCell : NSObject <NSSecureCoding, CAMediaTiming>
 {
 @private
   void *_attr[2];

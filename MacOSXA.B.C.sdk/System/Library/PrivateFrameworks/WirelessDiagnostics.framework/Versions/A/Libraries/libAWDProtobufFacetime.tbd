@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 3FCF60B3-C72C-34B4-87B4-BD27DACC6C2D' ]
+uuids:           [ 'x86_64: 93FEE104-F3E3-3A28-839E-F61DFA302E44' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/WirelessDiagnostics.framework/Versions/A/Libraries/libAWDProtobufFacetime.dylib
 objc-constraint: none
@@ -315,10 +315,14 @@ exports:
                        __ZN3awd7metrics27FacetimeNetworkStatusReportD2Ev, __ZN3awd7metrics28FaceTimeCallAggregatedReport10SharedCtorEv, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport10SharedDtorEv, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport16default_instanceEv, 
+                       __ZN3awd7metrics28FaceTimeCallAggregatedReport16kIRUTFieldNumberE, 
+                       __ZN3awd7metrics28FaceTimeCallAggregatedReport16kISBDFieldNumberE, 
+                       __ZN3awd7metrics28FaceTimeCallAggregatedReport16kRSWPFieldNumberE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport17default_instance_E, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport17kNonceFieldNumberE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport20kCallTypeFieldNumberE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport20kDurationFieldNumberE, 
+                       __ZN3awd7metrics28FaceTimeCallAggregatedReport20kREDStateFieldNumberE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport20kSegmentsFieldNumberE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport21CheckTypeAndMergeFromERKN6google8protobuf11MessageLiteE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport21InitAsDefaultInstanceEv, 
@@ -326,6 +330,7 @@ exports:
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport25kTransportTypeFieldNumberE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport27MergePartialFromCodedStreamEPN6google8protobuf2io16CodedInputStreamE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport30kSwitchIntoDupCountFieldNumberE, 
+                       __ZN3awd7metrics28FaceTimeCallAggregatedReport33kAdaptiveLearningStateFieldNumberE, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport4SwapEPS1_, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport5ClearEv, __ZN3awd7metrics28FaceTimeCallAggregatedReport8CopyFromERKS1_, 
                        __ZN3awd7metrics28FaceTimeCallAggregatedReport9MergeFromERKS1_, 
@@ -433,6 +438,7 @@ exports:
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats17default_instance_E, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats21CheckTypeAndMergeFromERKN6google8protobuf11MessageLiteE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats21InitAsDefaultInstanceEv, 
+                       __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats23kREDMaxDelayFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats23kSegmentNameFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats24kBBRateTooLowFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats24kPLRHistogramFieldNumberE, 
@@ -443,10 +449,14 @@ exports:
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats27MergePartialFromCodedStreamEPN6google8protobuf2io16CodedInputStreamE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats27kBBQueueTooLargeFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats27kSegmentDurationFieldNumberE, 
+                       __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats27kSegmentREDStateFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats28kJBQSizeHistogramFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats28kLatencyHistogramFieldNumberE, 
+                       __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats28kREDReceivedCountFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats29kJBTargetHistogramFieldNumberE, 
+                       __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats29kREDDiscardedCountFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats30kFramerateHistogramFieldNumberE, 
+                       __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats30kREDNumPayloadsUsedFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats32kAudioFlushPercentageFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats32kVideoFlushPercentageFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats32kVideoJitterHistogramFieldNumberE, 
@@ -455,8 +465,10 @@ exports:
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats34kAudioErasuresHistogramFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats36kVideoResolutionHistogramFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats38kMaxNoRemotePacketsIntervalFieldNumberE, 
+                       __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats38kREDErasureCompensationRateFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats38kVideoQualityScoreHistogramFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats40kMaxNoRemotePacketsPercentageFieldNumberE, 
+                       __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats40kSegmentAdaptiveLearningStateFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats41kTotalAudioStallTimePercentageFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats41kTotalVideoStallTimePercentageFieldNumberE, 
                        __ZN3awd7metrics41FaceTimeCallAggregatedReport_SegmentStats41kVideoEncodingBitrateHistogramFieldNumberE, 

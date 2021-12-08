@@ -1,13 +1,13 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 11E390C3-5087-33F3-8B6D-C9FA1E1AC1A3', 'x86_64: DD6F8D1F-69EE-335A-8654-72B24E25423D' ]
+uuids:           [ 'i386: CB4FCD5D-1D2E-3ED2-B4E5-01D89DF27EF8', 'x86_64: C80EC1C2-101B-39CA-B322-E28D0054A2DE' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/CoreAudioKit.framework/Versions/A/CoreAudioKit
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
-    objc-classes:    [ _AUAudioUnitRemoteViewController, _AUAudioUnitViewService, 
-                       _AUViewController, _CAInterDeviceAudioViewController, _iDamDevice ]
+    objc-classes:    [ _AUAudioUnitRemoteViewController, _AUAudioUnitViewConfiguration, 
+                       _AUAudioUnitViewService, _AUViewController, _CAInterDeviceAudioViewController, 
+                       _iDamDevice ]
     objc-ivars:      [ _CAAppleAUCustomViewBase.auRendering, _CAAppleAUCustomViewBase.backgroundGradient, 
                        _CAAppleAUCustomViewBase.blueGradient, _CAAppleAUCustomViewBase.cachedGenericViewData, 
                        _CAAppleAUCustomViewBase.cachedPersistantViewData, _CAAppleAUCustomViewBase.detailsButton, 

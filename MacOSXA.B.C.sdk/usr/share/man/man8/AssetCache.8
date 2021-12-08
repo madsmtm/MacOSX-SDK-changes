@@ -29,7 +29,7 @@ manually.
 .Bl -tag -width -compact
 .It Pa /Library/Preferences/com.apple.AssetCache.plist
 Configuration preferences.
-.It Pa /Library/Caches/com.apple.AssetCache
+.It Pa "/Library/Application Support/Apple/AssetCache/Data"
 Data store.
 .El                      \" Ends the list
 .Sh DIAGNOSTICS       \" May not be needed
@@ -46,8 +46,8 @@ subsystem com.apple.AssetCache.
 .Sh SEE ALSO 
 .\" List links in ascending order by section, alphabetically within a section.
 .\" Please do not reference files that do not exist without filing a bug report
-.Xr AssetCacheActivatorUtil 8 ,
+.Xr log 1 ,
 .Xr AssetCacheLocatorUtil 8 ,
-.Xr os_log_create 3
+.Xr AssetCacheManagerUtil 8
 .\" .Sh BUGS              \" Document known, unremedied bugs 
 .\" .Sh HISTORY           \" Document history if command behaves in a unique manner

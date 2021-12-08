@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 584D50EC-5AF1-3F32-88E1-B0BCFF87C8BD' ]
+uuids:           [ 'x86_64: 5C4C6072-E844-3C62-8843-99C86325DE4F' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SystemMigration.framework/Versions/A/SystemMigration
 current-version: 866
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ByteSwapInt16, _CStringToUnicode, _CalculateP24, _CalculateSMBLANManagerHash, 
@@ -49,7 +48,7 @@ exports:
                        _portForAddress, _str_to_key, _strnupper ]
     objc-classes:    [ _DSMigrator, _MigrationHelper_Client, _OrderedSetArrayValueTransformer, 
                        _SMArchiver, _SMAttemptPeerToPeerStep, _SMAuthenticatedMountWindowController, 
-                       _SMBackground_Client, _SMCollectIncompatibleApps, _SMCommitDeferredSandboxElement, 
+                       _SMCollectIncompatibleApps, _SMCommitDeferredSandboxElement, 
                        _SMConfMigrator, _SMConfMigratorPlugin, _SMConfMigratorRule, 
                        _SMConflictResolutionViewController, _SMConnectionFamilyIconTransformer, 
                        _SMConnectionFamilyIconTypeTransformer, _SMConnectionFamilyNameTransformer, 
@@ -58,13 +57,13 @@ exports:
                        _SMCopyEngineUtilities, _SMCopyEngineWindowsCopier, _SMCopyEngineWindowsPathCopier, 
                        _SMCustomizeTablesByteCountFormatter, _SMCustomizeTreeNode_Client, 
                        _SMCustomizeTree_Client, _SMCustomize_Client, _SMDBAccess, 
-                       _SMDBEntry, _SMDBackground_XPCClientConnection, _SMDCustomize_XPCClientConnection, 
-                       _SMDDebugCommands_XPCClientConnection, _SMDMManager, _SMDMigrateFrom_XPCClientConnection, 
-                       _SMDProgress_XPCClientConnection, _SMDSystemScanner_XPCClientConnection, 
-                       _SMDUtilities_XPCClientConnection, _SMDXPCClientConnection, 
-                       _SMDebug_Client, _SMEngineDelegateProxy, _SMEngineStateTransformer, 
-                       _SMFDEManagementViewController, _SMFDETableDelegate, _SMGlobalPreferencesMigrator, 
-                       _SMGroup, _SMGroup_Client, _SMGroup_Daemon, _SMIgnoreClickingButton, 
+                       _SMDBEntry, _SMDCustomize_XPCClientConnection, _SMDDebugCommands_XPCClientConnection, 
+                       _SMDMManager, _SMDMigrateFrom_XPCClientConnection, _SMDProgress_XPCClientConnection, 
+                       _SMDSystemScanner_XPCClientConnection, _SMDUtilities_XPCClientConnection, 
+                       _SMDXPCClientConnection, _SMDebug_Client, _SMEngineDelegateProxy, 
+                       _SMEngineStateTransformer, _SMFDEManagementViewController, 
+                       _SMFDETableDelegate, _SMGlobalPreferencesMigrator, _SMGroup, 
+                       _SMGroup_Client, _SMGroup_Daemon, _SMIgnoreClickingButton, 
                        _SMImageCache, _SMIncompatibleAppFolderData, _SMIncompatibleAppUpdater, 
                        _SMLegacyNetworkDirectoryEnumerator, _SMLocalDiskPathEnumerator, 
                        _SMMacUser_Client, _SMMacUser_Daemon, _SMManagedPreferences, 

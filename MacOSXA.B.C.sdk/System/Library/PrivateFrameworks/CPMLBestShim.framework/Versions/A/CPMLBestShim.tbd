@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9E6C2448-EA92-38BA-B8C3-F2EBFC651F1D' ]
+uuids:           [ 'x86_64: 2F02B81D-C8A9-35D1-AD9F-0A5FB0C2D88E' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CPMLBestShim.framework/Versions/A/CPMLBestShim
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _kCPMLAppTitle, _kCPMLAppType, _kCPMLAppUsageTime, _kCPMLBTCondition, 

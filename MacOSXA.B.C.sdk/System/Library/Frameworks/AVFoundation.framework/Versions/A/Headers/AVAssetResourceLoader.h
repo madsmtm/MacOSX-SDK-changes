@@ -395,7 +395,7 @@ AV_INIT_UNAVAILABLE
  @result		The persistable content key data that may be stored offline to answer future loading requests of the same content key.
  @discussion	The data returned from this method may be used to immediately satisfy an AVAssetResourceLoadingDataRequest, as well as any subsequent requests for the same key url. The value of AVAssetResourceLoadingContentInformationRequest.contentType must be set to AVStreamingKeyDeliveryPersistentContentKeyType when responding with data created with this method.
 */
-- (NSData *)persistentContentKeyFromKeyVendorResponse:(NSData *)keyVendorResponse options:(nullable NSDictionary<NSString *, id> *)options error:(NSError **)outError NS_AVAILABLE_IOS(9_0);
+- (nullable NSData *)persistentContentKeyFromKeyVendorResponse:(NSData *)keyVendorResponse options:(nullable NSDictionary<NSString *, id> *)options error:(NSError **)outError NS_AVAILABLE_IOS(9_0);
 
 @end
 

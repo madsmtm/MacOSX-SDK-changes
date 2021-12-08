@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 464A67CC-136B-3F02-BBCD-E5D1DEED3A87', 'x86_64: 29E1CE91-608B-393A-AF70-C234647F99D6' ]
+uuids:           [ 'i386: CD85D63A-9FBB-32A9-A249-1437AE1994C0', 'x86_64: CAADCE1C-2C63-3BF8-9F7B-88132F3BED9D' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/GeoKit.framework/Versions/A/GeoKit
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _GEOCityPickerView.comboBox, _GEOCityPickerView.delegate, 

@@ -96,7 +96,7 @@ NS_CLASS_AVAILABLE(10_8, 4_1) __WATCHOS_AVAILABLE(3_0)
 @end
 
 // Notification will be posted whenever authentication status changes.
-GK_EXTERN NSString *GKPlayerAuthenticationDidChangeNotificationName NS_AVAILABLE(10_8, 4_1);
+GK_EXTERN NSNotificationName GKPlayerAuthenticationDidChangeNotificationName NS_AVAILABLE(10_8, 4_1);
 
 @interface GKLocalPlayer (Deprecated)
 

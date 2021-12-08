@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 282AEFB4-124A-3AA2-B867-9C1E721DB34B', 'x86_64: E960D050-2CDD-37EF-9225-064417DA34A8' ]
+uuids:           [ 'i386: 0861268E-09AB-3D2E-A104-F1A31B0B8A6B', 'x86_64: 4CFFDC28-1CF7-3844-8ECF-15534CC0DC3E' ]
 platform:        macosx
 flags:           [ flat_namespace ]
 install-name:    /usr/lib/libapr-1.0.dylib
@@ -168,8 +168,8 @@ exports:
                        _apr_version_string, _apr_vformatter, _apr_vsnprintf, _apr_wait_for_io_or_timeout ]
 undefineds:      
   - archs:           [ i386 ]
-    symbols:         [ ___divdi3, ___moddi3, ___udivdi3, '_accept$UNIX2003', '_bind$UNIX2003', 
-                       '_chmod$UNIX2003', '_close$UNIX2003', '_closedir$UNIX2003', 
+    symbols:         [ ___divdi3, ___moddi3, ___udivdi3, ___umoddi3, '_accept$UNIX2003', 
+                       '_bind$UNIX2003', '_chmod$UNIX2003', '_close$UNIX2003', '_closedir$UNIX2003', 
                        '_connect$UNIX2003', '_fcntl$UNIX2003', '_freopen$UNIX2003', 
                        '_fsync$UNIX2003', '_fwrite$UNIX2003', '_getpeername$UNIX2003', 
                        '_getsockname$UNIX2003', '_kill$UNIX2003', '_listen$UNIX2003', 

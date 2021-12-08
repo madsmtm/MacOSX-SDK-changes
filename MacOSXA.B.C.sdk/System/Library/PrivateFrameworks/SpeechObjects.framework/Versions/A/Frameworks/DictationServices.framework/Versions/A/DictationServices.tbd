@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B33284E4-2CA9-35FA-905C-26F9A3A99DAB' ]
+uuids:           [ 'x86_64: 03B980DA-ED74-3196-9B4A-608886F36CFE' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/SpeechObjects.framework/Versions/A/Frameworks/DictationServices.framework/Versions/A/DictationServices
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _SOAudioDeviceInputSourcesChangedNotification, _SOAudioDeviceManagerAlertVolumeChangedNotification, 
@@ -23,10 +22,10 @@ exports:
                        _kSODictationCustomCommandFileURLKey, _kSODictationCustomCommandIdentifierKey, 
                        _kSODictationCustomCommandTitleKey, _kSORecognitionWindowMicLayerObjectName, 
                        _sDSRMessageTracerUtilities, _sSOCommandsWindowController, 
-                       _sSODownloadRequestWindowController, _sSOElementClickFlashOverlayController, 
-                       _sSOExternalClientDownloadAlertController, _sSOLMAdaptationManager, 
-                       _sSOLabeledElementsOverlayController, _sSORecognitionTextBalloonController, 
-                       _sSORecognitionWindowController, _sTargetApplications ]
+                       _sSOElementClickFlashOverlayController, _sSOExternalClientDownloadAlertController, 
+                       _sSOLMAdaptationManager, _sSOLabeledElementsOverlayController, 
+                       _sSORecognitionTextBalloonController, _sSORecognitionWindowController, 
+                       _sTargetApplications ]
     objc-classes:    [ _ConfigKeyEditor, _DSRMessageTracerUtilities, _SOAddRemoveActionBar, 
                        _SOAddRemoveActionBarCell, _SOApplicationUtilities, _SOAudioDevice, 
                        _SOAudioDeviceManager, _SOAudioInputDevice, _SOAudioQueueRecorder, 
@@ -39,14 +38,14 @@ exports:
                        _SODictationCommandGroup, _SODictationCommandItem, _SODictationCommandItemCell, 
                        _SODictationCommandManager, _SODictationCommandNounSpecifier, 
                        _SODictationHotKey, _SODictationHotKeyController, _SODictationPreferences, 
-                       _SODictationPreferencesViewController, _SODownloadRequestWindowController, 
-                       _SOElementClickFlashOverlayBackgroundView, _SOElementClickFlashOverlayController, 
-                       _SOElementClickFlashOverlayWindow, _SOEnableDictationPanelController, 
-                       _SOExternalClientDownloadAlertController, _SOHotKeyManager, 
-                       _SOHotKeyTextFieldCell, _SOLMAdaptationManager, _SOLabeledElement, 
-                       _SOLabeledElementsOverlayBackgroundView, _SOLabeledElementsOverlayController, 
-                       _SOLabeledElementsOverlayWindow, _SOMicrophoneLevelMeterController, 
-                       _SOMicrophonePopUpButton, _SORecognitionFeedbackManager, _SORecognitionTextBalloonBackgroundView, 
+                       _SODictationPreferencesViewController, _SOElementClickFlashOverlayBackgroundView, 
+                       _SOElementClickFlashOverlayController, _SOElementClickFlashOverlayWindow, 
+                       _SOEnableDictationPanelController, _SOExternalClientDownloadAlertController, 
+                       _SOHotKeyManager, _SOHotKeyTextFieldCell, _SOLMAdaptationManager, 
+                       _SOLabeledElement, _SOLabeledElementsOverlayBackgroundView, 
+                       _SOLabeledElementsOverlayController, _SOLabeledElementsOverlayWindow, 
+                       _SOMicrophoneLevelMeterController, _SOMicrophonePopUpButton, 
+                       _SORecognitionFeedbackManager, _SORecognitionTextBalloonBackgroundView, 
                        _SORecognitionTextBalloonController, _SORecognitionTextBalloonWindow, 
                        _SORecognitionWindowAnimatedContentView, _SORecognitionWindowAnimatedMicBackgroundView, 
                        _SORecognitionWindowAnimatedMicFillView, _SORecognitionWindowController, 
@@ -177,11 +176,16 @@ exports:
                        _SODictationPreferencesViewController._privacyPanelController, 
                        _SODictationPreferencesViewController._showCommandOptionsButton, 
                        _SODictationPreferencesViewController._showPrivacyPanelButton, 
-                       _SODownloadRequestWindowController._completion, _SODownloadRequestWindowController._currentLanguageItem, 
                        _SOElementClickFlashOverlayController._backgroundView, _SOEnableDictationPanelController._completion, 
                        _SOEnableDictationPanelController._delegate, _SOEnableDictationPanelController._disabling, 
                        _SOEnableDictationPanelController._isAssistant, _SOEnableDictationPanelController._parentWindow, 
                        _SOEnableDictationPanelController._privacyPanelController, 
+                       _SOEnableDictationPanelController._privacyTitles, _SOEnableDictationPanelController._privacyURLs, 
+                       _SOEnableDictationPanelController.cancelButton, _SOEnableDictationPanelController.icon, 
+                       _SOEnableDictationPanelController.informativeText, _SOEnableDictationPanelController.informativeTextBottomSpace, 
+                       _SOEnableDictationPanelController.messageText, _SOEnableDictationPanelController.okButton, 
+                       _SOEnableDictationPanelController.panel, _SOEnableDictationPanelController.privacyButton, 
+                       _SOEnableDictationPanelController.privacyButtonTrailingSpace, 
                        _SOExternalClientDownloadAlertController._clientPid, _SOExternalClientDownloadAlertController._completion, 
                        _SOExternalClientDownloadAlertController._descriptionTextField, 
                        _SOExternalClientDownloadAlertController._doNotAskAgainCheckbox, 
@@ -240,7 +244,8 @@ exports:
                        _SORecognitionWindowController._nextThinkingImageIndex, _SORecognitionWindowController._resumeTravelingUITimer, 
                        _SORecognitionWindowController._state, _SORecognitionWindowController._statusBarItem, 
                        _SORecognitionWindowController._thinkingAnimationTimer, _SORecognitionWindowController._useVerticalLayoutHUDPositioning, 
-                       _SORecognitionWindowDoneButton._highlightView, _SOUserLicensePanelController._filePath, 
-                       _SOUserLicensePanelController._parentWindow, _SOUserLicensePanelController.licenseTextView, 
-                       _SOUserLicensePanelController.panel ]
+                       _SORecognitionWindowDoneButton._highlightView, _SOUserLicensePanelController._fileURLs, 
+                       _SOUserLicensePanelController._parentWindow, _SOUserLicensePanelController._titles, 
+                       _SOUserLicensePanelController.licenseTextView, _SOUserLicensePanelController.panel, 
+                       _SOUserLicensePanelController.segmentedControl ]
 ...

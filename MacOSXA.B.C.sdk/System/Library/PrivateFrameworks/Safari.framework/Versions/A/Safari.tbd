@@ -1,11 +1,10 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 060A6240-C8A0-3E19-8F3F-012CAF882D8E' ]
+uuids:           [ 'x86_64: 2244A12C-2D1D-39CB-8BB6-E7EE7AC61CDE' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Safari.framework/Versions/A/Safari
-current-version: 603.1.30
+current-version: 604.1.38
 compatibility-version: 528
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _BABookmarkCopyURL, _BABookmarkSetURL, _BAChangeChangedItemOrderWithinParent, 
@@ -28,10 +27,28 @@ exports:
                        _BAItemSetTitle, _BANoteHomeURL, _BHReportTaskFailed, _BHReportTaskGroupFailed, 
                        _BHReportTaskGroupSubmitted, _BHReportTaskGroupSucceeded, 
                        _BHReportTaskSubmitted, _BHReportTaskSucceeded, _BHReportWokenByPush, 
+                       _CKBABookmarkCopyKnownKeys, _CKBABookmarkGetBookmarkType, 
+                       _CKBAChangeCopyDeletedBookmarkSyncData, _CKBAChangeCopyModifiedAttributes, 
+                       _CKBAChangeGetWasBookmarkMoved, _CKBAChangeSetDeletedBookmarkSyncData, 
+                       _CKBACopyDeviceIdentifier, _CKBADatabaseAddItemUnderFolderWithServerId, 
+                       _CKBADatabaseClearAllLocalBookmarksForAutomatedTesting, _CKBADatabaseCopyAccountHash, 
+                       _CKBADatabaseCopyChangeToken, _CKBADatabaseCopyFirstServerIdInFolderWithServerId, 
+                       _CKBADatabaseCopyItemWithLocalID, _CKBADatabaseCopyItemWithServerId, 
+                       _CKBADatabaseCopyLastServerIdInFolderWithServerId, _CKBADatabaseCopyLocalIDsInFolderWithLocalID, 
+                       _CKBADatabaseCopyServerIdInFolderAfterServerId, _CKBADatabaseCopyServerIdInFolderBeforeServerId, 
+                       _CKBADatabaseCopyServerIdsInFolderWithServerId, _CKBADatabaseCreateBookmark, 
+                       _CKBADatabaseCreateFolder, _CKBADatabaseCreateWithoutLock, 
+                       _CKBADatabaseGetLocalCloudKitMigrationState, _CKBADatabasePerformDeduplication, 
+                       _CKBADatabaseSaveBackupWithName, _CKBADatabaseSetAccountHash, 
+                       _CKBADatabaseSetChildrenOrderForFolderWithServerId, _CKBADatabaseSetLocalCloudKitMigrationState, 
+                       _CKBAFolderCopyKnownKeys, _CKBAFolderGetFolderType, _CKBAItemCopyAttributes, 
+                       _CKBAItemCopyValueForKey, _CKBAItemGetIsInFolderWithServerSyncId, 
+                       _CKBAItemGetItemType, _CKBAItemIsEqualToItem, _CKBAItemSetModifiedAttributes, 
+                       _CKBAReadingListItemCopyKnownKeys, _CKBAResetDeviceIdentifier, 
                        _NotificationAgentMain, _PlugInUpdateNotifierMain, _SafariDiagnosticsMain, 
-                       _SafariMain, _SyncedCreditCardsDidChangeExternallyNotification, 
-                       _SyncedPasswordsDidChangeExternallyNotification, _WKBundleInitialize, 
-                       __Z25safariDateOfLastActiveUsev, __Z31BrowserDataImportingServiceMainv, 
+                       _SafariHistoryServiceAgentMain, _SafariLaunchAgentMain, _SafariMain, 
+                       _SyncedCreditCardsDidChangeExternallyNotification, _SyncedPasswordsDidChangeExternallyNotification, 
+                       _WKBundleInitialize, __Z25safariDateOfLastActiveUsev, __Z31BrowserDataImportingServiceMainv, 
                        __Z33safariApplicationBundleIdentifierv, __Z41creditCardDataControllerHasCreditCardDatav, 
                        __Z43creditCardDataControllerClearCreditCardDatav, __Z50safariApplicationCloudTabStoreUUIDForCurrentDevicev, 
                        __Z52credentialAndProtectionSpaceCollectionHasCredentialsv, 
@@ -45,9 +62,9 @@ exports:
                        __ZNK6Safari11Certificate16rawPublicKeyDataEv, __ZNK6Safari11Certificate19hasExtendedKeyUsageE9cssm_data, 
                        __ZNK6Safari11Certificate19hasExtensionWithOIDE9cssm_dataNS0_29RequireCriticalExtensionOrNotE, 
                        __ZNK6Safari11Certificate22hasExtensionSigningOIDEv, __ZNK6Safari11Certificate25getX509EncodedCertificateERPKhRm, 
-                       __ZNK6Safari11Certificate31hasInvalidAppleCertificateChainEdPKS0_, 
+                       __ZNK6Safari11Certificate31hasInvalidAppleCertificateChainEdRKS0_, 
                        __ZNK6Safari11Certificate33hasAppleSignedExtensionSigningOIDEv, 
-                       __ZNK6Safari11Certificate35evaluateAppleIssuedCertificateChainEdPKS0_, 
+                       __ZNK6Safari11Certificate35evaluateAppleIssuedCertificateChainEdRKS0_, 
                        __ZNK6Safari11Certificate35isValidAppleIntermediateCertificateEv, 
                        __ZNK6Safari11Certificate50isValidAppleSignedExtensionIntermediateCertificateEv, 
                        __ZTVN6Safari11CertificateE, _cloudHistorySyncStatusDidChangeNotification, 
@@ -56,6 +73,6 @@ exports:
                        _safariFrameworkBundleIdentifier, _safariProductionApplicationBundleIdentifier, 
                        _safariSharedFrameworkBundleIdentifier, _safariTechnologyPreviewApplicationBundleIdentifier ]
     objc-classes:    [ _BookmarksController, _PurgeableDirectory, _PurgeableItemController, 
-                       _PurgeableWebCache, _ReadingListItem, _SafariContentBlockerAppExtensionsController, 
-                       _WebBookmark, _WebBookmarkGroup, _WebBookmarkLeaf, _WebBookmarkList ]
+                       _PurgeableWebCache, _SafariContentBlockerAppExtensionsController, 
+                       _SnapshotCache, _SnapshotRequest, _SnapshotResponse, _WebBookmarkGroup ]
 ...

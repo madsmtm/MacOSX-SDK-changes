@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 3ABD39CF-1AE7-35AF-BB44-D17A073D50F8', 'x86_64: 4A9519EF-54D5-3537-86A9-329FAC6AB067' ]
+uuids:           [ 'i386: 9DB2668A-3F68-32F0-BF51-C7F791FEE8EE', 'x86_64: CF2818E6-E215-3C24-A2AC-1B5F8AD7E398' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/QTKit.framework/Versions/A/QTKit
-objc-constraint: none
 exports:         
   - archs:           [ i386 ]
     symbols:         [ _CopyNSImageToGWorld, _QTAcceleratedDisplayMask, _QTCaptureDeviceLegacySequenceGrabberAttribute, 

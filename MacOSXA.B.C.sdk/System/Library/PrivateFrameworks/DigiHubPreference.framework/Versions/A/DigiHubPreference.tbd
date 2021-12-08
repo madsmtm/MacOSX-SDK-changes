@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 934EA8B0-62ED-339E-8161-4CFC1578924B', 'x86_64: AE528A32-9737-39C4-B750-6F839B8B5106' ]
+uuids:           [ 'i386: 3A0977EE-8BCD-30C6-BB69-9786386B2715', 'x86_64: 08AF7719-2B4F-3594-88E6-D17FBC3D4F50' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/DigiHubPreference.framework/Versions/A/DigiHubPreference
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _DHOptionsPanelController._panel, _DigiActionTableColumn._dataCells, 

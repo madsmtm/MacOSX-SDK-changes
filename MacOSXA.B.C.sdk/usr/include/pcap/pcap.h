@@ -533,6 +533,12 @@ PCAP_API void	bpf_dump(const struct bpf_program *, int);
 
 #endif /* _WIN32/MSDOS/UN*X */
 
+#ifdef __APPLE__
+/* Internal API. */
+int	pcap_get_selectable_fd_list(pcap_t *, int **);
+void	pcap_free_selectable_fd_list(int *);
+#endif /* __APPLE__ */
+
 #ifdef HAVE_REMOTE
   /* Includes most of the public stuff that is needed for the remote capture */
   #include <remote-ext.h>

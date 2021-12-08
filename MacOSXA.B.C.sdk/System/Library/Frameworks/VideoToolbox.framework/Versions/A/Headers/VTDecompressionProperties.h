@@ -151,7 +151,7 @@ VT_EXPORT const CFStringRef kVTDecompressionPropertyKey_ContentHasInterframeDepe
 		This is useful for clients doing realtime decode operations to allow the VideoToolbox
 		to choose the optimal decode path.
 */
-VT_EXPORT const CFStringRef kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder API_AVAILABLE(macosx(10.9), ios(8.0)); // CFBoolean, Optional
+VT_EXPORT const CFStringRef kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder API_AVAILABLE(macosx(10.9), ios(8.0), tvos(10.2)); // CFBoolean, Optional
 
 /*!
 	@constant	kVTVideoDecoderSpecification_RequireHardwareAcceleratedVideoDecoder
@@ -171,7 +171,7 @@ VT_EXPORT const CFStringRef kVTVideoDecoderSpecification_EnableHardwareAccelerat
 			- the requested decoding format or configuration is not supported
 			- the hardware decode resources on the machine are busy
 */
-VT_EXPORT const CFStringRef kVTVideoDecoderSpecification_RequireHardwareAcceleratedVideoDecoder API_AVAILABLE(macosx(10.9), ios(8.0)); // CFBoolean, Optional
+VT_EXPORT const CFStringRef kVTVideoDecoderSpecification_RequireHardwareAcceleratedVideoDecoder API_AVAILABLE(macosx(10.9), ios(8.0), tvos(10.2)); // CFBoolean, Optional
 
 /*!
 	@constant	kVTDecompressionPropertyKey_UsingHardwareAcceleratedVideoDecoder
@@ -182,7 +182,7 @@ VT_EXPORT const CFStringRef kVTVideoDecoderSpecification_RequireHardwareAccelera
 		accelerated decode using kVTVideoDecoderSpecification_EnableHardwareAcceleratedVideoDecoder
 		to see if a hardware accelerated decoder was selected.
 */
-VT_EXPORT const CFStringRef kVTDecompressionPropertyKey_UsingHardwareAcceleratedVideoDecoder API_AVAILABLE(macosx(10.9), ios(8.0)); // CFBoolean, Read; assumed false by default
+VT_EXPORT const CFStringRef kVTDecompressionPropertyKey_UsingHardwareAcceleratedVideoDecoder API_AVAILABLE(macosx(10.9), ios(8.0), tvos(10.2)) ; // CFBoolean, Read; assumed false by default
 #endif // !TARGET_OS_IPHONE
 	
 #pragma mark Decoder behavior
@@ -267,7 +267,8 @@ VT_EXPORT const CFStringRef kVTDecompressionResolutionKey_Height API_AVAILABLE(m
 		The meaning of the number of coefficients will be decoder-specific.
 */
 VT_EXPORT const CFStringRef kVTDecompressionPropertyKey_ReducedCoefficientDecode API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2)); // Read/write, CFNumber
-
+	
+	
 /*!
 	@constant	kVTDecompressionPropertyKey_ReducedFrameDelivery
 	@abstract
@@ -299,7 +300,21 @@ VT_EXPORT const CFStringRef kVTDecompressionProperty_OnlyTheseFrames_AllFrames A
 VT_EXPORT const CFStringRef kVTDecompressionProperty_OnlyTheseFrames_NonDroppableFrames API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2));
 VT_EXPORT const CFStringRef kVTDecompressionProperty_OnlyTheseFrames_IFrames API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2));
 VT_EXPORT const CFStringRef kVTDecompressionProperty_OnlyTheseFrames_KeyFrames API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2));
-
+	
+/*!
+	@constant       kVTDecompressionProperty_TemporalLevelLimit
+	@abstract
+		Requests that frames be filtered by temporal level.
+	@discussion
+		This is an optional property for video decoders to implement.
+		If kVTDecompressionProperty_TemporalLevelLimit is supported and the video track is
+		an hierarchical encoding with temporal levels, this property requests that decoding
+		be limited to the specified temporal level and lower.
+		For more information on temporal levels, see kCMSampleAttachmentKey_HEVCTemporalLevelInfo
+		in CoreMedia/CMSampleBuffer.h
+*/
+VT_EXPORT const CFStringRef kVTDecompressionProperty_TemporalLevelLimit API_AVAILABLE(macosx(10.13), ios(11.0), tvos(10.4)); // Read/write, CFNumber
+	
 
 /*!
 	@constant	kVTDecompressionPropertyKey_SuggestedQualityOfServiceTiers

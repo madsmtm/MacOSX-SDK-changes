@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 6442F705-4C73-39BB-BE00-12C666D82EFB', 'x86_64: 24FED42B-363A-3CB0-8BB2-BD8D7CC24D6C' ]
+uuids:           [ 'i386: 327B27CF-1BA3-3CB5-98A1-D329A9A8A3F8', 'x86_64: 5B555BC7-8C52-37E8-92D1-829C06257D8B' ]
 platform:        macosx
 install-name:    /usr/lib/libcupscgi.1.dylib
 objc-constraint: none

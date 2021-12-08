@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: E78C15A2-69AF-396B-B0B6-677604160A9C', 'x86_64: 12659E94-28DA-3D64-A065-42E7636C2E6B' ]
+uuids:           [ 'i386: 6166BC97-12D2-3D11-8DBE-73A340478724', 'x86_64: 60A69FD7-4046-36C4-838F-AD07F9F17A2D' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/JavaVM.framework/Versions/A/Frameworks/JavaRuntimeSupport.framework/Versions/A/JavaRuntimeSupport
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _JRSMenu._delegate, _JRSMenu._menuEventHandler, _JRSMenu._mouseEventHandler, 

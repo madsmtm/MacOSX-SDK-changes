@@ -13,6 +13,7 @@
 #include <VideoToolbox/VTBase.h>
 #include <CoreVideo/CoreVideo.h>
 #include <CoreGraphics/CoreGraphics.h>
+#include <CoreMedia/CMBase.h>
 
 #if defined(__cplusplus)
 extern "C"

@@ -6,14 +6,18 @@
  */
 
 #import <ModelIO/ModelIOExports.h>
+#import <ModelIO/MDLAssetResolver.h>
 #import <ModelIO/MDLObject.h>
 #import <ModelIO/MDLVertexDescriptor.h>
 #import <ModelIO/MDLMeshBuffer.h>
+#import <ModelIO/MDLAnimation.h>
 #import <Foundation/NSURL.h>
 #import <simd/simd.h>
 
 @class MDLLightProbe;
 @class MDLTexture;
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @class MDLAsset
@@ -21,7 +25,7 @@
  @abstract An MDLAsset represents the contents of a model file.
  
  @discussion Each asset contains a collection of hierarchies of objects, where 
-             each object in the asset is the top level of a hierarchy. Objects 
+             each object in the asset is the top level of a hierarchy. Objects
              include transforms, lights, cameras, and meshes.
  
  MDLAssets are typically instantiated from NSURLs that refer to a model resource.
@@ -43,7 +47,6 @@
  */
 
 
-NS_ASSUME_NONNULL_BEGIN
 
 NS_CLASS_AVAILABLE(10_11, 9_0)
 MDL_EXPORT
@@ -60,7 +63,6 @@ MDL_EXPORT
              Submeshes will be converted to triangle topology.
  */
 - (instancetype)initWithURL:(NSURL *)URL;
-
 /*!
  @method initWithURL:vertexDescriptor:bufferAllocator:
  @abstract Initialize an MDLAsset using the contents of the resource located at 
@@ -78,7 +80,7 @@ MDL_EXPORT
  
              Submeshes will be converted to triangle topology.
   */
-- (instancetype)initWithURL:(NSURL *)URL
+- (instancetype)initWithURL:(nullable NSURL *)URL
            vertexDescriptor:(nullable MDLVertexDescriptor*)vertexDescriptor
             bufferAllocator:(nullable id<MDLMeshBufferAllocator>)bufferAllocator;
 
@@ -109,7 +111,6 @@ MDL_EXPORT
            preserveTopology:(BOOL)preserveTopology
                       error:(NSError * __nullable * __nullable)error;
 
-
 /*!
  @method exportAssetToURL:
  @abstract Export an asset to the specified URL.
@@ -123,6 +124,11 @@ MDL_EXPORT
  @return YES is returned if exporting proceeded successfully,
  */
 - (BOOL)exportAssetToURL:(NSURL *)URL error:(NSError * __nullable * __nullable)error;
+
+/*!
+ @abstract Return the object at the specified path, or nil if none exists there
+ */
+- (MDLObject*)objectAtPath:(NSString*)path API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
 
 /*!
  @method canImportFileExtension:
@@ -143,42 +149,6 @@ MDL_EXPORT
 + (BOOL)canExportFileExtension:(NSString *)extension;
 
 /*!
- @property components
- @abstract Allows applications to introspect the components on the asset.
- */
-@property (nonatomic, readonly, copy) NSArray<id<MDLComponent>> *components;
-
-/*!
- @method setComponent:forProtocol:
- @abstract Extensible component support that allows user of ModelIO to customize
- MDLAssets to fit their format and workflow.
- */
-- (void)setComponent:(id<MDLComponent>)component forProtocol:(Protocol *)protocol;
-
-/*!
- @method componentConformingToProtocol:
- @abstract Extensible component support that allows user of ModelIO to customize
- MDLAssets to fit their format and workflow.
- */
-- (nullable id<MDLComponent>)componentConformingToProtocol:(Protocol *)protocol;
-
-/*!
- @method objectForKeyedSubscript:
- @abstract Allows shorthand [key] syntax for componentConformingToProtocol:.
- @param key The protocol that the component conforms to.
- @see componentConformingToProtocol:
- */
-- (nullable id<MDLComponent>)objectForKeyedSubscript:(Protocol *)key;
-
-/*!
- @method setObject:forKeyedSubscript:
- @abstract Allows shorthand [key] syntax for setComponent:forProtocol:.
- @param key The protocol that the component conforms to.
- @see setComponent:forProtocol:
- */
-- (void)setObject:(nullable id<MDLComponent>)obj forKeyedSubscript:(Protocol *)key;
-
-/*!
  @method childObjectsOfClass:
  @abstract Inspects an asset's hierarchy for objects of the specified class type
  @return returns an NSArray of all objects in the asset matching the requested class
@@ -187,6 +157,14 @@ MDL_EXPORT
              raised.
  */
 - (NSArray<MDLObject*>*)childObjectsOfClass:(Class)objectClass;
+
+/*!
+ @method loadTextures
+ @abstract Iterates over all material properties on all materials. If they are string
+           values or NSURL values, and can be resolved as textures, then the string 
+           and NSURL values will be replaced by MDLTextureSampler values.
+ */
+- (void)loadTextures API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
 
 /*!
  @method boundingBoxAtTime:
@@ -229,12 +207,27 @@ MDL_EXPORT
 @property (nonatomic, readwrite) NSTimeInterval endTime;
 
 /*!
+ @property upAxis
+ @abstract Scene up axis
+ @discussion Some imported formats specify a scene up axis. By default Y-axis (0, 1, 0) is used
+ but other values are supported.
+ */
+@property (nonatomic, readwrite) vector_float3 upAxis API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
+
+/*!
  @property URL
  @abstract URL used to create the asset
- @discussion If no animation data was specified by resource or resource incapable 
-             of specifying animation data, this value defaults to 0
+ @discussion If the asset was not created with a URL, nil will be returned.
  */
 @property (nonatomic, readonly, retain, nullable) NSURL *URL;
+
+/*!
+ @property AssetResolver
+ @abstract Resolver asset that helps find associated files
+ @discussion The default asset resolver is the RelativeAssetResolver
+ */
+@property (nonatomic, retain, nullable) id<MDLAssetResolver> resolver API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
+
 
 /*!
  @property bufferAllocator
@@ -284,11 +277,16 @@ MDL_EXPORT
 /*!
  @property masters
  @abstract Master objects that can be instanced into the asset's object hierarchy
- 
- @see MDLObjectContainerComponent
+ @discussion @see MDLObjectContainerComponent
  */
 @property (nonatomic, retain) id<MDLObjectContainerComponent> masters;
 
+/*!
+ @property animations
+ @abstract Animations that can be bound to MDLObjects (@see MDLAnimationBindComponent)
+ @discussion @see MDLObjectContainerComponent
+ */
+@property (nonatomic, retain) id<MDLObjectContainerComponent> animations API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
 
 @end
 

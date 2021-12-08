@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A60C1B96-A145-3FA1-A47D-EF715D08111A', 'x86_64: E50E29F6-2BAB-3B8B-BBEA-7DC0B8B077AD' ]
+uuids:           [ 'i386: 0C367B98-7912-32BC-A1BA-02BF3D92E450', 'x86_64: 37D477DA-9DC9-340F-927E-D16CB4EC72D8' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CalendarAgentLink.framework/Versions/A/CalendarAgentLink
-current-version: 302.2
-objc-constraint: none
+current-version: 314
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _ABRemoteAccount._identifier, _ABRemoteAccount._isEnabled, 
@@ -161,6 +160,7 @@ exports:
                        _CalAgentLinkUpdateSubscriptionAuthInfoOperation_MessageKey_Password, 
                        _CalAgentLinkUpdateSubscriptionAuthInfoOperation_MessageKey_User, 
                        _CalAgentLinkUserNotificationOperation_Action_DeleteAlarms, 
+                       _CalAgentLinkUserNotificationOperation_Action_DeleteMessages, 
                        _CalAgentLinkUserNotificationOperation_Action_FindAndScheduleAlarms, 
                        _CalAgentLinkUserNotificationOperation_Action_ResolveBookmarks, 
                        _CalAgentLinkUserNotificationOperation_Action_ScheduleAlarms, 

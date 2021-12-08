@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: B5834FA2-4B98-35C0-999C-D34D1339AD0B', 'x86_64: 3CF00CCA-BE43-361E-9E9B-7060A39868F9' ]
+uuids:           [ 'i386: 33EBD857-4170-328F-BF19-86D1991F6CAC', 'x86_64: 4D110B88-983E-3006-8EAE-D2DC7EC59CED' ]
 platform:        macosx
 flags:           [ flat_namespace ]
 install-name:    /usr/lib/libaprutil-1.0.dylib

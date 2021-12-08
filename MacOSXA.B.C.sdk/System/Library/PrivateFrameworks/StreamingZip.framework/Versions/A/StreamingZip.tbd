@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 92440790-97E2-35B0-B67D-96983B20857A' ]
+uuids:           [ 'x86_64: 3D46509E-3EB7-3EC8-828D-19BF3C8670BD' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/StreamingZip.framework/Versions/A/StreamingZip
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _SZArchiverConvertZipArchiveToStreamable, _SZArchiverCopyStatsDescriptions, 

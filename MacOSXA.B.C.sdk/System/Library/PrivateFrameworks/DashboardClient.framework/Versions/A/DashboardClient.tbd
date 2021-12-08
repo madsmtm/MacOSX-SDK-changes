@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 424C3594-819A-3B91-8EEE-0E32B82C4AD2', 'x86_64: BEFDD753-8E8C-3859-9F67-FA8805285DAF' ]
+uuids:           [ 'i386: D881CD50-6785-36BD-8915-63CE1F3B33CB', 'x86_64: 5984070F-DAD9-324A-95D0-C93729FCF9F6' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/DashboardClient.framework/Versions/A/DashboardClient
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _DBCApplication._widget, _DBCAsyncUNIXScriptJSObject._callback, 

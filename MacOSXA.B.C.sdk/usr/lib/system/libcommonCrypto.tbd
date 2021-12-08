@@ -1,9 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: CC2DD4D7-B62D-3573-A18D-D1000769C8BD', 'x86_64: BE8380C5-C09D-3F48-A502-AEBB58231067' ]
+uuids:           [ 'i386: 536D7954-7C70-368F-BF63-A02A4E4529D6', 'x86_64: 6C502A55-3B54-3B48-BA7B-FA39F56C0B1E' ]
 platform:        macosx
 install-name:    /usr/lib/system/libcommonCrypto.dylib
-current-version: 60092.50.5
+current-version: 60118.1.1
 objc-constraint: none
 parent-umbrella: System
 exports:         
@@ -27,9 +27,11 @@ exports:
                        _CCCryptorCreateWithMode, _CCCryptorDecryptDataBlock, _CCCryptorEncryptDataBlock, 
                        _CCCryptorFinal, _CCCryptorGCM, _CCCryptorGCMAddAAD, _CCCryptorGCMAddADD, 
                        _CCCryptorGCMAddIV, _CCCryptorGCMDecrypt, _CCCryptorGCMEncrypt, 
-                       _CCCryptorGCMFinal, _CCCryptorGCMReset, _CCCryptorGCMaddAAD, 
-                       _CCCryptorGetIV, _CCCryptorGetOutputLength, _CCCryptorGetParameter, 
-                       _CCCryptorRelease, _CCCryptorReset, _CCCryptorUpdate, _CCDHComputeKey, 
+                       _CCCryptorGCMFinal, _CCCryptorGCMFinalize, _CCCryptorGCMOneshotDecrypt, 
+                       _CCCryptorGCMOneshotEncrypt, _CCCryptorGCMReset, _CCCryptorGCMSetIV, 
+                       _CCCryptorGCMaddAAD, _CCCryptorGetIV, _CCCryptorGetOutputLength, 
+                       _CCCryptorGetParameter, _CCCryptorRelease, _CCCryptorReset, 
+                       _CCCryptorReset_binary_compatibility, _CCCryptorUpdate, _CCDHComputeKey, 
                        _CCDHCreate, _CCDHGenerateKey, _CCDHParametersCreateFromData, 
                        _CCDHParametersCreateFromPKCS3, _CCDHParametersPKCS3Encode, 
                        _CCDHParametersPKCS3EncodeLength, _CCDHParametersRelease, 
@@ -51,21 +53,22 @@ exports:
                        _CCRSACryptorEncrypt, _CCRSACryptorExport, _CCRSACryptorGeneratePair, 
                        _CCRSACryptorGetPublicKeyFromPrivateKey, _CCRSACryptorImport, 
                        _CCRSACryptorRelease, _CCRSACryptorSign, _CCRSACryptorVerify, 
-                       _CCRSAGetKeyComponents, _CCRSAGetKeySize, _CCRSAGetKeyType, 
-                       _CCRandomCopyBytes, _CCRandomGenerateBytes, _CCSymmetricKeyUnwrap, 
-                       _CCSymmetricKeyWrap, _CCSymmetricUnwrappedSize, _CCSymmetricWrappedSize, 
-                       _CC_MD2, _CC_MD2_Final, _CC_MD2_Init, _CC_MD2_Update, _CC_MD4, 
-                       _CC_MD4_Final, _CC_MD4_Init, _CC_MD4_Update, _CC_MD5, _CC_MD5_Final, 
-                       _CC_MD5_Init, _CC_MD5_Update, _CC_RC4, _CC_RC4_set_key, _CC_SHA1, 
-                       _CC_SHA1_Final, _CC_SHA1_Init, _CC_SHA1_Update, _CC_SHA224, 
-                       _CC_SHA224_Final, _CC_SHA224_Init, _CC_SHA224_Update, _CC_SHA256, 
-                       _CC_SHA256_Final, _CC_SHA256_Init, _CC_SHA256_Update, _CC_SHA384, 
-                       _CC_SHA384_Final, _CC_SHA384_Init, _CC_SHA384_Update, _CC_SHA512, 
-                       _CC_SHA512_Final, _CC_SHA512_Init, _CC_SHA512_Update, _CCrfc3394_iv, 
-                       _CCrfc3394_ivLen, _CNCRC, _CNCRCDumpTable, _CNCRCFinal, _CNCRCInit, 
-                       _CNCRCRelease, _CNCRCUpdate, _CNCRCWeakTest, _CNEncode, _CNEncoderBlocksize, 
-                       _CNEncoderBlocksizeFromRef, _CNEncoderCreate, _CNEncoderCreateCustom, 
-                       _CNEncoderFinal, _CNEncoderGetOutputLength, _CNEncoderGetOutputLengthFromEncoding, 
+                       _CCRSAGetCRTComponents, _CCRSAGetCRTComponentsSizes, _CCRSAGetKeyComponents, 
+                       _CCRSAGetKeySize, _CCRSAGetKeyType, _CCRandomCopyBytes, _CCRandomGenerateBytes, 
+                       _CCSymmetricKeyUnwrap, _CCSymmetricKeyWrap, _CCSymmetricUnwrappedSize, 
+                       _CCSymmetricWrappedSize, _CC_MD2, _CC_MD2_Final, _CC_MD2_Init, 
+                       _CC_MD2_Update, _CC_MD4, _CC_MD4_Final, _CC_MD4_Init, _CC_MD4_Update, 
+                       _CC_MD5, _CC_MD5_Final, _CC_MD5_Init, _CC_MD5_Update, _CC_RC4, 
+                       _CC_RC4_set_key, _CC_SHA1, _CC_SHA1_Final, _CC_SHA1_Init, 
+                       _CC_SHA1_Update, _CC_SHA224, _CC_SHA224_Final, _CC_SHA224_Init, 
+                       _CC_SHA224_Update, _CC_SHA256, _CC_SHA256_Final, _CC_SHA256_Init, 
+                       _CC_SHA256_Update, _CC_SHA384, _CC_SHA384_Final, _CC_SHA384_Init, 
+                       _CC_SHA384_Update, _CC_SHA512, _CC_SHA512_Final, _CC_SHA512_Init, 
+                       _CC_SHA512_Update, _CCrfc3394_iv, _CCrfc3394_ivLen, _CNCRC, 
+                       _CNCRCDumpTable, _CNCRCFinal, _CNCRCInit, _CNCRCRelease, _CNCRCUpdate, 
+                       _CNCRCWeakTest, _CNEncode, _CNEncoderBlocksize, _CNEncoderBlocksizeFromRef, 
+                       _CNEncoderCreate, _CNEncoderCreateCustom, _CNEncoderFinal, 
+                       _CNEncoderGetOutputLength, _CNEncoderGetOutputLengthFromEncoding, 
                        _CNEncoderRelease, _CNEncoderUpdate, _MD5Final, _ccDRBGGetRngState, 
                        _ccDevRandomGetRngState, _kCCDHRFC2409Group2, _kCCDHRFC3526Group5, 
                        _kCCRandomDefault, _kCCRandomDevRandom ]

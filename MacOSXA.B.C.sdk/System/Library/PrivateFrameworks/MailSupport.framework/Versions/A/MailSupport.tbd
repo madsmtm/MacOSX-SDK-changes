@@ -1,26 +1,33 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 85293E3F-1497-35EE-9826-70CE87F8531E' ]
+uuids:           [ 'x86_64: 3306F1CF-1034-3023-8CB6-9F06B3CFAB48' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/MailSupport.framework/Versions/A/MailSupport
-current-version: 3032
+current-version: 3445.1.6
 objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
-    allowable-clients: [ Mail, Message, MobileMail ]
+    allowable-clients: [ EmailTests, IMAP, Mail, MailUnitTests, Message, MobileMail, 
+                         POP ]
     symbols:         [ _AWDMailCannotGetMailErrorReportReadFrom, _AWDMailErrorReadFrom, 
                        _AWDMailMessageBodyReadFrom, _AWDMailMessageDisplayErrorReportReadFrom, 
                        _AWDMailMessageLoadingReportReadFrom, _AWDMailMessageReadFrom, 
                        _AWDMailNetworkDiagnosticsReportReadFrom, _AWDMailSearchEngagementReadFrom, 
                        _AWDMailSearchSessionReportReadFrom, _AWDMailUserEngagementReadFrom, 
-                       _AWDMailboxTypeFromECMailbox, _MSLogSubsystem, _MSRoundUnsignedInteger, 
-                       _MailSupportVersionNumber, _MailSupportVersionString ]
+                       _AWDMailUserSuggestionsEngagmentReadFrom, _AWDMailboxTypeFromECMailbox, 
+                       _MSMailAccountStatisticsKindAOL, _MSMailAccountStatisticsKindExchange, 
+                       _MSMailAccountStatisticsKindGmail, _MSMailAccountStatisticsKindHotmail, 
+                       _MSMailAccountStatisticsKindICloud, _MSMailAccountStatisticsKindIMAP, 
+                       _MSMailAccountStatisticsKindNetease, _MSMailAccountStatisticsKindPOP, 
+                       _MSMailAccountStatisticsKindQQ, _MSMailAccountStatisticsKindYahoo, 
+                       _MSRoundUnsignedInteger ]
     objc-classes:    [ _AWDMailCannotGetMailErrorReport, _AWDMailError, _AWDMailMessage, 
                        _AWDMailMessageBody, _AWDMailMessageDisplayErrorReport, _AWDMailMessageLoadingReport, 
                        _AWDMailNetworkDiagnosticsReport, _AWDMailSearchEngagement, 
-                       _AWDMailSearchSessionReport, _AWDMailUserEngagement, _MSDiagnosticManager, 
-                       _MSMessageLoadingAnalyticController, _MSPrivacy, _MSRadarInteraction, 
-                       _MSRadarURLBuilder, _MSSearchSessionController ]
+                       _AWDMailSearchSessionReport, _AWDMailUserEngagement, _AWDMailUserSuggestionsEngagment, 
+                       _MSAccountToEmailProvider, _MSComposeAttachmentAnalyticController, 
+                       _MSDiagnosticManager, _MSFileCompression, _MSMessageLoadingAnalyticController, 
+                       _MSPrivacy, _MSRadarInteraction, _MSRadarURLBuilder, _MSSearchSessionController ]
     objc-ivars:      [ _AWDMailCannotGetMailErrorReport._has, _AWDMailCannotGetMailErrorReport._hostname, 
                        _AWDMailCannotGetMailErrorReport._mailError, _AWDMailCannotGetMailErrorReport._protocol, 
                        _AWDMailCannotGetMailErrorReport._provider, _AWDMailCannotGetMailErrorReport._serverInfo, 
@@ -40,9 +47,14 @@ exports:
                        _AWDMailNetworkDiagnosticsReport._timestamp, _AWDMailNetworkDiagnosticsReport._wifiEnabled, 
                        _AWDMailSearchEngagement._atoms, _AWDMailSearchEngagement._engagements, 
                        _AWDMailSearchEngagement._has, _AWDMailSearchEngagement._numSearchResults, 
-                       _AWDMailSearchEngagement._searchScope, _AWDMailSearchSessionReport._engagements, 
+                       _AWDMailSearchEngagement._searchScope, _AWDMailSearchEngagement._suggestionsEngagement, 
+                       _AWDMailSearchSessionReport._emailProvider, _AWDMailSearchSessionReport._engagements, 
                        _AWDMailSearchSessionReport._has, _AWDMailSearchSessionReport._messagesLeftToIndex, 
-                       _AWDMailSearchSessionReport._timestamp, _AWDMailUserEngagement._has, 
+                       _AWDMailSearchSessionReport._percentOfMessagesIndexed, _AWDMailSearchSessionReport._timestamp, 
+                       _AWDMailUserEngagement._has, _AWDMailUserEngagement._isTopHitMessage, 
                        _AWDMailUserEngagement._mailboxType, _AWDMailUserEngagement._messageAgeInWeeks, 
-                       _AWDMailUserEngagement._type ]
+                       _AWDMailUserEngagement._topHitIndexInSpotlightList, _AWDMailUserEngagement._topHitIndexInTopHitsList, 
+                       _AWDMailUserEngagement._type, _AWDMailUserSuggestionsEngagment._has, 
+                       _AWDMailUserSuggestionsEngagment._searchTermLength, _AWDMailUserSuggestionsEngagment._topHitsPresent, 
+                       _AWDMailUserSuggestionsEngagment._userSelectedTopHit ]
 ...

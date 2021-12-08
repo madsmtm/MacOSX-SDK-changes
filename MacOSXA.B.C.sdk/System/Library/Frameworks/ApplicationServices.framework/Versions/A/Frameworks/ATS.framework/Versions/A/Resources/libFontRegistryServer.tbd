@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: E7DBFCCB-74BE-36BC-B16E-AAAB0E684913' ]
+uuids:           [ 'x86_64: 51A97519-5C5D-3247-9D25-2AE67838044C' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Resources/libFontRegistryServer.dylib
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _FontRegistryServerMain, _FontRegistryServerShutdown, _ScheduleATSReadinessTimer, 

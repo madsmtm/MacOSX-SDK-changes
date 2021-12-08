@@ -23,8 +23,12 @@ NS_CLASS_AVAILABLE(10_10, 9_0)
 /// Array of currently known slots in the system.  Slots are identified by NSString name instances.  Use KVO to be notified about slots arrivals and removals.
 @property (readonly) NSArray<NSString *> *slotNames;
 
-/// Instantiates smartcard reader slot of specified name.  If specified name is not registered, returns nil.
+/// Instantiates smartcard reader slot of specified name.  If specified name is not registered, reports nil.
 - (void)getSlotWithName:(NSString *)name reply:(void(^)(TKSmartCardSlot *__nullable slot))reply;
+
+/// Gets SmartCard reader slot with specified name.  If reader slot with this name does not exist, returns nil.
+- (nullable TKSmartCardSlot *)slotNamed:(NSString *)name
+API_AVAILABLE(macos(10.13));
 
 @end
 
@@ -338,15 +342,15 @@ NS_CLASS_AVAILABLE(10_10, 9_0)
 
 /// CLA byte which will be used for sendIns: APDU transmits.  Default value is 0x00.
 @property UInt8 cla
-__OSX_AVAILABLE(10.10) __IOS_AVAILABLE(9.0) __TVOS_UNAVAILABLE __WATCHOS_UNAVAILABLE;
+__OSX_AVAILABLE(10.10) __IOS_AVAILABLE(9.0) __TVOS_AVAILABLE(11.0) __WATCHOS_AVAILABLE(4.0);
 
 /// Flag indicating whether extended length APDUs should be used. It is automatically enabled only when used slot supports transmitting extended length commands and card announces that extended length APDU are supported in its ATR. However, caller can explicitly override this decision.
 @property BOOL useExtendedLength
-__OSX_AVAILABLE(10.10) __IOS_AVAILABLE(9.0) __TVOS_UNAVAILABLE __WATCHOS_UNAVAILABLE;
+__OSX_AVAILABLE(10.10) __IOS_AVAILABLE(9.0) __TVOS_AVAILABLE(11.0) __WATCHOS_AVAILABLE(4.0);
 
 /// Flag indicating whether command chaining of APDU with data field longer than 255 bytes can be used.  It is automatically enabled when card announces that command chaining is supported in its ATR.  However, caller can explicitly override this decision.
 @property BOOL useCommandChaining
-__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0) __TVOS_UNAVAILABLE __WATCHOS_UNAVAILABLE;
+__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0) __TVOS_AVAILABLE(11.0) __WATCHOS_AVAILABLE(4.0);
 
 /// Transmits APDU to the card and returns response.
 /// @discussion Asynchronous high level variant of command for transmitting APDU to the card.  Handles all ISO7816-4 APDU cases translation to proper sequences according to used protocol.  Consults useExtendedAPDU and useCommandChaining properties and uses these modes whenever appropriate and beneficial for sending requested APDU request.
@@ -360,14 +364,14 @@ __OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0) __TVOS_UNAVAILABLE __WATCHOS_UNAVAI
 /// @param error Contains error details when nil is returned.  Specific error is also filled in if there was no communication error, but card returned other SW code than 0x9000.
 - (void)sendIns:(UInt8)ins p1:(UInt8)p1 p2:(UInt8)p2 data:(nullable NSData *)requestData le:(nullable NSNumber *)le
           reply:(void(^)(NSData *__nullable replyData, UInt16 sw, NSError *__nullable error))reply
-__OSX_AVAILABLE(10.10) __IOS_AVAILABLE(9.0) __TVOS_UNAVAILABLE __WATCHOS_UNAVAILABLE;
+__OSX_AVAILABLE(10.10) __IOS_AVAILABLE(9.0) __TVOS_AVAILABLE(11.0) __WATCHOS_AVAILABLE(4.0);
 
 /// Synchronous variant of session creation.  Begins the session, executes given block and ends session.
 /// @param error Error receiving more information when transaction failed to start or block failed for some reason.
 /// @param block Block to be executed when the session was successfully begun.
 /// @return Returns YES if the session was successfully begun and block returned YES, otherwise NO.
 - (BOOL)inSessionWithError:(NSError **)error executeBlock:(BOOL(^)(NSError **error))block
-__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0) __TVOS_UNAVAILABLE __WATCHOS_UNAVAILABLE;
+__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0) __TVOS_AVAILABLE(11.0) __WATCHOS_AVAILABLE(4.0);
 
 /// Transmits APDU to the card and returns response.
 /// @discussion Synchronous high level variant of command for transmitting APDU to the card.  Handles all ISO7816-4 APDU cases translation to proper sequences according to used protocol.  Should be used in block passed to -[TKSmartCard inSessionWithError:executeBlock:] method.
@@ -381,7 +385,7 @@ __OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0) __TVOS_UNAVAILABLE __WATCHOS_UNAVAI
 /// @return Returned data field, excluding SW status bytes.  If an error occured, returns nil.
 - (nullable NSData *)sendIns:(UInt8)ins p1:(UInt8)p1 p2:(UInt8)p2 data:(nullable NSData *)requestData
                           le:(nullable NSNumber *)le sw:(UInt16 *)sw error:(NSError **)error
-__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0) __TVOS_UNAVAILABLE __WATCHOS_UNAVAILABLE;
+__OSX_AVAILABLE(10.12) __IOS_AVAILABLE(10.0) __TVOS_AVAILABLE(11.0) __WATCHOS_AVAILABLE(4.0);
 
 @end
 

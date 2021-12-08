@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ i386 ]
-uuids:           [ 'i386: 36D356E9-B4B6-328C-85AD-89CEEA1D2F2C' ]
+uuids:           [ 'i386: 28FB5AC8-6EE9-359B-BAA8-17D485863FE0' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/DVComponentGlue.framework/Versions/A/DVComponentGlue
 objc-constraint: none

@@ -1,13 +1,17 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B938AA0A-9681-3ACE-805D-30E94AAA3971' ]
+uuids:           [ 'x86_64: 129B4C99-7120-3A4F-8339-8E2BB678445F' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/CoreHandwriting.framework/Versions/A/CoreHandwriting
 current-version: 0
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CHRecognitionOptionTextBefore ]
-    objc-classes:    [ _CHBoxcarFilterPointFIFO, _CHDrawing, _CHPointFIFO, _CHPointStrokeFIFO, 
-                       _CHQuadCurvePointFIFO, _CHRecognitionResult, _CHRecognizer ]
+    objc-classes:    [ _CHBottomUpStrokeGroupingStrategy, _CHBoxcarFilterPointFIFO, 
+                       _CHCharacterSetRules, _CHDrawing, _CHIndexableContentQuery, 
+                       _CHPatternGraph, _CHPointFIFO, _CHPointStrokeFIFO, _CHQuadCurvePointFIFO, 
+                       _CHQuery, _CHRecognitionResult, _CHRecognitionSession, _CHRecognitionSessionIndexableContent, 
+                       _CHRecognitionSessionResult, _CHRecognizer, _CHSearchQuery, 
+                       _CHStrokeGroup, _CHStrokeGroupRecognitionResult, _CHStrokeGroupingResult, 
+                       _CHStrokeGroupingStrategy, _CHTitleQuery, _CHVisualizationManager ]
 ...

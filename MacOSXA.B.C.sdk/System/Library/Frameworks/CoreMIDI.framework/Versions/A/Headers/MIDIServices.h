@@ -1344,7 +1344,7 @@ MIDIPortDisconnectSource(	MIDIPortRef		port,
 					occurred.
 */
 extern ItemCount
-MIDIGetNumberOfDevices()									__OSX_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_4_2);
+MIDIGetNumberOfDevices(void)								__OSX_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_4_2);
 
 
 /*!
@@ -1504,7 +1504,7 @@ MIDIEntityGetDevice(		MIDIEntityRef		inEntity,
 					occurred.
 */
 extern ItemCount
-MIDIGetNumberOfSources()									__OSX_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_4_2);
+MIDIGetNumberOfSources(void)								__OSX_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_4_2);
 
 
 /*!
@@ -1530,7 +1530,7 @@ MIDIGetSource(	ItemCount sourceIndex0 )					__OSX_AVAILABLE_STARTING(__MAC_10_0,
 					occurred.
 */
 extern ItemCount
-MIDIGetNumberOfDestinations()								__OSX_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_4_2);
+MIDIGetNumberOfDestinations(void)							__OSX_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_4_2);
 
 
 /*!
@@ -1707,7 +1707,7 @@ MIDIEndpointDispose(	MIDIEndpointRef endpt )				__OSX_AVAILABLE_STARTING(__MAC_1
 		adds them.
 */
 extern ItemCount
-MIDIGetNumberOfExternalDevices()							__OSX_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_4_2);
+MIDIGetNumberOfExternalDevices(void)						__OSX_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_4_2);
 
 /*!
 	@function		MIDIGetExternalDevice
@@ -2070,7 +2070,7 @@ MIDIFlushOutput(	MIDIEndpointRef		dest )				__OSX_AVAILABLE_STARTING(__MAC_10_1,
 	@result			An OSStatus result code.
 */
 extern OSStatus
-MIDIRestart()												__OSX_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_4_2);
+MIDIRestart(void)											__OSX_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_4_2);
 
 
 

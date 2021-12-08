@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: D6E5F36D-71B8-3E12-9601-CE2A1D6ED60B' ]
+uuids:           [ 'x86_64: F1914BCB-72E8-33D7-BCB1-B710ACB2AD9B' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/OAuth.framework/Versions/A/OAuth
 current-version: 25
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _OAAuthTokenKey, _OAConsumerKeyKey, _OANonceKey, _OASignatureKey, 

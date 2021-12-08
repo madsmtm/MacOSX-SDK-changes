@@ -16,22 +16,32 @@
 .Nd control networking of tethered devices
 .Sh SYNOPSIS             \" Section Header - required - don't modify
 .Nm
+.Op -j|--json
 .Ar enable
 .Op --duration seconds
 .Ar --first address
 .Ar --last address
 .Ar --server path
 .Nm
+.Op -j|--json
 .Ar disable
 .Nm
+.Op -j|--json
 .Ar isEnabled
+.Nm
+.Op -j|--json
+.Ar status
 .Sh DESCRIPTION          \" Section Header - required - don't modify
 iOS and tvOS devices connected to a computer with a USB cable can be "tethered,"
 so that they route their Internet requests through the computer.
 .Nm
 enables a tethered network (perhaps for a specified number of seconds), disables it, or reports on its status.
+.Nm
+must be run by root, except for the isEnabled and status commands.
 .Sh OPTIONS
 .Bl -tag
+.It -j|--json
+Print results in machine-parseable JSON format to stdout.
 .It --duration seconds
 Automatically tear down the tether after a specified amount of time.
 .It --first address
@@ -51,5 +61,5 @@ The port number on which the caching server accepts requests.
 .El
 .El
 .Sh "SEE ALSO"
-.Ns Xr AssetCacheActivatorUtil 8 ,
-.Ns Xr AssetCacheLocatorUtil 8
+.Ns Xr AssetCacheLocatorUtil 8 ,
+.Ns Xr AssetCacheManagerUtil 8

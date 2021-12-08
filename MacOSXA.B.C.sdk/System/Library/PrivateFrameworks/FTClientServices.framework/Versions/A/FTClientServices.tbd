@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 80EDE5F1-5CA3-3D50-9954-81F01EA9CFD7', 'x86_64: 790F2800-7329-3E32-9EB9-A48CE536AE6D' ]
+uuids:           [ 'i386: 66444FFA-8BD5-3DDC-94ED-4DE730BA3367', 'x86_64: 3B95AF39-1591-3E2C-B8B3-15A534F11A07' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/FTClientServices.framework/Versions/A/FTClientServices
 current-version: 800
-objc-constraint: none
 exports:         
   - archs:           [ i386 ]
     objc-classes:    [ _FTCServiceContainer, _FTCServiceMonitor ]

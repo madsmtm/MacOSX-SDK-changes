@@ -9,7 +9,7 @@
 #include <CoreFoundation/CFAvailability.h>
 #include <stdint.h>
 
-typedef struct CGColorSpace *CGColorSpaceRef;
+typedef struct CF_BRIDGED_TYPE(id) CGColorSpace *CGColorSpaceRef;
 
 #include <CoreGraphics/CGBase.h>
 #include <CoreGraphics/CGDataProvider.h>
@@ -98,6 +98,14 @@ CG_EXTERN const CFStringRef kCGColorSpaceGenericGrayGamma2_2
 CG_EXTERN const CFStringRef kCGColorSpaceGenericXYZ
   CG_AVAILABLE_STARTING(__MAC_10_11, __IPHONE_9_0);
 
+/* The name of the "Generic" L*a*b* color space. This is the same as
+ L*a*b* colorspace created by `CGColorSpaceCreateLab' with
+ white_point[0.9505, 1.0, 1.0890] (i.e. D65), black_point[0.0, 0.0, 0.0]
+ and range [-128, 127, -128, 127]. */
+
+CG_EXTERN const CFStringRef kCGColorSpaceGenericLab
+CG_AVAILABLE_STARTING(__MAC_10_13, __IPHONE_11_0);
+
 CG_EXTERN const CFStringRef kCGColorSpaceACESCGLinear
 CG_AVAILABLE_STARTING(__MAC_10_11, __IPHONE_9_0);
 
@@ -169,10 +177,12 @@ CG_EXTERN CGColorSpaceRef cg_nullable CGColorSpaceCreateDeviceCMYK(void)
    numbers specifying the tristimulus value, in the CIE 1931 XYZ-space, of
    the diffuse white point. `blackPoint' is an array of 3 numbers specifying
    the tristimulus value, in CIE 1931 XYZ-space, of the diffuse black point.
-   `gamma' defines the gamma for the gray component. */
+   `gamma' defines the gamma for the gray component. Specifying `blackPoint'
+   is not required and in such a case `blackPoint' will be assumed to be 
+   [0.0, 0.0, 0.0]. */
 
 CG_EXTERN CGColorSpaceRef __nullable CGColorSpaceCreateCalibratedGray(const CGFloat
-  whitePoint[3], const CGFloat blackPoint[3], CGFloat gamma)
+  whitePoint[CG_NONNULL_ARRAY 3], const CGFloat blackPoint[__nullable 3], CGFloat gamma)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
 /* Create a calibrated RGB color space. `whitePoint' is an array of 3
@@ -182,28 +192,34 @@ CG_EXTERN CGColorSpaceRef __nullable CGColorSpaceCreateCalibratedGray(const CGFl
    `gamma' is an array of 3 numbers specifying the gamma for the red, green,
    and blue components of the color space. `matrix' is an array of 9 numbers
    specifying the linear interpretation of the gamma-modified RGB values of
-   the color space with respect to the final XYZ representation. */
+   the color space with respect to the final XYZ representation. 
+   Not all parameters need to be specified. If `blackPoint' is NULL it will be
+   assumed to be [0.0, 0.0, 0.0]. If `gamma' is NULL it will be assumed to be
+   linear for all components. If `matrix' is NULL it will be assumed to be identity. */
 
 CG_EXTERN CGColorSpaceRef __nullable CGColorSpaceCreateCalibratedRGB(const CGFloat
-  whitePoint[3], const CGFloat blackPoint[3], const CGFloat gamma[3],
-  const CGFloat matrix[9]) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  whitePoint[CG_NONNULL_ARRAY 3], const CGFloat blackPoint[__nullable 3],
+  const CGFloat gamma[__nullable 3], const CGFloat matrix[__nullable 9])
+  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
     
 /* Create an L*a*b* color space. `whitePoint' is an array of 3 numbers
    specifying the tristimulus value, in the CIE 1931 XYZ-space, of the
    diffuse white point. `blackPoint' is an array of 3 numbers specifying the
    tristimulus value, in CIE 1931 XYZ-space, of the diffuse black point.
    `range' is an array of four numbers specifying the range of valid values
-   for the a* and b* components of the color space. */
+   for the a* and b* components of the color space. Not all parameters need to be
+   specified. If `blackPoint'in NULL it will be assumed to be [0.0, 0.0, 0.0].
+   If `range' is NULL it will be assumed to be [-100, 100, -100, 100]. */
 
-CG_EXTERN CGColorSpaceRef __nullable CGColorSpaceCreateLab(const CGFloat whitePoint[3],
-  const CGFloat blackPoint[3], const CGFloat range[4])
+CG_EXTERN CGColorSpaceRef __nullable CGColorSpaceCreateLab(const CGFloat whitePoint[CG_NONNULL_ARRAY 3],
+  const CGFloat blackPoint[__nullable 3], const CGFloat range[__nullable 4])
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Create an ICC-based color space using the ICC profile specified by
-   `data'. */
+/* Create an ICC-based color space using the ICC profile raw data specified by
+   `data' which can be either CFDataRef or CGDataProviderRef */
 
-CG_EXTERN CGColorSpaceRef __nullable CGColorSpaceCreateWithICCProfile(CFDataRef cg_nullable data)
-  CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
+CG_EXTERN CGColorSpaceRef CGColorSpaceCreateWithICCData(CFTypeRef cg_nullable data)
+  CG_AVAILABLE_STARTING(__MAC_10_12, __IPHONE_10_0);
 
 /* Create an ICC-based color space. `nComponents' specifies the number of
    color components in the color space defined by the ICC profile data. This
@@ -270,9 +286,24 @@ CG_EXTERN CGColorSpaceRef cg_nullable CGColorSpaceRetain(CGColorSpaceRef cg_null
 CG_EXTERN void CGColorSpaceRelease(CGColorSpaceRef cg_nullable space)
   CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return the name used to create the color space `space', or NULL if the
-   color space was not created using `CGColorSpaceCreateWithName'. */
+/* Return the system name of the color space. This applies to all color spaces
+   created using `CGColorSpaceCreateWithName' as well as to ICC-based colorspaces
+   created using `CGColorSpaceCreateWithICCData' or `CGColorSpaceCreateICCBased'
+   if they are equivalent to respective named system color spaces. Device color spaces
+   also return unique names. This function will return NULL for other color spaces.
+   Example:
+          CGColorSpaceRef space = CGColorSpaceCreateWithICCData(icc_data);
+          CFStringRef name = CGColorSpaceGetName(space);
+          if (name != NULL && CFEqual(name, kCGColorSpaceDisplayP3)) {
+              // your color space is Display P3
+              ...
+          }
+ */
 
+CG_EXTERN CFStringRef __nullable CGColorSpaceGetName(CGColorSpaceRef cg_nullable space)
+  CG_AVAILABLE_STARTING(__MAC_10_13, __IPHONE_11_0);
+
+/* Same as `CGColorSpaceGetName' but with ownership released to the caller. */
 CG_EXTERN CFStringRef __nullable CGColorSpaceCopyName(CGColorSpaceRef cg_nullable space)
   CG_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_10_0);
 
@@ -315,12 +346,8 @@ CG_EXTERN size_t CGColorSpaceGetColorTableCount(CGColorSpaceRef cg_nullable spac
 CG_EXTERN void CGColorSpaceGetColorTable(CGColorSpaceRef cg_nullable space,
   uint8_t * cg_nullable table) CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
-/* Return a copy of the ICC profile of `space', or NULL if the color space
+/* Return a copy of the ICC profile data of `space', or NULL if the color space
    doesn't have an ICC profile. */
-
-CG_EXTERN CFDataRef __nullable CGColorSpaceCopyICCProfile(CGColorSpaceRef cg_nullable space);
-//__CG_DEPRECATED_WITH_MSG("Don't this function; call "
-//                         "`CGColorSpaceCopyICCData' instead.");
 
 CG_EXTERN CFDataRef __nullable CGColorSpaceCopyICCData(CGColorSpaceRef cg_nullable space)
 CG_AVAILABLE_STARTING(__MAC_10_12, __IPHONE_10_0);
@@ -335,6 +362,17 @@ CG_AVAILABLE_STARTING(__MAC_10_12, __IPHONE_10_0);
 
 CG_EXTERN bool CGColorSpaceSupportsOutput(CGColorSpaceRef space)
 CG_AVAILABLE_STARTING(__MAC_10_12, __IPHONE_10_0);
+
+/* Deprecated functions */
+
+/* Please use `CGColorSpaceCreateWithICCData' */
+CG_EXTERN CGColorSpaceRef __nullable CGColorSpaceCreateWithICCProfile(CFDataRef cg_nullable data)
+  CG_AVAILABLE_BUT_DEPRECATED(__MAC_10_5, __MAC_10_13, __IPHONE_2_0, __IPHONE_11_0);
+
+/* Please use `CGColorSpaceCopyICCData' */
+CG_EXTERN CFDataRef __nullable CGColorSpaceCopyICCProfile(CGColorSpaceRef cg_nullable space)
+  CG_AVAILABLE_BUT_DEPRECATED(__MAC_10_5, __MAC_10_13, __IPHONE_2_0, __IPHONE_11_0);
+
 
 CF_ASSUME_NONNULL_END
 

@@ -101,7 +101,7 @@ MDL_EXPORT
 - (void)enumerateChildObjectsOfClass:(Class)objectClass
                                 root:(MDLObject*)root
                           usingBlock:( void(^)(MDLObject* object, BOOL *stop))block
-                         stopPointer:(BOOL *)stopPointer;
+                         stopPointer:(BOOL *)stopPointer API_AVAILABLE(macos(10.13), ios(11.0), tvos(11.0));
 
 
 /*!
@@ -112,6 +112,7 @@ MDL_EXPORT
  @see MDLTransformComponent
  */
 @property (nonatomic, nullable, retain) id<MDLTransformComponent> transform;
+
 
 /*!
  @property children

@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 4E4358E3-F5C2-33AD-964D-71197EB4ABE3', 'x86_64: CC679891-E8F5-3166-8EB6-AEA06954A52D' ]
+uuids:           [ 'i386: C71A70C4-F474-363C-BD15-383C5BC311CA', 'x86_64: 3C2E6CB6-3A16-309D-B1E2-ED3930CEE91E' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Backup.framework/Versions/A/Backup
-current-version: 1008.5.3
-objc-constraint: none
+current-version: 1054.0.2
 exports:         
   - archs:           [ i386, x86_64 ]
     symbols:         [ _BUAboutToDeleteSnapshots, _BUActivatedSnapshot, _BUChangeTimeMachineTarget, 
@@ -22,22 +21,22 @@ exports:
                        _BURunAllTests, _BUStartTimeMachine, _BUTimeMachineAction, 
                        _BUTimeMachineCopyMappedBackupPath, _BUTimeMachineSetRestoreAllowed, 
                        _BUUpdateGenericSnapshotImage, _BUUpdateSnapshotImage, __BUActivateSnapshot, 
-                       __BUDeactivateSnapshot, __BUGetTimeMachineWindowLevel, __BUInitializeTimeMachineHostProcess, 
-                       __BULockFrontProcess, __BURegisterActionRequested, __BURegisterInvalidateAllSnapshotImages, 
+                       __BUDeactivateSnapshot, __BUGetTimeMachineWindowLevel, __BULockFrontProcess, 
+                       __BURegisterActionRequested, __BURegisterInvalidateAllSnapshotImages, 
                        __BURegisterReceiveGenericSnapshotImage, __BURegisterReceiveRevisionID, 
                        __BURegisterReceiveSnapshotImage, __BURegisterSnapshotActivated, 
                        __BURegisterSnapshotDeactivated, __BURegisterTargetChanged, 
                        __BURegisterWindowResizePhase, __BURequestRevisionIDs, __BURequestRevisionIDsAsync, 
-                       __BURequestSnapshotImage, __BUSetPIDForRemotePanels, __BUShowChangedItemsOnly, 
-                       __BUTimeMachineDismissed, __BUTimeMachineRestore, __BUUnlockFrontProcess, 
-                       __BUUpdateSnapshotImage, __BUUserInvokedTimeMachine, _kBackupBrowseOtherDisks, 
-                       _kBackupConnectionIDKey, _kBackupDateKey, _kBackupDismissedNotification, 
-                       _kBackupHandshakeNotification, _kBackupHookPIDKey, _kBackupHookPostKey, 
-                       _kBackupHookUnregisterKey, _kBackupID, _kBackupMachineAddressXAttrKey, 
-                       _kBackupMaxWindowSizeKey, _kBackupNavigationSnapshotDateKey, 
-                       _kBackupNavigationSnapshotIsValidKey, _kBackupNavigationSnapshotURLKey, 
-                       _kBackupNavigationTargetIsValidKey, _kBackupNotificationObject, 
-                       _kBackupNow, _kBackupOptionsKey, _kBackupPIDKey, _kBackupPerformPreOrPostHookNotification, 
+                       __BURequestSnapshotImage, __BUShowChangedItemsOnly, __BUTimeMachineDismissed, 
+                       __BUTimeMachineRestore, __BUUnlockFrontProcess, __BUUpdateSnapshotImage, 
+                       __BUUserInvokedTimeMachine, _kBackupBrowseOtherDisks, _kBackupConnectionIDKey, 
+                       _kBackupDateKey, _kBackupDismissedNotification, _kBackupHandshakeNotification, 
+                       _kBackupHookPIDKey, _kBackupHookPostKey, _kBackupHookUnregisterKey, 
+                       _kBackupID, _kBackupMachineAddressXAttrKey, _kBackupMaxWindowSizeKey, 
+                       _kBackupNavigationSnapshotDateKey, _kBackupNavigationSnapshotIsValidKey, 
+                       _kBackupNavigationSnapshotURLKey, _kBackupNavigationTargetIsValidKey, 
+                       _kBackupNotificationObject, _kBackupNow, _kBackupOptionsKey, 
+                       _kBackupPIDKey, _kBackupPerformPreOrPostHookNotification, 
                        _kBackupPrefsPlist, _kBackupRegisterHooksNotification, _kBackupRequestHandshakeNotification, 
                        _kBackupRequestStartNotification, _kBackupRequestThumbnailNotification, 
                        _kBackupRestoreAllKey, _kBackupRestoreNotification, _kBackupShowChangedItemsOnlyKey, 

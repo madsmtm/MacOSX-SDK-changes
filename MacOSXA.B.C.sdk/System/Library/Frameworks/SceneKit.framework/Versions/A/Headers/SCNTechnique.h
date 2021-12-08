@@ -1,7 +1,7 @@
 //
 //  SCNTechnique.h
 //
-//  Copyright (c) 2014-2016 Apple Inc. All rights reserved.
+//  Copyright (c) 2014-2017 Apple Inc. All rights reserved.
 //
 
 #import <SceneKit/SCNShadable.h>
@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  @abstract SCNTechnique represents a rendering process that may require multiple passes.
  @discussion A technique is generally initialized from a Property List file. It can be set to any object that conforms to the SCNTechniqueSupport protocol.
  */
-API_AVAILABLE(macosx(10.10))
+API_AVAILABLE(macos(10.10))
 @interface SCNTechnique : NSObject <SCNAnimatable, NSCopying, NSSecureCoding>
 
 /*!
@@ -205,10 +205,10 @@ The values can be a single string referencing a symbol or a semantic or a target
  
  type: a string specifying the type of the render target. It can be one of the following: color, depth, stencil
  format: a string specifying the format of the render target. It can be:
- - for color targets: rgba32f, r8, r16f, rg16, rgba(default)
+ - for color targets: rgba32f, r8, r16f, rg16 or rgba. If not specified defaults to the framebuffer's pixel format.
  - for depth targets: depth24, depth24stencil8
  - for stencil targets: depth24stencil8
- scaleFactor: a float value (encapsulated in a NSNumber) that controls the size of the render target. default to 1, which means 1x the size of the main viewport.
+ scaleFactor: a float value (encapsulated in a NSNumber) that controls the size of the render target. Defaults to 1, which means 1x the size of the main viewport.
  size: a string with the format %dx%d that controls the size of the render target.
  persistent: a boolean that tells if this target should persist from one frame to the next. It permits to create temporal effects suchs as motion blur. Defaults to NO.
  */
@@ -258,8 +258,8 @@ The values can be a single string referencing a symbol or a semantic or a target
  For example:
  myTechnique[@"myAmplitude"] = aValue;
  */
-- (nullable id)objectForKeyedSubscript:(id)key API_AVAILABLE(macosx(10.11), ios(9.0));
-- (void)setObject:(nullable id)obj forKeyedSubscript:(id <NSCopying>)key API_AVAILABLE(macosx(10.11), ios(9.0));
+- (nullable id)objectForKeyedSubscript:(id)key API_AVAILABLE(macos(10.11), ios(9.0));
+- (void)setObject:(nullable id)obj forKeyedSubscript:(id <NSCopying>)key API_AVAILABLE(macos(10.11), ios(9.0));
 
 @end
 
@@ -275,7 +275,7 @@ The values can be a single string referencing a symbol or a semantic or a target
  @property technique
  @abstract Specifies the technique of the receiver. Defaults to nil.
  */
-@property(nonatomic, copy, nullable) SCNTechnique *technique API_AVAILABLE(macosx(10.10));
+@property(nonatomic, copy, nullable) SCNTechnique *technique API_AVAILABLE(macos(10.10));
 
 @end
 

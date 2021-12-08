@@ -1,6 +1,6 @@
 --- !tapi-tbd-v2
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 98814966-FD65-302B-B47E-00928DC34E5C' ]
+uuids:           [ 'x86_64: 562BB18E-815A-37D1-A373-B46C7853BA94' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/Mangrove.framework/Versions/A/Mangrove
 objc-constraint: none

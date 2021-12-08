@@ -1,14 +1,13 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: DC2A20B1-1C87-39B6-8FE8-1AAC131E32F3', 'x86_64: 3DE1C580-D089-362D-8582-8DE68A3C5F13' ]
+uuids:           [ 'i386: 775E67F0-DDDE-3337-89D9-C72A1A663795', 'x86_64: 8BAB613F-84AA-3001-8D14-F1E1BBB7FBF5' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/GenerationalStorage.framework/Versions/A/GenerationalStorage
-current-version: 267.1
-objc-constraint: none
+current-version: 281
 exports:         
   - archs:           [ i386 ]
     objc-classes:    [ _GSClientManagedLibrary, _GSPermanentAdditionEnumerator, _GSSystemManagedLibrary, 
-                       _GSTemporaryAddtionEnumerator ]
+                       _GSTemporaryAddtionEnumerator, __CopyfileCallbackCtx ]
   - archs:           [ x86_64 ]
     objc-ivars:      [ _GSDaemonProxySync._error, _GSDaemonProxySync._result, _GSDaemonProxySync._target, 
                        _GSDocumentIdentifier.deviceID, _GSDocumentIdentifier.documentID, 

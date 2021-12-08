@@ -1,9 +1,8 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: 7A57FD8F-1285-3A8A-AE29-3C5347A47159', 'x86_64: 697E0865-969F-3EEB-9A77-BF104D846B58' ]
+uuids:           [ 'i386: 814B0995-8A19-33EF-9040-3EEFA618358A', 'x86_64: C6CBE836-253E-3761-980E-E58BF741E458' ]
 platform:        macosx
 install-name:    /System/Library/Frameworks/PreferencePanes.framework/Versions/A/PreferencePanes
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _AddRemoveView.mActionPopupCell, _AddRemoveView.mAddAction, 

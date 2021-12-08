@@ -153,6 +153,9 @@ VTDecompressionSessionGetTypeID(void) API_AVAILABLE(macosx(10.8), ios(8.0), tvos
 /*!
 	@function	VTDecompressionSessionDecodeFrame
 	@abstract	Decompresses a video frame.
+	@discussion
+		If an error is returned from this function, there will be no callback.  Otherwise
+		the callback provided during VTDecompressionSessionCreate will be called.
 	@param	session
 		The decompression session.
 	@param	sampleBuffer
@@ -192,6 +195,8 @@ VTDecompressionSessionDecodeFrame(
 	@discussion
 		When you decode a frame, you pass in a callback block to be called
 		for that decompressed frame.  This block will not necessarily be called in display order.
+		If the VTDecompressionSessionDecodeFrameWithOutputHandler call returns an error, the block
+		will not be called.
 	@param	status
 		noErr if decompression was successful; an error code if decompression was not successful.
 	@param	infoFlags
@@ -221,6 +226,8 @@ typedef void (^VTDecompressionOutputHandler)(
 	@abstract	Decompresses a video frame.
 	@discussion
 		Cannot be called with a session created with a VTDecompressionOutputCallbackRecord.
+		If the VTDecompressionSessionDecodeFrameWithOutputHandler call returns an error, the block
+		will not be called.
 	@param	session
 		The decompression session.
 	@param	sampleBuffer
@@ -241,7 +248,8 @@ typedef void (^VTDecompressionOutputHandler)(
 		The kVTDecodeInfo_FrameDropped bit may be set if the frame was dropped (synchronously).
 		Pass NULL if you do not want to receive this information.
 	@param	outputHandler
-		The block to be called when decoding the frame is completed.
+		The block to be called when decoding the frame is completed.  If the VTDecompressionSessionDecodeFrameWithOutputHandler
+		call returns an error, the block will not be called.
  */
 VT_EXPORT OSStatus
 VTDecompressionSessionDecodeFrameWithOutputHandler(
@@ -307,6 +315,19 @@ VT_EXPORT OSStatus
 VTDecompressionSessionCopyBlackPixelBuffer(
    CM_NONNULL VTDecompressionSessionRef			session,
    CM_RETURNS_RETAINED_PARAMETER CM_NULLABLE CVPixelBufferRef * CM_NONNULL pixelBufferOut ) API_AVAILABLE(macosx(10.8), ios(8.0), tvos(10.2));
+	
+/*!
+	@function VTIsHardwareDecodeSupported
+	@abstract Indicates whether the current system supports hardware decode for a given codec
+	@discussion
+		This routine reports whether the current system supports hardware decode.  Using
+		this information, clients can make informed decisions regarding remote assets to load,
+		favoring alternate encodings when hardware decode is not supported.
+		This call returning true does not guarantee that hardware decode resources will be
+		available at all times.
+ */
+VT_EXPORT Boolean
+VTIsHardwareDecodeSupported( CMVideoCodecType codecType ) API_AVAILABLE(macosx(10.13), ios(11.0), tvos(11.0));
 	
 // See VTSession.h for property access APIs on VTDecompressionSessions.
 // See VTDecompressionProperties.h for standard property keys and values for decompression sessions.

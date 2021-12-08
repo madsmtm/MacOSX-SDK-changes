@@ -1,10 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: E91D8E54-26B3-3271-BABB-4A7593D59DAD', 'x86_64: B68DACD8-BBC8-36B9-845D-9A1A9D4D0A49' ]
+uuids:           [ 'i386: C74A821E-B73B-38B5-A498-B2B7BAB007AB', 'x86_64: 7422D34F-8F23-33E8-96B0-058EF672DBFE' ]
 platform:        macosx
 install-name:    /System/Library/PrivateFrameworks/AOSKit.framework/Versions/A/AOSKit
-current-version: 245
-objc-constraint: none
+current-version: 261
 exports:         
   - archs:           [ x86_64 ]
     objc-ivars:      [ _AOSAccountCache._accountDicts, _AOSAccountCache._appleAccountLookups, 
@@ -52,16 +51,15 @@ exports:
                        _AOSLaunchStorageUsageThread, _AOSLaunchSystemCheckThread, 
                        _AOSRemoveAccountInfo, _AOSShimAccountCopyProperty, _AOSShimAccountRefresh, 
                        _AOSShimAppleIDForDSID, _AOSShimCopyAccountIDs, _AOSShimCopyLoggedInAccount, 
-                       _AOSShimCopyPropertiesForService, _AOSShimIsPCSIdentitySetup, 
-                       _AOSShimServiceIsEnabled, _AOSShimServiceSetEnabled, _AOSStoreAccountInfo, 
-                       _AOSStoreProxyCredentials, _AOSTransactionCancel, _AOSTransactionCreate, 
-                       _AOSTransactionGetCallbackBlock, _AOSTransactionGetCallbackFunction, 
-                       _AOSTransactionGetCallbackQueue, _AOSTransactionGetContext, 
-                       _AOSTransactionGetError, _AOSTransactionGetResult, _AOSTransactionIsAsync, 
-                       _AOSTransactionIsFinished, _AOSTransactionSetError, _AOSTransactionSetIsFinished, 
-                       _AOSTransactionSetResult, _AOSTransactionSetSuccessful, _AOSTransactionSuccessful, 
-                       _AOSTransactionUpdate, _AOSTransactionWaitUntilFinished, _CreateCFErrorFromRequest, 
-                       __AOSAccountAuthenticate, __AOSAccountCopyBTMMConfigInfo, 
+                       _AOSShimCopyPropertiesForService, _AOSShimServiceIsEnabled, 
+                       _AOSShimServiceSetEnabled, _AOSStoreAccountInfo, _AOSStoreProxyCredentials, 
+                       _AOSTransactionCancel, _AOSTransactionCreate, _AOSTransactionGetCallbackBlock, 
+                       _AOSTransactionGetCallbackFunction, _AOSTransactionGetCallbackQueue, 
+                       _AOSTransactionGetContext, _AOSTransactionGetError, _AOSTransactionGetResult, 
+                       _AOSTransactionIsAsync, _AOSTransactionIsFinished, _AOSTransactionSetError, 
+                       _AOSTransactionSetIsFinished, _AOSTransactionSetResult, _AOSTransactionSetSuccessful, 
+                       _AOSTransactionSuccessful, _AOSTransactionUpdate, _AOSTransactionWaitUntilFinished, 
+                       _CreateCFErrorFromRequest, __AOSAccountAuthenticate, __AOSAccountCopyBTMMConfigInfo, 
                        __AOSAccountCopyMemberName, __AOSAccountCopyStoredValue, __AOSAccountCreateFromMobileMePrefs, 
                        __AOSAccountCreateWithMemberName, __AOSAccountDeregisterDevice, 
                        __AOSAccountDisableBTMM, __AOSAccountDisableBTMMForUser, __AOSAccountEnableBTMM, 
@@ -90,16 +88,17 @@ exports:
                        __AOSAccountUpdateDataclassConfig, __AOSAccountUpdateGSTokens, 
                        __AOSAccountUpdateMeCardImage, __AOSAccountUpdateMeCardPhoto, 
                        __AOSAccountUpdateName, __AOSAccountUpdateSharedMailPrefs, 
-                       __AOSAccountUsernameIsAppleID, __AOSAccountWasMigrated, __AOSAddAppleID, 
-                       __AOSAddFMMAccount, __AOSCleanUpLogMessage, __AOSCopyBTMMConfigInfo, 
+                       __AOSAccountUsernameIsEmailAddress, __AOSAccountWasMigrated, 
+                       __AOSAddAppleID, __AOSAddFMMAccount, __AOSCopyBTMMConfigInfo, 
                        __AOSCopyDSIDForZone, __AOSCopyUserToZoneMapping, __AOSCopyZoneForUser, 
                        __AOSCreateUnescapedString, __AOSDeserializeAccountInfo, __AOSDisablePCS, 
-                       __AOSEnablePCS, __AOSIsBTMMEnabled, __AOSLog, __AOSModifyBTMMConfigInfo, 
-                       __AOSModifyBTMMInfo, __AOSRelayCookie, __AOSRemoveAppleID, 
-                       __AOSRemoveFMMAccount, __AOSRetrieveFMMAccount, __AOSSerializeAccountInfo, 
-                       __ShowPasswordChangedAlert, __didFailCallback, __didFinishLoadingCallback, 
-                       __didReceiveAuthChallengeCallback, __didReceiveDataCallback, 
-                       __didReceiveResponseCallback, __willCacheResponseCallback, 
+                       __AOSEnablePCS, __AOSIsBTMMEnabled, __AOSLog, __AOSLogForce, 
+                       __AOSModifyBTMMConfigInfo, __AOSModifyBTMMInfo, __AOSRelayCookie, 
+                       __AOSRemoveAppleID, __AOSRemoveFMMAccount, __AOSRetrieveFMMAccount, 
+                       __AOSSerializeAccountInfo, __ShowPasswordChangedAlert, __didFailCallback, 
+                       __didFinishLoadingCallback, __didReceiveAuthChallengeCallback, 
+                       __didReceiveDataCallback, __didReceiveResponseCallback, __isCertificateTrustedUnderPinningPolicy, 
+                       __isSetupServiceHost, __willCacheResponseCallback, __willSendRequestForAuthChallengeCallback, 
                        _kAOSAcceptLanguageHeaderName, _kAOSAcceptTOSHeaderName, _kAOSAccountChangedNotification, 
                        _kAOSAccountFamilyStatusMessageKey, _kAOSAccountHasAcceptedTermsKey, 
                        _kAOSAccountInfoKey, _kAOSAccountIsFamilyEligibleKey, _kAOSAccountIsHSAEnabledKey, 

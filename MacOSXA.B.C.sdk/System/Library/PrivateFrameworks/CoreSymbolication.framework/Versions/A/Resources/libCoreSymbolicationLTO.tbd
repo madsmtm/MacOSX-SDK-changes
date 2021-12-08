@@ -1,9 +1,9 @@
 --- !tapi-tbd-v2
 archs:           [ i386, x86_64 ]
-uuids:           [ 'i386: A8C380F0-3DA8-38B2-B1AB-0396865626DC', 'x86_64: FCD91DCA-5255-37D4-BA27-089D6B19B30C' ]
+uuids:           [ 'i386: EE21034D-BA66-3F2C-A562-A117452E4F91', 'x86_64: 0680434C-E94D-3CD7-8510-78C25C34258F' ]
 platform:        macosx
 install-name:    Do not use or link with this private dylib.
-current-version: 62046
+current-version: 63075
 objc-constraint: none
 exports:         
   - archs:           [ i386, x86_64 ]
