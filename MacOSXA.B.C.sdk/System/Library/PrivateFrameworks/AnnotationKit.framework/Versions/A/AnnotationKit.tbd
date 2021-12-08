@@ -1,10 +1,16 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9BB0EDB6-3808-30FC-B0ED-764DE5AAB893' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           C6ADB401-01F3-32C6-989F-AC0B1A9EAF9B
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           A39E5998-DB05-32DC-A324-9B04F135CC45
 install-name:    '/System/Library/PrivateFrameworks/AnnotationKit.framework/Versions/A/AnnotationKit'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _AKAdornmentZPositionOffset, _AKAnnotationChangeObjectKey, 
                        _AKAnnotationLayerSetupCompleteNotification, _AKAnnotationPropertiesChangedNotification, 
                        _AKAnnotationsAddedOrRemovedNotification, _AKAttributeControllerInkDidChangeNotification, 
@@ -32,7 +38,7 @@ exports:
                        AKModelController, AKNoteAnnotation, AKOvalAnnotation, AKOverlayView, 
                        AKPageController, AKPageControllerForTesting, AKPageModelController, 
                        AKPolygonAnnotation, AKPopupAnnotation, AKRectAnnotation, 
-                       AKRectangularShapeAnnotation, AKSecureSerializationHelper, 
+                       AKRectangularShapeAnnotation, AKRedactionRectAnnotation, AKSecureSerializationHelper, 
                        AKShapeAnnotation, AKSidecarController, AKSignature, AKSignatureAnnotation, 
                        AKSignatureView, AKSparseMutableControllerArray, AKSpeechBubbleAnnotation, 
                        AKStarAnnotation, AKStarAnnotationRenderer, AKStrokedAnnotation, 

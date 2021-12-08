@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.140.1) generated from OSObject.iig */
+/* iig(DriverKit-107.40.8) generated from OSObject.iig */
 
 /* OSObject.iig:1-145 */
 /*
@@ -110,9 +110,9 @@
 
 #if !__IIG
 typedef OSObject OSContainer;
-#else
+#else /* !__IIG */
 class IIG_SERIALIZABLE OSContainer;
-#endif
+#endif  /* !__IIG */
 
 class IIG_SERIALIZABLE OSData;
 class IIG_SERIALIZABLE OSNumber;
@@ -263,6 +263,12 @@ public:\
 
 #define DEFN(classname, name)                                       \
 name ## _Impl(classname ## _ ## name ## _Args)
+
+/*
+ * Use of the IMPL macro is discouraged and should be replaced by a normal c++
+ * method implementation (with the all method arguments) and the name of the method
+ * given a suffix '_Impl'
+ */
 
 #define IMPL(classname, name)                                       \
 classname :: DEFN(classname, name)

@@ -5,12 +5,13 @@
 //  Copyright © 2020 Apple Inc. All rights reserved.
 //
 
+#import <AutomaticAssessmentConfiguration/AEVisibility.h>
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-API_AVAILABLE(ios(13.4), macos(10.15.4))
-API_UNAVAILABLE(macCatalyst)
+AE_VISIBLE
+API_AVAILABLE(ios(13.4), macos(10.15.4), macCatalyst(14))
 @protocol AEAssessmentSessionDelegate <NSObject>
 @optional
 

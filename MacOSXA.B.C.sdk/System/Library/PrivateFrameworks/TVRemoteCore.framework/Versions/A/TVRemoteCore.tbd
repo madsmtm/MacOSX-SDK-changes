@@ -1,18 +1,29 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: AFA02C7B-0FDB-3AF2-AF92-89366802BC52' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           068C3EFA-9E54-3C1E-99D1-06A6730F101F
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           838A5AEC-5ED7-3212-9300-1F8F4426CA18
 install-name:    '/System/Library/PrivateFrameworks/TVRemoteCore.framework/Versions/A/TVRemoteCore'
-current-version: 100.60.2
+current-version: 135.10.4
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _NSStringFromRMSMessageType, _NSStringFromRMSResponseCode, 
                        _TVRCAirplayIDKey, _TVRCButtonApplicationBundleIDKey, _TVRCButtonSkipIntervalKey, 
                        _TVRCButtonTypeDescription, _TVRCConnectionInvalidatedNotification, 
-                       _TVRCDeviceConnectionTypeDescription, _TVRCErrorDomain, _TVRCErrorMediaRemotePairingLockoutDelayKey, 
+                       _TVRCDeviceConnectionTypeDescription, _TVRCDeviceModelTypeAirplaySetTopBox, 
+                       _TVRCDeviceModelTypeAirplayStick, _TVRCDeviceModelTypeAirplayTelevision, 
+                       _TVRCErrorDomain, _TVRCErrorMediaRemotePairingLockoutDelayKey, 
+                       _TVRCFetchLaunchableApplicationsEvent, _TVRCFetchUserAccountsEvent, 
                        _TVRCMakeError, _TVRCMatchPointServiceAddedNotification, _TVRCMatchPointServiceNameChangedNotification, 
                        _TVRCMatchPointServiceRemovedNotification, _TVRCMediaRemoteIDKey, 
-                       _TVRCSkipInterval, _TVRCTouchPhaseDescription, _TVRMSAddToWishlistMessageReadFrom, 
+                       _TVRCReduceLoundSoundsEnabled, _TVRCSkipInterval, _TVRCSwitchAccountID, 
+                       _TVRCSwitchUserAccountEvent, _TVRCSystemAppearanceLight, _TVRCToggleReduceLoudSounds, 
+                       _TVRCToggleSystemAppearance, _TVRCTouchPhaseDescription, _TVRMSAddToWishlistMessageReadFrom, 
                        _TVRMSAudioRouteMessageReadFrom, _TVRMSAudioRoutesDidUpdateMessageReadFrom, 
                        _TVRMSAvailableServicesDidUpdateMessageReadFrom, _TVRMSBeginDiscoveryMessageReadFrom, 
                        _TVRMSBeginPairingMessageReadFrom, _TVRMSBeginPairingResponseMessageReadFrom, 
@@ -31,7 +42,8 @@ exports:
                        __TVRCButtonLongPressEndActionKey, __TVRCGeneralLog, __TVRCHomeKitLog, 
                        __TVRCMRTelevisionWrapperAssociatedObject, __TVRCMediaRemoteConnectionLog, 
                        __TVRCMediaRemoteKeyboardLog, __TVRCRMSLog, __TVRCRapportLog, 
-                       __TVRCRemoteTextInputLog, __TVRCSendVirtualTouchEvent, _kTVRAppleTVModelString ]
+                       __TVRCRemoteTextInputLog, __TVRCSendVirtualTouchEvent, _kTVRAppleTVModelString, 
+                       _kTVRCReconnectionWindow ]
     objc-classes:    [ TVRCAnalytics, TVRCButton, TVRCButtonEvent, TVRCConstants, 
                        TVRCDevice, TVRCDeviceAuthenticationChallenge, TVRCDeviceEventManager, 
                        TVRCDeviceInfo, TVRCDeviceQuery, TVRCGameControllerEvent, 
@@ -55,7 +67,7 @@ exports:
                        TVRMSUpdatePairedNetworNamesMessage, TVRMSVolumeDidUpdateMessage, 
                        TVRMSWifiAvailabilityDidChangeMessage, _RMSBonjourService, 
                        _RMSNowPlayingArtworkCacheItem, _RMSSessionRecord, _TVRCDeviceState, 
-                       _TVRCFeatures, _TVRCHMHomeObserver, _TVRCHMServiceWrapper, 
+                       _TVRCExpiringStore, _TVRCFeatures, _TVRCHMHomeObserver, _TVRCHMServiceWrapper, 
                        _TVRCKeyboardState, _TVRCMRAudioBufferWrapper, _TVRCMRCommandInfoWrapper, 
                        _TVRCMROriginWrapper, _TVRCMRTelevisionWrapper, _TVRCMRTextEditingAttributesWrapper, 
                        _TVRCMRTextEditingSessionWrapper, _TVRCMRVirtualTouchDeviceWrapper, 

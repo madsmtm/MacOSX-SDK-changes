@@ -1,28 +1,36 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9B6CD9E9-6A51-35BD-A12A-A4C52E4B1133' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           23D5AD4A-AB36-3B51-8B7D-E87A3B115A19
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           56555CD2-DD76-3A59-BBEE-22B73F015D35
 install-name:    '/System/Library/PrivateFrameworks/CloudDocsDaemon.framework/Versions/A/CloudDocsDaemon'
-current-version: 698.16
+current-version: 726
 compatibility-version: 0
 exports:
-  - archs:           [ x86_64 ]
-    symbols:         [ _BRCBundleIDForProcessIdentifier, _BRCCopyQuarantineInfo, 
-                       _BRCCoreAnalyticsReporterDSIDKey, _BRCCoreAnalyticsReporterErrorCountKey, 
-                       _BRCCoreAnalyticsReporterErrorMessageKey, _BRCCoreAnalyticsReporterErrorNameKey, 
-                       _BRCCoreAnalyticsReporterFolderSharingEnabledKey, _BRCCoreAnalyticsReporterLastErrorTimestampKey, 
-                       _BRCCoreAnalyticsReporterPCSStateKey, _BRCCoreAnalyticsReporterRampNumberKey, 
-                       _BRCCoreAnalyticsReporterSyncTypeKey, _BRCCoreAnalyticsReporterTotalItemsCountKey, 
-                       _BRCCoreAnalyticsReporterZoneErrorCountKey, _BRCCoreAnalyticsReporterZoneTypeKey, 
-                       _BRCExecutableNameForProcessIdentifier, _BRCExtensionErrorPayloadReadFrom, 
-                       _BRCFSSchedulerBaseDidUpdateHasWorkNotification, _BRCGenerationCountFromData, 
-                       _BRCItemFieldsPrettyPrint, _BRCItemIDDocuments, _BRCItemIDZoneRoot, 
-                       _BRCPrettyPrintBitmapWithContext, _BRCPrettyPrintEnumWithContext, 
-                       _BRCRecursivelyChangeOwnerAndGroupToMobile, _BRCSharingNoOverrideString, 
-                       _BRCSizeInfoCompletedUnitCountKey, _BRCSizeInfoTotalUnitCountKey, 
-                       _BRCSyncContextDidBecomeBackground, _BRCSyncContextDidBecomeForeground, 
-                       _BRFieldCKInfoReadFrom, _BRFieldFinderTagsReadFrom, _BRFieldPkgHeaderReadFrom, 
-                       _BRFieldPkgItemReadFrom, _BRFieldPkgLocalItemReadFrom, _BRFieldUserIdentityReadFrom, 
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
+    symbols:         [ _AppTelemetryInvestigationReadFrom, _AppTelemetryTelemetryMessageReadFrom, 
+                       _AppTelemetryTimeSeriesEventReadFrom, _BRCBundleIDForProcessIdentifier, 
+                       _BRCCopyQuarantineInfo, _BRCCoreAnalyticsReporterDSIDKey, 
+                       _BRCCoreAnalyticsReporterErrorCountKey, _BRCCoreAnalyticsReporterErrorMessageKey, 
+                       _BRCCoreAnalyticsReporterErrorNameKey, _BRCCoreAnalyticsReporterFolderSharingEnabledKey, 
+                       _BRCCoreAnalyticsReporterLastErrorTimestampKey, _BRCCoreAnalyticsReporterPCSStateKey, 
+                       _BRCCoreAnalyticsReporterRampNumberKey, _BRCCoreAnalyticsReporterSyncTypeKey, 
+                       _BRCCoreAnalyticsReporterTotalItemsCountKey, _BRCCoreAnalyticsReporterZoneErrorCountKey, 
+                       _BRCCoreAnalyticsReporterZoneTypeKey, _BRCExecutableNameForProcessIdentifier, 
+                       _BRCExtensionErrorPayloadReadFrom, _BRCFSSchedulerBaseDidUpdateHasWorkNotification, 
+                       _BRCGenerationCountFromData, _BRCItemFieldsPrettyPrint, _BRCItemIDDocuments, 
+                       _BRCItemIDZoneRoot, _BRCPrettyPrintBitmapWithContext, _BRCPrettyPrintEnumWithContext, 
+                       _BRCRecursiveRemove, _BRCRecursivelyChangeOwnerAndGroupToMobile, 
+                       _BRCSharingNoOverrideString, _BRCSizeInfoCompletedUnitCountKey, 
+                       _BRCSizeInfoTotalUnitCountKey, _BRCSyncContextDidBecomeBackground, 
+                       _BRCSyncContextDidBecomeForeground, _BRFieldCKInfoReadFrom, 
+                       _BRFieldFinderTagsReadFrom, _BRFieldPkgHeaderReadFrom, _BRFieldPkgItemReadFrom, 
+                       _BRFieldPkgLocalItemReadFrom, _BRFieldUserIdentityReadFrom, 
                        _BRFieldXattrBlobReadFrom, _BRFieldXattrReadFrom, _brc_task_tracker_async_with_logs, 
                        _brc_task_tracker_cancel, _brc_task_tracker_create, _brc_task_tracker_is_cancelled, 
                        _brc_task_tracker_wait, _brc_task_tracker_wait_timeout, _brtest_setFSEventProcessingState, 
@@ -50,7 +58,8 @@ exports:
                        _kBRRecordKeyTrashPutBackParent, _kBRRecordKeyTrashPutBackPath, 
                        _kBRRecordKeyXattr, _kBRRecordTypeContent, _kBRRecordTypeSideCar, 
                        _kBRRecordTypeStructure, _prettyprintFSEventFlags ]
-    objc-classes:    [ BRCAccountHandler, BRCAccountSession, BRCBackupSession, BRCContainerScheduler, 
+    objc-classes:    [ AppTelemetryInvestigation, AppTelemetryTelemetryMessage, AppTelemetryTimeSeriesEvent, 
+                       BRCAccountHandler, BRCAccountSession, BRCBackupSession, BRCContainerScheduler, 
                        BRCCoreAnalyticsReporter, BRCDaemon, BRCDatabaseBackupManager, 
                        BRCDatabaseRestoreManager, BRCDocumentItem, BRCDumpContext, 
                        BRCDumper, BRCExtensionErrorPayload, BRCFSEventsMonitor, BRCFSReader, 
@@ -58,12 +67,21 @@ exports:
                        BRCItemToPathLookup, BRCLocalItem, BRCMinHeap, BRCPackageChecksummer, 
                        BRCPackageItem, BRCPackageManifestReader, BRCPackageManifestWriter, 
                        BRCPathToItemLookup, BRCPrivateServerZone, BRCRelativePath, 
-                       BRCServerItem, BRCServerMetrics, BRCServerZone, BRCSharedServerZone, 
-                       BRCStageRegistry, BRCStatInfo, BRCSyncThrottle, BRCTermDumper, 
-                       BRCURLToItemLookup, BRCUserDefaults, BRCVersion, BRFieldCKInfo, 
-                       BRFieldFinderTags, BRFieldPkgHeader, BRFieldPkgItem, BRFieldPkgLocalItem, 
-                       BRFieldUserIdentity, BRFieldXattr, BRFieldXattrBlob ]
-    objc-ivars:      [ BRCAccountSession._clientTruthWorkloop, BRCAccountSession._cloudDocsFD, 
+                       BRCServerItem, BRCServerZone, BRCSharedServerZone, BRCStageRegistry, 
+                       BRCStatInfo, BRCSyncThrottle, BRCTermDumper, BRCURLToItemLookup, 
+                       BRCUserDefaults, BRCVersion, BRFieldCKInfo, BRFieldFinderTags, 
+                       BRFieldPkgHeader, BRFieldPkgItem, BRFieldPkgLocalItem, BRFieldUserIdentity, 
+                       BRFieldXattr, BRFieldXattrBlob ]
+    objc-ivars:      [ AppTelemetryInvestigation._errorCode, AppTelemetryInvestigation._errorDescription, 
+                       AppTelemetryInvestigation._errorDomain, AppTelemetryInvestigation._has, 
+                       AppTelemetryInvestigation._sharedZone, AppTelemetryInvestigation._zoneName, 
+                       AppTelemetryTelemetryMessage._events, AppTelemetryTelemetryMessage._has, 
+                       AppTelemetryTelemetryMessage._token, AppTelemetryTimeSeriesEvent._has, 
+                       AppTelemetryTimeSeriesEvent._identifier, AppTelemetryTimeSeriesEvent._investigation, 
+                       AppTelemetryTimeSeriesEvent._magnitude, AppTelemetryTimeSeriesEvent._magnitudeBool, 
+                       AppTelemetryTimeSeriesEvent._magnitudeDouble, AppTelemetryTimeSeriesEvent._magnitudeFloat, 
+                       AppTelemetryTimeSeriesEvent._magnitudeInt, AppTelemetryTimeSeriesEvent._timestamp, 
+                       BRCAccountSession._clientTruthWorkloop, BRCAccountSession._cloudDocsFD, 
                        BRCAccountSession._databaseID, BRCAccountSession._dbCorruptionQueue, 
                        BRCAccountSession._dbProfilingHook, BRCAccountSession._dbURL, 
                        BRCAccountSession._dbWatcher, BRCAccountSession._dbWatcherQueue, 

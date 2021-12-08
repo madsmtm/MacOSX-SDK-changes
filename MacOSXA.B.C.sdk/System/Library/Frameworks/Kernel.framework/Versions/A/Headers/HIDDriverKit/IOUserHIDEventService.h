@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.100.4) generated from IOUserHIDEventService.iig */
+/* iig(DriverKit-107.40.8) generated from IOUserHIDEventService.iig */
 
 /* IOUserHIDEventService.iig:1-38 */
 /*
@@ -434,6 +434,93 @@ public:
 };
 #endif /* !KERNEL */
 
+
+#define OSAction_IOUserHIDEventService_ReportAvailable_Methods \
+\
+public:\
+\
+    virtual kern_return_t\
+    Dispatch(const IORPC rpc) APPLE_KEXT_OVERRIDE;\
+\
+    static kern_return_t\
+    _Dispatch(OSAction_IOUserHIDEventService_ReportAvailable * self, const IORPC rpc);\
+\
+\
+protected:\
+    /* _Impl methods */\
+\
+\
+public:\
+    /* _Invoke methods */\
+\
+
+
+#define OSAction_IOUserHIDEventService_ReportAvailable_KernelMethods \
+\
+protected:\
+    /* _Impl methods */\
+\
+
+
+#define OSAction_IOUserHIDEventService_ReportAvailable_VirtualMethods \
+\
+public:\
+\
+
+
+#if !KERNEL
+
+extern OSMetaClass          * gOSAction_IOUserHIDEventService_ReportAvailableMetaClass;
+extern const OSClassLoadInformation OSAction_IOUserHIDEventService_ReportAvailable_Class;
+
+class OSAction_IOUserHIDEventService_ReportAvailableMetaClass : public OSMetaClass
+{
+public:
+    virtual kern_return_t
+    New(OSObject * instance) override;
+    virtual kern_return_t
+    Dispatch(const IORPC rpc) override;
+};
+
+#endif /* !KERNEL */
+
+class OSAction_IOUserHIDEventService_ReportAvailableInterface : public OSInterface
+{
+public:
+};
+
+struct OSAction_IOUserHIDEventService_ReportAvailable_IVars;
+struct OSAction_IOUserHIDEventService_ReportAvailable_LocalIVars;
+
+class OSAction_IOUserHIDEventService_ReportAvailable : public OSAction, public OSAction_IOUserHIDEventService_ReportAvailableInterface
+{
+#if KERNEL
+    OSDeclareDefaultStructorsWithDispatch(OSAction_IOUserHIDEventService_ReportAvailable);
+#endif /* KERNEL */
+
+#if !KERNEL
+    friend class OSAction_IOUserHIDEventService_ReportAvailableMetaClass;
+#endif /* !KERNEL */
+
+public:
+    union
+    {
+        OSAction_IOUserHIDEventService_ReportAvailable_IVars * ivars;
+        OSAction_IOUserHIDEventService_ReportAvailable_LocalIVars * lvars;
+    };
+#if !KERNEL
+    virtual const OSMetaClass *
+    getMetaClass() const APPLE_KEXT_OVERRIDE { return OSTypeID(OSAction_IOUserHIDEventService_ReportAvailable); };
+#endif /* KERNEL */
+
+    using super = OSAction;
+
+#if !KERNEL
+    OSAction_IOUserHIDEventService_ReportAvailable_Methods
+#endif /* !KERNEL */
+
+    OSAction_IOUserHIDEventService_ReportAvailable_VirtualMethods
+};
 
 #endif /* !__DOCUMENTATION__ */
 

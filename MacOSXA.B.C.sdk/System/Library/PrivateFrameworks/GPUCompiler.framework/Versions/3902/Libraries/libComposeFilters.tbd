@@ -1,10 +1,14 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: BFEE9721-029C-3084-891D-41E80B69F63F', 'x86_64: BFEE9721-029C-3084-891D-41E80B69F63F' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           4A2DE225-E559-3CAE-BE8B-B7D0B0D0D0DE
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           8A893AF6-8636-3E66-ABF4-BEF145C44E47
 install-name:    '/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/3902/Libraries/libComposeFilters.dylib'
-current-version: 902.14.11
-exports:
-  - archs:           [ x86_64 ]
-    symbols:         [ _composeImageFilterFunctionsFromModulesSPI, _composeImageFilterFunctionsSPI ]
+current-version: 0
+compatibility-version: 0
 ...

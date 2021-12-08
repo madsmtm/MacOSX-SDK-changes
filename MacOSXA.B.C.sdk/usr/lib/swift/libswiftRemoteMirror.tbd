@@ -1,11 +1,17 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: D3A67A1C-0573-3FE5-BA69-84F0CB632011' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           A3B03DBB-82A9-3FD4-BE05-5F4B89EC47B8
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           47C4501F-F242-3327-A5A4-A70A5E4A4737
 install-name:    '/usr/lib/swift/libswiftRemoteMirror.dylib'
-current-version: 1103.8.25
+current-version: 0
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ __Z15getTypeInfoKindRKN5swift10reflection8TypeInfoE, __ZN5swift10reflection13OpaqueTypeRef3getEv, 
                        __ZN5swift10reflection13OpaqueTypeRef9SingletonE, __ZN5swift10reflection13TypeConverter11getTypeInfoEPKNS0_7TypeRefE, 
                        __ZN5swift10reflection13TypeConverter12hasFixedSizeEPKNS0_7TypeRefE, 
@@ -111,9 +117,8 @@ exports:
                        __ZN5swift8Demangle9Demangler18demangleIdentifierEv, __ZN5swift8Demangle9Demangler18popTypeAndGetChildEv, 
                        __ZN5swift8Demangle9Demangler19demangleBuiltinTypeEv, __ZN5swift8Demangle9Demangler19demangleGenericTypeEv, 
                        __ZN5swift8Demangle9Demangler19demangleIndexAsNodeEv, __ZN5swift8Demangle9Demangler19demangleSpecialTypeEv, 
-                       __ZN5swift8Demangle9Demangler20demangleObjCTypeNameEv, __ZN5swift8Demangle9Demangler20demangleProtocolListEv, 
-                       __ZN5swift8Demangle9Demangler20demangleTypeManglingEv, __ZN5swift8Demangle9Demangler20demangleValueWitnessEv, 
-                       __ZN5swift8Demangle9Demangler21demangleBoundGenericsERNS0_6VectorIPNS0_4NodeEEERS4_, 
+                       __ZN5swift8Demangle9Demangler20demangleProtocolListEv, __ZN5swift8Demangle9Demangler20demangleTypeManglingEv, 
+                       __ZN5swift8Demangle9Demangler20demangleValueWitnessEv, __ZN5swift8Demangle9Demangler21demangleBoundGenericsERNS0_6VectorIPNS0_4NodeEEERS4_, 
                        __ZN5swift8Demangle9Demangler21demangleFuncSpecParamENS0_4Node4KindE, 
                        __ZN5swift8Demangle9Demangler21demanglePlainFunctionEv, __ZN5swift8Demangle9Demangler22addFuncSpecParamNumberEPNS0_4NodeENS0_34FunctionSigSpecializationParamKindE, 
                        __ZN5swift8Demangle9Demangler22demangleAnyGenericTypeENS0_4Node4KindE, 
@@ -129,14 +134,14 @@ exports:
                        __ZN5swift8Demangle9Demangler24demangleImplFunctionTypeEv, 
                        __ZN5swift8Demangle9Demangler24demangleProtocolListTypeEv, 
                        __ZN5swift8Demangle9Demangler25demangleGenericParamIndexEv, 
-                       __ZN5swift8Demangle9Demangler25demangleSymbolicReferenceEhPKv, 
+                       __ZN5swift8Demangle9Demangler25demangleSymbolicReferenceEh, 
                        __ZN5swift8Demangle9Demangler25popAnyProtocolConformanceEv, 
                        __ZN5swift8Demangle9Demangler26createStandardSubstitutionEc, 
                        __ZN5swift8Demangle9Demangler26demangleGenericRequirementEv, 
                        __ZN5swift8Demangle9Demangler26demangleMultiSubstitutionsEv, 
                        __ZN5swift8Demangle9Demangler26demangleOperatorIdentifierEv, 
                        __ZN5swift8Demangle9Demangler27demangleBridgedMethodParamsEv, 
-                       __ZN5swift8Demangle9Demangler27demangleImplParamConventionEv, 
+                       __ZN5swift8Demangle9Demangler27demangleImplParamConventionENS0_4Node4KindE, 
                        __ZN5swift8Demangle9Demangler28demangleAssociatedTypeSimpleEPNS0_4NodeE, 
                        __ZN5swift8Demangle9Demangler28demangleImplResultConventionENS0_4Node4KindE, 
                        __ZN5swift8Demangle9Demangler28demangleStandardSubstitutionEv, 
@@ -164,12 +169,15 @@ exports:
                        __ZN5swift8Punycode18decodePunycodeUTF8EN4llvm9StringRefERNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEE, 
                        __ZN5swift8Punycode18encodePunycodeUTF8EN4llvm9StringRefERNSt3__112basic_stringIcNS3_11char_traitsIcEENS3_9allocatorIcEEEEb, 
                        __ZNK5swift10reflection14MetadataSource4dumpEP7__sFILEj, __ZNK5swift10reflection14MetadataSource4dumpEv, 
+                       __ZNK5swift10reflection14RecordTypeInfo24readExtraInhabitantIndexERNS_6remote12MemoryReaderENS2_13RemoteAddressEPi, 
+                       __ZNK5swift10reflection15BuiltinTypeInfo24readExtraInhabitantIndexERNS_6remote12MemoryReaderENS2_13RemoteAddressEPi, 
                        __ZNK5swift10reflection16NominalTypeTrait10isProtocolEv, __ZNK5swift10reflection16NominalTypeTrait6isEnumEv, 
                        __ZNK5swift10reflection16NominalTypeTrait7isAliasEv, __ZNK5swift10reflection16NominalTypeTrait7isClassEv, 
                        __ZNK5swift10reflection16NominalTypeTrait8getDepthEv, __ZNK5swift10reflection16NominalTypeTrait8isStructEv, 
                        __ZNK5swift10reflection18ClosureContextInfo4dumpEP7__sFILE, 
                        __ZNK5swift10reflection18ClosureContextInfo4dumpEv, __ZNK5swift10reflection7TypeRef10isConcreteEv, 
-                       __ZNK5swift10reflection7TypeRef11getSubstMapEv, __ZNK5swift10reflection7TypeRef28isConcreteAfterSubstitutionsERKN4llvm8DenseMapINSt3__14pairIjjEEPKS1_NS2_12DenseMapInfoIS6_EENS2_6detail12DenseMapPairIS6_S8_EEEE, 
+                       __ZNK5swift10reflection7TypeRef11getSubstMapEv, __ZNK5swift10reflection7TypeRef13getDemanglingERNS_8Demangle9DemanglerE, 
+                       __ZNK5swift10reflection7TypeRef28isConcreteAfterSubstitutionsERKN4llvm8DenseMapINSt3__14pairIjjEEPKS1_NS2_12DenseMapInfoIS6_EENS2_6detail12DenseMapPairIS6_S8_EEEE, 
                        __ZNK5swift10reflection7TypeRef4dumpEP7__sFILEj, __ZNK5swift10reflection7TypeRef4dumpEv, 
                        __ZNK5swift10reflection7TypeRef5substERNS0_14TypeRefBuilderERKN4llvm8DenseMapINSt3__14pairIjjEEPKS1_NS4_12DenseMapInfoIS8_EENS4_6detail12DenseMapPairIS8_SA_EEEE, 
                        __ZNK5swift10reflection8TypeInfo4dumpEP7__sFILEj, __ZNK5swift10reflection8TypeInfo4dumpEv, 
@@ -177,19 +185,21 @@ exports:
                        __ZNK5swift8Demangle4Node14getNumChildrenEv, __ZNK5swift8Demangle4Node3endEv, 
                        __ZNK5swift8Demangle4Node5beginEv, __ZNR5swift8Demangle16DemanglerPrinter8writeHexEy, 
                        __ZNR5swift8Demangle16DemanglerPrinterlsEx, __ZNR5swift8Demangle16DemanglerPrinterlsEy, 
+                       __ZTVN5swift10reflection14RecordTypeInfoE, __ZTVN5swift10reflection15BuiltinTypeInfoE, 
                        __ZTVN5swift8Demangle11NodeFactoryE, __ZTVN5swift8Demangle9DemanglerE, 
                        _swift_reflection_addImage, _swift_reflection_addReflectionInfo, 
                        _swift_reflection_childOfInstance, _swift_reflection_childOfMetadata, 
                        _swift_reflection_childOfTypeRef, _swift_reflection_classIsSwiftMask, 
-                       _swift_reflection_createReflectionContext, _swift_reflection_createReflectionContextWithDataLayout, 
-                       _swift_reflection_demangle, _swift_reflection_destroyReflectionContext, 
-                       _swift_reflection_dumpInfoForInstance, _swift_reflection_dumpInfoForMetadata, 
-                       _swift_reflection_dumpInfoForTypeRef, _swift_reflection_dumpTypeRef, 
-                       _swift_reflection_genericArgumentCountOfTypeRef, _swift_reflection_genericArgumentOfTypeRef, 
-                       _swift_reflection_getSupportedMetadataVersion, _swift_reflection_infoForInstance, 
-                       _swift_reflection_infoForMetadata, _swift_reflection_infoForTypeRef, 
-                       _swift_reflection_metadataForObject, _swift_reflection_ownsAddress, 
-                       _swift_reflection_ownsObject, _swift_reflection_projectExistential, 
+                       _swift_reflection_copyDemangledNameForTypeRef, _swift_reflection_createReflectionContext, 
+                       _swift_reflection_createReflectionContextWithDataLayout, _swift_reflection_demangle, 
+                       _swift_reflection_destroyReflectionContext, _swift_reflection_dumpInfoForInstance, 
+                       _swift_reflection_dumpInfoForMetadata, _swift_reflection_dumpInfoForTypeRef, 
+                       _swift_reflection_dumpTypeRef, _swift_reflection_genericArgumentCountOfTypeRef, 
+                       _swift_reflection_genericArgumentOfTypeRef, _swift_reflection_getSupportedMetadataVersion, 
+                       _swift_reflection_infoForInstance, _swift_reflection_infoForMetadata, 
+                       _swift_reflection_infoForTypeRef, _swift_reflection_metadataForObject, 
+                       _swift_reflection_ownsAddress, _swift_reflection_ownsObject, 
+                       _swift_reflection_projectEnumValue, _swift_reflection_projectExistential, 
                        _swift_reflection_readIsaMask, _swift_reflection_typeRefForInstance, 
                        _swift_reflection_typeRefForMangledTypeName, _swift_reflection_typeRefForMetadata ]
 ...

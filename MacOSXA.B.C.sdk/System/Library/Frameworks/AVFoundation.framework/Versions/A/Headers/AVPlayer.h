@@ -1,3 +1,4 @@
+#if !__has_include(<AVFCore/AVPlayer.h>)
 /*
     File:  AVPlayer.h
 
@@ -431,8 +432,6 @@ typedef NS_ENUM(NSInteger, AVPlayerActionAtItemEnd)
 	@discussion		Once the completion handler is called with YES, the player's rate can be set with minimal latency.
 					The completion handler will be called with NO if the preroll is interrupted by a time change or incompatible rate change, or if preroll is not possible for some other reason.
 					Call this method only when the rate is currently zero and only after the AVPlayer's status has become AVPlayerStatusReadyToPlay.
-
-					Note that advanced rate control is not currently supported for HTTP Live Streaming.
 	@param rate		The intended rate for subsequent playback.
 	@param completionHandler
 					The block that will be called when the preroll is either completed or is interrupted.
@@ -617,7 +616,7 @@ typedef NS_ENUM(NSInteger, AVPlayerActionAtItemEnd)
 @property BOOL usesExternalPlaybackWhileExternalScreenIsActive API_AVAILABLE(ios(6.0), tvos(9.0)) API_UNAVAILABLE(macos, watchos);
 
 /* Video gravity strictly for "external playback" mode, one of AVLayerVideoGravity* defined in AVAnimation.h */
-@property (nonatomic, copy) AVLayerVideoGravity externalPlaybackVideoGravity API_AVAILABLE(ios(6.0), tvos(9.0)) API_UNAVAILABLE(watchos) API_UNAVAILABLE(macos);
+@property (nonatomic, copy) AVLayerVideoGravity externalPlaybackVideoGravity API_AVAILABLE(ios(6.0), tvos(9.0)) API_UNAVAILABLE(macos, watchos);
 
 @end
 
@@ -882,3 +881,7 @@ API_AVAILABLE(macos(10.7), ios(4.1), tvos(9.0), watchos(1.0))
 @end
 
 NS_ASSUME_NONNULL_END
+
+#else
+#import <AVFCore/AVPlayer.h>
+#endif

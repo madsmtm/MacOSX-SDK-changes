@@ -51,6 +51,20 @@ NSFileProviderPage const NSFileProviderInitialPageSortedByName;
  */
 - (void)finishEnumeratingUpToPage:(nullable NSFileProviderPage)nextPage NS_SWIFT_NAME(finishEnumerating(upTo:));
 - (void)finishEnumeratingWithError:(NSError *)error;
+
+@optional
+/**
+ Size of the page suggested by the system for better performance.
+
+ The system will set that property to the value it considers is best suited for the current enumeration. The
+ system can enumerate a container in various cases (container presenter in the UI, file opened in an application,
+ materialization of the folder by the system, ...). Each case has its own performance profile.
+
+ By taking into account the suggested size, the enumeration will guarantee the best user experience possible. The
+ system does not enforce the size of the page.
+ */
+@property (nonatomic, readonly) NSInteger suggestedPageSize FILEPROVIDER_API_AVAILABILITY_V3;
+
 @end
 
 @protocol NSFileProviderChangeObserver <NSObject>
@@ -92,6 +106,24 @@ NSFileProviderPage const NSFileProviderInitialPageSortedByName;
  nil.
  */
 - (void)finishEnumeratingWithError:(NSError *)error;
+
+@optional
+/**
+ Size of the batch suggested by the system for better performance.
+
+ The system will set that property to the value it considers is best suited for the current enumeration. The
+ system can enumerate changes on a container in various cases (container presenter in the UI, file opened in an
+ application, ...). Each case has its own performance profile.
+
+ In case the enumerator has already more than suggestedBatchSize pending changes ready to enumerate, it is suggested
+ it split the list of changes into several batches. If the enumerator does not have suggestedBatchSize ready to
+ enumerator, the enumerator should finish immediately and not wait for more incoming changes to enumerate.
+
+ By taking into account the suggested size, the enumeration will guarantee the best user experience possible. The
+ system does not enforce the size of the batch.
+ */
+@property (nonatomic, readonly) NSInteger suggestedBatchSize FILEPROVIDER_API_AVAILABILITY_V3;
+
 @end
 
 

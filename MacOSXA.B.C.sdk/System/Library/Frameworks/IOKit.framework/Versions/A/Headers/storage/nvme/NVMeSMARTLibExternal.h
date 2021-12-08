@@ -303,7 +303,11 @@ typedef struct IONVMeSMARTInterface
     UInt64  reserved17;
     UInt64  reserved18;
     UInt64  reserved19;
-
+    UInt64  reserved20;
+    UInt64  reserved21;
+    UInt64  reserved22;
+    UInt64  reserved23;
+    
 } IONVMeSMARTInterface;
     
 

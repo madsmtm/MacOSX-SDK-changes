@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.140.1) generated from IOInterruptDispatchSource.iig */
+/* iig(DriverKit-107.40.8) generated from IOInterruptDispatchSource.iig */
 
 /* IOInterruptDispatchSource.iig:1-44 */
 /*
@@ -263,6 +263,12 @@ public:\
         SetHandler_Handler func);\
 \
     typedef void (*InterruptOccurred_Handler)(OSMetaClassBase * target, IOInterruptDispatchSource_InterruptOccurred_Args);\
+    static kern_return_t\
+    InterruptOccurred_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        InterruptOccurred_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
     static kern_return_t\
     InterruptOccurred_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\

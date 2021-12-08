@@ -1,11 +1,17 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 21CE7B78-785C-39E3-8D1E-3D45299DBCE4' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           F2F8F918-035B-36D2-A8F1-388B154F9BB7
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           4CEEE462-04A9-380F-A6B5-C1CB80E843F7
 install-name:    '/System/Library/Frameworks/ContactsUI.framework/Versions/A/ContactsUI'
-current-version: 2421.27
+current-version: 2452
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _ABCNContactSortByFirstName, _ABCNContactSortByLastName, _ABCNContactSortingSubstringAttributeName, 
                        _ABCN_PICKER_GROUP_LIST_MAX_WIDTH_KEY, _ABCN_PICKER_GROUP_LIST_MAX_WIDTH_VALUE, 
                        _ABCN_PICKER_GROUP_LIST_MIN_WIDTH_KEY, _ABCN_PICKER_GROUP_LIST_MIN_WIDTH_VALUE, 
@@ -25,7 +31,8 @@ exports:
                        _CNFamilyMemberContactsViewControllerMinWidth, _CNFamilyMemberEditControlsViewControllerLargeHeight, 
                        _CNFamilyMemberEditControlsViewControllerLargeWidth, _CNFamilyMemberEditControlsViewControllerRegularHeight, 
                        _CNFamilyMemberEditControlsViewControllerRegularWidth, _CNFamilyMemberEditControlsViewControllerSmallHeight, 
-                       _CNFamilyMemberEditControlsViewControllerSmallMWidth, _CNLikenessEditorFamilyNameKey, 
+                       _CNFamilyMemberEditControlsViewControllerSmallMWidth, _CNLikenessCollectionCircleDiameter, 
+                       _CNLikenessCollectionItemDiameter, _CNLikenessEditorFamilyNameKey, 
                        _CNLikenessEditorFullNameKey, _CNLikenessEditorGivenNameKey, 
                        _CNLikenessEditorImageCropRectKey, _CNLikenessEditorImageDataKey, 
                        _CNLikenessSourceContainerIdentifierUnassigned, _CNLikenessSourceContainerNameUnassigned, 
@@ -41,33 +48,31 @@ exports:
                        _CNUILoggingContextDebug, _CNUILoggingContextPerformance, 
                        _CNUILoggingSubsystem, _CNUIPerformanceLoggingEnabled, _CNWhitelistedContactViewCellHeight, 
                        _CNWhitelistedContactViewCellMargin, _isLikenessFromPersonaStore, 
-                       _kHDAspectRatio, _kLikenessCollectionCircleDiameter, _kLikenessCollectionCircleInset, 
-                       _kLikenessCollectionItemDiameter, _kZoomSliderHeight, _kZoomSliderZoomUnit, 
-                       _sCNUIConvertABPersonToCNContact, _sharedSessionQueue, _touchBarButtonHeight, 
-                       _touchBarButtonWidthLarge, _touchBarButtonWidthMedium, _touchBarButtonWidthSmall, 
-                       _touchBarIdentifierAddField, _touchBarIdentifierCollectionView, 
+                       _kHDAspectRatio, _kLikenessCollectionCircleDiameter, _kLikenessCollectionCircleDiameterLegacy, 
+                       _kLikenessCollectionCircleInset, _kLikenessCollectionItemDiameter, 
+                       _kLikenessCollectionItemDiameterLegacy, _kZoomSliderHeight, 
+                       _kZoomSliderZoomUnit, _sCNUIConvertABPersonToCNContact, _sharedSessionQueue, 
+                       _touchBarButtonHeight, _touchBarButtonWidthLarge, _touchBarButtonWidthMedium, 
+                       _touchBarButtonWidthSmall, _touchBarIdentifierAddField, _touchBarIdentifierCollectionView, 
                        _touchBarIdentifierCollectionViewRemoveButton, _touchBarIdentifierContactViewEditButton, 
                        _touchBarIdentifierContactViewShareButton ]
     objc-classes:    [ ABCNContactNameFormatter, ABCNContactShortNameFormatter, ABPersonListSearchControllerUsageStatisticsHelper, 
                        CNAddFieldTouchBar, CNAntialiasedImageView, CNAvatarCache, 
-                       CNAvatarCacheChangeAnalysis, CNAvatarCacheChangeHistoryAnalysisTask, 
-                       CNAvatarCacheChangeListener, CNAvatarCacheDelegateObservable, 
-                       CNAvatarCacheEntry, CNAvatarCacheFingerprintCollector, CNAvatarChangeHistoryReportingTask, 
-                       CNAvatarEditOverlayView, CNAvatarEditorViewController, CNAvatarImageLoading, 
-                       CNAvatarImageLoadingOptions, CNAvatarImageRenderer, CNAvatarImageRenderingScope, 
+                       CNAvatarCacheDelegateObservable, CNAvatarCacheEntry, CNAvatarEditOverlayView, 
+                       CNAvatarEditorViewController, CNAvatarImageLoading, CNAvatarImageLoadingOptions, 
+                       CNAvatarImageProvider, CNAvatarImageRenderer, CNAvatarImageRenderingScope, 
                        CNAvatarView, CNAvatarViewController, CNAvatarViewModel, CNBadgeViewController, 
-                       CNBadgingAvatarViewController, CNCameraChangeWatcher, CNCollectionViewTouchBar, 
-                       CNContactActionsDisambiguationMenuGenerator, CNContactActionsGroupGenerator, 
-                       CNContactActionsView, CNContactActionsViewController, CNContactAvatarNameCompositeViewController, 
+                       CNBadgingAvatarViewController, CNCollectionViewTouchBar, CNContactActionsDisambiguationMenuGenerator, 
+                       CNContactActionsGroupGenerator, CNContactActionsView, CNContactActionsViewController, 
+                       CNContactAvatarNameCompositeViewController, CNContactAvatarPersistenceHelper, 
                        CNContactAvatarViewController, CNContactCardHeightCalculator, 
                        CNContactCardViewControlContext, CNContactCardViewController, 
-                       CNContactCardViewControllerABPersonViewMediator, CNContactCardViewControllerAfterLaunchContactFetcher, 
-                       CNContactCardViewControllerContactFetcher, CNContactCardViewControllerDataSourceDelegate, 
-                       CNContactCardViewControllerLogger, CNContactCardViewControllerOnLaunchContactFetcher, 
-                       CNContactCardViewControllerWidgetProviderDelegate, CNContactCardWidgetProvider, 
-                       CNContactCardWidgetProviderDelegateWrapper, CNContactDetailsViewController, 
-                       CNContactEditViewTouchBar, CNContactIconAppearance, CNContactIconImageFactory, 
-                       CNContactIconView, CNContactIconViewModel, CNContactLikenessABCardViewImageDataSourceMutator, 
+                       CNContactCardViewControllerABPersonViewMediator, CNContactCardViewControllerDataSourceDelegate, 
+                       CNContactCardViewControllerLogger, CNContactCardViewControllerWidgetProviderDelegate, 
+                       CNContactCardWidgetProvider, CNContactCardWidgetProviderDelegateWrapper, 
+                       CNContactDetailsViewController, CNContactEditViewTouchBar, 
+                       CNContactIconAppearance, CNContactIconImageFactory, CNContactIconView, 
+                       CNContactIconViewModel, CNContactLikenessABCardViewImageDataSourceMutator, 
                        CNContactLikenessAgreggateMutator, CNContactLikenessCardMutatorFactory, 
                        CNContactLikenessContactStoreMutator, CNContactLikenessDefaultMutatorFactory, 
                        CNContactLikenessImageFetchStrategy, CNContactLikenessLinkedContactsFetchStrategy, 
@@ -80,16 +85,15 @@ exports:
                        CNContactListHelperScope, CNContactListRowView, CNContactListSelectHelper, 
                        CNContactListSelectValueHelper, CNContactListShowSelectedContactHelper, 
                        CNContactListValueHelperScope, CNContactListView, CNContactNameViewController, 
-                       CNContactPersistenceHelper, CNContactPicker, CNContactPickerBorderView, 
-                       CNContactPickerCardViewStyleProvider, CNContactPickerDelegateSearchConfiguration, 
-                       CNContactPickerFamilyMemberScope, CNContactPickerGroupDropHelper, 
-                       CNContactPickerGroupHelperFactory, CNContactPickerInProccessViewController, 
-                       CNContactPickerNotificationWatcher, CNContactPickerRemoteViewController, 
-                       CNContactPickerScope, CNContactPickerSearchController, CNContactPickerSection, 
-                       CNContactPickerService, CNContactPickerUsageTracer, CNContactPickerView, 
-                       CNContactPickerViewController, CNContactPickerViewLayout, 
-                       CNContactPickerViewMetrics, CNContactPickerViewService, CNContactPickerXPCRelay, 
-                       CNContactSaveAction, CNContactSharingEnabledWarningViewController, 
+                       CNContactPicker, CNContactPickerBorderView, CNContactPickerCardViewStyleProvider, 
+                       CNContactPickerDelegateSearchConfiguration, CNContactPickerFamilyMemberScope, 
+                       CNContactPickerGroupDropHelper, CNContactPickerGroupHelperFactory, 
+                       CNContactPickerInProccessViewController, CNContactPickerNotificationWatcher, 
+                       CNContactPickerRemoteViewController, CNContactPickerScope, 
+                       CNContactPickerSearchController, CNContactPickerSection, CNContactPickerService, 
+                       CNContactPickerUsageTracer, CNContactPickerView, CNContactPickerViewController, 
+                       CNContactPickerViewLayout, CNContactPickerViewMetrics, CNContactPickerViewService, 
+                       CNContactPickerXPCRelay, CNContactSaveAction, CNContactSharingEnabledWarningViewController, 
                        CNContactSilhouetteView, CNContactTabSwitcherViewController, 
                        CNContactUpdatesReflector, CNContactViewController, CNContactViewTouchBar, 
                        CNControlClickGestureRecognizer, CNCreateLikenessHelper, CNDefaultPhotoBrowserItem, 
@@ -103,7 +107,7 @@ exports:
                        CNGroupListRowView, CNGroupListSearchingSelectHelper, CNGroupListSectionSelectHelper, 
                        CNGroupListView, CNIntegerFormatter, CNIntrinsicView, CNLikeness, 
                        CNLikenessCircleView, CNLikenessCollectionItem, CNLikenessConverter, 
-                       CNLikenessEditorBuddyController, CNLikenessEditorPresentationController, 
+                       CNLikenessDiskView, CNLikenessEditorBuddyController, CNLikenessEditorPresentationController, 
                        CNLikenessEditorPresentationPopoverStrategy, CNLikenessEditorPresentationSheetStrategy, 
                        CNLikenessEditorViewController, CNLikenessEmptyCollectionItem, 
                        CNLikenessFullCollectionItem, CNLikenessInspector, CNLikenessSelectionView, 
@@ -127,10 +131,14 @@ exports:
                        CNRoundedImageView, CNScrollViewOccluderController, CNScrollableContainerView, 
                        CNTabSegmentedControl, CNToABCNConversions, CNTouchBarController, 
                        CNTouchBarUtilities, CNTransaction, CNUIColorButton, CNUIColorPalette, 
-                       CNUIColorRepository, CNUIColoredView, CNUIContactFetchParameters, 
-                       CNUIContactFetchResult, CNUIDefaultPhotosLoader, CNUIDeprecatedIKImageBrowserView, 
-                       CNUIEditingPolicy, CNUIEditingRules, CNUIEnvironment, CNUIMutableEnvironment, 
-                       CNUISavePanel, CNUIScreen, CNUIVCardNameGenerator, CNUIVCardSharingItem, 
+                       CNUIColorRepository, CNUIColoredView, CNUIContactFetchDescription, 
+                       CNUIContactFetchResult, CNUIContainerFetchDescription, CNUIContainerFetchResult, 
+                       CNUIDatabaseAfterLaunchFetcher, CNUIDatabaseFetcher, CNUIDatabaseOnLaunchFetcher, 
+                       CNUIDefaultPhotosLoader, CNUIDeprecatedIKImageBrowserView, 
+                       CNUIEditingPolicy, CNUIEditingRules, CNUIEnvironment, CNUIFaultingParentContainerCache, 
+                       CNUIMemoizingParentContainerCache, CNUIMutableEnvironment, 
+                       CNUISavePanel, CNUIScreen, CNUISeededParentContainerCache, 
+                       CNUISymbolRepository, CNUIVCardNameGenerator, CNUIVCardSharingItem, 
                        CNUIVCardSharingTask, CNUIViewRevealer, CNUserActionTouchBar, 
                        CNVariableChangeHelper, CNView, CNViewFactory, _CNCameraSessionState, 
                        _CNObservableTargetActionHelper, _CNUIGuardianEditingPolicy, 
@@ -140,5 +148,6 @@ exports:
                        CNContactPickerSearchController._deferProgressTimer, CNContactPickerSearchController._searchController, 
                        CNUIEnvironment._contactStoreWithAllContacts, CNUIEnvironment._contactStoreWithLocalAndDonatedContacts, 
                        CNUIEnvironment._defaultContactStore, CNUIEnvironment._editingPolicy, 
-                       CNUIEnvironment._meContactMonitor, CNUIEnvironment._schedulerProvider ]
+                       CNUIEnvironment._meContactMonitor, CNUIEnvironment._parentContainerCache, 
+                       CNUIEnvironment._personaStore, CNUIEnvironment._schedulerProvider ]
 ...

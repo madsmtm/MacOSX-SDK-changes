@@ -1,29 +1,50 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 6B49F7A2-EA77-3F66-9B94-DCF16A2AB3B7', 'x86_64: 6B49F7A2-EA77-3F66-9B94-DCF16A2AB3B7' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           1E51C943-BB3B-3047-A528-54A5174DE329
+  - target:          x86_64-maccatalyst
+    value:           1E51C943-BB3B-3047-A528-54A5174DE329
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           4BF0D1C3-B297-32F2-896A-49F2B0DBEA4A
+  - target:          arm64e-maccatalyst
+    value:           4BF0D1C3-B297-32F2-896A-49F2B0DBEA4A
 install-name:    '/System/Library/PrivateFrameworks/RemoteManagement.framework/Versions/A/RemoteManagement'
 current-version: 2
+allowable-clients:
+  - targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                       arm64e-macos, arm64e-maccatalyst ]
+    clients:         [ AccountExtension, AppManagementExtension, CloudMDMAppListTestApp, 
+                       InteractiveLegacyProfilesExtension, LegacyProfilesExtension, 
+                       ManagementTestExtension, MiniLauncher, PasscodeSettingsExtension, 
+                       RemoteManagementAccountSettings, RemoteManagementAccountSettings-macOS, 
+                       RemoteManagementAccountsNotificationPlugin, RemoteManagementAgent, 
+                       RemoteManagementInternalSettings, RemoteManagementTests, SettingsSharedSupport, 
+                       Setup, Setup Assistant, SetupTests, remotemanagementd, rmdctl, 
+                       rmdinspect ]
 exports:
-  - archs:           [ x86_64 ]
-    allowable-clients: [ AccountExtension, AppManagementExtension, CloudMDMAppListTestApp, 
-                         LegacyProfilesExtension, ManagementTestExtension, MiniLauncher, 
-                         PasscodeSettingsExtension, RemoteManagementAccountSettings, 
-                         RemoteManagementAccountSettings-macOS, RemoteManagementAccountsNotificationPlugin, 
-                         RemoteManagementAgent, RemoteManagementTests, SettingsSharedSupport, 
-                         Setup, Setup Assistant, SetupTests, exampled, remotemanagementd, 
-                         rmdctl, rmdinspect ]
-    symbols:         [ _RMAccountAdditionalInfoKeyManagedByOlympus, _RMAccountPropertyKeyAdditionalInfo, 
-                       _RMAccountPropertyKeyAltDSID, _RMAccountPropertyKeyDSID, _RMAccountPropertyKeyEnrollmentToken, 
-                       _RMAccountPropertyKeyManagementSourceIdentifier, _RMAssetTypeImage, 
-                       _RMAssetTypeUserIdentity, _RMAssetTypeVPPOnDemand, _RMAuthenticationSchemeMAID, 
-                       _RMAuthenticationSchemeMAIDFieldAltDSID, _RMAuthenticationSchemeMAIDFieldDSID, 
-                       _RMAuthenticationSchemeMAIDFieldLongLivedToken, _RMAuthenticationSchemeMAIDFieldShortLivedToken, 
-                       _RMAuthenticationSchemeMAIDFieldUsername, _RMAuthenticationSchemeTest, 
-                       _RMAuthenticationSchemeTestFieldToken, _RMAuthenticationSchemeTestFieldUsername, 
-                       _RMConfigurationTypeAccountCalDAV, _RMConfigurationTypeAccountCardDAV, 
-                       _RMConfigurationTypeAccountExchange, _RMConfigurationTypeAccountGoogle, 
-                       _RMConfigurationTypeAccountMail, _RMConfigurationTypeApplicationManagement, 
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
+    symbols:         [ _RMAccountAdditionalInfoKeyManagedByOlympus, _RMAccountPropertyKeyAccountScheme, 
+                       _RMAccountPropertyKeyAdditionalInfo, _RMAccountPropertyKeyAltDSID, 
+                       _RMAccountPropertyKeyDSID, _RMAccountPropertyKeyEnrollmentToken, 
+                       _RMAccountPropertyKeyEnrollmentURL, _RMAccountPropertyKeyManagementSourceIdentifier, 
+                       _RMAccountPropertyKeyWebAuthenticationToken, _RMAccountSchemeTest, 
+                       _RMAccountSchemeWebAuthentication, _RMAssetTypeImage, _RMAssetTypeUserIdentity, 
+                       _RMAssetTypeVPPOnDemand, _RMAuthenticationSchemeTest, _RMAuthenticationSchemeTestFieldToken, 
+                       _RMAuthenticationSchemeTestFieldUsername, _RMAuthenticationSchemeWebAuthentication, 
+                       _RMAuthenticationSchemeWebAuthenticationFieldAuthToken, _RMAuthenticationSchemeWebAuthenticationFieldUsername, 
+                       _RMCMSDecodeStatusCodeKey, _RMConfigurationTypeAccountCalDAV, 
+                       _RMConfigurationTypeAccountCardDAV, _RMConfigurationTypeAccountExchange, 
+                       _RMConfigurationTypeAccountGoogle, _RMConfigurationTypeAccountLDAP, 
+                       _RMConfigurationTypeAccountMail, _RMConfigurationTypeAccountSubscribedCalendar, 
+                       _RMConfigurationTypeApplicationManagement, _RMConfigurationTypeLegacyInteractiveProfiles, 
                        _RMConfigurationTypeLegacyProfiles, _RMConfigurationTypeManagementStatusSubscription, 
                        _RMConfigurationTypeManagementTest, _RMConfigurationTypePasscodeSettings, 
                        _RMErrorDomain, _RMErrorUserInfoKeyDescriptionKey, _RMHTTPStatusCodeKey, 
@@ -36,9 +57,11 @@ exports:
                        RMConfigurationSubscriberDescription, RMDeviceAuthenticationCredential, 
                        RMEnrollmentController, RMErrorUtilities, RMEventDescription, 
                        RMExtensionConfigurationSubscriber, RMExtensionContext, RMExtensionRequestHandler, 
-                       RMExtensionStatusPublisher, RMGenericAuthenticationCredential, 
-                       RMHTTPLog, RMLocations, RMLog, RMManagementChannel, RMPersonaHelper, 
-                       RMPolicy, RMPolicyStore, RMResolvedAsset, RMResolvedDataAsset, 
-                       RMResolvedFileAsset, RMStatusPublisherDescription, RMUnresolvedDataAsset, 
-                       RMUnresolvedFileAsset, RMXPCProxy, RemoteManagement_Subsystem ]
+                       RMExtensionStatusPublisher, RMFeatureFlags, RMFeatureOverrides, 
+                       RMGenericAuthenticationCredential, RMHTTPLog, RMLegacyProfilesFilter, 
+                       RMLocations, RMLog, RMManagementChannel, RMPersonaHelper, 
+                       RMPolicy, RMPolicyStore, RMProfilesAdapter, RMProfilesController, 
+                       RMResolvedAsset, RMResolvedDataAsset, RMResolvedFileAsset, 
+                       RMStatusPublisherDescription, RMUnresolvedDataAsset, RMUnresolvedFileAsset, 
+                       RMXPCProxy, RemoteManagement_Subsystem ]
 ...

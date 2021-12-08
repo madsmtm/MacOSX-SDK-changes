@@ -40,6 +40,8 @@ IMAGEIO_EXTERN const CFStringRef kCGImagePropertyExifAuxDictionary  IMAGEIO_AVAI
 IMAGEIO_EXTERN const CFStringRef kCGImagePropertyOpenEXRDictionary  IMAGEIO_AVAILABLE_STARTING(10.9, 11.3);
 IMAGEIO_EXTERN const CFStringRef kCGImagePropertyMakerAppleDictionary  IMAGEIO_AVAILABLE_STARTING(10.10, 7.0);
 IMAGEIO_EXTERN const CFStringRef kCGImagePropertyFileContentsDictionary IMAGEIO_AVAILABLE_STARTING(10.13, 11.0);
+IMAGEIO_EXTERN const CFStringRef kCGImagePropertyWebPDictionary  IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
+IMAGEIO_EXTERN const CFStringRef kCGImagePropertyTGADictionary  IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
 
 
 /** Properties which may be returned by "CGImageSourceCopyProperties".  The
@@ -293,6 +295,15 @@ IMAGEIO_EXTERN const CFStringRef kCGImagePropertyAPNGUnclampedDelayTime  IMAGEIO
 IMAGEIO_EXTERN const CFStringRef kCGImagePropertyAPNGFrameInfoArray IMAGEIO_AVAILABLE_STARTING(10.15, 13.0);
 IMAGEIO_EXTERN const CFStringRef kCGImagePropertyAPNGCanvasPixelWidth IMAGEIO_AVAILABLE_STARTING(10.15, 13.0);
 IMAGEIO_EXTERN const CFStringRef kCGImagePropertyAPNGCanvasPixelHeight IMAGEIO_AVAILABLE_STARTING(10.15, 13.0);
+
+/* Possible keys for kCGImagePropertyWebPDictionary */
+
+IMAGEIO_EXTERN const CFStringRef kCGImagePropertyWebPLoopCount  IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
+IMAGEIO_EXTERN const CFStringRef kCGImagePropertyWebPDelayTime  IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
+IMAGEIO_EXTERN const CFStringRef kCGImagePropertyWebPUnclampedDelayTime  IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
+IMAGEIO_EXTERN const CFStringRef kCGImagePropertyWebPFrameInfoArray IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
+IMAGEIO_EXTERN const CFStringRef kCGImagePropertyWebPCanvasPixelWidth IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
+IMAGEIO_EXTERN const CFStringRef kCGImagePropertyWebPCanvasPixelHeight IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
 
 /* Possible keys for kCGImagePropertyGPSDictionary */
 
@@ -754,6 +765,15 @@ typedef CF_CLOSED_ENUM(uint32_t, CGImagePropertyOrientation) {
 };
 
 
+/* Possible keys for kCGImagePropertyTGADictionary */
+IMAGEIO_EXTERN const CFStringRef  kCGImagePropertyTGACompression IMAGEIO_AVAILABLE_STARTING(11.0, 14.0);
+
+/* Possible int values for kCGImagePropertyTGACompression */
+typedef CF_CLOSED_ENUM(uint32_t, CGImagePropertyTGACompression) {
+    kCGImageTGACompressionNone = 0,
+    kCGImageTGACompressionRLE,
+};
+
 /*
  * Allows client to choose the filters applied before PNG compression
  * http://www.libpng.org/pub/png/book/chapter09.html#png.ch09.div.1
@@ -783,6 +803,9 @@ IMAGEIO_EXTERN const CFStringRef kCGImageAuxiliaryDataTypePortraitEffectsMatte I
 IMAGEIO_EXTERN const CFStringRef kCGImageAuxiliaryDataTypeSemanticSegmentationSkinMatte IMAGEIO_AVAILABLE_STARTING(10.15, 13.0);
 IMAGEIO_EXTERN const CFStringRef kCGImageAuxiliaryDataTypeSemanticSegmentationHairMatte IMAGEIO_AVAILABLE_STARTING(10.15, 13.0);
 IMAGEIO_EXTERN const CFStringRef kCGImageAuxiliaryDataTypeSemanticSegmentationTeethMatte IMAGEIO_AVAILABLE_STARTING(10.15, 13.0);
+IMAGEIO_EXTERN const CFStringRef kCGImageAuxiliaryDataTypeSemanticSegmentationGlassesMatte IMAGEIO_AVAILABLE_STARTING(11.0, 14.1);
+IMAGEIO_EXTERN const CFStringRef kCGImageAuxiliaryDataTypeHDRGainMap   IMAGEIO_AVAILABLE_STARTING(11.0, 14.1);
+
 
 /* Depth/Disparity data support for JPEG, HEIF, and DNG images:
  * CGImageSourceCopyAuxiliaryDataInfoAtIndex and CGImageDestinationAddAuxiliaryDataInfo will use these keys in the dictionary:

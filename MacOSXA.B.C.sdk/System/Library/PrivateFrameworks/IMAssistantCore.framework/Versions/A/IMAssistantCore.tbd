@@ -1,15 +1,21 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B6FFBD84-D4CD-35B3-A5E6-A8D57B6D849D' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           982ED592-8BE9-3EE9-B105-34EB3FAF28E5
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           155AD5F3-55B2-30B6-A304-D017C62064D1
 install-name:    '/System/Library/PrivateFrameworks/IMAssistantCore.framework/Versions/A/IMAssistantCore'
 current-version: 800
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _IMAssistantChatIdentifierFromConversationIdentifier, _IMAssistantContinuityChatsKey, 
                        _IMAssistantContinuityHandlesKey, _IMAssistantCoreInstantMessageServiceBusinessChat, 
-                       __IMAssistantCoreGeneralSignpostLogHandle, __IMAssistantCoreSearchForMessageSignpostLogHandle, 
-                       __IMAssistantCoreSendMessageSignpostLogHandle ]
+                       _IMAssistantMessageHandlerErrorDomain, __IMAssistantCoreGeneralSignpostLogHandle, 
+                       __IMAssistantCoreSearchForMessageSignpostLogHandle, __IMAssistantCoreSendMessageSignpostLogHandle ]
     objc-classes:    [ IMAssistantAudioPlayer, IMAssistantChatParticipant, IMAssistantHandleFromContact, 
                        IMAssistantINMessageConverter, IMAssistantIntentHandler, IMAssistantMessageAttributeOptions, 
                        IMAssistantMessageHandler, IMAssistantMessageHandlerDefaultDataSource, 

@@ -1,10 +1,24 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 75D177C4-BAD7-3285-B8E1-3019F49B3178', 'x86_64: 75D177C4-BAD7-3285-B8E1-3019F49B3178' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           E7230FB6-96BF-3832-ACBB-ECED7D2BC3A6
+  - target:          x86_64-maccatalyst
+    value:           E7230FB6-96BF-3832-ACBB-ECED7D2BC3A6
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           E8A40784-78AA-385E-B5A6-301C15F54974
+  - target:          arm64e-maccatalyst
+    value:           E8A40784-78AA-385E-B5A6-301C15F54974
 install-name:    '/usr/lib/libIOReport.dylib'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _IOReportAddChannelDescription, _IOReportArrayGetValueAtIndex, 
                        _IOReportChannelCopyDescription, _IOReportChannelGetCategories, 
                        _IOReportChannelGetChannelID, _IOReportChannelGetChannelName, 

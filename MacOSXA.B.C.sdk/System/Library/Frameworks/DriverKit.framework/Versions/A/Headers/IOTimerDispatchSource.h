@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.140.1) generated from IOTimerDispatchSource.iig */
+/* iig(DriverKit-107.40.8) generated from IOTimerDispatchSource.iig */
 
 /* IOTimerDispatchSource.iig:1-69 */
 /*
@@ -284,6 +284,12 @@ public:\
         WakeAtTime_Handler func);\
 \
     typedef void (*TimerOccurred_Handler)(OSMetaClassBase * target, IOTimerDispatchSource_TimerOccurred_Args);\
+    static kern_return_t\
+    TimerOccurred_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        TimerOccurred_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
     static kern_return_t\
     TimerOccurred_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\

@@ -470,7 +470,7 @@ typedef struct IOUSBBOSDescriptor IOUSBBOSDescriptor;
 
 /*!
  * @typedef    IOUSBDeviceCapabilityDescriptorHeader
- * @discussion USB BOS descriptor.  See the USB Specification at
+ * @discussion Device Capability descriptor.  See the USB Specification at
  *             <a href="http://www.usb.org" target="_blank">http://www.usb.org</a>.
  *             USB 3.0 9.6.2: Binary Device Object Store (BOS)
  */
@@ -479,7 +479,6 @@ struct IOUSBDeviceCapabilityDescriptorHeader
     uint8_t bLength;
     uint8_t bDescriptorType;
     uint8_t bDevCapabilityType;
-    uint8_t bNumDeviceCaps;
 } __attribute__((packed));
 
 typedef struct IOUSBDeviceCapabilityDescriptorHeader IOUSBDeviceCapabilityDescriptorHeader;
@@ -567,7 +566,7 @@ struct IOUSBDeviceCapabilitySuperSpeedPlusUSB
     uint32_t bmAttributes;
     uint16_t wFunctionalitySupport;
     uint16_t wReserved;
-    uint32_t bmSublinkSpeedAttr[1];
+    uint32_t bmSublinkSpeedAttr[];
 } __attribute__((packed));
 
 typedef struct IOUSBDeviceCapabilitySuperSpeedPlusUSB IOUSBDeviceCapabilitySuperSpeedPlusUSB;
@@ -1154,7 +1153,7 @@ enum tIOUSB30LinkStateTimeout
     kIOUSB30LinkStatePollingDeadline = (kIOUSB30LinkStatePollingLFPSTimeout + 1 + kIOUSB30LinkStatePollingActiveTimeout + kIOUSB30LinkStatePollingConfigurationTimeout + kIOUSB30LinkStatePollingIdleTimeout),
 
     // USB 3.0 7.5.9 and 7.5.10
-    kIOUSB30LinkStateSSResumeDeadline = (kIOUSB30LinkStateU3NoLFPSResponseTimeout + kIOUSB30LinkStateRecoveryActiveTimeout + kIOUSB30LinkStateRecoveryConfigurationTimeout + kIOUSB30LinkStateRecoveryIdleTimeout),
+    kIOUSB30LinkStateSSResumeDeadline = (kIOUSB30LinkStateU3WakeupRetryDelay /* accomodation for retimer */ + kIOUSB30LinkStateU3NoLFPSResponseTimeout + kIOUSB30LinkStateRecoveryActiveTimeout + kIOUSB30LinkStateRecoveryConfigurationTimeout + kIOUSB30LinkStateRecoveryIdleTimeout),
 };
 
 // USB 3.1 Table 8-18
@@ -1181,6 +1180,12 @@ enum tIOUSB30HubPortStatusCode
     kIOUSB30HubPortStatusCodePD       = 1,
     kIOUSB30HubPortStatusCodeExt      = 2,
     kIOUSB30HubPortStatusCodeCount    = 3
+};
+
+// USB 3.2 E.1.2
+enum
+{
+    kIOUSB30RetimerDepthLimit = 4
 };
 
 /*!

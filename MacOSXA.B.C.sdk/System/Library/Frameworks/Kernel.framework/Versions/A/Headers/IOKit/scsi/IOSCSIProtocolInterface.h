@@ -416,7 +416,7 @@ This class defines the public SCSI Protocol Layer API for any class that
 provides Protocol services or needs to provide the Protocol Service API
 for passing service requests to a Protocol Service driver.
 */
-class IOSCSIProtocolInterface : public IOService
+class __exported IOSCSIProtocolInterface : public IOService
 {
 	
 	OSDeclareAbstractStructors ( IOSCSIProtocolInterface )

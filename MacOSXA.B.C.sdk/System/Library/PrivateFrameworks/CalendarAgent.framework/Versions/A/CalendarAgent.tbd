@@ -1,11 +1,17 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 6FC06AC7-C636-3ECA-AC0C-79C179A5C012' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           175D15B2-99C2-35B8-9CAC-BC8EC61E9BD4
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           9B70B448-8B42-3E84-BB23-483FF988C257
 install-name:    '/System/Library/PrivateFrameworks/CalendarAgent.framework/Versions/A/CalendarAgent'
-current-version: 930.5.1
+current-version: 954
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _CalAgentErrorDomain, _CalAgentErrorGenerateStringVersion, 
                        _CalAgentNS_ApplePushServiceConnection, _CalAgentNS_Log, _CalAgentNS_Log_Accounts, 
                        _CalAgentNS_Log_Operations, _CalAgentNS_Log_Push, _CalAgentNS_Log_Refresh, 

@@ -1,14 +1,22 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 13707162-9D44-3CF9-8897-26254043EA3D' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           88486685-396E-3426-A530-F92C4C2E12CE
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           D4418DEB-5B9F-3788-914C-7C8A6422C01A
 install-name:    '/System/Library/Frameworks/AddressBook.framework/Versions/A/AddressBook'
-current-version: 2421.27
-exports:
-  - archs:           [ x86_64 ]
-    re-exports:      [ '/System/Library/PrivateFrameworks/AddressBookCore.framework/Versions/A/AddressBookCore', 
+current-version: 2452
+reexported-libraries:
+  - targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+    libraries:       [ '/System/Library/PrivateFrameworks/AddressBookCore.framework/Versions/A/AddressBookCore', 
                        '/System/Library/PrivateFrameworks/ContactsPersistence.framework/Versions/A/ContactsPersistence', 
                        '/usr/lib/libobjc.A.dylib' ]
+exports:
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _ABAddressBookLocalizedString, _ABAddressesAttribute, _ABAddressesGroupAttribute, 
                        _ABBodyAttribute, _ABBuddyStatusChangedNotification, _ABCNTelephonyServiceName, 
                        _ABCardViewAlternateBirthdayComponentsKey, _ABCardViewBirthdayComponentsKey, 
@@ -171,12 +179,12 @@ exports:
                        ABContactFetcher, ABContactPickerDelegateWrapper, ABContactPickerFactory, 
                        ABCopyOnWriteSet, ABCountTableEntry, ABCreatePersonCommand, 
                        ABCustomLabelController, ABDAVQuery, ABDSuggestionLogPairBuilder, 
-                       ABDataSourceOperation, ABDateCollectionViewItem, ABDateComponentsFormatter, 
-                       ABDateComponentsValueTransformer, ABDateFormatter, ABDateProvider, 
-                       ABDefaultCardViewStyleNoPhotoEditingProvider, ABDefaultCardViewStyleProvider, 
-                       ABDefaultGroupEntriesFactory, ABDefaultStopWatchTimeIntervalProvider, 
-                       ABDelegateCardAction, ABDeleteGroupSheet, ABDeleteRecordsCommandBuilder, 
-                       ABDeprecatedObject, ABDirectoriesHeaderGroupEntry, ABDistributionKeyValueCell, 
+                       ABDataSourceOperation, ABDateCollectionViewItem, ABDateComponentsValueTransformer, 
+                       ABDateFormatter, ABDateProvider, ABDefaultCardViewStyleNoPhotoEditingProvider, 
+                       ABDefaultCardViewStyleProvider, ABDefaultGroupEntriesFactory, 
+                       ABDefaultStopWatchTimeIntervalProvider, ABDelegateCardAction, 
+                       ABDeleteGroupSheet, ABDeleteRecordsCommandBuilder, ABDeprecatedObject, 
+                       ABDirectoriesHeaderGroupEntry, ABDistributionKeyValueCell, 
                        ABDistributionListController, ABDistributionListPeoplePickerController, 
                        ABDistributionListPeoplePickerView, ABDropDownMenuUIAction, 
                        ABEditButton, ABEditSmartGroupCommand, ABEmailCertificateController, 
@@ -428,9 +436,8 @@ exports:
                        ABDAVQuery._password, ABDAVQuery._responseDate, ABDAVQuery._resultCode, 
                        ABDAVQuery._resultData, ABDAVQuery._returnHeader, ABDAVQuery._rootNode, 
                        ABDAVQuery._type, ABDAVQuery._url, ABDAVQuery._user, ABDAVQuery._userAgent, 
-                       ABDataSourceOperation._source, ABDateComponentsFormatter._dateFormatPlaceholderString, 
-                       ABDateComponentsFormatter._lazyFormatterFutures, ABDateComponentsFormatter._locale, 
-                       ABDateComponentsValueTransformer._dateFormatter, ABDateComponentsValueTransformer._shouldReinterpretAsGregorian, 
+                       ABDataSourceOperation._source, ABDateComponentsValueTransformer._dateFormatter, 
+                       ABDateComponentsValueTransformer._shouldReinterpretAsGregorian, 
                        ABDateFormatter._fullDateFormatString, ABDateFormatter._yearlessDateFormatString, 
                        ABDefaultGroupEntriesFactory._includeLastImport, ABDeleteGroupSheet._containmentPersonality, 
                        ABDeleteGroupSheet._groupName, ABDeleteGroupSheet._window, 
@@ -525,14 +532,13 @@ exports:
                        ABNewGroupCommand._newGroup, ABNewGroupCommand._parentGroup, 
                        ABNewGroupCommand._selectedRecords, ABNoteCollectionViewItem._undoManager, 
                        ABNoteCollectionViewItem.mHasSuspendedSuddenTermination, ABNoteTextView._needsCardViewBorderDrawing, 
-                       ABOnBlueButton._lastAppearanceName, ABOnBlueButton._privateAction, 
-                       ABOnBlueButton._privateTarget, ABOnBlueButton._roundPlatterStyle, 
-                       ABOnBlueButton._tintedImageCacheKey, ABOverlayView._overlaidView, 
-                       ABPackedImage._cached, ABPackedImage._path, ABPackedImage._rectMap, 
-                       ABPasswordPanelController._accountDescription, ABPasswordPanelController._accountTypeDescription, 
-                       ABPasswordPanelController._alwaysSavePassword, ABPasswordPanelController._completionHandler, 
-                       ABPasswordPanelController._host, ABPasswordPanelController._passwordPanel, 
-                       ABPasswordPanelController._passwordPanelDescriptionTextField, 
+                       ABOnBlueButton._privateAction, ABOnBlueButton._privateTarget, 
+                       ABOnBlueButton._roundPlatterStyle, ABOnBlueButton._tintedImageCacheKey, 
+                       ABOverlayView._overlaidView, ABPackedImage._cached, ABPackedImage._path, 
+                       ABPackedImage._rectMap, ABPasswordPanelController._accountDescription, 
+                       ABPasswordPanelController._accountTypeDescription, ABPasswordPanelController._alwaysSavePassword, 
+                       ABPasswordPanelController._completionHandler, ABPasswordPanelController._host, 
+                       ABPasswordPanelController._passwordPanel, ABPasswordPanelController._passwordPanelDescriptionTextField, 
                        ABPasswordPanelController._passwordPanelReasonTextField, ABPasswordPanelController._passwordTextField, 
                        ABPasswordPanelController._rememberPasswordInKeychainButton, 
                        ABPasswordPanelController._username, ABPastePeopleCommand._linkedPeople, 
@@ -692,14 +698,32 @@ exports:
                        _ABBookUndoableCommandAdapter._nonUndoableCommand, _ABMonogramOptions._backgroundColor, 
                        _ABMonogramOptions._borderColor, _ABMonogramOptions._diameter, 
                        _ABMonogramOptions._foregroundColor, _ABMonogramOptions._vibrant ]
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 56464766-2D02-3795-92C5-E5DB6DDA6D38', 'x86_64: 56464766-2D02-3795-92C5-E5DB6DDA6D38' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           D84B1F64-8429-3034-8D51-50CA1CF3A228
+  - target:          x86_64-maccatalyst
+    value:           D84B1F64-8429-3034-8D51-50CA1CF3A228
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           ED04B608-4713-33B5-AE4E-BE031C573EA1
+  - target:          arm64e-maccatalyst
+    value:           ED04B608-4713-33B5-AE4E-BE031C573EA1
 install-name:    '/System/Library/PrivateFrameworks/AddressBookCore.framework/Versions/A/AddressBookCore'
+current-version: 2452
+reexported-libraries:
+  - targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                       arm64e-macos, arm64e-maccatalyst ]
+    libraries:       [ '/System/Library/PrivateFrameworks/ContactsPersistence.framework/Versions/A/ContactsPersistence' ]
 exports:
-  - archs:           [ x86_64 ]
-    re-exports:      [ '/System/Library/PrivateFrameworks/ContactsPersistence.framework/Versions/A/ContactsPersistence' ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _ABACAccountPropertyAllowsInsecureAuthentication, _ABACAccountPropertyAltDSID, 
                        _ABACAccountPropertyAutodiscoverURL, _ABACAccountPropertyEWSExternalURL, 
                        _ABACAccountPropertyEWSInternalURL, _ABACAccountPropertyEWSRootFolderID, 
@@ -784,7 +808,8 @@ exports:
                        _ABCachedRemoteCustomPropertiesKey, _ABCachedRemotePeopleKey, 
                        _ABCancelLoadingImageDataForTag, _ABCardDAVAccountType, _ABCardDAVCollectionPathKey, 
                        _ABCardDAVEnabledKey, _ABCardDAVHUseSSLKey, _ABCardDAVHUserNameKey, 
-                       _ABCardDAVHomeInfoKey, _ABCardDAVHomeInfoPathKey, _ABCardDAVHomeInfoPrivlidgesKey, 
+                       _ABCardDAVHomeInfoGuardianRestrictedKey, _ABCardDAVHomeInfoKey, 
+                       _ABCardDAVHomeInfoPathKey, _ABCardDAVHomeInfoPrivilegesKey, 
                        _ABCardDAVHostNameKey, _ABCardDAVRecordTypeKey, _ABCardDAVRecordTypeSystemGroup, 
                        _ABCardDAVRecordTypeUserGroup, _ABCardDAVSSLEnabledKey, _ABCardDAVServerNameKey, 
                        _ABCardDAVServerPortKey, _ABCardDAVServerRootPathKey, _ABCardPaneFrame, 
@@ -881,7 +906,8 @@ exports:
                        _ABRecordExternalFilenameProperty, _ABRecordExternalHashProperty, 
                        _ABRecordExternalImageURIProperty, _ABRecordExternalModificationTagProperty, 
                        _ABRecordExternalRepresentationProperty, _ABRecordExternalURIProperty, 
-                       _ABRecordExternalUUIDProperty, _ABRecordIsReadOnly, _ABRecordPersistentStoreURLTransform, 
+                       _ABRecordExternalUUIDProperty, _ABRecordIOSLegacyIdentifier, 
+                       _ABRecordIsReadOnly, _ABRecordPersistentStoreURLTransform, 
                        _ABRecordRemoveValue, _ABRecordSetValue, _ABRecordSyncStatusProperty, 
                        _ABRecordToUniqueIdTransform, _ABRegisteredDefaultsFileName, 
                        _ABRelatedRecordsVisible, _ABRemoteObjectCacheKey, _ABRemoveProperties, 
@@ -948,29 +974,27 @@ exports:
                        _TestConnectionServerAddressKey, _TestConnectionStatusKey, 
                        _TestConnectionUseSSLKey, _TestConnectionUserNameKey, _XNOR_EQ, 
                        __ABDictionaryOfMetrics, __AB_IgnoreCertErrors_Lock, __AB_IgnoreCertErrors_Unlock, 
-                       ___ABDateComponentCalendarIdentifier, ___ABDateComponentDay, 
-                       ___ABDateComponentEra, ___ABDateComponentMonth, ___ABDateComponentYear, 
-                       ___ABIsLeapMonthKey, __cacheSearchDirectories, __cachedABPersonProperties, 
-                       __compareClasses, __isCurrentProcessBlacklistedForXPCAccess, 
-                       __isIgnoredProperty, __multivaluesAreIdentical, __objectValuesAreIdentical, 
-                       __objectValuesAreIdenticalOrOneIsNil, __objectsAreSimilar, 
-                       __propertyIsConsideredWhenDeterminingSimilarity, __propertyIsIdentical, 
-                       __propertyIsSimilar, __propertyValuesMatchIfOneIsNil, __stringsAreSimilar, 
-                       __typeOfABPersonProperty, __valueIsEmpty, __valuesAreSimilarForProperty, 
-                       _ab_dispatch_concurrent, _ab_dispatch_interval_to_time, _ab_dispatch_main, 
-                       _ab_dispatch_main_sync, _ab_dispatch_sync_timeout, _ab_integer_bit_clear, 
-                       _ab_integer_bit_set, _ab_once, _ab_once_invalidate, _ab_set_current_queue_name_while_running_block, 
-                       _ab_set_once, _byteBufferWithCapacity, _fastFirstLastSorting, 
-                       _isCurrentProcessBlacklistedForXPCAccess, _kAB21vCardEncoding, 
-                       _kABAIMHomeLabel, _kABAIMInstantProperty, _kABAIMInstantPropertyPriv, 
-                       _kABAIMMobileMeLabel, _kABAIMWorkLabel, _kABAccountMembershipProperty, 
-                       _kABAccountsChanged, _kABActivityAlertProperty, _kABActivityRingtoneProperty, 
-                       _kABActivityTextToneProperty, _kABAddressBookDidResetPriv, 
-                       _kABAddressBookPreferencesChangedPriv, _kABAddressBookWasResetPrivateNotification, 
-                       _kABAddressBookWillResetPriv, _kABAddressCityKey, _kABAddressCountryCodeKey, 
-                       _kABAddressCountryKey, _kABAddressDistributionListDictionaryKey, 
-                       _kABAddressHomeLabel, _kABAddressProperty, _kABAddressRegionKey, 
-                       _kABAddressSamaKey, _kABAddressStateKey, _kABAddressStreetKey, 
+                       __cacheSearchDirectories, __cachedABPersonProperties, __compareClasses, 
+                       __isCurrentProcessBlacklistedForXPCAccess, __isIgnoredProperty, 
+                       __multivaluesAreIdentical, __objectValuesAreIdentical, __objectValuesAreIdenticalOrOneIsNil, 
+                       __objectsAreSimilar, __propertyIsConsideredWhenDeterminingSimilarity, 
+                       __propertyIsIdentical, __propertyIsSimilar, __propertyValuesMatchIfOneIsNil, 
+                       __stringsAreSimilar, __typeOfABPersonProperty, __valueIsEmpty, 
+                       __valuesAreSimilarForProperty, _ab_dispatch_concurrent, _ab_dispatch_interval_to_time, 
+                       _ab_dispatch_main, _ab_dispatch_main_sync, _ab_dispatch_sync_timeout, 
+                       _ab_integer_bit_clear, _ab_integer_bit_set, _ab_once, _ab_once_invalidate, 
+                       _ab_set_current_queue_name_while_running_block, _ab_set_once, 
+                       _byteBufferWithCapacity, _fastFirstLastSorting, _isCurrentProcessBlacklistedForXPCAccess, 
+                       _kAB21vCardEncoding, _kABAIMHomeLabel, _kABAIMInstantProperty, 
+                       _kABAIMInstantPropertyPriv, _kABAIMMobileMeLabel, _kABAIMWorkLabel, 
+                       _kABAccountMembershipProperty, _kABAccountsChanged, _kABActivityAlertProperty, 
+                       _kABActivityRingtoneProperty, _kABActivityTextToneProperty, 
+                       _kABAddressBookDidResetPriv, _kABAddressBookPreferencesChangedPriv, 
+                       _kABAddressBookWasResetPrivateNotification, _kABAddressBookWillResetPriv, 
+                       _kABAddressCityKey, _kABAddressCountryCodeKey, _kABAddressCountryKey, 
+                       _kABAddressDistributionListDictionaryKey, _kABAddressHomeLabel, 
+                       _kABAddressProperty, _kABAddressRegionKey, _kABAddressSamaKey, 
+                       _kABAddressSchoolLabel, _kABAddressStateKey, _kABAddressStreetKey, 
                        _kABAddressSubLocalityKey, _kABAddressWorkLabel, _kABAddressZIPKey, 
                        _kABAlternateBirthdayComponentsProperty, _kABAlternateBirthdayLabel, 
                        _kABAnniversaryLabel, _kABAppleAccountClassPrimary, _kABAppleAccountClassPropertyKey, 
@@ -1008,26 +1032,26 @@ exports:
                        _kABFirstNamePhoneticProperty, _kABFirstNameProperty, _kABFriendLabel, 
                        _kABGroupClassKey, _kABGroupNameProperty, _kABHomeLabel, _kABHomePageLabel, 
                        _kABHomePageProperty, _kABICQHomeLabel, _kABICQInstantProperty, 
-                       _kABICQInstantPropertyPriv, _kABICQWorkLabel, _kABImageInfoClipRectKey, 
-                       _kABImageInfoHashKey, _kABImageInfoImageTypeKey, _kABImageInfoUniqueIDKey, 
-                       _kABImageProperty, _kABIndexVersionKey, _kABInsertedRecords, 
-                       _kABInstantMessageBundleIdentifiersKey, _kABInstantMessageProperty, 
-                       _kABInstantMessageServiceAIM, _kABInstantMessageServiceFacebook, 
-                       _kABInstantMessageServiceGaduGadu, _kABInstantMessageServiceGoogleTalk, 
-                       _kABInstantMessageServiceICQ, _kABInstantMessageServiceJabber, 
-                       _kABInstantMessageServiceKey, _kABInstantMessageServiceMSN, 
-                       _kABInstantMessageServiceQQ, _kABInstantMessageServiceSkype, 
-                       _kABInstantMessageServiceUnknown, _kABInstantMessageServiceYahoo, 
-                       _kABInstantMessageTeamIdentifierKey, _kABInstantMessageUserIdentifierKey, 
-                       _kABInstantMessageUsernameKey, _kABIsPreferredForNameProperty, 
-                       _kABIsPreferredForPhotoProperty, _kABJabberHomeLabel, _kABJabberInstantProperty, 
-                       _kABJabberInstantPropertyPriv, _kABJabberWorkLabel, _kABJobTitleProperty, 
-                       _kABLDAPSourceClassName, _kABLargeImageProperty, _kABLastImportHiddenByUser, 
-                       _kABLastImportShown, _kABLastNamePhoneticProperty, _kABLastNameProperty, 
-                       _kABLinkIdKey, _kABLinkIdProperty, _kABLinkedPeopleProperty, 
-                       _kABLittleBrownBookWindowIdentifier, _kABLocalSourceClassName, 
-                       _kABMSNHomeLabel, _kABMSNInstantProperty, _kABMSNInstantPropertyPriv, 
-                       _kABMSNWorkLabel, _kABMagicInterval, _kABMaidenNameLabel, 
+                       _kABICQInstantPropertyPriv, _kABICQWorkLabel, _kABImageHashKey, 
+                       _kABImageInfoClipRectKey, _kABImageInfoHashKey, _kABImageInfoImageTypeKey, 
+                       _kABImageInfoUniqueIDKey, _kABImageProperty, _kABImageTypeKey, 
+                       _kABIndexVersionKey, _kABInsertedRecords, _kABInstantMessageBundleIdentifiersKey, 
+                       _kABInstantMessageProperty, _kABInstantMessageServiceAIM, 
+                       _kABInstantMessageServiceFacebook, _kABInstantMessageServiceGaduGadu, 
+                       _kABInstantMessageServiceGoogleTalk, _kABInstantMessageServiceICQ, 
+                       _kABInstantMessageServiceJabber, _kABInstantMessageServiceKey, 
+                       _kABInstantMessageServiceMSN, _kABInstantMessageServiceQQ, 
+                       _kABInstantMessageServiceSkype, _kABInstantMessageServiceUnknown, 
+                       _kABInstantMessageServiceYahoo, _kABInstantMessageTeamIdentifierKey, 
+                       _kABInstantMessageUserIdentifierKey, _kABInstantMessageUsernameKey, 
+                       _kABIsPreferredForNameProperty, _kABIsPreferredForPhotoProperty, 
+                       _kABJabberHomeLabel, _kABJabberInstantProperty, _kABJabberInstantPropertyPriv, 
+                       _kABJabberWorkLabel, _kABJobTitleProperty, _kABLDAPSourceClassName, 
+                       _kABLargeImageProperty, _kABLastImportHiddenByUser, _kABLastImportShown, 
+                       _kABLastNamePhoneticProperty, _kABLastNameProperty, _kABLinkIdKey, 
+                       _kABLinkIdProperty, _kABLinkedPeopleProperty, _kABLittleBrownBookWindowIdentifier, 
+                       _kABLocalSourceClassName, _kABMSNHomeLabel, _kABMSNInstantProperty, 
+                       _kABMSNInstantPropertyPriv, _kABMSNWorkLabel, _kABMaidenNameLabel, 
                        _kABMaidenNameProperty, _kABMailLastDatesProperty, _kABMainCleanWindowIdentifier, 
                        _kABMainWindowIdentifier, _kABMainWindowSearchTerm, _kABManagerLabel, 
                        _kABMembersDictionaryKey, _kABMiddleNamePhoneticProperty, 
@@ -1067,7 +1091,7 @@ exports:
                        _kABSocialProfileUsernameKey, _kABSonLabel, _kABSpouseLabel, 
                        _kABSubgroupsDictionaryKey, _kABSubscribeLabel, _kABSuffixProperty, 
                        _kABTextToneLabel, _kABTitleProperty, _kABUIDProperty, _kABURLsProperty, 
-                       _kABUnknownLabel, _kABUnknownYear, _kABUpdatedRecords, _kABUse21vCardFormat, 
+                       _kABUnknownLabel, _kABUpdatedRecords, _kABUse21vCardFormat, 
                        _kABUserHasSelectedDefaultCountryCodeKey, _kABUserUIDKey, 
                        _kABWillRestoreFromMetadataPriv, _kABWorkLabel, _kABYahooHomeLabel, 
                        _kABYahooInstantProperty, _kABYahooInstantPropertyPriv, _kABYahooWorkLabel, 
@@ -1198,25 +1222,24 @@ exports:
                        ABSubscription, ABSuggestionLogPair, ABSummaryOperation, ABSyncManager, 
                        ABSyncScheduleOptions, ABSyncStandbyOperation, ABTargetedAccountComponentValidationHelper, 
                        ABTargetedAccountFactory, ABTask, ABTaskOperation, ABTimeMachineTempFileHelper, 
-                       ABTracedLog, ABTracedLogger, ABURL, ABUndoManager, ABUndoer, 
-                       ABUnlinksLoneRemainingPeopleCommand, ABUpdatesLinkingInformation, 
+                       ABTipCardImporter, ABTracedLog, ABTracedLogger, ABURL, ABUndoManager, 
+                       ABUndoer, ABUnlinksLoneRemainingPeopleCommand, ABUpdatesLinkingInformation, 
                        ABUserDefaults, ABVCardFileSerializer, ABVCardMultipleFileSerializer, 
                        ABVCardParser, ABVCardSingleFileSerializer, ABWeakAddressBookReference, 
                        ABWorkQueue, ABXPCACAccountStore, ABXPCUtils, ABvCardDraggingImage, 
-                       CNPostalAddressMapping, PHXSource, _ABAccountImageStatus, 
-                       _ABAccountNetworkActivityStatus, _ABAggregateTask, _ABBlockTask, 
-                       _ABFindDuplicateUserGroupsStrategy, _ABFindVisibleSystemGroupsStrategy, 
+                       CNCDFetchedContainerAttributes, CNPostalAddressMapping, PHXSource, 
+                       _ABAccountImageStatus, _ABAccountNetworkActivityStatus, _ABAggregateTask, 
+                       _ABBlockTask, _ABFindDuplicateUserGroupsStrategy, _ABFindVisibleSystemGroupsStrategy, 
                        _ABMapTask, _AB_PeopleSorting_Operation ]
     objc-ivars:      [ ABACAccountPersistenceBackend._components, ABACAccountType._identifier, 
-                       ABACInProcessAccountStore._accountStore, ABACInProcessAccountStore._migrationDelay, 
-                       ABACInProcessAccountStore._scheduler, ABAccount._allContactsLabel, 
-                       ABAccount._altDSID, ABAccount._baseURL, ABAccount._canBecomeDefaultAccount, 
-                       ABAccount._canReimportFromMetadata, ABAccount._childAccounts, 
-                       ABAccount._config, ABAccount._customizationPolicy, ABAccount._directoryLabel, 
-                       ABAccount._dsid, ABAccount._futureSource, ABAccount._groupsCanRemoveMembers, 
-                       ABAccount._identifier, ABAccount._invalid, ABAccount._isChildDelegateAccount, 
-                       ABAccount._isMainAccount, ABAccount._name, ABAccount._parentAccount, 
-                       ABAccount._persistentStoreURL, ABAccount._searchPolicy, ABAccount._showAllContactsIfOnlyOneGroup, 
+                       ABAccount._allContactsLabel, ABAccount._altDSID, ABAccount._baseURL, 
+                       ABAccount._canBecomeDefaultAccount, ABAccount._canReimportFromMetadata, 
+                       ABAccount._childAccounts, ABAccount._config, ABAccount._customizationPolicy, 
+                       ABAccount._directoryLabel, ABAccount._dsid, ABAccount._futureSource, 
+                       ABAccount._groupsCanRemoveMembers, ABAccount._identifier, 
+                       ABAccount._invalid, ABAccount._isChildDelegateAccount, ABAccount._isMainAccount, 
+                       ABAccount._name, ABAccount._parentAccount, ABAccount._persistentStoreURL, 
+                       ABAccount._searchPolicy, ABAccount._showAllContactsIfOnlyOneGroup, 
                        ABAccount._sortOrder, ABAccount._sourceClass, ABAccount._supportsDistributionLists, 
                        ABAccount._usesSyncServices, ABAccountBackupOperation._backupFilename, 
                        ABAccountBuilder._acAccount, ABAccountBuilder._accountStore, 
@@ -1310,10 +1333,9 @@ exports:
                        ABIAMigrationAccount._sourceClass, ABImportedGroupInfo.cardRep, 
                        ABImportedGroupInfo.group, ABImportsAddressBookData._addressBook, 
                        ABImportsAddressBookData._deleteOriginalRecords, ABImportsAddressBookData._destinationAccount, 
-                       ABImportsAddressBookData._destinationImagesFolder, ABImportsAddressBookData._imageMover, 
-                       ABImportsAddressBookData._importer, ABImportsAddressBookData._meCardIdentifier, 
-                       ABImportsAddressBookData._merger, ABImportsAddressBookData._newRecords, 
-                       ABImportsAddressBookData._sourceAccount, ABImportsAddressBookData._sourceImagesFolder, 
+                       ABImportsAddressBookData._imageMover, ABImportsAddressBookData._importer, 
+                       ABImportsAddressBookData._meCardIdentifier, ABImportsAddressBookData._merger, 
+                       ABImportsAddressBookData._newRecords, ABImportsAddressBookData._sourceAccount, 
                        ABInstantMessageService._actionURITemplates, ABInstantMessageService._serviceKey, 
                        ABKeyedUnarchiver._addressBook, ABLDAPPersistenceBackend._uid, 
                        ABLabelsConstraint._defaults, ABLinkingCommand._adapter, ABLinkingCommand._modifiedLinkingSnapshot, 
@@ -1419,13 +1441,27 @@ exports:
                        PHXSource._similarRecordMerger, PHXSource._subname, PHXSource._supportsDistributionLists, 
                        PHXSource._uid, PHXSource._unloaded, PHXSource._workQueue, 
                        PHXSource.configurationView, PHXSource.passwordField, _ABBlockTask._block ]
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 7597C280-EED8-313F-BE2F-72FAD1CB090F', 'x86_64: 7597C280-EED8-313F-BE2F-72FAD1CB090F' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           F10AE47E-3D7A-377B-B521-0FB665F8D399
+  - target:          x86_64-maccatalyst
+    value:           F10AE47E-3D7A-377B-B521-0FB665F8D399
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           1B16B9AC-5805-3C64-8D5C-92E1B73D8A47
+  - target:          arm64e-maccatalyst
+    value:           1B16B9AC-5805-3C64-8D5C-92E1B73D8A47
 install-name:    '/System/Library/PrivateFrameworks/ContactsPersistence.framework/Versions/A/ContactsPersistence'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _ABCDAccountContainerSuffix, _ABCDCompareByOrderingIndex, 
                        _ABCDCompareByOrderingIndexWithPrimaryFirst, _ABCDContainerGuardianRestrictedKey, 
                        _ABCDContainerLastSyncDateKey, _ABCDContainerNameKey, _ABCDContainerTypeKey, 
@@ -1436,7 +1472,7 @@ exports:
                        _CNCDCardDAVLegacyGroupBehaviorSharedCollection, _CNCDCardDAVLegacyGroupBehaviorUserCollection, 
                        _CNCDCardDAVLegacyGroupBehaviorUserData, _CNCDContactStoreDidChangeNotification, 
                        _CNCDContainerRelationshipName, _CNCDContainerRemoteLocationKey, 
-                       _CNCDErrorDomain, _CNCDErrorUserInfoKeyAffectedRecordIdentifiers, 
+                       _CNCDDisplayFlagsKey, _CNCDErrorDomain, _CNCDErrorUserInfoKeyAffectedRecordIdentifiers, 
                        _CNCDExternalCollectionPathCardDAVLegacyCustomProperty, _CNCDExternalCollectionPathKey, 
                        _CNCDExternalFilenameCardDAVLegacyCustomProperty, _CNCDExternalFilenameKey, 
                        _CNCDExternalGroupBehaviorCardDAVLegacyCustomProperty, _CNCDExternalGroupBehaviorKey, 
@@ -1444,8 +1480,9 @@ exports:
                        _CNCDExternalImageURIKey, _CNCDExternalModificationTagCardDAVLegacyCustomProperty, 
                        _CNCDExternalModificationTagKey, _CNCDExternalRepresentationKey, 
                        _CNCDExternalURIKey, _CNCDExternalUUIDCardDAVLegacyCustomProperty, 
-                       _CNCDExternalUUIDKey, _CNCDLocalContainerLocation, _CNCDPersistenceContextIgnoresGuardianRestrictionsKey, 
-                       _CNCDPostalAddressCityKey, _CNCDPostalAddressCountryKey, _CNCDPostalAddressISOCountryCodeKey, 
+                       _CNCDExternalUUIDKey, _CNCDIOSLegacyIdentifierKey, _CNCDLocalContainerLocation, 
+                       _CNCDPersistenceContextIgnoresGuardianRestrictionsKey, _CNCDPostalAddressCityKey, 
+                       _CNCDPostalAddressCountryKey, _CNCDPostalAddressISOCountryCodeKey, 
                        _CNCDPostalAddressPostalCodeKey, _CNCDPostalAddressStateKey, 
                        _CNCDPostalAddressStreetKey, _CNCDPostalAddressSubAdministrativeAreaKey, 
                        _CNCDPostalAddressSubLocalityKey, _CNCDSyncStatusCardDAVLegacyCustomProperty, 
@@ -1455,17 +1492,17 @@ exports:
                        _kABCDContactBirthdayYearKey, _kABCDContactBirthdayYearlessKey, 
                        _kABCDContactCropRectHashKey, _kABCDContactCropRectIDKey, 
                        _kABCDContactCropRectKey, _kABCDContactDepartmentKey, _kABCDContactFirstNameKey, 
-                       _kABCDContactIdentitityUniqueIdKey, _kABCDContactImageDataKey, 
-                       _kABCDContactImageReferenceKey, _kABCDContactJobTitleKey, 
-                       _kABCDContactLastNameKey, _kABCDContactLinkIDKey, _kABCDContactMaidenNameKey, 
-                       _kABCDContactMiddleNameKey, _kABCDContactNicknameKey, _kABCDContactOrganizationKey, 
-                       _kABCDContactPhonemeDataKey, _kABCDContactPhoneticFirstNameKey, 
-                       _kABCDContactPhoneticLastNameKey, _kABCDContactPhoneticMiddleNameKey, 
-                       _kABCDContactPhoneticOrganizationKey, _kABCDContactPreferredApplePersonaIdentifierKey, 
-                       _kABCDContactPreferredForLinkNameKey, _kABCDContactPreferredForLinkPhotoKey, 
-                       _kABCDContactPreferredLikenessSourceKey, _kABCDContactPrivacyFlagsKey, 
-                       _kABCDContactSortingFirstNameKey, _kABCDContactSortingLastNameKey, 
-                       _kABCDContactSuffixKey, _kABCDContactThumbnailImageDataKey, 
+                       _kABCDContactIOSLegacyIdentifier, _kABCDContactIdentitityUniqueIdKey, 
+                       _kABCDContactImageDataKey, _kABCDContactImageReferenceKey, 
+                       _kABCDContactJobTitleKey, _kABCDContactLastNameKey, _kABCDContactLinkIDKey, 
+                       _kABCDContactMaidenNameKey, _kABCDContactMiddleNameKey, _kABCDContactNicknameKey, 
+                       _kABCDContactOrganizationKey, _kABCDContactPhonemeDataKey, 
+                       _kABCDContactPhoneticFirstNameKey, _kABCDContactPhoneticLastNameKey, 
+                       _kABCDContactPhoneticMiddleNameKey, _kABCDContactPhoneticOrganizationKey, 
+                       _kABCDContactPreferredApplePersonaIdentifierKey, _kABCDContactPreferredForLinkNameKey, 
+                       _kABCDContactPreferredForLinkPhotoKey, _kABCDContactPreferredLikenessSourceKey, 
+                       _kABCDContactPrivacyFlagsKey, _kABCDContactSortingFirstNameKey, 
+                       _kABCDContactSortingLastNameKey, _kABCDContactSuffixKey, _kABCDContactThumbnailImageDataKey, 
                        _kABCDContactTitleKey, _kABCDContactTmpHomePageKey, _kABCDContactTmpIdentitiesKey, 
                        _kABCDInstantMessagingAddressAddressKey, _kABCDInstantMessagingAddressBundleIdentifiersKey, 
                        _kABCDInstantMessagingAddressBundleIdentifiersStringKey, _kABCDInstantMessagingAddressTeamIdentifierKey, 
@@ -1505,48 +1542,49 @@ exports:
                        _kABSubscriptionRecordType, _kABUrlAddresses ]
     objc-classes:    [ ABCDAlertTone, ABCDCalendarURI, ABCDContact, ABCDContactDate, 
                        ABCDContainer, ABCDContainerDiff, ABCDContainerPermissions, 
-                       ABCDContainerUpdate, ABCDCustomProperty, ABCDDeletedRecordLog, 
-                       ABCDDistributionListConfig, ABCDEmailAddress, ABCDGroup, ABCDInfo, 
-                       ABCDLegacyFilesystemImageHelper, ABCDMessagingAddress, ABCDNote, 
-                       ABCDOwnedObject, ABCDPhoneNumber, ABCDRecord, ABCDRecordNameFormatter, 
+                       ABCDContainerUpdate, ABCDCustomProperty, ABCDCustomPropertyValue, 
+                       ABCDDateComponents, ABCDDeletedRecordLog, ABCDDistributionListConfig, 
+                       ABCDEmailAddress, ABCDGroup, ABCDInfo, ABCDLegacyFilesystemImageHelper, 
+                       ABCDMessagingAddress, ABCDNote, ABCDOwnedObject, ABCDPhoneNumber, 
+                       ABCDPostalAddress, ABCDRecord, ABCDRecordNameFormatter, ABCDRelatedName, 
                        ABCDService, ABCDSmartGroup, ABCDSocialProfile, ABCDSubscribedContact, 
-                       ABCDSubscribedGroup, ABCDUnknownProperty, ABCustomPropertyDescription, 
-                       CNACAccountCollection, CNCDContainer, CNCDDatabasePreparationRequest, 
+                       ABCDSubscribedGroup, ABCDURLAddress, ABCDUnknownProperty, 
+                       ABCustomPropertyDescription, CNACAccountCollection, CNCDContact, 
+                       CNCDContainer, CNCDDatabasePreparation, CNCDDatabasePreparationRequest, 
                        CNCDDatabasePreparationResult, CNCDDatabasePreparationTask, 
                        CNCDDuplicateCustomPropertyMigrator, CNCDDuplicateInfoCleanupMigrator, 
-                       CNCDInMemoryPersistenceBackend, CNCDManagedObjectContext, 
+                       CNCDFetchRequest, CNCDIOSLegacyIdentifierRegistrar, CNCDIOSLegacyIdentifierRegistrarState, 
+                       CNCDIOSLegacyIdentifierSaveDistributor, CNCDInMemoryPersistenceBackend, 
+                       CNCDManagedObjectContext, CNCDManagedObjectContextSaveListener, 
                        CNCDPersistenceContext, CNCDPersistenceStack, CNCDPersistentStoreCoordinator, 
                        CNCDUnifiedContactInfo, CNCustomPropertyMigrationTask, CNDelegateAccessAccountCollection, 
                        CNEmptyAccountCollection, CNOnDiskAccountCollection, CNPersistentStoreBuilder, 
                        CNPersistentStoreDescription ]
-    objc-ivars:      [ ABCDContainer._identifier, ABCDContainer._lastSyncDate, ABCDContainer._name, 
-                       ABCDContainer._permissions, ABCDContainer._persistentStoreIdentifier, 
-                       ABCDContainer._persistentStoreURL, ABCDContainer._type, ABCDContainerPermissions._canCreateContacts, 
-                       ABCDContainerPermissions._canCreateGroups, ABCDContainerPermissions._canDeleteContacts, 
-                       ABCDLegacyFilesystemImageHelper._contactIdentifier, ABCDLegacyFilesystemImageHelper._emailAddresses, 
-                       ABCDLegacyFilesystemImageHelper._imagesDirectory, ABCDRecord._propertyValueCache, 
-                       ABCDRecord._publicRecord, ABCDRecordNameFormatter._defaultNameOrder, 
-                       ABCDRecordNameFormatter._defaultSortOrder, ABCDRecordNameFormatter._showCompany, 
-                       ABCDRecordNameFormatter._showCompanyInFallback, ABCDRecordNameFormatter._showFallback, 
-                       ABCDRecordNameFormatter._showNickname, ABCDRecordNameFormatter._showPhonetic, 
-                       ABCDRecordNameFormatter._showPrefix, ABCDRecordNameFormatter._showSuffix, 
-                       CNACAccountCollection._accounts, CNACAccountCollection._baseURL, 
-                       CNACAccountCollection._enabledAccountsObservable, CNACAccountCollection._includeLocalAccount, 
-                       CNACAccountCollection._tag, CNACAccountCollection._updateWatcher, 
-                       CNCDInMemoryPersistenceBackend._containers, CNCDInMemoryPersistenceBackend._coordinator, 
-                       CNCDPersistenceContext._changesNotifier, CNCDPersistenceContext._managedObjectContext, 
-                       CNCDPersistenceContext._owningAddressBook, CNCDPersistenceContext._persistenceBackend, 
-                       CNCDPersistenceStack._backendProvider, CNCDPersistenceStack._notificationSource, 
-                       CNEmptyAccountCollection._baseURL, CNEmptyAccountCollection._tag, 
-                       CNOnDiskAccountCollection._allAccounts, CNOnDiskAccountCollection._baseURL, 
-                       CNOnDiskAccountCollection._includeLocalAccount, CNOnDiskAccountCollection._tag, 
-                       CNPersistentStoreBuilder._addAsReadOnly, CNPersistentStoreBuilder._cachePsc, 
-                       CNPersistentStoreBuilder._coordinator, CNPersistentStoreBuilder._databaseURL, 
-                       CNPersistentStoreBuilder._didMigrate, CNPersistentStoreBuilder._environment, 
-                       CNPersistentStoreBuilder._error, CNPersistentStoreBuilder._pristineDatabase, 
-                       CNPersistentStoreBuilder._readOnly, CNPersistentStoreBuilder._store, 
-                       CNPersistentStoreBuilder._storeDescription, CNPersistentStoreBuilder._storeOptions, 
-                       CNPersistentStoreBuilder._storeOptionsWithoutMigration, CNPersistentStoreDescription._dataType, 
-                       CNPersistentStoreDescription._modelFuture, CNPersistentStoreDescription._modelName, 
-                       CNPersistentStoreDescription._version ]
+    objc-ivars:      [ ABCDContainerPermissions._canCreateContacts, ABCDContainerPermissions._canCreateGroups, 
+                       ABCDContainerPermissions._canDeleteContacts, ABCDLegacyFilesystemImageHelper._contactIdentifier, 
+                       ABCDLegacyFilesystemImageHelper._emailAddresses, ABCDLegacyFilesystemImageHelper._imagesDirectory, 
+                       ABCDRecord._propertyValueCache, ABCDRecord._publicRecord, 
+                       ABCDRecordNameFormatter._defaultNameOrder, ABCDRecordNameFormatter._defaultSortOrder, 
+                       ABCDRecordNameFormatter._showCompany, ABCDRecordNameFormatter._showCompanyInFallback, 
+                       ABCDRecordNameFormatter._showFallback, ABCDRecordNameFormatter._showNickname, 
+                       ABCDRecordNameFormatter._showPhonetic, ABCDRecordNameFormatter._showPrefix, 
+                       ABCDRecordNameFormatter._showSuffix, CNACAccountCollection._accounts, 
+                       CNACAccountCollection._baseURL, CNACAccountCollection._enabledAccountsObservable, 
+                       CNACAccountCollection._includeLocalAccount, CNACAccountCollection._tag, 
+                       CNACAccountCollection._updateWatcher, CNCDInMemoryPersistenceBackend._containers, 
+                       CNCDInMemoryPersistenceBackend._coordinator, CNCDPersistenceContext._changesNotifier, 
+                       CNCDPersistenceContext._managedObjectContext, CNCDPersistenceContext._owningAddressBook, 
+                       CNCDPersistenceContext._persistenceBackend, CNCDPersistenceStack._backendProvider, 
+                       CNCDPersistenceStack._notificationSource, CNEmptyAccountCollection._baseURL, 
+                       CNEmptyAccountCollection._tag, CNOnDiskAccountCollection._allAccounts, 
+                       CNOnDiskAccountCollection._baseURL, CNOnDiskAccountCollection._includeLocalAccount, 
+                       CNOnDiskAccountCollection._tag, CNPersistentStoreBuilder._addAsReadOnly, 
+                       CNPersistentStoreBuilder._cachePsc, CNPersistentStoreBuilder._coordinator, 
+                       CNPersistentStoreBuilder._databaseURL, CNPersistentStoreBuilder._didMigrate, 
+                       CNPersistentStoreBuilder._environment, CNPersistentStoreBuilder._error, 
+                       CNPersistentStoreBuilder._pristineDatabase, CNPersistentStoreBuilder._readOnly, 
+                       CNPersistentStoreBuilder._store, CNPersistentStoreBuilder._storeDescription, 
+                       CNPersistentStoreBuilder._storeOptions, CNPersistentStoreBuilder._storeOptionsWithoutMigration, 
+                       CNPersistentStoreDescription._dataType, CNPersistentStoreDescription._modelFuture, 
+                       CNPersistentStoreDescription._modelName, CNPersistentStoreDescription._version ]
 ...

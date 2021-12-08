@@ -1,12 +1,26 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 725E6AA6-D0D0-3541-BB2B-18F0F6B94B15', 'x86_64: 725E6AA6-D0D0-3541-BB2B-18F0F6B94B15' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           7F2D2C80-175D-3A30-8E47-5E064C2CBC99
+  - target:          x86_64-maccatalyst
+    value:           7F2D2C80-175D-3A30-8E47-5E064C2CBC99
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           05627F9B-40A0-35E8-8F42-6445C9EF9108
+  - target:          arm64e-maccatalyst
+    value:           05627F9B-40A0-35E8-8F42-6445C9EF9108
 install-name:    '/usr/lib/swift/libswiftSwiftOnoneSupport.dylib'
-current-version: 1103.8.25
+current-version: 1200.2.40
 swift-abi-version: 7
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ '$ld$install_name$os10.10$@rpath/libswiftSwiftOnoneSupport.dylib', 
                        '$ld$install_name$os10.11$@rpath/libswiftSwiftOnoneSupport.dylib', 
                        '$ld$install_name$os10.12$@rpath/libswiftSwiftOnoneSupport.dylib', 

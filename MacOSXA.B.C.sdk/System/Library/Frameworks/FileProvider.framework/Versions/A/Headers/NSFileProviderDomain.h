@@ -48,7 +48,18 @@ FILEPROVIDER_API_AVAILABILITY_V2_V3
  @param pathRelativeToDocumentStorage a path relative to
  @c NSFileProviderExtension.documentStorageURL.
  */
-- (instancetype)initWithIdentifier:(NSFileProviderDomainIdentifier)identifier displayName:(NSString *)displayName pathRelativeToDocumentStorage:(NSString *)pathRelativeToDocumentStorage;
+- (instancetype)initWithIdentifier:(NSFileProviderDomainIdentifier)identifier displayName:(NSString *)displayName pathRelativeToDocumentStorage:(NSString *)pathRelativeToDocumentStorage FILEPROVIDER_API_AVAILABILITY_V2;
+
+/**
+ Initialize a new NSFileProviderDomain
+
+ The file provider extension implementation can pick any @c identifier as it sees
+ fit to identify the group of items.
+
+ @param displayName a user visible string representing the group of items the
+ file provider extension is using.
+ */
+- (instancetype)initWithIdentifier:(NSFileProviderDomainIdentifier)identifier displayName:(NSString *)displayName FILEPROVIDER_API_AVAILABILITY_V3;
 
 /**
  The identifier - as provided by the file provider extension.
@@ -64,7 +75,7 @@ FILEPROVIDER_API_AVAILABILITY_V2_V3
  The path relative to the document storage of the file provider extension.
  Files belonging to this domains should be stored under this path.
  */
-@property (readonly, copy) NSString *pathRelativeToDocumentStorage;
+@property (readonly, copy) NSString *pathRelativeToDocumentStorage FILEPROVIDER_API_AVAILABILITY_V2;
 
 
 /** If set, the domain is present, but disconnected from its extension.
@@ -72,10 +83,10 @@ FILEPROVIDER_API_AVAILABILITY_V2_V3
  but the extension doesn't receive updates on modifications to the files, nor is
  it consulted to update folder's contents.
 
- The disconnected state can be modified on an existing domain by recreating a domain
- with the same identifier, then passing it to addDomain.
+ The disconnected state can be modified on an existing domain via the disconnectWithReason method
+ on NSFileProviderManager.
  */
-@property (readwrite, getter=isDisconnected) BOOL disconnected FILEPROVIDER_API_AVAILABILITY_V3;
+@property (readonly, getter=isDisconnected) BOOL disconnected FILEPROVIDER_API_AVAILABILITY_V3;
 
 /** If user has disabled this domain from Files.app on iOS or System Preferences on macOS, this will bet set
  to NO.

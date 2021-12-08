@@ -1,76 +1,108 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 0B4A0001-19BD-345A-A282-7E41C316CE3B', 'x86_64: 0B4A0001-19BD-345A-A282-7E41C316CE3B' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           7B64595A-98BF-37E3-903D-79AE46E60DEC
+  - target:          x86_64-maccatalyst
+    value:           7B64595A-98BF-37E3-903D-79AE46E60DEC
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           A257229B-73C3-3BD4-A8ED-D17751FD40E8
+  - target:          arm64e-maccatalyst
+    value:           A257229B-73C3-3BD4-A8ED-D17751FD40E8
 install-name:    '/System/Library/PrivateFrameworks/CPAnalytics.framework/Versions/A/CPAnalytics'
-current-version: 161.0.120
+current-version: 311.0.120
+allowable-clients:
+  - targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                       arm64e-macos, arm64e-maccatalyst ]
+    clients:         [ CPAnalyticsTestSupport, MediaMiningKit, PhotoAnalysis, PhotoVision, 
+                       Photos, PhotosGraph, PhotosTests, PhotosUI, PhotosUICore, 
+                       graphctl ]
 exports:
-  - archs:           [ x86_64 ]
-    allowable-clients: [ Photos, PhotosUI, PhotosUICore ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _CPAnalyticKnowledgeStoreVersionType, _CPAnalyticKnowledgeStoreVersionValue, 
-                       _CPAnalyticsDashboardAppEvent, _CPAnalyticsDashboardMediaEvent, 
-                       _CPAnalyticsDashboardScreenViewEvent, _CPAnalyticsDashboardSessionEvent, 
-                       _CPAnalyticsDeviceFreeSpaceCritical, _CPAnalyticsDeviceFreeSpaceHigh, 
-                       _CPAnalyticsDeviceFreeSpaceLow, _CPAnalyticsDeviceFreeSpaceMedium, 
-                       _CPAnalyticsDeviceFreeSpaceVeryHigh, _CPAnalyticsDeviceFreeSpaceVeryLow, 
-                       _CPAnalyticsEventAppDidEnterBackground, _CPAnalyticsEventAppSession, 
-                       _CPAnalyticsEventAppWillEnterForeground, _CPAnalyticsEventAssetExportItemPreparationCompleted, 
+                       _CPAnalyticsCacheDemographicsSummaryKey, _CPAnalyticsCacheLastCacheTime, 
+                       _CPAnalyticsCacheLibrarySummaryKey, _CPAnalyticsConfigAppStateCounters, 
+                       _CPAnalyticsConfigAppStateFeatures, _CPAnalyticsDashboardAppEvent, 
+                       _CPAnalyticsDashboardAppEventSampleRate, _CPAnalyticsDashboardAppEventSampled, 
+                       _CPAnalyticsDashboardErrorEvent, _CPAnalyticsDashboardIntervalEvent, 
+                       _CPAnalyticsDashboardMediaEvent, _CPAnalyticsDashboardMediaEventSampleRate, 
+                       _CPAnalyticsDashboardMediaEventSampled, _CPAnalyticsDashboardScreenViewEvent, 
+                       _CPAnalyticsDashboardScreenViewEventSampleRate, _CPAnalyticsDashboardScreenViewEventSampled, 
+                       _CPAnalyticsDashboardSessionEvent, _CPAnalyticsDemographicPropertyUserAgeRange, 
+                       _CPAnalyticsDemographicPropertyUserGender, _CPAnalyticsDeviceFreeSpaceCritical, 
+                       _CPAnalyticsDeviceFreeSpaceHigh, _CPAnalyticsDeviceFreeSpaceLow, 
+                       _CPAnalyticsDeviceFreeSpaceMedium, _CPAnalyticsDeviceFreeSpaceVeryHigh, 
+                       _CPAnalyticsDeviceFreeSpaceVeryLow, _CPAnalyticsErrorPropertyCode, 
+                       _CPAnalyticsErrorPropertyDomain, _CPAnalyticsEventAppDidBecomeActive, 
+                       _CPAnalyticsEventAppSession, _CPAnalyticsEventAppWillResignActive, 
+                       _CPAnalyticsEventAssetCollectionViewed, _CPAnalyticsEventAssetExportItemPreparationCompleted, 
                        _CPAnalyticsEventAssetExportPreparationCanceled, _CPAnalyticsEventAssetExportPreparationCompleted, 
-                       _CPAnalyticsEventAssetExportPreparationFailed, _CPAnalyticsEventAssetFavoriteChanged, 
+                       _CPAnalyticsEventAssetExportPreparationFailed, _CPAnalyticsEventAssetFavorited, 
+                       _CPAnalyticsEventAssetUnfavorited, _CPAnalyticsEventAssetViewed, 
                        _CPAnalyticsEventAssetsDeleted, _CPAnalyticsEventExitEdit, 
+                       _CPAnalyticsEventFeatureUsageCounts, _CPAnalyticsEventInterval, 
+                       _CPAnalyticsEventMediaViewed, _CPAnalyticsEventPropertyDayOfWeek, 
+                       _CPAnalyticsEventPropertyHourOfDay, _CPAnalyticsEventPropertyIsAppEvent, 
                        _CPAnalyticsEventScreenManagerUnknownView, _CPAnalyticsEventScreenView, 
-                       _CPAnalyticsEventShareCanceled, _CPAnalyticsEventShareCompleted, 
-                       _CPAnalyticsEventTabIdentifierChanged, _CPAnalyticsEventViewDidAppear, 
-                       _CPAnalyticsEventViewDidDisappear, _CPAnalyticsKnowledgeStoreSampleIdentifierKey, 
-                       _CPAnalyticsKnowledgeStoreSampleSubsetKey, _CPAnalyticsKnowledgeStoreSavedEvent, 
-                       _CPAnalyticsLibrarySizeRangeDescriptionEmpty, _CPAnalyticsLibrarySizeRangeDescriptionHuge, 
-                       _CPAnalyticsLibrarySizeRangeDescriptionLarge20K, _CPAnalyticsLibrarySizeRangeDescriptionLarge30K, 
-                       _CPAnalyticsLibrarySizeRangeDescriptionLarge40K, _CPAnalyticsLibrarySizeRangeDescriptionLarge50K, 
-                       _CPAnalyticsLibrarySizeRangeDescriptionMedium10K, _CPAnalyticsLibrarySizeRangeDescriptionMedium5K, 
-                       _CPAnalyticsLibrarySizeRangeDescriptionSmall, _CPAnalyticsLibrarySizeRangeDescriptionVeryLarge, 
-                       _CPAnalyticsLibrarySizeRangeDescriptionVerySmall, _CPAnalyticsMediaAge10Years, 
-                       _CPAnalyticsMediaAge1Year, _CPAnalyticsMediaAge20Years, _CPAnalyticsMediaAge2Years, 
-                       _CPAnalyticsMediaAge30Years, _CPAnalyticsMediaAge3Years, _CPAnalyticsMediaAge40PlusYears, 
-                       _CPAnalyticsMediaAge40Years, _CPAnalyticsMediaAge4Years, _CPAnalyticsMediaAge5Years, 
-                       _CPAnalyticsMediaAgeJustNow, _CPAnalyticsMediaAgeLast180Days, 
-                       _CPAnalyticsMediaAgeLast30Days, _CPAnalyticsMediaAgeLast60Days, 
-                       _CPAnalyticsMediaAgeLast90Days, _CPAnalyticsMediaAgeLastYear, 
-                       _CPAnalyticsMediaAgeNew, _CPAnalyticsMediaAgeThisWeek, _CPAnalyticsMediaAgeToday, 
-                       _CPAnalyticsMediaAgeVeryNew, _CPAnalyticsMediaAgeYesterday, 
-                       _CPAnalyticsMediaPropertyLocalIdentifier, _CPAnalyticsMediaPropertyMediaAge, 
-                       _CPAnalyticsMediaPropertyMediaAgeInMinutes, _CPAnalyticsMediaPropertyMediaDuration, 
+                       _CPAnalyticsEventScreenshotTaken, _CPAnalyticsEventShareCanceled, 
+                       _CPAnalyticsEventShareCompleted, _CPAnalyticsEventTabIdentifierChanged, 
+                       _CPAnalyticsEventUnknownIntervalName, _CPAnalyticsEventViewDidAppear, 
+                       _CPAnalyticsEventViewDidDisappear, _CPAnalyticsIgnoreIntervalsKey, 
+                       _CPAnalyticsKnowledgeStoreSampleIdentifierKey, _CPAnalyticsKnowledgeStoreSampleSubsetKey, 
+                       _CPAnalyticsKnowledgeStoreSavedEvent, _CPAnalyticsLog, _CPAnalyticsMediaPropertyAdjusted, 
+                       _CPAnalyticsMediaPropertyCameraType, _CPAnalyticsMediaPropertyFavorite, 
+                       _CPAnalyticsMediaPropertyImportSource, _CPAnalyticsMediaPropertyLocalIdentifier, 
+                       _CPAnalyticsMediaPropertyMediaAge, _CPAnalyticsMediaPropertyMediaAgeInMinutes, 
+                       _CPAnalyticsMediaPropertyMediaCount, _CPAnalyticsMediaPropertyMediaDuration, 
                        _CPAnalyticsMediaPropertyMediaSubtype, _CPAnalyticsMediaPropertyMediaType, 
-                       _CPAnalyticsMediaPropertyUUID, _CPAnalyticsPayloadAppEventNameKey, 
-                       _CPAnalyticsPayloadAssetEditAdjustmentsKey, _CPAnalyticsPayloadAssetsCountKey, 
+                       _CPAnalyticsMediaPropertyOrientation, _CPAnalyticsMediaPropertySceneType, 
+                       _CPAnalyticsMediaPropertySubject, _CPAnalyticsMediaPropertyUUID, 
+                       _CPAnalyticsPayloadAppEventNameKey, _CPAnalyticsPayloadAssetCollectionKey, 
+                       _CPAnalyticsPayloadAssetCollectionLocalIdentifierKey, _CPAnalyticsPayloadAssetEditAdjustmentsKey, 
                        _CPAnalyticsPayloadAssetsKey, _CPAnalyticsPayloadClassNameKey, 
-                       _CPAnalyticsPayloadFavoriteValueKey, _CPAnalyticsPayloadTabIdentifierDescriptionKey, 
+                       _CPAnalyticsPayloadErrorKey, _CPAnalyticsPayloadGenericAssetCollectionCountKey, 
+                       _CPAnalyticsPayloadGenericAssetCountKey, _CPAnalyticsPayloadIntervalDurationKey, 
+                       _CPAnalyticsPayloadIntervalEndDateKey, _CPAnalyticsPayloadIntervalNameKey, 
+                       _CPAnalyticsPayloadIntervalStartDateKey, _CPAnalyticsPayloadTabIdentifierDescriptionKey, 
                        _CPAnalyticsPayloadTimeOnScreenKey, _CPAnalyticsPayloadViewIDKey, 
+                       _CPAnalyticsPropertiesCacheFileName, _CPAnalyticsScreenManagerIgnoreViewsKey, 
+                       _CPAnalyticsScreenManagerMaxScreenViews, _CPAnalyticsScreenManagerTrackViewsKey, 
                        _CPAnalyticsScreenViewAppSectionName, _CPAnalyticsScreenViewCurrentScreen, 
-                       _CPAnalyticsScreenViewPriorScreen, _CPAnalyticsScreenViewScreensCount, 
-                       _CPAnalyticsScreenViewTrackerPriorScreen1, _CPAnalyticsScreenViewTrackerPriorScreen2, 
-                       _CPAnalyticsScreenViewTrackerPriorScreen3, _CPAnalyticsScreenViewTrackerPriorScreen4, 
-                       _CPAnalyticsScreenViewTrackerPriorScreen5, _CPAnalyticsScreenViewTrackerPriorScreen6, 
-                       _CPAnalyticsScreenViewTrackerPriorScreen7, _CPAnalyticsScreenViewTrackerPriorScreen8, 
-                       _CPAnalyticsScreenViewTrackerPriorScreen9, _CPAnalyticsSessionExitScreen, 
-                       _CPAnalyticsSessionScreenViewsCount, _CPAnalyticsSessionTimeInApp, 
-                       _CPAnalyticsSignpostDurationPayloadKey, _CPAnalyticsSignpostEndEvent, 
-                       _CPAnalyticsSignpostEventAppVisiblePeriod, _CPAnalyticsSignpostEventNamePayloadKey, 
-                       _CPAnalyticsSignpostEventViewTime, _CPAnalyticsSignpostIDPayloadKey, 
-                       _CPAnalyticsSignpostStartEvent, _CPAnalyticsStreamName, _CPAnalyticsSubsetName, 
-                       _CPAnalyticsSystemPropertyCollectionCount, _CPAnalyticsSystemPropertyDeviceFreeSpace, 
-                       _CPAnalyticsSystemPropertyDeviceModel, _CPAnalyticsSystemPropertyLibrarySizeRange, 
+                       _CPAnalyticsScreenViewIsTracked, _CPAnalyticsScreenViewPriorScreen, 
+                       _CPAnalyticsScreenViewScreensCount, _CPAnalyticsScreenViewTrackerPriorScreen1, 
+                       _CPAnalyticsScreenViewTrackerPriorScreen2, _CPAnalyticsScreenViewTrackerPriorScreen3, 
+                       _CPAnalyticsScreenViewTrackerPriorScreen4, _CPAnalyticsScreenViewTrackerPriorScreen5, 
+                       _CPAnalyticsScreenViewTrackerPriorScreen6, _CPAnalyticsScreenViewTrackerPriorScreen7, 
+                       _CPAnalyticsScreenViewTrackerPriorScreen8, _CPAnalyticsScreenViewTrackerPriorScreen9, 
+                       _CPAnalyticsSessionExitScreen, _CPAnalyticsSessionScreenViewsCount, 
+                       _CPAnalyticsSessionTimeInApp, _CPAnalyticsSignpostDurationPayloadKey, 
+                       _CPAnalyticsSignpostEndEvent, _CPAnalyticsSignpostEventAppVisiblePeriod, 
+                       _CPAnalyticsSignpostEventNamePayloadKey, _CPAnalyticsSignpostEventViewTime, 
+                       _CPAnalyticsSignpostIDPayloadKey, _CPAnalyticsSignpostStartEvent, 
+                       _CPAnalyticsStreamName, _CPAnalyticsSubsetName, _CPAnalyticsSystemPropertyCollectionCount, 
+                       _CPAnalyticsSystemPropertyDeviceFreeSpace, _CPAnalyticsSystemPropertyDeviceModel, 
+                       _CPAnalyticsSystemPropertyLibrarySizeRange, _CPAnalyticsSystemPropertyLowPowerModeEnabled, 
                        _CPAnalyticsSystemPropertyOSVersion, _CPAnalyticsSystemPropertyPhotosCount, 
                        _CPAnalyticsSystemPropertyProcess, _CPAnalyticsSystemPropertyVideosCount, 
-                       _CPAnalyticsUserPropertyiCPLEnabled, _CPAnalyticsUserPropertyiCPLExceedingQuota, 
-                       _CPAnalyticsUserPropertyiCPLHasChangesToProcess, _CPAnalyticsUserPropertyiCPLLowDiskSpace, 
-                       _CPAnalyticsVersionNumber, _CPAnalyticsVersionString, _ScreenViewTrackerNoScreenName ]
-    objc-classes:    [ CPAnalytics, CPAnalyticsAppStateDestination, CPAnalyticsConditional, 
-                       CPAnalyticsCoreAnalyticsHelper, CPAnalyticsCoreDuetEventMatcher, 
-                       CPAnalyticsDestinationsRegistry, CPAnalyticsDevLogger, CPAnalyticsEvent, 
-                       CPAnalyticsEventCounter, CPAnalyticsEventMatcher, CPAnalyticsEventMatcherSet, 
+                       _CPAnalyticsTrackIntervalsKey, _CPAnalyticsUserPropertyiCPLEnabled, 
+                       _CPAnalyticsUserPropertyiCPLExceedingQuota, _CPAnalyticsUserPropertyiCPLHasChangesToProcess, 
+                       _CPAnalyticsUserPropertyiCPLLowDiskSpace, _CPAnalyticsVersionNumber, 
+                       _CPAnalyticsVersionString, _ScreenViewTrackerNoScreenName ]
+    objc-classes:    [ CPAnalytics, CPAnalyticsAppStateDestination, CPAnalyticsCompoundEventMatcher, 
+                       CPAnalyticsConditional, CPAnalyticsCoreAnalyticsHelper, CPAnalyticsCoreDuetEventMatcher, 
+                       CPAnalyticsDashboardDestination, CPAnalyticsDestinationsRegistry, 
+                       CPAnalyticsDevLogger, CPAnalyticsErrorPropertyProvider, CPAnalyticsEvent, 
+                       CPAnalyticsEventCounter, CPAnalyticsEventMatcher, CPAnalyticsIntervalDestination, 
                        CPAnalyticsKnowledgeStoreDatasetSample, CPAnalyticsKnowledgeStoreDestination, 
-                       CPAnalyticsMediaPropertyProvider, CPAnalyticsMetricEventRoute, 
-                       CPAnalyticsMetricsDestination, CPAnalyticsScreenManager, CPAnalyticsSignpostDestination, 
-                       CPAnalyticsSystemProperties, CPAnalyticsUserPropertyProvider, 
-                       PhotosAnalyticsSystemPropertyProvider ]
+                       CPAnalyticsLogDestination, CPAnalyticsLogEventMatcher, CPAnalyticsMetricEventRoute, 
+                       CPAnalyticsMetricsDestination, CPAnalyticsPropertyProviderClassLoader, 
+                       CPAnalyticsScreenManager, CPAnalyticsSignpostDestination, 
+                       CPAnalyticsSystemProperties, PhotosAnalyticsSystemPropertyProvider ]
 ...

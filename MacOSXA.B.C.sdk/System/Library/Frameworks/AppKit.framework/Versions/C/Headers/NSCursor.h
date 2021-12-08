@@ -8,6 +8,7 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSGeometry.h>
 #import <AppKit/NSApplication.h>
+#import <AppKit/AppKitDefines.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -75,7 +76,7 @@ API_AVAILABLE(macos(10.0), ios(13.0))
 
 @end
 
-API_UNAVAILABLE_BEGIN(ios)
+APPKIT_API_UNAVAILABLE_BEGIN_MACCATALYST
 static const NSAppKitVersion NSAppKitVersionNumberWithCursorSizeSupport = 682.0;
 @interface NSCursor (NSDeprecated)
 - (instancetype)initWithImage:(NSImage *)newImage foregroundColorHint:(nullable NSColor *)fg backgroundColorHint:(nullable NSColor *)bg hotSpot:(NSPoint)hotSpot API_DEPRECATED("Color hints are ignored. Use -initWithImage:hotSpot: instead", macos(10.0,10.12));

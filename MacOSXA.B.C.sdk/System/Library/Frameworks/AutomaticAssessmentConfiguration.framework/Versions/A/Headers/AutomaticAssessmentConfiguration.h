@@ -9,3 +9,4 @@
 #import <AutomaticAssessmentConfiguration/AEAssessmentSession.h>
 #import <AutomaticAssessmentConfiguration/AEAssessmentSessionDelegate.h>
 #import <AutomaticAssessmentConfiguration/AEErrors.h>
+#import <AutomaticAssessmentConfiguration/AEVisibility.h>

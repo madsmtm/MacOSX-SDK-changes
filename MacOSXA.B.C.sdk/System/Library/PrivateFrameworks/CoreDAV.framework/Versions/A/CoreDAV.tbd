@@ -1,10 +1,24 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 62E621B9-DA73-371A-9B39-FFDE54AED5B1', 'x86_64: 62E621B9-DA73-371A-9B39-FFDE54AED5B1' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           0C956F42-E722-3CF6-B7B2-29E3A2AFB288
+  - target:          x86_64-maccatalyst
+    value:           0C956F42-E722-3CF6-B7B2-29E3A2AFB288
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           1D3B8AD3-B3A1-3C85-94E4-19416BBDD427
+  - target:          arm64e-maccatalyst
+    value:           1D3B8AD3-B3A1-3C85-94E4-19416BBDD427
 install-name:    '/System/Library/PrivateFrameworks/CoreDAV.framework/Versions/A/CoreDAV'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _CDVAbstractMethod, _CDVAppleClientInfoString, _CDVCleanedStringsFromResponseHeaders, 
                        _CDVDefaultUserAgent, _CDVExtractValuesFromRedirectString, 
                        _CDVHTTPStatusCodeAsStatusString, _CDVHTTPStatusCodeFromStatusLine, 

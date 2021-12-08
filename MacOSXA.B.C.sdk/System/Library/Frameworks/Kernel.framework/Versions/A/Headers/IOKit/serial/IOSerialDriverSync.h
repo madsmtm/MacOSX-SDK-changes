@@ -36,11 +36,8 @@
 
 #include <IOKit/IOService.h>
 
-#if defined(KERNEL) && !defined(KERNEL_PRIVATE)
-class __deprecated_msg("Use DriverKit") IOSerialDriverSync : public IOService
-#else
-class IOSerialDriverSync : public IOService
-#endif
+__exported_push
+class __kpi_deprecated("Use DriverKit") IOSerialDriverSync : public IOService
 {
     OSDeclareAbstractStructors(IOSerialDriverSync);
 
@@ -91,5 +88,6 @@ OSMetaClassDeclareReservedUnused(IOSerialDriverSync, 14);
 OSMetaClassDeclareReservedUnused(IOSerialDriverSync, 15);
 
 };
+__exported_pop
 
 #endif /* !_SERIAL_IOSERIALDRIVERSYNC_H */

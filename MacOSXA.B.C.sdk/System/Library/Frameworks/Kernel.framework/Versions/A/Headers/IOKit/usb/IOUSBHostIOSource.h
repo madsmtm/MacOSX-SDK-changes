@@ -395,6 +395,7 @@ protected:
         tPacketFilterMetadata             _metadata;
         void*                             _dkMemoryDescriptorRing;
         IOCommandGate*                    _controllerCommandGate;
+        uint32_t                          _ioSourceSignature;
     };
     
     tExpansionData* _expansionData;

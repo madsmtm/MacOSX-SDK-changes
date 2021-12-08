@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.140.1) generated from IOServiceNotificationDispatchSource.iig */
+/* iig(DriverKit-107.40.8) generated from IOServiceNotificationDispatchSource.iig */
 
 /* IOServiceNotificationDispatchSource.iig:1-45 */
 /*
@@ -244,6 +244,12 @@ public:\
         SetHandler_Handler func);\
 \
     typedef void (*ServiceNotificationReady_Handler)(OSMetaClassBase * target, IOServiceNotificationDispatchSource_ServiceNotificationReady_Args);\
+    static kern_return_t\
+    ServiceNotificationReady_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        ServiceNotificationReady_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
     static kern_return_t\
     ServiceNotificationReady_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\

@@ -1,9 +1,15 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 3CB6FF6C-5404-38C1-B01A-632FE11551CC' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           754DEB38-29AB-33FA-8BF6-41A529B11173
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           94B37629-7C65-3991-9E9F-FEDF1730F5DB
 install-name:    '/System/Library/PrivateFrameworks/FMFUI.framework/Versions/A/FMFUI'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     objc-classes:    [ FMFLocationSharingViewController, FMFMapViewController ]
 ...

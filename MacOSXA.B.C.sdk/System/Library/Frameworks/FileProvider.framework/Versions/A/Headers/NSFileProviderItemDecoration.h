@@ -42,20 +42,20 @@ typedef NSString *NSFileProviderItemDecorationIdentifier NS_TYPED_EXTENSIBLE_ENU
  Identifier     | The identifier used to refer to this decoration in the item definition (as type `NSFileProviderItemDecorationIdentifier`).
  BadgeImageType | The overlay UTI (see below)
  Label          | A localizable title, to be used in detail views, on mouse over and for voice over
- Category       | The position of the decoration: one of 'Badge', 'Sharing', 'FolderStatus' or 'FolderBadge'
+ Category       | The position of the decoration: one of 'Badge', 'Sharing', or 'FolderBadge'
 
  At rendering time, the icon for the UTI specified by 'BadgeImageType' will be looked up.
  The UTI must conform to 'com.apple.icon-decoration.badge'.
 
- Decorations from different categories are presented in different places in the UI:
+ Decorations from different categories are presented in different places in the UI.
+
+ Note that regardless of the dictionary key used for the visual decoration, the Label key will be used for mouse over / voice over.
 
  Category     | Location
  -------------|----------
- Badge        | On top of the icon; only the first badge is displayed.
- Sharing      | Below the icon. If multiple Sharing decorations are present, the first one that fits will be shown.
- FolderStatus | On open folders, below the folders items. All FolderStatus decorations will be shown, concatenated.
- FolderBadge  | Embossed on top of the folder icon. Only the first badge is displayed. Only valid for folders.
-
+ Badge        | On top of the icon. The decoration is an image, taken from the BadgeImageType key. Only the first badge is displayed.
+ Sharing      | Adjacent to the icon. The decoration is a string, taken from the Label key. Only the first label is displayed.
+ FolderBadge  | Embossed on top of the folder icon. The image from the BadgeImageType key will be embossed. Only the first badge is displayed. Only valid for folders.
 
 */
 

@@ -80,6 +80,9 @@
 #include <libkern/crc.h>
 #include <libkern/copyio.h>
 
+#if defined(__arm__) || defined(__arm64__)
+#include <arm/arch.h> /* for _ARM_ARCH_* */
+#endif
 
 #ifdef __APPLE_API_OBSOLETE
 /* BCD conversions. */
@@ -146,8 +149,7 @@ extern int      ffsll(unsigned long long);
 extern int      fls(unsigned int);
 extern int      flsll(unsigned long long);
 extern u_int32_t        random(void);
-extern int      scanc(u_int, u_char *, const u_char *, int);
-extern int      skpc(int, int, char *);
+extern size_t   scanc(size_t, u_char *, const u_char *, u_char);
 extern long     strtol(const char*, char **, int);
 extern u_long   strtoul(const char *, char **, int);
 extern quad_t   strtoq(const char *, char **, int);
@@ -201,8 +203,13 @@ extern void flush_dcache64(addr64_t, unsigned, int);
 static inline int
 clz(unsigned int num)
 {
+#if (__arm__ || __arm64__)
+	// On ARM, clz(0) is defined to return number of bits in the input type
+	return __builtin_clz(num);
+#else
 	// On Intel, clz(0) is undefined
 	return num ? __builtin_clz(num) : sizeof(num) * CHAR_BIT;
+#endif
 }
 
 

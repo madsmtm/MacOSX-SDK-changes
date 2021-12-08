@@ -88,6 +88,8 @@ __BEGIN_DECLS
 extern proc_t kernproc;
 
 extern int proc_is_classic(proc_t p);
+extern bool proc_is_exotic(proc_t p);
+extern bool proc_is_alien(proc_t p);
 proc_t current_proc_EXTERNAL(void);
 
 extern int      msleep(void *chan, lck_mtx_t *mtx, int pri, const char *wmesg, struct timespec * ts );
@@ -121,6 +123,8 @@ void proc_selfname(char * buf, int size);
 
 /* find a process with a given pid. This comes with a reference which needs to be dropped by proc_rele */
 extern proc_t proc_find(int pid);
+/* find a process with a given process identity */
+extern proc_t proc_find_ident(struct proc_ident const *i);
 /* returns a handle to current process which is referenced. The reference needs to be dropped with proc_rele */
 extern proc_t proc_self(void);
 /* releases the held reference on the process */
@@ -131,8 +135,12 @@ extern int proc_pid(proc_t);
 extern int proc_ppid(proc_t);
 /* returns the original pid of the parent of a given process */
 extern int proc_original_ppid(proc_t);
+/* returns the start time of the given process */
+extern int proc_starttime(proc_t, struct timeval *);
 /* returns the platform (macos, ios, watchos, tvos, ...) of the given process */
-extern uint32_t proc_platform(proc_t);
+extern uint32_t proc_platform(const proc_t);
+/* returns the minimum sdk version used by the current process */
+extern uint32_t proc_min_sdk(proc_t);
 /* returns the sdk version used by the current process */
 extern uint32_t proc_sdk(proc_t);
 /* returns 1 if the process is marked for no remote hangs */
@@ -148,6 +156,8 @@ extern boolean_t proc_send_synchronous_EXC_RESOURCE(proc_t p);
 extern int proc_is64bit(proc_t);
 /* this routine returns 1 if the process is running with a 64bit register state, else 0 */
 extern int proc_is64bit_data(proc_t);
+/* this routine returns 1 if the process is initproc */
+extern int proc_isinitproc(proc_t);
 /* is this process exiting? */
 extern int proc_exiting(proc_t);
 /* returns whether the process has started down proc_exit() */
@@ -190,7 +200,7 @@ pid_t proc_pgrpid(proc_t p);
  *  @function proc_sessionid
  *  @abstract Get the process session id for the passed-in process.
  *  @param p Process whose session id to grab.
- *  @return session id for "p", or -1 on failure
+ *  @return session id of current process.
  */
 pid_t proc_sessionid(proc_t p);
 

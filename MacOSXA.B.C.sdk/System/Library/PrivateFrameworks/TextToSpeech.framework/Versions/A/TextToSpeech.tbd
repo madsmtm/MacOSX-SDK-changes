@@ -1,10 +1,24 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: C4831DFF-F282-35B8-92ED-F6F7CF8C9FFC', 'x86_64: C4831DFF-F282-35B8-92ED-F6F7CF8C9FFC' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           29FC71A5-CD66-320E-ABA9-89D6DA0A15EA
+  - target:          x86_64-maccatalyst
+    value:           29FC71A5-CD66-320E-ABA9-89D6DA0A15EA
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           7BD13CC6-D0D8-3E1B-8405-3E95A3175C27
+  - target:          arm64e-maccatalyst
+    value:           7BD13CC6-D0D8-3E1B-8405-3E95A3175C27
 install-name:    '/System/Library/PrivateFrameworks/TextToSpeech.framework/Versions/A/TextToSpeech'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _AXSpeechReplaceJapaneseElongationCharactersIfNeeded, _TTSAllCachedAvailableVoicesKey, 
                        _TTSAssetKeyCustomVoiceCompatibilityVersion, _TTSAssetKeyCustomVoiceFootprint, 
                        _TTSAssetKeyCustomVoiceGender, _TTSAssetKeyCustomVoiceLanguages, 
@@ -30,11 +44,13 @@ exports:
                        _TTSCFDictionaryGetValueIfType, _TTSCFSetCreateMutableArray, 
                        _TTSCFSetSendDifferences, _TTSCFURLDeleteDirectoryContents, 
                        _TTSCopyContentsOfDirectoryAtURL, _TTSCopyModificationDateForFileAtURL, 
-                       _TTSCreateDataFromContentsOfURL, _TTSCreateDirectory, _TTSCreateStringFromFileAtPath, 
-                       _TTSCreateTemporaryDirectory, _TTSCreateURLAndDirectory, _TTSDeleteItemAtURL, 
-                       _TTSDirectoryExistsAtURL, _TTSErrorCreate, _TTSFileExistsAtURL, 
-                       _TTSIsInternalBuild, _TTSNashvilleRateToSpeechRate, _TTSPreferencesCopyAutoDownloadedAssetsInfo, 
+                       _TTSCreateDataFromContentsOfURL, _TTSCreateDecryptedDataFromEncryptedData, 
+                       _TTSCreateDirectory, _TTSCreateStringFromFileAtPath, _TTSCreateTemporaryDirectory, 
+                       _TTSCreateURLAndDirectory, _TTSDeleteItemAtURL, _TTSDirectoryExistsAtURL, 
+                       _TTSErrorCreate, _TTSFileExistsAtURL, _TTSIsInternalBuild, 
+                       _TTSNashvilleRateToSpeechRate, _TTSPreferencesCopyAutoDownloadedAssetsInfo, 
                        _TTSPreferencesCopyAvailableLanguageIdentifiers, _TTSPreferencesCopyAvailableOutputLanguageIdentifiers, 
+                       _TTSPreferencesCopyDefaultOutputLanguageIdentifierForLanguage, 
                        _TTSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences, 
                        _TTSPreferencesCopyDefaultSpokenLanguageIdentifierForUserPreferences, 
                        _TTSPreferencesCopySpokenLanguageIdentifier, _TTSPreferencesCopySpokenLanguageIdentifierArray, 
@@ -51,7 +67,8 @@ exports:
                        _TTSVocalizerCopyURLForFallbackResource, _TTSVocalizerCopyVoiceEngineFormatVersionForLanguage, 
                        _TTSVoiceIsGryphonAssetType, _TTSWatchSupportsSiriSpeaks, 
                        __GetScheduledPriority, __TTSBundleCopyResourceURL, __TTSCopyAvailableLanguageIdentifiers, 
-                       __TTSCopyAvailableOutputLanguageIdentifiers, __TTSCopyFallbackLanguageIdentifierExplicitForLocale, 
+                       __TTSCopyAvailableOutputLanguageIdentifiers, __TTSCopyFallbackLanguageIdentifierExplicitForCurrentLocale, 
+                       __TTSCopyFallbackLanguageIdentifierExplicitForLocale, __TTSCopyFallbackLanguageIdentifierForCurrentLocale, 
                        __TTSCopyFallbackLanguageIdentifierForLanguageIdentifier, 
                        __TTSCopyFallbackLanguageIdentifierForLocale, __TTSCopyLanguageArrayForLanguageIdentifier, 
                        __TTSCopyLanguageCodeFromLanguageIdentifier, __TTSCopyLanguageIdentifierForLocale, 
@@ -59,7 +76,8 @@ exports:
                        __TTSCopyQualifiedLanguageIdentifierForLanguageCode, __TTSDeviceLanguageChanged, 
                        __TTSFrameworkBundle, __TTSIdentifierForVoiceInformation, 
                        __TTSLanguageIdentifierIsLanguageOnly, __TTSNameForVoiceInformation, 
-                       __TTSPreferencesCopyCurrentGenericLocale, __TTSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences, 
+                       __TTSPreferencesCopyCurrentGenericLocale, __TTSPreferencesCopyDefaultOutputLanguageIdentifierForLanguageAndUserPreferredLocalizations, 
+                       __TTSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences, 
                        __TTSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferredLocalizations, 
                        __TTSVocalizerCopyVoiceEngineFormatVersionsForLanguage, __VocalizerFootprintForSpeechFootprint, 
                        __VocalizerGenderForSpeechGender, _kTTSAlternativeAssetBrokerHeaderFileName, 

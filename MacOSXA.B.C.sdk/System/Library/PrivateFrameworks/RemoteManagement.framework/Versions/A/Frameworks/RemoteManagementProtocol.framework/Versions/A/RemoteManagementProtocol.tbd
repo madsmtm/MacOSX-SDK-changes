@@ -1,10 +1,24 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: AD725C4F-5AC4-3DFC-8DB3-5F1FE2524C4D', 'x86_64: AD725C4F-5AC4-3DFC-8DB3-5F1FE2524C4D' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           7021B8B5-9F10-3548-A6C8-7DD88AC88022
+  - target:          x86_64-maccatalyst
+    value:           7021B8B5-9F10-3548-A6C8-7DD88AC88022
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           5D61C36E-5534-3AB2-B5E5-2514265A5FD6
+  - target:          arm64e-maccatalyst
+    value:           5D61C36E-5534-3AB2-B5E5-2514265A5FD6
 install-name:    '/System/Library/PrivateFrameworks/RemoteManagement.framework/Versions/A/Frameworks/RemoteManagementProtocol.framework/Versions/A/RemoteManagementProtocol'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _RMProtocolChannelDevice, _RMProtocolChannelUser, _RMProtocolCommandRequest_Status_busy, 
                        _RMProtocolCommandRequest_Status_completed, _RMProtocolCommandRequest_Status_failed, 
                        _RMProtocolCommandRequest_Status_ready, _RMProtocolEndpointCommand, 

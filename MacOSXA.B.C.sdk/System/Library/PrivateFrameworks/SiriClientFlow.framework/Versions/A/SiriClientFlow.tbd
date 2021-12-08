@@ -1,11 +1,16 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: AF4BF8E0-606C-3127-AB53-9B2E9168816B' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           8B11973C-6A3B-3F90-9789-453C23EB67C4
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           9C5E1EBD-8CEE-336D-B07D-E5A90B8F0FCB
 install-name:    '/System/Library/PrivateFrameworks/SiriClientFlow.framework/Versions/A/SiriClientFlow'
-swift-abi-version: 7
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _CFBCGetDiagnosticsSubmissionAllowedClassIdentifier, _CFBCGetDiagnosticsSubmissionAllowedResponseAllowedPListKey, 
                        _CFBCGetDiagnosticsSubmissionAllowedResponseClassIdentifier, 
                        _CFBCGetNumberFormattedStringClassIdentifier, _CFBCGetNumberFormattedStringLocalePListKey, 

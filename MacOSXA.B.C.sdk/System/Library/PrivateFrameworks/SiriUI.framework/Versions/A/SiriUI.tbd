@@ -1,10 +1,16 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: D2BE8A4B-BC1E-30EF-9847-3754F63AA3B0' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           8DB32357-1ADD-36D0-B96F-6618286CB4C6
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           EAC44B30-7333-3DA3-A18A-308E6D117738
 install-name:    '/System/Library/PrivateFrameworks/SiriUI.framework/Versions/A/SiriUI'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _AFUIPresentationPropertiesRequestSourceKey, _AFUIPresentationPropertiesSupportsTouchKey, 
                        _AFUISpeechSynthesisQueueDidEmptyNotification, _AFUISpeechSynthesisWillStartSpeakingNotification, 
                        _NSEdgeInsetsInsetRect, _NSStringFromCGSize, _SUICPluginSiriDisambiguationDomainsKey, 
@@ -44,11 +50,11 @@ exports:
                        SiriUIContentButton, SiriUIContentCollectionViewCell, SiriUIContentCollectionViewItem, 
                        SiriUIContentLabel, SiriUIDisambiguationItem, SiriUIDismissalOptions, 
                        SiriUIDownloadableImageView, SiriUIErrorSnippetViewController, 
-                       SiriUIFlamesAndAuraView, SiriUIFontScalingUtilities, SiriUIFooterButton, 
-                       SiriUIGuideCacheManager, SiriUIHelpButton, SiriUIImageMaskView, 
-                       SiriUIInterstitials, SiriUIKeyline, SiriUILabel, SiriUIMediaPauser, 
-                       SiriUIObjectPickerButtonView, SiriUIObjectPickerViewController, 
-                       SiriUIPluginManager, SiriUIPreferences, SiriUIPrivatePeoplePickerViewController, 
+                       SiriUIFontScalingUtilities, SiriUIFooterButton, SiriUIGuideCacheManager, 
+                       SiriUIHelpButton, SiriUIImageMaskView, SiriUIInterstitials, 
+                       SiriUIKeyline, SiriUILabel, SiriUIMediaPauser, SiriUIObjectPickerButtonView, 
+                       SiriUIObjectPickerViewController, SiriUIOrbView, SiriUIPluginManager, 
+                       SiriUIPreferences, SiriUIPrivatePeoplePickerViewController, 
                        SiriUIPrivateViewControllerOverrides, SiriUIRequestOptions, 
                        SiriUIReusableConfirmationFooterView, SiriUIReusableFooterView, 
                        SiriUIReusableHeaderView, SiriUIReusableSubtitledHeaderView, 

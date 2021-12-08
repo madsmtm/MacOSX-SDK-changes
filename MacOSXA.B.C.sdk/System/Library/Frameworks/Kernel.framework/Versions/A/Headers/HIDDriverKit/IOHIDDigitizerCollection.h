@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.100.4) generated from IOHIDDigitizerCollection.iig */
+/* iig(DriverKit-107.40.8) generated from IOHIDDigitizerCollection.iig */
 
 /* IOHIDDigitizerCollection.iig:1-44 */
 /*

@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.140.1) generated from IOUSBHostDevice.iig */
+/* iig(DriverKit-107.40.8) generated from IOUSBHostDevice.iig */
 
 /* IOUSBHostDevice.iig:1-38 */
 /*
@@ -647,6 +647,12 @@ public:\
         CreateIOBuffer_Handler func);\
 \
     typedef void (*CompleteAsyncDeviceRequest_Handler)(OSMetaClassBase * target, IOUSBHostDevice_CompleteAsyncDeviceRequest_Args);\
+    static kern_return_t\
+    CompleteAsyncDeviceRequest_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        CompleteAsyncDeviceRequest_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
     static kern_return_t\
     CompleteAsyncDeviceRequest_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\

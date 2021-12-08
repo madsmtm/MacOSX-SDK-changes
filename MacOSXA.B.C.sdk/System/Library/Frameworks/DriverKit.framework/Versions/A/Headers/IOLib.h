@@ -192,7 +192,7 @@ enum {
 
 /*!
  * @function OSSynchronizeIO
- * Performs an mfence instruction on intel architecture machines.
+ * Performs an mfence instruction on an Intel-based Mac computer.
  */
 void
 OSSynchronizeIO(void);
@@ -256,7 +256,7 @@ OSReportWithBacktrace(const char *str, ...);
  *  @abstract Release an object if not <code>NULL</code>, then set it to <code>NULL</code>.
  *  @param    inst  Instance of an OSObject, may be <code>NULL</code>.
  */
-#define OSSafeReleaseNULL(inst) { if (inst) { (inst)->release(); (inst) = NULL; } }
+#define OSSafeReleaseNULL(inst) { if (NULL != (inst)) { (inst)->release(); (inst) = NULL; } }
 
 /*! @macro IONew
  *   @abstract Calls IOMalloc with the size of an array of types.

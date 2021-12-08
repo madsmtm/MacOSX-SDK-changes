@@ -45,8 +45,11 @@
 #define CPUID_VID_INTEL         "GenuineIntel"
 #define CPUID_VID_AMD           "AuthenticAMD"
 
-#define CPUID_VMM_ID_VMWARE             "VMwareVMware"
+#define CPUID_VMM_ID_VMWARE     "VMwareVMware"
 #define CPUID_VMM_ID_PARALLELS  "Parallels\0\0\0"
+#define CPUID_VMM_ID_HYVE       "bhyve bhyve "
+#define CPUID_VMM_ID_HVF        "HVFHVFHVFHVF"
+#define CPUID_VMM_ID_KVM        "KVMKVMKVM\0\0\0"
 
 #define CPUID_STRING_UNKNOWN    "Unknown CPU Typ"
 
@@ -266,20 +269,24 @@
 #define CPUID_MODEL_KABYLAKE_ULT        0x8E
 #define CPUID_MODEL_KABYLAKE_ULX        0x8E
 #define CPUID_MODEL_KABYLAKE_DT         0x9E
-#if !defined(RC_HIDE_XNU_ICELAKE)
 #define CPUID_MODEL_ICELAKE             0x7E
 #define CPUID_MODEL_ICELAKE_ULT         0x7E
 #define CPUID_MODEL_ICELAKE_ULX         0x7E
 #define CPUID_MODEL_ICELAKE_DT          0x7D
 #define CPUID_MODEL_ICELAKE_H           0x9F
-#endif /* not RC_HIDE_XNU_ICELAKE */
 #if !defined(RC_HIDE_XNU_COMETLAKE)
 #define CPUID_MODEL_COMETLAKE_DT        0xA5
 #endif /* not RC_HIDE_XNU_COMETLAKE */
 
-#define CPUID_VMM_FAMILY_UNKNOWN        0x0
-#define CPUID_VMM_FAMILY_VMWARE         0x1
-#define CPUID_VMM_FAMILY_PARALLELS      0x2
+#define CPUID_VMM_FAMILY_NONE           0x0
+#define CPUID_VMM_FAMILY_UNKNOWN        0x1
+#define CPUID_VMM_FAMILY_VMWARE         0x2
+#define CPUID_VMM_FAMILY_PARALLELS      0x3
+#define CPUID_VMM_FAMILY_HYVE           0x4
+#define CPUID_VMM_FAMILY_HVF            0x5
+#define CPUID_VMM_FAMILY_KVM            0x6
+
+
 
 #ifndef ASSEMBLER
 #include <stdint.h>
@@ -380,7 +387,7 @@ typedef struct {
 } cpuid_tsc_leaf_t;
 
 /* Physical CPU info - this is exported out of the kernel (kexts), so be wary of changes */
-typedef struct {
+typedef struct i386_cpu_info {
 	char            cpuid_vendor[16];
 	char            cpuid_brand_string[48];
 	const char      *cpuid_model_string;
@@ -485,6 +492,7 @@ extern uint32_t         cpuid_cpufamily(void);
 
 extern i386_cpu_info_t  *cpuid_info(void);
 extern void             cpuid_set_info(void);
+extern boolean_t        cpuid_vmm_present(void);
 
 
 #ifdef __cplusplus

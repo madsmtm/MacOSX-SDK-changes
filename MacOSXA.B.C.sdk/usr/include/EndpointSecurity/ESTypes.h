@@ -5,6 +5,10 @@
 #include <stdint.h>
 #include <os/base.h>
 
+typedef struct {
+	uint8_t reserved[32];
+} es_event_id_t;
+
 typedef enum {
     ES_ACTION_TYPE_AUTH
   , ES_ACTION_TYPE_NOTIFY
@@ -119,6 +123,19 @@ typedef enum {
   , ES_EVENT_TYPE_AUTH_PROC_CHECK
   , ES_EVENT_TYPE_NOTIFY_PROC_CHECK
   , ES_EVENT_TYPE_AUTH_GET_TASK
+	// The following events are available beginning in macOS 11.0
+  , ES_EVENT_TYPE_AUTH_SEARCHFS
+  , ES_EVENT_TYPE_NOTIFY_SEARCHFS
+  , ES_EVENT_TYPE_AUTH_FCNTL
+  , ES_EVENT_TYPE_AUTH_IOKIT_OPEN
+  , ES_EVENT_TYPE_AUTH_PROC_SUSPEND_RESUME
+  , ES_EVENT_TYPE_NOTIFY_PROC_SUSPEND_RESUME
+  , ES_EVENT_TYPE_NOTIFY_CS_INVALIDATED
+  , ES_EVENT_TYPE_NOTIFY_GET_TASK_NAME
+  , ES_EVENT_TYPE_NOTIFY_TRACE
+  , ES_EVENT_TYPE_NOTIFY_REMOTE_THREAD_CREATE
+  , ES_EVENT_TYPE_AUTH_REMOUNT
+  , ES_EVENT_TYPE_NOTIFY_REMOUNT
     // ES_EVENT_TYPE_LAST is not a valid event type but a convenience
     // value for operating on the range of defined event types.
     // This value may change between releases and was available
@@ -212,7 +229,7 @@ typedef struct {
 } es_token_t;
 
 /**
- * @brief Structure for handling packed blobs of serialized data
+ * @brief Structure for handling strings
  */
 typedef struct {
 	// Length of the `data` field. Equivalent to strlen().

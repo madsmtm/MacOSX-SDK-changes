@@ -1,19 +1,33 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: E668BD5D-E1D6-3C21-BA7E-5C3A672A964E', 'x86_64: E668BD5D-E1D6-3C21-BA7E-5C3A672A964E' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           4A399CF7-0518-374F-B77B-755BA20B640B
+  - target:          x86_64-maccatalyst
+    value:           4A399CF7-0518-374F-B77B-755BA20B640B
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           D559624A-96BF-3F09-8FBE-C0CDCAF126A6
+  - target:          arm64e-maccatalyst
+    value:           D559624A-96BF-3F09-8FBE-C0CDCAF126A6
 install-name:    '/usr/lib/swift/libswiftObjectiveC.dylib'
-current-version: 0
 swift-abi-version: 7
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ '$ld$install_name$os10.10$@rpath/libswiftObjectiveC.dylib', 
                        '$ld$install_name$os10.11$@rpath/libswiftObjectiveC.dylib', 
                        '$ld$install_name$os10.12$@rpath/libswiftObjectiveC.dylib', 
                        '$ld$install_name$os10.13$@rpath/libswiftObjectiveC.dylib', 
                        '$ld$install_name$os10.14$@rpath/libswiftObjectiveC.dylib', 
-                       '$ld$install_name$os10.9$@rpath/libswiftObjectiveC.dylib', 
-                       '_$s10ObjectiveC15autoreleasepool8invokingxxyKXE_tKlF', '_$s10ObjectiveC22_convertBoolToObjCBoolyAA0eF0VSbF', 
+                       '$ld$install_name$os10.9$@rpath/libswiftObjectiveC.dylib' ]
+  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
+    symbols:         [ '_$s10ObjectiveC15autoreleasepool8invokingxxyKXE_tKlF', '_$s10ObjectiveC22_convertBoolToObjCBoolyAA0eF0VSbF', 
                        '_$s10ObjectiveC22_convertObjCBoolToBoolySbAA0cD0VF', '_$s10ObjectiveC2NOAA8ObjCBoolVvg', 
                        '_$s10ObjectiveC3YESAA8ObjCBoolVvg', '_$s10ObjectiveC6NSZoneVMa', 
                        '_$s10ObjectiveC6NSZoneVMn', '_$s10ObjectiveC6NSZoneVN', '_$s10ObjectiveC8ObjCBoolV11descriptionSSvg', 

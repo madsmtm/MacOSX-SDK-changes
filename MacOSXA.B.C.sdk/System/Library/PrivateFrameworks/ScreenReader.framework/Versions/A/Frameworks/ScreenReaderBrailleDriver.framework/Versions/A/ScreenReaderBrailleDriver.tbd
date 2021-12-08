@@ -1,11 +1,25 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B2A38C6A-4A79-35BA-811C-580E0E1DA748', 'x86_64: B2A38C6A-4A79-35BA-811C-580E0E1DA748' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           A5D9C84E-52A1-35A4-BF37-96831DC89673
+  - target:          x86_64-maccatalyst
+    value:           A5D9C84E-52A1-35A4-BF37-96831DC89673
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           68E07F0D-7DEB-3373-A36D-24C47E15B7CF
+  - target:          arm64e-maccatalyst
+    value:           68E07F0D-7DEB-3373-A36D-24C47E15B7CF
 install-name:    '/System/Library/PrivateFrameworks/ScreenReader.framework/Versions/A/Frameworks/ScreenReaderBrailleDriver.framework/Versions/A/ScreenReaderBrailleDriver'
 current-version: 390
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _SCRDAdvanceBufferToPacketStart, _SCRDAlva6SeriesAppendKeyEvent, 
                        _SCRDAppendFullKeystrokeFromEvent, _SCRDBaum2SendDetectDevicesRequest, 
                        _SCRDBaum2SendDeviceArrivalAck, _SCRDBaum2SendDeviceResetRequest, 
@@ -89,10 +103,10 @@ exports:
                        _kSCRDFreedomScientificFocus84ModelName, _kSCRDFreedomScientificPacMate20ModelName, 
                        _kSCRDFreedomScientificPacMate40ModelName, _kSCRDHandyTechBluetoothConfigServiceName, 
                        _kSCRDHandyTechBluetoothHardwareServiceName, _kSCRDHumanwareBrailliantBluetoothName, 
-                       _kSCRDNPHB2GDeviceIdentifier, _kSCRDNinepointSystemsNinepointBluetoothName, 
-                       _kSCRDOrbitReader20DeviceIdentifier, _kSCRDOrbitReader40DeviceIdentifier, 
-                       _kSCRDSeikaNotetakerBluetoothNameRegExPattern, _kSCRDUSBDeviceDisconnectNotification, 
-                       _kSCRODBaumVario340DeviceIdentifier ]
+                       _kSCRDNLSEReaderZoomaxDeviceIdentifier, _kSCRDNPHB2GDeviceIdentifier, 
+                       _kSCRDNinepointSystemsNinepointBluetoothName, _kSCRDOrbitReader20DeviceIdentifier, 
+                       _kSCRDOrbitReader40DeviceIdentifier, _kSCRDSeikaNotetakerBluetoothNameRegExPattern, 
+                       _kSCRDUSBDeviceDisconnectNotification, _kSCRODBaumVario340DeviceIdentifier ]
     objc-classes:    [ SCRDFileReader, SCRDUSBDevice ]
     objc-ivars:      [ SCRDFileReader._delegate, SCRDFileReader._fileHandle, SCRDFileReader._readerThread, 
                        SCRDFileReader._threadStartCount, SCRDUSBDevice._device, SCRDUSBDevice._interface, 

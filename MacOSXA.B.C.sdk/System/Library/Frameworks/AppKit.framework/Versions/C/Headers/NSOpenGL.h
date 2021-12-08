@@ -11,7 +11,7 @@
 #import <OpenGL/gltypes.h>
 
 NS_ASSUME_NONNULL_BEGIN
-API_UNAVAILABLE_BEGIN(ios)
+APPKIT_API_UNAVAILABLE_BEGIN_MACCATALYST
 
 #ifndef GL_SILENCE_DEPRECATION
 #define NS_OPENGL_DEPRECATED(minVers, maxVers) API_DEPRECATED("OpenGL API deprecated; please use Metal and MetalKit.  (Define GL_SILENCE_DEPRECATION to silence these warnings.)", macos(minVers,maxVers))

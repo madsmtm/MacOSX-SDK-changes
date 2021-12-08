@@ -1,14 +1,29 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9CCB50D8-AA39-3744-93FB-7B5B65467AB3', 'x86_64: 9CCB50D8-AA39-3744-93FB-7B5B65467AB3' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           F690D39E-3710-3326-A6C0-A910BADC3768
+  - target:          x86_64-maccatalyst
+    value:           F690D39E-3710-3326-A6C0-A910BADC3768
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           8FCEA3F0-F9BC-3765-B70F-B0E677CB0DE8
+  - target:          arm64e-maccatalyst
+    value:           8FCEA3F0-F9BC-3765-B70F-B0E677CB0DE8
 install-name:    '/System/Library/Frameworks/QuickLookThumbnailing.framework/Versions/A/QuickLookThumbnailing'
 current-version: 0
 exports:
-  - archs:           [ x86_64 ]
-    symbols:         [ _QLCreateCGImageWithData, _QLCreateColorSpaceForThumbnailExtension, 
-                       _QLImageCreateForDefaultThumbnailGenerationFromData, _QLShouldUseExtendedRangeForContextWithColorspace, 
-                       _QLTCreateCGContext, _QLTCreateCGContextWithSize, _QLTGetDefaultCacheLocation, 
+  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+                       arm64-macos, arm64-maccatalyst ]
+    symbols:         [ _QLCGImageRefPNGRepresentation, _QLCompareVersion, _QLCreateCGImageWithData, 
+                       _QLCreateColorSpaceForThumbnailExtension, _QLImageCreateForDefaultThumbnailGenerationFromData, 
+                       _QLShouldUseExtendedRangeForContextWithColorspace, _QLTCreateCGContext, 
+                       _QLTCreateCGContextWithSize, _QLTGetDefaultCacheLocation, 
                        _QLTImageClassWithError, _QLTInitLogging, _QLTPrefersExtendedRange, 
                        _QLTSandboxWrapperForParentURLOf, _QLThumbnailAdditionMetadataKey, 
                        _QLThumbnailErrorDomain, _QLThumbnailGenerationRequestRepresentationTypeNone, 
@@ -53,10 +68,11 @@ exports:
                        QLThumbnailStoreRetrievalOperation._generationActivity, QLThumbnailStoreRetrievalOperation._retrievalActivity, 
                        QLThumbnailStoreRetrievalOperation._thumbnailRequest, QLThumbnailStoreRetrievalOperation._thumbnailWasJustAutomaticallyGenerated, 
                        QLThumbnailVersion._fileSize, QLThumbnailVersion._generatorID, 
-                       QLThumbnailVersion._generatorVersion, QLThumbnailVersion._modificationDate, 
-                       QLThumbnailVersion._versionIdentifier, QLURLHandler._externalResourcesHandle, 
-                       QLURLHandler._externalResourcesToken, QLURLHandler._fileExtensionHandle, 
-                       QLURLHandler._fileExtensionToken, QLURLHandler._fileURL, QLURLHandler._isAccessingSecurityScope, 
+                       QLThumbnailVersion._generatorVersion, QLThumbnailVersion._ino, 
+                       QLThumbnailVersion._modificationDate, QLThumbnailVersion._versionIdentifier, 
+                       QLURLHandler._externalResourcesHandle, QLURLHandler._externalResourcesToken, 
+                       QLURLHandler._fileExtensionHandle, QLURLHandler._fileExtensionToken, 
+                       QLURLHandler._fileURL, QLURLHandler._isAccessingSecurityScope, 
                        QLURLHandler._needsAccessToExternalResources, QLURLHandler._physicalFileExtensionHandle, 
                        QLURLHandler._physicalFileExtensionToken, QLURLHandler._sandboxType, 
                        QLUTIAnalyzer._contentType ]

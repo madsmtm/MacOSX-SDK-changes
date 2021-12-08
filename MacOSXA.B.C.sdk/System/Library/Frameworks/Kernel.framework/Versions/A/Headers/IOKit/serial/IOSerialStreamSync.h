@@ -144,12 +144,9 @@
 #define PD_S_RXQ_FULL 		(PD_S_TXQ_FULL       >> PD_S_RX_OFFSET)
 #define PD_S_RXQ_MASK		(PD_S_TXQ_MASK       >> PD_S_RX_OFFSET)
 
+__exported_push
 class IOSerialDriverSync;
-#if defined(KERNEL) && !defined(KERNEL_PRIVATE)
-class __deprecated_msg("Use DriverKit") IOSerialStreamSync : public IOService
-#else
-class IOSerialStreamSync : public IOService
-#endif
+class __kpi_deprecated("Use DriverKit") IOSerialStreamSync : public IOService
 {
     OSDeclareDefaultStructors(IOSerialStreamSync);
 
@@ -273,6 +270,7 @@ OSMetaClassDeclareReservedUnused(IOSerialStreamSync, 13);
 OSMetaClassDeclareReservedUnused(IOSerialStreamSync, 14);
 OSMetaClassDeclareReservedUnused(IOSerialStreamSync, 15);
 };
+__exported_pop
 
 #endif /* !_SERIAL_IOSERIALSTREAMSYNC_H */
 

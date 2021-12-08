@@ -1,11 +1,25 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B212CB16-03CD-3B13-A4A5-65A943DFF43B', 'x86_64: B212CB16-03CD-3B13-A4A5-65A943DFF43B' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           7A36214F-C188-3FB0-B4B6-778D8E36805A
+  - target:          x86_64-maccatalyst
+    value:           7A36214F-C188-3FB0-B4B6-778D8E36805A
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           0535B9C0-B0AF-3A36-992E-83A30A5DF4ED
+  - target:          arm64e-maccatalyst
+    value:           0535B9C0-B0AF-3A36-992E-83A30A5DF4ED
 install-name:    '/usr/lib/libsystemstats.dylib'
-current-version: 456.100.1
+current-version: 469.40.6
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ arm64e-macos, x86_64-macos, x86_64-maccatalyst, arm64e-maccatalyst, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _SystemStatsLogCoreDuetEventsAggregate, _SystemStatsReportDiscretionaryBudgetForDuet, 
                        _SystemStatsReportTotalDiscretionaryEnergyCoreDuet, __systemstats_boot, 
                        __systemstats_copy_cookie_path, __systemstats_enumerate_files, 

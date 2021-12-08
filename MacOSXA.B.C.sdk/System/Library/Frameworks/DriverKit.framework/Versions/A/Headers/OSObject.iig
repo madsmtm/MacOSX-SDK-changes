@@ -37,11 +37,11 @@
 #include <DriverKit/IOReturn.h>
 #if DRIVERKIT_PRIVATE
 #include <mach/port.h>
-#endif
+#endif /* DRIVERKIT_PRIVATE */
 #if !__IIG
 #include <string.h>
 #include <DriverKit/OSMetaClass.h>
-#endif
+#endif	/* !__IIG */
 class OSObject;
 typedef OSObject * OSObjectPtr;
 
@@ -118,9 +118,9 @@ typedef OSObject * OSObjectPtr;
 
 #if !__IIG
 class IIG_SERIALIZABLE OSContainer;
-#else
+#else /* !__IIG */
 class IIG_SERIALIZABLE OSContainer;
-#endif
+#endif  /* !__IIG */
 
 class IIG_SERIALIZABLE OSData;
 class IIG_SERIALIZABLE OSNumber;
@@ -186,6 +186,12 @@ public:
 
 #define DEFN(classname, name)                                       \
 name ## _Impl(classname ## _ ## name ## _Args)
+
+/*
+ * Use of the IMPL macro is discouraged and should be replaced by a normal c++
+ * method implementation (with the all method arguments) and the name of the method
+ * given a suffix '_Impl'
+ */
 
 #define IMPL(classname, name)                                       \
 classname :: DEFN(classname, name)

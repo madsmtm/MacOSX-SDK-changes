@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.140.1) generated from IODataQueueDispatchSource.iig */
+/* iig(DriverKit-107.40.8) generated from IODataQueueDispatchSource.iig */
 
 /* IODataQueueDispatchSource.iig:1-37 */
 /*
@@ -409,9 +409,21 @@ public:\
     static kern_return_t\
     DataAvailable_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\
+        DataAvailable_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
+    static kern_return_t\
+    DataAvailable_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
         DataAvailable_Handler func);\
 \
     typedef void (*DataServiced_Handler)(OSMetaClassBase * target, IODataQueueDispatchSource_DataServiced_Args);\
+    static kern_return_t\
+    DataServiced_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        DataServiced_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
     static kern_return_t\
     DataServiced_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\

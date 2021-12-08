@@ -1,11 +1,17 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 94772B89-1A18-3332-8747-AA1D2F7D5544' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           A46C6EB6-D9AB-3A12-AB93-4B271BF87460
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           D1BA0037-9E08-338F-8C1C-55AF0F4EAD8D
 install-name:    '/usr/lib/swift/libswiftDemangle.dylib'
-current-version: 1103.8.25
+current-version: 0
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ __ZN5swift6Mangle10isNonAsciiEN4llvm9StringRefE, __ZN5swift6Mangle17translateOperatorEN4llvm9StringRefE, 
                        __ZN5swift6Mangle20getStandardTypeSubstEN4llvm9StringRefE, 
                        __ZN5swift6Mangle21needsPunycodeEncodingEN4llvm9StringRefE, 
@@ -76,9 +82,8 @@ exports:
                        __ZN5swift8Demangle9Demangler18demangleIdentifierEv, __ZN5swift8Demangle9Demangler18popTypeAndGetChildEv, 
                        __ZN5swift8Demangle9Demangler19demangleBuiltinTypeEv, __ZN5swift8Demangle9Demangler19demangleGenericTypeEv, 
                        __ZN5swift8Demangle9Demangler19demangleIndexAsNodeEv, __ZN5swift8Demangle9Demangler19demangleSpecialTypeEv, 
-                       __ZN5swift8Demangle9Demangler20demangleObjCTypeNameEv, __ZN5swift8Demangle9Demangler20demangleProtocolListEv, 
-                       __ZN5swift8Demangle9Demangler20demangleTypeManglingEv, __ZN5swift8Demangle9Demangler20demangleValueWitnessEv, 
-                       __ZN5swift8Demangle9Demangler21demangleBoundGenericsERNS0_6VectorIPNS0_4NodeEEERS4_, 
+                       __ZN5swift8Demangle9Demangler20demangleProtocolListEv, __ZN5swift8Demangle9Demangler20demangleTypeManglingEv, 
+                       __ZN5swift8Demangle9Demangler20demangleValueWitnessEv, __ZN5swift8Demangle9Demangler21demangleBoundGenericsERNS0_6VectorIPNS0_4NodeEEERS4_, 
                        __ZN5swift8Demangle9Demangler21demangleFuncSpecParamENS0_4Node4KindE, 
                        __ZN5swift8Demangle9Demangler21demanglePlainFunctionEv, __ZN5swift8Demangle9Demangler22addFuncSpecParamNumberEPNS0_4NodeENS0_34FunctionSigSpecializationParamKindE, 
                        __ZN5swift8Demangle9Demangler22demangleAnyGenericTypeENS0_4Node4KindE, 
@@ -94,14 +99,14 @@ exports:
                        __ZN5swift8Demangle9Demangler24demangleImplFunctionTypeEv, 
                        __ZN5swift8Demangle9Demangler24demangleProtocolListTypeEv, 
                        __ZN5swift8Demangle9Demangler25demangleGenericParamIndexEv, 
-                       __ZN5swift8Demangle9Demangler25demangleSymbolicReferenceEhPKv, 
+                       __ZN5swift8Demangle9Demangler25demangleSymbolicReferenceEh, 
                        __ZN5swift8Demangle9Demangler25popAnyProtocolConformanceEv, 
                        __ZN5swift8Demangle9Demangler26createStandardSubstitutionEc, 
                        __ZN5swift8Demangle9Demangler26demangleGenericRequirementEv, 
                        __ZN5swift8Demangle9Demangler26demangleMultiSubstitutionsEv, 
                        __ZN5swift8Demangle9Demangler26demangleOperatorIdentifierEv, 
                        __ZN5swift8Demangle9Demangler27demangleBridgedMethodParamsEv, 
-                       __ZN5swift8Demangle9Demangler27demangleImplParamConventionEv, 
+                       __ZN5swift8Demangle9Demangler27demangleImplParamConventionENS0_4Node4KindE, 
                        __ZN5swift8Demangle9Demangler28demangleAssociatedTypeSimpleEPNS0_4NodeE, 
                        __ZN5swift8Demangle9Demangler28demangleImplResultConventionENS0_4Node4KindE, 
                        __ZN5swift8Demangle9Demangler28demangleStandardSubstitutionEv, 

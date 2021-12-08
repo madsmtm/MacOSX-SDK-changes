@@ -1,10 +1,16 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 059227B1-A5CF-371D-A9ED-1C7D2422B9A9' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           9D21D8BB-B40D-31B0-906A-47563FFB0CBA
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           DB85DCFE-49D0-3FD8-8172-75BA36150904
 install-name:    '/System/Library/Frameworks/BusinessChat.framework/Versions/A/BusinessChat'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
     symbols:         [ _BCAuthenticationResponseStatusAuthenticated, _BCAuthenticationResponseStatusFailed, 
                        _BCBubbleViewStyleIcon, _BCBubbleViewStyleLarge, _BCBubbleViewStyleSmall, 
                        _BCInternalAuthenticationResponseStatusAuthenticated, _BCInternalAuthenticationResponseStatusFailed, 
@@ -23,8 +29,9 @@ exports:
                        _kCryptorErrorDomain ]
     objc-classes:    [ BCApplePayManager, BCAuthenticationLabels, BCAuthenticationManager, 
                        BCAuthenticationRequest, BCAuthenticationResponse, BCChatAction, 
-                       BCChatButton, BCConstants, BCCryptor, BCError, BCImage, BCImageStore, 
-                       BCInternalAuthenticationManager, BCInternalAuthenticationRequest, 
-                       BCInternalAuthenticationResponse, BCLogger, BCMessage, BCMessageData, 
-                       BCMessageHandler, BCMessageInfo, BCOAuth2Parameters, BCWebViewController ]
+                       BCChatButton, BCConstants, BCCryptor, BCError, BCFeatureFlag, 
+                       BCImage, BCImageManager, BCImageStore, BCInternalAuthenticationManager, 
+                       BCInternalAuthenticationRequest, BCInternalAuthenticationResponse, 
+                       BCLogger, BCMessage, BCMessageData, BCMessageHandler, BCMessageInfo, 
+                       BCOAuth2Parameters, BCWebViewController ]
 ...

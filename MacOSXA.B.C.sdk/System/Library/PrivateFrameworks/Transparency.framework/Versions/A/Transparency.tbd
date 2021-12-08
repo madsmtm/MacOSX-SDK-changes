@@ -1,14 +1,19 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 49F623E0-4445-3C9A-837B-2B6B3F04E0ED' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           20111235-DD50-302A-95B8-6CFAAAE54CE9
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           5E725A06-D145-3D1F-A646-7D881D53064A
 install-name:    '/System/Library/PrivateFrameworks/Transparency.framework/Versions/A/Transparency'
 current-version: 0
 compatibility-version: 0
 exports:
-  - archs:           [ x86_64 ]
-    symbols:         [ _Application_EnumDescriptor, _Application_IsValidValue, _ChangeRecord_MutationType_RawValue, 
-                       _ConsistencyProofRequest_LogConsistencyRequest_Application_RawValue, 
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
+    symbols:         [ _Application_EnumDescriptor, _Application_IsValidValue, _ConsistencyProofRequest_LogConsistencyRequest_Application_RawValue, 
                        _ConsistencyProofRequest_LogConsistencyRequest_LogType_RawValue, 
                        _ConsistencyProofRequest_Version_RawValue, _ConsistencyProofResponse_LogConsistencyResponse_Application_RawValue, 
                        _ConsistencyProofResponse_LogConsistencyResponse_LogType_RawValue, 
@@ -28,7 +33,7 @@ exports:
                        _QueryRequest_Version_RawValue, _QueryResponse_Status_RawValue, 
                        _RevisionLogInclusionProofRequest_Application_RawValue, _RevisionLogInclusionProofRequest_LogType_RawValue, 
                        _RevisionLogInclusionProofRequest_Version_RawValue, _RevisionLogInclusionProofResponse_Status_RawValue, 
-                       _SetChangeRecord_MutationType_RawValue, _SetConsistencyProofRequest_LogConsistencyRequest_Application_RawValue, 
+                       _SetConsistencyProofRequest_LogConsistencyRequest_Application_RawValue, 
                        _SetConsistencyProofRequest_LogConsistencyRequest_LogType_RawValue, 
                        _SetConsistencyProofRequest_Version_RawValue, _SetConsistencyProofResponse_LogConsistencyResponse_Application_RawValue, 
                        _SetConsistencyProofResponse_LogConsistencyResponse_LogType_RawValue, 
@@ -73,14 +78,15 @@ exports:
                        _kTransparencyManagedDataStoreEntityKTTreeHead, _kTransparencyMaxmimumDownloadRecordLifetime, 
                        _kTransparencyNetworkRequestHeaderApplication, _kTransparencyNetworkRequestHeaderUUID, 
                        _kTransparencyNetworkRequestHeaderUserAgent, _kTransparencyResponseMetadataKeyServerHint, 
-                       _kTransparencySPIFlagForceValidateUUID, _kTransparencyUserAgent ]
-    objc-classes:    [ ChangeLogNode, ChangeRecord, ConsistencyProofRequest, ConsistencyProofRequest_LogConsistencyRequest, 
+                       _kTransparencyResponseServerHint, _kTransparencySPIFlagForceValidateUUID, 
+                       _kTransparencyUserAgent ]
+    objc-classes:    [ ChangeLogNode, ConsistencyProofRequest, ConsistencyProofRequest_LogConsistencyRequest, 
                        ConsistencyProofResponse, ConsistencyProofResponse_LogConsistencyResponse, 
-                       IdsDeviceApiRoot, IdsKtRoot, IdsServiceApiRoot, InclusionProof, 
-                       InsertRequest, InsertResponse, KTAccount, KTApplicationPublicKeyStore, 
-                       KTClientDataRecord, KTClientRequest, KTContext, KTContextStore, 
-                       KTContextVerifier, KTDevice, KTInclusionProofVerifier, KTLogClient, 
-                       KTLogNetworkRequest, KTLoggableData, KTPatInclusionProofVerifier, 
+                       DownloadRecord, IdsDeviceApiRoot, IdsKtRoot, IdsServiceApiRoot, 
+                       InclusionProof, InsertRequest, InsertResponse, KTAccount, 
+                       KTApplicationPublicKeyStore, KTClientDataRecord, KTClientRequest, 
+                       KTContext, KTContextStore, KTContextVerifier, KTDevice, KTInclusionProofVerifier, 
+                       KTLogClient, KTLogNetworkRequest, KTLoggableData, KTPatInclusionProofVerifier, 
                        KTPublicKeyStore, KTTransparentData, KTVerifier, KtClientApiRoot, 
                        LogEntry, LogHead, MapEntry, MapHead, MapLeaf, MapLeaf_Account, 
                        MapLeaf_Device, MarkForDeletionRequest, MarkForDeletionResponse, 
@@ -89,8 +95,9 @@ exports:
                        QueryRequest, QueryRequest_Device, QueryResponse, QueryResponse_DeviceWitness, 
                        RevisionLogInclusionProofRequest, RevisionLogInclusionProofResponse, 
                        Signature, SignedLogHead, SignedMapHead, SignedMutationTimestamp, 
-                       SingleDataRecord, TopLeveTreeNode, TransparencyAccount, TransparencyAnalytics, 
-                       TransparencyApplication, TransparencyCertificateHelper, TransparencyConsistencyProofVerifier, 
+                       SingleDataRecord, TopLeveTreeNode, TopLevelTreeConfigNode, 
+                       TransparencyAccount, TransparencyAnalytics, TransparencyApplication, 
+                       TransparencyCertificateHelper, TransparencyConsistencyProofVerifier, 
                        TransparencyECVRFVerifier, TransparencyError, TransparencyFileSupport, 
                        TransparencyLogClient, TransparencyLogEntryVerifier, TransparencyLogSession, 
                        TransparencyLogSessionDelegate, TransparencyManagedDataStore, 

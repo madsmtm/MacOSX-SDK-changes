@@ -1,6 +1,6 @@
-/* iig(DriverKit-73.140.1) generated from OSAction.iig */
+/* iig(DriverKit-107.40.8) generated from OSAction.iig */
 
-/* OSAction.iig:1-37 */
+/* OSAction.iig:1-38 */
 /*
  * Copyright (c) 2019-2019 Apple Inc. All rights reserved.
  *
@@ -37,8 +37,9 @@
 typedef void (^OSActionCancelHandler)(void);
 typedef void (^OSActionAbortedHandler)(void);
 struct OSActionWaitToken;
+class OSString;
 
-/* source class OSAction OSAction.iig:38-160 */
+/* source class OSAction OSAction.iig:39-170 */
 
 #if __DOCUMENTATION__
 #define KERNEL IIG_KERNEL
@@ -90,6 +91,15 @@ public:
 		uint64_t        msgid,
 		size_t          referenceSize,
 		OSAction     ** action) LOCAL;
+
+     static kern_return_t
+     CreateWithTypeName(
+          OSObject      * target,
+          uint64_t        targetmsgid,
+          uint64_t        msgid,
+          size_t          referenceSize,
+          OSString      * typeName,
+          OSAction     ** action) LOCAL;
 #endif
 
 	virtual void
@@ -171,9 +181,10 @@ public:
 #undef KERNEL
 #else /* __DOCUMENTATION__ */
 
-/* generated class OSAction OSAction.iig:38-160 */
+/* generated class OSAction OSAction.iig:39-170 */
 
 #define OSAction_Create_ID            0xaa1fc3ce85ce5497ULL
+#define OSAction_CreateWithTypeName_ID            0xa0c5b3ed5a8ea283ULL
 #define OSAction_Aborted_ID            0xbfb95094c657d68fULL
 
 #define OSAction_Create_Args \
@@ -181,6 +192,14 @@ public:
         uint64_t targetmsgid, \
         uint64_t msgid, \
         size_t referenceSize, \
+        OSAction ** action
+
+#define OSAction_CreateWithTypeName_Args \
+        OSObject * target, \
+        uint64_t targetmsgid, \
+        uint64_t msgid, \
+        size_t referenceSize, \
+        OSString * typeName, \
         OSAction ** action
 
 #define OSAction_Aborted_Args \
@@ -202,6 +221,15 @@ public:\
         uint64_t targetmsgid,\
         uint64_t msgid,\
         size_t referenceSize,\
+        OSAction ** action);\
+\
+    static kern_return_t\
+    CreateWithTypeName(\
+        OSObject * target,\
+        uint64_t targetmsgid,\
+        uint64_t msgid,\
+        size_t referenceSize,\
+        OSString * typeName,\
         OSAction ** action);\
 \
     void *\
@@ -241,6 +269,9 @@ protected:\
     static kern_return_t\
     Create_Call(OSAction_Create_Args);\
 \
+    static kern_return_t\
+    CreateWithTypeName_Call(OSAction_CreateWithTypeName_Args);\
+\
     void\
     Aborted_Impl(OSAction_Aborted_Args);\
 \
@@ -252,6 +283,11 @@ public:\
     static kern_return_t\
     Create_Invoke(const IORPC rpc,\
         Create_Handler func);\
+\
+    typedef kern_return_t (*CreateWithTypeName_Handler)(OSAction_CreateWithTypeName_Args);\
+    static kern_return_t\
+    CreateWithTypeName_Invoke(const IORPC rpc,\
+        CreateWithTypeName_Handler func);\
 \
     typedef void (*Aborted_Handler)(OSMetaClassBase * targetOSAction_Aborted_Args);\
     static kern_return_t\
@@ -268,6 +304,9 @@ protected:\
 \
     static kern_return_t\
     Create_Impl(OSAction_Create_Args);\
+\
+    static kern_return_t\
+    CreateWithTypeName_Impl(OSAction_CreateWithTypeName_Args);\
 \
 
 
@@ -310,6 +349,6 @@ public:
 
 #endif /* !__DOCUMENTATION__ */
 
-/* OSAction.iig:162- */
+/* OSAction.iig:172- */
 
 #endif /* ! _IOKIT_OSACTION_H */

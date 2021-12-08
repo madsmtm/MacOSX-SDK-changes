@@ -1,21 +1,38 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 5C7293BD-7F65-381E-A2F1-F47FE9183B79', 'x86_64: 5C7293BD-7F65-381E-A2F1-F47FE9183B79' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           DD995E25-DC62-30A4-8FF9-C2448E4C7453
+  - target:          x86_64-maccatalyst
+    value:           DD995E25-DC62-30A4-8FF9-C2448E4C7453
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           E77640AB-829F-333B-A063-8FB73F4301B3
+  - target:          arm64e-maccatalyst
+    value:           E77640AB-829F-333B-A063-8FB73F4301B3
 install-name:    '/System/Library/PrivateFrameworks/CloudServices.framework/Versions/A/CloudServices'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _SecureBackupBackOffDateWithInfo, _SecureBackupDisableWithInfo, 
                        _SecureBackupEnableWithInfo, _SecureBackupGetAccountInfoWithInfo, 
                        _SecureBackupKVSState, _SecureBackupPasscodeRequestNotifyTokenName, 
                        _SecureBackupRecoverWithInfo, _SecureBackupSetBackOffDateWithInfo, 
-                       _SecureBackupUpdateMetadataWithInfo, _kCloudServicesErrorDomain, 
+                       _SecureBackupTermsInfoReadFrom, _SecureBackupUpdateMetadataWithInfo, 
+                       __CloudServicesSignpostCreate, __CloudServicesSignpostGetNanoseconds, 
+                       __CloudServicesSignpostLogSystem, _kCloudServicesErrorDomain, 
                        _kCloudServicesRetryAfterKey, _kEscrowServiceErrorDomain, 
-                       _kSecureBackupAccountIsHighSecurityKey, _kSecureBackupAlliCDPRecordsKey, 
-                       _kSecureBackupAuthenticationAppleID, _kSecureBackupAuthenticationAuthToken, 
-                       _kSecureBackupAuthenticationDSID, _kSecureBackupAuthenticationEscrowProxyURL, 
-                       _kSecureBackupAuthenticationPassword, _kSecureBackupAuthenticationiCloudEnvironment, 
-                       _kSecureBackupBackOffDateKey, _kSecureBackupBottleIDKey, _kSecureBackupBottleValidityKey, 
+                       _kEscrowServiceRecordDataKey, _kSecureBackupAccountIsHighSecurityKey, 
+                       _kSecureBackupAlliCDPRecordsKey, _kSecureBackupAuthenticationAppleID, 
+                       _kSecureBackupAuthenticationAuthToken, _kSecureBackupAuthenticationDSID, 
+                       _kSecureBackupAuthenticationEscrowProxyURL, _kSecureBackupAuthenticationPassword, 
+                       _kSecureBackupAuthenticationiCloudEnvironment, _kSecureBackupBackOffDateKey, 
+                       _kSecureBackupBagPasswordKey, _kSecureBackupBottleIDKey, _kSecureBackupBottleValidityKey, 
                        _kSecureBackupBuildVersionKey, _kSecureBackupCFAlliCDPRecordsKey, 
                        _kSecureBackupCFAuthenticationAppleID, _kSecureBackupCFAuthenticationAuthToken, 
                        _kSecureBackupCFAuthenticationDSID, _kSecureBackupCFAuthenticationEscrowProxyURL, 
@@ -50,12 +67,13 @@ exports:
                        _kSecureBackupFMiPRecoveryKey, _kSecureBackupFMiPUUIDKey, 
                        _kSecureBackupHSA2CachedPrerecordUUID, _kSecureBackupIDMSDataKey, 
                        _kSecureBackupIDMSRecoveryKey, _kSecureBackupIsEnabledKey, 
-                       _kSecureBackupLastBackupDateKey, _kSecureBackupLastBackupTimestampKey, 
-                       _kSecureBackupMetadataKey, _kSecureBackupNewPassphraseKey, 
-                       _kSecureBackupNotificationKey, _kSecureBackupNumericPassphraseLengthKey, 
-                       _kSecureBackupPassphraseKey, _kSecureBackupPeerInfoDataKey, 
-                       _kSecureBackupPeerInfoOSVersionKey, _kSecureBackupPeerInfoSerialNumberKey, 
-                       _kSecureBackupRecordIDKey, _kSecureBackupRecordLabelKey, _kSecureBackupRecordStatusInvalid, 
+                       _kSecureBackupKeybagDigestKey, _kSecureBackupLastBackupDateKey, 
+                       _kSecureBackupLastBackupTimestampKey, _kSecureBackupMetadataKey, 
+                       _kSecureBackupNewPassphraseKey, _kSecureBackupNotificationKey, 
+                       _kSecureBackupNumericPassphraseLengthKey, _kSecureBackupPassphraseKey, 
+                       _kSecureBackupPeerInfoDataKey, _kSecureBackupPeerInfoOSVersionKey, 
+                       _kSecureBackupPeerInfoSerialNumberKey, _kSecureBackupRecordIDKey, 
+                       _kSecureBackupRecordLabelKey, _kSecureBackupRecordStatusInvalid, 
                        _kSecureBackupRecordStatusKey, _kSecureBackupRecordStatusValid, 
                        _kSecureBackupRecoveryKeyKey, _kSecureBackupRecoveryRequiresVerificationTokenKey, 
                        _kSecureBackupRecoveryStatusKey, _kSecureBackupRecoveryVerificationTokenLengthKey, 
@@ -73,5 +91,5 @@ exports:
                        _kSecureBackupiCDPDoubleEnrollmentRecordIDsKey, _kSecureBackupiCDPRecordsKey, 
                        _kSecureBackupiCloudDataProtectionDeleteAllRecordsKey, _kSecureBackupiCloudDataProtectionEnabledKey, 
                        _kSecureBackupiCloudIdentityDataKey, _kSecureBackupiCloudIdentityPublicDataKey ]
-    objc-classes:    [ SecureBackup, SecureBackupBeginPasscodeRequestResults ]
+    objc-classes:    [ SecureBackup, SecureBackupBeginPasscodeRequestResults, SecureBackupTermsInfo ]
 ...

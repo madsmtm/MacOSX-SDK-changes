@@ -1,11 +1,17 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: E37D5C0A-684B-3DB3-9579-ABEDD31955E5' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           EADD812F-0625-3083-91A4-7F93A5EFA153
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           924A8AEC-98F4-310F-8BF6-F8A501BCDC9B
 install-name:    '/System/Library/Frameworks/MediaLibrary.framework/Versions/A/MediaLibrary'
-current-version: 787
+current-version: 796
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ arm64e-macos, x86_64-macos, arm64-macos ]
     symbols:         [ _MLApertureAllPhotosTypeIdentifier, _MLApertureAllProjectsTypeIdentifier, 
                        _MLApertureFacebookAlbumTypeIdentifier, _MLApertureFacebookGroupTypeIdentifier, 
                        _MLApertureFacesAlbumTypeIdentifier, _MLApertureFlaggedTypeIdentifier, 

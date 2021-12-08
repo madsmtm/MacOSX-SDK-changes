@@ -1,13 +1,66 @@
-/* iig(DriverKit-73.140.1) generated from IOUserNetworkPacketBufferPool.iig */
+/* iig(DriverKit-107.40.8) generated from IOUserNetworkPacketBufferPool.iig */
 
-/* IOUserNetworkPacketBufferPool.iig:1-6 */
+/* IOUserNetworkPacketBufferPool.iig:1-59 */
+/*
+ * Copyright (c) 2019-2020 Apple, Inc. All rights reserved.
+ *
+ * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
+ *
+ * This file contains Original Code and/or Modifications of Original Code
+ * as defined in and that are subject to the Apple Public Source License
+ * Version 2.0 (the 'License'). You may not use this file except in
+ * compliance with the License. The rights granted to you under the License
+ * may not be used to create, or enable the creation or redistribution of,
+ * unlawful or unlicensed copies of an Apple operating system, or to
+ * circumvent, violate, or enable the circumvention or violation of, any
+ * terms of an Apple operating system software license agreement.
+ *
+ * Please obtain a copy of the License at
+ * http://www.opensource.apple.com/apsl/ and read it before using this file.
+ *
+ * The Original Code and all software distributed under the License are
+ * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
+ * Please see the License for the specific language governing rights and
+ * limitations under the License.
+ *
+ * @APPLE_OSREFERENCE_LICENSE_HEADER_END@
+ */
+
 #ifndef _IOUSERNETWORKPACKETBUFFERPOOL_IIG
 #define _IOUSERNETWORKPACKETBUFFERPOOL_IIG
 
 #include <DriverKit/IOMemoryDescriptor.h>  /* .iig include */
+#include <DriverKit/IODMACommand.h>  /* .iig include */
 #include <NetworkingDriverKit/IOUserNetworkPacket.h>  /* .iig include */
 
-/* source class IOUserNetworkPacketBufferPool IOUserNetworkPacketBufferPool.iig:7-52 */
+/*! @enum PoolFlags
+    @abstract Flags for PoolOptions::poolFlags.
+    @constant PoolFlagSingleMemorySegment The pool will be constucted with single memory segment of buffers.
+    @constant PoolFlagPersistentMemory The pool memory will be persistently wired.
+*/
+enum IOUserNetworkPacketBufferPoolFlags {
+    PoolFlagSingleMemorySegment = 0x00000002,
+    PoolFlagPersistentMemory    = 0x00000004,
+    PoolFlagMapToDext           = 0x10000000,
+    PoolFlagMapToDevice         = 0x20000000,
+    PoolFlagMask = PoolFlagSingleMemorySegment | PoolFlagPersistentMemory | PoolFlagMapToDext | PoolFlagMapToDevice,
+};
+
+struct IOUserNetworkPacketBufferPoolOptions {
+    uint32_t packetCount;
+    uint32_t bufferCount;
+    uint32_t bufferSize;
+    uint32_t maxBuffersPerPacket;
+    uint32_t memorySegmentSize;
+    uint32_t poolFlags;
+    IODMACommandSpecification dmaSpecification;
+    uint32_t _resv[16];
+};
+
+/* source class IOUserNetworkPacketBufferPool IOUserNetworkPacketBufferPool.iig:60-114 */
 
 #if __DOCUMENTATION__
 #define KERNEL IIG_KERNEL
@@ -24,6 +77,7 @@ public:
     virtual void
     free() override;
 
+    /** @deprectated, use CreateWithOptions instead */
     static kern_return_t
     Create(
         OSObject * poolOwner,
@@ -31,7 +85,14 @@ public:
         uint32_t packetCount,
         uint32_t bufferCount,
         uint32_t bufferSize,
-        IOUserNetworkPacketBufferPool ** pool) LOCAL;
+        IOUserNetworkPacketBufferPool ** pool) LOCALONLY;
+
+    static kern_return_t
+    CreateWithOptions(
+        IOService * device,
+        const char name[1024],
+        const IOUserNetworkPacketBufferPoolOptions * options,
+        IOUserNetworkPacketBufferPool ** pool) LOCALONLY;
 
     virtual kern_return_t
     DeallocatePacket(
@@ -56,11 +117,11 @@ public:
 #undef KERNEL
 #else /* __DOCUMENTATION__ */
 
-/* generated class IOUserNetworkPacketBufferPool IOUserNetworkPacketBufferPool.iig:7-52 */
+/* generated class IOUserNetworkPacketBufferPool IOUserNetworkPacketBufferPool.iig:60-114 */
 
 #define IOUserNetworkPacketBufferPool__DeallocatePacket_ID            0x96e008792b9286b5ULL
 #define IOUserNetworkPacketBufferPool__CopyPacketWithIndex_ID            0xf0165b114d39c9f8ULL
-#define IOUserNetworkPacketBufferPool_Create_ID            0xc44414cb258d0a15ULL
+#define IOUserNetworkPacketBufferPool__Create_ID            0x8e2ec93abf72f427ULL
 #define IOUserNetworkPacketBufferPool_CopyMemoryDescriptor_ID            0xc9a7388ad62f5737ULL
 #define IOUserNetworkPacketBufferPool_GetPacketCount_ID            0xf4aae455ba1082ebULL
 #define IOUserNetworkPacketBufferPool_GetBufferCount_ID            0xe922d59c37bf3bbeULL
@@ -72,12 +133,10 @@ public:
         uint32_t index, \
         IOUserNetworkPacket ** packet
 
-#define IOUserNetworkPacketBufferPool_Create_Args \
-        OSObject * poolOwner, \
+#define IOUserNetworkPacketBufferPool__Create_Args \
+        IOService * device, \
         const char * name, \
-        uint32_t packetCount, \
-        uint32_t bufferCount, \
-        uint32_t bufferSize, \
+        const IOUserNetworkPacketBufferPoolOptions * options, \
         IOUserNetworkPacketBufferPool ** pool
 
 #define IOUserNetworkPacketBufferPool_CopyMemoryDescriptor_Args \
@@ -111,12 +170,26 @@ public:\
         OSDispatchMethod supermethod = NULL);\
 \
     static kern_return_t\
+    _Create(\
+        IOService * device,\
+        const char * name,\
+        const IOUserNetworkPacketBufferPoolOptions * options,\
+        IOUserNetworkPacketBufferPool ** pool);\
+\
+    static kern_return_t\
     Create(\
         OSObject * poolOwner,\
         const char * name,\
         uint32_t packetCount,\
         uint32_t bufferCount,\
         uint32_t bufferSize,\
+        IOUserNetworkPacketBufferPool ** pool);\
+\
+    static kern_return_t\
+    CreateWithOptions(\
+        IOService * device,\
+        const char * name,\
+        const IOUserNetworkPacketBufferPoolOptions * options,\
         IOUserNetworkPacketBufferPool ** pool);\
 \
     kern_return_t\
@@ -139,7 +212,7 @@ protected:\
     /* _Impl methods */\
 \
     static kern_return_t\
-    Create_Call(IOUserNetworkPacketBufferPool_Create_Args);\
+    _Create_Call(IOUserNetworkPacketBufferPool__Create_Args);\
 \
     kern_return_t\
     GetPacketCount_Impl(IOUserNetworkPacketBufferPool_GetPacketCount_Args);\
@@ -163,10 +236,10 @@ public:\
         OSMetaClassBase * target,\
         _CopyPacketWithIndex_Handler func);\
 \
-    typedef kern_return_t (*Create_Handler)(IOUserNetworkPacketBufferPool_Create_Args);\
+    typedef kern_return_t (*_Create_Handler)(IOUserNetworkPacketBufferPool__Create_Args);\
     static kern_return_t\
-    Create_Invoke(const IORPC rpc,\
-        Create_Handler func);\
+    _Create_Invoke(const IORPC rpc,\
+        _Create_Handler func);\
 \
     typedef kern_return_t (*CopyMemoryDescriptor_Handler)(OSMetaClassBase * target, IOUserNetworkPacketBufferPool_CopyMemoryDescriptor_Args);\
     static kern_return_t\
@@ -200,7 +273,7 @@ protected:\
     _CopyPacketWithIndex_Impl(IOUserNetworkPacketBufferPool__CopyPacketWithIndex_Args);\
 \
     static kern_return_t\
-    Create_Impl(IOUserNetworkPacketBufferPool_Create_Args);\
+    _Create_Impl(IOUserNetworkPacketBufferPool__Create_Args);\
 \
     kern_return_t\
     CopyMemoryDescriptor_Impl(IOUserNetworkPacketBufferPool_CopyMemoryDescriptor_Args);\
@@ -301,6 +374,6 @@ public:
 #endif /* !__DOCUMENTATION__ */
 
 
-/* IOUserNetworkPacketBufferPool.iig:71- */
+/* IOUserNetworkPacketBufferPool.iig:140- */
 
 #endif /* ! _IOUSERNETWORKPACKETBUFFERPOOL_IIG */

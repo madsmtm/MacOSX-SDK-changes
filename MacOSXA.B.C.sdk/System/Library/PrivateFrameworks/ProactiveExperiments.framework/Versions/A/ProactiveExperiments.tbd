@@ -1,26 +1,40 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 4A3CF0BA-FA57-34C4-9FA5-A320E60FA305', 'x86_64: 4A3CF0BA-FA57-34C4-9FA5-A320E60FA305' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           05E83892-5F20-3DBF-B436-7D0AA32EDCDB
+  - target:          x86_64-maccatalyst
+    value:           05E83892-5F20-3DBF-B436-7D0AA32EDCDB
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           AE7E5C16-D122-3F85-A7B8-7AF10016E2E7
+  - target:          arm64e-maccatalyst
+    value:           AE7E5C16-D122-3F85-A7B8-7AF10016E2E7
 install-name:    '/System/Library/PrivateFrameworks/ProactiveExperiments.framework/Versions/A/ProactiveExperiments'
-current-version: 1052.34
+current-version: 1115.255.1
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _PREAMEngagedResponseReadFrom, _PREAMResponseItemReadFrom, 
                        _PREAMResponseListGeneratedReadFrom, _PREMachTimeToMilliseconds, 
                        _PREMachTimeToNanoseconds, _PRERecordMeasurementState, _PREUMEngagedResponseListReadFrom, 
                        _PREUMMessageMetadataReadFrom, _PREUMResponseItemReadFrom, 
                        _PREUMResponseListReadFrom, _PREUMTrialExperimentReadFrom, 
                        _ProactiveExperimentsVersionNumber, _ProactiveExperimentsVersionString, 
-                       _pre_quicktype_handle, _pre_responses_handle, _pre_scales_handle, 
-                       _pre_signpost_handle, _pre_xpc_handle ]
+                       _kPREDefaultResponseKitModelName, _kPREQrChunkPlistBundledOnDevice, 
+                       _kPREResponsesExperimentModelName, _kPREResponsesSuite, _pre_responses_handle, 
+                       _pre_scales_handle, _pre_signpost_handle, _pre_xpc_handle ]
     objc-classes:    [ PREAMEngagedResponse, PREAMResponseItem, PREAMResponseListGenerated, 
-                       PREQuickTypeClient, PREQuickTypeExperiment, PREResponseItem, 
-                       PREResponseTappedEvent, PREResponsesClient, PREResponsesExperiment, 
-                       PREResponsesGeneratedEvent, PREResponsesMetricsPET, PREResponsesTrial, 
-                       PREResponsesTrialSimulator, PREUMEngagedResponseList, PREUMMessageMetadata, 
-                       PREUMResponseItem, PREUMResponseList, PREUMTrialExperiment, 
-                       PREXPCClientHelpers ]
+                       PREResponseItem, PREResponseTappedEvent, PREResponsesClient, 
+                       PREResponsesExperiment, PREResponsesGeneratedEvent, PREResponsesMetricsPET, 
+                       PREResponsesTrial, PREResponsesTrialSimulator, PREUMEngagedResponseList, 
+                       PREUMMessageMetadata, PREUMResponseItem, PREUMResponseList, 
+                       PREUMTrialExperiment, PREXPCClientHelpers ]
     objc-ivars:      [ PREAMEngagedResponse._ageGroup, PREAMEngagedResponse._experimentId, 
                        PREAMEngagedResponse._generationStatus, PREAMEngagedResponse._has, 
                        PREAMEngagedResponse._hasQuestionMark, PREAMEngagedResponse._hostProcess, 

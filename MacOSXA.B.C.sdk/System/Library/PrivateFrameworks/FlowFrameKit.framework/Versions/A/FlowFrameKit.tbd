@@ -1,11 +1,17 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 8177E910-8109-3422-BAA6-BB645D66CCE7' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           06EA401D-B6D7-3729-B23F-FE4246F7859E
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           BEA7FDAC-BBEE-3241-B153-82867B176995
 install-name:    '/System/Library/PrivateFrameworks/FlowFrameKit.framework/Versions/A/FlowFrameKit'
 swift-abi-version: 7
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ '_$s10Controller12FlowFrameKit0bC15FactoryProtocolPTl', '_$s10Controller12FlowFrameKit0bC8ProtocolPTl', 
                        '_$s12FlowFrameKit03AnyB0C010underlyingB0ypvg', '_$s12FlowFrameKit03AnyB0C010underlyingB0ypvpMV', 
                        '_$s12FlowFrameKit03AnyB0C11wrappedExityypypcvg', '_$s12FlowFrameKit03AnyB0C11wrappedExityypypcvpMV', 
@@ -75,6 +81,7 @@ exports:
                        '_$s12FlowFrameKit04MegaB0C16semaphoreOnInputSo012OS_dispatch_E0Cvg', 
                        '_$s12FlowFrameKit04MegaB0C16semaphoreOnInputSo012OS_dispatch_E0CvpMV', 
                        '_$s12FlowFrameKit04MegaB0C16semaphoreOnInputSo012OS_dispatch_E0CvpWvd', 
+                       '_$s12FlowFrameKit04MegaB0C31logRepeatedCompletionInvocation33_E516D57109E3F7BAF7AA1721E22A8A74LLyySSF', 
                        '_$s12FlowFrameKit04MegaB0C4exit10controllerypqd___tlF', '_$s12FlowFrameKit04MegaB0C4exit10controllerypqd___tlFTq', 
                        '_$s12FlowFrameKit04MegaB0C5frameAA03AnyB0CyxGvg', '_$s12FlowFrameKit04MegaB0C5frameAA03AnyB0CyxGvpMV', 
                        '_$s12FlowFrameKit04MegaB0C5frameAA03AnyB0CyxGvpWvd', '_$s12FlowFrameKit04MegaB0C6action8renderer4argss6ResultOyAA0B9OperationVyxGs5Error_pGqd___yptlF', 
@@ -108,11 +115,14 @@ exports:
                        '_$s12FlowFrameKit0B9OperationV4typeAA0bD4TypeOvg', '_$s12FlowFrameKit0B9OperationV4typeAA0bD4TypeOvpMV', 
                        '_$s12FlowFrameKit0B9OperationV6replan12requireInputACyxGSb_tFZ', 
                        '_$s12FlowFrameKit0B9OperationV6replan4next15childCompletionACyxGqd___yqd_0__9ExitValueQyd__tct5InputQyd__RszAA0aB8ProtocolRd__r0_lFZ', 
+                       '_$s12FlowFrameKit0B9OperationV6replan4nextACyxGAA03AnyB0CyxG_tFZ', 
                        '_$s12FlowFrameKit0B9OperationV6replan4nextACyxGqd___t5InputQyd__RszAA0aB8ProtocolRd__lFZ', 
                        '_$s12FlowFrameKit0B9OperationV7ongoing12requireInputACyxGSb_tFZ', 
                        '_$s12FlowFrameKit0B9OperationV7ongoing4next15childCompletionACyxGqd___yqd_0__9ExitValueQyd__tct5InputQyd__RszAA0aB8ProtocolRd__r0_lFZ', 
+                       '_$s12FlowFrameKit0B9OperationV7ongoing4nextACyxGAA03AnyB0CyxG_tFZ', 
                        '_$s12FlowFrameKit0B9OperationV7ongoing4nextACyxGqd___t5InputQyd__RszAA0aB8ProtocolRd__lFZ', 
                        '_$s12FlowFrameKit0B9OperationV8complete4next15childCompletionACyxGqd___yqd_0__9ExitValueQyd__tct5InputQyd__RszAA0aB8ProtocolRd__r0_lFZ', 
+                       '_$s12FlowFrameKit0B9OperationV8complete4nextACyxGAA03AnyB0CyxG_tFZ', 
                        '_$s12FlowFrameKit0B9OperationV8complete4nextACyxGqd___t5InputQyd__RszAA0aB8ProtocolRd__lFZ', 
                        '_$s12FlowFrameKit0B9OperationV8completeACyxGyFZ', '_$s12FlowFrameKit0B9OperationVMa', 
                        '_$s12FlowFrameKit0B9OperationVMn', '_$s12FlowFrameKit0aB15FactoryProtocolMp', 
@@ -138,6 +148,7 @@ exports:
                        '_$s12FlowFrameKit0aB7RuntimeC07currentB0AA04MegaB0CyxGSgvpMV', 
                        '_$s12FlowFrameKit0aB7RuntimeC07currentB0AA04MegaB0CyxGSgvsTj', 
                        '_$s12FlowFrameKit0aB7RuntimeC07currentB0AA04MegaB0CyxGSgvsTq', 
+                       '_$s12FlowFrameKit0aB7RuntimeC11ensureReadyyyKFTj', '_$s12FlowFrameKit0aB7RuntimeC11ensureReadyyyKFTq', 
                        '_$s12FlowFrameKit0aB7RuntimeC13configurationAA0D13ConfigurationVvg', 
                        '_$s12FlowFrameKit0aB7RuntimeC13configurationAA0D13ConfigurationVvpMV', 
                        '_$s12FlowFrameKit0aB7RuntimeC16debugDescriptionSSvgTj', '_$s12FlowFrameKit0aB7RuntimeC16debugDescriptionSSvgTq', 
@@ -145,7 +156,7 @@ exports:
                        '_$s12FlowFrameKit0aB7RuntimeC18frameFactoryLoader13configurationACyxq_Gq__AA0D13ConfigurationVtcfCTj', 
                        '_$s12FlowFrameKit0aB7RuntimeC18frameFactoryLoader13configurationACyxq_Gq__AA0D13ConfigurationVtcfCTq', 
                        '_$s12FlowFrameKit0aB7RuntimeC18frameFactoryLoader13configurationACyxq_Gq__AA0D13ConfigurationVtcfc', 
-                       '_$s12FlowFrameKit0aB7RuntimeC5resetyyFTj', '_$s12FlowFrameKit0aB7RuntimeC5resetyyFTq', 
+                       '_$s12FlowFrameKit0aB7RuntimeC5resetyyKFTj', '_$s12FlowFrameKit0aB7RuntimeC5resetyyKFTq', 
                        '_$s12FlowFrameKit0aB7RuntimeC5stackAA16CancellableStackCyxGvMTj', 
                        '_$s12FlowFrameKit0aB7RuntimeC5stackAA16CancellableStackCyxGvMTq', 
                        '_$s12FlowFrameKit0aB7RuntimeC5stackAA16CancellableStackCyxGvgTj', 
@@ -169,7 +180,14 @@ exports:
                        '_$s12FlowFrameKit0aB8ProtocolP7onInput10controller5input10completiony10ControllerQz_0F0Qzys6ResultOyAA14UnderstandableOs5Error_pGctFTq', 
                        '_$s12FlowFrameKit0aB8ProtocolP9namespaceSSvgTj', '_$s12FlowFrameKit0aB8ProtocolP9namespaceSSvgTq', 
                        '_$s12FlowFrameKit0aB8ProtocolPAAyt9ExitValueRtzrlE4exit10controllery10ControllerQz_tF', 
-                       '_$s12FlowFrameKit0aB8ProtocolTL', '_$s12FlowFrameKit12NodeIteratorV4nextAA0D0CyxGSgyF', 
+                       '_$s12FlowFrameKit0aB8ProtocolTL', '_$s12FlowFrameKit0abC8SignpostO14frameLifecycles12StaticStringVvau', 
+                       '_$s12FlowFrameKit0abC8SignpostO14frameLifecycles12StaticStringVvgZ', 
+                       '_$s12FlowFrameKit0abC8SignpostO14frameLifecycles12StaticStringVvpZ', 
+                       '_$s12FlowFrameKit0abC8SignpostO19resetStackLockFatals12StaticStringVvau', 
+                       '_$s12FlowFrameKit0abC8SignpostO19resetStackLockFatals12StaticStringVvgZ', 
+                       '_$s12FlowFrameKit0abC8SignpostO19resetStackLockFatals12StaticStringVvpZ', 
+                       '_$s12FlowFrameKit0abC8SignpostOMa', '_$s12FlowFrameKit0abC8SignpostOMn', 
+                       '_$s12FlowFrameKit0abC8SignpostON', '_$s12FlowFrameKit12NodeIteratorV4nextAA0D0CyxGSgyF', 
                        '_$s12FlowFrameKit12NodeIteratorVMa', '_$s12FlowFrameKit12NodeIteratorVMn', 
                        '_$s12FlowFrameKit12NodeIteratorVyACyxGAA0D0CyxGSgcfC', '_$s12FlowFrameKit12NodeIteratorVyxGStAAMc', 
                        '_$s12FlowFrameKit13OrderedForestC12makeIteratorAA04NodeG0VyxGyF', 
@@ -208,8 +226,12 @@ exports:
                        '_$s12FlowFrameKit13TimedOutErrorV7messageSSvg', '_$s12FlowFrameKit13TimedOutErrorV7messageSSvpMV', 
                        '_$s12FlowFrameKit13TimedOutErrorVMa', '_$s12FlowFrameKit13TimedOutErrorVMn', 
                        '_$s12FlowFrameKit13TimedOutErrorVN', '_$s12FlowFrameKit13TimedOutErrorVs0F0AAMc', 
-                       '_$s12FlowFrameKit14UnderstandableO2eeoiySbAC_ACtFZ', '_$s12FlowFrameKit14UnderstandableO2noyA2CmFWC', 
-                       '_$s12FlowFrameKit14UnderstandableO3yesyA2CmFWC', '_$s12FlowFrameKit14UnderstandableO4hash4intoys6HasherVz_tF', 
+                       '_$s12FlowFrameKit14CancelledErrorV7messageACSS_tcfC', '_$s12FlowFrameKit14CancelledErrorV7messageSSvg', 
+                       '_$s12FlowFrameKit14CancelledErrorV7messageSSvpMV', '_$s12FlowFrameKit14CancelledErrorVMa', 
+                       '_$s12FlowFrameKit14CancelledErrorVMn', '_$s12FlowFrameKit14CancelledErrorVN', 
+                       '_$s12FlowFrameKit14CancelledErrorVs0E0AAMc', '_$s12FlowFrameKit14UnderstandableO2eeoiySbAC_ACtFZ', 
+                       '_$s12FlowFrameKit14UnderstandableO2noyA2CmFWC', '_$s12FlowFrameKit14UnderstandableO3yesyA2CmFWC', 
+                       '_$s12FlowFrameKit14UnderstandableO4hash4intoys6HasherVz_tF', 
                        '_$s12FlowFrameKit14UnderstandableO9hashValueSivg', '_$s12FlowFrameKit14UnderstandableO9hashValueSivpMV', 
                        '_$s12FlowFrameKit14UnderstandableOMa', '_$s12FlowFrameKit14UnderstandableOMn', 
                        '_$s12FlowFrameKit14UnderstandableON', '_$s12FlowFrameKit14UnderstandableOSHAAMc', 
@@ -229,7 +251,11 @@ exports:
                        '_$s12FlowFrameKit16NonUnderstandingV7message5inputACyxGSS_xtcfC', 
                        '_$s12FlowFrameKit16NonUnderstandingV7messageSSvg', '_$s12FlowFrameKit16NonUnderstandingV7messageSSvpMV', 
                        '_$s12FlowFrameKit16NonUnderstandingVMa', '_$s12FlowFrameKit16NonUnderstandingVMn', 
-                       '_$s12FlowFrameKit16NonUnderstandingVyxGs5ErrorAAMc', '_$s12FlowFrameKit18AnyChildCompletionC10completion10controller9exitValueyx_yptlFTj', 
+                       '_$s12FlowFrameKit16NonUnderstandingVyxGs5ErrorAAMc', '_$s12FlowFrameKit17IllegalStateErrorV7messageACSS_tcfC', 
+                       '_$s12FlowFrameKit17IllegalStateErrorV7messageSSvg', '_$s12FlowFrameKit17IllegalStateErrorV7messageSSvpMV', 
+                       '_$s12FlowFrameKit17IllegalStateErrorVMa', '_$s12FlowFrameKit17IllegalStateErrorVMn', 
+                       '_$s12FlowFrameKit17IllegalStateErrorVN', '_$s12FlowFrameKit17IllegalStateErrorVs0F0AAMc', 
+                       '_$s12FlowFrameKit18AnyChildCompletionC10completion10controller9exitValueyx_yptlFTj', 
                        '_$s12FlowFrameKit18AnyChildCompletionC10completion10controller9exitValueyx_yptlFTq', 
                        '_$s12FlowFrameKit18AnyChildCompletionC10completionyyyp_yptcvg', 
                        '_$s12FlowFrameKit18AnyChildCompletionC10completionyyyp_yptcvpMV', 
@@ -246,14 +272,8 @@ exports:
                        '_$s12FlowFrameKit20RuntimeConfigurationV03perB16OperationTimeoutAC8Dispatch0I12TimeIntervalO_tcfC', 
                        '_$s12FlowFrameKit20RuntimeConfigurationVACycfC', '_$s12FlowFrameKit20RuntimeConfigurationVMa', 
                        '_$s12FlowFrameKit20RuntimeConfigurationVMn', '_$s12FlowFrameKit20RuntimeConfigurationVN', 
-                       '_$s12FlowFrameKit3LogO11logAndCrashys5NeverOs12StaticStringVFZ', 
-                       '_$s12FlowFrameKit3LogO18generateSignpostID2os010OSSignpostG0VyFZ', 
-                       '_$s12FlowFrameKit3LogO3endyy2os12OSSignpostIDV_s12StaticStringVtFZ', 
-                       '_$s12FlowFrameKit3LogO4flowSo9OS_os_logCvau', '_$s12FlowFrameKit3LogO4flowSo9OS_os_logCvgZ', 
-                       '_$s12FlowFrameKit3LogO4flowSo9OS_os_logCvpZ', '_$s12FlowFrameKit3LogO5begin4with7andWrapyxcs12StaticStringV_yxctlFZ', 
-                       '_$s12FlowFrameKit3LogO5beginy2os12OSSignpostIDVs12StaticStringVFZ', 
-                       '_$s12FlowFrameKit3LogO5beginyy2os12OSSignpostIDV_s12StaticStringVtFZ', 
-                       '_$s12FlowFrameKit3LogO5eventyys12StaticStringVFZ', '_$s12FlowFrameKit3LogOMa', 
+                       '_$s12FlowFrameKit3LogO05_flowB0So9OS_os_logCvau', '_$s12FlowFrameKit3LogO05_flowB0So9OS_os_logCvgZ', 
+                       '_$s12FlowFrameKit3LogO05_flowB0So9OS_os_logCvpZ', '_$s12FlowFrameKit3LogOMa', 
                        '_$s12FlowFrameKit3LogOMn', '_$s12FlowFrameKit3LogON', '_$s12FlowFrameKit4NodeC4next33_9983F396B7C5E3E48C8D682DD4D207FBLLACyxGSgvM', 
                        '_$s12FlowFrameKit4NodeC4next33_9983F396B7C5E3E48C8D682DD4D207FBLLACyxGSgvg', 
                        '_$s12FlowFrameKit4NodeC4next33_9983F396B7C5E3E48C8D682DD4D207FBLLACyxGSgvs', 
@@ -269,19 +289,22 @@ exports:
                        '_$s12FlowFrameKit4NodeC8childrenSayACyxGGvgTq', '_$s12FlowFrameKit4NodeC8childrenSayACyxGGvpMV', 
                        '_$s12FlowFrameKit4NodeC8childrenSayACyxGGvs', '_$s12FlowFrameKit4NodeCMa', 
                        '_$s12FlowFrameKit4NodeCMn', '_$s12FlowFrameKit4NodeCfD', 
-                       '_$s12FlowFrameKit4NodeCfd', '_$s12FlowFrameKit8LogConstO04flowbC0SSvau', 
+                       '_$s12FlowFrameKit4NodeCfd', '_$s12FlowFrameKit6LoggerO04flowB02osABVvau', 
+                       '_$s12FlowFrameKit6LoggerO04flowB02osABVvgZ', '_$s12FlowFrameKit6LoggerO04flowB02osABVvpZ', 
+                       '_$s12FlowFrameKit6LoggerOMa', '_$s12FlowFrameKit6LoggerOMn', 
+                       '_$s12FlowFrameKit6LoggerON', '_$s12FlowFrameKit8LogConstO04flowbC0SSvau', 
                        '_$s12FlowFrameKit8LogConstO04flowbC0SSvgZ', '_$s12FlowFrameKit8LogConstO04flowbC0SSvpZ', 
-                       '_$s12FlowFrameKit8LogConstO8SignpostO19resetStackLockFatals12StaticStringVvau', 
-                       '_$s12FlowFrameKit8LogConstO8SignpostO19resetStackLockFatals12StaticStringVvgZ', 
-                       '_$s12FlowFrameKit8LogConstO8SignpostO19resetStackLockFatals12StaticStringVvpZ', 
-                       '_$s12FlowFrameKit8LogConstO8SignpostOMa', '_$s12FlowFrameKit8LogConstO8SignpostOMn', 
-                       '_$s12FlowFrameKit8LogConstO8SignpostON', '_$s12FlowFrameKit8LogConstO9subsystemSSvau', 
-                       '_$s12FlowFrameKit8LogConstO9subsystemSSvgZ', '_$s12FlowFrameKit8LogConstO9subsystemSSvpZ', 
-                       '_$s12FlowFrameKit8LogConstOMa', '_$s12FlowFrameKit8LogConstOMn', 
-                       '_$s12FlowFrameKit8LogConstON', '_$s15ActionArguments12FlowFrameKit0cD8ProtocolPTl', 
-                       '_$s16ResponseRenderer12FlowFrameKit0cD15FactoryProtocolPTl', 
-                       '_$s16ResponseRenderer12FlowFrameKit0cD8ProtocolPTl', '_$s5Input12FlowFrameKit0bC15FactoryProtocolPTl', 
-                       '_$s5Input12FlowFrameKit0bC21FactoryLoaderProtocolPTl', '_$s5Input12FlowFrameKit0bC8ProtocolPTl', 
-                       '_$s9ExitValue12FlowFrameKit0cD8ProtocolPTl', _FlowFrameKitVersionNumber, 
-                       _FlowFrameKitVersionString ]
+                       '_$s12FlowFrameKit8LogConstO9subsystemSSvau', '_$s12FlowFrameKit8LogConstO9subsystemSSvgZ', 
+                       '_$s12FlowFrameKit8LogConstO9subsystemSSvpZ', '_$s12FlowFrameKit8LogConstOMa', 
+                       '_$s12FlowFrameKit8LogConstOMn', '_$s12FlowFrameKit8LogConstON', 
+                       '_$s15ActionArguments12FlowFrameKit0cD8ProtocolPTl', '_$s16ResponseRenderer12FlowFrameKit0cD15FactoryProtocolPTl', 
+                       '_$s16ResponseRenderer12FlowFrameKit0cD8ProtocolPTl', '_$s2os6LoggerV12FlowFrameKitE14makeSignpostIDAA010OSSignpostH0VyF', 
+                       '_$s2os6LoggerV12FlowFrameKitE3endyyAA12OSSignpostIDV_s12StaticStringVtF', 
+                       '_$s2os6LoggerV12FlowFrameKitE5begin4with7andWrapyxcs12StaticStringV_yxctlF', 
+                       '_$s2os6LoggerV12FlowFrameKitE5beginyAA12OSSignpostIDVs12StaticStringVF', 
+                       '_$s2os6LoggerV12FlowFrameKitE5beginyyAA12OSSignpostIDV_s12StaticStringVtF', 
+                       '_$s2os6LoggerV12FlowFrameKitE5eventyys12StaticStringVF', 
+                       '_$s5Input12FlowFrameKit0bC15FactoryProtocolPTl', '_$s5Input12FlowFrameKit0bC21FactoryLoaderProtocolPTl', 
+                       '_$s5Input12FlowFrameKit0bC8ProtocolPTl', '_$s9ExitValue12FlowFrameKit0cD8ProtocolPTl', 
+                       _FlowFrameKitVersionNumber, _FlowFrameKitVersionString ]
 ...

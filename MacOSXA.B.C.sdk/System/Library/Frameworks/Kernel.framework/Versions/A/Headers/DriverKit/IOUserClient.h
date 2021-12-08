@@ -1,6 +1,6 @@
-/* iig(DriverKit-73.140.1) generated from IOUserClient.iig */
+/* iig(DriverKit-107.40.8) generated from IOUserClient.iig */
 
-/* IOUserClient.iig:1-154 */
+/* IOUserClient.iig:1-153 */
 /*
  * Copyright (c) 2019-2019 Apple Inc. All rights reserved.
  *
@@ -38,9 +38,8 @@
 
 #include <DriverKit/OSAction.h>  /* .iig include */
 #include <DriverKit/IOService.h>  /* .iig include */
+#include <DriverKit/IOBufferMemoryDescriptor.h>  /* .iig include */
 
-class IOMemoryDescriptor;
-class IOBufferMemoryDescriptor;
 
 enum {
 	kIOUserClientScalarArrayCountMax  = 16,
@@ -153,7 +152,7 @@ struct IOUserClientMethodDispatch {
 	uint32_t			       checkStructureOutputSize;
 };
 
-/* source class IOUserClient IOUserClient.iig:155-268 */
+/* source class IOUserClient IOUserClient.iig:154-286 */
 
 #if __DOCUMENTATION__
 #define KERNEL IIG_KERNEL
@@ -246,6 +245,25 @@ public:
 	    uint64_t                            * options,
 	    IOMemoryDescriptor                 ** memory) = 0;
 
+    /*!
+     * @brief       Create a memory descriptor that describes a set of virtual ranges in
+     *              the client task of the user client.
+     * @param       memoryDescriptorCreateOptions
+	 *              kIOMemoryDirectionIn memory described will be writable
+	 *              kIOMemoryDirectionOut memory described will be readable
+	 * @param       segmentsCount Number of valid address ranges being passed
+	 *              in the segments array.
+	 * @param       segments Array of address ranges.
+	 * @param       memory Returned IOMemoryDescriptor object with +1 retain count.
+     * @return      kIOReturnSuccess on success. See IOReturn.h for error codes.
+     */
+	virtual kern_return_t
+	CreateMemoryDescriptorFromClient(
+		uint64_t memoryDescriptorCreateOptions,
+		uint32_t segmentsCount,
+		const IOAddressSegment segments[32],
+		IOMemoryDescriptor ** memory) __attribute__((availability(driverkit,introduced=20.0)));
+
 private:
 	virtual kern_return_t
 	_ExternalMethod(
@@ -274,10 +292,11 @@ private:
 #undef KERNEL
 #else /* __DOCUMENTATION__ */
 
-/* generated class IOUserClient IOUserClient.iig:155-268 */
+/* generated class IOUserClient IOUserClient.iig:154-286 */
 
 #define IOUserClient_AsyncCompletion_ID            0xdbc5b2e5d2b446f4ULL
 #define IOUserClient_CopyClientMemoryForType_ID            0x8399bdb3d0b4f474ULL
+#define IOUserClient_CreateMemoryDescriptorFromClient_ID            0xf2fa2faa5cc11191ULL
 #define IOUserClient__ExternalMethod_ID            0xcfe0c99e739d92f9ULL
 #define IOUserClient_KernelCompletion_ID            0xf609f134c9046444ULL
 
@@ -290,6 +309,12 @@ private:
 #define IOUserClient_CopyClientMemoryForType_Args \
         uint64_t type, \
         uint64_t * options, \
+        IOMemoryDescriptor ** memory
+
+#define IOUserClient_CreateMemoryDescriptorFromClient_Args \
+        uint64_t memoryDescriptorCreateOptions, \
+        uint32_t segmentsCount, \
+        const IOAddressSegment * segments, \
         IOMemoryDescriptor ** memory
 
 #define IOUserClient__ExternalMethod_Args \
@@ -337,6 +362,14 @@ public:\
         OSDispatchMethod supermethod = NULL);\
 \
     kern_return_t\
+    CreateMemoryDescriptorFromClient(\
+        uint64_t memoryDescriptorCreateOptions,\
+        uint32_t segmentsCount,\
+        const IOAddressSegment * segments,\
+        IOMemoryDescriptor ** memory,\
+        OSDispatchMethod supermethod = NULL) __attribute__((availability(driverkit,introduced=20.0)));\
+\
+    kern_return_t\
     _ExternalMethod(\
         uint64_t selector,\
         const IOUserClientScalarArray scalarInput,\
@@ -369,6 +402,12 @@ public:\
     static kern_return_t\
     AsyncCompletion_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\
+        AsyncCompletion_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
+    static kern_return_t\
+    AsyncCompletion_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
         AsyncCompletion_Handler func);\
 \
     typedef kern_return_t (*CopyClientMemoryForType_Handler)(OSMetaClassBase * target, IOUserClient_CopyClientMemoryForType_Args);\
@@ -376,6 +415,12 @@ public:\
     CopyClientMemoryForType_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\
         CopyClientMemoryForType_Handler func);\
+\
+    typedef kern_return_t (*CreateMemoryDescriptorFromClient_Handler)(OSMetaClassBase * target, IOUserClient_CreateMemoryDescriptorFromClient_Args);\
+    static kern_return_t\
+    CreateMemoryDescriptorFromClient_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        CreateMemoryDescriptorFromClient_Handler func);\
 \
     typedef kern_return_t (*_ExternalMethod_Handler)(OSMetaClassBase * target, IOUserClient__ExternalMethod_Args);\
     static kern_return_t\
@@ -389,6 +434,9 @@ public:\
 \
 protected:\
     /* _Impl methods */\
+\
+    kern_return_t\
+    CreateMemoryDescriptorFromClient_Impl(IOUserClient_CreateMemoryDescriptorFromClient_Args);\
 \
     void\
     KernelCompletion_Impl(IOUserClient_KernelCompletion_Args);\
@@ -420,8 +468,68 @@ public:\
 
 
 
+#define OSAction_IOUserClient_KernelCompletion_Methods \
+\
+public:\
+\
+    virtual kern_return_t\
+    Dispatch(const IORPC rpc) APPLE_KEXT_OVERRIDE;\
+\
+    static kern_return_t\
+    _Dispatch(OSAction_IOUserClient_KernelCompletion * self, const IORPC rpc);\
+\
+\
+protected:\
+    /* _Impl methods */\
+\
+\
+public:\
+    /* _Invoke methods */\
+\
+
+
+#define OSAction_IOUserClient_KernelCompletion_KernelMethods \
+\
+protected:\
+    /* _Impl methods */\
+\
+
+
+#define OSAction_IOUserClient_KernelCompletion_VirtualMethods \
+\
+public:\
+\
+
+
+
+class OSAction_IOUserClient_KernelCompletionInterface : public OSInterface
+{
+public:
+};
+
+struct OSAction_IOUserClient_KernelCompletion_IVars;
+struct OSAction_IOUserClient_KernelCompletion_LocalIVars;
+
+class OSAction_IOUserClient_KernelCompletion : public OSAction, public OSAction_IOUserClient_KernelCompletionInterface
+{
+    OSDeclareDefaultStructorsWithDispatch(OSAction_IOUserClient_KernelCompletion);
+
+
+public:
+    union
+    {
+        OSAction_IOUserClient_KernelCompletion_IVars * ivars;
+        OSAction_IOUserClient_KernelCompletion_LocalIVars * lvars;
+    };
+
+    using super = OSAction;
+
+
+    OSAction_IOUserClient_KernelCompletion_VirtualMethods
+};
+
 #endif /* !__DOCUMENTATION__ */
 
-/* IOUserClient.iig:270- */
+/* IOUserClient.iig:288- */
 
 #endif /* ! _IOKIT_UIOUSERCLIENT_H */

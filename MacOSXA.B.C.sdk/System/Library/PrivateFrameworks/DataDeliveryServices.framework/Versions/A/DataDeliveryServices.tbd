@@ -1,43 +1,56 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 4669F947-8CA5-3A1E-92F3-13DFC8D20B4A' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           06B14A33-34AD-3F38-9E52-50CAB8C9C664
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           C2935F69-0564-3042-A483-D50E4C2B3A1D
 install-name:    '/System/Library/PrivateFrameworks/DataDeliveryServices.framework/Versions/A/DataDeliveryServices'
 exports:
-  - archs:           [ x86_64 ]
-    symbols:         [ _AllowCellularOverride, _AssetCenterQueueName, _ClientQueueName, 
-                       _ContentsKey, _DDSAssertionContentFile, _DDSAssertionContentFolder, 
-                       _DDSAttributeAssetLocale, _DDSAttributeAssetType, _DDSAttributeAssetVersion, 
-                       _DDSAttributeCity, _DDSAttributeCompatibilityVersion, _DDSAttributeContentItemLocale, 
-                       _DDSAttributeContentType, _DDSAttributeContentVersion, _DDSAttributeCountry, 
-                       _DDSAttributeKeyContentPath, _DDSAttributeKeyContentType, 
-                       _DDSAttributeKeyContents, _DDSAttributeKeyInputLayout, _DDSAttributeKeyLanguage, 
-                       _DDSAttributeKeyLocale, _DDSAttributeKeyLocationCity, _DDSAttributeKeyLocationCountry, 
-                       _DDSAttributeKeyLocationProvince, _DDSAttributeKeyNeedType, 
-                       _DDSAttributeKeyProactiveLocation, _DDSAttributeKeyRegion, 
-                       _DDSAttributeKeyScript, _DDSAttributeProvince, _DDSAttributeRegion, 
-                       _DDSAttributeUnarchivedSizeInBytes, _DDSAttributeUnspecified, 
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
+    symbols:         [ _AggregatedDurationAnalyticKey, _AllowCellularOverride, _AnalyticKeyPrefix, 
+                       _AssetCenterQueueName, _AssetDownloadAnalytic, _AssetDownloadDurationBuckets, 
+                       _AssetLocaleKey, _AssetNameAnalyticKey, _AssetUpdatedNotificationSuffix, 
+                       _ClientQueueName, _CompatibilityVersionAnalyticKey, _CompatibilityVersionKey, 
+                       _ContentVersionAnalyticKey, _ContentVersionKey, _DDSAssertionContentFile, 
+                       _DDSAssertionContentFolder, _DDSAttributeAssetLocale, _DDSAttributeAssetType, 
+                       _DDSAttributeAssetVersion, _DDSAttributeCity, _DDSAttributeCompatibilityVersion, 
+                       _DDSAttributeContentItemLocale, _DDSAttributeContentType, 
+                       _DDSAttributeContentVersion, _DDSAttributeCountry, _DDSAttributeKeyContentPath, 
+                       _DDSAttributeKeyContentType, _DDSAttributeKeyContents, _DDSAttributeKeyInputLayout, 
+                       _DDSAttributeKeyLanguage, _DDSAttributeKeyLocale, _DDSAttributeKeyLocationCity, 
+                       _DDSAttributeKeyLocationCountry, _DDSAttributeKeyLocationProvince, 
+                       _DDSAttributeKeyNeedType, _DDSAttributeKeyProactiveLocation, 
+                       _DDSAttributeKeyRegion, _DDSAttributeKeyScript, _DDSAttributeProvince, 
+                       _DDSAttributeRegion, _DDSAttributeUnarchivedSizeInBytes, _DDSAttributeUnspecified, 
                        _DDSAttributeValueContentTypeLanguageModel, _DDSAttributeValueContentTypeLanguageModelDelta, 
                        _DDSAttributeValueContentTypeLexicon, _DDSAttributeValueContentTypeLexiconDelta, 
                        _DDSAttributeValueContentTypePhrases, _DDSAttributeValueContentTypeSpellChecker, 
                        _DDSAttributeValueContentTypeSpellCheckerDelta, _DDSAttributeValueNeedTypeDelta, 
                        _DDSAttributeValueNeedTypeOptional, _DDSAttributeValueNeedTypeRequired, 
                        _DDSAttributeValueProactiveLocationHome, _DDSAttributeValueProactiveLocationWork, 
-                       _DDSCanLogMessageAtLevel, _DDSFilterValueUnspecified, _DDSGetPreferenceIntForKey, 
-                       _DDSGetPreferenceObjectForKey, _DDSLogFacility, _DDSMachServiceName, 
-                       _DDSObjectsAreEqualOrNil, _DDSSetPreferenceObjectForKey, _DDS_BUILD_VERSION_STRING, 
-                       _DDS_IS_INTERNAL_INSTALL, _DDS_USE_MA_V2, _DataDeliveryServicesVersionNumber, 
-                       _DataDeliveryServicesVersionString, _ErrorDomain, _ErrorDomainv2, 
-                       _LanguageAssetType, _LinguisticDataAssetType, _RequirePluggedInOverride, 
-                       _ServerQueueName, __DDSBeginMocking, __DDSBeginMockingServices, 
-                       __DDSEndMocking, __DDSEndMockingServices, __DDSIsMocking, 
-                       __DDSIsMockingServices, _kContentPath ]
-    objc-classes:    [ DDSAssertDescriptor, DDSAssertion, DDSAssertionDataHandler, 
-                       DDSAssertionTracker, DDSAsset, DDSAssetCenter, DDSAssetPolicy, 
-                       DDSAssetQuery, DDSAssetSyncState, DDSAttributeFilter, DDSContentItem, 
+                       _DDSFilterValueUnspecified, _DDSGetPreferenceIntForKey, _DDSGetPreferenceObjectForKey, 
+                       _DDSMachServiceName, _DDSObjectsAreEqualOrNil, _DDSSetPreferenceObjectForKey, 
+                       _DDS_BUILD_VERSION_STRING, _DDS_IS_INTERNAL_INSTALL, _DDS_LOG_REDACTED, 
+                       _DDS_STRING_FROM_DATE, _DDS_USE_MA_V2, _DataDeliveryServicesVersionNumber, 
+                       _DataDeliveryServicesVersionString, _DefaultLog, _DurationAnalyticKey, 
+                       _ErrorDomainv2, _InstallDateKey, _LanguageAssetType, _LinguisticDataAssetType, 
+                       _LinguisticDataMobileAssetType, _ProcessAnalyticKey, _QueryLog, 
+                       _RetryAnalyticKey, _ServerQueueName, _SuccessAnalyticKey, 
+                       _UpdateCycleAnalytic, _UpdateCycleAnalyticIdentifier, _UpdateLog, 
+                       __DDSBeginMocking, __DDSBeginMockingServices, __DDSEndMocking, 
+                       __DDSEndMockingServices, __DDSIsMocking, __DDSIsMockingServices, 
+                       _assetUpdatedNotificationCallback, _kContentPath, _kContentType, 
+                       _kLocale, _kRegion ]
+    objc-classes:    [ DDSAnalytics, DDSAssertDescriptor, DDSAssertion, DDSAssertionDataHandler, 
+                       DDSAssertionTracker, DDSAsset, DDSAssetCenter, DDSAssetDownloadAnalytic, 
+                       DDSAssetObserver, DDSAssetPolicy, DDSAssetQuery, DDSAssetQueryResultCache, 
+                       DDSAttributeFilter, DDSBackgroundActivityScheduler, DDSContentItem, 
                        DDSContentItemMatcher, DDSInterface, DDSLinguisticAssetQuery, 
                        DDSLinguisticAttributeFilter, DDSManager, DDSMobileAssetv1PredicateAdapter, 
-                       DDSMobileAssetv1Provider, DDSMobileAssetv2Provider, DDSMobileAssetv2QueryAdapter, 
-                       DDSReachabilityObserver, DDSScheduledTimer, DDSScheduledTimerImpl, 
-                       DDSServer ]
+                       DDSMobileAssetv2Provider, DDSMobileAssetv2QueryAdapter, DDSRemoteSyncState, 
+                       DDSServer, DDSTimedAnalytic ]
 ...

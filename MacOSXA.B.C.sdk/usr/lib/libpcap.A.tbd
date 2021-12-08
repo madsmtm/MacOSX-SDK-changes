@@ -1,10 +1,24 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: A748C246-1484-3CBC-94DD-B4C47877AA78', 'x86_64: A748C246-1484-3CBC-94DD-B4C47877AA78' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           D5F5F199-11AB-33BB-AFF2-CB7FF99F0A37
+  - target:          x86_64-maccatalyst
+    value:           D5F5F199-11AB-33BB-AFF2-CB7FF99F0A37
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           1D41E6A5-996E-3CF3-B1B3-6091086BE029
+  - target:          arm64e-maccatalyst
+    value:           1D41E6A5-996E-3CF3-B1B3-6091086BE029
 install-name:    '/usr/lib/libpcap.A.dylib'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ ___pcap_atodn, ___pcap_atoin, ___pcap_nametodnaddr, _add_addr_to_dev, 
                        _add_addr_to_if, _add_dev, _bpf_dump, _bpf_filter, _bpf_filter_with_aux_data, 
                        _bpf_image, _bpf_optimize, _bpf_set_error, _bpf_validate, 
@@ -71,24 +85,25 @@ exports:
                        _pcap_ng_block_packet_set_data, _pcap_ng_block_records_ptr, 
                        _pcap_ng_block_reset, _pcap_ng_block_size_max, _pcap_ng_block_trailer_ptr, 
                        _pcap_ng_check_header, _pcap_ng_cleanup, _pcap_ng_dump, _pcap_ng_dump_block, 
-                       _pcap_ng_dump_close, _pcap_ng_dump_fopen, _pcap_ng_dump_if_info, 
-                       _pcap_ng_dump_init_section_info, _pcap_ng_dump_kern_event, 
+                       _pcap_ng_dump_close, _pcap_ng_dump_decryption_secrets, _pcap_ng_dump_fopen, 
+                       _pcap_ng_dump_if_info, _pcap_ng_dump_init_section_info, _pcap_ng_dump_kern_event, 
                        _pcap_ng_dump_open, _pcap_ng_dump_pktap, _pcap_ng_dump_pktap_comment, 
                        _pcap_ng_dump_pktap_v2, _pcap_ng_dump_proc_info, _pcap_ng_externalize_block, 
-                       _pcap_ng_fopen_offline, _pcap_ng_free_block, _pcap_ng_get_enhanced_packet_fields, 
-                       _pcap_ng_get_interface_description_fields, _pcap_ng_get_interface_statistics_fields, 
-                       _pcap_ng_get_os_event_fields, _pcap_ng_get_packet_fields, 
-                       _pcap_ng_get_process_information_fields, _pcap_ng_get_section_header_fields, 
-                       _pcap_ng_get_simple_packet_fields, _pcap_ng_init_section_info, 
-                       _pcap_ng_offline_read, _pcap_ng_open_offline, _pcap_offline_filter, 
-                       _pcap_offline_read, _pcap_oneshot, _pcap_open_dead, _pcap_open_dead_with_tstamp_precision, 
-                       _pcap_open_live, _pcap_open_offline, _pcap_open_offline_common, 
-                       _pcap_open_offline_with_tstamp_precision, _pcap_parse, _pcap_perror, 
-                       _pcap_platform_finddevs, _pcap_pop_buffer_state, _pcap_proc_info_set_add_uuid, 
-                       _pcap_proc_info_set_clear, _pcap_proc_info_set_find, _pcap_proc_info_set_find_by_index, 
-                       _pcap_proc_info_set_find_uuid, _pcap_proc_info_set_free, _pcap_push_buffer_state, 
-                       _pcap_read_bpf_header, _pcap_realloc, _pcap_remove_from_pcaps_to_close, 
-                       _pcap_restart, _pcap_sendpacket, _pcap_set_buffer_size, _pcap_set_column, 
+                       _pcap_ng_fopen_offline, _pcap_ng_free_block, _pcap_ng_get_decryption_secrets_fields, 
+                       _pcap_ng_get_enhanced_packet_fields, _pcap_ng_get_interface_description_fields, 
+                       _pcap_ng_get_interface_statistics_fields, _pcap_ng_get_os_event_fields, 
+                       _pcap_ng_get_packet_fields, _pcap_ng_get_process_information_fields, 
+                       _pcap_ng_get_section_header_fields, _pcap_ng_get_simple_packet_fields, 
+                       _pcap_ng_init_section_info, _pcap_ng_offline_read, _pcap_ng_open_offline, 
+                       _pcap_offline_filter, _pcap_offline_read, _pcap_oneshot, _pcap_open_dead, 
+                       _pcap_open_dead_with_tstamp_precision, _pcap_open_live, _pcap_open_offline, 
+                       _pcap_open_offline_common, _pcap_open_offline_with_tstamp_precision, 
+                       _pcap_parse, _pcap_perror, _pcap_platform_finddevs, _pcap_pop_buffer_state, 
+                       _pcap_proc_info_set_add_uuid, _pcap_proc_info_set_clear, _pcap_proc_info_set_find, 
+                       _pcap_proc_info_set_find_by_index, _pcap_proc_info_set_find_uuid, 
+                       _pcap_proc_info_set_free, _pcap_push_buffer_state, _pcap_read_bpf_header, 
+                       _pcap_realloc, _pcap_remove_from_pcaps_to_close, _pcap_restart, 
+                       _pcap_sendpacket, _pcap_set_buffer_size, _pcap_set_column, 
                        _pcap_set_datalink, _pcap_set_debug, _pcap_set_extra, _pcap_set_filter_info, 
                        _pcap_set_immediate_mode, _pcap_set_in, _pcap_set_lineno, 
                        _pcap_set_lval, _pcap_set_out, _pcap_set_pktap_hdr_v2, _pcap_set_promisc, 

@@ -1,10 +1,17 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 7CACD9CE-90E3-334A-A576-9A0C2C56EAD7' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           BBB0D1BE-2218-33ED-BA38-734FFB0FE9C5
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           799B012C-D9BC-3110-86E9-BB01E6550568
 install-name:    '/System/Library/PrivateFrameworks/EAFirmwareUpdater.framework/Versions/A/EAFirmwareUpdater'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
+    symbols:         [ _AUSandboxPlatformInit ]
     objc-classes:    [ EAFirmwareUpdater, FirmwareBundle, HSModel, iAUPServer ]
     objc-ivars:      [ EAFirmwareUpdater._accessory, EAFirmwareUpdater._appProtocol, 
                        EAFirmwareUpdater._applyCompletion, EAFirmwareUpdater._bootloaderProtocol, 

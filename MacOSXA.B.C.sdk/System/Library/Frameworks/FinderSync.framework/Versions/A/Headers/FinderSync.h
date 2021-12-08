@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/NSMenu.h>
 
-#if defined(__OBJC2__) && __OBJC2__
+API_UNAVAILABLE_BEGIN(ios)
 
 NS_ASSUME_NONNULL_BEGIN
 @interface FIFinderSyncController : NSExtensionContext
@@ -98,4 +98,4 @@ typedef NS_ENUM(NSUInteger, FIMenuKind) {
 @end
 NS_ASSUME_NONNULL_END
 
-#endif // OBJC2
+API_UNAVAILABLE_END

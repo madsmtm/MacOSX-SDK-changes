@@ -47,7 +47,7 @@ typedef NS_OPTIONS(NSUInteger, NSFileProviderCreateItemOptions) {
      When all the items pending reimport have been processed, the system
      will call -[NSFileProviderExtension importDidFinishWithCompletionHandler:].
      */
-    NSFileProviderCreateItemOptionsItemMayAlreadyExist = 1 << 0,
+    NSFileProviderCreateItemMayAlreadyExist = 1 << 0,
 } FILEPROVIDER_API_AVAILABILITY_V3;
 
 /**
@@ -57,7 +57,7 @@ typedef NS_OPTIONS(NSUInteger, NSFileProviderDeleteItemOptions) {
     /**
      The deletion of the item is recursive.
      */
-    NSFileProviderDeleteItemOptionsRecursive = 1 << 0
+    NSFileProviderDeleteItemRecursive = 1 << 0
 } FILEPROVIDER_API_AVAILABILITY_V3;
 
 typedef NS_OPTIONS(NSUInteger, NSFileProviderModifyItemOptions) {
@@ -66,28 +66,28 @@ typedef NS_OPTIONS(NSUInteger, NSFileProviderModifyItemOptions) {
      when two directories are being merged together. When this happens some items may be merged to the
      same directory and we end up in a situation where the merged contains may also exist.
 
-     This is similar to NSFileProviderCreateItemOptionsItemMayAlreadyExist
+     This is similar to NSFileProviderCreateItemMayAlreadyExist
      */
-    NSFileProviderModifyItemOptionsItemMayAlreadyExist = 1 << 0,
+    NSFileProviderModifyItemMayAlreadyExist = 1 << 0,
 } FILEPROVIDER_API_AVAILABILITY_V3;
 
 /**
- NSFileProviderItemFieldContents corresponds to the item's contents.
+ NSFileProviderItemContents corresponds to the item's contents.
 
  Each subsequent field corresponds to a property on NSFileProviderItem that can
  change.
  */
-typedef NS_OPTIONS(NSUInteger, NSFileProviderItemField) {
-    NSFileProviderItemFieldContents = 1 << 0,
-    NSFileProviderItemFieldFilename = 1 << 1,
-    NSFileProviderItemFieldParentItemIdentifier = 1 << 2,
-    NSFileProviderItemFieldLastUsedDate = 1 << 3,
-    NSFileProviderItemFieldTagData = 1 << 4,
-    NSFileProviderItemFieldFavoriteRank = 1 << 5,
-    NSFileProviderItemFieldCreationDate = 1 << 6,
-    NSFileProviderItemFieldContentModificationDate = 1 << 7,
-    NSFileProviderItemFieldFlags = 1 << 8,
-    NSFileProviderItemFieldExtendedAttributes = 1 << 9,
+typedef NS_OPTIONS(NSUInteger, NSFileProviderItemFields) {
+    NSFileProviderItemContents = 1 << 0,
+    NSFileProviderItemFilename = 1 << 1,
+    NSFileProviderItemParentItemIdentifier = 1 << 2,
+    NSFileProviderItemLastUsedDate = 1 << 3,
+    NSFileProviderItemTagData = 1 << 4,
+    NSFileProviderItemFavoriteRank = 1 << 5,
+    NSFileProviderItemCreationDate = 1 << 6,
+    NSFileProviderItemContentModificationDate = 1 << 7,
+    NSFileProviderItemFileSystemFlags = 1 << 8,
+    NSFileProviderItemExtendedAttributes = 1 << 9,
 } FILEPROVIDER_API_AVAILABILITY_V3;
 
 #pragma mark - Extension with FPFS support
@@ -121,9 +121,30 @@ FILEPROVIDER_API_AVAILABILITY_V3
  the very item that the enumeration was started on.
 
  If returning nil, you must set the error out parameter.
+
+ Error cases:
+ ------------
+ If containerItemIdentifier is NSFileProviderTrashContainerItemIdentifier and
+ the extension does not support trashing items, then it should fail the call
+ with the NSFeatureUnsupportedError error code from the NSCocoaErrorDomain
+ domain.
+
+ If the item requested containerItemIdentifier does not exist in the provider,
+ the extension should fail with NSFileProviderErrorNoSuchItem. In that case,
+ the system will consider the item has been deleted and attempt to delete the
+ item from disk.
+
+ The extension can also report the NSFileProviderErrorNotAuthenticated,
+ NSFileProviderErrorServerUnreachable in case the item cannot be fetched
+ because of the current state of the system / domain. In that case, the
+ system will present an appropriate error message and back off until the
+ next time it is signalled.
+
+ Any other error will be considered to be transient and will cause the
+ enumeration to be retried.
  */
 - (nullable id<NSFileProviderEnumerator>)enumeratorForContainerItemIdentifier:(NSFileProviderItemIdentifier)containerItemIdentifier
-                                                                      request:(nullable NSFileProviderRequest *)request
+                                                                      request:(NSFileProviderRequest *)request
                                                                         error:(NSError **)error
     NS_SWIFT_NAME(enumerator(for:request:));
 
@@ -153,10 +174,28 @@ FILEPROVIDER_API_AVAILABILITY_V3
 
 /**
  Fetch the metadata for the item with the provider identifier.
+
+ Error cases:
+ ------------
+ If the metadata lookup fails because the item is unknown, the call should
+ fail with the NSFileProviderErrorNoSuchItem error. In that case, the system
+ will consider the item has been removed from the domain and will attempt to
+ delete it from disk. In case that deletion fails because there are local
+ changes on this item, the system will re-create the item using createItemBasedOnTemplate.
+
+ The extension can also report the NSFileProviderErrorNotAuthenticated,
+ NSFileProviderErrorServerUnreachable in case the item cannot be fetched
+ because of the current state of the system / domain. In that case, the
+ system will present an appropriate error message and back off until the
+ next time it is signalled.
+
+ Any other error will be considered to be transient and will cause the
+ lookup to be retried.
  */
 - (NSProgress *)itemForIdentifier:(NSFileProviderItemIdentifier)identifier
+                          request:(NSFileProviderRequest *)request
                 completionHandler:(void(^)(NSFileProviderItem _Nullable, NSError * _Nullable))completionHandler
-    NS_SWIFT_NAME(item(for:completionHandler:));
+    NS_SWIFT_NAME(item(for:request:completionHandler:));
 
 /**
  Download the item for the given identifier and return it via the completion handler.
@@ -173,10 +212,29 @@ FILEPROVIDER_API_AVAILABILITY_V3
  The requestedVersion parameter specifies which version should be returned. A nil value
  means that the latest known version should be returned. Except for the error case, the
  version of the returned item is assumed to be identical to what was requested.
+
+ Error cases:
+ ------------
+ If the download fails because the item is unknown, the call should
+ fail with the NSFileProviderErrorNoSuchItem error. In that case, the system
+ will consider the item has been removed from the domain and will attempt to
+ delete it from disk. In case that deletion fails because there are local
+ changes on this item, the system will re-create the item using createItemBasedOnTemplate.
+
+ If the user does not have access to the content of the file, the provider
+ can fail the call with NSCocoaErrorDomain and code NSFileReadNoPermissionError.
+ That error will then be presented to the user. The extension can also report
+ the NSFileProviderErrorNotAuthenticated, NSFileProviderErrorServerUnreachable
+ in case the item cannot be fetched because of the current state of the system / domain.
+ In those cases, the system will present an appropriate error message and back off
+ until the next time it is signalled.
+
+ Any other error will be considered to be transient and will cause the
+ download to be retried.
  */
 - (NSProgress *)fetchContentsForItemWithIdentifier:(NSFileProviderItemIdentifier)itemIdentifier
                                            version:(nullable NSFileProviderItemVersion *)requestedVersion
-                                           request:(nullable NSFileProviderRequest *)request
+                                           request:(NSFileProviderRequest *)request
                                  completionHandler:(void(^)(NSURL * _Nullable fileContents, NSFileProviderItem _Nullable item, NSError * _Nullable error))completionHandler
     NS_SWIFT_NAME(fetchContents(for:version:request:completionHandler:));
 
@@ -188,20 +246,23 @@ FILEPROVIDER_API_AVAILABILITY_V3
  of fields to conside in that object is defined by the fields parameter. Fields
  not listed should be considered as not being defined.
 
- If the item is a document, the contents should be fetched from provided
+ If the item is a document, the contents should be fetched from the provided
  URL. Otherwise url will be nil. If the item is a symbolic link, the target
  path is provided by the symlinkTargetPath of the itemTemplate.
 
  The system is setting the itemIdentifier of the itemTemplate to a unique value that
  is guaranteed to stay the same for a given item in case the creation is replayed
  after a crash. That itemIdentifier is not intended to be the identifier assigned
- to the item by the provider. In the completion block, the createdItem is expected
- to have its properties matching the values of the item properties with the exception
- of the itemIdentifier which should be the identifier assigned to that item by the
- provider. If the provider reuses an existing identifier, the item that used that
- identifier will be removed from disk, replaced by the createdItem. If the item is
- directory, the two directories will be merged and the items from the existing one
- will be modified with the NSFileProviderModifyItemOptionsItemMayAlreadyExist option set.
+ to the item by the provider.
+
+ In the completion block, the createdItem is expected to reflect the properties of the
+ newly created item, which usually means matching the properties passed in by the
+ template. An exception is the itemIdentifier which should be the identifier assigned
+ to that item by the provider rather than the identifier passed in through the template.
+ If the provider reuses an existing identifier, the item that used that identifier will
+ be removed from disk, replaced by the createdItem. If the item is a directory, the two
+ directories will be merged and the items from the existing one will be modified with
+ the NSFileProviderModifyItemMayAlreadyExist option set.
 
  If the provider is not able to apply all the fields at once, it should return a
  set of stillPendingFields in its completion handler. In that case, the system will
@@ -214,7 +275,7 @@ FILEPROVIDER_API_AVAILABILITY_V3
  in the completion handler. The content from the provider will then be fetched
  and propagated to disk.
 
- In case the NSFileProviderCreateItemOptionsItemMayAlreadyExist option
+ In case the NSFileProviderCreateItemMayAlreadyExist option
  is passed, the content may be nil if the item is found by the system without any
  associated content. In that case, you should return a nil item if you are not
  able to match the created item with an existing item from the provider.
@@ -229,31 +290,50 @@ FILEPROVIDER_API_AVAILABILITY_V3
  createdItem without any error. In that case, the source item will be deleted
  from disk. If the extension does not wish to synchronise the item, while still
  keeping it on disk, it should still import it locally, but not sync it to its
- server, and return a valid createItem object.
+ server, and return a valid createItem object. The non-imported item should be
+ marked as being excluded from sync and should not declare the evictable capability.
 
  The progress returned by createItemBasedOnTemplate is expected to include the
- upload progress if any, even if the provider chose to call the completion handler
- before the upload finishes. For example, the provider might decide to call the
- completion handler as soon as the metadata have been stored in a local database.
+ upload progress of the item and will be presented in the user interface until
+ the completion handler is called.
 
- Upload errors (such as NSFileProviderErrorInsufficientQuota) should be handled
- with a subsequent update to the item, setting its uploadingError property.
- Upload errors should not prevent creating or importing a document, because they
- can be resolved at a later date (for example, when the user has quota again.)
+ Creation is gated by the NSFileProviderItemCapabilitiesAllowsAddingSubItems
+ capability on the parent folder on a UI level, but direct file system changes
+ (e.g. from Terminal) can still result in changes that must be handled.
 
- Other errors will be presented to the user, but are unexpected.  If you want to
- prevent creation in a given directory, then the directory item's capacities
- should exclude NSFileProviderItemCapabilitiesAllowsAddingSubItems.
+ Error cases:
+ ------------
+ If the creation fails because the target directory does not exist, the extension
+ must fail the creation using the NSFileProviderErrorNoSuchItem error code. In
+ that case, the system will attempt the re-create the parent directory.
+
+ In case the location of the new item is already in use by another item, the extension
+ can chose to either resolve the collision by moving one of the items
+ away, or reject the creation with the NSFileProviderErrorFilenameCollision
+ error code. In that error case, the system will be responsible for resolving the
+ collision, by renaming one of the colliding items. When the collision is resolved,
+ the system will call createItemBasedOnTemplate again.
+
+ The extension can also report the NSFileProviderErrorNotAuthenticated,
+ NSFileProviderErrorServerUnreachable or NSFileProviderErrorInsufficientQuota
+ in case the modification cannot be applied because of the current state of the
+ system / domain. In that case, the system will present an appropriate error
+ message and back off until the next time it is signalled.
+ The provider can signal the error resolution by calling signalErrorResolved:completionHandler:.
+
+ Any other error will be considered to be transient and will cause the
+ creation to be retried.
  */
 - (NSProgress *)createItemBasedOnTemplate:(NSFileProviderItem)itemTemplate
-                                   fields:(NSFileProviderItemField)fields
+                                   fields:(NSFileProviderItemFields)fields
                                  contents:(nullable NSURL *)url
                                   options:(NSFileProviderCreateItemOptions)options
+                                  request:(NSFileProviderRequest *)request
                         completionHandler:(void (^)(NSFileProviderItem _Nullable createdItem,
-                                                    NSFileProviderItemField stillPendingFields,
+                                                    NSFileProviderItemFields stillPendingFields,
                                                     BOOL shouldFetchContent,
                                                     NSError * _Nullable error))completionHandler
-NS_SWIFT_NAME(createItem(basedOn:fields:contents:options:completionHandler:));
+NS_SWIFT_NAME(createItem(basedOn:fields:contents:options:request:completionHandler:));
 
 /**
  Informs the provider that an item or its metadata have changed. More than one
@@ -273,29 +353,76 @@ NS_SWIFT_NAME(createItem(basedOn:fields:contents:options:completionHandler:));
  content from the provider will then be fetched and propagated to disk.
 
  If the item modification results from the parent directory being merged into another
- directory, the NSFileProviderModifyItemOptionsItemMayAlreadyExist flag will be passed
+ directory, the NSFileProviderModifyItemMayAlreadyExist flag will be passed
  to the call.
 
  The provider can chose to merge two existing items when receiving modifyItem. In that
  case, the item returned should carry the itemIdentifier of the item with which the
- item will be merged and well as the resulting state of the item. The system will then
+ item will be merged and well as the resulting state of that item. The system will then
  keep one of the items (the one whose itemIdentifier was returned) and remove
  the other one from disk. In case of directories, the content of the two directories
  is merged and sub-items will be modified with the
- NSFileProviderModifyItemOptionsItemMayAlreadyExist flag set.
+ NSFileProviderModifyItemMayAlreadyExist flag set.
 
  The progress returned by modifyItem is expected to include the upload progress if any,
  even if the provider chose to call the completion handler before the upload finishes.
  For example, the provider might decide to call the completion handler as soon as the
  metadata have been stored in a local database.
+
+ Modifications are gated by the corresponding capabilities of the item on a UI level,
+ but direct file system changes (e.g. from Terminal) can still result in changes that
+ must be handled.
+
+ Cycle handling:
+ ---------------
+ The system guarantees that modifyItem called after local changes from the user will
+ never create a cycle: that is all items will always be a descendent of either the
+ root item or the trash item.
+
+ However, cycles that are caused by concurrent local changes by the user and changes
+ on the remote server can also create cycles. This is handled by the system as a
+ conflict. This means the provider must validate that the call of modifyItem is not
+ creating a cycle with a change it observed from the server. If such a cycle is
+ detected, the provider must fix the conflict by breaking the cycle, and return the
+ state of the item after resolving that conflict. If the resolution affects other
+ items as well, updates for those other items must be published on the working set.
+
+ Error cases:
+ ------------
+ The extension may fail the modification if the modified item does not exist
+ anymore. In that case, the extension should fail the call the
+ NSFileProviderErrorNoSuchItem error code. The system will attempt to delete
+ the item on disk. If the item on disk actually has changes since this call
+ to modifyItem, then it will be re-created by a call to createItemBasedOnTemplate.
+ Likewise, if the item is reparented to a parent that no longer exists, the extension
+ may return a NSFileProviderErrorNoSuchItem error with the parent item.
+
+ In case the modification updates the location of the item and another item is
+ already known at this location, the extension can chose to either resolve the
+ collision by moving one of the items away, or reject the modification with
+ the NSFileProviderErrorFilenameCollision error code. In that error case,
+ the system will be responsible for resolving the collision, by renaming one of
+ the colliding items. When the collision is resolved, the system will call
+ modifyItem again.
+
+ The extension can also report the NSFileProviderErrorNotAuthenticated,
+ NSFileProviderErrorServerUnreachable or NSFileProviderErrorInsufficientQuota
+ in case the modification cannot be applied because of the current state of the
+ system / domain. In that case, the system will present an appropriate error
+ message and back off until the next time it is signalled.
+ The provider can signal the error resolution by calling signalErrorResolved:completionHandler:.
+
+ Any other error will be considered to be transient and will cause the
+ modification to be retried.
  */
 - (NSProgress *)modifyItem:(NSFileProviderItem)item
                baseVersion:(NSFileProviderItemVersion *)version
-             changedFields:(NSFileProviderItemField)changedFields
+             changedFields:(NSFileProviderItemFields)changedFields
                   contents:(nullable NSURL *)newContents
                    options:(NSFileProviderModifyItemOptions)options
+                   request:(NSFileProviderRequest *)request
          completionHandler:(void(^)(NSFileProviderItem _Nullable item,
-                                    NSFileProviderItemField stillPendingFields,
+                                    NSFileProviderItemFields stillPendingFields,
                                     BOOL shouldFetchContent,
                                     NSError * _Nullable error))completionHandler;
 
@@ -307,22 +434,56 @@ NS_SWIFT_NAME(createItem(basedOn:fields:contents:options:completionHandler:));
  remove the item from the working set.
 
  This call receives an optional baseVersion which represent the version of the
- item we are trying to delete.  The extension may fail with
- NSFileProviderErrorVersionOutOfDate if the item does not match the provided
- baseVersion.
+ item we are trying to delete.
 
- Unless the NSFileProviderDeleteItemOptionsRecursive options is passed, the
- deletion of a directory should be non-recursive and the call must fail with
- NSFileProviderErrorDirectoryNotEmpty if the directory contains some children.
+ Unless the NSFileProviderDeleteItemRecursive options is passed, the
+ deletion of a directory should be non-recursive. If the deletion is recursive
+ the provider should take care of reporting the deletion of all the deleted
+ items through the working set.
 
  Delete is gated by the capabilities of the removed item with
  NSFileProviderItemCapabilitiesAllowsDeleting.
+
+ Modifications are gated by NSFileProviderItemCapabilitiesAllowsDeleting
+ of the item on a UI level, but direct file system changes (e.g. from Terminal)
+ can still result in changes that must be handled.
+
+ Error cases:
+ ------------
+ The extension may fail the deletion in different scenarios, for instance because
+ the baseVersion is out of date or because the user does not have permissions to
+ delete the item. In that case the extension should fail the call with the
+ NSFileProviderErrorDeletionRejected error code which will cause the system to
+ re-create the deleted item on disk based on the latest metadata available from
+ the extension.
+
+ If the options don't include NSFileProviderDeleteItemRecursive and the
+ deletion targets a non-empty directory, the extension must reject the deletion
+ with the NSFileProviderErrorDirectoryNotEmpty error code. This error can also
+ be reported in case some children of the directory cannot be deleted when
+ receiving the NSFileProviderDeleteItemRecursive option. In both cases,
+ the system will re-create the deleted item on disk based on the latest metadata
+ available from the extension.
+
+ If the deletion targets an item that is unknown from the extension because
+ that item may have already been deleted remotely, then the extension should
+ report a success.
+
+ The extension can also report the NSFileProviderErrorNotAuthenticated and
+ NSFileProviderErrorServerUnreachable in case the deletion cannot be applied
+ because of the current state of the system / domain. In that case, the system
+ will present an appropriate error message and back off until the next time it
+ is signalled.
+
+ Any other error will be considered to be transient and will cause the
+ deletion to be retried.
  */
 - (NSProgress *)deleteItemWithIdentifier:(NSFileProviderItemIdentifier)identifier
                              baseVersion:(NSFileProviderItemVersion *)version
                                  options:(NSFileProviderDeleteItemOptions)options
+                                 request:(NSFileProviderRequest *)request
                        completionHandler:(void (^)(NSError * _Nullable))completionHandler
-    NS_SWIFT_NAME(deleteItem(with:baseVersion:options:completionHandler:));
+    NS_SWIFT_NAME(deleteItem(identifier:baseVersion:options:request:completionHandler:));
 
 
 #pragma mark - Optional selectors
@@ -339,7 +500,7 @@ NS_SWIFT_NAME(createItem(basedOn:fields:contents:options:completionHandler:));
 
  During import, found items will be created via the
  -[NSFileProviderExtension createItemBasedOnTemplate:fields:contents:options:completionHandler:]
- call with the NSFileProviderCreateItemOptionsItemMayAlreadyExist flag set.
+ call with the NSFileProviderCreateItemMayAlreadyExist flag set.
  At the end of an import the -[NSFileProviderExtension importDidFinishWithCompletionHandler:]
  is called.
  */
@@ -392,6 +553,10 @@ NS_SWIFT_NAME(createItem(basedOn:fields:contents:options:completionHandler:));
  - Call -signalEnumeratorForContainerItemIdentifier: on the working set, i.e the
    container identified by NSFileProviderWorkingSetContainerItemIdentifier;
  - Include this item in the next enumeration of the working set.
+
+ Since this method is called on every change of the set of materialized items,
+ it is advisable to use it to set a flag and perform any resulting work as a
+ timed task rather than performing any work directly.
  */
 - (void)materializedItemsDidChangeWithCompletionHandler:(void (^)(void))completionHandler;
 
@@ -418,7 +583,7 @@ FILEPROVIDER_API_AVAILABILITY_V3
                                            version:(nullable NSFileProviderItemVersion *)requestedVersion
                         usingExistingContentsAtURL:(NSURL *)existingContents
                                    existingVersion:(NSFileProviderItemVersion *)existingVersion
-                                           request:(nullable NSFileProviderRequest *)request
+                                           request:(NSFileProviderRequest *)request
                                  completionHandler:(void(^)(NSURL * _Nullable fileContents, NSFileProviderItem _Nullable item, NSError * _Nullable error))completionHandler
     NS_SWIFT_NAME(fetchContents(for:version:usingExistingContentsAt:existingVersion:request:completionHandler:));
 
@@ -436,7 +601,8 @@ FILEPROVIDER_API_AVAILABILITY_V3
  @c -[NSFileManager getFileProviderServicesForItemAtURL:] for a specific item URL.
 */
 - (NSProgress *)supportedServiceSourcesForItemIdentifier:(NSFileProviderItemIdentifier)itemIdentifier
-                                       completionHandler:(void (^)(NSArray <id <NSFileProviderServiceSource>> * _Nullable, NSError * _Nullable))completionHandler;
+                                       completionHandler:(void (^)(NSArray <id <NSFileProviderServiceSource>> * _Nullable, NSError * _Nullable))completionHandler
+    NS_SWIFT_NAME(supportedServiceSources(for:completionHandler:));
 
 @end
 
@@ -483,12 +649,14 @@ FILEPROVIDER_API_AVAILABILITY_V3
  Perform a custom action identified by `actionIdentifier`, on items identified by
  `itemIdentifiers`.
 
- Custom actions are defined in the File Provider Extension's Info.plist.
+ Custom actions are defined in the File Provider Extension's Info.plist, under the
+ `NSExtensionFileProviderActions` key. The format of this key is identical to actions
+ defined in a FileProviderUI extension.
  */
 - (NSProgress *)performActionWithIdentifier:(NSFileProviderExtensionActionIdentifier)actionIdentifier
                      onItemsWithIdentifiers:(NSArray <NSFileProviderItemIdentifier> *)itemIdentifiers
                           completionHandler:(void (^)(NSError * _Nullable error))completionHandler
-    NS_SWIFT_NAME(performAction(with:onItemsWithIdentifiers:completionHandler:));
+    NS_SWIFT_NAME(performAction(identifier:onItemsWithIdentifiers:completionHandler:));
 
 @end
 

@@ -1,12 +1,26 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 1C1A0435-429A-31A8-AE61-C88A702A649A', 'x86_64: 1C1A0435-429A-31A8-AE61-C88A702A649A' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           320DBA9D-1B64-3D98-A43D-DD92E31864F7
+  - target:          x86_64-maccatalyst
+    value:           320DBA9D-1B64-3D98-A43D-DD92E31864F7
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           E643579E-D0FF-33D3-955C-495C86427CEE
+  - target:          arm64e-maccatalyst
+    value:           E643579E-D0FF-33D3-955C-495C86427CEE
 install-name:    '/System/Library/PrivateFrameworks/CloudDocs.framework/Versions/A/CloudDocs'
-current-version: 698.16
+current-version: 726
 compatibility-version: 0
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _BRAccountDidCompleteFirstSyncDownKey, _BRAccountIsDatabaseFromTheFutureKey, 
                        _BRAccountIsServiceEnabledKey, _BRAccountIsSynchronizingDesktop, 
                        _BRAccountIsSynchronizingDocuments, _BRAccountMigrationStatusKey, 
@@ -47,16 +61,16 @@ exports:
                        _BRDaemonBundleID, _BRDaemonConnectionInvalidate, _BRDefaultsDomain, 
                        _BRDidUpdateLastSyncStatusDistributedNotification, _BRDumpDatabaseToFileHandle, 
                        _BREntitledApplicationIdentifier, _BREntitledContainerIdentifiers, 
-                       _BREntitlementAccountAccess, _BREntitlementAccountAccessTooMuchPower, 
-                       _BREntitlementAutomation, _BREntitlementFolderSharingProxy, 
-                       _BREntitlementOldAppleAccountAccess, _BREntitlementPrivateiWorkSharingAcceptance, 
-                       _BREntitlementSPIAccess, _BREntitlementSharingPrivateInterface, 
-                       _BREntitlementSharingProxy, _BREntitlementStorageManagement, 
-                       _BRErrorAffectedContainersKey, _BREvictItemAtURL, _BREvictItemAtURLWithOptions, 
-                       _BRFailedURLsKey, _BRFileCoordinatorReadingOptionsPrettyPrint, 
-                       _BRForceSyncOnAllContainers, _BRGetApplicationDocumentUsageInformation, 
-                       _BRGetAttributeValueForItem, _BRGetAttributeValuesForItem, 
-                       _BRGetCloudEnabledStatus, _BRGetCloudEnabledStatusForAuditToken, 
+                       _BREntitledContainerIdentifiersForPropertyList, _BREntitlementAccountAccess, 
+                       _BREntitlementAccountAccessTooMuchPower, _BREntitlementAutomation, 
+                       _BREntitlementFolderSharingProxy, _BREntitlementOldAppleAccountAccess, 
+                       _BREntitlementPrivateiWorkSharingAcceptance, _BREntitlementSPIAccess, 
+                       _BREntitlementSharingPrivateInterface, _BREntitlementSharingProxy, 
+                       _BREntitlementStorageManagement, _BRErrorAffectedContainersKey, 
+                       _BREvictItemAtURL, _BREvictItemAtURLWithOptions, _BRFailedURLsKey, 
+                       _BRFileCoordinatorReadingOptionsPrettyPrint, _BRForceSyncOnAllContainers, 
+                       _BRGetApplicationDocumentUsageInformation, _BRGetAttributeValueForItem, 
+                       _BRGetAttributeValuesForItem, _BRGetCloudEnabledStatus, _BRGetCloudEnabledStatusForAuditToken, 
                        _BRGetCloudEnabledStatusForPID, _BRGetFileNameFromServerInfoBlob, 
                        _BRGetLastSyncDateWithError, _BRGetLocalizedLastSyncWithError, 
                        _BRGetMigrationStatusForDSID, _BRGetMigrationStatusForPrimaryiCloudAccount, 
@@ -141,7 +155,6 @@ exports:
                        __BRNSMetadataUbiquitousSharedItemLastEditorNameKey, __BRPathIsUbiquityFault, 
                        __BRPromiseURLCombine, __BRSetResourcePropertyForKey, __brc_assert_failure, 
                        __brc_create_simulate_crash_message, __brc_log_is_internal_install, 
-                       __tkBRCClientTruthNumberOfVMSteps, __tkBRCServerTruthNumberOfVMSteps, 
                        _abc_report_assert_with_signature, _abc_report_panic_with_signature, 
                        _br_pacer_cancel, _br_pacer_create, _br_pacer_pretend_event_handler_fired, 
                        _br_pacer_resume, _br_pacer_set_event_handler, _br_pacer_signal, 
@@ -173,12 +186,12 @@ exports:
                        BRFileProvidingOperation, BRInodeObjectID, BRListNonLocalVersionsOperation, 
                        BRMangledID, BRNonLocalVersion, BRNotificationQueue, BROperation, 
                        BRProgressUpdate, BRQueryItem, BRReachabilityMonitor, BRRemoteUserDefaults, 
-                       BRServerInfoRecordInfo, BRShareCleanSubitems, BRShareCopyAccessTokenOperation, 
-                       BRShareCopyDocumentURLForRecordID, BRShareCopyOperation, BRShareCopyShareURLOperation, 
-                       BRShareCopyiWorkShareURLOperation, BRShareDestroyOperation, 
-                       BRShareLookupParticipantsOperation, BRSharePrepFolderForSharing, 
-                       BRShareProcessSubitems, BRShareSaveOperation, BRShareUnshareOperation, 
-                       BRSharingCopyEtagOperation, BRSharingCopyShareInfoOperation, 
+                       BRServerInfoRecordInfo, BRServerMetrics, BRShareCleanSubitems, 
+                       BRShareCopyAccessTokenOperation, BRShareCopyDocumentURLForRecordID, 
+                       BRShareCopyOperation, BRShareCopyShareURLOperation, BRShareCopyiWorkShareURLOperation, 
+                       BRShareDestroyOperation, BRShareLookupParticipantsOperation, 
+                       BRSharePrepFolderForSharing, BRShareProcessSubitems, BRShareSaveOperation, 
+                       BRShareUnshareOperation, BRSharingCopyEtagOperation, BRSharingCopyShareInfoOperation, 
                        BRSharingCopyShareTokenOperation, BRSharingCopyShortTokenOperation, 
                        BRSharingModifyRecordAccessOperation, BRTask, BRTransfersStatusManager, 
                        BRUploadAllFilesForLogOutOperation, BRUploadAllFilesOperation, 

@@ -1,16 +1,24 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 1FD613EE-6A3C-3E31-8C00-5157CAA379B2' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           3ACC6FC2-22B6-37C2-B024-570AC85D3146
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           9A20B686-1CA9-3CE7-ACAD-04F2F56E39F3
 install-name:    '/System/Library/PrivateFrameworks/ShareServicesCore.framework/Versions/A/ShareServicesCore'
-current-version: 161.0.120
+current-version: 311.0.120
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _SBLFileURLFromFileURLs, _SBLNeedsLivePhotoBundleForSharingService, 
                        _SBLShareKitShareableItemErrorDomain, _SBLShareKitSharingParameterBounds, 
-                       _SBLShareKitSharingParameterImage, _SBLShouldProvideImageForAsset, 
-                       _SBLShouldProvideMovieForAsset, _SBLSubsystemShareKit, _SBLTemporaryExportURLFromURL, 
-                       _SBLVariantFromVariants, _SBLVideoSharingServicePrefix, _ShareServicesCoreVersionNumber, 
+                       _SBLShareKitSharingParameterImage, _SBLSharingServiceNameAddToNotes, 
+                       _SBLSharingServiceNameCreateReminder, _SBLSharingServiceNameSendToSimulator, 
+                       _SBLShouldProvideImageForAsset, _SBLShouldProvideMovieForAsset, 
+                       _SBLSubsystemShareKit, _SBLTemporaryExportURLFromURL, _SBLVariantFromVariants, 
+                       _SBLVideoSharingServicePrefix, _ShareServicesCoreVersionNumber, 
                        _ShareServicesCoreVersionString, _kCompletedUnitCountProperty, 
                        _kSBLItemKey, _kSBLPreSharingAlertCancelButtonTitle, _kSBLPreSharingAlertConfirmButtonTitle, 
                        _kSBLPreSharingAlertMessage, _kSBLPreSharingAlertNeeded, _kSBLPreSharingAlertTitle, 
@@ -22,5 +30,6 @@ exports:
                        SBLFullfillProvidersOperation, SBLPrepareProvidersOperation, 
                        SBLProvidersOperation, SBLReconnectProvidersOperation, SBLSetDesktopSharingService, 
                        SBLShareKitManager, SBLShareKitSession, SBLShareKitShareableItem, 
-                       SBLSharedAlbumsSharingService, SharingServiceString ]
+                       SBLSharedAlbumsSharingService, SBLVideoStabilizationInternalService, 
+                       SharingServiceString ]
 ...

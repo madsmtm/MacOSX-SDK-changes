@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.140.1) generated from IOUSBHostPipe.iig */
+/* iig(DriverKit-107.40.8) generated from IOUSBHostPipe.iig */
 
 /* IOUSBHostPipe.iig:1-95 */
 /*
@@ -621,6 +621,12 @@ public:\
     static kern_return_t\
     CompleteAsyncIO_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\
+        CompleteAsyncIO_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
+    static kern_return_t\
+    CompleteAsyncIO_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
         CompleteAsyncIO_Handler func);\
 \
     typedef kern_return_t (*AsyncIO_Handler)(OSMetaClassBase * target, IOUSBHostPipe_AsyncIO_Args);\
@@ -636,6 +642,12 @@ public:\
         IO_Handler func);\
 \
     typedef void (*CompleteAsyncIsochIO_Handler)(OSMetaClassBase * target, IOUSBHostPipe_CompleteAsyncIsochIO_Args);\
+    static kern_return_t\
+    CompleteAsyncIsochIO_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        CompleteAsyncIsochIO_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
     static kern_return_t\
     CompleteAsyncIsochIO_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\
@@ -666,6 +678,12 @@ public:\
         AsyncIOBundled_Handler func);\
 \
     typedef void (*CompleteAsyncIOBundled_Handler)(OSMetaClassBase * target, IOUSBHostPipe_CompleteAsyncIOBundled_Args);\
+    static kern_return_t\
+    CompleteAsyncIOBundled_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        CompleteAsyncIOBundled_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
     static kern_return_t\
     CompleteAsyncIOBundled_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\

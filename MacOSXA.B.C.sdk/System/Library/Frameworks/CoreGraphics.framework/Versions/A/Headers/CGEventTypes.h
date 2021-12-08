@@ -5,6 +5,7 @@
 #ifndef CGEVENTTYPES_H_
 #define CGEVENTTYPES_H_
 
+
 #include <CoreFoundation/CFBase.h>
 #include <CoreFoundation/CFAvailability.h>
 #include <stdint.h>
@@ -481,5 +482,6 @@ typedef uint32_t CGEventSourceKeyboardType;
 #define kCGAnyInputEventType ((CGEventType)(~0))
 
 CF_ASSUME_NONNULL_END
+
 
 #endif /* CGEVENTTYPES_H_ */

@@ -1,4 +1,4 @@
-/* iig(DriverKit-73.100.4) generated from IOUserUSBHostHIDDevice.iig */
+/* iig(DriverKit-107.40.8) generated from IOUserUSBHostHIDDevice.iig */
 
 /* IOUserUSBHostHIDDevice.iig:1-41 */
 /*
@@ -42,7 +42,7 @@ typedef enum {
     USBIdlePolicyTypePipe,
 } USBIdlePolicyType;
 
-/* source class IOUserUSBHostHIDDevice IOUserUSBHostHIDDevice.iig:42-333 */
+/* source class IOUserUSBHostHIDDevice IOUserUSBHostHIDDevice.iig:42-340 */
 
 #if __DOCUMENTATION__
 #define KERNEL IIG_KERNEL
@@ -142,7 +142,6 @@ public:
     /*!
      @function getReport
      @abstract Get a report from the HID device.
-     @discussion A completion parameter may be added in the future.
      @param report A memory descriptor that describes the memory to store
      the report read from the HID device.
      @param reportType The report type.
@@ -150,7 +149,7 @@ public:
      other 24 bits are options to specify the request.
      @param completionTimeout Specifies an amount of time (in ms) after which
      the command will be aborted if the entire command has not been completed.
-     @param completion Function to call when request completes. If omitted then
+     @param action OSAction to call CompleteReport when request completes. If omitted then
      getReport() executes synchronously, blocking until the request is complete.
      @result kIOReturnSuccess on success, or an error return otherwise.
      */
@@ -164,7 +163,6 @@ public:
     /*!
      * @function setReport
      * @abstract Send a report to the HID device.
-     * @discussion A completion parameter may be added in the future.
      * @param report A memory descriptor that describes the report to send
      * to the HID device.
      * @param reportType The report type.
@@ -172,8 +170,7 @@ public:
      * other 24 bits are options to specify the request.
      * @param completionTimeout Specifies an amount of time (in ms) after which
      * the command will be aborted if the entire command has not been completed.
-     * @param action Action to call CompleteReport when request completes. If omitted then
-     * setReport() executes synchronously, blocking until the request is complete.
+     * @param action OSAction to call CompleteReport when request completes.
      * @result kIOReturnSuccess on success, or an error return otherwise.
      */
     
@@ -233,6 +230,36 @@ protected:
                                       uint32_t      actualByteCount,
                                       uint64_t      completionTimestamp) TYPE(IOUSBHostPipe::CompleteAsyncIO);
 
+    /*!
+     * @function CompleteOutputReport
+     * @abstract Complete output report, when report is sent over output pipe
+     * @discussion Function call upon sent completion of output reports using Interrupt pipes.
+     * <code>action</code> reference carry <code>IOUSBHIDCompletion</code>
+     * associated with read request
+     * @param action completion action
+     * @param status completion status
+     * @param actualByteCount number of bytes read
+     */
+
+    virtual void CompleteOutputReport (OSAction      * action TARGET,
+                                       IOReturn      status,
+                                       uint32_t      actualByteCount,
+                                       uint64_t      completionTimestamp) TYPE(IOUSBHostPipe::CompleteAsyncIO);
+
+    /*!
+     * @function CompleteOutputRequest
+     * @abstract Complete output report, when report is senf over control pipe
+     * @discussion Function call upon sent completion of output reports using control pipe.
+     * <code>action</code> reference carry <code>IOUSBHIDCompletion</code>
+     * associated with read request
+     * @param action completion action
+     * @param status completion status
+     * @param bytesTransferred number of bytes read
+     */
+
+    virtual void CompleteOutputRequest (OSAction     *action TARGET,
+                                        IOReturn     status,
+                                        uint32_t     bytesTransferred) TYPE(IOUSBHostDevice::CompleteAsyncDeviceRequest);
     
     /*!
      * @function TimerOccurred
@@ -287,8 +314,6 @@ protected:
      * other 24 bits are options to specify the request.
      * @param completionTimeout Specifies an amount of time (in ms) after which
      * the command will be aborted if the entire command has not been completed.
-     * @param completion Function to call when request completes. If omitted then
-     * getReport() executes synchronously, blocking until the request is complete.
      * @result kIOReturnSuccess on success, or an error return otherwise.
      */
 
@@ -297,26 +322,8 @@ protected:
                              IOOptionBits            options,
                              uint32_t                completionTimeout,
                              uint32_t                * bytesTransferred) LOCALONLY;
-    
-    /*!
-     * @function setReport
-     * @abstract Syncronous send a report to the HID device.
-     * @param report A memory descriptor that describes the report to send
-     * to the HID device.
-     * @param reportType The report type.
-     * @param options The lower 8 bits will represent the Report ID.  The
-     * other 24 bits are options to specify the request.
-     * @param completionTimeout Specifies an amount of time (in ms) after which
-     * the command will be aborted if the entire command has not been completed.
-     * @result kIOReturnSuccess on success, or an error return otherwise.
-     */
 
-    kern_return_t setReport (IOMemoryDescriptor      * report,
-                             IOHIDReportType         reportType,
-                             IOOptionBits            options,
-                             uint32_t                completionTimeout) LOCALONLY;
-    
-    
+
     /*!
      * @function setProperty
      * @abstract Pass property from corresponding kernel object
@@ -344,9 +351,11 @@ private:
 #undef KERNEL
 #else /* __DOCUMENTATION__ */
 
-/* generated class IOUserUSBHostHIDDevice IOUserUSBHostHIDDevice.iig:42-333 */
+/* generated class IOUserUSBHostHIDDevice IOUserUSBHostHIDDevice.iig:42-340 */
 
 #define IOUserUSBHostHIDDevice_CompleteInputReport_ID            0x40e1addf867de565ULL
+#define IOUserUSBHostHIDDevice_CompleteOutputReport_ID            0x49e4339f54eece76ULL
+#define IOUserUSBHostHIDDevice_CompleteOutputRequest_ID            0x65f257b8e6c0b76fULL
 #define IOUserUSBHostHIDDevice_TimerOccurred_ID            0x2a91ee629fd82a2dULL
 #define IOUserUSBHostHIDDevice_CompleteZLP_ID            0x6b7467ea496a70d2ULL
 
@@ -361,6 +370,17 @@ private:
         IOReturn status, \
         uint32_t actualByteCount, \
         uint64_t completionTimestamp
+
+#define IOUserUSBHostHIDDevice_CompleteOutputReport_Args \
+        OSAction * action, \
+        IOReturn status, \
+        uint32_t actualByteCount, \
+        uint64_t completionTimestamp
+
+#define IOUserUSBHostHIDDevice_CompleteOutputRequest_Args \
+        OSAction * action, \
+        IOReturn status, \
+        uint32_t bytesTransferred
 
 #define IOUserUSBHostHIDDevice_TimerOccurred_Args \
         OSAction * action, \
@@ -386,6 +406,12 @@ public:\
     CreateActionCompleteInputReport(size_t referenceSize, OSAction ** action);\
 \
     kern_return_t\
+    CreateActionCompleteOutputReport(size_t referenceSize, OSAction ** action);\
+\
+    kern_return_t\
+    CreateActionCompleteOutputRequest(size_t referenceSize, OSAction ** action);\
+\
+    kern_return_t\
     CreateActionTimerOccurred(size_t referenceSize, OSAction ** action);\
 \
     kern_return_t\
@@ -395,13 +421,6 @@ public:\
         IOOptionBits options,\
         uint32_t completionTimeout,\
         uint32_t * bytesTransferred);\
-\
-    kern_return_t\
-    setReport(\
-        IOMemoryDescriptor * report,\
-        IOHIDReportType reportType,\
-        IOOptionBits options,\
-        uint32_t completionTimeout);\
 \
     kern_return_t\
     initPipes(\
@@ -433,6 +452,12 @@ protected:\
 \
     void\
     CompleteInputReport_Impl(IOUserUSBHostHIDDevice_CompleteInputReport_Args);\
+\
+    void\
+    CompleteOutputReport_Impl(IOUserUSBHostHIDDevice_CompleteOutputReport_Args);\
+\
+    void\
+    CompleteOutputRequest_Impl(IOUserUSBHostHIDDevice_CompleteOutputRequest_Args);\
 \
     void\
     TimerOccurred_Impl(IOUserUSBHostHIDDevice_TimerOccurred_Args);\
@@ -603,8 +628,443 @@ public:
 #endif /* !KERNEL */
 
 
+#define OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_Methods \
+\
+public:\
+\
+    virtual kern_return_t\
+    Dispatch(const IORPC rpc) APPLE_KEXT_OVERRIDE;\
+\
+    static kern_return_t\
+    _Dispatch(OSAction_IOUserUSBHostHIDDevice_CompleteInputReport * self, const IORPC rpc);\
+\
+\
+protected:\
+    /* _Impl methods */\
+\
+\
+public:\
+    /* _Invoke methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_KernelMethods \
+\
+protected:\
+    /* _Impl methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_VirtualMethods \
+\
+public:\
+\
+
+
+#if !KERNEL
+
+extern OSMetaClass          * gOSAction_IOUserUSBHostHIDDevice_CompleteInputReportMetaClass;
+extern const OSClassLoadInformation OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_Class;
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteInputReportMetaClass : public OSMetaClass
+{
+public:
+    virtual kern_return_t
+    New(OSObject * instance) override;
+    virtual kern_return_t
+    Dispatch(const IORPC rpc) override;
+};
+
+#endif /* !KERNEL */
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteInputReportInterface : public OSInterface
+{
+public:
+};
+
+struct OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_IVars;
+struct OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_LocalIVars;
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteInputReport : public OSAction, public OSAction_IOUserUSBHostHIDDevice_CompleteInputReportInterface
+{
+#if KERNEL
+    OSDeclareDefaultStructorsWithDispatch(OSAction_IOUserUSBHostHIDDevice_CompleteInputReport);
+#endif /* KERNEL */
+
+#if !KERNEL
+    friend class OSAction_IOUserUSBHostHIDDevice_CompleteInputReportMetaClass;
+#endif /* !KERNEL */
+
+public:
+    union
+    {
+        OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_IVars * ivars;
+        OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_LocalIVars * lvars;
+    };
+#if !KERNEL
+    virtual const OSMetaClass *
+    getMetaClass() const APPLE_KEXT_OVERRIDE { return OSTypeID(OSAction_IOUserUSBHostHIDDevice_CompleteInputReport); };
+#endif /* KERNEL */
+
+    using super = OSAction;
+
+#if !KERNEL
+    OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_Methods
+#endif /* !KERNEL */
+
+    OSAction_IOUserUSBHostHIDDevice_CompleteInputReport_VirtualMethods
+};
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_Methods \
+\
+public:\
+\
+    virtual kern_return_t\
+    Dispatch(const IORPC rpc) APPLE_KEXT_OVERRIDE;\
+\
+    static kern_return_t\
+    _Dispatch(OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport * self, const IORPC rpc);\
+\
+\
+protected:\
+    /* _Impl methods */\
+\
+\
+public:\
+    /* _Invoke methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_KernelMethods \
+\
+protected:\
+    /* _Impl methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_VirtualMethods \
+\
+public:\
+\
+
+
+#if !KERNEL
+
+extern OSMetaClass          * gOSAction_IOUserUSBHostHIDDevice_CompleteOutputReportMetaClass;
+extern const OSClassLoadInformation OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_Class;
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteOutputReportMetaClass : public OSMetaClass
+{
+public:
+    virtual kern_return_t
+    New(OSObject * instance) override;
+    virtual kern_return_t
+    Dispatch(const IORPC rpc) override;
+};
+
+#endif /* !KERNEL */
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteOutputReportInterface : public OSInterface
+{
+public:
+};
+
+struct OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_IVars;
+struct OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_LocalIVars;
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport : public OSAction, public OSAction_IOUserUSBHostHIDDevice_CompleteOutputReportInterface
+{
+#if KERNEL
+    OSDeclareDefaultStructorsWithDispatch(OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport);
+#endif /* KERNEL */
+
+#if !KERNEL
+    friend class OSAction_IOUserUSBHostHIDDevice_CompleteOutputReportMetaClass;
+#endif /* !KERNEL */
+
+public:
+    union
+    {
+        OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_IVars * ivars;
+        OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_LocalIVars * lvars;
+    };
+#if !KERNEL
+    virtual const OSMetaClass *
+    getMetaClass() const APPLE_KEXT_OVERRIDE { return OSTypeID(OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport); };
+#endif /* KERNEL */
+
+    using super = OSAction;
+
+#if !KERNEL
+    OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_Methods
+#endif /* !KERNEL */
+
+    OSAction_IOUserUSBHostHIDDevice_CompleteOutputReport_VirtualMethods
+};
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_Methods \
+\
+public:\
+\
+    virtual kern_return_t\
+    Dispatch(const IORPC rpc) APPLE_KEXT_OVERRIDE;\
+\
+    static kern_return_t\
+    _Dispatch(OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest * self, const IORPC rpc);\
+\
+\
+protected:\
+    /* _Impl methods */\
+\
+\
+public:\
+    /* _Invoke methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_KernelMethods \
+\
+protected:\
+    /* _Impl methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_VirtualMethods \
+\
+public:\
+\
+
+
+#if !KERNEL
+
+extern OSMetaClass          * gOSAction_IOUserUSBHostHIDDevice_CompleteOutputRequestMetaClass;
+extern const OSClassLoadInformation OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_Class;
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequestMetaClass : public OSMetaClass
+{
+public:
+    virtual kern_return_t
+    New(OSObject * instance) override;
+    virtual kern_return_t
+    Dispatch(const IORPC rpc) override;
+};
+
+#endif /* !KERNEL */
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequestInterface : public OSInterface
+{
+public:
+};
+
+struct OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_IVars;
+struct OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_LocalIVars;
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest : public OSAction, public OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequestInterface
+{
+#if KERNEL
+    OSDeclareDefaultStructorsWithDispatch(OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest);
+#endif /* KERNEL */
+
+#if !KERNEL
+    friend class OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequestMetaClass;
+#endif /* !KERNEL */
+
+public:
+    union
+    {
+        OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_IVars * ivars;
+        OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_LocalIVars * lvars;
+    };
+#if !KERNEL
+    virtual const OSMetaClass *
+    getMetaClass() const APPLE_KEXT_OVERRIDE { return OSTypeID(OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest); };
+#endif /* KERNEL */
+
+    using super = OSAction;
+
+#if !KERNEL
+    OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_Methods
+#endif /* !KERNEL */
+
+    OSAction_IOUserUSBHostHIDDevice_CompleteOutputRequest_VirtualMethods
+};
+
+#define OSAction_IOUserUSBHostHIDDevice_TimerOccurred_Methods \
+\
+public:\
+\
+    virtual kern_return_t\
+    Dispatch(const IORPC rpc) APPLE_KEXT_OVERRIDE;\
+\
+    static kern_return_t\
+    _Dispatch(OSAction_IOUserUSBHostHIDDevice_TimerOccurred * self, const IORPC rpc);\
+\
+\
+protected:\
+    /* _Impl methods */\
+\
+\
+public:\
+    /* _Invoke methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_TimerOccurred_KernelMethods \
+\
+protected:\
+    /* _Impl methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_TimerOccurred_VirtualMethods \
+\
+public:\
+\
+
+
+#if !KERNEL
+
+extern OSMetaClass          * gOSAction_IOUserUSBHostHIDDevice_TimerOccurredMetaClass;
+extern const OSClassLoadInformation OSAction_IOUserUSBHostHIDDevice_TimerOccurred_Class;
+
+class OSAction_IOUserUSBHostHIDDevice_TimerOccurredMetaClass : public OSMetaClass
+{
+public:
+    virtual kern_return_t
+    New(OSObject * instance) override;
+    virtual kern_return_t
+    Dispatch(const IORPC rpc) override;
+};
+
+#endif /* !KERNEL */
+
+class OSAction_IOUserUSBHostHIDDevice_TimerOccurredInterface : public OSInterface
+{
+public:
+};
+
+struct OSAction_IOUserUSBHostHIDDevice_TimerOccurred_IVars;
+struct OSAction_IOUserUSBHostHIDDevice_TimerOccurred_LocalIVars;
+
+class OSAction_IOUserUSBHostHIDDevice_TimerOccurred : public OSAction, public OSAction_IOUserUSBHostHIDDevice_TimerOccurredInterface
+{
+#if KERNEL
+    OSDeclareDefaultStructorsWithDispatch(OSAction_IOUserUSBHostHIDDevice_TimerOccurred);
+#endif /* KERNEL */
+
+#if !KERNEL
+    friend class OSAction_IOUserUSBHostHIDDevice_TimerOccurredMetaClass;
+#endif /* !KERNEL */
+
+public:
+    union
+    {
+        OSAction_IOUserUSBHostHIDDevice_TimerOccurred_IVars * ivars;
+        OSAction_IOUserUSBHostHIDDevice_TimerOccurred_LocalIVars * lvars;
+    };
+#if !KERNEL
+    virtual const OSMetaClass *
+    getMetaClass() const APPLE_KEXT_OVERRIDE { return OSTypeID(OSAction_IOUserUSBHostHIDDevice_TimerOccurred); };
+#endif /* KERNEL */
+
+    using super = OSAction;
+
+#if !KERNEL
+    OSAction_IOUserUSBHostHIDDevice_TimerOccurred_Methods
+#endif /* !KERNEL */
+
+    OSAction_IOUserUSBHostHIDDevice_TimerOccurred_VirtualMethods
+};
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteZLP_Methods \
+\
+public:\
+\
+    virtual kern_return_t\
+    Dispatch(const IORPC rpc) APPLE_KEXT_OVERRIDE;\
+\
+    static kern_return_t\
+    _Dispatch(OSAction_IOUserUSBHostHIDDevice_CompleteZLP * self, const IORPC rpc);\
+\
+\
+protected:\
+    /* _Impl methods */\
+\
+\
+public:\
+    /* _Invoke methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteZLP_KernelMethods \
+\
+protected:\
+    /* _Impl methods */\
+\
+
+
+#define OSAction_IOUserUSBHostHIDDevice_CompleteZLP_VirtualMethods \
+\
+public:\
+\
+
+
+#if !KERNEL
+
+extern OSMetaClass          * gOSAction_IOUserUSBHostHIDDevice_CompleteZLPMetaClass;
+extern const OSClassLoadInformation OSAction_IOUserUSBHostHIDDevice_CompleteZLP_Class;
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteZLPMetaClass : public OSMetaClass
+{
+public:
+    virtual kern_return_t
+    New(OSObject * instance) override;
+    virtual kern_return_t
+    Dispatch(const IORPC rpc) override;
+};
+
+#endif /* !KERNEL */
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteZLPInterface : public OSInterface
+{
+public:
+};
+
+struct OSAction_IOUserUSBHostHIDDevice_CompleteZLP_IVars;
+struct OSAction_IOUserUSBHostHIDDevice_CompleteZLP_LocalIVars;
+
+class OSAction_IOUserUSBHostHIDDevice_CompleteZLP : public OSAction, public OSAction_IOUserUSBHostHIDDevice_CompleteZLPInterface
+{
+#if KERNEL
+    OSDeclareDefaultStructorsWithDispatch(OSAction_IOUserUSBHostHIDDevice_CompleteZLP);
+#endif /* KERNEL */
+
+#if !KERNEL
+    friend class OSAction_IOUserUSBHostHIDDevice_CompleteZLPMetaClass;
+#endif /* !KERNEL */
+
+public:
+    union
+    {
+        OSAction_IOUserUSBHostHIDDevice_CompleteZLP_IVars * ivars;
+        OSAction_IOUserUSBHostHIDDevice_CompleteZLP_LocalIVars * lvars;
+    };
+#if !KERNEL
+    virtual const OSMetaClass *
+    getMetaClass() const APPLE_KEXT_OVERRIDE { return OSTypeID(OSAction_IOUserUSBHostHIDDevice_CompleteZLP); };
+#endif /* KERNEL */
+
+    using super = OSAction;
+
+#if !KERNEL
+    OSAction_IOUserUSBHostHIDDevice_CompleteZLP_Methods
+#endif /* !KERNEL */
+
+    OSAction_IOUserUSBHostHIDDevice_CompleteZLP_VirtualMethods
+};
+
 #endif /* !__DOCUMENTATION__ */
 
-/* IOUserUSBHostHIDDevice.iig:335- */
+/* IOUserUSBHostHIDDevice.iig:342- */
 
 #endif	// _HIDDRIVERKIT_IOUSERUSBHOSTHIDDEVICE_H

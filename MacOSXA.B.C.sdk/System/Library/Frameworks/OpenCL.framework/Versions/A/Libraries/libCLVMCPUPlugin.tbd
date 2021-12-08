@@ -1,10 +1,14 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 8AB90783-C15D-3717-94E4-8A757C04CEB0', 'x86_64: 8AB90783-C15D-3717-94E4-8A757C04CEB0' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           5CD0E1FD-4D33-3D65-B717-7F7B1E52AC75
+  - target:          x86_64-maccatalyst
+    value:           5CD0E1FD-4D33-3D65-B717-7F7B1E52AC75
 install-name:    '/System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/libCLVMCPUPlugin.dylib'
-current-version: 2.14
+current-version: 2.19
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos ]
     symbols:         [ _cvmsPluginElementBuild, _cvmsPluginServiceInitialize, _cvmsPluginServiceTerminate ]
 ...

@@ -1,12 +1,18 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B6C5D027-8783-3DC0-B813-332DC9447DE0' ]
-platform:        macosx
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, arm64-macos, arm64e-macos ]
+uuids:
+  - target:          x86_64-macos
+    value:           0C0D24D9-C215-3A0F-B429-11903B47A216
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           06947A0D-67A9-32FC-872A-407613AF97FE
 install-name:    '/System/Library/PrivateFrameworks/AppleCVA.framework/Versions/A/AppleCVA'
-current-version: 200.3.1
-compatibility-version: 200.3
+current-version: 201.8.1
+compatibility-version: 201.8
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-macos, arm64e-macos, arm64-macos ]
     symbols:         [ _CVAFaceKitCopySemantics, _CVAFaceKitCreate, _CVAFaceKitGetAPIVersion, 
                        _CVAFaceKitGetErrorDescription, _CVAFaceKitGetTypeID, _CVAFaceKitMaximumNumberOfTrackedFaces, 
                        _CVAFaceKitPostProcessRecording, _CVAFaceKitPostProcessRecordingExt, 
@@ -55,7 +61,7 @@ exports:
                        _kCVAFaceKit_StructuredLightOccluded, _kCVAFaceKit_TensorUUID, 
                        _kCVAFaceKit_ThreadPolicy, _kCVAFaceKit_ThreadPriority, _kCVAFaceKit_Timestamp, 
                        _kCVAFaceKit_TotalGain, _kCVAFaceKit_TrackedFacesArray, _kCVAFaceKit_Translation, 
-                       _kCVAFaceKit_TriangulatedMesh, _kCVAFaceKit_UseCaranet, _kCVAFaceKit_UseHWA, 
-                       _kCVAFaceKit_UseHardwareAcceleration, _kCVAFaceKit_UseRecognition, 
-                       _kCVAFaceKit_UseTongue, _kCVAFaceKit_VideoOrientation ]
+                       _kCVAFaceKit_TriangulatedMesh, _kCVAFaceKit_UseCaranet, _kCVAFaceKit_UseFaceDetector, 
+                       _kCVAFaceKit_UseHWA, _kCVAFaceKit_UseHardwareAcceleration, 
+                       _kCVAFaceKit_UseRecognition, _kCVAFaceKit_UseTongue, _kCVAFaceKit_VideoOrientation ]
 ...

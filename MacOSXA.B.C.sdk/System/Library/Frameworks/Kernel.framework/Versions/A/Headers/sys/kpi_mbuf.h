@@ -480,7 +480,7 @@ __NKE_API_DEPRECATED;
  *                   smaller during subsequent requests.
  */
 extern errno_t mbuf_getcluster(mbuf_how_t how, mbuf_type_t type, size_t size,
-    mbuf_t *mbuf);
+    mbuf_t *mbuf)
 __NKE_API_DEPRECATED;
 
 /*!
@@ -1463,4 +1463,5 @@ __NKE_API_DEPRECATED;
 }
 
 __END_DECLS
+#undef __NKE_API_DEPRECATED
 #endif /* __KPI_MBUF__ */

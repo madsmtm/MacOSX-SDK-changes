@@ -8,6 +8,8 @@
 #ifndef __HYPERVISOR_HV_ARCH_X86__
 #define __HYPERVISOR_HV_ARCH_X86__
 
+#ifdef __x86_64__
+
 /*
  * Note the #defines here enable access to the symbols from assembler source files.
  */
@@ -65,9 +67,10 @@
 #define __HV_X86_REGISTERS_MAX	51
 
 #ifndef __ASSEMBLER__
-#ifdef __cplusplus
-extern "C" {
-#endif
+
+OS_ASSUME_NONNULL_BEGIN
+
+__BEGIN_DECLS
 
 /*!
  * @enum       hv_x86_reg_t
@@ -128,10 +131,13 @@ typedef enum {
 	HV_X86_REGISTERS_MAX	= __HV_X86_REGISTERS_MAX
 } hv_x86_reg_t;
 
-#ifdef __cplusplus
-}
-#endif
+__END_DECLS
+
+OS_ASSUME_NONNULL_END
+
 #endif	/* ifndef __ASSEMBLER */
+
+#endif /* __x86_64__ */
 
 #endif /* __HYPERVISOR_HV_ARCH_X86__ */
 

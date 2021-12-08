@@ -1,11 +1,25 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 52819640-29DA-30AE-B8E3-AC9E0204B909', 'x86_64: 52819640-29DA-30AE-B8E3-AC9E0204B909' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           60BC1CDC-9057-3510-B0D2-77C109DE9CDF
+  - target:          x86_64-maccatalyst
+    value:           60BC1CDC-9057-3510-B0D2-77C109DE9CDF
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           6CA0805F-A6E6-3015-9ADF-9A36E4235528
+  - target:          arm64e-maccatalyst
+    value:           6CA0805F-A6E6-3015-9ADF-9A36E4235528
 install-name:    '/System/Library/PrivateFrameworks/PhotoFoundation.framework/Versions/A/PhotoFoundation'
-current-version: 161.0.120
+current-version: 311.0.120
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _LastAddRemoveTaskState, _NSStringFromPFIntPoint, _NSStringFromPFIntRect, 
                        _NSStringFromPFIntSize, _PFAspectRatioToWholeLengths, _PFCMTimeDescription, 
                        _PFCMTimeFromQTTimeString, _PFCMTimeRangeDescription, _PFCMTimeRangeFromQTTimeRangeString, 
@@ -17,7 +31,8 @@ exports:
                        _PFFileNameUniquingInitialCountString, _PFFileNameUniquingLeftDelimiter, 
                        _PFFileNameUniquingRightParen, _PFFilter, _PFFind, _PFGMTDateFromDateTimeZone, 
                        _PFGMTDateFromLocalDate, _PFGMTTimeZone, _PFGetProcessIdentifier, 
-                       _PFInitializationLogSubsystem, _PFLocalDateFromGMTDate, _PFLocalizedDateRangeLocaleOptionName, 
+                       _PFInitializationLogSubsystem, _PFInitializationSetAdditionalClasses, 
+                       _PFInvalidPerfCheckErrorStr, _PFLocalDateFromGMTDate, _PFLocalizedDateRangeLocaleOptionName, 
                        _PFLocalizedDateRangeUndefinedFromDateRepresentationOptionName, 
                        _PFLocalizedDateRangeUndefinedToDateRepresentationOptionName, 
                        _PFLogOptionAttachmentURL, _PFLogOptionAttachmentUTI, _PFLogOptionFacilityPrefix, 
@@ -25,12 +40,17 @@ exports:
                        _PFLogUserDefaultsLogDebugSubsystemsKey, _PFLogUserDefaultsLogLevelKey, 
                        _PFLogUserDefaultsLogNoStderrKey, _PFLogUserDefaultsLogTraceSubsystemsKey, 
                        _PFMainRunLoopPerformAfter, _PFMainRunLoopPerformAsync, _PFMap, 
-                       _PFMapIndexes, _PFObjc_classIsSubclassOfClass, _PFObjc_enumerateClasses, 
-                       _PFObjc_enumerateSubclasses, _PFOppositeRectPoint, _PFPointInterpolate, 
-                       _PFPointMapToRect, _PFRectAlignToPoint, _PFRectAlignWithRect, 
-                       _PFRectAreaToRectPoint, _PFRectAspectRatio, _PFRectBoundsForAreaType, 
-                       _PFRectBoundsForAreas, _PFRectCenteredScale, _PFRectCenteredScaleToContain, 
-                       _PFRectCenteredScaleToFill, _PFRectCenteredScaleToFill2, _PFRectCenteredScaleToFillByCropping, 
+                       _PFMapIndexes, _PFObjc_classIsSubclassOfClass, _PFObjc_enumerateClassNamesForImageHeader, 
+                       _PFObjc_enumerateSubclassesForHeader, _PFOppositeRectPoint, 
+                       _PFPerfCheckTypeCPUMillionInstructionsKey, _PFPerfCheckTypeCPUTimeMilliSecondsKey, 
+                       _PFPerfCheckTypeProcessMemoryCurrentKiloBytesAfterRequestKey, 
+                       _PFPerfCheckTypeProcessMemoryCurrentKiloBytesInitialKey, _PFPerfCheckTypeProcessMemoryPeakKiloBytesAfterRequestKey, 
+                       _PFPerfCheckTypeProcessMemoryPeakKiloBytesInitialKey, _PFPerfCheckTypeStorageDirtiedKey, 
+                       _PFPointInterpolate, _PFPointMapToRect, _PFRectAlignToPoint, 
+                       _PFRectAlignWithRect, _PFRectAreaToRectPoint, _PFRectAspectRatio, 
+                       _PFRectBoundsForAreaType, _PFRectBoundsForAreas, _PFRectCenteredScale, 
+                       _PFRectCenteredScaleToContain, _PFRectCenteredScaleToFill, 
+                       _PFRectCenteredScaleToFill2, _PFRectCenteredScaleToFillByCropping, 
                        _PFRectCenteredScaleToFit, _PFRectClampRect, _PFRectClosestArea, 
                        _PFRectClosestPoint, _PFRectClosestSide, _PFRectContainPoint, 
                        _PFRectContainRect, _PFRectCouldContainRect, _PFRectDifference, 
@@ -77,14 +97,14 @@ exports:
                        PFBlockControl, PFBookmarkCoordinator, PFCache, PFCacheApproximateLRUCacheEntry, 
                        PFCacheApproximateLRUMaximumCountPolicy, PFCacheEntry, PFCacheLRUMaximumCountPolicy, 
                        PFCachePolicy, PFCacheStatistics, PFCanceler, PFCancelerObserver, 
-                       PFChecksum, PFCoalescer, PFCoalescer2, PFCoalescerActivityToken, 
-                       PFCoalescerContext, PFConcurrentQueue, PFConcurrentQueueClass, 
-                       PFDateRangeStringRepresentationController, PFDeferredInitialization, 
-                       PFDeferredInitializationTrigger, PFDirectMessagingMulticaster, 
-                       PFDirectoryEnumerator, PFDiskCache, PFDiskCacheExpirationPolicy, 
-                       PFDiskCacheExpirationPolicy_DiskSpaceLeft, PFDiskCacheExpirationPolicy_DiskUsage, 
-                       PFDiskCacheExpirationPolicy_TotalSize, PFDiskCacheFile, PFDiskCacheFile_PFPurgeableData, 
-                       PFDispatchQueue, PFDispatchQueueBaseClass, PFDispatchQueueBlockOnDemandExtension, 
+                       PFChecksum, PFCoalescer, PFCoalescerActivityToken, PFCoalescerContext, 
+                       PFConcurrentQueue, PFConcurrentQueueClass, PFDateRangeStringRepresentationController, 
+                       PFDeferredInitialization, PFDeferredInitializationTrigger, 
+                       PFDirectMessagingMulticaster, PFDirectoryEnumerator, PFDiskCache, 
+                       PFDiskCacheExpirationPolicy, PFDiskCacheExpirationPolicy_DiskSpaceLeft, 
+                       PFDiskCacheExpirationPolicy_DiskUsage, PFDiskCacheExpirationPolicy_TotalSize, 
+                       PFDiskCacheFile, PFDiskCacheFile_PFPurgeableData, PFDispatchQueue, 
+                       PFDispatchQueueBaseClass, PFDispatchQueueBlockOnDemandExtension, 
                        PFDispatchQueueClearingExtension, PFDispatchQueueDebugExtension, 
                        PFDispatchQueueExtension, PFDispatchQueueExtensionManager, 
                        PFDispatchQueueOSTransactionExtension, PFDispatchQueueRunBlockExtension, 
@@ -107,9 +127,9 @@ exports:
                        PFStateMachineGraph, PFStateMachineNode, PFStateMachineReturnTransition, 
                        PFStateMachineSubflowTransition, PFStateMachineTransition, 
                        PFString, PFStringUtilities, PFTaggedPointer, PFTemporaryBuffer, 
-                       PFTemporaryBufferStatistics, PFTimeIntervalCoalescer, PFURLEventHandler, 
-                       PFUtilities, PFUtilityAction, PFUuidData, PFWeakContainer, 
-                       PFWeakHash, PFWorkBatch, PFWorkContext, PFZlibDataCompression, 
+                       PFTemporaryBufferStatistics, PFTimeIntervalCoalescer, PFTimedPerfCheck, 
+                       PFURLEventHandler, PFUtilities, PFUtilityAction, PFUuidData, 
+                       PFWeakContainer, PFWeakHash, PFWorkBatch, PFWorkContext, PFZlibDataCompression, 
                        PFZlibDataCompressionOptions, PFZlibDataDecompressionOptions, 
                        _PFActionLogEvent, _PFActionLogMessage, _PFActionLogProgress, 
                        _PFActionLogStateChange, _PFDQDEBlockInfo, _PFDQDECallSite, 

@@ -86,17 +86,8 @@ but are not designed to be installed by double-clicking the packages in that
 directory: always use
 .Cm --install
 or the App Store to actually perform the install.
-.It Fl -ignore Ar identifier ...
-Manages the per-machine list of ignored updates. The
-.Ar identifier
-is the first part of the item name (before the dash and version number) that is shown by
-.Cm --list .
-See
-.Sx EXAMPLES .
-.It Fl -reset-ignored
-Clears the per-machine list of ignored updates.
-.It Fl -schedule Ar on | off
-Manages the per-machine automatic (background) check preference.
+.It Fl -schedule
+Returns the per-machine automatic (background) check preference.
 .It Fl h | -help
 Print command usage.
 .El                      \" Ends the list
@@ -132,7 +123,7 @@ Installing Java for OS X 2012-005
 Done with Java for OS X 2012-005
 Done.
 .Ed                      \" End literal code section
-.Bl -tag -width -indent  \" Begins a tagged list
+.Bl -tag -width -indent  \" Begins a tagged list 
 .It Li "sudo softwareupdate --schedule"
 .El                      \" Ends the list
 .Bd -literal -offset indent \" Begin a literal code section

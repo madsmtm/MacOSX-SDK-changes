@@ -1,11 +1,25 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 57225073-4A73-3AB8-849A-47C0E90B04BF', 'x86_64: 57225073-4A73-3AB8-849A-47C0E90B04BF' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           90EFC66D-92DB-3544-A2FB-EED416E53BC2
+  - target:          x86_64-maccatalyst
+    value:           90EFC66D-92DB-3544-A2FB-EED416E53BC2
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           51AEBE22-E76B-3E41-A78F-835B21884C5C
+  - target:          arm64e-maccatalyst
+    value:           51AEBE22-E76B-3E41-A78F-835B21884C5C
 install-name:    '/System/Library/PrivateFrameworks/CalendarAgentLink.framework/Versions/A/CalendarAgentLink'
-current-version: 840.5.1
+current-version: 845
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _ABRemoteAccountCollectionAccountsKey, _ABRemoteAccountCollectionBaseURLKey, 
                        _ABRemoteAccountCollectionTagKey, _ABRemoteAccountIdentifierKey, 
                        _ABRemoteAccountIsEnabledKey, _ABRemoteAccountIsPersistentKey, 
@@ -92,9 +106,9 @@ exports:
                        _CalendarStoreXPCErrorDetailsKey, _CalendarStoreXPCErrorDomain, 
                        _IntegerToString, _PointerToString, __scrubbedArrayFrom, __scrubbedDictionaryFrom, 
                        _errorForXPCTransport, _getStringUUID, _protocolForMachServiceName, 
-                       _setupXPCWhitelistForCalendarAgentClientInterface, _setupXPCWhitelistForCalendarAgentInterface, 
-                       _setupXPCWhitelistForCalendarStoreInterface, _setupXPCWhitelistForContactsAgentAddressBookInterface, 
-                       _setupXPCWhitelistForContactsAgentGeneralInterface, _setupXPCWhitelistForInterface ]
+                       _setupXPCPermittedListForCalendarAgentClientInterface, _setupXPCPermittedListForCalendarAgentInterface, 
+                       _setupXPCPermittedListForCalendarStoreInterface, _setupXPCPermittedListForContactsAgentAddressBookInterface, 
+                       _setupXPCPermittedListForContactsAgentGeneralInterface, _setupXPCPermittedListForInterface ]
     objc-classes:    [ ABRemoteAccount, ABRemoteAccountCollection, ABRemoteCustomProperty, 
                        ABRemoteCustomPropertyValue, ABRemoteGroup, ABRemoteInfo, 
                        ABRemoteLabeledValue, ABRemoteObjectCache, ABRemotePerson, 

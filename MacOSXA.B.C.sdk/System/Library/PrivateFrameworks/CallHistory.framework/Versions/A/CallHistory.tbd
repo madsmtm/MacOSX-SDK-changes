@@ -1,11 +1,25 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 31AC395C-0C0F-3093-BD9B-D13B2A747EF8', 'x86_64: 31AC395C-0C0F-3093-BD9B-D13B2A747EF8' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           7F637E00-ECBE-368F-AC33-4952BDF46EE4
+  - target:          x86_64-maccatalyst
+    value:           7F637E00-ECBE-368F-AC33-4952BDF46EE4
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           8195C58F-15AC-3962-A25F-502DC4EC7E75
+  - target:          arm64e-maccatalyst
+    value:           8195C58F-15AC-3962-A25F-502DC4EC7E75
 install-name:    '/System/Library/PrivateFrameworks/CallHistory.framework/Versions/A/CallHistory'
 current-version: 2
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _CHCallerIdAvailabilityAsString, _DeserializeTransactions, 
                        _HandleInteractionsForDeserializedTransactions, _createBackgroundTaskAssertion, 
                        _createDirectoryAtPath, _createLogDirectoryAtPath, _dumpLogs, 

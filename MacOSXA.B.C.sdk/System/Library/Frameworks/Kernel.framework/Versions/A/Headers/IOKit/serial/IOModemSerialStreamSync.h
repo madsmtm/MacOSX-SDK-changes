@@ -33,14 +33,12 @@
 
 #include <IOKit/serial/IOSerialStreamSync.h>
 
-#if defined(KERNEL) && !defined(KERNEL_PRIVATE)
-class __deprecated_msg("Use DriverKit") IOModemSerialStreamSync : public IOSerialStreamSync
-#else
-class IOModemSerialStreamSync : public IOSerialStreamSync
-#endif
+__exported_push
+class __kpi_deprecated("Use DriverKit") IOModemSerialStreamSync : public IOSerialStreamSync
 {
     OSDeclareDefaultStructors(IOModemSerialStreamSync)
 };
+__exported_pop
 
 #endif /* !_SERIAL_IOMODEMSERIALSTREAMSYNC_H */
 

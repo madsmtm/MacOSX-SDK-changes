@@ -1,6 +1,6 @@
-/* iig(DriverKit-73.100.4) generated from IOHIDInterface.iig */
+/* iig(DriverKit-107.40.8) generated from IOHIDInterface.iig */
 
-/* IOHIDInterface.iig:1-52 */
+/* IOHIDInterface.iig:1-46 */
 /*
  * Copyright (c) 2018-2019 Apple Inc. All rights reserved.
  *
@@ -47,13 +47,7 @@
 
 class OSArray;
 
-typedef struct IOHIDElementValueHeader {
-    uint32_t cookie;
-    uint32_t value[0];
-} IOHIDElementValueHeader;
-
-
-/* source class IOHIDInterface IOHIDInterface.iig:53-291 */
+/* source class IOHIDInterface IOHIDInterface.iig:47-285 */
 
 #if __DOCUMENTATION__
 #define KERNEL IIG_KERNEL
@@ -302,7 +296,7 @@ public:
 #undef KERNEL
 #else /* __DOCUMENTATION__ */
 
-/* generated class IOHIDInterface IOHIDInterface.iig:53-291 */
+/* generated class IOHIDInterface IOHIDInterface.iig:47-285 */
 
 #define IOHIDInterface_GetElementValues_ID            0xc4a89d6fd6fd065cULL
 #define IOHIDInterface_SetElementValues_ID            0xf964ed7a299eb3a5ULL
@@ -459,6 +453,12 @@ public:\
         GetSupportedCookies_Handler func);\
 \
     typedef void (*ReportAvailable_Handler)(OSMetaClassBase * target, IOHIDInterface_ReportAvailable_Args);\
+    static kern_return_t\
+    ReportAvailable_Invoke(const IORPC rpc,\
+        OSMetaClassBase * target,\
+        ReportAvailable_Handler func,\
+        const OSMetaClass * targetActionClass);\
+\
     static kern_return_t\
     ReportAvailable_Invoke(const IORPC rpc,\
         OSMetaClassBase * target,\
@@ -641,6 +641,6 @@ public:
 #endif /* !__DOCUMENTATION__ */
 
 
-/* IOHIDInterface.iig:308- */
+/* IOHIDInterface.iig:302- */
 
 #endif /* ! _HIDDRIVERKIT_IOHIDINTERFACE_H */

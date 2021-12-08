@@ -1,10 +1,24 @@
---- !tapi-tbd-v3
-archs:           [ x86_64 ]
-uuids:           [ 'x86_64: EA82F76E-BF9B-37C3-9C8F-BEBC7D87D0CE', 'x86_64: EA82F76E-BF9B-37C3-9C8F-BEBC7D87D0CE' ]
-platform:        zippered
+--- !tapi-tbd
+tbd-version:     4
+targets:         [ x86_64-macos, x86_64-maccatalyst, arm64-macos, arm64-maccatalyst, 
+                   arm64e-macos, arm64e-maccatalyst ]
+uuids:
+  - target:          x86_64-macos
+    value:           C17DA09E-287E-3BD9-88CC-3C2995A1EF64
+  - target:          x86_64-maccatalyst
+    value:           C17DA09E-287E-3BD9-88CC-3C2995A1EF64
+  - target:          arm64-macos
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64-maccatalyst
+    value:           00000000-0000-0000-0000-000000000000
+  - target:          arm64e-macos
+    value:           3E590576-E3DC-3336-8303-128214EB5D67
+  - target:          arm64e-maccatalyst
+    value:           3E590576-E3DC-3336-8303-128214EB5D67
 install-name:    '/System/Library/PrivateFrameworks/MediaServices.framework/Versions/A/MediaServices'
 exports:
-  - archs:           [ x86_64 ]
+  - targets:         [ x86_64-maccatalyst, x86_64-macos, arm64e-maccatalyst, arm64e-macos, 
+                       arm64-macos, arm64-maccatalyst ]
     symbols:         [ _MSVArchivedDataWithRootObject, _MSVArtworkServiceErrorDomain, 
                        _MSVBundleIDForAuditToken, _MSVBundleIDForPID, _MSVCLIPrint, 
                        _MSVCLIPrintErr, _MSVCLIPrompt, _MSVCLIStartMainRunLoop, _MSVCLIStopMainRunLoop, 
@@ -13,13 +27,14 @@ exports:
                        _MSVCryptoDigestForContentsOfFile, _MSVCryptoDigestForContentsOfInputStream, 
                        _MSVCryptoDigestForData, _MSVCryptoDigestForString, _MSVCryptoUtilitiesHexStringFromDigest, 
                        _MSVDeviceHasCellularBaseband, _MSVDeviceIsAppleTV, _MSVDeviceIsAudioAccessory, 
-                       _MSVDeviceIsiPad, _MSVDeviceOSHasInternalDiagnostics, _MSVDeviceOSIsInternalInstall, 
-                       _MSVDevicePPTTestsAreInProgress, _MSVDeviceSupportsDelegatedIdentities, 
+                       _MSVDeviceIsWatch, _MSVDeviceIsiPad, _MSVDeviceOSHasInternalDiagnostics, 
+                       _MSVDeviceOSIsInternalInstall, _MSVDeviceSupportsDelegatedIdentities, 
                        _MSVDeviceSupportsExtendedColorDisplay, _MSVDeviceSupportsMultipleLibraries, 
                        _MSVDeviceSupportsSideLoadedMediaContent, _MSVDiagnoseSecureCodingClassesWithPrefix, 
-                       _MSVErrorDomain, _MSVFrameworkExists, _MSVGetMaximumScreenScale, 
-                       _MSVGetMaximumScreenSize, _MSVGzipCompressData, _MSVGzipCompressFile, 
-                       _MSVGzipDecompressData, _MSVGzipDecompressFile, _MSVImageUtilitiesAddImageToDestination, 
+                       _MSVErrorDomain, _MSVFrameworkExists, _MSVGetKernelBootTime, 
+                       _MSVGetMaximumScreenScale, _MSVGetMaximumScreenSize, _MSVGzipCompressData, 
+                       _MSVGzipCompressFile, _MSVGzipDecompressData, _MSVGzipDecompressFile, 
+                       _MSVHasherCreate, _MSVHasherCreateSeeded, _MSVImageUtilitiesAddImageToDestination, 
                        _MSVImageUtilitiesAddJPEGToDestination, _MSVImageUtilitiesAddSourceImageToDestination, 
                        _MSVImageUtilitiesAddSourceImageToJPEGDestination, _MSVImageUtilitiesCopyUTTypeForImage, 
                        _MSVImageUtilitiesCopyUTTypeForImageFormat, _MSVImageUtilitiesCreateDataImageDestination, 
@@ -38,10 +53,10 @@ exports:
                        _MSVStreamWriterErrorDomain, _MSVSystemRootDirectory, _MSVUnarchivedObjectOfClass, 
                        _MSVUnarchivedObjectOfClasses, _MSVWeakLinkClass, _MSVWeakLinkProtocol, 
                        _MSVWeakLinkStringConstant, _MSVWeakLinkSymbol, _NSStringFromMSVSignedRange, 
-                       _msv_class_getSubclasses, _msv_dispatch_async_on_queue, _msv_dispatch_barrier_async_on_queue, 
+                       _msv_dispatch_async_on_queue, _msv_dispatch_on_main_queue, 
                        _msv_dispatch_sync_on_queue ]
-    objc-classes:    [ MSVArtworkService, MSVArtworkServiceConversionRequest, MSVArtworkServiceOperation, 
-                       MSVArtworkServiceRequest, MSVArtworkServiceResizeRequest, 
+    objc-classes:    [ MSVARC4RandomSource, MSVArtworkService, MSVArtworkServiceConversionRequest, 
+                       MSVArtworkServiceOperation, MSVArtworkServiceRequest, MSVArtworkServiceResizeRequest, 
                        MSVArtworkServiceResizeRequestDestination, MSVAsyncOperation, 
                        MSVBidirectionalDictionary, MSVBlockGuard, MSVBloomFilter, 
                        MSVCLICommand, MSVCLICommandInterpreter, MSVCallback, MSVDistributedNotificationObserver, 
@@ -52,9 +67,10 @@ exports:
                        MSVLyricsTranslationText, MSVLyricsWord, MSVLyricsXMLElement, 
                        MSVMessageParser, MSVMultiCallback, MSVMutableBidirectionalDictionary, 
                        MSVOPACKDecoder, MSVOPACKEncoder, MSVPair, MSVPersistentTimer, 
-                       MSVPropertyListEncoder, MSVSegmentedCodingPackage, MSVSegmentedDecoder, 
-                       MSVSegmentedEncoder, MSVStreamReader, MSVStreamWriter, MSVSystemDialog, 
-                       MSVSystemDialogOptions, MSVSystemDialogResponse, MSVSystemDialogTextField, 
-                       MSVTaskAssertion, MSVTimer, MSVWatchdog, MSVWeakProxy, MSVXPCTransaction, 
-                       MSVZipArchive ]
+                       MSVPropertyListEncoder, MSVRandomDistribution, MSVSQLDatabase, 
+                       MSVSQLDatabaseTransaction, MSVSQLRowEnumerator, MSVSQLStatement, 
+                       MSVSegmentedCodingPackage, MSVSegmentedDecoder, MSVSegmentedEncoder, 
+                       MSVStreamReader, MSVStreamWriter, MSVSystemDialog, MSVSystemDialogOptions, 
+                       MSVSystemDialogResponse, MSVSystemDialogTextField, MSVTaskAssertion, 
+                       MSVTimer, MSVWatchdog, MSVWeakProxy, MSVXPCTransaction, MSVZipArchive ]
 ...
