@@ -107,8 +107,12 @@ enum vtagtype   {
 	/* 16 - 20 */
 	VT_HFS, VT_ZFS, VT_DEVFS, VT_WEBDAV, VT_UDF,
 	/* 21 - 25 */
-	VT_AFP, VT_CDDA, VT_CIFS, VT_OTHER, VT_APFS
+	VT_AFP, VT_CDDA, VT_CIFS, VT_OTHER, VT_APFS,
+	/* 26 */
+	VT_LOCKERFS,
 };
+
+#define HAVE_VT_LOCKERFS 1
 
 /*
  * flags for VNOP_BLOCKMAP
@@ -501,6 +505,8 @@ struct vnode_attr {
 #define VA_NOINHERIT            0x040000        /* Don't inherit ACLs from parent */
 #define VA_NOAUTH               0x080000
 #define VA_64BITOBJIDS          0x100000        /* fileid/linkid/parentid are 64 bit */
+#define VA_REALFSID             0x200000        /* Return real fsid */
+#define VA_USEFSID              0x400000        /* Use fsid from filesystem  */
 
 /*
  *  Modes.  Some values same as Ixxx entries from inode.h for now.
@@ -542,6 +548,7 @@ extern int              vttoif_tab[];
 #define VNODE_REMOVE_NODELETEBUSY                       0x0001 /* Don't delete busy files (Carbon) */
 #define VNODE_REMOVE_SKIP_NAMESPACE_EVENT       0x0002 /* Do not upcall to userland handlers */
 #define VNODE_REMOVE_NO_AUDIT_PATH              0x0004 /* Do not audit the path */
+#define VNODE_REMOVE_DATALESS_DIR               0x0008 /* Special handling for removing a dataless directory without materialization */
 
 /* VNOP_READDIR flags: */
 #define VNODE_READDIR_EXTENDED    0x0001   /* use extended directory entries */
@@ -571,7 +578,7 @@ struct vnodeopv_entry_desc {
 struct vnodeopv_desc {
 	/* ptr to the ptr to the vector where op should go */
 	int(***opv_desc_vector_p)(void *);
-	struct vnodeopv_entry_desc *opv_desc_ops;   /* null terminated list */
+	const struct vnodeopv_entry_desc *opv_desc_ops;   /* null terminated list */
 };
 
 /*!
@@ -688,6 +695,14 @@ enum vtype      vnode_vtype(vnode_t vp);
  *  @return The vnode's vid.
  */
 uint32_t        vnode_vid(vnode_t vp);
+
+/*!
+ *  @function vnode_isonexternalstorage
+ *  @abstract Return whether or not the storage device backing a vnode is external or not.
+ *  @param vp The vnode whose physical location is to be determined.
+ *  @return TRUE if storage device is external, FALSE if otherwise.
+ */
+boolean_t vnode_isonexternalstorage(vnode_t vp);
 
 /*!
  *  @function vnode_mountedhere
@@ -1413,12 +1428,12 @@ int     vfs_get_notify_attributes(struct vnode_attr *vap);
  */
 errno_t vnode_lookup(const char *path, int flags, vnode_t *vpp, vfs_context_t ctx);
 
+
 /*!
  *  @function vnode_open
  *  @abstract Open a file identified by a path--roughly speaking an in-kernel open(2).
- *  @discussion If vnode_open() succeeds, it returns with both an iocount and a usecount on the returned vnode.  These must
- *  be released eventually; the iocount should be released with vnode_put() as soon as any initial operations
- *  on the vnode are over, whereas the usecount should be released via vnode_close().
+ *  @discussion If vnode_open() succeeds, it returns with both an iocount and a usecount on the
+ *  returned vnode. Both will be release once vnode_close is called.
  *  @param path Path to look up.
  *  @param fmode e.g. O_NONBLOCK, O_APPEND; see bsd/sys/fcntl.h.
  *  @param cmode Permissions with which to create file if it does not exist.
@@ -1703,6 +1718,22 @@ errno_t vfs_setup_vattr_from_attrlist(struct attrlist *alp, struct vnode_attr *v
  *  @return error.
  */
 errno_t vfs_attr_pack(vnode_t vp, uio_t uio, struct attrlist *alp, uint64_t options, struct vnode_attr *vap, void *fndesc, vfs_context_t ctx);
+
+/*!
+ *  @function vfs_attr_pack_ex
+ *  @abstract Pack a vnode_attr structure into a buffer in the same format as getattrlist(2).
+ *  @Used by a VNOP_GETATTRLISTBULK implementation to pack data provided into a vnode_attr structure into a buffer the way getattrlist(2) does.
+ *  @param mp the mount structure for the filesystem the packing operation is happening on.
+ *  @param vp If available, the vnode for which the attributes are being given, NULL if vnode is not available (which will usually be the case for a VNOP_GETATTRLISTBULK implementation.
+ *  @param uio - a uio_t initialised with one iovec..
+ *  @param alp - Pointer to an attrlist structure.
+ *  @param options - options for call (same as options for getattrlistbulk(2)).
+ *  @param vap Pointer to a filled in vnode_attr structure. Data from the vnode_attr structure will be used to copy and lay out the data in the required format for getatrlistbulk(2) by this function.
+ *  @param fndesc Currently unused
+ *  @param ctx vfs context of caller.
+ *  @return error.
+ */
+errno_t vfs_attr_pack_ext(mount_t mp, vnode_t vp, uio_t uio, struct attrlist *alp, uint64_t options, struct vnode_attr *vap, void *fndesc, vfs_context_t ctx);
 
 
 __END_DECLS

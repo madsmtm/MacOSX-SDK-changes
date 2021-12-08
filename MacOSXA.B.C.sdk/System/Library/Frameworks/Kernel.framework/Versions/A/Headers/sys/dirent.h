@@ -139,4 +139,5 @@ struct direntry __DARWIN_STRUCT_DIRENTRY;
 #define DTTOIF(dirtype) ((dirtype) << 12)
 #endif
 
+
 #endif /* _SYS_DIRENT_H  */

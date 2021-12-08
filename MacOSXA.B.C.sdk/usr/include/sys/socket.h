@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2018 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -179,6 +179,10 @@
 #endif
 
 #define SO_NUMRCVPKT            0x1112  /* number of datagrams in receive socket buffer */
+#define SO_NET_SERVICE_TYPE     0x1116  /* Network service type */
+
+
+#define SO_NETSVC_MARKING_LEVEL 0x1119  /* Get QoS marking in effect for socket */
 
 /*
  * Network Service Type for option SO_NET_SERVICE_TYPE
@@ -262,7 +266,6 @@
  *	inelastic flow, constant packet rate, somewhat fixed size.
  *	E.g. VoIP.
  */
-#define SO_NET_SERVICE_TYPE     0x1116  /* Network service type */
 
 #define NET_SERVICE_TYPE_BE     0 /* Best effort */
 #define NET_SERVICE_TYPE_BK     1 /* Background system initiated */
@@ -275,13 +278,13 @@
 #define NET_SERVICE_TYPE_RD     8 /* Responsive Data */
 
 
-#define SO_NETSVC_MARKING_LEVEL 0x1119  /* Get QoS marking in effect for socket */
-
+/* These are supported values for SO_NETSVC_MARKING_LEVEL */
 #define NETSVC_MRKNG_UNKNOWN            0       /* The outgoing network interface is not known */
 #define NETSVC_MRKNG_LVL_L2             1       /* Default marking at layer 2 (for example Wi-Fi WMM) */
 #define NETSVC_MRKNG_LVL_L3L2_ALL       2       /* Layer 3 DSCP marking and layer 2 marking for all Network Service Types */
 #define NETSVC_MRKNG_LVL_L3L2_BK        3       /* The system policy limits layer 3 DSCP marking and layer 2 marking
 	                                         * to background Network Service Types */
+
 
 typedef __uint32_t sae_associd_t;
 #define SAE_ASSOCID_ANY 0
@@ -529,6 +532,8 @@ struct sockaddr_storage {
 #endif /* (_POSIX_C_SOURCE && !_DARWIN_C_SOURCE) */
 
 
+
+
 /*
  * Maximum queue length specifiable by listen.
  */
@@ -564,9 +569,9 @@ struct msghdr {
 #ifdef __APPLE_API_OBSOLETE
 #define MSG_WAITSTREAM  0x200           /* wait up to full request.. may return partial */
 #endif
-#define MSG_FLUSH       0x400           /* Start of 'hold' seq; dump so_temp */
-#define MSG_HOLD        0x800           /* Hold frag in so_temp */
-#define MSG_SEND        0x1000          /* Send the packet in so_temp */
+#define MSG_FLUSH       0x400           /* Start of 'hold' seq; dump so_temp, deprecated */
+#define MSG_HOLD        0x800           /* Hold frag in so_temp, deprecated */
+#define MSG_SEND        0x1000          /* Send the packet in so_temp, deprecated */
 #define MSG_HAVEMORE    0x2000          /* Data ready to be read */
 #define MSG_RCVMORE     0x4000          /* Data remains in current pkt */
 #endif

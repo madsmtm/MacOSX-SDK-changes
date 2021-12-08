@@ -1,10 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 0959B3E9-6643-3589-8BB3-21D52CDF0EF1' ]
+uuids:           [ 'x86_64: 06E3B691-795D-3FF1-A9E8-E8E1C546ED49', 'x86_64: 06E3B691-795D-3FF1-A9E8-E8E1C546ED49' ]
 platform:        zippered
-install-name:    /usr/lib/libcoretls_cfhelpers.dylib
-current-version: 155.220.1
-objc-constraint: none
+install-name:    '/usr/lib/libcoretls_cfhelpers.dylib'
+current-version: 167
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _tls_helper_SSLProtocol_from_version, _tls_helper_create_peer_acceptable_dn_array, 

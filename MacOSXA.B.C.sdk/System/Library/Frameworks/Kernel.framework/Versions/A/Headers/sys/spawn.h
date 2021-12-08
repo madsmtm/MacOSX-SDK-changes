@@ -58,6 +58,7 @@
  */
 #define POSIX_SPAWN_SETEXEC             0x0040
 #define POSIX_SPAWN_START_SUSPENDED     0x0080
+#define POSIX_SPAWN_SETSID              0x0400
 #define POSIX_SPAWN_CLOEXEC_DEFAULT     0x4000
 
 /*

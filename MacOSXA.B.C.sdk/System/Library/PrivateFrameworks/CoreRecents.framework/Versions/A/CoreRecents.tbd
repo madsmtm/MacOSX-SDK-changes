@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 9066396F-6EF7-3A02-A368-9D916FE94500' ]
+uuids:           [ 'x86_64: A4A4271B-E375-35DD-867B-5396A5CC6D01', 'x86_64: A4A4271B-E375-35DD-867B-5396A5CC6D01' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/CoreRecents.framework/Versions/A/CoreRecents
+install-name:    '/System/Library/PrivateFrameworks/CoreRecents.framework/Versions/A/CoreRecents'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CRAddressKindEmail, _CRAddressKindGroup, _CRAddressKindInstantMessage, 

@@ -31,8 +31,15 @@
 #define _OS_OSCOLLECTION_H
 
 #include <libkern/c++/OSObject.h>
+#include <libkern/c++/OSPtr.h>
 
 class OSDictionary;
+class OSCollection;
+
+typedef OSPtr<OSCollection> OSCollectionPtr;
+
+template <typename T>
+using OSCollectionTaggedPtr = OSTaggedPtr<T, OSCollection>;
 
 
 /*!
@@ -414,7 +421,7 @@ public:
 	virtual unsigned setOptions(
 		unsigned   options,
 		unsigned   mask,
-		void     * context = 0);
+		void     * context = NULL);
 	OSMetaClassDeclareReservedUsed(OSCollection, 0);
 
 /*!
@@ -441,7 +448,7 @@ public:
  * Subclasses of OSCollection must override this function
  * to properly support deep copies.
  */
-	virtual OSCollection *copyCollection(OSDictionary * cycleDict = 0);
+	virtual OSCollectionPtr copyCollection(OSDictionary * cycleDict = NULL);
 	OSMetaClassDeclareReservedUsed(OSCollection, 1);
 
 /*!

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2009 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -80,6 +80,7 @@
 #include <mach/vm_param.h>
 #include <mach/sdt.h>
 #include <vm/pmap.h>
+#include <os/overflow.h>
 
 
 #endif  /* _VM_VM_MAP_H_ */

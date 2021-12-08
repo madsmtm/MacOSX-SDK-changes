@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 5B930687-0052-30F9-BF02-680EADA3DA13' ]
+uuids:           [ 'x86_64: 948995C8-80CF-3A89-AE27-D20F88932D9C' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/AccountPolicy.framework/Versions/A/AccountPolicy
+install-name:    '/System/Library/PrivateFrameworks/AccountPolicy.framework/Versions/A/AccountPolicy'
 exports:         
   - archs:           [ x86_64 ]
-    re-exports:      [ /System/Library/PrivateFrameworks/AccountPolicy.framework/Frameworks/CFAccountPolicy.framework/Versions/A/CFAccountPolicy ]
+    re-exports:      [ '/System/Library/PrivateFrameworks/AccountPolicy.framework/Frameworks/CFAccountPolicy.framework/Versions/A/CFAccountPolicy' ]
     symbols:         [ _APCreateError, _APCreateErrorWithEvalDetails, _kAPErrorDomain, 
                        _kAPHelperName, _kAPMessageDataKeyCacheContents, _kAPMessageDataKeyEvaluationDetails, 
                        _kAPMessageDataKeyExpiresIn, _kAPMessageDataKeyFailureReason, 
@@ -40,10 +40,9 @@ exports:
                        APPolicySet, APRequest, AccountPolicy ]
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 81BBE2C1-7289-3473-B201-0BDDA0F5E80E' ]
+uuids:           [ 'x86_64: 8E7C864E-FFDF-3957-814A-1DF43F6B1395' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/AccountPolicy.framework/Frameworks/CFAccountPolicy.framework/Versions/A/CFAccountPolicy
-objc-constraint: none
+install-name:    '/System/Library/PrivateFrameworks/AccountPolicy.framework/Frameworks/CFAccountPolicy.framework/Versions/A/CFAccountPolicy'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _APAttributesUsedByPolicies, _APAuthenticationAllowed, _APCategoryAndIdentifierForLegacyPolicyName, 

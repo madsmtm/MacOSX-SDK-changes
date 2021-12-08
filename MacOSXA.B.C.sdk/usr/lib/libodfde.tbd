@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 46EA989F-415B-3FE6-983D-30CC9BE63DAE' ]
+uuids:           [ 'x86_64: 4DBA7978-5B8C-3E83-B996-D8DAA48CE1CC' ]
 platform:        macosx
-install-name:    /usr/lib/libodfde.dylib
-objc-constraint: none
+install-name:    '/usr/lib/libodfde.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ODFDEAddUser, _ODFDEResetPassword, _ODFDESynchronizeUsers, 

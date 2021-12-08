@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2018 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -69,6 +69,9 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/queue.h>          /* get TAILQ macros */
+#ifdef BSD_KERN_PRIVATE
+#include <sys/eventhandler.h>
+#endif
 
 
 #ifdef __APPLE__
@@ -86,6 +89,10 @@
 #define APPLE_IF_FAM_STF       12
 #define APPLE_IF_FAM_FIREWIRE  13
 #define APPLE_IF_FAM_BOND      14
+#define APPLE_IF_FAM_CELLULAR  15
+#define APPLE_IF_FAM_6LOWPAN   16
+#define APPLE_IF_FAM_UTUN      17
+#define APPLE_IF_FAM_IPSEC     18
 #endif /* __APPLE__ */
 
 /*

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: E07CB50E-2304-34B4-9A30-8C7E0766E1D0' ]
+uuids:           [ 'x86_64: 9663A0B0-7634-39C5-BE2F-ED605B7C8426', 'x86_64: 9663A0B0-7634-39C5-BE2F-ED605B7C8426' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/SignpostCollection.framework/Versions/A/SignpostCollection
-current-version: 31.1
+install-name:    '/System/Library/PrivateFrameworks/SignpostCollection.framework/Versions/A/SignpostCollection'
+current-version: 40
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _SCCurrentTotalFrameCount, _SignpostCollectionVersionNumber, 

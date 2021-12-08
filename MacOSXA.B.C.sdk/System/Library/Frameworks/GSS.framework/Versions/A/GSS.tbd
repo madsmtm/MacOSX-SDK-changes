@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: E2B90D08-3857-3155-9FCC-07D778988EC9' ]
+uuids:           [ 'x86_64: D3BA1057-EE07-3288-806B-1708369802DF', 'x86_64: D3BA1057-EE07-3288-806B-1708369802DF' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/GSS.framework/Versions/A/GSS
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/GSS.framework/Versions/A/GSS'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _GSSCheckNTLMReflection, _GSSCreateCredentialFromUUID, _GSSCreateError, 

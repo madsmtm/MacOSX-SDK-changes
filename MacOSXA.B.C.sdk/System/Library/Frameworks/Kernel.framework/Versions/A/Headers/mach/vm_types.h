@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2004 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -73,7 +73,7 @@ typedef uint32_t ppnum_t;               /* Physical page number */
 typedef mach_port_t             vm_map_t;
 
 
-#define VM_MAP_NULL             ((vm_map_t) 0)
+#define VM_MAP_NULL             ((vm_map_t) NULL)
 
 /*
  * Evolving definitions, likely to change.
@@ -89,6 +89,7 @@ typedef mach_port_t             upl_t;
 typedef mach_port_t             vm_named_entry_t;
 
 
-#define UPL_NULL                ((upl_t) 0)
-#define VM_NAMED_ENTRY_NULL     ((vm_named_entry_t) 0)
+#define UPL_NULL                ((upl_t) NULL)
+#define VM_NAMED_ENTRY_NULL     ((vm_named_entry_t) NULL)
+
 #endif  /* _MACH_VM_TYPES_H_ */

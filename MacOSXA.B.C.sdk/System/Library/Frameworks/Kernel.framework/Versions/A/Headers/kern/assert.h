@@ -67,6 +67,9 @@
 
 __BEGIN_DECLS
 /* Assert error */
+#if !CONFIG_NONFATAL_ASSERTS
+__abortlike
+#endif
 extern void     Assert(
 	const char      *file,
 	int             line,

@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F8DB9995-7311-3E3D-80E6-7B744EBA2000' ]
+uuids:           [ 'x86_64: 9E2C6A66-616E-32F0-9EBA-FA1D1E17D944' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Versions/A/MobileAccessoryUpdater
+install-name:    '/System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Versions/A/MobileAccessoryUpdater'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _FUDError, _FudLog, _FudLogCopyMessages, _FudLogInit, _FudLogSetMode, 
@@ -18,8 +18,9 @@ exports:
                        _sendReplyMessageToClient, _sendReplyMessageToExternalClient, 
                        _sendReplyMessageToInternalClient, _unarchivedKeyedObject, 
                        _updateSuperBinaryPayload ]
-    objc-classes:    [ FudInternalConnection, FudPersonalizationObjectInfo, FudPersonalizationRequest, 
-                       FudProgressWeights, FudXPCConnection, MobileAccessoryUpdater ]
+    objc-classes:    [ AUDAccessory, FudInternalConnection, FudPersonalizationObjectInfo, 
+                       FudPersonalizationRequest, FudProgressWeights, FudXPCConnection, 
+                       MobileAccessoryUpdater ]
     objc-ivars:      [ FudInternalConnection.clientIdentifier, FudInternalConnection.didStop, 
                        FudInternalConnection.handlerQueue, FudInternalConnection.messageHandler, 
                        FudInternalConnection.pendingRequests, FudProgressWeights.applyWeight, 

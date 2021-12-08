@@ -324,6 +324,12 @@ struct proc_regionwithpathinfo {
 	struct vnode_info_path  prp_vip;
 };
 
+struct proc_regionpath {
+	uint64_t prpo_addr;
+	uint64_t prpo_regionlength;
+	char prpo_path[MAXPATHLEN];
+};
+
 struct proc_vnodepathinfo {
 	struct vnode_info_path  pvi_cdir;
 	struct vnode_info_path  pvi_rdir;

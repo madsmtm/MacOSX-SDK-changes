@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2012 Apple Inc. All rights reserved.
+ * Copyright (c) 2003-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -51,10 +51,14 @@ typedef unsigned int            lck_sleep_action_t;
 
 #define LCK_SLEEP_MASK          0x3f    /* Valid actions */
 
+typedef unsigned int            lck_wake_action_t;
+
+#define LCK_WAKE_DEFAULT                0x00 /* If waiters are present, transfer their push to the wokenup thread */
+#define LCK_WAKE_DO_NOT_TRANSFER_PUSH   0x01 /* Do not transfer waiters push when waking up */
 
 typedef struct __lck_attr__ lck_attr_t;
 
-#define LCK_ATTR_NULL (lck_attr_t *)0
+#define LCK_ATTR_NULL (lck_attr_t *)NULL
 
 __BEGIN_DECLS
 
@@ -74,7 +78,7 @@ extern  void                    lck_attr_cleardebug(
 extern  void                    lck_attr_free(
 	lck_attr_t              *attr);
 
-#define decl_lck_spin_data(class, name)     class lck_spin_t name;
+#define decl_lck_spin_data(class, name)     class lck_spin_t name
 
 extern lck_spin_t               *lck_spin_alloc_init(
 	lck_grp_t               *grp,
@@ -125,7 +129,7 @@ extern wait_result_t    lck_spin_sleep_deadline(
 
 
 
-#define decl_lck_mtx_data(class, name)     class lck_mtx_t name;
+#define decl_lck_mtx_data(class, name)     class lck_mtx_t name
 
 extern lck_mtx_t                *lck_mtx_alloc_init(
 	lck_grp_t               *grp,
@@ -161,16 +165,22 @@ extern wait_result_t    lck_mtx_sleep_deadline(
 	event_t                         event,
 	wait_interrupt_t        interruptible,
 	uint64_t                        deadline);
+
+
 #if DEVELOPMENT || DEBUG
+#define FULL_CONTENDED 0
+#define HALF_CONTENDED 1
+#define MAX_CONDENDED  2
+
 extern void             erase_all_test_mtx_stats(void);
 extern int              get_test_mtx_stats_string(char* buffer, int buffer_size);
 extern void             lck_mtx_test_init(void);
 extern void             lck_mtx_test_lock(void);
 extern void             lck_mtx_test_unlock(void);
 extern int              lck_mtx_test_mtx_uncontended(int iter, char* buffer, int buffer_size);
-extern int              lck_mtx_test_mtx_contended(int iter, char* buffer, int buffer_size);
+extern int              lck_mtx_test_mtx_contended(int iter, char* buffer, int buffer_size, int type);
 extern int              lck_mtx_test_mtx_uncontended_loop_time(int iter, char* buffer, int buffer_size);
-extern int              lck_mtx_test_mtx_contended_loop_time(int iter, char* buffer, int buffer_size);
+extern int              lck_mtx_test_mtx_contended_loop_time(int iter, char* buffer, int buffer_size, int type);
 #endif
 
 extern void                             lck_mtx_assert(
@@ -206,7 +216,7 @@ __END_DECLS
 #define LCK_MTX_ASSERT_NOTOWNED LCK_ASSERT_NOTOWNED
 
 
-#define decl_lck_rw_data(class, name)     class lck_rw_t name;
+#define decl_lck_rw_data(class, name)     class lck_rw_t name
 
 typedef unsigned int     lck_rw_type_t;
 

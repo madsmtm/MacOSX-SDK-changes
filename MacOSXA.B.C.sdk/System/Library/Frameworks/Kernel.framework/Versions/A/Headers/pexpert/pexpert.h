@@ -64,6 +64,8 @@ uint32_t PE_get_random_seed(
 uint32_t PE_i_can_has_debugger(
 	uint32_t *);
 
+int PE_stub_poll_input(unsigned int options, char *c);
+
 
 /* Return the offset of the specified address into the panic region */
 uint32_t PE_get_offset_into_panic_region(
@@ -173,10 +175,6 @@ enum {
 	kPEWaitForInput     = 0x00000001,
 	kPERawInput         = 0x00000002
 };
-extern int (*PE_poll_input)(
-	unsigned int options,
-	char * c);
-
 extern int (*PE_write_IIC)(
 	unsigned char addr,
 	unsigned char reg,
@@ -257,12 +255,6 @@ extern PE_state_t PE_state;
 extern char * PE_boot_args(
 	void);
 
-#if !defined(__LP64__) && !defined(__arm__)
-extern boolean_t PE_parse_boot_arg(
-	const char      *arg_string,
-	void            *arg_ptr) __deprecated;
-#endif
-
 extern boolean_t PE_parse_boot_argn(
 	const char      *arg_string,
 	void            *arg_ptr,
@@ -320,6 +312,10 @@ extern void PE_cpu_machine_quiesce(
 extern void pe_init_debug(void);
 
 extern boolean_t PE_imgsrc_mount_supported(void);
+
+extern void PE_panic_hook(const char *str);
+
+extern void PE_init_cpu(void);
 
 
 

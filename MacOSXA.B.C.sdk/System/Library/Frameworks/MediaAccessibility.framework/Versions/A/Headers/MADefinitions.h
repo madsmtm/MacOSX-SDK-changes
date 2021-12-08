@@ -8,21 +8,21 @@
 
 
 #if defined(__cplusplus)
-#    define MA_EXTERN_C_BEGIN extern "C" {
-#    define MA_EXTERN_C_END   }
+#define MA_EXTERN_C_BEGIN extern "C" {
+#define MA_EXTERN_C_END }
 #else
-#    define MA_EXTERN_C_BEGIN
-#    define MA_EXTERN_C_END
+#define MA_EXTERN_C_BEGIN
+#define MA_EXTERN_C_END
 #endif
 
 
-#   define MA_VISIBLE __attribute__((visibility ("default")))
+#define MA_VISIBLE __attribute__((visibility("default")))
 
 
 #if defined(__cplusplus)
-#   define MA_EXTERN extern "C"
+#define MA_EXTERN extern "C"
 #else
-#   define MA_EXTERN extern
+#define MA_EXTERN extern
 #endif
 
 #define MA_EXPORT MA_EXTERN MA_VISIBLE

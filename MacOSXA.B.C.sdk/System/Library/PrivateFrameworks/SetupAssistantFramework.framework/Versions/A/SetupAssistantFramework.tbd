@@ -1,22 +1,13 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 8026FDE8-7A49-3DA9-9E7E-6E07E7B2C6F0' ]
+uuids:           [ 'x86_64: AA9B7533-5014-3C41-BD1A-6D7B5E97BBB9' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/SetupAssistantFramework.framework/Versions/A/SetupAssistantFramework
+install-name:    '/System/Library/PrivateFrameworks/SetupAssistantFramework.framework/Versions/A/SetupAssistantFramework'
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _MBAppConnectionInterface, _MBConsumeHardwareWarrantyCookie, 
-                       _MBDebugFailureShouldFailItemForKey, _MBDebugInitializationDictValueForKey, 
-                       _MBDebugUserDictValueForKey, _MBHasHardwareWarrantyCookie, 
-                       _MBHasInstalledAfterDateCookie, _MBLanguageChooserCookieIsSet, 
-                       _MBRemoveFLOCookie, _MBRemoveLanguageChooserCookie, _MBRemoveMigrationBuddyCookie, 
-                       _MBRemoveResumeBuddyCookie, _MBResumeBuddyCookieIsSet, _MBResumeBuddyCookieReason, 
-                       _MBSAProtocolInterface, _MBSetDiagnosticsCookie, _MBSetDidRunFLOCookie, 
-                       _MBSetHardwareWarrantyCookie, _MBSetMigrationBuddyCookie, 
-                       _MBSetResumeBuddyCookie, _MBSetTheMacBuddyCookie, _MBTheMacBuddyCookieIsSet, 
-                       _SetupAssistantFrameworkVersionNumber, _SetupAssistantFrameworkVersionString, 
+    symbols:         [ _SetupAssistantFrameworkVersionNumber, _SetupAssistantFrameworkVersionString, 
                        _kMBSetupUserUID, _kSetupAssistantWindowDataKey, _kSetupAssistantWindowScreenNumberKey, 
                        _kSetupAssistantWindowXPositionKey, _kSetupAssistantWindowYPositionKey, 
-                       _kSetupCompletedNotificationName, _processIsRunning, _processIsRunningForUser ]
-    objc-classes:    [ LogSnitch, MBLogManager, MBSAConnection, SALauncher, SAUserSetupState ]
+                       _kSetupCompletedNotificationName ]
+    objc-classes:    [ SALauncher, SAUserSetupState ]
 ...

@@ -3,16 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>ProductBuildVersion</key>
-	<string>18G74</string>
+	<string>19A547</string>
 	<key>ProductCopyright</key>
 	<string>1983-2019 Apple Inc.</string>
 	<key>ProductName</key>
 	<string>Mac OS X</string>
 	<key>ProductUserVisibleVersion</key>
-	<string>10.14.6</string>
+	<string>10.15</string>
 	<key>ProductVersion</key>
-	<string>10.14.6</string>
+	<string>10.15</string>
 	<key>iOSSupportVersion</key>
-	<string>12.3.1</string>
+	<string>13.0</string>
 </dict>
 </plist>

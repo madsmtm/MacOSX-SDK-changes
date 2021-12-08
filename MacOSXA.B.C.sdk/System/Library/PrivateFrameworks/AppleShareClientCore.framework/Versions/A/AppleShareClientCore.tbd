@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 12E89283-CA02-3524-9693-BB57C99852D7' ]
+uuids:           [ 'x86_64: DF2FF364-AA9F-30BC-8F3F-B107E7EF3B12' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/AppleShareClientCore.framework/Versions/A/AppleShareClientCore
-objc-constraint: none
+install-name:    '/System/Library/PrivateFrameworks/AppleShareClientCore.framework/Versions/A/AppleShareClientCore'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AFPCopyPString, _AFPCopyPtoCString, _AFPGetTagFromBuffer, 

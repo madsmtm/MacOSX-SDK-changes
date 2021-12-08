@@ -1,12 +1,10 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F61E9BA6-656F-3B48-BC4F-D06510D485CE' ]
+uuids:           [ 'x86_64: F013D67F-30D6-30A2-AC5E-2A203529C6F6' ]
 platform:        macosx
-flags:           [ flat_namespace ]
-install-name:    /usr/lib/libapr-1.0.dylib
+install-name:    '/usr/lib/libapr-1.0.dylib'
 current-version: 5.8
 compatibility-version: 5
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _apr__SHA256_Data, _apr__SHA256_End, _apr__SHA256_Final, _apr__SHA256_Init, 

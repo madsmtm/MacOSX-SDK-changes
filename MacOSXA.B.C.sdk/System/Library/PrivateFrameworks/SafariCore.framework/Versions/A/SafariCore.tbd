@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 8884A558-9865-3023-83EB-38871A4DA0C1' ]
+uuids:           [ 'x86_64: A2BB4C85-590B-3F75-9F5A-AEEE0F02F20A', 'x86_64: A2BB4C85-590B-3F75-9F5A-AEEE0F02F20A' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/SafariCore.framework/Versions/A/SafariCore
-current-version: 607.3.8
+install-name:    '/System/Library/PrivateFrameworks/SafariCore.framework/Versions/A/SafariCore'
+current-version: 608.2.6
 compatibility-version: 0
 exports:         
   - archs:           [ x86_64 ]
@@ -44,14 +44,14 @@ exports:
                        _WBSCloudBookmarksMigrationCoordinatorLogsDirectoryURL, _WBSCloudTabsErrorDomain, 
                        _WBSDispatchAsyncToMainQueueWithAutoreleasePool, _WBSDispatchSyncToMainQueueWithAutoreleasePool, 
                        _WBSEnableCloudKitBookmarkDebugUtilitiesPreferenceKey, _WBSEnableSandboxStyleFileQuarantine, 
-                       _WBSGoogleMalwareDetailsURL, _WBSGoogleReportAnErrorURL, _WBSInitializeSandboxWithBundleNameAndEmbeddedProfile, 
-                       _WBSInitializeSandboxWithEmbeddedProfile, _WBSIsEqual, _WBSKeychainCredentialNotificationMonitorDoNotCoalesceInterval, 
-                       _WBSLearnMoreAboutPhishingFromGoogleURL, _WBSLearnMoreAboutPhishingFromTencentURL, 
+                       _WBSInitializeSandboxWithBundleNameAndEmbeddedProfile, _WBSInitializeSandboxWithEmbeddedProfile, 
+                       _WBSIsEqual, _WBSKeychainCredentialNotificationMonitorDoNotCoalesceInterval, 
                        _WBSLogWithDifferentialPrivacy, _WBSPasswordCharacterClassIdentifierASCIIPrintable, 
                        _WBSPasswordCharacterClassIdentifierDigit, _WBSPasswordCharacterClassIdentifierLower, 
                        _WBSPasswordCharacterClassIdentifierSpecial, _WBSPasswordCharacterClassIdentifierUnicode, 
                        _WBSPasswordCharacterClassIdentifierUpper, _WBSPasswordManagerURLAllowKey, 
                        _WBSPasswordManagerURLAllowShowingPasswordDetailIfLocalAuthenticationNotConfiguredKey, 
+                       _WBSPasswordManagerURLChangePasswordDomainKey, _WBSPasswordManagerURLChangePasswordUserKey, 
                        _WBSPasswordManagerURLDidAuthenticateKey, _WBSPasswordManagerURLDoNotAllowKey, 
                        _WBSPasswordManagerURLEncryptedPasswordDataKey, _WBSPasswordManagerURLEncryptionKeyReferenceKey, 
                        _WBSPasswordManagerURLSearchBundleIdentifierKey, _WBSPasswordManagerURLSearchQueryKey, 
@@ -66,11 +66,12 @@ exports:
                        _WBSSafariBookmarksSyncAgentProxyConnectionWasInvalidatedNotification, 
                        _WBSSafariBookmarksSyncAgentServiceName, _WBSSafariBookmarksSyncAgentSyncResultKey, 
                        _WBSSavedPasswordStoreDidChangeNotification, _WBSSuppressCloudKitBookmarkMigrationForCyclerTestPreferenceKey, 
-                       _WBSTencentMalwareDetailsURL, _WBSTencentReportAnErrorURL, 
                        __WBSHasAlreadyRunBlock, __WBSLocalizedString, __WBSSetHasAlreadyRunBlock, 
                        _canonicalizedCharacterClasses, _parseCustomCharacterClass, 
                        _parseIdentifier, _parseNamedCharacterClass, _parsePasswordRequiredOrAllowedPropertyValue, 
                        _parsePasswordRule, _parsePasswordRules, _parsePositiveIntegerPropertyValue, 
+                       _safariAutomationApplicationBundleIdentifier, _safariMobileApplicationBundleIdentifier, 
+                       _safariProductionApplicationBundleIdentifier, _safariTechnologyPreviewApplicationBundleIdentifier, 
                        _skipWhitespaceCharacters, _stringFromLocalMigrationState, 
                        _stringFromRemoteMigrationState ]
     objc-classes:    [ WBSAddressBookValueSpecifier, WBSAggresiveURLCredentialCache, 
@@ -96,8 +97,8 @@ exports:
                        WBSAnalyticsSafariViewControllerTappedOnToolbarButtonEvent, 
                        WBSAutoFillAssociatedDomainsManager, WBSAutoFillQuirksManager, 
                        WBSAutoFillQuirksSnapshot, WBSAutoFillQuirksSnapshotTransformer, 
-                       WBSCloudBookmarksRemoteMigrationInfo, WBSCloudKitThrottler, 
-                       WBSConfigurationDataTransformer, WBSConfigurationDownloader, 
+                       WBSCloudBookmarksRemoteMigrationInfo, WBSCloudKitContainerManateeObserver, 
+                       WBSCloudKitThrottler, WBSConfigurationDataTransformer, WBSConfigurationDownloader, 
                        WBSCoreClass, WBSDontSaveMarker, WBSFeatureAvailability, WBSFetchedCloudTabDeviceOrCloseRequest, 
                        WBSFileLogger, WBSKeyBagLockStatusChangedHandlerToken, WBSKeyBagLockStatusManager, 
                        WBSKeychainCredentialNotificationMonitor, WBSLazyURLCredentialCache, 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2017 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -457,6 +457,10 @@ struct  tcpstat {
 	u_int32_t       tcps_mptcp_back_to_wifi;        /* Total number of connections that succeed to move traffic away from cell (when starting on cell) */
 	u_int32_t       tcps_mptcp_wifi_proxy;          /* Total number of new subflows that fell back to regular TCP on cell */
 	u_int32_t       tcps_mptcp_cell_proxy;          /* Total number of new subflows that fell back to regular TCP on WiFi */
+
+	/* TCP offload statistics */
+	u_int32_t       tcps_ka_offload_drops;  /* Keep alive drops for timeout reported by firmware */
+
 	u_int32_t       tcps_mptcp_triggered_cell;      /* Total number of times an MPTCP-connection triggered cell bringup */
 };
 

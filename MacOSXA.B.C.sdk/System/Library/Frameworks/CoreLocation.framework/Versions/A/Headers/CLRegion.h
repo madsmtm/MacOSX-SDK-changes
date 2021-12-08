@@ -47,6 +47,7 @@ typedef NS_ENUM(NSInteger, CLProximity) {
  *  Discussion:
  *    A logical area.
  */
+CL_EXTERN
 API_AVAILABLE(macos(10.7), ios(4.0))
 @interface CLRegion : NSObject <NSCopying, NSSecureCoding>
 {

@@ -29,6 +29,7 @@
 #define _IOBUFFERMEMORYDESCRIPTOR_H
 
 #include <IOKit/IOMemoryDescriptor.h>
+#include <DriverKit/IOBufferMemoryDescriptor.h>
 
 enum {
 	kIOMemoryPhysicallyContiguous       = 0x00000010,
@@ -55,7 +56,7 @@ enum {
 
 class IOBufferMemoryDescriptor : public IOGeneralMemoryDescriptor
 {
-	OSDeclareDefaultStructors(IOBufferMemoryDescriptor);
+	OSDeclareDefaultStructorsWithDispatch(IOBufferMemoryDescriptor);
 
 private:
 /*! @struct ExpansionData
@@ -136,6 +137,13 @@ public:
 	    vm_size_t    capacity,
 	    vm_offset_t  alignment) APPLE_KEXT_DEPRECATED;                         /* use withOptions() instead */
 #endif /* !__LP64__ */
+
+	static IOBufferMemoryDescriptor * withCopy(
+		task_t            inTask,
+		IOOptionBits      options,
+		vm_map_t          sourceMap,
+		mach_vm_address_t source,
+		mach_vm_size_t    size);
 
 	static IOBufferMemoryDescriptor * withOptions(  IOOptionBits options,
 	    vm_size_t    capacity,

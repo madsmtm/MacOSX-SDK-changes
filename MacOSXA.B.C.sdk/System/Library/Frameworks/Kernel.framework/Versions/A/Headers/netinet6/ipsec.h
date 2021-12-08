@@ -40,6 +40,7 @@
 #include <sys/appleapiopts.h>
 
 #include <net/pfkeyv2.h>
+#include <uuid/uuid.h>
 
 /* according to IANA assignment, port 0x0000 and proto 0xff are reserved. */
 #define IPSEC_PORT_ANY          0
@@ -123,6 +124,15 @@ struct ipsecstat {
 	u_quad_t out_esphist[256] __attribute__ ((aligned(8)));
 	u_quad_t out_ahhist[256] __attribute__ ((aligned(8)));
 	u_quad_t out_comphist[256] __attribute__ ((aligned(8)));
+};
+
+#define IPSEC_MAX_WAKE_PKT_LEN  100
+struct ipsec_wake_pkt_info {
+	u_int8_t wake_pkt[IPSEC_MAX_WAKE_PKT_LEN];
+	uuid_string_t wake_uuid;
+	u_int32_t wake_pkt_spi;
+	u_int32_t wake_pkt_seq;
+	u_int16_t wake_pkt_len;
 };
 
 

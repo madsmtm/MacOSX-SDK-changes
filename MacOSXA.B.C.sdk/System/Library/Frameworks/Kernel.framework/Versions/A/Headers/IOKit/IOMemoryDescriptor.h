@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 1998-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -33,6 +33,8 @@
 #include <IOKit/IOTypes.h>
 #include <IOKit/IOLocks.h>
 #include <libkern/c++/OSContainers.h>
+#include <DriverKit/IOMemoryDescriptor.h>
+#include <DriverKit/IOMemoryMap.h>
 
 #include <mach/memory_object_types.h>
 
@@ -108,7 +110,18 @@ enum {
 
 };
 
-#define kIOMapperSystem ((IOMapper *) 0)
+#define kIOMapperSystem ((IOMapper *) NULL)
+
+enum{
+	kIOMemoryLedgerTagDefault       = VM_LEDGER_TAG_DEFAULT,
+	kIOmemoryLedgerTagNetwork       = VM_LEDGER_TAG_NETWORK,
+	kIOMemoryLedgerTagMedia         = VM_LEDGER_TAG_MEDIA,
+	kIOMemoryLedgerTagGraphics      = VM_LEDGER_TAG_GRAPHICS,
+	kIOMemoryLedgerTagNeural        = VM_LEDGER_TAG_NEURAL,
+};
+enum{
+	kIOMemoryLedgerFlagNoFootprint  = VM_LEDGER_FLAG_NO_FOOTPRINT,
+};
 
 enum{
 	kIOMemoryPurgeableKeepCurrent = 1,
@@ -188,7 +201,7 @@ class IOMemoryDescriptor : public OSObject
 	friend class IOMemoryMap;
 	friend class IOMultiMemoryDescriptor;
 
-	OSDeclareDefaultStructors(IOMemoryDescriptor);
+	OSDeclareDefaultStructorsWithDispatch(IOMemoryDescriptor);
 
 protected:
 
@@ -254,6 +267,17 @@ public:
 	virtual IOReturn setPurgeable( IOOptionBits newState,
 	    IOOptionBits * oldState );
 
+/*! @function setOwnership
+ *   @abstract Control the ownership of a memory descriptors memory.
+ *   @discussion IOBufferMemoryDescriptor are owned by a specific task. The ownership of such a buffer may be controlled with setOwnership().
+ *   @param newOwner - the task to be the new owner of the memory.
+ *   @param newLedgerTag - the ledger this memory should be accounted in.
+ *   @param newLedgerOptions - accounting options
+ *   @result An IOReturn code. */
+
+	IOReturn setOwnership( task_t newOwner,
+	    int newLedgerTag,
+	    IOOptionBits newLedgerOptions );
 
 /*! @function getPageCounts
  *   @abstract Retrieve the number of resident and/or dirty pages encompassed by an IOMemoryDescriptor.
@@ -301,6 +325,9 @@ public:
 	virtual uint64_t getPreparationID( void );
 	void             setPreparationID( void );
 
+	void     setVMTags(uint32_t kernelTag, uint32_t userTag);
+	uint32_t getVMTag(vm_map_t map);
+
 
 private:
 	OSMetaClassDeclareReservedUsed(IOMemoryDescriptor, 0);
@@ -331,7 +358,7 @@ private:
 	OSMetaClassDeclareReservedUnused(IOMemoryDescriptor, 15);
 
 protected:
-	virtual void free() APPLE_KEXT_OVERRIDE;
+	virtual void free(void) APPLE_KEXT_OVERRIDE;
 public:
 	static void initialize( void );
 
@@ -692,11 +719,11 @@ protected:
 
 class IOMemoryMap : public OSObject
 {
-	OSDeclareDefaultStructors(IOMemoryMap)
+	OSDeclareDefaultStructorsWithDispatch(IOMemoryMap);
 
 protected:
-	virtual void taggedRelease(const void *tag = 0) const APPLE_KEXT_OVERRIDE;
-	virtual void free() APPLE_KEXT_OVERRIDE;
+	virtual void taggedRelease(const void *tag = NULL) const APPLE_KEXT_OVERRIDE;
+	virtual void free(void) APPLE_KEXT_OVERRIDE;
 
 public:
 /*! @function getVirtualAddress
@@ -704,7 +731,7 @@ public:
  *   @discussion This method returns the virtual address of the first byte in the mapping. Since the IOVirtualAddress is only 32bit in 32bit kernels, the getAddress() method should be used for compatibility with 64bit task mappings.
  *   @result A virtual address. */
 
-	virtual IOVirtualAddress    getVirtualAddress();
+	virtual IOVirtualAddress    getVirtualAddress(void);
 
 /*! @function getPhysicalSegment
  *   @abstract Break a mapping into its physically contiguous segments.
@@ -727,14 +754,14 @@ public:
  *   @discussion This method returns the physical address of the  first byte in the mapping. It is most useful on mappings known to be physically contiguous.
  *   @result A physical address. */
 
-	IOPhysicalAddress getPhysicalAddress();
+	IOPhysicalAddress getPhysicalAddress(void);
 
 /*! @function getLength
  *   @abstract Accessor to the length of the mapping.
  *   @discussion This method returns the length of the mapping.
  *   @result A byte count. */
 
-	virtual IOByteCount         getLength();
+	virtual IOByteCount         getLength(void);
 
 /*! @function getAddressTask
  *   @abstract Accessor to the task of the mapping.
@@ -949,6 +976,10 @@ public:
 	virtual IOReturn setPurgeable( IOOptionBits newState,
 	    IOOptionBits * oldState ) APPLE_KEXT_OVERRIDE;
 
+	IOReturn setOwnership( task_t newOwner,
+	    int newLedgerTag,
+	    IOOptionBits newLedgerOptions );
+
 	virtual addr64_t getPhysicalSegment( IOByteCount   offset,
 	    IOByteCount * length,
 #ifdef __LP64__
@@ -999,5 +1030,7 @@ IOMemoryMap::getSize()
 #endif /* !__LP64__ */
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+extern boolean_t iokit_iomd_setownership_enabled;
 
 #endif /* !_IOMEMORYDESCRIPTOR_H */

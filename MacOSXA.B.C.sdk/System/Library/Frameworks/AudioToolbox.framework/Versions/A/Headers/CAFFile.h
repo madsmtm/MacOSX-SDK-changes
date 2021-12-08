@@ -1,3 +1,4 @@
+#if (defined(USE_AUDIOTOOLBOX_PUBLIC_HEADERS) && USE_AUDIOTOOLBOX_PUBLIC_HEADERS) || !__has_include(<AudioToolboxCore/CAFFile.h>)
 /*!
 	@file		CAFFile.h
 	@framework	AudioToolbox.framework
@@ -8,11 +9,7 @@
 #ifndef AudioToolbox_CAFFile_h
 #define AudioToolbox_CAFFile_h
 
-#if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)
-	#include <CoreAudio/CoreAudioTypes.h>
-#else
-	#include <CoreAudioTypes.h>
-#endif
+#include <CoreAudioTypes/CoreAudioTypes.h>
 
 
 #define ATTRIBUTE_PACKED __attribute__((__packed__))
@@ -79,7 +76,7 @@ typedef struct CAF_UUID_ChunkHeader CAF_UUID_ChunkHeader;
 
 
 // these are the flags if the format ID is 'lpcm'
-// <CoreAudio/CoreAudioTypes.h> declares some of the format constants 
+// <CoreAudioTypes/CoreAudioTypes.h> declares some of the format constants 
 // that can be used as Data Formats in a CAF file
 typedef CF_OPTIONS(UInt32, CAFFormatFlags)
 {
@@ -361,3 +358,6 @@ typedef struct CAFUMIDChunk CAFUMIDChunk;
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 #endif // AudioToolbox_CAFFile_h
+#else
+#include <AudioToolboxCore/CAFFile.h>
+#endif

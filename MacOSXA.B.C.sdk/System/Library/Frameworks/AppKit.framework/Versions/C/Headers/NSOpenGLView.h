@@ -1,7 +1,7 @@
 /*
         NSOpenGLView.h
         Application Kit
-        Copyright (c) 2000-2018, Apple Inc.
+        Copyright (c) 2000-2019, Apple Inc.
         All rights reserved.
 */
 
@@ -9,18 +9,12 @@
 #import <AppKit/NSOpenGL.h>
 
 NS_ASSUME_NONNULL_BEGIN
+API_UNAVAILABLE_BEGIN(ios)
 
 @class NSOpenGLContext, NSOpenGLPixelFormat;
 
-NS_OPENGL_CLASS_DEPRECATED(10_0, 10_14, "Please use MTKView instead.")
-@interface NSOpenGLView : NSView {
-  @private
-    NSOpenGLContext*     _openGLContext APPKIT_IVAR;
-    NSOpenGLPixelFormat* _pixelFormat APPKIT_IVAR;
-    NSInteger                _reserved1 __unused APPKIT_IVAR;
-    NSInteger                _reserved2 __unused APPKIT_IVAR;
-    NSInteger                _reserved3 __unused APPKIT_IVAR;
-}
+NS_OPENGL_CLASS_DEPRECATED("Please use MTKView instead.", 10.0, 10.14)
+@interface NSOpenGLView : NSView
 
 + (NSOpenGLPixelFormat*)defaultPixelFormat;
 
@@ -36,8 +30,8 @@ NS_OPENGL_CLASS_DEPRECATED(10_0, 10_14, "Please use MTKView instead.")
 
 - (void)prepareOpenGL NS_REQUIRES_SUPER;
 
-@property BOOL wantsBestResolutionOpenGLSurface NS_OPENGL_DEPRECATED(10_7, 10_14);
-@property BOOL wantsExtendedDynamicRangeOpenGLSurface NS_OPENGL_DEPRECATED(10_11, 10_14);
+@property BOOL wantsBestResolutionOpenGLSurface NS_OPENGL_DEPRECATED(10.7, 10.14);
+@property BOOL wantsExtendedDynamicRangeOpenGLSurface NS_OPENGL_DEPRECATED(10.11, 10.14);
 @end
 
 @interface NSView (NSOpenGLSurfaceResolution)
@@ -49,7 +43,7 @@ To function correctly with wantsBestResolutionOpenGLSurface set to YES, a view m
 This property is archived (keyed archiving required).
 
 */
-@property BOOL wantsBestResolutionOpenGLSurface NS_DEPRECATED_MAC(10_7, 10_14, "Use NSOpenGLView instead.");
+@property BOOL wantsBestResolutionOpenGLSurface API_DEPRECATED("Use NSOpenGLView instead.", macos(10.7,10.14));
 
 @end
 
@@ -57,8 +51,10 @@ This property is archived (keyed archiving required).
 
 /* When set to YES on a view with an attached OpenGL context, the NSScreen in which that views resides may have its maximumExtendedDynamicRangeColorComponentValue increased.  When composited by the Window Server, color values rendered by this OpenGL surface will be clamped to the NSScreen’s maximumExtendedDynamicRangeColorComponentValue rather than 1.0.
  */
-@property BOOL wantsExtendedDynamicRangeOpenGLSurface NS_DEPRECATED_MAC(10_11, 10_14, "Use NSOpenGLView instead.");
+@property BOOL wantsExtendedDynamicRangeOpenGLSurface API_DEPRECATED("Use NSOpenGLView instead.", macos(10.11,10.14));
 
 @end
 
+
+API_UNAVAILABLE_END
 NS_ASSUME_NONNULL_END

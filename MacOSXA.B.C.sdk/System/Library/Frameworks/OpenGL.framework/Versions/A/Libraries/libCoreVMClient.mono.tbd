@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 7B37A9CD-17D8-3780-8305-75D94F90E235' ]
+uuids:           [ 'x86_64: 755BF43F-7069-3FC7-8F67-24BC600CDEE1', 'x86_64: 755BF43F-7069-3FC7-8F67-24BC600CDEE1' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries//libCoreVMClient.mono.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries//libCoreVMClient.mono.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ __cvmsIsAssert, __cvmsIsMonolithic, _cvms_connection_control, 

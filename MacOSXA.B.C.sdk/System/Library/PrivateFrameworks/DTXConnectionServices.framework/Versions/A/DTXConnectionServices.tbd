@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 651B4C85-DB28-3D6F-BDBA-7C82A8B9782C' ]
+uuids:           [ 'x86_64: 5B87560B-62B8-3AB7-B78F-BCC4B3BAFD72', 'x86_64: 5B87560B-62B8-3AB7-B78F-BCC4B3BAFD72' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/DTXConnectionServices.framework/Versions/A/DTXConnectionServices
-current-version: 64490.42.1
+install-name:    '/System/Library/PrivateFrameworks/DTXConnectionServices.framework/Versions/A/DTXConnectionServices'
+current-version: 64523.185.1
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CFArrayCreateWithDTXPrimitiveArray, _CFDictionaryCreateWithDTXPrimitiveDictionary, 
@@ -14,10 +14,12 @@ exports:
                        _DTXPrimitiveArrayReferencingSerialized, _DTXPrimitiveDictionaryAddBufferPair, 
                        _DTXPrimitiveDictionaryAddPrimitivePair, _DTXPrimitiveDictionaryCreate, 
                        _DTXPrimitiveDictionaryDestroy, _DTXPrimitiveDictionaryGetSerialized, 
-                       _DTXPrimitiveDictionaryReferencingSerialized, __DTXPrimitiveDictionaryEnumerate, 
-                       __DTXPrimitiveDictionaryGetCount, __createObjectFromPrimitiveType, 
-                       _kDTXAckBarrierMessage, _kDTXBarrierMessage, _kDTXHeartbeatMessage, 
-                       _kDTXInterruptionMessage ]
+                       _DTXPrimitiveDictionaryReferencingSerialized, _DTXSpawnSubtask, 
+                       _DTXSpawn_CPUTypeKey, _DTXSpawn_DYLDForcePlatformKey, _DTXSpawn_StderrPathKey, 
+                       _DTXSpawn_StdinPathKey, _DTXSpawn_StdoutPathKey, _DTXSpawn_TimeoutKey, 
+                       _DTXSubtaskCheckin, __DTXPrimitiveDictionaryEnumerate, __DTXPrimitiveDictionaryGetCount, 
+                       __createObjectFromPrimitiveType, _kDTXAckBarrierMessage, _kDTXBarrierMessage, 
+                       _kDTXHeartbeatMessage, _kDTXInterruptionMessage ]
     objc-classes:    [ DTXBlockCompressorFactory, DTXBlockCompressorLibCompression, 
                        DTXChannel, DTXConnection, DTXDecompressionException, DTXFileDescriptorTransport, 
                        DTXFoundationURLTransport, DTXMachTransport, DTXMessage, DTXMessageParser, 

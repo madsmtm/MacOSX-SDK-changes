@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: EC1E891D-0B87-3102-BBA0-0CB19BFB58D8' ]
+uuids:           [ 'x86_64: D59E90EB-110A-3729-BF21-28D27EE59ADB' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/MonitorPanel.framework/Versions/A/MonitorPanel
+install-name:    '/System/Library/PrivateFrameworks/MonitorPanel.framework/Versions/A/MonitorPanel'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CalibrateDisplay, _ChangeMirrorMaster, _ClearDisplayModeFlag, 
@@ -16,7 +16,7 @@ exports:
                        _kMPDisplaysWillReconfigureNotification, _kMPFamilyKey, _kMPMajorOrderKey, 
                        _kMPMinorOrderKey, _kMPNibNameKey, _kMPTypeKey ]
     objc-classes:    [ MPDisplay, MPDisplayMgr, MPDisplayMode, MPDisplayModeBucket, 
-                       MonitorPanel ]
+                       MPDisplayPreset, MonitorPanel ]
     objc-ivars:      [ MPDisplay._accessLock, MPDisplay._aliasID, MPDisplay._allModes, 
                        MPDisplay._currentMode, MPDisplay._defaultMode, MPDisplay._displayID, 
                        MPDisplay._displayIcon, MPDisplay._displayName, MPDisplay._displayResolutionPreviewIcon, 
@@ -36,8 +36,6 @@ exports:
                        MPDisplayMgr._displays, MPDisplayMgr._hasBuiltinRetina, MPDisplayMgr._hasSmallBuiltinRetina, 
                        MPDisplayMgr._hwChangeLock, MPDisplayMgr._hwChanged, MPDisplayMgr._mainDisplay, 
                        MPDisplayMgr._safeMode, MPDisplayMode._desc, MPDisplayMode._display, 
-                       MPDisplayMode._rateString, MPDisplayMode._tvMode, MPDisplayModeBucket._maxHeight, 
-                       MPDisplayModeBucket._minHeight, MPDisplayModeBucket._modes, 
-                       MPDisplayModeBucket._targetHeight, MonitorPanel._bundle, MonitorPanel._controller, 
-                       MonitorPanel._displayID, MonitorPanel._view ]
+                       MPDisplayMode._rateString, MPDisplayMode._tvMode, MonitorPanel._bundle, 
+                       MonitorPanel._controller, MonitorPanel._displayID, MonitorPanel._view ]
 ...

@@ -14,6 +14,8 @@
 #include <CoreServices/CoreServices.h>
 #endif
 
+#if TARGET_OS_OSX
+
 #pragma mark --- CMBase.h ---
 
 #ifdef __cplusplus
@@ -993,9 +995,6 @@ typedef struct CMProfile {
 #pragma pack(pop)
 
 #pragma mark --- CMTypes.h ----
-
-/* Standard type for ColorSync and other system error codes */
-typedef OSStatus                        CMError DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 /* Abstract data type for memory-based Profile */
 typedef struct OpaqueCMProfileRef*      CMProfileRef DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
@@ -2063,6 +2062,6 @@ typedef CALLBACK_API_C( OSErr , CMIterateDeviceProfileProcPtr )(const CMDeviceIn
 }
 #endif
 
-
+#endif /* TARGET_OS_OSX */
 #endif /* __COLORSYNCDEPRECATED__ */
 

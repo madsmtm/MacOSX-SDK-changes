@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 8C50BF27-B525-3B23-B86C-F444ADF97851' ]
+uuids:           [ 'x86_64: 819B8B6A-5553-3174-BDCF-06F67A2F348C', 'x86_64: 819B8B6A-5553-3174-BDCF-06F67A2F348C' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGFXShared.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGFXShared.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _gfxAllocateTextureLevel, _gfxAnnotateAddDataSource, _gfxAnnotateBuffer, 

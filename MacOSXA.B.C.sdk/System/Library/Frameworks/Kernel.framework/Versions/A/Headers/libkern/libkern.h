@@ -141,9 +141,9 @@ ulmin(u_int32_t a, u_int32_t b)
 
 
 /* Prototypes for non-quad routines. */
-extern int      ffs(int);
+extern int      ffs(unsigned int);
 extern int      ffsll(unsigned long long);
-extern int      fls(int);
+extern int      fls(unsigned int);
 extern int      flsll(unsigned long long);
 extern u_int32_t        random(void);
 extern int      scanc(u_int, u_char *, const u_char *, int);
@@ -173,7 +173,7 @@ uint32_t        crc32(uint32_t crc, const void *bufp, size_t len);
 
 
 int     copystr(const void *kfaddr, void *kdaddr, size_t len, size_t *done);
-int     copyinstr(const user_addr_t uaddr, void *kaddr, size_t len, size_t *done);
+int     copyinstr(const user_addr_t uaddr, void *kaddr, size_t len, size_t *done) OS_WARN_RESULT;
 int     copyoutstr(const void *kaddr, user_addr_t udaddr, size_t len, size_t *done);
 
 int vsscanf(const char *, char const *, va_list);

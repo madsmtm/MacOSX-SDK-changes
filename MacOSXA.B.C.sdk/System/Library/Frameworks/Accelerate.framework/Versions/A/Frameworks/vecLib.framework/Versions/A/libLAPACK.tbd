@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64, x86_64h ]
-uuids:           [ 'x86_64: 2CD8E9C6-E489-38E1-8A08-42CBE87FAC77', 'x86_64h: 92175DF4-863A-3780-909A-A3E5C410F2E9' ]
+uuids:           [ 'x86_64: 6BBAD2ED-FBAE-37AA-BF92-0A60BA837B1F', 'x86_64: 6BBAD2ED-FBAE-37AA-BF92-0A60BA837B1F', 
+                   'x86_64h: 1888D401-435E-30AA-A69B-ECB15957AE75', 'x86_64h: 1888D401-435E-30AA-A69B-ECB15957AE75' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib'
 exports:         
   - archs:           [ x86_64, x86_64h ]
     symbols:         [ _CBDSQR, _CBDSQR_, _CGBBRD, _CGBBRD_, _CGBCON, _CGBCON_, _CGBEQU, 

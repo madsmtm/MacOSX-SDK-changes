@@ -1,11 +1,10 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 16E78F5C-0BC8-34AB-A602-12DE0A8D6E15' ]
+uuids:           [ 'x86_64: 563A63EE-9C54-3190-A462-B796C423DF07', 'x86_64: 563A63EE-9C54-3190-A462-B796C423DF07' ]
 platform:        zippered
-install-name:    /usr/lib/libform.5.4.dylib
+install-name:    '/usr/lib/libform.5.4.dylib'
 current-version: 5.4
 compatibility-version: 5.4
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _TYPE_ALNUM, _TYPE_ALPHA, _TYPE_ENUM, _TYPE_INTEGER, _TYPE_IPV4, 

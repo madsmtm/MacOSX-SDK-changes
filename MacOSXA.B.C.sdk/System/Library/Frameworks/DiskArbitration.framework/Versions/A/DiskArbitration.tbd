@@ -1,28 +1,29 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F481F2C0-884E-3265-8111-ABBEC93F0920' ]
-platform:        macosx
-install-name:    /System/Library/Frameworks/DiskArbitration.framework/Versions/A/DiskArbitration
-objc-constraint: none
+uuids:           [ 'x86_64: ED82EFFE-679F-3D01-B2C8-9A7EC26780F7', 'x86_64: ED82EFFE-679F-3D01-B2C8-9A7EC26780F7' ]
+platform:        zippered
+install-name:    '/System/Library/Frameworks/DiskArbitration.framework/Versions/A/DiskArbitration'
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _DAApprovalSessionCreate, _DAApprovalSessionGetTypeID, _DAApprovalSessionScheduleWithRunLoop, 
-                       _DAApprovalSessionUnscheduleFromRunLoop, _DADiskClaim, _DADiskCopyDescription, 
-                       _DADiskCopyIOMedia, _DADiskCopyWholeDisk, _DADiskCreateFromBSDName, 
-                       _DADiskCreateFromIOMedia, _DADiskCreateFromVolumePath, _DADiskEject, 
-                       _DADiskGetBSDName, _DADiskGetOptions, _DADiskGetTypeID, _DADiskIsClaimed, 
-                       _DADiskMount, _DADiskMountWithArguments, _DADiskRename, _DADiskSetOptions, 
+    symbols:         [ _DAAddCallbackToSession, _DAApprovalSessionCreate, _DAApprovalSessionGetTypeID, 
+                       _DAApprovalSessionScheduleWithRunLoop, _DAApprovalSessionUnscheduleFromRunLoop, 
+                       _DACallbackCreate, _DADiskClaim, _DADiskCopyDescription, _DADiskCopyIOMedia, 
+                       _DADiskCopyWholeDisk, _DADiskCreateFromBSDName, _DADiskCreateFromIOMedia, 
+                       _DADiskCreateFromVolumePath, _DADiskEject, _DADiskGetBSDName, 
+                       _DADiskGetOptions, _DADiskGetTypeID, _DADiskIsClaimed, _DADiskMount, 
+                       _DADiskMountWithArguments, _DADiskRename, _DADiskSetOptions, 
                        _DADiskUnclaim, _DADiskUnmount, _DADissenterCreate, _DADissenterGetProcessID, 
-                       _DADissenterGetStatus, _DADissenterGetStatusString, _DARegisterDiskAppearedCallback, 
-                       _DARegisterDiskDescriptionChangedCallback, _DARegisterDiskDisappearedCallback, 
-                       _DARegisterDiskEjectApprovalCallback, _DARegisterDiskMountApprovalCallback, 
-                       _DARegisterDiskPeekCallback, _DARegisterDiskUnmountApprovalCallback, 
-                       _DARegisterIdleCallback, _DASessionCreate, _DASessionGetTypeID, 
-                       _DASessionScheduleWithRunLoop, _DASessionSetDispatchQueue, 
-                       _DASessionUnscheduleFromRunLoop, _DAUnregisterApprovalCallback, 
-                       _DAUnregisterCallback, __DADiskCreateFromSerialization, __DADiskGetSession, 
-                       __DADiskSetAdoption, __DADiskSetEncoding, __DAmkdir, __DArmdir, 
-                       _kDAApprovalRunLoopMode, _kDADiskDescriptionAppearanceTimeKey, 
+                       _DADissenterGetStatus, _DADissenterGetStatusString, _DAGetCallbackFromSession, 
+                       _DARegisterDiskAppearedCallback, _DARegisterDiskDescriptionChangedCallback, 
+                       _DARegisterDiskDisappearedCallback, _DARegisterDiskEjectApprovalCallback, 
+                       _DARegisterDiskMountApprovalCallback, _DARegisterDiskPeekCallback, 
+                       _DARegisterDiskUnmountApprovalCallback, _DARegisterIdleCallback, 
+                       _DARemoveCallbackFromSession, _DARemoveCallbackFromSessionWithKey, 
+                       _DASessionCreate, _DASessionGetTypeID, _DASessionScheduleWithRunLoop, 
+                       _DASessionSetDispatchQueue, _DASessionUnscheduleFromRunLoop, 
+                       _DAUnregisterApprovalCallback, _DAUnregisterCallback, __DADiskCreateFromSerialization, 
+                       __DADiskGetSession, __DADiskSetAdoption, __DADiskSetEncoding, 
+                       __DAmkdir, __DArmdir, _kDAApprovalRunLoopMode, _kDADiskDescriptionAppearanceTimeKey, 
                        _kDADiskDescriptionBusNameKey, _kDADiskDescriptionBusPathKey, 
                        _kDADiskDescriptionDeviceGUIDKey, _kDADiskDescriptionDeviceInternalKey, 
                        _kDADiskDescriptionDeviceModelKey, _kDADiskDescriptionDevicePathKey, 

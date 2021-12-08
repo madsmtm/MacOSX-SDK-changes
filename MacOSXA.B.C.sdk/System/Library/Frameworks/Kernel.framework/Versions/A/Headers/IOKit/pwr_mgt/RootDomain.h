@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 1998-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -116,11 +116,11 @@ typedef IOReturn (*IOPMSettingControllerCallback)
 
 __BEGIN_DECLS
 IONotifier *    registerSleepWakeInterest(
-	IOServiceInterestHandler, void *, void * = 0);
+	IOServiceInterestHandler, void *, void * = NULL);
 
 IONotifier *    registerPrioritySleepWakeInterest(
 	IOServiceInterestHandler handler,
-	void * self, void * ref = 0);
+	void * self, void * ref = NULL);
 
 IOReturn        acknowledgeSleepWakeNotification(void * );
 
@@ -131,7 +131,7 @@ __END_DECLS
 
 class IOPMrootDomain : public IOService
 {
-	OSDeclareFinalStructors(IOPMrootDomain)
+	OSDeclareFinalStructors(IOPMrootDomain);
 
 public:
 	static IOPMrootDomain * construct( void );
@@ -166,7 +166,7 @@ public:
 	void                                claimSystemWakeEvent( IOService     *device,
 	    IOOptionBits  flags,
 	    const char    *reason,
-	    OSObject      *details = 0 );
+	    OSObject      *details = NULL );
 
 	virtual IOReturn    receivePowerNotification( UInt32 msg );
 
@@ -247,7 +247,7 @@ public:
 	virtual IONotifier * registerInterest(
 		const OSSymbol * typeOfInterest,
 		IOServiceInterestHandler handler,
-		void * target, void * ref = 0 ) APPLE_KEXT_OVERRIDE;
+		void * target, void * ref = NULL ) APPLE_KEXT_OVERRIDE;
 
 	virtual IOReturn    callPlatformFunction(
 		const OSSymbol *functionName,
@@ -309,7 +309,11 @@ public:
  */
 	IOReturn restartWithStackshot();
 
+	IOReturn    setWakeTime(uint64_t wakeContinuousTime);
+
 private:
+	unsigned long getRUN_STATE(void);
+
 	virtual IOReturn    changePowerStateTo( unsigned long ordinal ) APPLE_KEXT_COMPATIBILITY_OVERRIDE;
 	virtual IOReturn    changePowerStateToPriv( unsigned long ordinal );
 	virtual IOReturn    requestPowerDomainState( IOPMPowerFlags, IOPowerConnection *, unsigned long ) APPLE_KEXT_OVERRIDE;

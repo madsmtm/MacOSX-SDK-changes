@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2018 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -102,10 +102,19 @@ __BEGIN_DECLS
 extern task_t   current_task(void);
 
 extern void             task_reference(task_t   task);
+extern bool task_is_driver(task_t task);
 
 #define TF_NONE                 0
-#define TF_LRETURNWAIT          0x00000100                              /* task is waiting for fork/posix_spawn/exec to complete */
-#define TF_LRETURNWAITER        0x00000200                              /* task is waiting for TF_LRETURNWAIT to get cleared */
+
+#define TWF_NONE                 0
+#define TRW_LRETURNWAIT          0x01           /* task is waiting for fork/posix_spawn/exec to complete */
+#define TRW_LRETURNWAITER        0x02           /* task is waiting for TRW_LRETURNWAIT to get cleared */
+
+/* task clear return wait flags */
+#define TCRW_CLEAR_INITIAL_WAIT   0x1
+#define TCRW_CLEAR_FINAL_WAIT     0x2
+#define TCRW_CLEAR_ALL_WAIT       (TCRW_CLEAR_INITIAL_WAIT | TCRW_CLEAR_FINAL_WAIT)
+
 
 #define TPF_NONE                0
 #define TPF_EXEC_COPY           0x00000002                              /* task is the new copy of an exec */
@@ -115,6 +124,7 @@ __END_DECLS
 
 
 __BEGIN_DECLS
+
 
 
 
@@ -134,6 +144,12 @@ extern void             task_suspension_token_deallocate(
 
 extern boolean_t task_self_region_footprint(void);
 extern void task_self_region_footprint_set(boolean_t newval);
+extern void task_ledgers_footprint(ledger_t ledger,
+    ledger_amount_t *ledger_resident,
+    ledger_amount_t *ledger_compressed);
+extern void task_set_memory_ownership_transfer(
+	task_t task,
+	boolean_t value);
 
 __END_DECLS
 

@@ -58,5 +58,7 @@ struct nfs_gss_principal {
 
 #define NFS_IOC_GET_CRED                _IOWR('n', 3, struct nfs_gss_principal)
 
+#define NFS_IOC_DISARM_TRIGGER          _IO('n', 4)
+
 
 #endif

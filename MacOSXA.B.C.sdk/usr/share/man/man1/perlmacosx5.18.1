@@ -133,7 +133,7 @@
 .\" ========================================================================
 .\"
 .IX Title "PERLMACOSX 1"
-.TH PERLMACOSX 1 "2019-04-01" "perl v5.18.4" "Perl Programmers Reference Guide"
+.TH PERLMACOSX 1 "2019-07-14" "perl v5.18.4" "Perl Programmers Reference Guide"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -331,22 +331,12 @@ by simply running the following command:
 .PP
 Subsequent invocations of '/usr/bin/perl' will then use the  version.
 .PP
-In addition, both perl versions will ship as a universal binary containing
-64\-bit support, which will be on by default.
-For those cases where 32\-bit perl is desired, the following command can
-be used:
-.PP
-.Vb 1
-\&    % defaults write com.apple.versioner.perl Prefer\-32\-Bit \-bool yes
-.Ve
-.PP
-To set defaults systemwide, use the above commands, but replace the third
+To set defaults systemwide, use the above command, but replace the third
 argument with '/Library/Preferences/com.apple.versioner.perl' (admin privileges
 will be required).
 .PP
-The environment variables \s-1VERSIONER_PERL_VERSION \s0(set to one of the supported versions) and
-\&\s-1VERSIONER_PERL_PREFER_32_BIT \s0(set to 'true', 'false', 'yes', 'no', '1' or '0')
-can also be set, and they override the settings in any preference files.
+The environment variable \s-1VERSIONER_PERL_VERSION \s0(set to one of the supported versions)
+can also be set, and it overrides the settings in any preference files.
 .PP
 Note: this may changes in future versions of Mac \s-1OS X,\s0 which may use
 an improved scheme for making such settings.

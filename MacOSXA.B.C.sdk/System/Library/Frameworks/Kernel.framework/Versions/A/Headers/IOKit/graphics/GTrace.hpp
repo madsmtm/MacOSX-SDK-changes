@@ -13,29 +13,22 @@
 #include <IOKit/IOLib.h>
 #include <IOKit/IOReturn.h>
 
-// Kernel clients that haven't enabled C++11 yet
-#define GTRACE_ARCHAIC_CPP (__cplusplus < 201103L)
+#include "IOKit/graphics/GTraceTypes.hpp"
 
+// Kernel clients that haven't enabled C++11 yet
 #if !GTRACE_ARCHAIC_CPP
 #include <osmemory>
 #endif
 
-#include "GTraceTypes.hpp"
-
 // TODO: Provide example of GTRACE() macro use.
-
-#define kGTraceMaxBreadcrumbSize  (16 * 1024)    // 16KiB
-#define kGTraceMinimumLineCount UINT32_C(1024)   // @64b ==  64k
-#define kGTraceMaximumLineCount UINT32_C(8192)   // @64b == 512k
-#define kGTraceDefaultLineCount kGTraceMinimumLineCount
 
 // ----------------------------------------------------------------------------
 // Main tracing Macros
 // ----------------------------------------------------------------------------
 
 // Use this to encode t0, for automatic decoding and start/end pairing
-#define GTFuncTag(funcid, functype, tag0)                                      \
-    MAKEGTRACETAG((((functype) & 0x3) << 10) | ((funcid) & 0x03FF) | (tag0))
+// Function has been moved and renamed, define old macro in terms of new
+#define GTFuncTag(i, t, tag) GPACKFUNCTAG(i, t, tag)
 
 #define GTRACERAW(tracer, t0, a0, t1, a1, t2, a2, t3, a3) do{                  \
     if (static_cast<bool>(tracer)){                                            \
@@ -169,7 +162,7 @@ public:
 
     /*! @function destroy
      @abstract Destroy a buffer shared object created with make.
-     @discussion When a client is done with the gtrace buffer use 
+     @discussion When a client is done with the gtrace buffer use
          destroy(iog::move(<your buffer>)) to destroy your shared object and
          stop further calls to the breadcrumb func. This will destroy your
          reference to the buffer. Before completing destruction the breadcrumb
@@ -291,6 +284,29 @@ public:
      */
     static IOReturn fetch(shared_type bso, IOMemoryDescriptor* outDesc);
 
+#ifndef _OPEN_SOURCE_
+    /*!
+     @function makeUser
+     @abstract Record a user land gtrace buffer.
+     @discussion The block of memory provided by the client process will be
+         copied out in sysdiagnose by the iogdiagnose CLI tool. User buffers do
+         NOT support breadcrumb functions. However, a client process can
+         designate a block of the buffer as breadcrumb space, but note no
+         inter-locking will be provided between recording data into it and
+         fetch. Destroy buffers in the usual way.
+     @param bufMD: Block of memory provided by client process.
+     @param errP: Pointer to a IOReturn return code, only written on failure.
+     @result OSSharedObject<GTraceBuffer> with the new created buffer. An empty
+             buffer on failure.
+     */
+    static shared_type makeUser(IOMemoryDescriptor *bufMD, IOReturn* errP);
+
+protected:
+    IOReturn copyOutUser(iog::OSUniqueObject<IOMemoryMap> map) const;
+public:
+#endif // !_OPEN_SOURCE_
+
+
     /* Getters for constant header information */
     size_t decoderName(char *name, const int len) const;  // truncates
     size_t bufferName(char *name, const int len) const;   // truncates
@@ -306,8 +322,14 @@ protected:
     // Internal functions
     // See make() for details on arguments
     IOReturn init(
+        const GTraceHeader& header, IOMemoryDescriptor* userBufferMD,
+        breadcrumb_func bcf, const void* context);
+    static shared_type makeFromHeader(
+            const GTraceHeader& header, IOMemoryDescriptor* userBufferMD,
+            breadcrumb_func bcf, void* context, IOReturn* errP);
+    static GTraceHeader buildHeader(
             const char* decoderName, const char* bufferName,
-            const uint32_t lineCount, breadcrumb_func bcf, const void* context);
+            const uint32_t count);
 
     inline uint32_t getNextLine(void)
         { return atomic_fetch_add(&fNextLine, 1) & fLineMask; }
@@ -322,7 +344,7 @@ protected:
             iog::OSUniqueObject<IOMemoryMap> map, OSData* bcData) const;
 
     // APIs for IODisplayWranglerUserClients.cpp, also used by unit tests
-    friend class IOGDiagnosticUserClient;
+    friend class IOGDiagnosticGTraceClient;
 
     /*! @function fetch
      @abstract
@@ -348,6 +370,10 @@ private:
     GTraceHeader         fHeader;
     atomic_uint_fast32_t fNextLine;
     GTraceEntry*         fBuffer;
+
+#ifndef _OPEN_SOURCE_
+    IOMemoryDescriptor*  fUserBufferMD;
+#endif // !_OPEN_SOURCE_
 
     breadcrumb_func      fBreadcrumbFunc;
     const void*          fBCFContext; // Context to be passed to fBreadcrumbFunc

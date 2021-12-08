@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -215,8 +215,8 @@ enum micro_snapshot_flags {
  * Flags used in the following assortment of snapshots.
  */
 enum generic_snapshot_flags {
-	kUser64_p                       = 0x1,
-	kKernel64_p             = 0x2
+	kUser64_p               = 0x1, /* Userspace uses 64 bit pointers */
+	kKernel64_p             = 0x2  /* The kernel uses 64 bit pointers */
 };
 
 #define VM_PRESSURE_TIME_WINDOW 5 /* seconds */
@@ -268,6 +268,7 @@ enum {
 #define KF_MATV_OVRD (0x8)
 #define KF_STACKSHOT_OVRD (0x10)
 #define KF_COMPRSV_OVRD (0x20)
+#define KF_INTERRUPT_MASKED_DEBUG_OVRD (0x40)
 
 boolean_t kern_feature_override(uint32_t fmask);
 
@@ -349,13 +350,43 @@ struct macos_panic_header {
 #define MACOS_PANIC_HEADER_FLAG_COREDUMP_FAILED               0x200
 #define MACOS_PANIC_HEADER_FLAG_STACKSHOT_KERNEL_ONLY         0x400
 
+/*
+ * Any change to the below structure should mirror the structure defined in MacEFIFirmware
+ * (and vice versa)
+ */
+
+struct efi_aurr_panic_header {
+	uint32_t efi_aurr_magic;
+	uint32_t efi_aurr_crc;
+	uint32_t efi_aurr_version;
+	uint32_t efi_aurr_reset_cause;
+	uint32_t efi_aurr_reset_log_offset;
+	uint32_t efi_aurr_reset_log_len;
+	char efi_aurr_panic_data[];
+} __attribute__((packed));
+
+/*
+ * EXTENDED_/DEBUG_BUF_SIZE can't grow without updates to SMC and iBoot to store larger panic logs on co-processor systems
+ */
+#define EXTENDED_DEBUG_BUF_SIZE 0x0013ff80
+
+#define EFI_AURR_PANIC_STRING_MAX_LEN 112
+#define EFI_AURR_EXTENDED_LOG_SIZE (EXTENDED_DEBUG_BUF_SIZE - sizeof(struct efi_aurr_panic_header) - EFI_AURR_PANIC_STRING_MAX_LEN)
+
+struct efi_aurr_extended_panic_log {
+	char efi_aurr_extended_log_buf[EFI_AURR_EXTENDED_LOG_SIZE];
+	uint32_t efi_aurr_log_tail; /* Circular buffer indices */
+	uint32_t efi_aurr_log_head; /* ditto.. */
+} __attribute__((packed));
+
 #endif /* __APPLE_API_UNSTABLE */
 #endif /* __APPLE_API_PRIVATE */
 
 
 __BEGIN_DECLS
 
-extern void panic(const char *string, ...) __printflike(1, 2);
+__abortlike __printflike(1, 2)
+extern void panic(const char *string, ...);
 
 __END_DECLS
 

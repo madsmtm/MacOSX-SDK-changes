@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64, x86_64h ]
-uuids:           [ 'x86_64: 069BE0D3-FEDF-3848-81B7-B5D64F511EC6', 'x86_64h: E9243341-DB77-37C1-97C5-3DFA00DD70FA' ]
+uuids:           [ 'x86_64: 804F0A17-36ED-3FA3-A1C6-695525A793D2', 'x86_64: 804F0A17-36ED-3FA3-A1C6-695525A793D2', 
+                   'x86_64h: 85C9E356-92E7-33EE-9890-A5781B79FBC2', 'x86_64h: 85C9E356-92E7-33EE-9890-A5781B79FBC2' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libSparseBLAS.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libSparseBLAS.dylib'
 exports:         
   - archs:           [ x86_64, x86_64h ]
     allowable-clients: [ Sparse, vecLib ]

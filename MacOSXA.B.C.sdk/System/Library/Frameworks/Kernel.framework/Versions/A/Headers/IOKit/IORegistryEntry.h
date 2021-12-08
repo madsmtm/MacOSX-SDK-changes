@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1998-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 1998-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -67,7 +67,7 @@ class IORegistryEntry : public OSObject
 {
 	friend class IORegistryIterator;
 
-	OSDeclareDefaultStructors(IORegistryEntry)
+	OSDeclareDefaultStructors(IORegistryEntry);
 
 protected:
 /*! @struct ExpansionData
@@ -175,8 +175,8 @@ public:
  *   @result Returns the value of the Action callout.
  */
 	virtual IOReturn runPropertyAction(Action action, OSObject *target,
-	    void *arg0 = 0, void *arg1 = 0,
-	    void *arg2 = 0, void *arg3 = 0);
+	    void *arg0 = NULL, void *arg1 = NULL,
+	    void *arg2 = NULL, void *arg3 = NULL);
 
 private:
 #if __LP64__
@@ -254,7 +254,7 @@ public:
  *   @param dictionary A dictionary that will become the registry entry's property table (retaining it), or zero which will cause an empty property table to be created.
  *   @result true on success, or false on a resource failure. */
 
-	virtual bool init( OSDictionary * dictionary = 0 );
+	virtual bool init( OSDictionary * dictionary = NULL );
 
 /*! @function free
  *   @abstract Standard free method for all IORegistryEntry subclasses.
@@ -562,7 +562,7 @@ public:
  *   @param plane The plane object, 0 indicates any plane.
  *   @result If the entry has a parent in the given plane or if plane = 0 then if entry has any parent; return true, otherwise false. */
 
-	virtual bool inPlane( const IORegistryPlane * plane = 0) const;
+	virtual bool inPlane( const IORegistryPlane * plane = NULL) const;
 
 /*! @function getDepth
  *   @abstract Counts the maximum number of entries between an entry and the registry root, in a plane.
@@ -634,7 +634,7 @@ public:
  *   @param plane The plane object, or zero for the global name.
  *   @result A C-string name, valid while the entry is retained. */
 
-	virtual const char * getName( const IORegistryPlane * plane = 0 ) const;
+	virtual const char * getName( const IORegistryPlane * plane = NULL ) const;
 
 /*! @function copyName
  *   @abstract Returns the name assigned to the registry entry as an OSSymbol.
@@ -643,7 +643,7 @@ public:
  *   @result A reference to an OSSymbol for the name, which should be released by the caller. */
 
 	virtual const OSSymbol * copyName(
-		const IORegistryPlane * plane = 0 ) const;
+		const IORegistryPlane * plane = NULL ) const;
 
 /*! @function compareNames
  *   @abstract Compares the name of the entry with one or more names, and optionally returns the matching name.
@@ -652,7 +652,7 @@ public:
  *   @param matched If the caller wants the successfully matched name returned, pass a non-zero pointer for the matched parameter and an OSString will be returned here. It should be released by the caller.
  *   @result True if one of the names compared true with the entry's global name. */
 
-	virtual bool compareNames( OSObject * name, OSString ** matched = 0 ) const;
+	virtual bool compareNames( OSObject * name, OSString ** matched = NULL ) const;
 
 /*! @function compareName
  *   @abstract Compares the name of the entry with one name, and optionally returns the matching name.
@@ -661,7 +661,7 @@ public:
  *   @param matched If the caller wants the successfully matched name returned, pass a non-zero pointer for the matched parameter and an OSString will be returned here. It should be released by the caller. Generally, this will be the same as the name parameter, but may not be if wildcards are used.
  *   @result True if the name compared true with the entry's global name. */
 
-	virtual bool compareName( OSString * name, OSString ** matched = 0 ) const;
+	virtual bool compareName( OSString * name, OSString ** matched = NULL ) const;
 
 /*! @function setName
  *   @abstract Sets a name for the registry entry, in a particular plane, or globally.
@@ -670,7 +670,7 @@ public:
  *   @param plane The plane object, or zero to set the global name. */
 
 	virtual void setName( const OSSymbol * name,
-	    const IORegistryPlane * plane = 0 );
+	    const IORegistryPlane * plane = NULL );
 
 /*! @function setName
  *   @abstract Sets a name for the registry entry, in a particular plane, or globally.
@@ -679,7 +679,7 @@ public:
  *   @param plane The plane object, or zero to set the global name. */
 
 	virtual void setName( const char * name,
-	    const IORegistryPlane * plane = 0 );
+	    const IORegistryPlane * plane = NULL );
 
 /*! @function getLocation
  *   @abstract Returns the location string assigned to the registry entry as a C-string.
@@ -687,7 +687,7 @@ public:
  *   @param plane The plane object, or zero for the global name.
  *   @result A C-string location string, valid while the entry is retained, or zero. */
 
-	virtual const char * getLocation( const IORegistryPlane * plane = 0 ) const;
+	virtual const char * getLocation( const IORegistryPlane * plane = NULL ) const;
 
 /*! @function copyLocation
  *   @abstract Returns the location string assigned to the registry entry as an OSSymbol.
@@ -696,7 +696,7 @@ public:
  *   @result A reference to an OSSymbol for the location if one exists, which should be released by the caller, or zero. */
 
 	virtual const OSSymbol * copyLocation(
-		const IORegistryPlane * plane = 0 ) const;
+		const IORegistryPlane * plane = NULL ) const;
 
 /*! @function setLocation
  *   @abstract Sets a location string for the registry entry, in a particular plane, or globally.
@@ -705,9 +705,9 @@ public:
  *   @param plane The plane object, or zero to set the global location string. */
 
 	virtual void setLocation( const OSSymbol * location,
-	    const IORegistryPlane * plane = 0 );
+	    const IORegistryPlane * plane = NULL );
 	virtual void setLocation( const char * location,
-	    const IORegistryPlane * plane = 0 );
+	    const IORegistryPlane * plane = NULL );
 
 /*! @function getPath
  *   @abstract Create a path for a registry entry.
@@ -742,10 +742,10 @@ public:
  *   @result A retained registry entry is returned on success, or zero on failure. The caller should release the entry. */
 
 	static IORegistryEntry * fromPath(  const char * path,
-	    const IORegistryPlane * plane = 0,
-	    char * residualPath = 0,
-	    int * residualLength = 0,
-	    IORegistryEntry * fromEntry = 0 );
+	    const IORegistryPlane * plane = NULL,
+	    char * residualPath = NULL,
+	    int * residualLength = NULL,
+	    IORegistryEntry * fromEntry = NULL );
 
 /*! @function fromPath
  *   @abstract Looks up a registry entry by relative path.
@@ -757,9 +757,9 @@ public:
  *   @result See IORegistryEntry::fromPath. */
 
 	virtual IORegistryEntry * childFromPath( const char * path,
-	    const IORegistryPlane * plane = 0,
-	    char * residualPath = 0,
-	    int * residualLength = 0 );
+	    const IORegistryPlane * plane = NULL,
+	    char * residualPath = NULL,
+	    int * residualLength = NULL );
 
 /*! @function dealiasPath
  *   @abstract Strips any aliases from the head of path and returns the full path.
@@ -799,7 +799,7 @@ private:
 private:
 	inline bool arrayMember( OSArray * set,
 	    const IORegistryEntry * member,
-	    unsigned int * index = 0 ) const;
+	    unsigned int * index = NULL ) const;
 
 	bool makeLink( IORegistryEntry * to,
 	    unsigned int relation,
@@ -821,9 +821,9 @@ private:
 	    const IORegistryPlane * plane );
 
 	APPLE_KEXT_COMPATIBILITY_VIRTUAL
-	LIBKERN_RETURNS_NOT_RETAINED
-	const OSSymbol * hasAlias(  const IORegistryPlane * plane,
-	    char * opath = 0, int * length = 0 ) const;
+	LIBKERN_RETURNS_NOT_RETAINED const OSSymbol * hasAlias(
+		const IORegistryPlane * plane,
+		char * opath = NULL, int * length = NULL ) const;
 
 	APPLE_KEXT_COMPATIBILITY_VIRTUAL
 	const char * matchPathLocation( const char * cmp,
@@ -838,7 +838,7 @@ private:
 
 class IORegistryIterator : public OSIterator
 {
-	OSDeclareAbstractStructors(IORegistryIterator)
+	OSDeclareAbstractStructors(IORegistryIterator);
 
 private:
 	struct IORegCursor {

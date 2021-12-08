@@ -1,10 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: DFE16C42-24E6-386F-AC50-0058F61980A2' ]
+uuids:           [ 'x86_64: 36D0B0EE-1560-3F2C-8319-15EE073F7913', 'x86_64: 36D0B0EE-1560-3F2C-8319-15EE073F7913' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/ChunkingLibrary.framework/Versions/A/ChunkingLibrary
-current-version: 201
-objc-constraint: none
+install-name:    '/System/Library/PrivateFrameworks/ChunkingLibrary.framework/Versions/A/ChunkingLibrary'
+current-version: 302
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CK2CalculateFileSignatureWithFlags, _CK2CalculateItemSignatureWithFlags, 

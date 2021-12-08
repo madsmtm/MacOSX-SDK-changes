@@ -58,7 +58,8 @@ struct thread_group;
 /* Thread group flags */
 #define THREAD_GROUP_FLAGS_EFFICIENT    0x1
 #define THREAD_GROUP_FLAGS_UI_APP       0x2
-#define THREAD_GROUP_FLAGS_VALID        (THREAD_GROUP_FLAGS_EFFICIENT | THREAD_GROUP_FLAGS_UI_APP)
+#define THREAD_GROUP_FLAGS_SMP_RESTRICT 0x4
+#define THREAD_GROUP_FLAGS_VALID        (THREAD_GROUP_FLAGS_EFFICIENT | THREAD_GROUP_FLAGS_UI_APP | THREAD_GROUP_FLAGS_SMP_RESTRICT)
 
 __BEGIN_DECLS
 
@@ -91,6 +92,8 @@ cluster_type_t  thread_group_recommendation(struct thread_group *tg);
 typedef         void (*thread_group_iterate_fn_t)(void*, int, struct thread_group *);
 kern_return_t   thread_group_iterate_stackshot(thread_group_iterate_fn_t callout, void *arg);
 uint64_t kdp_thread_group_get_flags(struct thread_group *);
+boolean_t       thread_group_smp_restricted(struct thread_group *tg);
+void            thread_group_update_recommendation(struct thread_group *tg, cluster_type_t new_recommendation);
 
 
 __END_DECLS

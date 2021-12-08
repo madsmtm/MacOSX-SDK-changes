@@ -119,6 +119,7 @@
 #define x86_AVX512_STATE32              19
 #define x86_AVX512_STATE64              (x86_AVX512_STATE32 + 1)
 #define x86_AVX512_STATE                (x86_AVX512_STATE32 + 2)
+#define x86_PAGEIN_STATE                22
 #define x86_THREAD_FULL_STATE64         23
 
 /*
@@ -133,26 +134,27 @@
  * platform. The macro must be manually updated to include all of the valid
  * exception flavors as defined above.
  */
-#define VALID_THREAD_STATE_FLAVOR(x)       \
-	 ((x == x86_THREAD_STATE32)	 || \
-	  (x == x86_FLOAT_STATE32)	 || \
-	  (x == x86_EXCEPTION_STATE32)	 || \
-	  (x == x86_DEBUG_STATE32)	 || \
-	  (x == x86_THREAD_STATE64)	 || \
-	  (x == x86_THREAD_FULL_STATE64) || \
-	  (x == x86_FLOAT_STATE64)	 || \
-	  (x == x86_EXCEPTION_STATE64)	 || \
-	  (x == x86_DEBUG_STATE64)	 || \
-	  (x == x86_THREAD_STATE)	 || \
-	  (x == x86_FLOAT_STATE)	 || \
-	  (x == x86_EXCEPTION_STATE)	 || \
-	  (x == x86_DEBUG_STATE)	 || \
-	  (x == x86_AVX_STATE32)	 || \
-	  (x == x86_AVX_STATE64)	 || \
-	  (x == x86_AVX_STATE)		 || \
-	  (x == x86_AVX512_STATE32)	 || \
-	  (x == x86_AVX512_STATE64)	 || \
-	  (x == x86_AVX512_STATE)	 || \
+#define VALID_THREAD_STATE_FLAVOR(x)            \
+	 ((x == x86_THREAD_STATE32)		|| \
+	  (x == x86_FLOAT_STATE32)		|| \
+	  (x == x86_EXCEPTION_STATE32)		|| \
+	  (x == x86_DEBUG_STATE32)		|| \
+	  (x == x86_THREAD_STATE64)		|| \
+	  (x == x86_THREAD_FULL_STATE64)	|| \
+	  (x == x86_FLOAT_STATE64)		|| \
+	  (x == x86_EXCEPTION_STATE64)		|| \
+	  (x == x86_DEBUG_STATE64)		|| \
+	  (x == x86_THREAD_STATE)		|| \
+	  (x == x86_FLOAT_STATE)		|| \
+	  (x == x86_EXCEPTION_STATE)		|| \
+	  (x == x86_DEBUG_STATE)		|| \
+	  (x == x86_AVX_STATE32)		|| \
+	  (x == x86_AVX_STATE64)		|| \
+	  (x == x86_AVX_STATE)			|| \
+	  (x == x86_AVX512_STATE32)		|| \
+	  (x == x86_AVX512_STATE64)		|| \
+	  (x == x86_AVX512_STATE)		|| \
+	  (x == x86_PAGEIN_STATE)		|| \
 	  (x == THREAD_STATE_NONE))
 
 struct x86_state_hdr {
@@ -250,6 +252,12 @@ typedef _STRUCT_X86_DEBUG_STATE64 x86_debug_state64_t;
     ( sizeof (x86_debug_state64_t) / sizeof (int) ))
 
 #define X86_DEBUG_STATE64_COUNT x86_DEBUG_STATE64_COUNT
+
+typedef _STRUCT_X86_PAGEIN_STATE x86_pagein_state_t;
+#define x86_PAGEIN_STATE_COUNT \
+    ((mach_msg_type_number_t)(sizeof(x86_pagein_state_t) / sizeof(int)))
+
+#define X86_PAGEIN_STATE_COUNT x86_PAGEIN_STATE_COUNT
 
 /*
  * Combined thread, float and exception states

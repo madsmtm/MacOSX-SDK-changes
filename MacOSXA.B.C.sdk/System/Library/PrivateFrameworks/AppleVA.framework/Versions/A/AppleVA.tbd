@@ -1,10 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 3399D678-8741-3B70-B8D0-7C63C8ACF7DF' ]
+uuids:           [ 'x86_64: D2DB6E03-0884-3F2C-950D-3754F4AD2DB5' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/AppleVA.framework/Versions/A/AppleVA
+install-name:    '/System/Library/PrivateFrameworks/AppleVA.framework/Versions/A/AppleVA'
 current-version: 5.1.1
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AVAFCreateRenderer, _AVAFCreateRendererDVDExt, _AVAFCreateRendererDisplayExt, 

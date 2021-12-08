@@ -152,7 +152,7 @@ typedef mach_voucher_attr_recipe_command_t *mach_voucher_attr_recipe_command_arr
  *
  * An element in a recipe list to create a voucher.
  */
-#pragma pack(1)
+#pragma pack(push, 1)
 
 typedef struct mach_voucher_attr_recipe_data {
 	mach_voucher_attr_key_t                 key;
@@ -173,7 +173,7 @@ typedef mach_msg_type_number_t mach_voucher_attr_raw_recipe_array_size_t;
 #define MACH_VOUCHER_ATTR_MAX_RAW_RECIPE_ARRAY_SIZE   5120
 #define MACH_VOUCHER_TRAP_STACK_LIMIT                 256
 
-#pragma pack()
+#pragma pack(pop)
 
 /*
  * VOUCHER ATTRIBUTE MANAGER Writer types
@@ -204,7 +204,7 @@ typedef mach_port_t                     mach_voucher_attr_control_t;
  */
 struct ipc_voucher_attr_manager;
 struct ipc_voucher_attr_control;
-typedef struct ipc_voucher_attr_manager *ipc_voucher_attr_manager_t;
+typedef const struct ipc_voucher_attr_manager *ipc_voucher_attr_manager_t;
 typedef struct ipc_voucher_attr_control *ipc_voucher_attr_control_t;
 #define IPC_VOUCHER_ATTR_MANAGER_NULL ((ipc_voucher_attr_manager_t) 0)
 #define IPC_VOUCHER_ATTR_CONTROL_NULL ((ipc_voucher_attr_control_t) 0)

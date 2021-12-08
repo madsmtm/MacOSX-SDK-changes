@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2018 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -306,14 +306,15 @@ struct  ifreq {
 		u_int32_t ifru_route_refcnt;
 		int     ifru_cap[2];
 		u_int32_t ifru_functional_type;
-#define IFRTYPE_FUNCTIONAL_UNKNOWN      0
-#define IFRTYPE_FUNCTIONAL_LOOPBACK     1
-#define IFRTYPE_FUNCTIONAL_WIRED        2
-#define IFRTYPE_FUNCTIONAL_WIFI_INFRA   3
-#define IFRTYPE_FUNCTIONAL_WIFI_AWDL    4
-#define IFRTYPE_FUNCTIONAL_CELLULAR     5
-#define IFRTYPE_FUNCTIONAL_INTCOPROC    6
-#define IFRTYPE_FUNCTIONAL_LAST         6
+#define IFRTYPE_FUNCTIONAL_UNKNOWN              0
+#define IFRTYPE_FUNCTIONAL_LOOPBACK             1
+#define IFRTYPE_FUNCTIONAL_WIRED                2
+#define IFRTYPE_FUNCTIONAL_WIFI_INFRA           3
+#define IFRTYPE_FUNCTIONAL_WIFI_AWDL            4
+#define IFRTYPE_FUNCTIONAL_CELLULAR             5
+#define IFRTYPE_FUNCTIONAL_INTCOPROC            6
+#define IFRTYPE_FUNCTIONAL_COMPANIONLINK        7
+#define IFRTYPE_FUNCTIONAL_LAST                 7
 	} ifr_ifru;
 #define ifr_addr        ifr_ifru.ifru_addr      /* address */
 #define ifr_dstaddr     ifr_ifru.ifru_dstaddr   /* other end of p-to-p link */

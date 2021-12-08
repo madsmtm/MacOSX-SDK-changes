@@ -1,11 +1,11 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 2B4C1753-96FE-39AA-BCC7-3BE9C4490868' ]
+uuids:           [ 'x86_64: 4D5337FB-BE18-3D40-BE0A-4EE16E0E49C8' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/DirectoryServer.framework/Versions/A/DirectoryServer
+install-name:    '/System/Library/PrivateFrameworks/DirectoryServer.framework/Versions/A/DirectoryServer'
 exports:         
   - archs:           [ x86_64 ]
-    re-exports:      [ /System/Library/PrivateFrameworks/DirectoryServer.framework/Frameworks/CFDirectoryServer.framework/Versions/A/CFDirectoryServer ]
+    re-exports:      [ '/System/Library/PrivateFrameworks/DirectoryServer.framework/Frameworks/CFDirectoryServer.framework/Versions/A/CFDirectoryServer' ]
     symbols:         [ _DSCopyFQDNForSelf, _DSRunTask, _DSRunTaskAsync, _kDefaultLocaleName, 
                        _kKeyLocaleInterfaces, _kKeyNumLocalesUsedIn, _kLdapiNodeName, 
                        _kLdapiURI, _kLocaleConfigRecName, _kLocaleGroupPrefix, _kODAttributeTypeDNSDomain, 
@@ -14,10 +14,9 @@ exports:
     objc-ivars:      [ DSLog.asl, DSLog.logfd ]
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 1EBC79E1-1F3F-37EF-BD8A-62C5BC59AEA7' ]
+uuids:           [ 'x86_64: 9BA7C1D8-2E46-3E3F-AB5C-79E78E8EB668' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/DirectoryServer.framework/Frameworks/CFDirectoryServer.framework/Versions/A/CFDirectoryServer
-objc-constraint: none
+install-name:    '/System/Library/PrivateFrameworks/DirectoryServer.framework/Frameworks/CFDirectoryServer.framework/Versions/A/CFDirectoryServer'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _DSCStringCreate, _DSChangePasswordWithPolicy, _DSConfigCopyEnabledAuthMechs, 

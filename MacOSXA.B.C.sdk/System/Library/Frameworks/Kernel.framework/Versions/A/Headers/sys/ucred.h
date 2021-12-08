@@ -119,6 +119,7 @@ struct ucred {
 	 */
 	struct au_session cr_audit;             /* user auditing data */
 };
+
 #ifndef _KAUTH_CRED_T
 #define _KAUTH_CRED_T
 typedef struct ucred *kauth_cred_t;

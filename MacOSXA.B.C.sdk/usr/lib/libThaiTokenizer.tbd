@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: ADB37DC3-7D9B-3E73-A72A-BCC3433C937A' ]
+uuids:           [ 'x86_64: A36B3025-FEC1-3FBF-AA23-A82F32FD4330', 'x86_64: A36B3025-FEC1-3FBF-AA23-A82F32FD4330' ]
 platform:        zippered
-install-name:    /usr/lib/libThaiTokenizer.dylib
-objc-constraint: none
+install-name:    '/usr/lib/libThaiTokenizer.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ThaiTokenizerAdvanceToNextToken, _ThaiTokenizerCreate, _ThaiTokenizerDestroy, 

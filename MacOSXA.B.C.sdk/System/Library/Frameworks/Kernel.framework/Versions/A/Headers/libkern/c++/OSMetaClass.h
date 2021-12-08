@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -32,6 +32,7 @@
 
 #include <libkern/OSReturn.h>
 #include <kern/debug.h>
+#include <ptrauth.h>
 
 /*
  * LIBKERN_ macros below can be used to describe the ownership semantics
@@ -57,6 +58,17 @@
  *  attribute applied to a function.
  *  In the former case, it stipulates that the function is returning at "+1",
  *  and in the latter case "+0".
+ *
+ *  LIBKERN_RETURNS_RETAINED and LIBKERN_RETURNS_NOT_RETAINED attributes
+ *  can be also applied to out parameters, in which case they specify
+ *  that an out parameter is written into at +1 or +0 respectively.
+ *  For out parameters of non-void functions an assumption is
+ *  that an out parameter is written into iff the return value is non-zero
+ *  unless the function returns a typedef to kern_return_t,
+ *  in which case it is assumed to be written into on zero value
+ *  (kIOReturnSuccess).
+ *  This can be customized using the attributes
+ *  LIBKERN_RETURNS_RETAINED_ON_ZERO and LIBKERN_RETURNS_RETAINED_ON_NONZERO.
  */
 #if __has_attribute(os_returns_retained)
 #define LIBKERN_RETURNS_RETAINED __attribute__((os_returns_retained))
@@ -91,13 +103,40 @@
 #define LIBKERN_CONSUMES_THIS
 #endif
 
+/*
+ * LIBKERN_RETURNS_RETAINED_ON_ZERO is an attribute applicable to out
+ * parameters.
+ * It specifies that an out parameter at +1 is written into an argument iff
+ * the function returns a zero return value.
+ */
+#if __has_attribute(os_returns_retained_on_zero)
+#define LIBKERN_RETURNS_RETAINED_ON_ZERO __attribute__((os_returns_retained_on_zero))
+#else
+#define LIBKERN_RETURNS_RETAINED_ON_ZERO
+#endif
+
+/*
+ * LIBKERN_RETURNS_RETAINED_ON_NON_ZERO is an attribute applicable to out
+ * parameters.
+ * It specifies that an out parameter at +1 is written into an argument iff
+ * the function returns a non-zero return value.
+ */
+#if __has_attribute(os_returns_retained_on_non_zero)
+#define LIBKERN_RETURNS_RETAINED_ON_NONZERO __attribute__((os_returns_retained_on_non_zero))
+#else
+#define LIBKERN_RETURNS_RETAINED_ON_NONZERO
+#endif
+
 class OSMetaClass;
 class OSObject;
 class OSString;
 class OSSymbol;
 class OSDictionary;
 class OSSerialize;
-
+struct IORPC;
+class OSInterface
+{
+};
 
 /*!
  * @header
@@ -114,12 +153,12 @@ class OSSerialize;
 
 #include <TargetConditionals.h>
 
-#if TARGET_OS_EMBEDDED
+#if (TARGET_OS_IPHONE && !TARGET_OS_SIMULATOR)
 #define APPLE_KEXT_VTABLE_PADDING   0
-#else /* TARGET_OS_EMBEDDED */
+#else /* (TARGET_OS_IPHONE && !TARGET_OS_SIMULATOR) */
 /*! @parseOnly */
 #define APPLE_KEXT_VTABLE_PADDING   1
-#endif /* TARGET_OS_EMBEDDED */
+#endif /* (TARGET_OS_IPHONE && !TARGET_OS_SIMULATOR) */
 
 
 #define APPLE_KEXT_ALIGN_CONTAINERS     (0 == APPLE_KEXT_VTABLE_PADDING)
@@ -143,7 +182,10 @@ class OSSerialize;
 #define APPLE_KEXT_DEPRECATED  __attribute__((deprecated))
 
 
-#if __cplusplus >= 201103L
+/*
+ *  <rdar://problem/44872498> AppleUSBAudio builds xnu's libkern headers in user space
+ */
+#if !defined(BUILD_FOR_USERSPACE) && (__cplusplus >= 201103L)
 #define APPLE_KEXT_OVERRIDE                             override
 #if defined(__LP64__)
 #define APPLE_KEXT_COMPATIBILITY_OVERRIDE
@@ -155,7 +197,7 @@ class OSSerialize;
 #define APPLE_KEXT_COMPATIBILITY_OVERRIDE
 #endif
 
-#define APPLE_KEXT_WSHADOW_PUSH _Pragma("clang diagnostic push"); \
+#define APPLE_KEXT_WSHADOW_PUSH _Pragma("clang diagnostic push") \
 	_Pragma("clang diagnostic ignored \"-Wunknown-warning-option\"") \
 	_Pragma("clang diagnostic ignored \"-Wshadow-field\"")
 
@@ -215,6 +257,7 @@ class OSSerialize;
  *
  * The run-time type macros and functions of OSMetaClassBase are thread-safe.
  */
+
 class OSMetaClassBase
 {
 public:
@@ -271,6 +314,7 @@ public:
  * <code>@link //apple_ref/cpp/macro/OSCheckTypeInst OSCheckTypeInst@/link</code>.
  */
 #define OSTypeID(type)   (type::metaClass)
+#define OSMTypeID(type)  ((OSMetaClass *) type::metaClass)
 
 
 /*!
@@ -331,6 +375,27 @@ public:
 #define OSDynamicCast(type, inst)   \
     ((type *) OSMetaClassBase::safeMetaCast((inst), OSTypeID(type)))
 
+/*!
+ * @define OSRequiredCast
+ * @hidecontents
+ *
+ * @abstract
+ * Safe type-casting for Libkern C++ objects; panics on failure.
+ * The input parameters are the same as for the {@code OSDynamicCast} macro.
+ *
+ * @result {@code inst} if it is NULL or derived from {@code type};
+ * otherwise triggers a kernel panic.
+ *
+ * @discussion
+ * This macro should be used in place of C-style casts or
+ * <code>@link OSDynamicCast OSDynamicCast@/link</code>.
+ * when the caller is absolutely sure that the passed
+ * argument is a subclass of a required type.
+ * It is equivalent to using {@code OSDynamicCast} and crashing with a kernel
+ * panic on cast failure.
+ */
+#define OSRequiredCast(type, inst)  \
+    (type *) OSMetaClassBase::requiredMetaCast((inst), OSTypeID(type))
 
 /*!
  * @define OSCheckTypeInst
@@ -370,7 +435,8 @@ public:
 // ABI
 
 	static inline _ptf_t
-	_ptmf2ptf(const OSMetaClassBase *self, void (OSMetaClassBase::*func)(void))
+	_ptmf2ptf(const OSMetaClassBase *self, void (OSMetaClassBase::*func)(void),
+	    uintptr_t typeDisc __attribute__((unused)))
 	{
 		union {
 			void (OSMetaClassBase::*fIn)(void);
@@ -430,7 +496,8 @@ public:
  */
 #define OSMemberFunctionCast(cptrtype, self, func)         \
     (cptrtype) OSMetaClassBase::                           \
-	_ptmf2ptf(self, (void (OSMetaClassBase::*)(void)) func)
+	_ptmf2ptf(self, (void (OSMetaClassBase::*)(void)) func,  \
+	          ptrauth_type_discriminator(__typeof__(func)))
 
 protected:
 	OSMetaClassBase();
@@ -697,6 +764,31 @@ public:
 		const OSMetaClass     * toMeta);
 
 /*!
+ * @function requiredMetaCast
+ *
+ * @abstract
+ * Casts an object to the class managed by the given OSMetaClass or
+ * fails with a kernel panic if the cast does not succeed.
+ *
+ * @param anObject A pointer to the object to be cast.
+ * @param toMeta   A pointer to a constant OSMetaClass
+ *                 for the desired target type.
+ *
+ * @result
+ * <code>anObject</code> if the object is derived
+ * from the class managed by <code>toMeta</code>,
+ * <code>NULL</code> if <code>anObject</code> was <code>NULL</code>,
+ * kernel panic otherwise.
+ *
+ * @discussion
+ * It is far more convenient to use
+ * <code>@link OSRequiredCast OSRequiredCast@/link</code>.
+ */
+	static OSMetaClassBase *requiredMetaCast(
+		const OSMetaClassBase * anObject,
+		const OSMetaClass     * toMeta);
+
+/*!
  * @function checkTypeInst
  *
  * @abstract
@@ -740,7 +832,7 @@ public:
  * OSObject::taggedRetain(const void *)@/link</code>.
  */
 // WAS: virtual void _RESERVEDOSMetaClassBase0();
-	virtual void taggedRetain(const void * tag = 0) const = 0;
+	virtual void taggedRetain(const void * tag = NULL) const = 0;
 
 
 /*!
@@ -759,7 +851,7 @@ public:
  * OSObject::taggedRelease(const void *)@/link</code>.
  */
 // WAS:  virtual void _RESERVEDOSMetaClassBase1();
-	virtual void taggedRelease(const void * tag = 0) const = 0;
+	virtual void taggedRelease(const void * tag = NULL) const = 0;
 
 protected:
 /*!
@@ -782,10 +874,16 @@ protected:
 		const void * tag,
 		const int    freeWhen) const = 0;
 
+public:
+	virtual kern_return_t
+	Dispatch(const IORPC rpc);
+
+	kern_return_t
+	Invoke(const IORPC rpc);
+
 private:
 #if APPLE_KEXT_VTABLE_PADDING
 // Virtual Padding
-	virtual void _RESERVEDOSMetaClassBase3();
 	virtual void _RESERVEDOSMetaClassBase4();
 	virtual void _RESERVEDOSMetaClassBase5();
 	virtual void _RESERVEDOSMetaClassBase6();
@@ -876,7 +974,7 @@ private:
  * by the run-time type information system,
  * which handles concurrency and locking internally.
  */
-class OSMetaClass : private OSMetaClassBase
+class OSMetaClass : public OSMetaClassBase
 {
 	friend class OSKext;
 #if IOKITSTATS
@@ -1007,7 +1105,7 @@ protected:
  * for as long as its kernel extension is loaded,
  * OSMetaClass does not use reference-counting.
  */
-	virtual void taggedRetain(const void * tag = 0) const;
+	virtual void taggedRetain(const void * tag = NULL) const;
 
 
 /*!
@@ -1024,7 +1122,7 @@ protected:
  * for as long as its kernel extension is loaded,
  * OSMetaClass does not use reference-counting.
  */
-	virtual void taggedRelease(const void * tag = 0) const;
+	virtual void taggedRelease(const void * tag = NULL) const;
 
 
 /*!
@@ -1586,7 +1684,21 @@ public:
  * @param className The name of the C++ class, as a raw token,
  *                  <i>not</i> a string or macro.
  */
-#define OSDeclareCommonStructors(className)                     \
+
+#define _OS_ADD_METAMETHODS(b) _OS_ADD_METAMETHODS_ ## b
+#define _OS_ADD_METAMETHODS_
+#define _OS_ADD_METAMETHODS_dispatch                            \
+    virtual kern_return_t Dispatch(const IORPC rpc) APPLE_KEXT_OVERRIDE;
+
+#define _OS_ADD_METHODS(className, b) _OS_ADD_METHODS_ ## b(className)
+#define _OS_ADD_METHODS_(className)
+#define _OS_ADD_METHODS_dispatch(className)                     \
+    className ## _Methods                                       \
+    className ## _KernelMethods
+
+#define SUPERDISPATCH ((OSDispatchMethod)&super::_Dispatch)
+
+#define OSDeclareCommonStructors(className, dispatch)           \
     private:                                                    \
     static const OSMetaClass * const superClass;                \
     public:                                                     \
@@ -1594,13 +1706,15 @@ public:
 	static class MetaClass : public OSMetaClass {           \
 	public:                                                 \
 	    MetaClass();                                        \
-	    virtual OSObject *alloc() const;                    \
+	    virtual OSObject *alloc() const APPLE_KEXT_OVERRIDE;\
+	    _OS_ADD_METAMETHODS(dispatch);                      \
 	} gMetaClass;                                           \
 	friend class className ::MetaClass;                     \
 	virtual const OSMetaClass * getMetaClass() const APPLE_KEXT_OVERRIDE; \
     protected:                                                  \
     className (const OSMetaClass *);                            \
-    virtual ~ className () APPLE_KEXT_OVERRIDE
+    virtual ~ className () APPLE_KEXT_OVERRIDE;                 \
+    _OS_ADD_METHODS(className, dispatch)
 
 
 /*!
@@ -1609,7 +1723,7 @@ public:
  *
  * @abstract
  * Declares run-time type information and functions
- * for a concrete Libkern C++ class.
+ * for a final (non-subclassable) Libkern C++ class.
  *
  * @param className The name of the C++ class, as a raw token,
  *                  <i>not</i> a string or macro.
@@ -1619,11 +1733,18 @@ public:
  * immediately after the opening brace in a class declaration.
  * It leaves the current privacy state as <code>protected:</code>.
  */
-#define OSDeclareDefaultStructors(className)    \
-    OSDeclareCommonStructors(className);        \
+#define _OSDeclareDefaultStructors(className, dispatch)    \
+    OSDeclareCommonStructors(className, dispatch);        \
     public:                                     \
-    className ();                               \
+    className (void);                           \
     protected:
+
+
+#define OSDeclareDefaultStructors(className)   \
+_OSDeclareDefaultStructors(className, )
+
+#define OSDeclareDefaultStructorsWithDispatch(className)   \
+_OSDeclareDefaultStructors(className, dispatch)
 
 
 /*!
@@ -1643,11 +1764,17 @@ public:
  * immediately after the opening brace in a class declaration.
  * It leaves the current privacy state as <code>protected:</code>.
  */
-#define OSDeclareAbstractStructors(className)                          \
-    OSDeclareCommonStructors(className);                               \
-    private:                                                           \
-    className (); /* Make primary constructor private in abstract */   \
+#define _OSDeclareAbstractStructors(className, dispatch)                        \
+    OSDeclareCommonStructors(className, dispatch);                              \
+    private:                                                                    \
+    className (void); /* Make primary constructor private in abstract */            \
     protected:
+
+#define OSDeclareAbstractStructors(className)                                   \
+_OSDeclareAbstractStructors(className, )
+
+#define OSDeclareAbstractStructorsWithDispatch(className)                       \
+_OSDeclareAbstractStructors(className, dispatch)
 
 /*!
  * @define OSDeclareFinalStructors
@@ -1655,7 +1782,7 @@ public:
  *
  * @abstract
  * Declares run-time type information and functions
- * for a final (non-subclassable) Libkern C++ class.
+ * for a concrete Libkern C++ class.
  *
  * @param className The name of the C++ class, as a raw token,
  *                  <i>not</i> a string or macro.
@@ -1674,11 +1801,18 @@ public:
  * <b>Warning:</b> Changing a class from "Default" to "Final" will break
  * binary compatibility.
  */
-#define OSDeclareFinalStructors(className)                              \
-	OSDeclareDefaultStructors(className)                            \
-    private:                                                            \
-	void __OSFinalClass(void);                                      \
+#define _OSDeclareFinalStructors(className, dispatch)                           \
+	_OSDeclareDefaultStructors(className, dispatch)                         \
+    private:                                                                    \
+	void __OSFinalClass(void);                                              \
     protected:
+
+
+#define OSDeclareFinalStructors(className)                                      \
+_OSDeclareFinalStructors(className, )
+
+#define OSDeclareFinalStructorsWithDispatch(className)                          \
+_OSDeclareFinalStructors(className, dispatch)
 
 
 /* Not to be included in headerdoc.
@@ -1733,7 +1867,7 @@ public:
  *                       <i>not</i> a string or macro.
  */
 #define OSDefineAbstractStructors(className, superclassName)        \
-    OSObject * className ::MetaClass::alloc() const { return 0; }
+    OSObject * className ::MetaClass::alloc() const { return NULL; }
 
 
 /* Not to be included in headerdoc.
@@ -1919,7 +2053,7 @@ public:
  *
  * @abstract
  * Defines an OSMetaClass and associated routines
- * for a final (non-subclassable) Libkern C++ class.
+ * for concrete Libkern C++ class.
  *
  * @param className      The name of the C++ class, as a raw token,
  *                       <i>not</i> a string or macro.

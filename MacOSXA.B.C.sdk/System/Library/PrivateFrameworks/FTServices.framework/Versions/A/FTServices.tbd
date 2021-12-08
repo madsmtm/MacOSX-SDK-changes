@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 12E4FD8A-5D04-3D35-A85B-502CC5C1E832' ]
-platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/FTServices.framework/Versions/A/FTServices
+uuids:           [ 'x86_64: ACF7B6DF-6425-32BD-B341-2A43A78279CA', 'x86_64: ACF7B6DF-6425-32BD-B341-2A43A78279CA' ]
+platform:        zippered
+install-name:    '/System/Library/PrivateFrameworks/FTServices.framework/Versions/A/FTServices'
 current-version: 800
 exports:         
   - archs:           [ x86_64 ]
@@ -12,7 +12,8 @@ exports:
                        _FTErrorDomain, _FTRegionListFinishedLoadingNotification, 
                        _FTServerBagFinishedLoadingNotification, _FTServiceStatusDidChangeNotification, 
                        _FTServiceStatusNotifyRegister, _FTServicesSuppressServiceErrorDialogsPropertyKey, 
-                       _FaceTimeDeviceCapabilityChangedNotification, _FaceTimeDeviceRegistrationCapabilityChangedNotification, 
+                       _FTUserConfigurationSelectedSubscriptionLabelDidChange, _FaceTimeDeviceCapabilityChangedNotification, 
+                       _FaceTimeDeviceRegistrationCapabilityChangedNotification, 
                        _FaceTimeDeviceRegistrationStateChangedNotification, _FaceTimeDeviceRestictionsChangedNotification, 
                        _FaceTimeDeviceSIMInsertedNotification, _FaceTimeDeviceSIMRemovedNotification, 
                        _MessageLogEvent, _MessageLogStatistic, __AuthenticationDictionaryFromParameters, 

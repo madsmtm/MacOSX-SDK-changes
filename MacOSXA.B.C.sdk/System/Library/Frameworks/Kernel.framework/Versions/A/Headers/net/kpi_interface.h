@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004-2018 Apple Inc. All rights reserved.
+ * Copyright (c) 2004-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -42,7 +42,7 @@
 
 #include <sys/_types/_sa_family_t.h>
 
-#if TARGET_OS_EMBEDDED
+#if (TARGET_OS_IPHONE && !TARGET_OS_SIMULATOR)
 #define KPI_INTERFACE_EMBEDDED 1
 #else
 #define KPI_INTERFACE_EMBEDDED 0
@@ -74,6 +74,9 @@ struct ifnet_demux_desc;
  *       @constant IFNET_FAMILY_FIREWIRE An IEEE 1394 [Firewire] interface.
  *       @constant IFNET_FAMILY_BOND A virtual bonded interface.
  *       @constant IFNET_FAMILY_CELLULAR A cellular interface.
+ *       @constant IFNET_FAMILY_6LOWPAN A 6LoWPAN interface.
+ *       @constant IFNET_FAMILY_UTUN A utun interface.
+ *       @constant IFNET_FAMILY_IPSEC An IPsec interface.
  */
 enum {
 	IFNET_FAMILY_ANY                = 0,
@@ -91,7 +94,10 @@ enum {
 	IFNET_FAMILY_STF                = 12,
 	IFNET_FAMILY_FIREWIRE           = 13,
 	IFNET_FAMILY_BOND               = 14,
-	IFNET_FAMILY_CELLULAR           = 15
+	IFNET_FAMILY_CELLULAR           = 15,
+	IFNET_FAMILY_6LOWPAN            = 16,
+	IFNET_FAMILY_UTUN               = 17,
+	IFNET_FAMILY_IPSEC              = 18
 };
 
 /*!

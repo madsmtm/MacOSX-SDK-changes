@@ -1,5 +1,5 @@
-.\" Copyright (c) 2000-2018 Apple Inc. All rights reserved.
-.Dd May 6, 2018
+.\" Copyright (c) 2000-2019 Apple Inc. All rights reserved.
+.Dd June 9, 2019
 .Dt "leaks" 1
 .Os
 .Sh NAME
@@ -20,7 +20,7 @@
 .Op Fl nosources
 .Op Fl quiet
 .Op Fl exclude Ar symbol
-.Op Fl trace Ar address
+.Op Fl traceTree Ar address
 .Op Fl outputGraph Ar path
 .Op Fl fullContent
 .Sh DESCRIPTION
@@ -111,10 +111,11 @@ Do not print process description header or binary image list.
 Exclude leaked blocks whose backtraces include the specified symbol.  This option
 can be repeated for multiple symbols.  This allows ignoring leaks that, for
 example, are allocated in libraries for which you do not have source code.
-.It Fl trace Ar address
-Print chains of references from process 'roots' (e.g., global data, registers,
-or locations on stacks) to the given block.  This is useful for determining
-what is holding onto a buffer such that it has not been freed.
+.It Fl traceTree Ar address
+Print a reverse tree of references, from the given block up to the process 'roots'
+(e.g., global data, registers, or locations on stacks) to the given block.  This is
+useful for determining what is holding onto a buffer such that it has not been freed,
+and is similar to the information shown in the Xcode Memory Graph Debugger.
 .It Fl outputGraph Ar path
 Generate a memory graph file containing information about all VM and malloc
 nodes, and the references between them.

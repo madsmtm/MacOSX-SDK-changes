@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 8C359729-95FB-334E-A8AC-B6DA18CC7802' ]
+uuids:           [ 'x86_64: 0F584953-74C0-3685-944D-C4743A0CC1FB' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/LibraryRepair.framework/Versions/A/LibraryRepair
+install-name:    '/System/Library/PrivateFrameworks/LibraryRepair.framework/Versions/A/LibraryRepair'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _LRConnectionInterruptedCode, _LRConnectionInvalidCode, _LRErrorDomain, 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2007 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -260,6 +260,20 @@ extern kern_return_t mach_voucher_extract_attr_recipe_trap(
 	mach_voucher_attr_raw_recipe_t recipe,
 	mach_msg_type_number_t *recipe_size);
 
+extern kern_return_t _kernelrpc_mach_port_type_trap(
+	ipc_space_t task,
+	mach_port_name_t name,
+	mach_port_type_t *ptype);
+
+extern kern_return_t _kernelrpc_mach_port_request_notification_trap(
+	ipc_space_t task,
+	mach_port_name_t name,
+	mach_msg_id_t msgid,
+	mach_port_mscount_t sync,
+	mach_port_name_t notify,
+	mach_msg_type_name_t notifyPoly,
+	mach_port_name_t *previous);
+
 /*
  *	Obsolete interfaces.
  */
@@ -277,6 +291,11 @@ extern kern_return_t task_name_for_pid(
 extern kern_return_t pid_for_task(
 	mach_port_name_t t,
 	int *x);
+
+extern kern_return_t debug_control_port_for_pid(
+	mach_port_name_t target_tport,
+	int pid,
+	mach_port_name_t *t);
 
 
 __END_DECLS

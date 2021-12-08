@@ -202,14 +202,44 @@ struct qm_trace {
 #define __MISMATCH_TAGS_POP
 #endif
 
+/*!
+ * Ensures that these macros can safely be used in structs when compiling with
+ * clang. The macros do not allow for nullability attributes to be specified due
+ * to how they are expanded. For example:
+ *
+ *     SLIST_HEAD(, foo _Nullable) bar;
+ *
+ * expands to
+ *
+ *     struct {
+ *         struct foo _Nullable *slh_first;
+ *     }
+ *
+ * which is not valid because the nullability specifier has to apply to the
+ * pointer. So just ignore nullability completeness in all the places where this
+ * is an issue.
+ */
+#if defined(__clang__)
+#define __NULLABILITY_COMPLETENESS_PUSH \
+	_Pragma("clang diagnostic push") \
+	_Pragma("clang diagnostic ignored \"-Wnullability-completeness\"")
+#define __NULLABILITY_COMPLETENESS_POP \
+	_Pragma("clang diagnostic pop")
+#else
+#define __NULLABILITY_COMPLETENESS_PUSH
+#define __NULLABILITY_COMPLETENESS_POP
+#endif
+
 /*
  * Singly-linked List declarations.
  */
 #define SLIST_HEAD(name, type)                                          \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct name {                                                           \
 	struct type *slh_first; /* first element */                     \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 #define SLIST_HEAD_INITIALIZER(head)                                    \
@@ -217,9 +247,11 @@ __MISMATCH_TAGS_POP
 
 #define SLIST_ENTRY(type)                                               \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct {                                                                \
 	struct type *sle_next;  /* next element */                      \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 /*
@@ -262,6 +294,7 @@ __MISMATCH_TAGS_POP
 
 #define SLIST_REMOVE(head, elm, type, field)                            \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 do {                                                                    \
 	if (SLIST_FIRST((head)) == (elm)) {                             \
 	        SLIST_REMOVE_HEAD((head), field);                       \
@@ -274,6 +307,7 @@ do {                                                                    \
 	}                                                               \
 	TRASHIT((elm)->field.sle_next);                                 \
 } while (0)                                                             \
+__NULLABILITY_COMPLETENESS_POP                                      \
 __MISMATCH_TAGS_POP
 
 #define SLIST_REMOVE_AFTER(elm, field) do {                             \
@@ -290,10 +324,12 @@ __MISMATCH_TAGS_POP
  */
 #define STAILQ_HEAD(name, type)                                         \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct name {                                                           \
 	struct type *stqh_first;/* first element */                     \
 	struct type **stqh_last;/* addr of last next element */         \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 #define STAILQ_HEAD_INITIALIZER(head)                                   \
@@ -301,9 +337,11 @@ __MISMATCH_TAGS_POP
 
 #define STAILQ_ENTRY(type)                                              \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct {                                                                \
 	struct type *stqe_next; /* next element */                      \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                         \
 __MISMATCH_TAGS_POP
 
 /*
@@ -357,16 +395,19 @@ __MISMATCH_TAGS_POP
 
 #define STAILQ_LAST(head, type, field)                                  \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 	(STAILQ_EMPTY((head)) ?                                         \
 	        NULL :                                                  \
 	        ((struct type *)(void *)                                \
 	        ((char *)((head)->stqh_last) - __offsetof(struct type, field))))\
+__NULLABILITY_COMPLETENESS_POP                                         \
 __MISMATCH_TAGS_POP
 
 #define STAILQ_NEXT(elm, field) ((elm)->field.stqe_next)
 
 #define STAILQ_REMOVE(head, elm, type, field)                           \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 do {                                                                    \
 	if (STAILQ_FIRST((head)) == (elm)) {                            \
 	        STAILQ_REMOVE_HEAD((head), field);                      \
@@ -379,6 +420,7 @@ do {                                                                    \
 	}                                                               \
 	TRASHIT((elm)->field.stqe_next);                                \
 } while (0)                                                             \
+__NULLABILITY_COMPLETENESS_POP                                      \
 __MISMATCH_TAGS_POP
 
 #define STAILQ_REMOVE_HEAD(head, field) do {                            \
@@ -400,6 +442,7 @@ __MISMATCH_TAGS_POP
 
 #define STAILQ_SWAP(head1, head2, type)                                 \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 do {                                                                    \
 	struct type *swap_first = STAILQ_FIRST(head1);                  \
 	struct type **swap_last = (head1)->stqh_last;                   \
@@ -412,6 +455,7 @@ do {                                                                    \
 	if (STAILQ_EMPTY(head2))                                        \
 	        (head2)->stqh_last = &STAILQ_FIRST(head2);              \
 } while (0)                                                             \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 
@@ -420,9 +464,11 @@ __MISMATCH_TAGS_POP
  */
 #define LIST_HEAD(name, type)                                           \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct name {                                                           \
 	struct type *lh_first;  /* first element */                     \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 #define LIST_HEAD_INITIALIZER(head)                                     \
@@ -430,10 +476,12 @@ __MISMATCH_TAGS_POP
 
 #define LIST_ENTRY(type)                                                \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct {                                                                \
 	struct type *le_next;   /* next element */                      \
 	struct type **le_prev;  /* address of previous next element */  \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 /*
@@ -502,6 +550,7 @@ __MISMATCH_TAGS_POP
 
 #define LIST_SWAP(head1, head2, type, field)                            \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 do {                                                                    \
 	struct type *swap_tmp = LIST_FIRST((head1));                    \
 	LIST_FIRST((head1)) = LIST_FIRST((head2));                      \
@@ -511,6 +560,7 @@ do {                                                                    \
 	if ((swap_tmp = LIST_FIRST((head2))) != NULL)                   \
 	        swap_tmp->field.le_prev = &LIST_FIRST((head2));         \
 } while (0)                                                             \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 /*
@@ -518,11 +568,13 @@ __MISMATCH_TAGS_POP
  */
 #define TAILQ_HEAD(name, type)                                          \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct name {                                                           \
 	struct type *tqh_first; /* first element */                     \
 	struct type **tqh_last; /* addr of last next element */         \
 	TRACEBUF                                                        \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 #define TAILQ_HEAD_INITIALIZER(head)                                    \
@@ -530,11 +582,13 @@ __MISMATCH_TAGS_POP
 
 #define TAILQ_ENTRY(type)                                               \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct {                                                                \
 	struct type *tqe_next;  /* next element */                      \
 	struct type **tqe_prev; /* address of previous next element */  \
 	TRACEBUF                                                        \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 /*
@@ -578,6 +632,7 @@ __MISMATCH_TAGS_POP
 	for ((var) = TAILQ_LAST((head), headname);                      \
 	    (var) && ((tvar) = TAILQ_PREV((var), headname, field), 1);  \
 	    (var) = (tvar))
+
 
 #define TAILQ_INIT(head) do {                                           \
 	TAILQ_FIRST((head)) = NULL;                                     \
@@ -635,14 +690,18 @@ __MISMATCH_TAGS_POP
 
 #define TAILQ_LAST(head, headname)                                      \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 	(*(((struct headname *)((head)->tqh_last))->tqh_last))          \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 #define TAILQ_NEXT(elm, field) ((elm)->field.tqe_next)
 
 #define TAILQ_PREV(elm, headname, field)                                \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 	(*(((struct headname *)((elm)->field.tqe_prev))->tqh_last))     \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 #define TAILQ_REMOVE(head, elm, field) do {                             \
@@ -666,6 +725,7 @@ __MISMATCH_TAGS_POP
  */
 #define TAILQ_SWAP(head1, head2, type, field)                           \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 do {                                                                    \
 	struct type *swap_first = (head1)->tqh_first;                   \
 	struct type **swap_last = (head1)->tqh_last;                    \
@@ -682,6 +742,7 @@ do {                                                                    \
 	else                                                            \
 	        (head2)->tqh_last = &(head2)->tqh_first;                \
 } while (0)                                                             \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 /*
@@ -689,18 +750,22 @@ __MISMATCH_TAGS_POP
  */
 #define CIRCLEQ_HEAD(name, type)                                        \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct name {                                                           \
 	struct type *cqh_first;         /* first element */             \
 	struct type *cqh_last;          /* last element */              \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                          \
 __MISMATCH_TAGS_POP
 
 #define CIRCLEQ_ENTRY(type)                                             \
 __MISMATCH_TAGS_PUSH                                                    \
+__NULLABILITY_COMPLETENESS_PUSH                                         \
 struct {                                                                \
 	struct type *cqe_next;          /* next element */              \
 	struct type *cqe_prev;          /* previous element */          \
 }                                                                       \
+__NULLABILITY_COMPLETENESS_POP                                         \
 __MISMATCH_TAGS_POP
 
 /*

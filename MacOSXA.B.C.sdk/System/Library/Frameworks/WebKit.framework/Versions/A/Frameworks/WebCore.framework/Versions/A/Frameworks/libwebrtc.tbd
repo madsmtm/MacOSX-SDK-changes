@@ -1,12 +1,13 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 04C1D7DE-1E89-3894-8093-E2FF6A026BF8' ]
+uuids:           [ 'x86_64: F623C4F9-B7D1-3FC5-8B4C-2871D15BFAF6' ]
 platform:        macosx
-install-name:    /System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libwebrtc.dylib
-current-version: 607.3.8
+install-name:    '/System/Library/Frameworks/WebKit.framework/Versions/A/Frameworks/WebCore.framework/Versions/A/Frameworks/libwebrtc.dylib'
+current-version: 608.2.6
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ConvertToI420, __ZN3rtc10LogMessage10LogToDebugENS_15LoggingSeverityE, 
+                       __ZN3rtc10LogMessage12SetLogOutputENS_15LoggingSeverityEPFvS1_PKcE, 
                        __ZN3rtc10PacketInfoC1ERKS0_, __ZN3rtc10PacketInfoD1Ev, __ZN3rtc10SentPacketC1Exx, 
                        __ZN3rtc13PacketOptionsC1ERKS0_, __ZN3rtc13PacketOptionsC1Ev, 
                        __ZN3rtc13PacketOptionsD1Ev, __ZN3rtc13SocketAddress13SetResolvedIPERKNS_9IPAddressE, 

@@ -28,6 +28,7 @@
 #ifndef __IOKIT_IOTYPES_H
 #define __IOKIT_IOTYPES_H
 
+
 #ifndef IOKIT
 #define IOKIT 1
 #endif /* !IOKIT */
@@ -42,7 +43,11 @@ extern "C" {
 
 #ifndef NULL
 #if defined (__cplusplus)
+#if __cplusplus >= 201103L
+#define NULL nullptr
+#else
 #define NULL    0
+#endif
 #else
 #define NULL ((void *)0)
 #endif
@@ -162,6 +167,7 @@ typedef io_object_t     io_enumerator_t;
 typedef io_object_t     io_iterator_t;
 typedef io_object_t     io_registry_entry_t;
 typedef io_object_t     io_service_t;
+typedef io_object_t     uext_object_t;
 
 #define IO_OBJECT_NULL  ((io_object_t) 0)
 
@@ -179,32 +185,38 @@ enum {
 	kIOCopybackCache            = 3,
 	kIOWriteCombineCache        = 4,
 	kIOCopybackInnerCache       = 5,
-	kIOPostedWrite              = 6
+	kIOPostedWrite              = 6,
+	kIORealTimeCache            = 7,
+	kIOPostedReordered          = 8,
+	kIOPostedCombinedReordered  = 9,
 };
 
 // IOMemory mapping options
 enum {
-	kIOMapAnywhere              = 0x00000001,
+	kIOMapAnywhere                = 0x00000001,
 
-	kIOMapCacheMask             = 0x00000700,
-	kIOMapCacheShift            = 8,
-	kIOMapDefaultCache          = kIODefaultCache       << kIOMapCacheShift,
-	kIOMapInhibitCache          = kIOInhibitCache       << kIOMapCacheShift,
-	kIOMapWriteThruCache        = kIOWriteThruCache     << kIOMapCacheShift,
-	kIOMapCopybackCache         = kIOCopybackCache      << kIOMapCacheShift,
-	kIOMapWriteCombineCache     = kIOWriteCombineCache  << kIOMapCacheShift,
-	kIOMapCopybackInnerCache    = kIOCopybackInnerCache << kIOMapCacheShift,
-	kIOMapPostedWrite           = kIOPostedWrite        << kIOMapCacheShift,
+	kIOMapCacheMask               = 0x00000f00,
+	kIOMapCacheShift              = 8,
+	kIOMapDefaultCache            = kIODefaultCache            << kIOMapCacheShift,
+	kIOMapInhibitCache            = kIOInhibitCache            << kIOMapCacheShift,
+	kIOMapWriteThruCache          = kIOWriteThruCache          << kIOMapCacheShift,
+	kIOMapCopybackCache           = kIOCopybackCache           << kIOMapCacheShift,
+	kIOMapWriteCombineCache       = kIOWriteCombineCache       << kIOMapCacheShift,
+	kIOMapCopybackInnerCache      = kIOCopybackInnerCache      << kIOMapCacheShift,
+	kIOMapPostedWrite             = kIOPostedWrite             << kIOMapCacheShift,
+	kIOMapRealTimeCache           = kIORealTimeCache           << kIOMapCacheShift,
+	kIOMapPostedReordered         = kIOPostedReordered         << kIOMapCacheShift,
+	kIOMapPostedCombinedReordered = kIOPostedCombinedReordered << kIOMapCacheShift,
 
-	kIOMapUserOptionsMask       = 0x00000fff,
+	kIOMapUserOptionsMask         = 0x00000fff,
 
-	kIOMapReadOnly              = 0x00001000,
+	kIOMapReadOnly                = 0x00001000,
 
-	kIOMapStatic                = 0x01000000,
-	kIOMapReference             = 0x02000000,
-	kIOMapUnique                = 0x04000000,
-	kIOMapPrefault              = 0x10000000,
-	kIOMapOverwrite     = 0x20000000
+	kIOMapStatic                  = 0x01000000,
+	kIOMapReference               = 0x02000000,
+	kIOMapUnique                  = 0x04000000,
+	kIOMapPrefault                = 0x10000000,
+	kIOMapOverwrite               = 0x20000000
 };
 
 /*! @enum Scale Factors
@@ -233,5 +245,6 @@ enum {
 #ifdef __cplusplus
 }
 #endif
+
 
 #endif /* ! __IOKIT_IOTYPES_H */

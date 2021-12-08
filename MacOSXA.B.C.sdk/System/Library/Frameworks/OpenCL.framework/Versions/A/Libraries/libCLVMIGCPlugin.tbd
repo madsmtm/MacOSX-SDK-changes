@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: ED6012F7-FA63-30B0-BBC9-66CBE69F1FF2' ]
+uuids:           [ 'x86_64: 49DF1173-0682-3C37-9155-18B035CF3749' ]
 platform:        macosx
-install-name:    /Library/Caches/com.apple.xbs/Binaries/GPUDriversIntel/install/Symbols/libCLVMIGCPlugin.dylib
-objc-constraint: none
+install-name:    '/Library/Caches/com.apple.xbs/Binaries/GPUDriversIntel/install/Symbols/libCLVMIGCPlugin.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _cvmsPluginElementBuild, _cvmsPluginServiceInitialize, _cvmsPluginServiceTerminate ]

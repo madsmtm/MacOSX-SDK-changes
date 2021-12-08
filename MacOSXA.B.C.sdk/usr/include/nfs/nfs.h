@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2018 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -113,7 +113,7 @@ extern int nfs_ticks;
 #define NFS_DIRBLKSIZ   4096            /* size of NFS directory buffers */
 
 /* default values for unresponsive mount timeouts */
-#define NFS_TPRINTF_INITIAL_DELAY       12
+#define NFS_TPRINTF_INITIAL_DELAY       5
 #define NFS_TPRINTF_DELAY               30
 
 /*
@@ -183,6 +183,9 @@ extern int nfs_ticks;
 #define NFS_MATTR_SVCPRINCIPAL          26      /* GSS principal to authenticate to, the server principal */
 #define NFS_MATTR_NFS_VERSION_RANGE     27      /* Packed version range to try */
 #define NFS_MATTR_KERB_ETYPE            28      /* Enctype to use for kerberos mounts */
+#define NFS_MATTR_LOCAL_NFS_PORT        29      /* Unix domain socket for NFS protocol */
+#define NFS_MATTR_LOCAL_MOUNT_PORT      30      /* Unix domain socket for MOUNT protocol */
+#define NFS_MATTR_SET_MOUNT_OWNER       31      /* Set owner of mount point */
 
 /* NFS mount flags */
 #define NFS_MFLAG_SOFT                  0       /* soft mount (requests fail if unresponsive) */
@@ -203,6 +206,8 @@ extern int nfs_ticks;
 #define NFS_MFLAG_NOQUOTA               15      /* don't support QUOTA requests */
 #define NFS_MFLAG_MNTUDP                16      /* MOUNT protocol should use UDP */
 #define NFS_MFLAG_MNTQUICK              17      /* use short timeouts while mounting */
+/*                                      18         reserved */
+#define NFS_MFLAG_NOOPAQUE_AUTH         19      /* don't make the mount AUTH_OPAQUE. Used by V3 */
 
 /* Macros for packing and unpacking packed versions */
 #define PVER2MAJOR(M) ((uint32_t)(((M) >> 16) & 0xffff))

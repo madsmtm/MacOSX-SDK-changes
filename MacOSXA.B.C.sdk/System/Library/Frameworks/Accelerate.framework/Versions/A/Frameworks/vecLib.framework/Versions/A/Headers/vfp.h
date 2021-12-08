@@ -1,4 +1,4 @@
-/*  vfp.h (from vecLib-671.250)
+/*  vfp.h (from vecLib-735.0)
  *  Copyright (c) 1999-2019 by Apple Inc. All rights reserved.
  *
  *  Overview:
@@ -25,6 +25,7 @@
 
 #include "vecLibTypes.h"
 #include <stdint.h>
+
 #include <os/availability.h>
 
 #ifdef __cplusplus

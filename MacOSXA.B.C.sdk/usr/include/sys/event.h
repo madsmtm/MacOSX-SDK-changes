@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2017 Apple Inc. All rights reserved.
+ * Copyright (c) 2003-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -73,9 +73,7 @@
 #define EVFILT_MACHPORT         (-8)    /* Mach portsets */
 #define EVFILT_FS               (-9)    /* Filesystem events */
 #define EVFILT_USER             (-10)   /* User events */
-                                        /* (-11) unused */
 #define EVFILT_VM               (-12)   /* Virtual memory events */
-
 #define EVFILT_EXCEPT           (-15)   /* Exception events */
 
 #define EVFILT_SYSCOUNT         17
@@ -84,12 +82,12 @@
 #pragma pack(4)
 
 struct kevent {
-	uintptr_t       ident;          /* identifier for this event */
-	int16_t         filter;         /* filter for event */
-	uint16_t        flags;          /* general flags */
-	uint32_t        fflags;         /* filter-specific flags */
-	intptr_t        data;           /* filter-specific data */
-	void            *udata;         /* opaque user data identifier */
+	uintptr_t       ident;  /* identifier for this event */
+	int16_t         filter; /* filter for event */
+	uint16_t        flags;  /* general flags */
+	uint32_t        fflags; /* filter-specific flags */
+	intptr_t        data;   /* filter-specific data */
+	void            *udata; /* opaque user data identifier */
 };
 
 

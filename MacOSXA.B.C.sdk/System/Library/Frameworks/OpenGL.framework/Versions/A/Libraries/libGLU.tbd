@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: CB3B0579-D9A2-3CA5-8942-0C8344FAD054' ]
+uuids:           [ 'x86_64: 674FC095-D986-3646-9E64-560075762B8D', 'x86_64: 674FC095-D986-3646-9E64-560075762B8D' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLU.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLU.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _gluBeginCurve, _gluBeginPolygon, _gluBeginSurface, _gluBeginTrim, 

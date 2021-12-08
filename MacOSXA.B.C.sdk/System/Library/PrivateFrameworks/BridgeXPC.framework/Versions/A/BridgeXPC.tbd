@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: AFF72405-5557-38D6-9A07-885986DF077F' ]
+uuids:           [ 'x86_64: 4AD486C6-3CC0-37D2-96D4-7A0684F2CA48' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/BridgeXPC.framework/Versions/A/BridgeXPC
-current-version: 33.200.1
+install-name:    '/System/Library/PrivateFrameworks/BridgeXPC.framework/Versions/A/BridgeXPC'
+current-version: 37
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _bridge_xpc_connection_activate, _bridge_xpc_connection_cancel, 

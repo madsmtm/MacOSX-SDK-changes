@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: E9E37910-D3C3-3433-B071-674EFF6C0B9A' ]
+uuids:           [ 'x86_64: D66C5652-CAEF-30FF-8349-380BF2A650EC', 'x86_64: D66C5652-CAEF-30FF-8349-380BF2A650EC' ]
 platform:        zippered
-install-name:    /usr/lib/system/libkxld.dylib
-objc-constraint: none
+install-name:    '/usr/lib/system/libkxld.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _isOldInterface, _isSplitKext, _kaslr_offsets, _kaslr_offsets_count, 

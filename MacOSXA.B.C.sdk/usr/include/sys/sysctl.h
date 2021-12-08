@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2006 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -243,7 +243,7 @@ struct ctlname {
 #define KERN_LOGSIGEXIT 36      /* int: do we log sigexit procs? */
 #define KERN_SYMFILE            37      /* string: kernel symbol filename */
 #define KERN_PROCARGS           38
-/* 39 was KERN_PCSAMPLES... now deprecated */
+/* 39 was KERN_PCSAMPLES... now obsolete */
 #define KERN_NETBOOT            40      /* int: are we netbooted? 1=yes,0=no */
 /* 41 was KERN_PANICINFO : panic UI information (deprecated) */
 #define KERN_SYSV               42      /* node: System V IPC information */
@@ -434,6 +434,12 @@ struct ctlname {
 #define KERN_PROC_UID           5       /* by effective uid */
 #define KERN_PROC_RUID          6       /* by real uid */
 #define KERN_PROC_LCID          7       /* by login context id */
+
+/*
+ * KERN_VFSNSPACE subtypes
+ */
+#define KERN_VFSNSPACE_HANDLE_PROC              1
+#define KERN_VFSNSPACE_UNHANDLE_PROC    2
 
 /*
  * KERN_PROC subtype ops return arrays of augmented proc structures:

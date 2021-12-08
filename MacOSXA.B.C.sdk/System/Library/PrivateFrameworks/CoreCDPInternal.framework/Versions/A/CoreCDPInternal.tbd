@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B4D50598-477E-3026-B0F2-7A88A088639C' ]
+uuids:           [ 'x86_64: 25B02FD8-854A-3651-B437-A45988A391FF' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/CoreCDPInternal.framework/Versions/A/CoreCDPInternal
+install-name:    '/System/Library/PrivateFrameworks/CoreCDPInternal.framework/Versions/A/CoreCDPInternal'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AWDCoreCDPPiggyBackReadFrom, _AWDCoreCDPStateMachineCircleJoinReadFrom, 
@@ -29,7 +29,7 @@ exports:
                        CDPDBackupInfoRecoveryFlowController, CDPDCircleController, 
                        CDPDCircleJoinResult, CDPDCircleStateObserver, CDPDClientHandler, 
                        CDPDDeviceSecretValidator, CDPDFollowUpController, CDPDFollowUpFactory, 
-                       CDPDKeychainSync, CDPDLocalDevice, CDPDLocalDeviceSecretHandler, 
+                       CDPDKeychainSync, CDPDLocalDeviceSecretHandler, CDPDLocalDeviceSecretProxyImpl, 
                        CDPDLocalSecretController, CDPDLocalSecretFollowUpProviderImpl, 
                        CDPDLockAssertion, CDPDNetworkObserver, CDPDNetworkObserverClient, 
                        CDPDPCSController, CDPDRecoveryFlowContext, CDPDRecoveryFlowController, 

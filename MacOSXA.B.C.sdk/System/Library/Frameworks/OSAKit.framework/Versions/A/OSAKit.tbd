@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 879FB449-D01A-3D47-B733-F228FC060B1B' ]
+uuids:           [ 'x86_64: 4D653DEF-56C5-3EC0-B24C-645ECE8CDB51' ]
 platform:        macosx
-install-name:    /System/Library/Frameworks/OSAKit.framework/Versions/A/OSAKit
+install-name:    '/System/Library/Frameworks/OSAKit.framework/Versions/A/OSAKit'
 current-version: 107
 exports:         
   - archs:           [ x86_64 ]

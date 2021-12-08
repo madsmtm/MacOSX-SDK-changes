@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 665C2F90-8B15-3738-B58E-D86951CC9E1F' ]
+uuids:           [ 'x86_64: 87604B97-A401-33B6-9AC0-4FD8DFFCAEF4', 'x86_64: 87604B97-A401-33B6-9AC0-4FD8DFFCAEF4' ]
 platform:        zippered
-install-name:    /usr/lib/libCTGreenTeaLogger.dylib
-objc-constraint: none
+install-name:    '/usr/lib/libCTGreenTeaLogger.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ct_green_tea_logger_create, _ct_green_tea_logger_create_static, 

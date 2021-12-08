@@ -55,6 +55,9 @@
 #include <sys/kernel_types.h>
 #include <sys/kpi_socket.h>
 
+#include <Availability.h>
+#define __NKE_API_DEPRECATED __API_DEPRECATED("Network Kernel Extension KPI is deprecated", macos(10.4, 10.15))
+
 struct sockaddr;
 
 /*!
@@ -570,7 +573,8 @@ struct sflt_filter {
  *       @result 0 on success otherwise the errno error.
  */
 extern errno_t sflt_register(const struct sflt_filter *filter, int domain,
-    int type, int protocol);
+    int type, int protocol)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sflt_unregister
@@ -581,7 +585,8 @@ extern errno_t sflt_register(const struct sflt_filter *filter, int domain,
  *       @param handle The sf_handle of the socket filter to unregister.
  *       @result 0 on success otherwise the errno error.
  */
-extern errno_t sflt_unregister(sflt_handle handle);
+extern errno_t sflt_unregister(sflt_handle handle)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sflt_attach
@@ -591,7 +596,8 @@ extern errno_t sflt_unregister(sflt_handle handle);
  *       @param handle The handle of the registered filter to be attached.
  *       @result 0 on success otherwise the errno error.
  */
-extern errno_t sflt_attach(socket_t socket, sflt_handle handle);
+extern errno_t sflt_attach(socket_t socket, sflt_handle handle)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sflt_detach
@@ -600,7 +606,8 @@ extern errno_t sflt_attach(socket_t socket, sflt_handle handle);
  *       @param handle The handle of the registered filter to be detached.
  *       @result 0 on success otherwise the errno error.
  */
-extern errno_t sflt_detach(socket_t socket, sflt_handle handle);
+extern errno_t sflt_detach(socket_t socket, sflt_handle handle)
+__NKE_API_DEPRECATED;
 
 /* Functions for manipulating sockets */
 /*
@@ -627,7 +634,8 @@ extern errno_t sflt_detach(socket_t socket, sflt_handle handle);
  *               mbuf.
  */
 extern errno_t sock_inject_data_in(socket_t so, const struct sockaddr *from,
-    mbuf_t data, mbuf_t control, sflt_data_flag_t flags);
+    mbuf_t data, mbuf_t control, sflt_data_flag_t flags)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sock_inject_data_out
@@ -644,7 +652,8 @@ extern errno_t sock_inject_data_in(socket_t so, const struct sockaddr *from,
  *               values are always freed regardless of return value.
  */
 extern errno_t sock_inject_data_out(socket_t so, const struct sockaddr *to,
-    mbuf_t data, mbuf_t control, sflt_data_flag_t flags);
+    mbuf_t data, mbuf_t control, sflt_data_flag_t flags)
+__NKE_API_DEPRECATED;
 
 
 /*
@@ -664,7 +673,8 @@ typedef u_int8_t sockopt_dir;
  *       @param sopt The socket option.
  *       @result sock_opt_get or sock_opt_set.
  */
-extern sockopt_dir sockopt_direction(sockopt_t sopt);
+extern sockopt_dir sockopt_direction(sockopt_t sopt)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sockopt_level
@@ -672,7 +682,8 @@ extern sockopt_dir sockopt_direction(sockopt_t sopt);
  *       @param sopt The socket option.
  *       @result The socket option level. See man 2 setsockopt
  */
-extern int sockopt_level(sockopt_t sopt);
+extern int sockopt_level(sockopt_t sopt)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sockopt_name
@@ -680,7 +691,8 @@ extern int sockopt_level(sockopt_t sopt);
  *       @param sopt The socket option.
  *       @result The socket option name. See man 2 setsockopt
  */
-extern int sockopt_name(sockopt_t sopt);
+extern int sockopt_name(sockopt_t sopt)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sockopt_valsize
@@ -688,7 +700,8 @@ extern int sockopt_name(sockopt_t sopt);
  *       @param sopt The socket option.
  *       @result The length, in bytes, of the data.
  */
-extern size_t sockopt_valsize(sockopt_t sopt);
+extern size_t sockopt_valsize(sockopt_t sopt)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sockopt_copyin
@@ -698,7 +711,8 @@ extern size_t sockopt_valsize(sockopt_t sopt);
  *       @param length The number of bytes to copy.
  *       @result An errno error or zero upon success.
  */
-extern errno_t sockopt_copyin(sockopt_t sopt, void *data, size_t length);
+extern errno_t sockopt_copyin(sockopt_t sopt, void *data, size_t length)
+__NKE_API_DEPRECATED;
 
 /*!
  *       @function sockopt_copyout
@@ -708,7 +722,8 @@ extern errno_t sockopt_copyin(sockopt_t sopt, void *data, size_t length);
  *       @param length The number of bytes to copy.
  *       @result An errno error or zero upon success.
  */
-extern errno_t sockopt_copyout(sockopt_t sopt, void *data, size_t length);
+extern errno_t sockopt_copyout(sockopt_t sopt, void *data, size_t length)
+__NKE_API_DEPRECATED;
 
 __END_DECLS
 #endif /* __KPI_SOCKETFILTER__ */

@@ -315,8 +315,7 @@ struct rusage_info_v4 {
 	uint64_t ri_billed_energy;
 	uint64_t ri_serviced_energy;
 	uint64_t ri_interval_max_phys_footprint;
-	// 1 reserve counter(s) remaining for future extension
-	uint64_t ri_unused[1];
+	uint64_t ri_runnable_time;
 };
 
 typedef struct rusage_info_v4 rusage_info_current;
@@ -408,6 +407,7 @@ struct proc_rlimit_control_wakeupmon {
 /* I/O type */
 #define IOPOL_TYPE_DISK 0
 #define IOPOL_TYPE_VFS_ATIME_UPDATES 2
+#define IOPOL_TYPE_VFS_MATERIALIZE_DATALESS_FILES 3
 
 /* scope */
 #define IOPOL_SCOPE_PROCESS   0
@@ -429,6 +429,10 @@ struct proc_rlimit_control_wakeupmon {
 
 #define IOPOL_ATIME_UPDATES_DEFAULT     0
 #define IOPOL_ATIME_UPDATES_OFF         1
+
+#define IOPOL_MATERIALIZE_DATALESS_FILES_DEFAULT 0
+#define IOPOL_MATERIALIZE_DATALESS_FILES_OFF     1
+#define IOPOL_MATERIALIZE_DATALESS_FILES_ON      2
 
 #endif /* __DARWIN_C_LEVEL >= __DARWIN_C_FULL */
 

@@ -1017,7 +1017,7 @@ extern void mbuf_inbound_modified(mbuf_t mbuf);
  *               There are a number of operations that are performed in hardware,
  *               such as calculating checksums. This function will perform in
  *               software the various opterations that were scheduled to be done
- *               in hardware. Future operations may include IPSec processing or
+ *               in hardware. Future operations may include IPsec processing or
  *               vlan support. If you are redirecting a packet to a new interface
  *               which may not have the same hardware support or encapsulating
  *               the packet, you should call this function to force the stack to

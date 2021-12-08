@@ -48,6 +48,7 @@ typedef enum thread_snapshot_wait_flags {
 	kThreadWaitParkedWorkQueue      = 0x0f,
 	kThreadWaitWorkloopSyncWait     = 0x10,
 	kThreadWaitOnProcess            = 0x11,
+	kThreadWaitSleepWithInheritor   = 0x12,
 } __attribute__((packed)) block_hint_t;
 
 _Static_assert(sizeof(block_hint_t) <= sizeof(short),

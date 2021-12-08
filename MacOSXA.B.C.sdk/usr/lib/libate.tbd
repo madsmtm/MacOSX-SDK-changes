@@ -1,10 +1,10 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64, x86_64h ]
-uuids:           [ 'x86_64: 461F7EA4-05E2-3091-8905-473A63A75300', 'x86_64h: 92B44EDB-369D-3EE8-AEC5-61F8B9313DBF' ]
+uuids:           [ 'x86_64: 387B81AC-0B25-353B-A8BF-A521DE148A4C', 'x86_64: 387B81AC-0B25-353B-A8BF-A521DE148A4C', 
+                   'x86_64h: E56E0E93-314A-303F-8B7C-3007E2938585', 'x86_64h: E56E0E93-314A-303F-8B7C-3007E2938585' ]
 platform:        zippered
-install-name:    /usr/lib/libate.dylib
-current-version: 1.13.8
-objc-constraint: none
+install-name:    '/usr/lib/libate.dylib'
+current-version: 2.0.9
 exports:         
   - archs:           [ x86_64, x86_64h ]
     symbols:         [ _at_block_format_to_MTLPixelFormat, _at_encoder_compress_texels, 

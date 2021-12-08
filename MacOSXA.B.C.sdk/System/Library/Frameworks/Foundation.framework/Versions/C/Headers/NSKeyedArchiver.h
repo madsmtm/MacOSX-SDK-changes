@@ -5,7 +5,7 @@
 #import <Foundation/NSCoder.h>
 #import <Foundation/NSPropertyList.h>
 #import <Foundation/NSException.h>
-#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
+#if TARGET_OS_OSX
 #import <Foundation/NSGeometry.h>
 #endif
 
@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT NSExceptionName const NSInvalidArchiveOperationException;
 FOUNDATION_EXPORT NSExceptionName const NSInvalidUnarchiveOperationException;
-// Archives created using the class method archivedRootDataWithObject used this key for the root object in the hierarchy of encoded objects. The NSKeyedUnarchiver class method unarchiveObjectWithData: will look for this root key as well. You can also use it as the key for the root object in your own archives.
+// Archives created using the class method archivedDataWithRootObject used this key for the root object in the hierarchy of encoded objects. The NSKeyedUnarchiver class method unarchiveObjectWithData: will look for this root key as well. You can also use it as the key for the root object in your own archives.
 FOUNDATION_EXPORT NSString * const NSKeyedArchiveRootObjectKey API_AVAILABLE(macos(10.9), ios(7.0), watchos(2.0), tvos(9.0));
 
 @interface NSKeyedArchiver : NSCoder {
@@ -46,7 +46,7 @@ FOUNDATION_EXPORT NSString * const NSKeyedArchiveRootObjectKey API_AVAILABLE(mac
 
  If \c NSSecureCoding cannot be used, \c requiresSecureCoding may be turned off here; for improved security, however, \c requiresSecureCoding should be left enabled whenever possible. \c requiresSecureCoding ensures that all encoded objects conform to \c NSSecureCoding, preventing the possibility of encoding objects which cannot be decoded later.
 
- To produce archives whose structure matches those previously encoded using \c +archivedRootDataWithObject, encode the top-level object in your archive for the \c NSKeyedArchiveRootObjectKey.
+ To produce archives whose structure matches those previously encoded using \c +archivedDataWithRootObject, encode the top-level object in your archive for the \c NSKeyedArchiveRootObjectKey.
  */
 - (instancetype)initRequiringSecureCoding:(BOOL)requiresSecureCoding API_AVAILABLE(macos(10.13), ios(11.0), watchos(4.0), tvos(11.0));
 

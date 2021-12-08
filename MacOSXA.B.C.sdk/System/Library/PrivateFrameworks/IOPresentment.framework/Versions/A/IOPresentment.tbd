@@ -1,10 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 6DFD9A6E-BF95-3A27-89E7-ACAA9E30D90A' ]
-platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/IOPresentment.framework/Versions/A/IOPresentment
-current-version: 44.4
-objc-constraint: none
+uuids:           [ 'x86_64: 0F0EB502-ED0F-3827-A0B0-B3D451DD8B16', 'x86_64: 0F0EB502-ED0F-3827-A0B0-B3D451DD8B16' ]
+platform:        zippered
+install-name:    '/System/Library/PrivateFrameworks/IOPresentment.framework/Versions/A/IOPresentment'
+current-version: 47.6
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _IOPresentmentBegin, _IOPresentmentBindIOAccelSurfaceToResource, 
@@ -217,13 +216,13 @@ exports:
                        __ZN28IOPresentmentCursorAnimationD1Ev, __ZN28IOPresentmentCursorAnimationD2Ev, 
                        __ZN35IOPresentmentTransactionDisplayPipe13SetPlaneCountEh, 
                        __ZN35IOPresentmentTransactionDisplayPipe15SetFlushOptionsEj, 
-                       __ZN35IOPresentmentTransactionDisplayPipe15SetPipeRotationEy, 
                        __ZN35IOPresentmentTransactionDisplayPipe16SetPipeGammaDataEP19sIOPresentmentGamma, 
                        __ZN35IOPresentmentTransactionDisplayPipe16SetPipeGammaTypeEy, 
                        __ZN35IOPresentmentTransactionDisplayPipe17SetPlaneGammaDataEP19sIOPresentmentGammaj, 
                        __ZN35IOPresentmentTransactionDisplayPipe17SetPlaneGammaTypeEyj, 
                        __ZN35IOPresentmentTransactionDisplayPipe18GetTransactionArgsEPP33IOAccelDisplayPipeTransactionArgs, 
                        __ZN35IOPresentmentTransactionDisplayPipe19ClearPlaneSurfaceIDEj, 
+                       __ZN35IOPresentmentTransactionDisplayPipe19SetPipeRotationTypeEy, 
                        __ZN35IOPresentmentTransactionDisplayPipe19__SetPlaneSurfaceIDEjjP11__IOSurface, 
                        __ZN35IOPresentmentTransactionDisplayPipe20SetPlaneFlushOptionsEjj, 
                        __ZN35IOPresentmentTransactionDisplayPipe20__FreePipeGammaTableEv, 
@@ -238,6 +237,7 @@ exports:
                        __ZN35IOPresentmentTransactionDisplayPipe35DisplayPipeTransactionSetPlaneStateEj, 
                        __ZN35IOPresentmentTransactionDisplayPipe35__FreePlaneLinearizationDataBuffersEj, 
                        __ZN35IOPresentmentTransactionDisplayPipe36DisplayPipeTransactionSetColorMatrixEv, 
+                       __ZN35IOPresentmentTransactionDisplayPipe37DisplayPipeTransactionSetPipeRotationEv, 
                        __ZN35IOPresentmentTransactionDisplayPipe38SetPlaneLinearizationConfigurationDataEP27sIOPresentmentLinearizationj, 
                        __ZN35IOPresentmentTransactionDisplayPipe39DisplayPipeTransactionSetPlaneIOSurfaceEjP11__IOSurface18IOAccelDisplayRectS2_j, 
                        __ZN35IOPresentmentTransactionDisplayPipe41DisplayPipeTransactionSetPipePostCSCGammaEv, 
@@ -315,6 +315,7 @@ exports:
                        __ZNK35IOPresentmentTransactionDisplayPipe16GetPipeGammaTypeEv, 
                        __ZNK35IOPresentmentTransactionDisplayPipe16GetTransactionIDEv, 
                        __ZNK35IOPresentmentTransactionDisplayPipe17GetPlaneGammaTypeEj, 
+                       __ZNK35IOPresentmentTransactionDisplayPipe19GetPipeRotationTypeEv, 
                        __ZNK35IOPresentmentTransactionDisplayPipe23GetAccelColorMatrixTypeEv, 
                        __ZNK35IOPresentmentTransactionDisplayPipe25GetPlaneLinearizationTypeEj, 
                        __ZNK35IOPresentmentTransactionDisplayPipe28__IOPresentmentCSCToAGDCTypeEy, 
@@ -397,12 +398,5 @@ exports:
                        _kIOPresentmentVerticalBlankingExtension, _kIOPresentmentVerticalSyncConfig, 
                        _kIOPresentmentVerticalSyncOffset, _kIOPresentmentVerticalSyncPulseWidth, 
                        _kIOPresentmentWidth, _kIOPresentmentWorstDictionary ]
-    weak-def-symbols: [ __ZTI35IOPresentmentTransactionDisplayPipe, __ZTIFvP26__IOPresentmentTransactionPcjE, 
-                        __ZTINSt3__110__function6__baseIFvP26__IOPresentmentTransactionPcjEEE, 
-                        __ZTINSt3__110__function6__funcIPFvP26__IOPresentmentTransactionPcjENS_9allocatorIS6_EES5_EE, 
-                        __ZTINSt3__117bad_function_callE, __ZTIPFvP26__IOPresentmentTransactionPcjE, 
-                        __ZTS35IOPresentmentTransactionDisplayPipe, __ZTSFvP26__IOPresentmentTransactionPcjE, 
-                        __ZTSNSt3__110__function6__baseIFvP26__IOPresentmentTransactionPcjEEE, 
-                        __ZTSNSt3__110__function6__funcIPFvP26__IOPresentmentTransactionPcjENS_9allocatorIS6_EES5_EE, 
-                        __ZTSNSt3__117bad_function_callE, __ZTSPFvP26__IOPresentmentTransactionPcjE ]
+    weak-def-symbols: [ __ZTI35IOPresentmentTransactionDisplayPipe, __ZTS35IOPresentmentTransactionDisplayPipe ]
 ...

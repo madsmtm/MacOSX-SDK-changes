@@ -104,8 +104,12 @@ enum vtagtype   {
 	/* 16 - 20 */
 	VT_HFS, VT_ZFS, VT_DEVFS, VT_WEBDAV, VT_UDF,
 	/* 21 - 25 */
-	VT_AFP, VT_CDDA, VT_CIFS, VT_OTHER, VT_APFS
+	VT_AFP, VT_CDDA, VT_CIFS, VT_OTHER, VT_APFS,
+	/* 26 */
+	VT_LOCKERFS,
 };
+
+#define HAVE_VT_LOCKERFS 1
 
 /*
  * flags for VNOP_BLOCKMAP

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: DFD2EEF3-F59A-3F7E-958C-3E15658FA97E' ]
+uuids:           [ 'x86_64: F6895ABB-BDD8-3266-8089-280C8D26E57A', 'x86_64: F6895ABB-BDD8-3266-8089-280C8D26E57A' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/SignpostNotification.framework/Versions/A/SignpostNotification
-current-version: 31.1
+install-name:    '/System/Library/PrivateFrameworks/SignpostNotification.framework/Versions/A/SignpostNotification'
+current-version: 40
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _EnableSignpostNotificationGeneration, _SignpostGetNewNotificationConnection, 

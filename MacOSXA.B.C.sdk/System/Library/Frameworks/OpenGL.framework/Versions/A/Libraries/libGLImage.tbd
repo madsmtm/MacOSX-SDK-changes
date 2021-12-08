@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: AA027AFA-C115-3861-89B2-0AE946838952' ]
+uuids:           [ 'x86_64: A8F955E3-73CF-3C14-9DD7-AAB95233D569', 'x86_64: A8F955E3-73CF-3C14-9DD7-AAB95233D569' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLImage.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGLImage.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _glgCompress, _glgConvertPixelHeightToBlocks, _glgConvertPixelWidthToBlocks, 

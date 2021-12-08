@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: B53BBE4E-615C-3746-BECF-A4A0456E1B42' ]
+uuids:           [ 'x86_64: C48DFB97-1ED7-3E1E-9954-A003BF6E48E1' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/IOImageLoader.framework/Versions/A/IOImageLoader
-objc-constraint: none
+install-name:    '/System/Library/PrivateFrameworks/IOImageLoader.framework/Versions/A/IOImageLoader'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ __ZN28IOImageLoaderImageDictionary12getAttributeEP14__CFDictionaryPK10__CFString, 

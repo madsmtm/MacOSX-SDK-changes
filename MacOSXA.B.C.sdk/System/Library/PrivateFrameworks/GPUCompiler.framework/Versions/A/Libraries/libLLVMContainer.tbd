@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 09F36D69-725F-3307-958B-396764A54E64' ]
+uuids:           [ 'x86_64: 29B60E28-89FC-36CA-90D1-5D6F57894352' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/A/Libraries/libLLVMContainer.dylib
-objc-constraint: none
+install-name:    '/System/Library/PrivateFrameworks/GPUCompiler.framework/Versions/A/Libraries/libLLVMContainer.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ARMCompilationCallback, _ARMCompilationCallbackC, _ConvertUTF16toUTF32, 

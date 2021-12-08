@@ -31,8 +31,7 @@
 #include <kern/queue.h>
 #include <mach/mach_types.h>
 
-#define LCK_GRP_NULL    (lck_grp_t *)0
-
+#define LCK_GRP_NULL    (lck_grp_t *)NULL
 
 typedef unsigned int    lck_type_t;
 
@@ -42,9 +41,10 @@ typedef unsigned int    lck_type_t;
 
 typedef struct _lck_grp_ lck_grp_t;
 
+
 typedef struct __lck_grp_attr__ lck_grp_attr_t;
 
-#define LCK_GRP_ATTR_NULL       (lck_grp_attr_t *)0
+#define LCK_GRP_ATTR_NULL       (lck_grp_attr_t *)NULL
 
 __BEGIN_DECLS
 

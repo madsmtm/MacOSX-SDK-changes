@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 1FFBC2D7-B176-3067-9582-882026894633' ]
+uuids:           [ 'x86_64: CD6F8A5A-7ABC-39D5-9420-95F4C6375E8C' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/AOSKit.framework/Versions/A/AOSKit
-current-version: 271
+install-name:    '/System/Library/PrivateFrameworks/AOSKit.framework/Versions/A/AOSKit'
+current-version: 273
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AOSAccountCacheNewAuthToken, _AOSAccountCopyAuthInfo, _AOSAccountCopyInfo, 

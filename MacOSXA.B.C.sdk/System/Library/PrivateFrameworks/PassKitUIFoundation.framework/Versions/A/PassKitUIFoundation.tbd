@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 5DA39915-4A61-34E5-B133-52D6FA0DA9FE' ]
+uuids:           [ 'x86_64: 9ED06D2A-0A46-3667-A81D-038435B24F93' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/PassKitUIFoundation.framework/Versions/A/PassKitUIFoundation
+install-name:    '/System/Library/PrivateFrameworks/PassKitUIFoundation.framework/Versions/A/PassKitUIFoundation'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _PKGlyphViewSize, _PKMatrixForRotationAroundXAxis, _PKMatrixForRotationAroundYAxis, 

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F4CC4A1C-416A-3D9B-89DD-BE750E7D4340' ]
+uuids:           [ 'x86_64: DFF70743-612C-375F-8147-5882E4CE5E85' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/ProactiveSupportStubs.framework/Versions/A/ProactiveSupportStubs
-current-version: 126.37
+install-name:    '/System/Library/PrivateFrameworks/ProactiveSupportStubs.framework/Versions/A/ProactiveSupportStubs'
+current-version: 258
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _ProactiveSupportStubsVersionNumber, _ProactiveSupportStubsVersionString ]

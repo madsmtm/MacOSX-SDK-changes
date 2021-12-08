@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 2D72E140-6AD7-3E62-875B-C071F512ADAA' ]
+uuids:           [ 'x86_64: A02D408C-748A-362F-B707-122FB4FE2FED' ]
 platform:        macosx
-install-name:    /System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/ImageFormats/float_rgbx.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/ImageFormats/float_rgbx.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ ___FunctionTableTransposed_AVX10, ___FunctionTableTransposed_SSE3, 

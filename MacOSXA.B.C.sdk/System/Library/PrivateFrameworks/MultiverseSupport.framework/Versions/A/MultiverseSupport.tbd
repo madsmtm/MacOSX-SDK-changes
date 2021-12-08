@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 5F65D42B-0C02-3DE7-B3B4-12D2BCF483B3' ]
+uuids:           [ 'x86_64: D1E5F12E-8253-38BA-B3CC-BEA1B6D3EBC7' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/MultiverseSupport.framework/Versions/A/MultiverseSupport
-current-version: 27.250.8
+install-name:    '/System/Library/PrivateFrameworks/MultiverseSupport.framework/Versions/A/MultiverseSupport'
+current-version: 99
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _MultibootErrorDomain, _multiboot_add_whitelist_version, _multiverse_device_connect, 
@@ -16,4 +16,5 @@ exports:
                        _multiverse_device_type_to_string, _multiverse_device_unregister_event_handler, 
                        _multiverse_ip6_to_string, _multiverse_is_supported, _multiverse_log, 
                        _multiverse_platform_get_type, _multiverse_strerror, _open_console ]
+    objc-classes:    [ KextAuditClient, KextAuditIntelBootSession, KextAuditKext ]
 ...

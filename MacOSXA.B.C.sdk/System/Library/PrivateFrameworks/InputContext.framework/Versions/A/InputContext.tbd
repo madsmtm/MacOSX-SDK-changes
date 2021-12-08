@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: EFB1C4B2-4B21-3ACA-B6A0-B541A54EA811' ]
-platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/InputContext.framework/InputContext
+uuids:           [ 'x86_64: 41BAAE07-47BE-3DA2-A8AA-BF0C0752B250', 'x86_64: 41BAAE07-47BE-3DA2-A8AA-BF0C0752B250' ]
+platform:        zippered
+install-name:    '/System/Library/PrivateFrameworks/InputContext.framework/InputContext'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _InputContextVersionNumber, _InputContextVersionString, __ICMachTimeToNanoseconds, 

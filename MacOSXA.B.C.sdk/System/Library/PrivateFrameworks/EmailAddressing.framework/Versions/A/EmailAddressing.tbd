@@ -1,13 +1,12 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 4087676E-B648-3512-8FD4-0D9735127004' ]
+uuids:           [ 'x86_64: C67836D1-2396-38CA-8A3E-308B66C653D8', 'x86_64: C67836D1-2396-38CA-8A3E-308B66C653D8' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/EmailAddressing.framework/Versions/A/EmailAddressing
-current-version: 3445.104.11
+install-name:    '/System/Library/PrivateFrameworks/EmailAddressing.framework/Versions/A/EmailAddressing'
+current-version: 3578.1
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _EmailAddressingVersionNumber, _EmailAddressingVersionString ]
+    symbols:         [ _EAAddressComment ]
     objc-classes:    [ EAEmailAddressGenerator, EAEmailAddressLists, EAEmailAddressParser, 
-                       EAEmailAddressSet, EmailAddressingFramework, _EAEmailAddress, 
-                       _EAEmailAddressSetEnumerator ]
+                       EAEmailAddressSet, _EAEmailAddress, _EAEmailAddressSetEnumerator ]
 ...

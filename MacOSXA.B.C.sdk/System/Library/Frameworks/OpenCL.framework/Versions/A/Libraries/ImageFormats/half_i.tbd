@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 5902A81B-7060-3A98-B502-A9E0E42458D0' ]
+uuids:           [ 'x86_64: F4ABC317-5FBA-321F-A271-35E99411F9C0' ]
 platform:        macosx
-install-name:    /System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/ImageFormats/half_i.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/ImageFormats/half_i.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ ___FunctionTableTransposed_AVX10, ___FunctionTableTransposed_F16C, 

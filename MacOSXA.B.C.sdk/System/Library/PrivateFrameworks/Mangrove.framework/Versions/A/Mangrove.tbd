@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 537A5B2E-4C30-3CFD-8BDC-79F9A04AC327' ]
+uuids:           [ 'x86_64: 11B0DBB8-4B36-345A-A5F9-DF49B98E8998' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/Mangrove.framework/Versions/A/Mangrove
-objc-constraint: none
+install-name:    '/System/Library/PrivateFrameworks/Mangrove.framework/Versions/A/Mangrove'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CGXPCServicesDefaultsLoggingEnabled, _CGXPC_CurrentDisplayModeGetResolution, 

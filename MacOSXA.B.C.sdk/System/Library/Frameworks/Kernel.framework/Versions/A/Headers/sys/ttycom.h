@@ -176,6 +176,7 @@ struct winsize {
 #define TIOCPTYGRANT    _IO('t', 84)            /* grantpt(3) */
 #define TIOCPTYGNAME    _IOC(IOC_OUT, 't', 83, 128)     /* ptsname(3) */
 #define TIOCPTYUNLK     _IO('t', 82)            /* unlockpt(3) */
+#define TIOCREVOKE       _IO('t', 81)
 
 #define TTYDISC         0               /* termios tty line discipline */
 #define TABLDISC        3               /* tablet discipline */

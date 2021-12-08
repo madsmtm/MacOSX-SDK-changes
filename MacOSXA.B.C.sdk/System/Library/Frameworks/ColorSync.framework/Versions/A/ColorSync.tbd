@@ -1,10 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 31648BB6-7239-3D0E-81B1-BCF51FEF557F' ]
+uuids:           [ 'x86_64: 4E3FDA20-2CD9-31AE-A8A6-3957B070CD6A', 'x86_64: 4E3FDA20-2CD9-31AE-A8A6-3957B070CD6A' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/ColorSync.framework/Versions/A/ColorSync
+install-name:    '/System/Library/Frameworks/ColorSync.framework/Versions/A/ColorSync'
 current-version: 4.7
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ '$ld$install_name$os10.10$/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices', 

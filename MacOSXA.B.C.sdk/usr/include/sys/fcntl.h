@@ -139,6 +139,10 @@
 #define AT_SYMLINK_NOFOLLOW     0x0020  /* Act on the symlink itself not the target */
 #define AT_SYMLINK_FOLLOW       0x0040  /* Act on target of symlink */
 #define AT_REMOVEDIR            0x0080  /* Path refers to directory */
+#if __DARWIN_C_LEVEL >= __DARWIN_C_FULL
+#define AT_REALDEV              0x0200  /* Return real device inodes resides on for fstatat(2) */
+#define AT_FDONLY               0x0400  /* Use only the fd and Ignore the path for fstatat(2) */
+#endif
 #endif
 
 #if !defined(_POSIX_C_SOURCE) || defined(_DARWIN_C_SOURCE)
@@ -283,7 +287,11 @@
 
 #define F_PUNCHHOLE     99              /* Deallocate a range of the file */
 
-#define F_TRIM_ACTIVE_FILE      100 /* Trim an active file */
+#define F_TRIM_ACTIVE_FILE      100     /* Trim an active file */
+
+#define F_SPECULATIVE_READ     101      /* Synchronous advisory read fcntl for regular and compressed file */
+
+#define F_GETPATH_NOFIRMLINK       102              /* return the full path without firmlinks of the fd */
 
 // FS-specific fcntl()'s numbers begin at 0x00010000 and go up
 #define FCNTL_FS_SPECIFIC_BASE  0x00010000
@@ -437,6 +445,14 @@ typedef struct ftrimactivefile {
 	off_t fta_offset;  /* IN: start of the region */
 	off_t fta_length; /* IN: size of the region */
 } ftrimactivefile_t;
+
+/* fspecread_t used by F_SPECULATIVE_READ */
+typedef struct fspecread {
+	unsigned int fsr_flags;  /* IN: flags word */
+	unsigned int reserved;   /* to maintain 8-byte alignment */
+	off_t fsr_offset;        /* IN: start of the region */
+	off_t fsr_length;        /* IN: size of the region */
+} fspecread_t;
 
 /* fbootstraptransfer_t used by F_READBOOTSTRAP and F_WRITEBOOTSTRAP commands */
 

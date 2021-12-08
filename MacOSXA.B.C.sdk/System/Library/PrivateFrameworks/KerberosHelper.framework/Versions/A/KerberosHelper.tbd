@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 7B7A59D5-87BA-3892-A260-322B2419AFD7' ]
-platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/KerberosHelper.framework/Versions/A/KerberosHelper
-objc-constraint: none
+uuids:           [ 'x86_64: 0EAF4130-B301-3328-96DE-6D0F0DB92B44', 'x86_64: 0EAF4130-B301-3328-96DE-6D0F0DB92B44' ]
+platform:        zippered
+install-name:    '/System/Library/PrivateFrameworks/KerberosHelper.framework/Versions/A/KerberosHelper'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _KRBAcquireTicket, _KRBCloseSession, _KRBCopyClientPrincipalInfo, 

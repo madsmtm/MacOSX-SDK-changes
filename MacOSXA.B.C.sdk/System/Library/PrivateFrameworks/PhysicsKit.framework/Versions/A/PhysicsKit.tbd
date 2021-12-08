@@ -1,8 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 7CFDA5AC-9C40-3F87-9633-8FB4AD6AD815' ]
+uuids:           [ 'x86_64: 013CFCF4-E65E-3ABA-A931-D181803B2D74', 'x86_64: 013CFCF4-E65E-3ABA-A931-D181803B2D74' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/PhysicsKit.framework/Versions/A/PhysicsKit
+install-name:    '/System/Library/PrivateFrameworks/PhysicsKit.framework/Versions/A/PhysicsKit'
+current-version: 28
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _PKArrayFromB2ChainShape, _PKArrayFromB2PolygonShape, _PKArrayFromCGPath, 

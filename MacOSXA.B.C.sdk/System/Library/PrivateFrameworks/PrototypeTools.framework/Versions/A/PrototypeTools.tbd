@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 57E53B9D-0C1A-34AD-BCEA-E247A8CFA547' ]
+uuids:           [ 'x86_64: DF8320B7-7855-300D-B24E-65B663942477', 'x86_64: DF8320B7-7855-300D-B24E-65B663942477' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/PrototypeTools.framework/Versions/A/PrototypeTools
+install-name:    '/System/Library/PrivateFrameworks/PrototypeTools.framework/Versions/A/PrototypeTools'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _PTDomainClientInterface, _PTDomainMachService, _PTDomainServerDomainsChangedNotification, 

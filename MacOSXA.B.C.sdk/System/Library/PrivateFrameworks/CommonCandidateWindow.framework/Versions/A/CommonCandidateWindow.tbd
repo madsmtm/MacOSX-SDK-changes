@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 55DFC12C-25D0-3433-A3FB-3B3FBB680A62' ]
+uuids:           [ 'x86_64: 20030B0E-49DD-3471-BB8C-1A7B6EDA48C9' ]
 platform:        macosx
-install-name:    /System/Library/PrivateFrameworks/CommonCandidateWindow.framework/Versions/A/CommonCandidateWindow
+install-name:    '/System/Library/PrivateFrameworks/CommonCandidateWindow.framework/Versions/A/CommonCandidateWindow'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CCWAttachChild, _CCWClearSelection, _CCWCreate, _CCWDetachChild, 

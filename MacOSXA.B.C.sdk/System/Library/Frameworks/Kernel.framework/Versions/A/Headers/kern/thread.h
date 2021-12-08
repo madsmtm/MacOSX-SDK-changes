@@ -105,13 +105,14 @@ extern void thread_mtx_lock(thread_t thread);
 
 extern void thread_mtx_unlock(thread_t thread);
 
-extern thread_t         current_thread(void);
+extern thread_t         current_thread(void) __attribute__((const));
 
 extern void                     thread_reference(
 	thread_t        thread);
 
 extern void                     thread_deallocate(
 	thread_t        thread);
+
 
 __END_DECLS
 
@@ -127,6 +128,21 @@ __END_DECLS
 __BEGIN_DECLS
 
 
+/*! @function thread_has_thread_name
+ *   @abstract Checks if a thread has a name.
+ *   @discussion This function takes one input, a thread, and returns a boolean value indicating if that thread already has a name associated with it.
+ *   @param th The thread to inspect.
+ *   @result TRUE if the thread has a name, FALSE otherwise.
+ */
+extern boolean_t thread_has_thread_name(thread_t th);
+
+/*! @function thread_set_thread_name
+ *   @abstract Set a thread's name.
+ *   @discussion This function takes two input parameters: a thread to name, and the name to apply to the thread.  The name will be copied over to the thread in order to better identify the thread.  If the name is longer than MAXTHREADNAMESIZE - 1, it will be truncated.
+ *   @param th The thread to be named.
+ *   @param name The name to apply to the thread.
+ */
+extern void thread_set_thread_name(thread_t th, const char* name);
 
 /*! @function kernel_thread_start
  *   @abstract Create a kernel thread.

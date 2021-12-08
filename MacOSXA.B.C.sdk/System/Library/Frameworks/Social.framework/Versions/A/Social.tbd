@@ -1,13 +1,12 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 72EA4265-4024-3143-80D2-A0074698A376' ]
+uuids:           [ 'x86_64: 752F05A3-3FCF-3140-8438-BE7E1EA96BCC' ]
 platform:        macosx
-install-name:    /System/Library/Frameworks/Social.framework/Versions/A/Social
-current-version: 565.9
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/Social.framework/Versions/A/Social'
+current-version: 605
 exports:         
   - archs:           [ x86_64 ]
-    symbols:         [ _SLErrorDomain, _SLFacebookEnvironmentDidChangeNotification, 
+    symbols:         [ _CPFileBuildDirectoriesToPath, _SLErrorDomain, _SLFacebookEnvironmentDidChangeNotification, 
                        _SLFacebookErrorDomain, _SLFacebookGraphAPIShouldUseBetaKey, 
                        _SLFacebookIgnoreAccessRequests, _SLFacebookLikeInfoFriendCountKey, 
                        _SLFacebookLikeInfoFriendsKey, _SLFacebookLikeInfoGlobalCountKey, 
@@ -80,12 +79,12 @@ exports:
                        SLService, SLServiceListener, SLTencentWeiboServerInterface, 
                        SLTencentWeiboSession, SLTencentWeiboUserRecord, SLTwitterRequest, 
                        SLTwitterReverseAuthRequest, SLTwitterSession, SLTwitterUserRecord, 
-                       SLWebAuthController, SLWebAuthIdentity, SLWebUserInfoResponse, 
-                       SLWeiboMacContactUpdaterHelper, SLWeiboServerInterface, SLWeiboSession, 
-                       SLWeiboUserRecord, SLYahooLoginTokenRequest, SLYahooLoginTokenResponse, 
-                       SLYahooOAuth2MigrationRequest, SLYahooOAuth2MigrationResponse, 
-                       SLYahooWebAuthController, SLYahooWebAuthRequest, SLYahooWebClient, 
-                       SLYahooWebOAuth2TokenRequest, SLYahooWebOAuth2TokenResponse, 
-                       TWMacContactUpdaterHelper ]
+                       SLWebAuthController, SLWebAuthIdentity, SLWebTokenHandlerController, 
+                       SLWebUserInfoResponse, SLWeiboMacContactUpdaterHelper, SLWeiboServerInterface, 
+                       SLWeiboSession, SLWeiboUserRecord, SLYahooLoginTokenRequest, 
+                       SLYahooLoginTokenResponse, SLYahooOAuth2MigrationRequest, 
+                       SLYahooOAuth2MigrationResponse, SLYahooWebAuthController, 
+                       SLYahooWebAuthRequest, SLYahooWebClient, SLYahooWebOAuth2TokenRequest, 
+                       SLYahooWebOAuth2TokenResponse, TWMacContactUpdaterHelper ]
     objc-ivars:      [ SLFacebookLoginRequest._account, SLFacebookRegistrationRequest._registrationInfo ]
 ...

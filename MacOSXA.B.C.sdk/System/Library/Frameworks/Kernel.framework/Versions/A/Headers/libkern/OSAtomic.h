@@ -37,6 +37,7 @@
 #define _OS_OSATOMIC_H
 
 #include <libkern/OSBase.h>
+#include <string.h>
 
 #if defined(__cplusplus)
 extern "C" {

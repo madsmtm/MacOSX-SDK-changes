@@ -127,6 +127,12 @@ extern int proc_rele(proc_t p);
 extern int proc_pid(proc_t);
 /* returns the pid of the parent of a given process */
 extern int proc_ppid(proc_t);
+/* returns the original pid of the parent of a given process */
+extern int proc_original_ppid(proc_t);
+/* returns the platform (macos, ios, watchos, tvos, ...) of the given process */
+extern uint32_t proc_platform(proc_t);
+/* returns the sdk version used by the current process */
+extern uint32_t proc_sdk(proc_t);
 /* returns 1 if the process is marked for no remote hangs */
 extern int proc_noremotehang(proc_t);
 /* returns 1 if the process is marked for force quota */
@@ -167,6 +173,14 @@ pid_t proc_selfpgrpid(void);
  *  @return pgrpid for "p".
  */
 pid_t proc_pgrpid(proc_t p);
+
+/*!
+ *  @function proc_sessionid
+ *  @abstract Get the process session id for the passed-in process.
+ *  @param p Process whose session id to grab.
+ *  @return session id for "p", or -1 on failure
+ */
+pid_t proc_sessionid(proc_t p);
 
 
 

@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 32572AA3-C14B-38E4-852B-A09885501638' ]
+uuids:           [ 'x86_64: B5418495-D791-33F7-A35F-B979B5A5768B', 'x86_64: B5418495-D791-33F7-A35F-B979B5A5768B' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/DCIMServices.framework/Versions/A/DCIMServices
-current-version: 3451.6.241
+install-name:    '/System/Library/PrivateFrameworks/DCIMServices.framework/Versions/A/DCIMServices'
+current-version: 101.13.100
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _DCIMAVMetadataCaptureModeKey, _DCIMAVMetadataCaptureModeTimelapseValue, 
@@ -24,10 +24,11 @@ exports:
                        _DCIM_newPLImageWithIOSurface, _DCIM_newPLImageWithStoredJPEGData, 
                        _DCIM_newPNGRepresentationWithPLImage, _DCIM_orientationFromNSImage, 
                        _DCIM_orientationFromPLImage, _DCIM_redColor, _DCIM_resizedImage, 
-                       _DCIM_scaleFromMainScreen, _DCIM_scaleFromPLImage, _DCIM_scaleFromScreen, 
-                       _DCIM_scaleImageFromURL, _DCIM_sizeFromPLImage, _DCIM_sizeScale, 
-                       _DCIM_sizeScaleToFillSize, _DCIM_sizeScaleToFitSize, _DCIM_storedJPEGDataFromImage, 
-                       _DCIM_whiteColor, _PLAddTIFFDPIPropertiesToDictionary, _PLCGApplyTransformForOrientation, 
+                       _DCIM_resolvedPlaceholderImageColor, _DCIM_scaleFromMainScreen, 
+                       _DCIM_scaleFromPLImage, _DCIM_scaleFromScreen, _DCIM_scaleImageFromURL, 
+                       _DCIM_sizeFromPLImage, _DCIM_sizeScale, _DCIM_sizeScaleToFillSize, 
+                       _DCIM_sizeScaleToFitSize, _DCIM_storedJPEGDataFromImage, _DCIM_whiteColor, 
+                       _PLAddTIFFDPIPropertiesToDictionary, _PLCGApplyTransformForOrientation, 
                        _PLCGDrawImage, _PLCGScaleContext, _PLCGTranslateContextToPoint, 
                        _PLCaptureOrientationFromImageOrientation, _PLCreateCGImageFromIOSurface, 
                        _PLCreateCGImageFromIOSurfaceBackedUIImage, _PLCreateCroppedImageFromImage, 
@@ -49,9 +50,10 @@ exports:
                        _PLTransformForImageOrientation, _PLUnmirroredImageOrientation, 
                        _UIImageClass, _UIRectGetCenter, _createImageByRemovingBlackBarsFromPreviewImage, 
                        _kDCIMImageWriterAvalancheExtension, _kDCIMImageWriterCameraAdjustmentsPathExtension, 
-                       _kDCIMImageWriterDiagnosticExtension, _kDCIMImageWriterFullSizeRenderSecondaryPathExtension, 
-                       _kDCIMImageWriterIncomingAssetFilenameDelimiter, _kDCIMImageWriterLargeThumbnailInflightPathExtension, 
-                       _kDCIMImageWriterLivePhotoFilteredPathExtension, _kDCIMImageWriterSpatialOverCaptureSecondaryPathExtension, 
+                       _kDCIMImageWriterCameraMetadataPathExtension, _kDCIMImageWriterDiagnosticExtension, 
+                       _kDCIMImageWriterFullSizeRenderSecondaryPathExtension, _kDCIMImageWriterIncomingAssetFilenameDelimiter, 
+                       _kDCIMImageWriterLargeThumbnailInflightPathExtension, _kDCIMImageWriterLivePhotoFilteredPathExtension, 
+                       _kDCIMImageWriterReframeDiagnosticFileName, _kDCIMImageWriterSpatialOverCaptureSecondaryPathExtension, 
                        _kPLAssetsSaverExtension, _kPLAssetsSaverMetadata, _kPLAssetsSaverOverriddenUUID, 
                        _kPLAssetsSaverType, _kPLCameraPhotoImageKey, _kPLCameraPhotoIsFinalCaptureKey, 
                        _kPLCameraPhotoJPEGDataKey, _kPLCameraPhotoPreviewImageKey, 
@@ -74,17 +76,18 @@ exports:
                        _kPLImageWriterCreationDateKey, _kPLImageWriterCustomRenderedValue, 
                        _kPLImageWriterDate, _kPLImageWriterDeferredPhotoIdentifier, 
                        _kPLImageWriterDeferredPhotoSpatialOverCaptureIdentifier, 
-                       _kPLImageWriterDeferredPhotoUUID, _kPLImageWriterDestinationAlbumUUID, 
-                       _kPLImageWriterDestinationAssetUUID, _kPLImageWriterDeviceOrientationKey, 
-                       _kPLImageWriterDiagnostic, _kPLImageWriterDidSetLocationKey, 
-                       _kPLImageWriterDoNotCreateAsset, _kPLImageWriterEXIFProperties, 
-                       _kPLImageWriterEXIFTimestamp, _kPLImageWriterEffectFilterName, 
-                       _kPLImageWriterExplicitDestinationPath, _kPLImageWriterFileExtension, 
-                       _kPLImageWriterFilteredPreviewImageSurface, _kPLImageWriterFilteredVideoSourcePath, 
-                       _kPLImageWriterFinalAssetHeight, _kPLImageWriterFinalAssetPath, 
-                       _kPLImageWriterFinalAssetWidth, _kPLImageWriterIgnoreEmbeddedMetadata, 
-                       _kPLImageWriterImage, _kPLImageWriterImageData, _kPLImageWriterImageOrientation, 
-                       _kPLImageWriterImportAvalancheUUID, _kPLImageWriterIsCandidateForReframing, 
+                       _kPLImageWriterDestinationAlbumUUID, _kPLImageWriterDestinationAssetUUID, 
+                       _kPLImageWriterDeviceOrientationKey, _kPLImageWriterDiagnostic, 
+                       _kPLImageWriterDidSetLocationKey, _kPLImageWriterDoNotCreateAsset, 
+                       _kPLImageWriterEXIFProperties, _kPLImageWriterEXIFTimestamp, 
+                       _kPLImageWriterEffectFilterName, _kPLImageWriterExplicitDestinationPath, 
+                       _kPLImageWriterFileExtension, _kPLImageWriterFilteredPreviewImageSurface, 
+                       _kPLImageWriterFilteredVideoSourcePath, _kPLImageWriterFinalAssetHeight, 
+                       _kPLImageWriterFinalAssetPath, _kPLImageWriterFinalAssetWidth, 
+                       _kPLImageWriterIgnoreEmbeddedMetadata, _kPLImageWriterImage, 
+                       _kPLImageWriterImageData, _kPLImageWriterImageOrientation, 
+                       _kPLImageWriterImportAvalancheUUID, _kPLImageWriterIsCandidateForHorizonCorrection, 
+                       _kPLImageWriterIsCandidateForPerspectiveCorrection, _kPLImageWriterIsCandidateForReframing, 
                        _kPLImageWriterJobIndex, _kPLImageWriterJobType, _kPLImageWriterJobTypeAutodeleteEmptyAlbum, 
                        _kPLImageWriterJobTypeAvalanche, _kPLImageWriterJobTypeAvalancheImport, 
                        _kPLImageWriterJobTypeBatchImage, _kPLImageWriterJobTypeCrashRecovery, 
@@ -117,8 +120,9 @@ exports:
                        _kPLImageWriterPlaceholderVideoHeight, _kPLImageWriterPlaceholderVideoWidth, 
                        _kPLImageWriterPreviewImageData, _kPLImageWriterPreviewImageRef, 
                        _kPLImageWriterQueueEnforcement, _kPLImageWriterSavedAssetType, 
+                       _kPLImageWriterSpatialOverCaptureCaptureTimeMetadataFilePath, 
                        _kPLImageWriterSpatialOverCaptureGroupUUID, _kPLImageWriterTargetLibraryURL, 
-                       _kPLImageWriterTimezoneKey, _kPLImageWriterUTIType, _kPLImageWriterUnfilteredPreviewImageRef, 
+                       _kPLImageWriterUTIType, _kPLImageWriterUnfilteredPreviewImageRef, 
                        _kPLImageWriterVideoAdjustments, _kPLImageWriterVideoCreateCopy, 
                        _kPLImageWriterVideoDestinationPath, _kPLImageWriterVideoIncomingPath, 
                        _kPLImageWriterVideoPreviewImageRef, _kPLImageWriterVideoSourcePath, 

@@ -2,7 +2,7 @@
 archs:           [ x86_64 ]
 uuids:           [ 'x86_64: ED962FBE-7FB2-3AE7-8A03-ABE03B753A8F' ]
 platform:        macosx
-install-name:    /usr/lib/libFDR_osx.dylib
+install-name:    '/usr/lib/libFDR_osx.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AMFDRAppendPermissionsString, _AMFDRClearMemoryStore, _AMFDRCopyClientId, 

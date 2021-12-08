@@ -1,9 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 07C11341-D3A3-37DD-A323-933506A2373E' ]
+uuids:           [ 'x86_64: D870D980-14AD-35BA-BB66-67038EFA3A3F' ]
 platform:        macosx
-install-name:    /System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/ImageFormats/unorm8_bgra.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/OpenCL.framework/Versions/A/Libraries/ImageFormats/unorm8_bgra.dylib'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ ___FunctionTableTransposed_AVX10, ___FunctionTableTransposed_SSE3, 

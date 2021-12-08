@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2018 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -172,6 +172,9 @@
 #define SIOCGIFWAKEFLAGS _IOWR('i', 136, struct ifreq) /* get interface wake property flags */
 
 #define SIOCGIFFUNCTIONALTYPE   _IOWR('i', 173, struct ifreq) /* get interface functional type */
+
+#define SIOCSIF6LOWPAN  _IOW('i', 196, struct ifreq)    /* set 6LOWPAN config */
+#define SIOCGIF6LOWPAN  _IOWR('i', 197, struct ifreq)   /* get 6LOWPAN config */
 
 
 #endif /* !_SYS_SOCKIO_H_ */

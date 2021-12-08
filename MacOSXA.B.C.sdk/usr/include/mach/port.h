@@ -192,8 +192,9 @@ typedef natural_t mach_port_right_t;
 #define MACH_PORT_RIGHT_SEND_ONCE       ((mach_port_right_t) 2)
 #define MACH_PORT_RIGHT_PORT_SET        ((mach_port_right_t) 3)
 #define MACH_PORT_RIGHT_DEAD_NAME       ((mach_port_right_t) 4)
-#define MACH_PORT_RIGHT_LABELH          ((mach_port_right_t) 5)
-#define MACH_PORT_RIGHT_NUMBER          ((mach_port_right_t) 6)
+#define MACH_PORT_RIGHT_LABELH          ((mach_port_right_t) 5) /* obsolete right */
+#define MACH_PORT_RIGHT_NUMBER          ((mach_port_right_t) 6) /* right not implemented */
+
 
 typedef natural_t mach_port_type_t;
 typedef mach_port_type_t *mach_port_type_array_t;
@@ -207,7 +208,9 @@ typedef mach_port_type_t *mach_port_type_array_t;
 #define MACH_PORT_TYPE_SEND_ONCE    MACH_PORT_TYPE(MACH_PORT_RIGHT_SEND_ONCE)
 #define MACH_PORT_TYPE_PORT_SET     MACH_PORT_TYPE(MACH_PORT_RIGHT_PORT_SET)
 #define MACH_PORT_TYPE_DEAD_NAME    MACH_PORT_TYPE(MACH_PORT_RIGHT_DEAD_NAME)
-#define MACH_PORT_TYPE_LABELH       MACH_PORT_TYPE(MACH_PORT_RIGHT_LABELH)
+#define MACH_PORT_TYPE_LABELH       MACH_PORT_TYPE(MACH_PORT_RIGHT_LABELH) /* obsolete */
+
+
 
 /* Convenient combinations. */
 
@@ -281,6 +284,8 @@ typedef struct mach_port_limits {
 #define MACH_PORT_STATUS_FLAG_IMP_DONATION      0x08
 #define MACH_PORT_STATUS_FLAG_REVIVE            0x10
 #define MACH_PORT_STATUS_FLAG_TASKPTR           0x20
+#define MACH_PORT_STATUS_FLAG_GUARD_IMMOVABLE_RECEIVE 0x40
+#define MACH_PORT_STATUS_FLAG_NO_GRANT          0x80
 
 typedef struct mach_port_info_ext {
 	mach_port_status_t      mpie_status;
@@ -333,6 +338,7 @@ typedef struct mach_port_qos {
 #define MPO_INSERT_SEND_RIGHT   0x10    /* Insert a send right for the port */
 #define MPO_STRICT              0x20    /* Apply strict guarding for port */
 #define MPO_DENAP_RECEIVER      0x40    /* Mark the port as App de-nap receiver */
+#define MPO_IMMOVABLE_RECEIVE   0x80    /* Mark the port as immovable; protected by the guard context */
 /*
  * Structure to define optional attributes for a newly
  * constructed port.
@@ -359,7 +365,9 @@ enum mach_port_guard_exception_codes {
 	kGUARD_EXC_SET_CONTEXT               = 1u << 2,
 	kGUARD_EXC_UNGUARDED                 = 1u << 3,
 	kGUARD_EXC_INCORRECT_GUARD           = 1u << 4,
-	/* start of non-fatal guards */
+	kGUARD_EXC_IMMOVABLE                 = 1u << 5,
+	kGUARD_EXC_STRICT_REPLY              = 1u << 6,
+	/* start of [optionally] non-fatal guards */
 	kGUARD_EXC_INVALID_RIGHT         = 1u << 8,
 	kGUARD_EXC_INVALID_NAME          = 1u << 9,
 	kGUARD_EXC_INVALID_VALUE         = 1u << 10,
@@ -369,11 +377,30 @@ enum mach_port_guard_exception_codes {
 	kGUARD_EXC_KERN_FAILURE          = 1u << 14,
 	kGUARD_EXC_KERN_RESOURCE         = 1u << 15,
 	kGUARD_EXC_SEND_INVALID_REPLY    = 1u << 16,
-	kGUARD_EXC_SEND_INVALID_VOUCHER  = 1u << 16,
-	kGUARD_EXC_SEND_INVALID_RIGHT    = 1u << 17,
-	kGUARD_EXC_RCV_INVALID_NAME      = 1u << 18,
-	kGUARD_EXC_RCV_INVALID_NOTIFY    = 1u << 19
+	kGUARD_EXC_SEND_INVALID_VOUCHER  = 1u << 17,
+	kGUARD_EXC_SEND_INVALID_RIGHT    = 1u << 18,
+	kGUARD_EXC_RCV_INVALID_NAME      = 1u << 19,
+	kGUARD_EXC_RCV_GUARDED_DESC      = 1u << 20, /* should never be fatal; for development only */
 };
+
+#define MAX_FATAL_kGUARD_EXC_CODE (1u << 6)
+
+/*
+ * These flags are used as bits in the subcode of kGUARD_EXC_STRICT_REPLY exceptions.
+ */
+#define MPG_FLAGS_STRICT_REPLY_INVALID_REPLY_DISP  (0x01ull << 56)
+#define MPG_FLAGS_STRICT_REPLY_INVALID_REPLY_PORT  (0x02ull << 56)
+#define MPG_FLAGS_STRICT_REPLY_INVALID_VOUCHER     (0x04ull << 56)
+#define MPG_FLAGS_STRICT_REPLY_NO_BANK_ATTR        (0x08ull << 56)
+#define MPG_FLAGS_STRICT_REPLY_MISMATCHED_PERSONA  (0x10ull << 56)
+#define MPG_FLAGS_STRICT_REPLY_MASK                (0xffull << 56)
+
+/*
+ * Flags for mach_port_guard_with_flags. These flags extend
+ * the attributes associated with a guarded port.
+ */
+#define MPG_STRICT              0x01    /* Apply strict guarding for a port */
+#define MPG_IMMOVABLE_RECEIVE   0x02    /* Receive right cannot be moved out of the space */
 
 #if     !__DARWIN_UNIX03 && !defined(_NO_PORT_T_FROM_MACH)
 /*

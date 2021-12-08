@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2016 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2019 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  *
@@ -223,6 +223,7 @@ typedef struct vm_purgeable_info        *vm_purgeable_info_t;
 #define VM_PAGE_QUERY_PAGE_CS_VALIDATED 0x100
 #define VM_PAGE_QUERY_PAGE_CS_TAINTED   0x200
 #define VM_PAGE_QUERY_PAGE_CS_NX        0x400
+#define VM_PAGE_QUERY_PAGE_REUSABLE     0x800
 
 
 /*
@@ -294,12 +295,13 @@ typedef struct vm_purgeable_info        *vm_purgeable_info_t;
 #define VM_FLAGS_USER_MAP       (VM_FLAGS_USER_ALLOCATE |       \
 	                         VM_FLAGS_RETURN_4K_DATA_ADDR | \
 	                         VM_FLAGS_RETURN_DATA_ADDR)
-#define VM_FLAGS_USER_REMAP     (VM_FLAGS_FIXED |    \
-	                         VM_FLAGS_ANYWHERE | \
-	                         VM_FLAGS_RANDOM_ADDR | \
-	                         VM_FLAGS_OVERWRITE| \
-	                         VM_FLAGS_RETURN_DATA_ADDR |\
-	                         VM_FLAGS_RESILIENT_CODESIGN)
+#define VM_FLAGS_USER_REMAP     (VM_FLAGS_FIXED |               \
+	                         VM_FLAGS_ANYWHERE |            \
+	                         VM_FLAGS_RANDOM_ADDR |         \
+	                         VM_FLAGS_OVERWRITE|            \
+	                         VM_FLAGS_RETURN_DATA_ADDR |    \
+	                         VM_FLAGS_RESILIENT_CODESIGN |  \
+	                         VM_FLAGS_RESILIENT_MEDIA)
 
 #define VM_FLAGS_SUPERPAGE_SHIFT 16
 #define SUPERPAGE_NONE                  0       /* no superpages, if all bits are 0 */
@@ -322,6 +324,20 @@ enum virtual_memory_guard_exception_codes {
 };
 
 
+/* current accounting postmark */
+#define __VM_LEDGER_ACCOUNTING_POSTMARK 2019032600
+
+/* discrete values: */
+#define VM_LEDGER_TAG_NONE      0x00000000
+#define VM_LEDGER_TAG_DEFAULT   0x00000001
+#define VM_LEDGER_TAG_NETWORK   0x00000002
+#define VM_LEDGER_TAG_MEDIA     0x00000003
+#define VM_LEDGER_TAG_GRAPHICS  0x00000004
+#define VM_LEDGER_TAG_NEURAL    0x00000005
+#define VM_LEDGER_TAG_MAX       0x00000005
+/* individual bits: */
+#define VM_LEDGER_FLAG_NO_FOOTPRINT     0x00000001
+#define VM_LEDGER_FLAGS (VM_LEDGER_FLAG_NO_FOOTPRINT)
 
 
 #define VM_MEMORY_MALLOC 1
@@ -488,6 +504,15 @@ enum virtual_memory_guard_exception_codes {
 
 /* memory allocated by Accounts framework */
 #define VM_MEMORY_ACCOUNTS 98
+
+/* memory allocated by Sanitizer runtime libraries */
+#define VM_MEMORY_SANITIZER 99
+
+/* Differentiate memory needed by GPU drivers and frameworks from generic IOKit allocations */
+#define VM_MEMORY_IOACCELERATOR 100
+
+/* memory allocated by CoreMedia for global image registration of frames */
+#define VM_MEMORY_CM_REGWARP 101
 
 /* Reserve 240-255 for application */
 #define VM_MEMORY_APPLICATION_SPECIFIC_1 240

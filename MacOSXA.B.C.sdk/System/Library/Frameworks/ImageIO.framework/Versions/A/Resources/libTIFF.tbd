@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64, x86_64h ]
-uuids:           [ 'x86_64: 32DE59CE-C252-3D5A-85BC-82BC466DCCD3', 'x86_64h: F59557C9-C761-3E6F-85D1-0FBFFD53ED5C' ]
+uuids:           [ 'x86_64: 856765F8-5BAF-3DD0-B51D-63FACD0583D1', 'x86_64: 856765F8-5BAF-3DD0-B51D-63FACD0583D1', 
+                   'x86_64h: 7EF430DC-14B9-3075-AC10-7295CCF8B6D3', 'x86_64h: 7EF430DC-14B9-3075-AC10-7295CCF8B6D3' ]
 platform:        zippered
-install-name:    /System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libTIFF.dylib
-objc-constraint: none
+install-name:    '/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources/libTIFF.dylib'
 exports:         
   - archs:           [ x86_64, x86_64h ]
     symbols:         [ __cg_TIFFClientOpen, __cg_TIFFClientdata, __cg_TIFFClose, 

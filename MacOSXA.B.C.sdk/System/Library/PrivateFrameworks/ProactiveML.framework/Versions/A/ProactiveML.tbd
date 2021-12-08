@@ -1,9 +1,9 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: F528D239-EEF5-3804-834C-205780A0273B' ]
+uuids:           [ 'x86_64: 810357B6-15BA-379B-876B-30582F06B871', 'x86_64: 810357B6-15BA-379B-876B-30582F06B871' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/ProactiveML.framework/Versions/A/ProactiveML
-current-version: 126.37
+install-name:    '/System/Library/PrivateFrameworks/ProactiveML.framework/Versions/A/ProactiveML'
+current-version: 1052
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _AWDProactiveModelFittingAvailableSessionsReadFrom, _AWDProactiveModelFittingEvalMetricsReadFrom, 
@@ -17,7 +17,8 @@ exports:
                        _AWDProactiveModelFittingSessionReadFrom, _AWDProactiveModelFittingSparseFloatMatrixReadFrom, 
                        _AWDProactiveModelFittingSparseFloatVectorReadFrom, _PMLBuildChunkFile, 
                        _PMLErrorDomain, _PMLReadChunkData, _PMLReadChunkFile, _PMLWriteChunkFile, 
-                       _PML_LogHandle, _ProactiveMLVersionNumber, _ProactiveMLVersionString ]
+                       _PML_LogHandle, _PML_PLIST_CLASS_NAME, _ProactiveMLVersionNumber, 
+                       _ProactiveMLVersionString ]
     objc-classes:    [ AWDProactiveModelFittingAvailableSessions, AWDProactiveModelFittingEvalMetrics, 
                        AWDProactiveModelFittingEvaluation, AWDProactiveModelFittingLabelSupportPair, 
                        AWDProactiveModelFittingLinRegFeatureMatrix, AWDProactiveModelFittingLinRegObjectiveFeatures, 
@@ -31,23 +32,25 @@ exports:
                        PMLAWDAvailableSessionsTrackerMock, PMLAWDBaseTracker, PMLAWDEvaluationTrackerMock, 
                        PMLAWDLinearRegTrackerMock, PMLAWDLogisticRegTrackerMock, 
                        PMLAWDSessionTracker, PMLAWDSessionTrackerMock, PMLAppleDirectory, 
-                       PMLClassificationEvaluationMetrics, PMLConstantNoiseStrategy, 
+                       PMLChunkFileUtilities, PMLClassificationEvaluationMetrics, 
                        PMLDataChunk, PMLDataChunkDenseDoubleVector, PMLDataChunkDenseFloatVector, 
                        PMLDataChunkPlist, PMLDataChunkRaw, PMLDenseMatrix, PMLDenseVector, 
                        PMLDiffPrivacyNoiseStrategy, PMLFidesTracker, PMLGaussianSampler, 
                        PMLGradientSolver, PMLHashingVectorizer, PMLImmutableLogisticRegressionModel, 
-                       PMLInMemoryCachedStore, PMLLaplaceSampler, PMLLinRegTrainingPlan, 
-                       PMLLinearRegressionModel, PMLLogRegEvaluationPlan, PMLLogRegTrainingPlan, 
-                       PMLLogisticRegressionModel, PMLMockPlan, PMLMockSyncPlan, 
-                       PMLModelDescriptor, PMLModelLearningRates, PMLModelRegressor, 
-                       PMLModelWeights, PMLMultiLabelRegressionEvaluationPlan, PMLMutableDenseVector, 
+                       PMLInMemoryCachedStore, PMLLabelLimitRowId, PMLLaplaceSampler, 
+                       PMLLinRegTrainingPlan, PMLLinearRegressionModel, PMLLogRegEvaluationPlan, 
+                       PMLLogRegTrainingPlan, PMLLogisticRegressionModel, PMLMockPlan, 
+                       PMLModelDescriptor, PMLModelFullyConnectedLayer, PMLModelLearningRates, 
+                       PMLModelRegressor, PMLModelWeights, PMLMultiLabelLogisticRegressionModel, 
+                       PMLMultiLabelRegressionEvaluationPlan, PMLMutableDenseVector, 
                        PMLNaiveBayesEvaluationPlan, PMLNaiveBayesModel, PMLNaiveBayesSolver, 
                        PMLNoNoiseStrategy, PMLPassThroughTracker, PMLPlanDescriptor, 
-                       PMLPlanSerialization, PMLPlanSimulator, PMLPlanWrapper, PMLProtoBufTracker, 
-                       PMLSessionDescriptor, PMLSparseMatrix, PMLSparseVector, PMLSpotlightReference, 
-                       PMLTrackerAWDAdapter, PMLTrackerMockAdapter, PMLTrackerParsecAdapter, 
-                       PMLTraining, PMLTrainingDatabaseMigrations, PMLTrainingLogEntry, 
-                       PMLTrainingMock, PMLTrainingStore, PMLTrainingStoredSessionBatch ]
+                       PMLPlanSerialization, PMLPlanSimulator, PMLPlanWrapper, PMLPlistClassWrapper, 
+                       PMLProtoBufTracker, PMLSeparatedDPNoiseStrategy, PMLSessionDescriptor, 
+                       PMLSparseMatrix, PMLSparseVector, PMLSpotlightReference, PMLTrackerAWDAdapter, 
+                       PMLTrackerMockAdapter, PMLTrackerParsecAdapter, PMLTraining, 
+                       PMLTrainingDatabaseMigrations, PMLTrainingLogEntry, PMLTrainingMock, 
+                       PMLTrainingStore, PMLTrainingStoredSessionBatch ]
     objc-ivars:      [ AWDProactiveModelFittingAvailableSessions._has, AWDProactiveModelFittingAvailableSessions._perModelStats, 
                        AWDProactiveModelFittingAvailableSessions._timestamp, AWDProactiveModelFittingEvalMetrics._f1, 
                        AWDProactiveModelFittingEvalMetrics._falseNegatives, AWDProactiveModelFittingEvalMetrics._falsePositives, 

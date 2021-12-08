@@ -1,11 +1,10 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 767B4D3D-CF4C-33DF-B282-0CAC013A7AD0' ]
+uuids:           [ 'x86_64: 7042B124-AEEA-3E42-87A8-426015A3CEF7', 'x86_64: 7042B124-AEEA-3E42-87A8-426015A3CEF7' ]
 platform:        zippered
-install-name:    /usr/lib/libncurses.5.4.dylib
+install-name:    '/usr/lib/libncurses.5.4.dylib'
 current-version: 5.4
 compatibility-version: 5.4
-objc-constraint: none
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _BC, _COLORS, _COLOR_PAIR, _COLOR_PAIRS, _COLS, _ESCDELAY, 

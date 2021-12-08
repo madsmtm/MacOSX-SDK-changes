@@ -71,6 +71,7 @@
 #include <kern/macro_help.h>
 
 #include <sys/cdefs.h>
+#include <string.h>
 
 __BEGIN_DECLS
 
@@ -250,7 +251,7 @@ static __inline__ queue_entry_t
 dequeue_head(
 	queue_t que)
 {
-	queue_entry_t   elt = (queue_entry_t) 0;
+	queue_entry_t   elt = (queue_entry_t)NULL;
 	queue_entry_t   new_head;
 
 	if (que->next != que) {
@@ -269,7 +270,7 @@ static __inline__ queue_entry_t
 dequeue_tail(
 	queue_t que)
 {
-	queue_entry_t   elt = (queue_entry_t) 0;
+	queue_entry_t   elt = (queue_entry_t)NULL;
 	queue_entry_t   new_tail;
 
 	if (que->prev != que) {
@@ -407,8 +408,7 @@ re_queue_tail(queue_t que, queue_entry_t elt)
  *	Note:
  *		Do not use pointer types for <type>
  */
-#define qe_element(qe, type, field) \
-	((type *)((void *)((char *)(qe) - __offsetof(type, field))))
+#define qe_element(qe, type, field) __container_of(qe, type, field)
 
 /*
  *	Macro:		qe_foreach

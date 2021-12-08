@@ -283,29 +283,29 @@ typedef struct kauth_filesec *kauth_filesec_t;
 /* Actions, also rights bits in an ACE */
 
 #if defined(KERNEL) || defined (_SYS_ACL_H)
-#define KAUTH_VNODE_READ_DATA                   (1<<1)
+#define KAUTH_VNODE_READ_DATA                   (1U<<1)
 #define KAUTH_VNODE_LIST_DIRECTORY              KAUTH_VNODE_READ_DATA
-#define KAUTH_VNODE_WRITE_DATA                  (1<<2)
+#define KAUTH_VNODE_WRITE_DATA                  (1U<<2)
 #define KAUTH_VNODE_ADD_FILE                    KAUTH_VNODE_WRITE_DATA
-#define KAUTH_VNODE_EXECUTE                     (1<<3)
+#define KAUTH_VNODE_EXECUTE                     (1U<<3)
 #define KAUTH_VNODE_SEARCH                      KAUTH_VNODE_EXECUTE
-#define KAUTH_VNODE_DELETE                      (1<<4)
-#define KAUTH_VNODE_APPEND_DATA                 (1<<5)
+#define KAUTH_VNODE_DELETE                      (1U<<4)
+#define KAUTH_VNODE_APPEND_DATA                 (1U<<5)
 #define KAUTH_VNODE_ADD_SUBDIRECTORY            KAUTH_VNODE_APPEND_DATA
-#define KAUTH_VNODE_DELETE_CHILD                (1<<6)
-#define KAUTH_VNODE_READ_ATTRIBUTES             (1<<7)
-#define KAUTH_VNODE_WRITE_ATTRIBUTES            (1<<8)
-#define KAUTH_VNODE_READ_EXTATTRIBUTES          (1<<9)
-#define KAUTH_VNODE_WRITE_EXTATTRIBUTES         (1<<10)
-#define KAUTH_VNODE_READ_SECURITY               (1<<11)
-#define KAUTH_VNODE_WRITE_SECURITY              (1<<12)
-#define KAUTH_VNODE_TAKE_OWNERSHIP              (1<<13)
+#define KAUTH_VNODE_DELETE_CHILD                (1U<<6)
+#define KAUTH_VNODE_READ_ATTRIBUTES             (1U<<7)
+#define KAUTH_VNODE_WRITE_ATTRIBUTES            (1U<<8)
+#define KAUTH_VNODE_READ_EXTATTRIBUTES          (1U<<9)
+#define KAUTH_VNODE_WRITE_EXTATTRIBUTES         (1U<<10)
+#define KAUTH_VNODE_READ_SECURITY               (1U<<11)
+#define KAUTH_VNODE_WRITE_SECURITY              (1U<<12)
+#define KAUTH_VNODE_TAKE_OWNERSHIP              (1U<<13)
 
 /* backwards compatibility only */
 #define KAUTH_VNODE_CHANGE_OWNER                KAUTH_VNODE_TAKE_OWNERSHIP
 
 /* For Windows interoperability only */
-#define KAUTH_VNODE_SYNCHRONIZE                 (1<<20)
+#define KAUTH_VNODE_SYNCHRONIZE                 (1U<<20)
 
 /* (1<<21) - (1<<24) are reserved for generic rights bits */
 
@@ -313,13 +313,13 @@ typedef struct kauth_filesec *kauth_filesec_t;
 /*
  * Authorizes the vnode as the target of a hard link.
  */
-#define KAUTH_VNODE_LINKTARGET                  (1<<25)
+#define KAUTH_VNODE_LINKTARGET                  (1U<<25)
 
 /*
  * Indicates that other steps have been taken to authorise the action,
  * but authorisation should be denied for immutable objects.
  */
-#define KAUTH_VNODE_CHECKIMMUTABLE              (1<<26)
+#define KAUTH_VNODE_CHECKIMMUTABLE              (1U<<26)
 
 /* Action modifiers */
 /*
@@ -330,7 +330,7 @@ typedef struct kauth_filesec *kauth_filesec_t;
  *
  * This bit will never be present in an ACE.
  */
-#define KAUTH_VNODE_ACCESS                      (1<<31)
+#define KAUTH_VNODE_ACCESS                      (1U<<31)
 
 /*
  * The KAUTH_VNODE_NOIMMUTABLE bit is passed to the callback along with the
@@ -340,7 +340,7 @@ typedef struct kauth_filesec *kauth_filesec_t;
  * The system immutable flags are only ignored when the system securelevel
  * is low enough to allow their removal.
  */
-#define KAUTH_VNODE_NOIMMUTABLE                 (1<<30)
+#define KAUTH_VNODE_NOIMMUTABLE                 (1U<<30)
 
 
 /*
@@ -351,7 +351,7 @@ typedef struct kauth_filesec *kauth_filesec_t;
  * for an exact match on the last credential to lookup
  * the component being acted on
  */
-#define KAUTH_VNODE_SEARCHBYANYONE              (1<<29)
+#define KAUTH_VNODE_SEARCHBYANYONE              (1U<<29)
 
 
 /*

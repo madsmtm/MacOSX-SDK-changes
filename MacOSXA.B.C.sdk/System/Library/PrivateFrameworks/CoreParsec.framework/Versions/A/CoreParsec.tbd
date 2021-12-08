@@ -1,8 +1,8 @@
 --- !tapi-tbd-v3
 archs:           [ x86_64 ]
-uuids:           [ 'x86_64: 04A5FDB2-7448-3DB7-93B4-07DE9B241FAC' ]
+uuids:           [ 'x86_64: 29ED768A-C328-39FA-A3DB-78E90A009DDE', 'x86_64: 29ED768A-C328-39FA-A3DB-78E90A009DDE' ]
 platform:        zippered
-install-name:    /System/Library/PrivateFrameworks/CoreParsec.framework/Versions/A/CoreParsec
+install-name:    '/System/Library/PrivateFrameworks/CoreParsec.framework/Versions/A/CoreParsec'
 exports:         
   - archs:           [ x86_64 ]
     symbols:         [ _CoreParsecVersionNumber, _CoreParsecVersionString, _PARNewsAppBundleIdentifier, 
@@ -37,7 +37,7 @@ exports:
                        __CPTuscanyConnectionInfoReadFrom, __CPUsageEnvelopeReadFrom, 
                        __CPUsageSinceLookbackReadFrom, __CPUserReportFeedbackReadFrom, 
                        __CPValueReadFrom, __CPVisibleResultsFeedbackReadFrom, __CPVisibleSectionHeaderFeedbackReadFrom, 
-                       __CPVisibleSuggestionsFeedbackReadFrom, _expectedClassForMetric, 
+                       __CPVisibleSuggestionsFeedbackReadFrom, _kPAPMapsSuggestionsClient, 
                        _kPARAutofillCorrections, _kPARAutofillTLDWhitelist, _kPARCoreSuggestionsClient, 
                        _kPARCorrectionDict, _kPARCrowdsourcingBlacklist, _kPARCrowdsourcingWhitelist, 
                        _kPARDuetExpertClient, _kPARDuetExpertDir, _kPAREngagedCompletionDir, 
